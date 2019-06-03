@@ -13,4 +13,8 @@ firebase deploy
 
 ## 2. Setup Angular Material
 
-https://material.angular.io/guide/getting-started
+<https://material.angular.io/guide/getting-started>
+
+## 3. Setup Angular Flex Layout
+
+<https://github.com/angular/flex-layout#angular-flex-layout>
