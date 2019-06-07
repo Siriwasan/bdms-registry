@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { ToolsComponent } from './feature/tools/tools.component';
 import { AboutComponent } from './feature/about/about.component';
 
-const routes: Routes = [{ path: 'tools', component: ToolsComponent }, { path: 'about', component: AboutComponent }];
+const routes: Routes = [
+  { path: 'tools', loadChildren: () => import('./feature/tools/tools.module').then(m => m.ToolsModule)},
+  { path: 'about', component: AboutComponent }
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
