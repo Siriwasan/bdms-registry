@@ -15,6 +15,7 @@ interface Model {
   encapsulation: ViewEncapsulation.None
 })
 export class ToolsComponent implements OnInit {
+  file: File;
   fileContent = '';
   html: string;
 
@@ -23,8 +24,8 @@ export class ToolsComponent implements OnInit {
   ngOnInit() {}
 
   public onFileSelected(fileList: FileList): void {
-    const file = fileList[0];
     const fileReader: FileReader = new FileReader();
+    this.file = fileList[0];
 
     fileReader.onloadend = x => {
       this.fileContent = (fileReader.result as string)
@@ -60,27 +61,30 @@ export class ToolsComponent implements OnInit {
       }
       this.html = '<table><tbody>' + output.join('') + '</tbody></table>';
       //#endregion
-
-      converter
-        .csv2jsonAsync(this.fileContent, { delimiter: { eol: '\n' } })
-        .then(json => {
-          // // tslint:disable: no-string-literal
-          // const newData = json.map((o: object) => {
-          //   return {
-          //     hn: o['id'],
-          //     patient: o['name']
-          //   };
-          // });
-          // // tslint:enable: no-string-literal
-          // const data = JSON.stringify(newData);
-          // console.log(data);
-          // const fileSave = new Blob([data], { type: 'text/json;charset=utf-8' });
-          // saveAs(fileSave, 'convert.json');
-        })
-        .catch(err => {
-          console.log(err);
-        });
     };
-    fileReader.readAsText(file);
+    fileReader.readAsText(this.file);
+  }
+
+  download() {
+    converter
+      .csv2jsonAsync(this.fileContent, { delimiter: { eol: '\n' } })
+      .then(json => {
+        // tslint:disable: no-string-literal
+        const newData = json.map((o: object) => {
+          return {
+            hn: o['id'],
+            patient: o['name']
+          };
+        });
+        // tslint:enable: no-string-literal
+        const data = JSON.stringify(newData);
+        console.log(data);
+
+        // const fileSave = new Blob([data], { type: 'text/json;charset=utf-8' });
+        // saveAs(fileSave, 'convert.json');
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 }
