@@ -1,3 +1,60 @@
-<p>
-  acsx290 works!
-</p>
+<div fxLayout="row" fxLayoutGap="20px">
+  <div class="table-of-contents" fxFlexOrder="1" fxHide.xs>
+    <ul>
+      <li class="menu-title"><span>STS 2.9</span></li>
+      <!-- <li><a href="/registry/acsx290#sectionC" [class.active]="isActive('sectionC')">Section C</a></li> -->
+      <li><a (click)="scrollTo('sectionA')" [class.active]="isActive('sectionA')">A. Administrative</a></li>
+      <li><a (click)="scrollTo('sectionB')" [class.active]="isActive('sectionB')">B. Demographics</a></li>
+      <li><a style="padding-left: 40px" (click)="scrollTo('subsection1')" [class.active]="isActive('subsection1')">Subsection 1</a></li>
+      <li><a (click)="scrollTo('sectionC')" [class.active]="isActive('sectionC')">C. Preoperative</a></li>
+    </ul>
+  </div>
+
+  <div class="contents" fxFlexOrder="0" style="width:800px;overflow-y: scroll;">
+    <h1>STS Adult Cardiac Surgery 2.9</h1>
+    <section class="section-wrapper" scrollSpyElement id="sectionA">
+      <div class="section-title">
+        A. Administrative
+      </div>
+      <div class="section-body">
+        <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon>
+        <lorem-ipsum></lorem-ipsum>
+        <lorem-ipsum></lorem-ipsum>
+        <lorem-ipsum></lorem-ipsum>
+      </div>
+    </section>
+
+    <section class="section-wrapper" scrollSpyElement id="sectionB">
+      <div class="section-title">
+        B. Demographics
+      </div>
+      <div class="section-body">
+        <form class="example-form">
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Favorite food" value="Sushi" />
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <textarea matInput placeholder="Leave a comment"></textarea>
+          </mat-form-field>
+          <div scrollSpyElement id="subsection1">Subsection 1</div>
+        </form>
+        <lorem-ipsum></lorem-ipsum>
+      </div>
+    </section>
+
+    <section class="section-wrapper" scrollSpyElement id="sectionC">
+      <div class="section-title">
+        C. Preoperative
+      </div>
+      <div class="section-body">
+        <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon>
+        <lorem-ipsum></lorem-ipsum>
+        <lorem-ipsum></lorem-ipsum>
+        <lorem-ipsum></lorem-ipsum>
+        <lorem-ipsum></lorem-ipsum>
+        <lorem-ipsum></lorem-ipsum>
+      </div>
+    </section>
+  </div>
+</div>
