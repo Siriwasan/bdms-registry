@@ -1,9 +1,9 @@
 import { Validators } from '@angular/forms';
 
-export const STS29form = {
+export const ACSx290form = {
   sectionA: {
     HN: [null, Validators.required],
-    PatName: [null, Validators.required]
+    AN: [null, Validators.required]
   },
   sectionD: {
     HeightCM: [null, [Validators.required, Validators.min(20), Validators.max(251)]],

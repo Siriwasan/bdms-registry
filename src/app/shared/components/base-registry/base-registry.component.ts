@@ -1,4 +1,4 @@
-import { HostListener, isDevMode, ChangeDetectorRef, AfterViewInit, ElementRef, OnInit } from '@angular/core';
+import { HostListener, isDevMode, ChangeDetectorRef, AfterViewInit, ElementRef, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, Validators, ValidationErrors, FormGroupDirective } from '@angular/forms';
 import { map, first } from 'rxjs/operators';
 
@@ -14,7 +14,7 @@ import {
   SectionMember
 } from './base-registry.model';
 
-export class BaseRegistryComponent extends BaseFormComponent implements OnInit {
+export class BaseRegistryComponent extends BaseFormComponent implements OnInit, AfterViewInit, OnDestroy {
   private formConditions: any;
   private validations: any;
   private sectionMembers: SectionMember[];
@@ -30,6 +30,14 @@ export class BaseRegistryComponent extends BaseFormComponent implements OnInit {
 
   ngOnInit() {
     super.ngOnInit();
+  }
+
+  ngAfterViewInit() {
+    super.ngAfterViewInit();
+  }
+
+  ngOnDestroy() {
+    super.ngOnDestroy();
   }
 
   protected setSectionMembers(sectionMembers: SectionMember[]) {
@@ -171,7 +179,7 @@ export class BaseRegistryComponent extends BaseFormComponent implements OnInit {
     // &&       (this.formGroup.get(control).dirty || this.formGroup.get(control).touched)
   }
 
-  public getFormErrors(section: string): string {
+  public formCompletion(section: string): string {
     let error = 0;
     let total = 0;
 

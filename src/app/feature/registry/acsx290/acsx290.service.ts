@@ -2,24 +2,24 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, DocumentReference } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 
-import { STS29Model } from './acsx290.model';
+import { ACSx290Model } from './acsx290.model';
 // import { Registry } from '../registry.model';
 import { map } from 'rxjs/operators';
 
 const DB_REGISTRY = 'Registry';
-const DB_COLLECTION = 'STS29';
+const DB_COLLECTION = 'ACSx290';
 
 @Injectable({
   providedIn: 'root'
 })
-export class STS29Service {
+export class ACSx290Service {
   constructor(private db: AngularFirestore) {}
-  currentForm: STS29Model;
+  currentForm: ACSx290Model;
 
-  saveForm(sts29Model: STS29Model) {
+  saveForm(acsx290Model: ACSx290Model) {
     this.db
       .collection(DB_COLLECTION)
-      .add(sts29Model)
+      .add(acsx290Model)
       .then((docRef: DocumentReference) => {
         console.log(docRef ? docRef.id : 'void'); // docRef of type void | DocumentReference
 
@@ -39,7 +39,7 @@ export class STS29Service {
 
   loadForm(registryId: string) {
     return this.db
-      .collection<STS29Model>(DB_COLLECTION)
+      .collection<ACSx290Model>(DB_COLLECTION)
       .snapshotChanges()
       .pipe(
         map(actions =>

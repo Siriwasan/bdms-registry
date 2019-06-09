@@ -1,4 +1,4 @@
-export interface STS29Model {
+export interface ACSx290Model {
   description: object;
   sectionA: object;
   sectionD: object;

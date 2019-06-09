@@ -10,7 +10,7 @@ export class BaseFormComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private listener: any;
   private scrollTarget: any;
-  private subscriptions: Subscription[] = [];
+  private currentSectionSubscription: Subscription;
 
   constructor(
     protected changeDetector: ChangeDetectorRef,
@@ -34,13 +34,11 @@ export class BaseFormComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private subsribeScrollSpy(): void {
-    this.subscriptions.push(
-      this.scrollSpy.getCurrentSection$().subscribe(
-        (currentSection: string): void => {
-          this.currentSection = currentSection;
-          this.changeDetector.markForCheck();
-        }
-      )
+    this.currentSectionSubscription = this.scrollSpy.getCurrentSection$().subscribe(
+      (currentSection: string): void => {
+        this.currentSection = currentSection;
+        this.changeDetector.markForCheck();
+      }
     );
   }
 
@@ -50,7 +48,7 @@ export class BaseFormComponent implements OnInit, AfterViewInit, OnDestroy {
     } else {
       console.log('BaseFormComponent: ngOnInit() is not initialized');
     }
-    this.subscriptions.forEach(subs => subs.unsubscribe());
+    this.currentSectionSubscription.unsubscribe();
   }
 
   @HostListener('window:resize')
