@@ -18,7 +18,7 @@ export class ScrollSpyService implements OnDestroy {
   private readonly defaultId: string = 'default';
   private scrollSpies: ScrollSpies = {};
   private scrollSubscription: Subscription;
-  private topOffset = 67; // estimate number
+  private topOffset = 64; // estimate number
 
   constructor() {
     this.subscribeScroll();
@@ -101,6 +101,14 @@ export class ScrollSpyService implements OnDestroy {
               if (topElementId !== currentSectionId) {
                 this.scrollSpies[key].currentSectionId = topElementId;
                 subject.next(topElementId);
+
+                // scroll TOC to current section
+                document.getElementById(topElementId + 'TOC').scrollIntoView({ block: 'nearest' });
+
+                // console.log({
+                //   topId: topElementId,
+                //   currentId: currentSectionId
+                // });
               }
             }
           );
@@ -108,7 +116,7 @@ export class ScrollSpyService implements OnDestroy {
       );
   }
 
-  scrollTo(document: Document, section: string) {
+  scrollTo(doc: Document, section: string) {
     document.getElementById(section).scrollIntoView(true);
 
     // adjust top offset if in mat-sidenav-content

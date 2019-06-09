@@ -2,6 +2,15 @@ mat-sidenav-container, mat-sidenav-content, mat-sidenav {
   height: 100%;
 }
 
+mat-sidenav-content {
+  // top: 76px;
+  // position: relative;
+  // z-index: 1;
+  // // display: block;
+  // height: 100%;
+  // overflow: auto;
+}
+
 mat-sidenav {
   width: 280px;
 }

@@ -5,9 +5,10 @@ import { RegistryRoutingModule } from './registry-routing.module';
 import { RegistryComponent } from './registry.component';
 import { ACSx290Component } from './acsx290/acsx290.component';
 import { LoremIpsumComponent } from './acsx290/lorem-ipsum.component';
+import { TestFormComponent } from './test-form/test-form.component';
 
 @NgModule({
-  declarations: [RegistryComponent, ACSx290Component, LoremIpsumComponent],
+  declarations: [RegistryComponent, ACSx290Component, LoremIpsumComponent, TestFormComponent],
   imports: [
     SharedModule,
     RegistryRoutingModule

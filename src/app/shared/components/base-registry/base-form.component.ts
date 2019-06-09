@@ -3,7 +3,7 @@ import { AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { ScrollSpyService } from '../../modules/scroll-spy/scroll-spy.service';
 
 export class BaseFormComponent implements AfterViewInit {
-  private currentSection = '';
+  public currentSection = '';
 
   constructor(protected changeDetector: ChangeDetectorRef, protected scrollSpy: ScrollSpyService) {}
 

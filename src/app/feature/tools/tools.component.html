@@ -1,17 +1,19 @@
-<br>
-<button mat-raised-button color="primary" (click)="fileInput.click()">Choose File</button>
-<input type="file" hidden (change)="onFileSelected($event.target.files)" #fileInput>
-{{file?.name}}
-<br>
-<br>
+<div class="content">
+  <br />
+  <button mat-raised-button color="primary" (click)="fileInput.click()">Choose File</button>
+  <input type="file" hidden (change)="onFileSelected($event.target.files)" #fileInput />
+  {{ file?.name }}
+  <br />
+  <br />
 
-<div>
-  <!-- <h3>File Content</h3> -->
-  <!-- <pre>{{ fileContent }}</pre> -->
-  <!-- <br /> -->
-  Preview
-  <button mat-raised-button color="accent" (click)="download()" *ngIf="fileContent !== ''">Download</button>
-  <br />
-  <br />
-  <div [innerHTML]="html" style="overflow-x:auto;"></div>
+  <div>
+    <!-- <h3>File Content</h3> -->
+    <!-- <pre>{{ fileContent }}</pre> -->
+    <!-- <br /> -->
+    Preview
+    <button mat-raised-button color="accent" (click)="download()" *ngIf="fileContent !== ''">Download</button>
+    <br />
+    <br />
+    <div [innerHTML]="html" style="overflow-x:auto;"></div>
+  </div>
 </div>
