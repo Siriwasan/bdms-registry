@@ -1,5 +1,162 @@
-<div class="content">
-  <p>
-    test-form works!
-  </p>
+<div class="content" fxLayout="row" fxLayoutGap="20px">
+  <div fxFlexOrder="1" fxFlex="200px" fxHide.xs>
+
+  </div>
+  <div class="table-of-contents" [style.max-height.px]="tocMaxHeight" fxHide.xs>
+    <ul>
+      <li id="titleTOC" (click)="scrollTo('title')" [class.active]="isActive('title')" class="menu-title"><span>STS 2.9</span></li>
+      <li><a id="sectionATOC" (click)="scrollTo('sectionA')" [class.active]="isActive('sectionA')">A. Administrative</a></li>
+      <li><a id="sectionBTOC" (click)="scrollTo('sectionB')" [class.active]="isActive('sectionB')">B. Demographics</a></li>
+      <li><a id="sectionCTOC" (click)="scrollTo('sectionC')" [class.active]="isActive('sectionC')">C. Preoperative</a></li>
+      <li><a id="sectionDTOC" (click)="scrollTo('sectionD')" [class.active]="isActive('sectionD')">D. Preoperative</a></li>
+      <li><a id="sectionETOC" (click)="scrollTo('sectionE')" [class.active]="isActive('sectionE')">E. Preoperative</a></li>
+      <li><a id="sectionFTOC" (click)="scrollTo('sectionF')" [class.active]="isActive('sectionF')">F. Preoperative</a></li>
+      <li><a id="sectionGTOC" (click)="scrollTo('sectionG')" [class.active]="isActive('sectionG')">G. Preoperative</a></li>
+      <li><a id="sectionHTOC" (click)="scrollTo('sectionH')" [class.active]="isActive('sectionH')">H. Preoperative</a></li>
+      <li><a id="sectionITOC" (click)="scrollTo('sectionI')" [class.active]="isActive('sectionI')">I. Preoperative</a></li>
+      <li><a id="sectionJTOC" (click)="scrollTo('sectionJ')" [class.active]="isActive('sectionJ')">J. Preoperative</a></li>
+      <li><a id="sectionKTOC" (click)="scrollTo('sectionK')" [class.active]="isActive('sectionK')">K. Preoperative</a></li>
+    </ul>
+  </div>
+
+  <div scrollSpyElement id="title" fxFlexOrder="0" >
+    <h1>STS Adult Cardiac Surgery 2.9</h1>
+    <section class="section-wrapper" scrollSpyElement id="sectionA">
+      <div class="section-title">
+        A. Administrative
+      </div>
+      <div class="section-body">
+        <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon>
+        <lorem-ipsum></lorem-ipsum>
+        <lorem-ipsum></lorem-ipsum>
+        <lorem-ipsum></lorem-ipsum>
+      </div>
+    </section>
+
+    <section class="section-wrapper" scrollSpyElement id="sectionB">
+      <div class="section-title">
+        B. Demographics
+      </div>
+      <div class="section-body">
+        <form class="example-form">
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Favorite food" value="Sushi" />
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <textarea matInput placeholder="Leave a comment"></textarea>
+          </mat-form-field>
+        </form>
+        <lorem-ipsum></lorem-ipsum>
+      </div>
+    </section>
+
+    <section class="section-wrapper" scrollSpyElement id="sectionC">
+      <div class="section-title">
+        C. Preoperative
+      </div>
+      <div class="section-body">
+        <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon>
+        <lorem-ipsum></lorem-ipsum>
+        <lorem-ipsum></lorem-ipsum>
+        <lorem-ipsum></lorem-ipsum>
+      </div>
+    </section>
+
+    <section class="section-wrapper" scrollSpyElement id="sectionD">
+      <div class="section-title">
+        D. Preoperative
+      </div>
+      <div class="section-body">
+        <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon>
+        <lorem-ipsum></lorem-ipsum>
+        <lorem-ipsum></lorem-ipsum>
+        <lorem-ipsum></lorem-ipsum>
+      </div>
+    </section>
+
+    <section class="section-wrapper" scrollSpyElement id="sectionE">
+      <div class="section-title">
+        E. Preoperative
+      </div>
+      <div class="section-body">
+        <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon>
+        <lorem-ipsum></lorem-ipsum>
+        <lorem-ipsum></lorem-ipsum>
+        <lorem-ipsum></lorem-ipsum>
+      </div>
+    </section>
+
+    <section class="section-wrapper" scrollSpyElement id="sectionF">
+      <div class="section-title">
+        F. Preoperative
+      </div>
+      <div class="section-body">
+        <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon>
+        <lorem-ipsum></lorem-ipsum>
+        <lorem-ipsum></lorem-ipsum>
+        <lorem-ipsum></lorem-ipsum>
+      </div>
+    </section>
+
+    <section class="section-wrapper" scrollSpyElement id="sectionG">
+      <div class="section-title">
+        G. Preoperative
+      </div>
+      <div class="section-body">
+        <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon>
+        <lorem-ipsum></lorem-ipsum>
+        <lorem-ipsum></lorem-ipsum>
+        <lorem-ipsum></lorem-ipsum>
+      </div>
+    </section>
+
+    <section class="section-wrapper" scrollSpyElement id="sectionH">
+      <div class="section-title">
+        H. Preoperative
+      </div>
+      <div class="section-body">
+        <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon>
+        <lorem-ipsum></lorem-ipsum>
+        <lorem-ipsum></lorem-ipsum>
+        <lorem-ipsum></lorem-ipsum>
+      </div>
+    </section>
+
+    <section class="section-wrapper" scrollSpyElement id="sectionI">
+      <div class="section-title">
+        I. Preoperative
+      </div>
+      <div class="section-body">
+        <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon>
+        <lorem-ipsum></lorem-ipsum>
+        <lorem-ipsum></lorem-ipsum>
+        <lorem-ipsum></lorem-ipsum>
+      </div>
+    </section>
+
+    <section class="section-wrapper" scrollSpyElement id="sectionJ">
+      <div class="section-title">
+        J. Preoperative
+      </div>
+      <div class="section-body">
+        <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon>
+        <lorem-ipsum></lorem-ipsum>
+        <lorem-ipsum></lorem-ipsum>
+        <lorem-ipsum></lorem-ipsum>
+      </div>
+    </section>
+
+    <section class="section-wrapper" scrollSpyElement id="sectionK">
+      <div class="section-title">
+        K. Preoperative
+      </div>
+      <div class="section-body">
+        <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon>
+        <lorem-ipsum></lorem-ipsum>
+        <lorem-ipsum></lorem-ipsum>
+        <lorem-ipsum></lorem-ipsum>
+      </div>
+    </section>
+  </div>
 </div>
