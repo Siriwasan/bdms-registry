@@ -1,4 +1,4 @@
-import { HostListener, isDevMode, ChangeDetectorRef, AfterViewInit } from '@angular/core';
+import { HostListener, isDevMode, ChangeDetectorRef, AfterViewInit, ElementRef } from '@angular/core';
 import { FormGroup, Validators, ValidationErrors, FormGroupDirective } from '@angular/forms';
 import { map, first } from 'rxjs/operators';
 
@@ -6,7 +6,13 @@ import { BaseFormComponent } from './base-form.component';
 import { DialogService } from '../../services/dialog.service';
 import { ScrollSpyService } from '../../modules/scroll-spy/scroll-spy.service';
 
-import { FormCondition, FormValidation, ControlCondition, ValidationMessage, SectionMember } from './base-registry.model';
+import {
+  FormCondition,
+  FormValidation,
+  ControlCondition,
+  ValidationMessage,
+  SectionMember
+} from './base-registry.model';
 
 export class BaseRegistryComponent extends BaseFormComponent {
   private formConditions: any;
@@ -16,9 +22,10 @@ export class BaseRegistryComponent extends BaseFormComponent {
   constructor(
     protected dialogService: DialogService,
     protected changeDetector: ChangeDetectorRef,
-    protected scrollSpy: ScrollSpyService
+    protected scrollSpy: ScrollSpyService,
+    protected hostElement: ElementRef
   ) {
-    super(changeDetector, scrollSpy);
+    super(changeDetector, scrollSpy, hostElement);
   }
 
   protected setSectionMembers(sectionMembers: SectionMember[]) {

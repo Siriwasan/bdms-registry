@@ -9,9 +9,6 @@ import { TestFormComponent } from './test-form/test-form.component';
 
 @NgModule({
   declarations: [RegistryComponent, ACSx290Component, LoremIpsumComponent, TestFormComponent],
-  imports: [
-    SharedModule,
-    RegistryRoutingModule
-  ]
+  imports: [SharedModule, RegistryRoutingModule]
 })
-export class RegistryModule { }
+export class RegistryModule {}

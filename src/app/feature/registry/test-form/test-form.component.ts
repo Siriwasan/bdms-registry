@@ -10,42 +10,17 @@ import { ScrollSpyService } from '../../../shared/modules/scroll-spy/scroll-spy.
   styleUrls: ['./test-form.component.scss']
 })
 export class TestFormComponent extends BaseRegistryComponent implements OnInit {
-  tocMaxHeight: string;
-  private tocMaxHeightOffset = 0;
 
   constructor(
     protected dialogService: DialogService,
     protected changeDetector: ChangeDetectorRef,
     protected scrollSpy: ScrollSpyService,
-    private hostElement: ElementRef
+    protected hostElement: ElementRef
   ) {
-    super(dialogService, changeDetector, scrollSpy);
+    super(dialogService, changeDetector, scrollSpy, hostElement);
   }
 
   ngOnInit() {
-    document.querySelector('mat-sidenav-content').addEventListener('scroll', () => {
-      this.calculatTocMaxHeight();
-    });
-    window.addEventListener('resize', () => {
-      this.calculatTocMaxHeight();
-
-      if (this.currentSection !== '') {
-        document.getElementById(this.currentSection + 'TOC').scrollIntoView();
-      }
-    });
   }
 
-  calculatTocMaxHeight() {
-    if (!this.tocMaxHeightOffset) {
-      // Must wait until `mat-toolbar` is measurable.
-      const el = this.hostElement.nativeElement as Element;
-      const headerEl = document.querySelector('.app-header');
-      // const footerEl = el.querySelector('footer');
-      // if (headerEl && footerEl) {
-      //   this.tocMaxHeightOffset = headerEl.clientHeight + footerEl.clientHeight + 24; //  fudge margin
-      // }
-      this.tocMaxHeightOffset = headerEl.clientHeight;
-    }
-    this.tocMaxHeight = (document.body.scrollHeight - window.pageYOffset - this.tocMaxHeightOffset).toFixed(2);
-  }
 }
