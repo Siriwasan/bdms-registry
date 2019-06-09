@@ -9,7 +9,7 @@ export class BaseFormComponent implements OnInit, AfterViewInit, OnDestroy {
   private tocMaxHeightOffset = 0;
 
   private listener: any;
-  private scrollElement: any;
+  private scrollTarget: any;
   private subscriptions: Subscription[] = [];
 
   constructor(
@@ -20,13 +20,13 @@ export class BaseFormComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit() {
     // adjust top offset if in mat-sidenav-content
-    this.scrollElement = document.querySelector('mat-sidenav-content');
-    if (this.scrollElement === null) {
-      this.scrollElement = window;
+    this.scrollTarget = document.querySelector('mat-sidenav-content');
+    if (this.scrollTarget === null) {
+      this.scrollTarget = window;
     }
 
     this.listener = () => this.calculatTocMaxHeight();
-    this.scrollElement.addEventListener('scroll', this.listener, false);
+    this.scrollTarget.addEventListener('scroll', this.listener, false);
   }
 
   ngAfterViewInit(): void {
@@ -45,8 +45,8 @@ export class BaseFormComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.scrollElement !== undefined) {
-      this.scrollElement.removeEventListener('scroll', this.listener, false);
+    if (this.scrollTarget !== undefined) {
+      this.scrollTarget.removeEventListener('scroll', this.listener, false);
     } else {
       console.log('BaseFormComponent: ngOnInit() is not initialized');
     }

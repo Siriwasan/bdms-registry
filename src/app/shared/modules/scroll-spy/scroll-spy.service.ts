@@ -71,15 +71,15 @@ export class ScrollSpyService implements OnDestroy {
   }
 
   private subscribeScroll(): void {
-    let target: any;
-    target = document.querySelector('mat-sidenav-content');
+    let scrollTarget: any;
+    scrollTarget = document.querySelector('mat-sidenav-content');
 
     // if not i mat-sidenav-content, subscription with window::scroll
-    if (target === null) {
-      target = window;
+    if (scrollTarget === null) {
+      scrollTarget = window;
     }
 
-    this.scrollSubscription = fromEvent(target, 'scroll')
+    this.scrollSubscription = fromEvent(scrollTarget, 'scroll')
       .pipe(throttleTime(0, animationFrame))
       .subscribe(
         (): void => {
