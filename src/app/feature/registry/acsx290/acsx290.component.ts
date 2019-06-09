@@ -23,29 +23,6 @@ export class ACSx290Component extends BaseRegistryComponent implements OnInit {
   }
 
   ngOnInit() {
-    // document.querySelector('mat-sidenav-content').addEventListener('scroll', () => {
-    //   this.calculatTocMaxHeight();
-    // });
-    // window.addEventListener('resize', () => {
-    //   this.calculatTocMaxHeight();
-
-    //   if (this.currentSection !== '') {
-    //     document.getElementById(this.currentSection + 'TOC').scrollIntoView();
-    //   }
-    // });
+    super.ngOnInit();
   }
-
-  // calculatTocMaxHeight() {
-  //   if (!this.tocMaxHeightOffset) {
-  //     // Must wait until `mat-toolbar` is measurable.
-  //     const el = this.hostElement.nativeElement as Element;
-  //     const headerEl = document.querySelector('.app-header');
-  //     // const footerEl = el.querySelector('footer');
-  //     // if (headerEl && footerEl) {
-  //     //   this.tocMaxHeightOffset = headerEl.clientHeight + footerEl.clientHeight + 24; //  fudge margin
-  //     // }
-  //     this.tocMaxHeightOffset = headerEl.clientHeight;
-  //   }
-  //   this.tocMaxHeight = (document.body.scrollHeight - window.pageYOffset - this.tocMaxHeightOffset).toFixed(2);
-  // }
 }

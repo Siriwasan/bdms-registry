@@ -19,6 +19,10 @@ firebase deploy
 
 <https://github.com/angular/flex-layout#angular-flex-layout>
 
+## 4. Setup AngularFire
+
+<https://github.com/angular/angularfire2>
+
 ## Registry List
 
 | Id      | Registry                      | Published         |

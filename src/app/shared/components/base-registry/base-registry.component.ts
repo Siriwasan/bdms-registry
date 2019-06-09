@@ -1,4 +1,4 @@
-import { HostListener, isDevMode, ChangeDetectorRef, AfterViewInit, ElementRef } from '@angular/core';
+import { HostListener, isDevMode, ChangeDetectorRef, AfterViewInit, ElementRef, OnInit } from '@angular/core';
 import { FormGroup, Validators, ValidationErrors, FormGroupDirective } from '@angular/forms';
 import { map, first } from 'rxjs/operators';
 
@@ -14,7 +14,7 @@ import {
   SectionMember
 } from './base-registry.model';
 
-export class BaseRegistryComponent extends BaseFormComponent {
+export class BaseRegistryComponent extends BaseFormComponent implements OnInit {
   private formConditions: any;
   private validations: any;
   private sectionMembers: SectionMember[];
@@ -26,6 +26,10 @@ export class BaseRegistryComponent extends BaseFormComponent {
     protected hostElement: ElementRef
   ) {
     super(changeDetector, scrollSpy, hostElement);
+  }
+
+  ngOnInit() {
+    super.ngOnInit();
   }
 
   protected setSectionMembers(sectionMembers: SectionMember[]) {

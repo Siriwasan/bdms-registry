@@ -20,7 +20,8 @@ export class TestFormComponent extends BaseRegistryComponent implements OnInit {
     super(dialogService, changeDetector, scrollSpy, hostElement);
   }
 
-  ngOnInit() {
-  }
+  // ngOnInit() {
+  //   super.ngOnInit();
+  // }
 
 }

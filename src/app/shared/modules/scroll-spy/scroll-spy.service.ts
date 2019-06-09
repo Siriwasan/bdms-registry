@@ -116,7 +116,7 @@ export class ScrollSpyService implements OnDestroy {
       );
   }
 
-  scrollTo(doc: Document, section: string) {
+  scrollTo(section: string) {
     document.getElementById(section).scrollIntoView(true);
 
     // adjust top offset if in mat-sidenav-content
