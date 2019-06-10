@@ -18,12 +18,16 @@ import { Subscription } from 'rxjs';
 })
 export class ACSx290Component extends BaseRegistryComponent implements OnInit, AfterViewInit, OnDestroy {
   formGroupA: FormGroup;
+  formGroupB: FormGroup;
   formGroupD: FormGroup;
   formGroupE: FormGroup;
 
   @ViewChild('formDirectiveA', { static: true }) formDirectiveA: FormGroupDirective;
+  @ViewChild('formDirectiveB', { static: true }) formDirectiveB: FormGroupDirective;
   @ViewChild('formDirectiveD', { static: true }) formDirectiveD: FormGroupDirective;
   @ViewChild('formDirectiveE', { static: true }) formDirectiveE: FormGroupDirective;
+
+  gap = '20px';
 
   result: ACSx290Model;
   flatResult: object;
@@ -61,11 +65,13 @@ export class ACSx290Component extends BaseRegistryComponent implements OnInit, A
 
   private createForm() {
     this.formGroupA = this.formBuilder.group(ACSx290form.sectionA);
+    this.formGroupB = this.formBuilder.group(ACSx290form.sectionB);
     this.formGroupD = this.formBuilder.group(ACSx290form.sectionD);
     this.formGroupE = this.formBuilder.group(ACSx290form.sectionE);
 
     this.setSectionMembers([
       ['A', this.formGroupA, this.formDirectiveA, formConditions.sectionA],
+      ['B', this.formGroupB, this.formDirectiveB, formConditions.sectionB],
       ['D', this.formGroupD, this.formDirectiveD, formConditions.sectionD],
       ['E', this.formGroupE, this.formDirectiveE, formConditions.sectionE]
     ]);
@@ -88,12 +94,14 @@ export class ACSx290Component extends BaseRegistryComponent implements OnInit, A
         addendum: 'BDMS modefied version 1.0'
       },
       sectionA: { ...this.formGroupA.value },
+      sectionB: { ...this.formGroupB.value },
       sectionD: { ...this.formGroupD.value },
       sectionE: { ...this.formGroupE.value }
     };
     this.flatResult = {
       ...this.result.description,
       ...this.result.sectionA,
+      ...this.result.sectionB,
       ...this.result.sectionD,
       ...this.result.sectionE
     };
@@ -130,20 +138,18 @@ export class ACSx290Component extends BaseRegistryComponent implements OnInit, A
 
   openDialog() {
     // const dialogConfig = new MatDialogConfig();
-
     // dialogConfig.disableClose = false;
     // dialogConfig.autoFocus = true;
-
     // this.dialog.open(RegistryInfoDialogComponent, dialogConfig);
   }
 
   downloadCSV() {
-  //   this.archiveRegistry();
-  //   this.fileService.saveJSONtoCSV([this.result], 'art.csv');
+    //   this.archiveRegistry();
+    //   this.fileService.saveJSONtoCSV([this.result], 'art.csv');
   }
 
   downloadJSON() {
-  //   this.archiveRegistry();
-  //   this.fileService.saveJSONtoFile([this.result]);
+    //   this.archiveRegistry();
+    //   this.fileService.saveJSONtoFile([this.result]);
   }
 }

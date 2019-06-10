@@ -7,7 +7,7 @@
   <div>
     <a>{{ title$ | async }}</a>
   </div>
-  <div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
+  <div fxFlex fxLayout fxLayoutAlign="flex-end" fxShow fxHide.lt-md>
     <ul fxLayout fxLayoutGap="10px" class="navigation-items">
       <li>
         <a routerLink="/home">Home</a>
@@ -17,7 +17,7 @@
       </li>
     </ul>
   </div>
-  <div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.gt-xs>
+  <div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide fxShow.lt-md>
     <button mat-icon-button [matMenuTriggerFor]="menu">
       <mat-icon>more_vert</mat-icon>
     </button>

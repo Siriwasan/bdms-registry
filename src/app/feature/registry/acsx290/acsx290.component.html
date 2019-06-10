@@ -1,12 +1,15 @@
 <div class="content" fxLayout="row" fxLayoutGap="20px">
-  <div fxFlexOrder="1" fxFlex="200px" fxHide.xs></div>
-  <div class="table-of-contents" [style.max-height.px]="tocMaxHeight" fxHide.xs>
+  <div fxFlexOrder="1" fxFlex="200px" fxHide.lt-md></div>
+  <div class="table-of-contents" [style.max-height.px]="tocMaxHeight" fxHide.lt-md>
     <ul>
       <li id="titleTOC" (click)="scrollTo('title')" [class.active]="isActive('title')" class="menu-title">
         <span>ACSx 2.9</span>
       </li>
       <li>
         <a id="sectionATOC" (click)="scrollTo('sectionA')" [class.active]="isActive('sectionA')">A. Administrative</a>
+      </li>
+      <li>
+        <a id="sectionBTOC" (click)="scrollTo('sectionB')" [class.active]="isActive('sectionB')">B. Demographics</a>
       </li>
       <li>
         <a id="sectionDTOC" (click)="scrollTo('sectionD')" [class.active]="isActive('sectionD')">D. Risk Factors</a>
@@ -20,7 +23,7 @@
   </div>
 
   <div scrollSpyElement id="title" fxFlexOrder="0">
-    <h1>STS Adult Cardiac Surgery 2.9</h1>
+    <h1>STS 2.9</h1>
     <section class="section-wrapper" scrollSpyElement id="sectionA">
       <div class="section-title">
         <span>A. Administrative</span>
@@ -28,8 +31,8 @@
       </div>
       <div class="section-body">
         <form [formGroup]="formGroupA" #formDirectiveA="ngForm">
-          <div fxLayout="column" fxLayout.gt-xs="row">
-            <mat-form-field class="item">
+          <div fxLayout="column" fxLayout.gt-xs="row" [fxLayoutGap]="gap">
+            <mat-form-field class="item" fxFlex="25">
               <input type="number" matInput placeholder="HN" formControlName="HN" required />
               <mat-hint>
                 <a>Please enter a valid input.</a>
@@ -43,7 +46,7 @@
               </mat-error>
             </mat-form-field>
 
-            <mat-form-field class="item">
+            <mat-form-field class="item" fxFlex="25">
               <input matInput placeholder="AN" formControlName="AN" required />
               <mat-hint>
                 <a>Please enter a valid input.</a>
@@ -57,14 +60,193 @@
               </mat-error>
             </mat-form-field>
 
-            <div class="label-text" style="color: rgba(0,0,0,.54);">
-              Sex:
-              <mat-radio-group class="example-radio-group" formControlName="sex">
+            <!-- <div class="item-radio" style="color: rgba(0,0,0,.54);">
+              <span>Sex:</span>
+              <mat-radio-group formControlName="sex">
                 <mat-radio-button class="example-radio-button" value="Male">Male</mat-radio-button>
                 <mat-radio-button class="example-radio-button" value="Female">Female</mat-radio-button>
               </mat-radio-group>
-            </div>
+            </div> -->
           </div>
+        </form>
+      </div>
+    </section>
+
+    <section class="section-wrapper" scrollSpyElement id="sectionB">
+      <div class="section-title">
+        <span>B. Demographics</span>
+        <span>{{ formCompletion('B') }}</span>
+      </div>
+      <div class="section-body">
+        <form [formGroup]="formGroupB" #formDirectiveB="ngForm">
+          <div fxLayout="column" fxLayout.gt-xs="row" [fxLayoutGap]="gap">
+            <mat-form-field class="item" fxFlex="33">
+              <input type="text" matInput placeholder="Patient Last Name" formControlName="PatLName" required />
+              <mat-hint>
+                <a>Please enter a valid input.</a>
+                <mat-icon style="cursor: help;" (click)="clickInfo()">info_outline</mat-icon>
+              </mat-hint>
+              <mat-error *ngFor="let validation of getValidations('PatLName')">
+                <mat-error *ngIf="isInvalid('PatLName', validation.type)">
+                  <a>{{ validation.message }}</a>
+                  <mat-icon style="cursor: help;" (click)="clickInfo()">info_outline</mat-icon>
+                </mat-error>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="item" fxFlex="33">
+              <input type="text" matInput placeholder="Patient First Name" formControlName="PatFName" required />
+              <mat-hint>
+                <a>Please enter a valid input.</a>
+                <mat-icon style="cursor: help;" (click)="clickInfo()">info_outline</mat-icon>
+              </mat-hint>
+              <mat-error *ngFor="let validation of getValidations('PatFName')">
+                <mat-error *ngIf="isInvalid('PatFName', validation.type)">
+                  <a>{{ validation.message }}</a>
+                  <mat-icon style="cursor: help;" (click)="clickInfo()">info_outline</mat-icon>
+                </mat-error>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="item" fxFlex>
+              <input type="text" matInput placeholder="Patient Middle Name" formControlName="PatMName" />
+              <mat-hint>
+                <a>Please enter a valid input.</a>
+                <mat-icon style="cursor: help;" (click)="clickInfo()">info_outline</mat-icon>
+              </mat-hint>
+              <mat-error *ngFor="let validation of getValidations('PatMName')">
+                <mat-error *ngIf="isInvalid('PatMName', validation.type)">
+                  <a>{{ validation.message }}</a>
+                  <mat-icon style="cursor: help;" (click)="clickInfo()">info_outline</mat-icon>
+                </mat-error>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div fxLayout="column" fxLayout.gt-xs="row" [fxLayoutGap]="gap">
+            <mat-form-field class="item" fxFlex="33">
+              <input type="text" matInput placeholder="Date of Birth" formControlName="DOB" required />
+              <mat-hint>
+                <a>Please enter a valid input.</a>
+                <mat-icon style="cursor: help;" (click)="clickInfo()">info_outline</mat-icon>
+              </mat-hint>
+              <mat-error *ngFor="let validation of getValidations('DOB')">
+                <mat-error *ngIf="isInvalid('DOB', validation.type)">
+                  <a>{{ validation.message }}</a>
+                  <mat-icon style="cursor: help;" (click)="clickInfo()">info_outline</mat-icon>
+                </mat-error>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="item" fxFlex="33">
+              <input type="text" matInput placeholder="Patient Age" formControlName="Age" required />
+              <mat-hint>
+                <a>Please enter a valid input.</a>
+                <mat-icon style="cursor: help;" (click)="clickInfo()">info_outline</mat-icon>
+              </mat-hint>
+              <mat-error *ngFor="let validation of getValidations('Age')">
+                <mat-error *ngIf="isInvalid('Age', validation.type)">
+                  <a>{{ validation.message }}</a>
+                  <mat-icon style="cursor: help;" (click)="clickInfo()">info_outline</mat-icon>
+                </mat-error>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="item" fxFlex>
+              <mat-label>Sex</mat-label>
+              <mat-hint>
+                <mat-icon style="cursor: help;" (click)="clickInfo()">info_outline</mat-icon>
+              </mat-hint>
+              <mat-select formControlName="Gender" required>
+                <mat-option value="Male">Male</mat-option>
+                <mat-option value="Female">Female</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <mat-form-field class="item">
+            <input type="text" matInput placeholder="National ID Number" formControlName="SSN" required />
+            <mat-hint>
+              <a>Please enter a valid input.</a>
+              <mat-icon style="cursor: help;" (click)="clickInfo()">info_outline</mat-icon>
+            </mat-hint>
+            <mat-error *ngFor="let validation of getValidations('SSN')">
+              <mat-error *ngIf="isInvalid('SSN', validation.type)">
+                <a>{{ validation.message }}</a>
+                <mat-icon style="cursor: help;" (click)="clickInfo()">info_outline</mat-icon>
+              </mat-error>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="item">
+            <input type="text" matInput placeholder="Street Address" formControlName="PatAddr" />
+            <mat-hint>
+              <a>Please enter a valid input.</a>
+              <mat-icon style="cursor: help;" (click)="clickInfo()">info_outline</mat-icon>
+            </mat-hint>
+            <mat-error *ngFor="let validation of getValidations('PatAddr')">
+              <mat-error *ngIf="isInvalid('PatAddr', validation.type)">
+                <a>{{ validation.message }}</a>
+                <mat-icon style="cursor: help;" (click)="clickInfo()">info_outline</mat-icon>
+              </mat-error>
+            </mat-error>
+          </mat-form-field>
+
+          <div fxLayout="column" fxLayout.gt-xs="row" [fxLayoutGap]="gap">
+            <mat-form-field class="item" fxFlex="33">
+              <input type="text" matInput placeholder="City" formControlName="PatCity" required />
+              <mat-hint>
+                <a>Please enter a valid input.</a>
+                <mat-icon style="cursor: help;" (click)="clickInfo()">info_outline</mat-icon>
+              </mat-hint>
+              <mat-error *ngFor="let validation of getValidations('PatCity')">
+                <mat-error *ngIf="isInvalid('PatCity', validation.type)">
+                  <a>{{ validation.message }}</a>
+                  <mat-icon style="cursor: help;" (click)="clickInfo()">info_outline</mat-icon>
+                </mat-error>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="item" fxFlex="33">
+              <input type="text" matInput placeholder="Region" formControlName="PatRegion" required />
+              <mat-hint>
+                <a>Please enter a valid input.</a>
+                <mat-icon style="cursor: help;" (click)="clickInfo()">info_outline</mat-icon>
+              </mat-hint>
+              <mat-error *ngFor="let validation of getValidations('PatRegion')">
+                <mat-error *ngIf="isInvalid('PatRegion', validation.type)">
+                  <a>{{ validation.message }}</a>
+                  <mat-icon style="cursor: help;" (click)="clickInfo()">info_outline</mat-icon>
+                </mat-error>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="item" fxFlex>
+              <input type="text" matInput placeholder="Country" formControlName="PatientCountry" required />
+              <mat-hint>
+                <a>Please enter a valid input.</a>
+                <mat-icon style="cursor: help;" (click)="clickInfo()">info_outline</mat-icon>
+              </mat-hint>
+              <mat-error *ngFor="let validation of getValidations('PatientCountry')">
+                <mat-error *ngIf="isInvalid('PatientCountry', validation.type)">
+                  <a>{{ validation.message }}</a>
+                  <mat-icon style="cursor: help;" (click)="clickInfo()">info_outline</mat-icon>
+                </mat-error>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <mat-form-field class="item">
+            <mat-label>Is This Patient’s Permanent Address</mat-label>
+            <mat-hint>
+              <mat-icon style="cursor: help;" (click)="clickInfo()">info_outline</mat-icon>
+            </mat-hint>
+            <mat-select formControlName="PermAddr" required>
+              <mat-option value="Yes">Yes</mat-option>
+              <mat-option value="No">No</mat-option>
+              <mat-option value="Unknown">Unknown</mat-option>
+            </mat-select>
+          </mat-form-field>
         </form>
       </div>
     </section>
@@ -74,10 +256,10 @@
         <span>D. Risk Factors</span>
         <span>{{ formCompletion('D') }}</span>
       </div>
-      <div class="section-body">
+      <div class="section-body" fxLayout="column">
         <form [formGroup]="formGroupD" #formDirectiveD="ngForm">
-          <div fxLayout="column" fxLayout.gt-xs="row">
-            <mat-form-field class="item">
+          <div fxLayout="column" fxLayout.gt-xs="row" [fxLayoutGap]="gap">
+            <mat-form-field class="item" fxFlex="25">
               <input type="number" matInput placeholder="Height (cm)" formControlName="HeightCM" required />
               <mat-hint>
                 <a>Please enter a valid input.</a>
@@ -91,7 +273,7 @@
               </mat-error>
             </mat-form-field>
 
-            <mat-form-field class="item">
+            <mat-form-field class="item" fxFlex="25">
               <input type="number" matInput placeholder="Weight (kg)" formControlName="WeightKg" required />
               <mat-hint>
                 <a>Please enter a valid input.</a>
@@ -104,50 +286,52 @@
                 </mat-error>
               </mat-error>
             </mat-form-field>
+
+            <mat-form-field class="item" fxFlex>
+              <mat-label>Family History of Premature CAD</mat-label>
+              <mat-hint>
+                <mat-icon style="cursor: help;" (click)="clickInfo()">info_outline</mat-icon>
+              </mat-hint>
+              <mat-select formControlName="FHCAD" required>
+                <mat-option value="1">Yes</mat-option>
+                <mat-option value="2">No</mat-option>
+                <mat-option value="3">Unknown</mat-option>
+              </mat-select>
+            </mat-form-field>
           </div>
 
-          <mat-form-field class="item" style="width: 450px">
-            <mat-label>Family History of Premature Coronary Artery Disease</mat-label>
-            <mat-hint>
-              <mat-icon style="cursor: help;" (click)="clickInfo()">info_outline</mat-icon>
-            </mat-hint>
-            <mat-select formControlName="FHCAD" required>
-              <mat-option value="1">Yes</mat-option>
-              <mat-option value="2">No</mat-option>
-              <mat-option value="3">Unknown</mat-option>
-            </mat-select>
-          </mat-form-field>
+          <div fxLayout="column" fxLayout.gt-xs="row" [fxLayoutGap]="gap">
+            <mat-form-field class="item" fxFlex>
+              <mat-label>Diabetes</mat-label>
+              <mat-select formControlName="Diabetes" required>
+                <mat-option value="1">Yes</mat-option>
+                <mat-option value="2">No</mat-option>
+                <mat-option value="3">Unknown</mat-option>
+              </mat-select>
+            </mat-form-field>
 
-          <mat-form-field class="item">
-            <mat-label>Diabetes</mat-label>
-            <mat-select formControlName="Diabetes" required>
-              <mat-option value="1">Yes</mat-option>
-              <mat-option value="2">No</mat-option>
-              <mat-option value="3">Unknown</mat-option>
-            </mat-select>
-          </mat-form-field>
+            <mat-form-field class="item-1" *ngIf="isShowControl('DiabCtrl')" fxFlex="25">
+              <mat-label>Diabetes-Control</mat-label>
+              <mat-select formControlName="DiabCtrl" required>
+                <mat-option value="1">None</mat-option>
+                <mat-option value="2">Diet only</mat-option>
+                <mat-option value="3">Oral</mat-option>
+                <mat-option value="4">Insulin</mat-option>
+                <mat-option value="5">Other SubQ</mat-option>
+                <mat-option value="6">Other</mat-option>
+                <mat-option value="7">Unknown</mat-option>
+              </mat-select>
+            </mat-form-field>
 
-          <mat-form-field class="item-1" *ngIf="isShowControl('DiabCtrl')">
-            <mat-label>Diabetes-Control</mat-label>
-            <mat-select formControlName="DiabCtrl" required>
-              <mat-option value="1">None</mat-option>
-              <mat-option value="2">Diet only</mat-option>
-              <mat-option value="3">Oral</mat-option>
-              <mat-option value="4">Insulin</mat-option>
-              <mat-option value="5">Other SubQ</mat-option>
-              <mat-option value="6">Other</mat-option>
-              <mat-option value="7">Unknown</mat-option>
-            </mat-select>
-          </mat-form-field>
-
-          <mat-form-field class="item">
-            <mat-label>Dyslipidemia</mat-label>
-            <mat-select formControlName="Dyslip" required>
-              <mat-option value="1">Yes</mat-option>
-              <mat-option value="2">No</mat-option>
-              <mat-option value="3">Unknown</mat-option>
-            </mat-select>
-          </mat-form-field>
+            <mat-form-field class="item" fxFlex="50">
+              <mat-label>Dyslipidemia</mat-label>
+              <mat-select formControlName="Dyslip" required>
+                <mat-option value="1">Yes</mat-option>
+                <mat-option value="2">No</mat-option>
+                <mat-option value="3">Unknown</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
 
           <mat-form-field class="item">
             <mat-label>Dialysis</mat-label>
@@ -167,41 +351,43 @@
             </mat-select>
           </mat-form-field>
 
+          <div fxLayout="column" fxLayout.gt-xs="row" [fxLayoutGap]="gap">
+            <mat-form-field class="item">
+              <mat-label>Endocarditis</mat-label>
+              <mat-select formControlName="InfEndo" required>
+                <mat-option value="1">Yes</mat-option>
+                <mat-option value="2">No</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="item-1" *ngIf="isShowControl('InfEndTy')">
+              <mat-label>Endocarditis Type</mat-label>
+              <mat-select formControlName="InfEndTy" required>
+                <mat-option value="1">Treated</mat-option>
+                <mat-option value="2">Active</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="item-1" *ngIf="isShowControl('InfEndCult')">
+              <mat-label>Endocarditis Culture</mat-label>
+              <mat-select formControlName="InfEndCult" required>
+                <mat-option value="1">Culture negative</mat-option>
+                <mat-option value="3">Strep species</mat-option>
+                <mat-option value="11">MRSA</mat-option>
+                <mat-option value="12">MSSA</mat-option>
+                <mat-option value="4">Coagulase negative staph</mat-option>
+                <mat-option value="5">Enterococcus species</mat-option>
+                <mat-option value="9">Gram negative species</mat-option>
+                <mat-option value="10">Polymicrobial</mat-option>
+                <mat-option value="13">Mycobacterium (chimera)</mat-option>
+                <mat-option value="6">Fungal</mat-option>
+                <mat-option value="7">Other</mat-option>
+                <mat-option value="8">Unknown</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
           <mat-form-field class="item">
-            <mat-label>Endocarditis</mat-label>
-            <mat-select formControlName="InfEndo" required>
-              <mat-option value="1">Yes</mat-option>
-              <mat-option value="2">No</mat-option>
-            </mat-select>
-          </mat-form-field>
-
-          <mat-form-field class="item-1" *ngIf="isShowControl('InfEndTy')">
-            <mat-label>Endocarditis Type</mat-label>
-            <mat-select formControlName="InfEndTy" required>
-              <mat-option value="1">Treated</mat-option>
-              <mat-option value="2">Active</mat-option>
-            </mat-select>
-          </mat-form-field>
-
-          <mat-form-field class="item-1" *ngIf="isShowControl('InfEndCult')">
-            <mat-label>Endocarditis Culture</mat-label>
-            <mat-select formControlName="InfEndCult" required>
-              <mat-option value="1">Culture negative</mat-option>
-              <mat-option value="3">Strep species</mat-option>
-              <mat-option value="11">MRSA</mat-option>
-              <mat-option value="12">MSSA</mat-option>
-              <mat-option value="4">Coagulase negative staph</mat-option>
-              <mat-option value="5">Enterococcus species</mat-option>
-              <mat-option value="9">Gram negative species</mat-option>
-              <mat-option value="10">Polymicrobial</mat-option>
-              <mat-option value="13">Mycobacterium (chimera)</mat-option>
-              <mat-option value="6">Fungal</mat-option>
-              <mat-option value="7">Other</mat-option>
-              <mat-option value="8">Unknown</mat-option>
-            </mat-select>
-          </mat-form-field>
-
-          <mat-form-field class="item" style="width: 400px">
             <mat-label>Tobacco use</mat-label>
             <mat-select formControlName="TobaccoUse" required>
               <mat-option value="1">Never smoker</mat-option>
@@ -223,7 +409,7 @@
       </div>
       <div class="section-body">
         <form [formGroup]="formGroupE" #formDirectiveE="ngForm">
-          <mat-form-field class="item" style="width: 250px" fxLayout="column">
+          <mat-form-field class="item" fxLayout="column">
             <mat-label>Previous Cardiac Interventions</mat-label>
             <mat-select formControlName="PrCVInt" required>
               <mat-option value="1">Yes</mat-option>
@@ -238,7 +424,7 @@
             </mat-error>
           </mat-form-field>
 
-          <mat-form-field class="item-1" style="width: 250px" fxLayout="column" *ngIf="isShowControl('PrCAB')">
+          <mat-form-field class="item-1" fxLayout="column" *ngIf="isShowControl('PrCAB')">
             <mat-label>Previous coronary artery bypass</mat-label>
             <mat-select formControlName="PrCAB" required>
               <mat-option value="1">Yes</mat-option>
@@ -246,7 +432,7 @@
             </mat-select>
           </mat-form-field>
 
-          <mat-form-field class="item-1" style="width: 250px" fxLayout="column" *ngIf="isShowControl('PrValve')">
+          <mat-form-field class="item-1" fxLayout="column" *ngIf="isShowControl('PrValve')">
             <mat-label>Previous valve procedure</mat-label>
             <mat-select formControlName="PrValve" required>
               <mat-option value="1">Yes</mat-option>
@@ -259,14 +445,16 @@
 
     <br />
     <br />
-    <button mat-raised-button class="item" color="primary" (click)="submit()">Submit</button>
-    <button mat-raised-button class="item" color="warn" (click)="clear()">Clear</button>
-    <button mat-raised-button class="item" color="warn" (click)="clearErrors()">Clear Errors</button>
-    <button mat-raised-button class="item" color="accent" (click)="downloadJSON()">Download json</button>
-    <button mat-raised-button class="item" color="accent" (click)="downloadCSV()">Download csv</button>
+    <button mat-raised-button class="button" color="primary" (click)="submit()">Submit</button>
+    <button mat-raised-button class="button" color="warn" (click)="clear()">Clear</button>
+    <button mat-raised-button class="button" color="warn" (click)="clearErrors()">Clear Errors</button>
+    <button mat-raised-button class="button" color="accent" (click)="downloadJSON()">Download json</button>
+    <button mat-raised-button class="button" color="accent" (click)="downloadCSV()">Download csv</button>
     <br />
 
     <div class="label-text">FormA value: {{ formGroupA.value | json }}</div>
+    <br />
+    <div class="label-text">FormB value: {{ formGroupB.value | json }}</div>
     <br />
     <div class="label-text">FormD value: {{ formGroupD.value | json }}</div>
     <br />

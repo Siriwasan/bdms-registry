@@ -1,11 +1,17 @@
 @import '../registry.component.scss';
 
 .item {
-  margin: 5px;
+  // margin: 5px;
+  width: 100%;
 }
 
 .item-1 {
-  margin: 5px 5px 5px 25px;
+  // margin: 5px;
+  width: 100%;
+}
+
+.button {
+  margin: 5px;
 }
 
 .radio-group {
@@ -14,4 +20,12 @@
 
 .dropdown {
   width: 300px;
+}
+
+.item-radio {
+  align-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  place-content: center space-between;
 }

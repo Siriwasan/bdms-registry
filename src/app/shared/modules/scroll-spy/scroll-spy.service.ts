@@ -103,7 +103,10 @@ export class ScrollSpyService implements OnDestroy {
                 subject.next(topElementId);
 
                 // scroll TOC to current section
-                document.getElementById(topElementId + 'TOC').scrollIntoView({ block: 'nearest' });
+                const tocTarget = document.getElementById(topElementId + 'TOC');
+                if (tocTarget !== null) {
+                  tocTarget.scrollIntoView({ block: 'nearest' });
+                }
 
                 // console.log({
                 //   topId: topElementId,

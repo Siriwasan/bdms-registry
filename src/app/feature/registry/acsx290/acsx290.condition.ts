@@ -1,5 +1,6 @@
 export const formConditions = {
   sectionA: [],
+  sectionB: [],
   sectionD: [
     { control: 'DiabCtrl', parentControl: 'Diabetes', conditionValues: ['1'] },
     { control: 'InfEndTy', parentControl: 'InfEndo', conditionValues: ['1'] },

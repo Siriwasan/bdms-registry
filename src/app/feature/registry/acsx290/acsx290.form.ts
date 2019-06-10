@@ -5,6 +5,20 @@ export const ACSx290form = {
     HN: [null, Validators.required],
     AN: [null, Validators.required]
   },
+  sectionB: {
+    PatLName: [null, Validators.required],
+    PatFName: [null, Validators.required],
+    PatMName: [null],
+    DOB: [null, Validators.required],
+    Age: [null, Validators.required],
+    Gender: [null, Validators.required],
+    SSN: [null, Validators.required],
+    PatAddr: [null],
+    PatCity: [null, Validators.required],
+    PatRegion: [null, Validators.required],
+    PatientCountry: [null, Validators.required],
+    PermAddr: [null, Validators.required]
+  },
   sectionD: {
     HeightCM: [null, [Validators.required, Validators.min(20), Validators.max(251)]],
     WeightKg: [null, [Validators.required, Validators.min(10), Validators.max(250)]],
