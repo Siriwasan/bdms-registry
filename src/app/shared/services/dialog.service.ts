@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { ConfirmDialogComponent } from '../components/confirm-dialog/confirm-dialog.component';
+import { ModalDialogComponent } from '../components/modal-dialog/modal-dialog.component';
 
 export interface DialogData {
   title: string;
@@ -14,8 +14,8 @@ export interface DialogData {
 export class DialogService {
   constructor(private dialog: MatDialog) {}
 
-  createConfirmDialog(dialogData: DialogData) {
-    return this.dialog.open(ConfirmDialogComponent, {
+  createModalDialog(dialogData: DialogData) {
+    return this.dialog.open(ModalDialogComponent, {
       disableClose: false,
       autoFocus: true,
       data: {

@@ -84,7 +84,7 @@
               <input type="text" matInput placeholder="Patient Last Name" formControlName="PatLName" required />
               <mat-hint>
                 <a>Please enter a valid input.</a>
-                <mat-icon style="cursor: help;" (click)="clickInfo()">info_outline</mat-icon>
+                <mat-icon style="cursor: help;" (click)="clickInfo('PatLName')">info_outline</mat-icon>
               </mat-hint>
               <mat-error *ngFor="let validation of getValidations('PatLName')">
                 <mat-error *ngIf="isInvalid('PatLName', validation.type)">
@@ -98,7 +98,7 @@
               <input type="text" matInput placeholder="Patient First Name" formControlName="PatFName" required />
               <mat-hint>
                 <a>Please enter a valid input.</a>
-                <mat-icon style="cursor: help;" (click)="clickInfo()">info_outline</mat-icon>
+                <mat-icon style="cursor: help;" (click)="clickInfo('PatFName')">info_outline</mat-icon>
               </mat-hint>
               <mat-error *ngFor="let validation of getValidations('PatFName')">
                 <mat-error *ngIf="isInvalid('PatFName', validation.type)">

@@ -231,7 +231,7 @@ export class BaseRegistryComponent extends BaseFormComponent implements OnInit, 
       return true;
     }
 
-    const dialogRef = this.dialogService.createConfirmDialog({
+    const dialogRef = this.dialogService.createModalDialog({
       title: 'Warning!!!',
       content: 'Save before leave',
       buttons: ['Cancel', 'Discard']

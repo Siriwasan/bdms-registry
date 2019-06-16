@@ -10,6 +10,7 @@ import { formConditions } from './acsx290.condition';
 import { validations } from './acsx290.validation';
 import { ACSx290Model } from './acsx290.model';
 import { Subscription } from 'rxjs';
+import * as marked from 'marked';
 
 @Component({
   selector: 'app-acsx290',
@@ -28,6 +29,8 @@ export class ACSx290Component extends BaseRegistryComponent implements OnInit, A
   @ViewChild('formDirectiveE', { static: true }) formDirectiveE: FormGroupDirective;
 
   gap = '20px';
+  private dataDict = require('raw-loader!./acsx290.dict.md');
+  private tokens = marked.lexer(this.dataDict);
 
   result: ACSx290Model;
   flatResult: object;
@@ -132,15 +135,60 @@ export class ACSx290Component extends BaseRegistryComponent implements OnInit, A
     super.clearErrors();
   }
 
-  clickInfo() {
-    this.openDialog();
-  }
-
-  openDialog() {
+  clickInfo(control: string) {
+    console.log(this.tokens);
     // const dialogConfig = new MatDialogConfig();
     // dialogConfig.disableClose = false;
     // dialogConfig.autoFocus = true;
     // this.dialog.open(RegistryInfoDialogComponent, dialogConfig);
+
+    const dialogRef = this.dialogService.createModalDialog({
+      title: null,
+      content: this.searhDataDict(control),
+      buttons: ['Close']
+    });
+  }
+
+  searhDataDict(key: string): string {
+    let index = 0;
+    const mdBlock: marked.Token[] = [];
+
+    // Seek index of target h1
+    while (index < this.tokens.length) {
+      const token = this.tokens[index];
+
+      if (token.type === 'heading') {
+        const heading = token as marked.Tokens.Heading;
+
+        if (heading.depth === 1 && heading.text === key) {
+          break;
+        }
+      }
+
+      index++;
+    }
+
+    // Get block of target h1
+    index++;
+    while (index < this.tokens.length) {
+      // const token = this.tokens[index];
+      mdBlock.push(this.tokens[index]);
+      index++;
+
+      if (this.tokens[index] === undefined) {
+        break;
+      }
+
+      if (this.tokens[index].type === 'heading' && (this.tokens[index] as marked.Tokens.Heading).depth === 1) {
+        break;
+      }
+    }
+    console.log(mdBlock);
+
+    let tokensList: marked.TokensList;
+    tokensList = Object.assign(mdBlock, { links: this.tokens.links });
+
+    return marked.parser(tokensList);
   }
 
   downloadCSV() {

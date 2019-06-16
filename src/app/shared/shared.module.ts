@@ -5,11 +5,11 @@ import { RouterModule } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { MaterialModule } from '../shared/material.module';
-import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 import { ScrollSpyModule } from './modules/scroll-spy/scroll-spy.module';
+import { ModalDialogComponent } from './components/modal-dialog/modal-dialog.component';
 
 @NgModule({
-  declarations: [ConfirmDialogComponent],
+  declarations: [ModalDialogComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -29,6 +29,6 @@ import { ScrollSpyModule } from './modules/scroll-spy/scroll-spy.module';
     ScrollSpyModule
   ],
   providers: [],
-  entryComponents: [ConfirmDialogComponent]
+  entryComponents: [ModalDialogComponent]
 })
 export class SharedModule {}
