@@ -1,6 +1,15 @@
-import { HostListener, isDevMode, ChangeDetectorRef, AfterViewInit, ElementRef, OnInit, OnDestroy } from '@angular/core';
+import {
+  HostListener,
+  isDevMode,
+  ChangeDetectorRef,
+  AfterViewInit,
+  ElementRef,
+  OnInit,
+  OnDestroy
+} from '@angular/core';
 import { FormGroup, Validators, ValidationErrors, FormGroupDirective } from '@angular/forms';
 import { map, first } from 'rxjs/operators';
+import * as marked from 'marked';
 
 import { BaseFormComponent } from './base-form.component';
 import { DialogService } from '../../services/dialog.service';
@@ -18,6 +27,9 @@ export class BaseRegistryComponent extends BaseFormComponent implements OnInit, 
   private formConditions: any;
   private validations: any;
   private sectionMembers: SectionMember[];
+
+  private dataDict: string;
+  private tokens: marked.TokensList;
 
   constructor(
     protected dialogService: DialogService,
@@ -222,6 +234,7 @@ export class BaseRegistryComponent extends BaseFormComponent implements OnInit, 
     this.getSectionMembers().forEach(sectionMember => sectionMember[2].resetForm(sectionMember[1].value));
   }
 
+  //#region Warning before leaving
   public canDeactivate() {
     // ? Prototype for leaving form after changed
     // ? return confirm('Do you really want to leave?');
@@ -257,4 +270,74 @@ export class BaseRegistryComponent extends BaseFormComponent implements OnInit, 
       event.returnValue = false;
     }
   }
+  //#endregion Warning before leaving
+
+  //#region Data Dictionary
+  protected setDataDict(dataDict: string) {
+    this.dataDict = dataDict;
+    this.tokens = marked.lexer(this.dataDict);
+  }
+
+  protected hasInfo(control: string) {
+    return (
+      this.tokens.findIndex(token => {
+        if (token.type === 'heading') {
+          const heading = token as marked.Tokens.Heading;
+          if (heading.depth === 1 && heading.text === control) {
+            return true;
+          }
+        }
+        return false;
+      }) > -1
+    );
+  }
+
+  protected openInfo(control: string) {
+    this.dialogService.createModalDialog({
+      title: null,
+      content: this.searhDataDict(control),
+      buttons: ['Close']
+    });
+  }
+
+  private searhDataDict(key: string): string {
+    let index = 0;
+    const mdBlock: marked.Token[] = [];
+
+    // Seek index of target h1
+    while (index < this.tokens.length) {
+      const token = this.tokens[index];
+
+      if (token.type === 'heading') {
+        const heading = token as marked.Tokens.Heading;
+
+        if (heading.depth === 1 && heading.text === key) {
+          break;
+        }
+      }
+
+      index++;
+    }
+
+    // Get block of target h1
+    index++;
+    while (index < this.tokens.length) {
+      // const token = this.tokens[index];
+      mdBlock.push(this.tokens[index]);
+      index++;
+
+      if (this.tokens[index] === undefined) {
+        break;
+      }
+
+      if (this.tokens[index].type === 'heading' && (this.tokens[index] as marked.Tokens.Heading).depth === 1) {
+        break;
+      }
+    }
+
+    let tokensList: marked.TokensList;
+    tokensList = Object.assign(mdBlock, { links: this.tokens.links });
+    return marked.parser(tokensList);
+  }
+  //#endregion Data Dictionary
 }
