@@ -32,7 +32,10 @@
       <div class="section-body">
         <form [formGroup]="formGroupA" #formDirectiveA="ngForm">
           <div fxLayout="column" fxLayout.gt-xs="row" [fxLayoutGap.gt-xs]="gap">
-            <mat-form-field class="item" fxFlex="25">
+            <reg-input [formGroup]="formGroupA" controlName="HN" placeholder="HN" fxFlex="25"></reg-input>
+            <reg-input [formGroup]="formGroupA" controlName="AN" placeholder="AN" fxFlex="25"></reg-input>
+
+            <!-- <mat-form-field class="item" fxFlex="25">
               <input type="number" matInput placeholder="HN" formControlName="HN" required />
               <mat-hint>
                 <a>Please enter a valid input.</a>
@@ -58,7 +61,7 @@
                   <mat-icon style="cursor: help;" (click)="openInfo('AN')" *ngIf="hasInfo('AN')">info_outline</mat-icon>
                 </mat-error>
               </mat-error>
-            </mat-form-field>
+            </mat-form-field> -->
 
             <!-- <div class="item-radio" style="color: rgba(0,0,0,.54);">
               <span>Sex:</span>
@@ -84,12 +87,16 @@
               <input type="text" matInput placeholder="Patient Last Name" formControlName="PatLName" required />
               <mat-hint>
                 <a>Please enter a valid input.</a>
-                <mat-icon style="cursor: help;" (click)="openInfo('PatLName')" *ngIf="hasInfo('PatLName')">info_outline</mat-icon>
+                <mat-icon style="cursor: help;" (click)="openInfo('PatLName')" *ngIf="hasInfo('PatLName')"
+                  >info_outline</mat-icon
+                >
               </mat-hint>
               <mat-error *ngFor="let validation of getValidations('PatLName')">
                 <mat-error *ngIf="isInvalid('PatLName', validation.type)">
                   <a>{{ validation.message }}</a>
-                  <mat-icon style="cursor: help;" (click)="openInfo('PatLName')" *ngIf="hasInfo('PatLName')">info_outline</mat-icon>
+                  <mat-icon style="cursor: help;" (click)="openInfo('PatLName')" *ngIf="hasInfo('PatLName')"
+                    >info_outline</mat-icon
+                  >
                 </mat-error>
               </mat-error>
             </mat-form-field>
@@ -98,12 +105,16 @@
               <input type="text" matInput placeholder="Patient First Name" formControlName="PatFName" required />
               <mat-hint>
                 <a>Please enter a valid input.</a>
-                <mat-icon style="cursor: help;" (click)="openInfo('PatFName')" *ngIf="hasInfo('PatFName')">info_outline</mat-icon>
+                <mat-icon style="cursor: help;" (click)="openInfo('PatFName')" *ngIf="hasInfo('PatFName')"
+                  >info_outline</mat-icon
+                >
               </mat-hint>
               <mat-error *ngFor="let validation of getValidations('PatFName')">
                 <mat-error *ngIf="isInvalid('PatFName', validation.type)">
                   <a>{{ validation.message }}</a>
-                  <mat-icon style="cursor: help;" (click)="openInfo('PatFName')" *ngIf="hasInfo('PatFName')">info_outline</mat-icon>
+                  <mat-icon style="cursor: help;" (click)="openInfo('PatFName')" *ngIf="hasInfo('PatFName')"
+                    >info_outline</mat-icon
+                  >
                 </mat-error>
               </mat-error>
             </mat-form-field>
@@ -112,12 +123,16 @@
               <input type="text" matInput placeholder="Patient Middle Name" formControlName="PatMName" />
               <mat-hint>
                 <a>Please enter a valid input.</a>
-                <mat-icon style="cursor: help;" (click)="openInfo('PatMName')" *ngIf="hasInfo('PatMName')">info_outline</mat-icon>
+                <mat-icon style="cursor: help;" (click)="openInfo('PatMName')" *ngIf="hasInfo('PatMName')"
+                  >info_outline</mat-icon
+                >
               </mat-hint>
               <mat-error *ngFor="let validation of getValidations('PatMName')">
                 <mat-error *ngIf="isInvalid('PatMName', validation.type)">
                   <a>{{ validation.message }}</a>
-                  <mat-icon style="cursor: help;" (click)="openInfo('PatMName')" *ngIf="hasInfo('PatMName')">info_outline</mat-icon>
+                  <mat-icon style="cursor: help;" (click)="openInfo('PatMName')" *ngIf="hasInfo('PatMName')"
+                    >info_outline</mat-icon
+                  >
                 </mat-error>
               </mat-error>
             </mat-form-field>
@@ -133,7 +148,9 @@
               <mat-error *ngFor="let validation of getValidations('DOB')">
                 <mat-error *ngIf="isInvalid('DOB', validation.type)">
                   <a>{{ validation.message }}</a>
-                  <mat-icon style="cursor: help;" (click)="openInfo('DOB')" *ngIf="hasInfo('DOB')">info_outline</mat-icon>
+                  <mat-icon style="cursor: help;" (click)="openInfo('DOB')" *ngIf="hasInfo('DOB')"
+                    >info_outline</mat-icon
+                  >
                 </mat-error>
               </mat-error>
             </mat-form-field>

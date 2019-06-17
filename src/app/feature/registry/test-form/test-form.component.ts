@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef, ElementRef } from '@angular/core';
 
-import { BaseRegistryComponent } from '../../../shared/components/base-registry/base-registry.component';
+import { BaseRegistryComponent } from '../../../shared/components/registry/base-registry.component';
 import { DialogService } from '../../../shared/services/dialog.service';
 import { ScrollSpyService } from '../../../shared/modules/scroll-spy/scroll-spy.service';
 

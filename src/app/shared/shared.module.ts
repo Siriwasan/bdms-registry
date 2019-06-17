@@ -7,9 +7,10 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MaterialModule } from '../shared/material.module';
 import { ScrollSpyModule } from './modules/scroll-spy/scroll-spy.module';
 import { ModalDialogComponent } from './components/modal-dialog/modal-dialog.component';
+import { RegistryInputComponent } from './components/registry/registry-input.component';
 
 @NgModule({
-  declarations: [ModalDialogComponent],
+  declarations: [ModalDialogComponent, RegistryInputComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -26,7 +27,8 @@ import { ModalDialogComponent } from './components/modal-dialog/modal-dialog.com
     ReactiveFormsModule,
     MaterialModule,
     FlexLayoutModule,
-    ScrollSpyModule
+    ScrollSpyModule,
+    RegistryInputComponent
   ],
   providers: [],
   entryComponents: [ModalDialogComponent]

@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectorRef, ElementRef, ViewChild, AfterViewI
 import { FormGroup, FormGroupDirective, FormBuilder } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
-import { BaseRegistryComponent } from '../../../shared/components/base-registry/base-registry.component';
+import { BaseRegistryComponent } from '../../../shared/components/registry/base-registry.component';
 import { DialogService } from '../../../shared/services/dialog.service';
 import { ScrollSpyService } from '../../../shared/modules/scroll-spy/scroll-spy.service';
 
