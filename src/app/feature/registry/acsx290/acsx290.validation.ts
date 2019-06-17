@@ -1,4 +1,12 @@
 export const validations = {
+  sectionA: {
+    HN: [
+      { type: 'required', message: 'HN is required' },
+    ],
+    AN: [
+      { type: 'required', message: 'AN is needed' }
+    ]
+  },
   sectionD: {
     HeightCM: [
       { type: 'required', message: 'Height is required' },

@@ -10,6 +10,7 @@ import { ACSx290form } from './acsx290.form';
 import { formConditions } from './acsx290.condition';
 import { validations } from './acsx290.validation';
 import { ACSx290Model } from './acsx290.model';
+import { RegistryService } from '../registry.service';
 
 @Component({
   selector: 'app-acsx290',
@@ -38,7 +39,8 @@ export class ACSx290Component extends BaseRegistryComponent implements OnInit, A
     protected changeDetector: ChangeDetectorRef,
     protected scrollSpy: ScrollSpyService,
     protected hostElement: ElementRef,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private registrySerice: RegistryService
   ) {
     super(dialogService, changeDetector, scrollSpy, hostElement);
   }
@@ -78,6 +80,16 @@ export class ACSx290Component extends BaseRegistryComponent implements OnInit, A
     ]);
 
     this.initializeForm(formConditions, validations);
+
+    this.registrySerice.setDataDict(require('raw-loader!./acsx290.dict.md'));
+    this.registrySerice.setValidations(validations);
+    this.registrySerice.setFormConditions(formConditions);
+    this.registrySerice.setSectionMembers([
+      ['A', this.formGroupA, this.formDirectiveA, formConditions.sectionA],
+      ['B', this.formGroupB, this.formDirectiveB, formConditions.sectionB],
+      ['D', this.formGroupD, this.formDirectiveD, formConditions.sectionD],
+      ['E', this.formGroupE, this.formDirectiveE, formConditions.sectionE]
+    ]);
   }
 
   submit() {

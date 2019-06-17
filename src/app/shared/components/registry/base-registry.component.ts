@@ -24,8 +24,8 @@ import {
 } from './base-registry.model';
 
 export class BaseRegistryComponent extends BaseFormComponent implements OnInit, AfterViewInit, OnDestroy {
-  private formConditions: any;
-  private validations: any;
+  private formConditions: FormCondition;
+  private validations: FormValidation;
   private sectionMembers: SectionMember[];
 
   private dataDict: string;

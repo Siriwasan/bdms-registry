@@ -32,8 +32,8 @@
       <div class="section-body">
         <form [formGroup]="formGroupA" #formDirectiveA="ngForm">
           <div fxLayout="column" fxLayout.gt-xs="row" [fxLayoutGap.gt-xs]="gap">
-            <reg-input [formGroup]="formGroupA" controlName="HN" placeholder="HN" fxFlex="25"></reg-input>
-            <reg-input [formGroup]="formGroupA" controlName="AN" placeholder="AN" fxFlex="25"></reg-input>
+            <reg-input type="number" controlName="HN" placeholder="HN" [formGroup]="formGroupA" fxFlex="25"></reg-input>
+            <reg-input type="text" controlName="AN" placeholder="AN" [formGroup]="formGroupA" fxFlex="25"></reg-input>
 
             <!-- <mat-form-field class="item" fxFlex="25">
               <input type="number" matInput placeholder="HN" formControlName="HN" required />
@@ -83,7 +83,8 @@
       <div class="section-body">
         <form [formGroup]="formGroupB" #formDirectiveB="ngForm">
           <div fxLayout="column" fxLayout.gt-xs="row" [fxLayoutGap.gt-xs]="gap">
-            <mat-form-field class="item" fxFlex="33">
+            <reg-input type="text" controlName="PatLName" placeholder="Patient Last Name" [formGroup]="formGroupB" fxFlex="33"></reg-input>
+            <!-- <mat-form-field class="item" fxFlex="33">
               <input type="text" matInput placeholder="Patient Last Name" formControlName="PatLName" required />
               <mat-hint>
                 <a>Please enter a valid input.</a>
@@ -99,7 +100,7 @@
                   >
                 </mat-error>
               </mat-error>
-            </mat-form-field>
+            </mat-form-field> -->
 
             <mat-form-field class="item" fxFlex="33">
               <input type="text" matInput placeholder="Patient First Name" formControlName="PatFName" required />
