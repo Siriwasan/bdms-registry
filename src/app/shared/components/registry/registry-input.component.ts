@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 import { RegistryService } from '../../../feature/registry/registry.service';
-import { ValidationMessage } from './registry-base.model';
+import { RegistryControlComponent } from './registry-control.component';
 
 @Component({
   // tslint:disable-next-line: component-selector
@@ -26,17 +26,13 @@ import { ValidationMessage } from './registry-base.model';
     </mat-form-field>
   `
 })
-export class RegistryInputComponent {
+export class RegistryInputComponent extends RegistryControlComponent {
   @Input() formGroup: string;
   @Input() controlName: string;
   @Input() type: string;
   @Input() placeholder: string;
 
-  constructor(private registryService: RegistryService) {}
-
-  public hasInfo = (control: string) => this.registryService.hasInfo(control);
-  public openInfo = (control: string) => this.registryService.openInfo(control);
-  public getValidations = (control: string): ValidationMessage[] => this.registryService.getValidations(control);
-  public isInvalid = (control: string, validationType: string): boolean =>
-    this.registryService.isInvalid(control, validationType);
+  constructor(protected registryService: RegistryService) {
+    super(registryService);
+  }
 }

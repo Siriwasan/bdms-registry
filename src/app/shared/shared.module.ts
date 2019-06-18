@@ -8,6 +8,7 @@ import { MaterialModule } from '../shared/material.module';
 import { ScrollSpyModule } from './modules/scroll-spy/scroll-spy.module';
 import { ModalDialogComponent } from './components/modal-dialog/modal-dialog.component';
 import { RegistryInputComponent } from './components/registry/registry-input.component';
+import { RegistryControlComponent } from './components/registry/registry-control.component';
 
 @NgModule({
   declarations: [ModalDialogComponent, RegistryInputComponent],
