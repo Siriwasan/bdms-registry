@@ -1,10 +1,13 @@
 export const validations = {
   sectionA: {
-    HN: [
-      { type: 'required', message: 'HN is required' },
-    ],
-    AN: [
-      { type: 'required', message: 'AN is needed' }
+    HN: [{ type: 'required', message: 'HN is required' }],
+    AN: [{ type: 'required', message: 'AN is needed' }]
+  },
+  sectionB: {
+    PatLName: [
+      { type: 'required', message: 'PatLName is required' },
+      { type: 'minlength', message: 'PatLName must be at least 5' },
+      { type: 'maxlength', message: 'PatLName cannot be more than 10' }
     ]
   },
   sectionD: {

@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy, HostListener } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { fromEvent, Subject, Observable, Subscription } from 'rxjs';
 import { throttleTime } from 'rxjs/operators';
 import { animationFrame } from 'rxjs/internal/scheduler/animationFrame';

@@ -6,7 +6,7 @@ export const ACSx290form = {
     AN: [null, Validators.required]
   },
   sectionB: {
-    PatLName: [null, Validators.required],
+    PatLName: [null, [Validators.required, Validators.minLength(5), Validators.maxLength(10)]],
     PatFName: [null, Validators.required],
     PatMName: [null],
     DOB: [null, Validators.required],

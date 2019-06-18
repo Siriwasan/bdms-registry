@@ -17,7 +17,7 @@ export class TestFormComponent extends BaseRegistryComponent implements OnInit {
     protected scrollSpy: ScrollSpyService,
     protected hostElement: ElementRef
   ) {
-    super(dialogService, changeDetector, scrollSpy, hostElement);
+    super(dialogService, changeDetector, scrollSpy, hostElement, null);
   }
 
   // ngOnInit() {

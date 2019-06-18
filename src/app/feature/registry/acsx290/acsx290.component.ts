@@ -40,9 +40,9 @@ export class ACSx290Component extends BaseRegistryComponent implements OnInit, A
     protected scrollSpy: ScrollSpyService,
     protected hostElement: ElementRef,
     private formBuilder: FormBuilder,
-    private registrySerice: RegistryService
+    public registrySerice: RegistryService
   ) {
-    super(dialogService, changeDetector, scrollSpy, hostElement);
+    super(dialogService, changeDetector, scrollSpy, hostElement, registrySerice);
   }
 
   ngOnInit() {
@@ -50,7 +50,7 @@ export class ACSx290Component extends BaseRegistryComponent implements OnInit, A
 
     // this.store.dispatch(new UI.ChangeTitle('STS 2.9'));
     this.createForm();
-    this.setDataDict(require('raw-loader!./acsx290.dict.md'));
+    this.registrySerice.setDataDict(require('raw-loader!./acsx290.dict.md'));
   }
 
   ngAfterViewInit() {
@@ -63,7 +63,9 @@ export class ACSx290Component extends BaseRegistryComponent implements OnInit, A
   }
 
   ngOnDestroy() {
+    super.ngOnDestroy();
     this.subscriptions.forEach(subs => subs.unsubscribe());
+    console.log('destroy');
   }
 
   private createForm() {
@@ -72,14 +74,14 @@ export class ACSx290Component extends BaseRegistryComponent implements OnInit, A
     this.formGroupD = this.formBuilder.group(ACSx290form.sectionD);
     this.formGroupE = this.formBuilder.group(ACSx290form.sectionE);
 
-    this.setSectionMembers([
+    this.registrySerice.setSectionMembers([
       ['A', this.formGroupA, this.formDirectiveA, formConditions.sectionA],
       ['B', this.formGroupB, this.formDirectiveB, formConditions.sectionB],
       ['D', this.formGroupD, this.formDirectiveD, formConditions.sectionD],
       ['E', this.formGroupE, this.formDirectiveE, formConditions.sectionE]
     ]);
 
-    this.initializeForm(formConditions, validations);
+    this.registrySerice.initializeForm(formConditions, validations);
 
     this.registrySerice.setDataDict(require('raw-loader!./acsx290.dict.md'));
     this.registrySerice.setValidations(validations);
@@ -94,7 +96,7 @@ export class ACSx290Component extends BaseRegistryComponent implements OnInit, A
 
   submit() {
     console.log('submit');
-    this.submitAllSections();
+    this.registrySerice.submitAllSections();
     this.archiveRegistry();
 
     // this.sts29Service.saveForm(this.result);
@@ -138,19 +140,19 @@ export class ACSx290Component extends BaseRegistryComponent implements OnInit, A
   }
 
   clear() {
-    super.clear();
+    this.registrySerice.clear();
   }
 
   clearErrors() {
-    super.clearErrors();
+    this.registrySerice.clearErrors();
   }
 
   openInfo(control: string) {
-    super.openInfo(control);
+    this.registrySerice.openInfo(control);
   }
 
   hasInfo(control: string): boolean {
-    return super.hasInfo(control);
+    return this.registrySerice.hasInfo(control);
   }
 
   downloadCSV() {
