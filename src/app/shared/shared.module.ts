@@ -8,10 +8,10 @@ import { MaterialModule } from '../shared/material.module';
 import { ScrollSpyModule } from './modules/scroll-spy/scroll-spy.module';
 import { ModalDialogComponent } from './components/modal-dialog/modal-dialog.component';
 import { RegistryInputComponent } from './components/registry/registry-input.component';
-import { RegistryControlComponent } from './components/registry/registry-control.component';
+import { RegistrySelectComponent } from './components/registry/registry-select.component';
 
 @NgModule({
-  declarations: [ModalDialogComponent, RegistryInputComponent],
+  declarations: [ModalDialogComponent, RegistryInputComponent, RegistrySelectComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -29,7 +29,8 @@ import { RegistryControlComponent } from './components/registry/registry-control
     MaterialModule,
     FlexLayoutModule,
     ScrollSpyModule,
-    RegistryInputComponent
+    RegistryInputComponent,
+    RegistrySelectComponent
   ],
   providers: [],
   entryComponents: [ModalDialogComponent]

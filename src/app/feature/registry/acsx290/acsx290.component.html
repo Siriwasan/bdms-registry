@@ -32,8 +32,10 @@
       <div class="section-body">
         <form [formGroup]="formGroupA" #formDirectiveA="ngForm">
           <div fxLayout="column" fxLayout.gt-xs="row" [fxLayoutGap.gt-xs]="gap">
-            <reg-input type="number" controlName="HN" placeholder="HN" [formGroup]="formGroupA" fxFlex="25"></reg-input>
-            <reg-input type="text" controlName="AN" placeholder="AN" [formGroup]="formGroupA" fxFlex="25"></reg-input>
+            <reg-input controlName="HN" placeholder="HN" [formGroup]="formGroupA"
+              type="number" fxFlex="50"></reg-input>
+            <reg-input controlName="AN" placeholder="AN" [formGroup]="formGroupA"
+              type="text" fxFlex="50"></reg-input>
 
             <!-- <div class="item-radio" style="color: rgba(0,0,0,.54);">
               <span>Sex:</span>
@@ -55,47 +57,39 @@
       <div class="section-body">
         <form [formGroup]="formGroupB" #formDirectiveB="ngForm">
           <div fxLayout="column" fxLayout.gt-xs="row" [fxLayoutGap.gt-xs]="gap">
-            <reg-input type="text" controlName="PatLName" placeholder="Patient Last Name" [formGroup]="formGroupB" fxFlex="33"></reg-input>
-            <reg-input type="text" controlName="PatFName" placeholder="Patient First Name" [formGroup]="formGroupB" fxFlex="33"></reg-input>
-            <reg-input type="text" controlName="PatMName" placeholder="Patient Middle Name" require="false" [formGroup]="formGroupB" fxFlex></reg-input>
+            <reg-input controlName="PatLName" placeholder="Patient Last Name" [formGroup]="formGroupB"
+              type="text" fxFlex="33"></reg-input>
+            <reg-input controlName="PatFName" placeholder="Patient First Name" [formGroup]="formGroupB"
+              type="text" fxFlex="33"></reg-input>
+            <reg-input controlName="PatMName" placeholder="Patient Middle Name" [formGroup]="formGroupB"
+              type="text" require="false" fxFlex></reg-input>
           </div>
 
           <div fxLayout="column" fxLayout.gt-xs="row" [fxLayoutGap.gt-xs]="gap">
-            <reg-input type="text" controlName="DOB" placeholder="Date of Birth" [formGroup]="formGroupB" fxFlex="33"></reg-input>
-            <reg-input type="text" controlName="Age" placeholder="Patient Age" [formGroup]="formGroupB" fxFlex="33"></reg-input>
-
-            <mat-form-field class="item" fxFlex>
-              <mat-label>Sex</mat-label>
-              <mat-hint>
-                <mat-icon style="cursor: help;" (click)="openInfo('Gender')">info_outline</mat-icon>
-              </mat-hint>
-              <mat-select formControlName="Gender" required>
-                <mat-option value="Male">Male</mat-option>
-                <mat-option value="Female">Female</mat-option>
-              </mat-select>
-            </mat-form-field>
+            <reg-input controlName="DOB" placeholder="Date of Birth" [formGroup]="formGroupB"
+              type="text" fxFlex="33"></reg-input>
+            <reg-input controlName="Age" placeholder="Patient Age" [formGroup]="formGroupB"
+              type="text" fxFlex="33"></reg-input>
+            <reg-select controlName="Gender" placeholder="Sex" [formGroup]="formGroupB"
+              [choices]="['Male', 'Female']" fxFlex></reg-select>
           </div>
 
-          <reg-input type="text" controlName="SSN" placeholder="National ID Number" [formGroup]="formGroupB"></reg-input>
-          <reg-input type="text" controlName="PatAddr" placeholder="Street Address" require="false" [formGroup]="formGroupB"></reg-input>
+          <reg-input controlName="SSN" placeholder="National ID Number" [formGroup]="formGroupB"
+            type="text"></reg-input>
+          <reg-input controlName="PatAddr" placeholder="Street Address" require="false" [formGroup]="formGroupB"
+            type="text"></reg-input>
 
           <div fxLayout="column" fxLayout.gt-xs="row" [fxLayoutGap.gt-xs]="gap">
-            <reg-input type="text" controlName="PatCity" placeholder="City" [formGroup]="formGroupB" fxFlex="33"></reg-input>
-            <reg-input type="text" controlName="PatRegion" placeholder="Region" [formGroup]="formGroupB" fxFlex="33"></reg-input>
-            <reg-input type="text" controlName="PatientCountry" placeholder="Country" [formGroup]="formGroupB" fxFlex></reg-input>
+            <reg-input controlName="PatCity" placeholder="City" [formGroup]="formGroupB"
+              type="text" fxFlex="33"></reg-input>
+            <reg-input controlName="PatRegion" placeholder="Region" [formGroup]="formGroupB"
+              type="text" fxFlex="33"></reg-input>
+            <reg-input controlName="PatientCountry" placeholder="Country" [formGroup]="formGroupB"
+              type="text" fxFlex></reg-input>
           </div>
 
-          <mat-form-field class="item">
-            <mat-label>Is This Patient’s Permanent Address</mat-label>
-            <mat-hint>
-              <mat-icon style="cursor: help;" (click)="openInfo('PermAddr')">info_outline</mat-icon>
-            </mat-hint>
-            <mat-select formControlName="PermAddr" required>
-              <mat-option value="Yes">Yes</mat-option>
-              <mat-option value="No">No</mat-option>
-              <mat-option value="Unknown">Unknown</mat-option>
-            </mat-select>
-          </mat-form-field>
+          <reg-select controlName="PermAddr" placeholder="Is This Patient’s Permanent Address" [formGroup]="formGroupB"
+            [choices]="['Yes', 'No', 'Unknown']"></reg-select>
         </form>
       </div>
     </section>
@@ -108,120 +102,45 @@
       <div class="section-body" fxLayout="column">
         <form [formGroup]="formGroupD" #formDirectiveD="ngForm">
           <div fxLayout="column" fxLayout.gt-xs="row" [fxLayoutGap.gt-xs]="gap">
-            <reg-input type="text" controlName="HeightCM" placeholder="Height (cm)" [formGroup]="formGroupD" fxFlex="25"></reg-input>
-            <reg-input type="text" controlName="WeightKg" placeholder="Weight (kg)" [formGroup]="formGroupD" fxFlex="25"></reg-input>
-
-            <mat-form-field class="item" fxFlex>
-              <mat-label>Family History of Premature CAD</mat-label>
-              <mat-hint>
-                <mat-icon style="cursor: help;" (click)="openInfo('FHCAD')">info_outline</mat-icon>
-              </mat-hint>
-              <mat-select formControlName="FHCAD" required>
-                <mat-option value="1">Yes</mat-option>
-                <mat-option value="2">No</mat-option>
-                <mat-option value="3">Unknown</mat-option>
-              </mat-select>
-            </mat-form-field>
+            <reg-input controlName="HeightCM" placeholder="Height (cm)" [formGroup]="formGroupD"
+              type="text" fxFlex="25"></reg-input>
+            <reg-input controlName="WeightKg" placeholder="Weight (kg)" [formGroup]="formGroupD"
+              type="text" fxFlex="25"></reg-input>
+            <reg-select controlName="FHCAD" placeholder="Family History of Premature CAD" [formGroup]="formGroupD"
+              [choices]="['Yes', 'No', 'Unknown']" fxFlex></reg-select>
           </div>
 
           <div fxLayout="column" fxLayout.gt-xs="row" [fxLayoutGap.gt-xs]="gap">
-            <mat-form-field class="item" fxFlex>
-              <mat-label>Diabetes</mat-label>
-              <mat-select formControlName="Diabetes" required>
-                <mat-option value="1">Yes</mat-option>
-                <mat-option value="2">No</mat-option>
-                <mat-option value="3">Unknown</mat-option>
-              </mat-select>
-            </mat-form-field>
-
-            <mat-form-field class="item-1" *ngIf="isShowControl('DiabCtrl')" fxFlex="25">
-              <mat-label>Diabetes-Control</mat-label>
-              <mat-select formControlName="DiabCtrl" required>
-                <mat-option value="1">None</mat-option>
-                <mat-option value="2">Diet only</mat-option>
-                <mat-option value="3">Oral</mat-option>
-                <mat-option value="4">Insulin</mat-option>
-                <mat-option value="5">Other SubQ</mat-option>
-                <mat-option value="6">Other</mat-option>
-                <mat-option value="7">Unknown</mat-option>
-              </mat-select>
-            </mat-form-field>
-
-            <mat-form-field class="item" fxFlex="50">
-              <mat-label>Dyslipidemia</mat-label>
-              <mat-select formControlName="Dyslip" required>
-                <mat-option value="1">Yes</mat-option>
-                <mat-option value="2">No</mat-option>
-                <mat-option value="3">Unknown</mat-option>
-              </mat-select>
-            </mat-form-field>
+            <reg-select controlName="Diabetes" placeholder="Diabetes" [formGroup]="formGroupD"
+              [choices]="['Yes', 'No', 'Unknown']" fxFlex></reg-select>
+            <reg-select controlName="DiabCtrl" placeholder="Diabetes-Control" [formGroup]="formGroupD"
+              [choices]="['None', 'Diet only', 'Oral', 'Insulin', 'Other SubQ', 'Other', 'Unknown']"
+              *ngIf="isShowControl('DiabCtrl')" fxFlex="25"></reg-select>
+            <reg-select controlName="Dyslip" placeholder="Dyslipidemia" [formGroup]="formGroupD"
+              [choices]="['Yes', 'No', 'Unknown']" fxFlex="50"></reg-select>
           </div>
 
-          <mat-form-field class="item">
-            <mat-label>Dialysis</mat-label>
-            <mat-select formControlName="Dialysis" required>
-              <mat-option value="1">Yes</mat-option>
-              <mat-option value="2">No</mat-option>
-              <mat-option value="3">Unknown</mat-option>
-            </mat-select>
-          </mat-form-field>
-
-          <mat-form-field class="item">
-            <mat-label>Hypertension</mat-label>
-            <mat-select formControlName="Hypertn" required>
-              <mat-option value="1">Yes</mat-option>
-              <mat-option value="2">No</mat-option>
-              <mat-option value="3">Unknown</mat-option>
-            </mat-select>
-          </mat-form-field>
+          <reg-select controlName="Dialysis" placeholder="Dialysis" [formGroup]="formGroupD"
+            [choices]="['Yes', 'No', 'Unknown']"></reg-select>
+          <reg-select controlName="Hypertn" placeholder="Hypertension" [formGroup]="formGroupD"
+            [choices]="['Yes', 'No', 'Unknown']"></reg-select>
 
           <div fxLayout="column" fxLayout.gt-xs="row" [fxLayoutGap.gt-xs]="gap">
-            <mat-form-field class="item">
-              <mat-label>Endocarditis</mat-label>
-              <mat-select formControlName="InfEndo" required>
-                <mat-option value="1">Yes</mat-option>
-                <mat-option value="2">No</mat-option>
-              </mat-select>
-            </mat-form-field>
-
-            <mat-form-field class="item-1" *ngIf="isShowControl('InfEndTy')">
-              <mat-label>Endocarditis Type</mat-label>
-              <mat-select formControlName="InfEndTy" required>
-                <mat-option value="1">Treated</mat-option>
-                <mat-option value="2">Active</mat-option>
-              </mat-select>
-            </mat-form-field>
-
-            <mat-form-field class="item-1" *ngIf="isShowControl('InfEndCult')">
-              <mat-label>Endocarditis Culture</mat-label>
-              <mat-select formControlName="InfEndCult" required>
-                <mat-option value="1">Culture negative</mat-option>
-                <mat-option value="3">Strep species</mat-option>
-                <mat-option value="11">MRSA</mat-option>
-                <mat-option value="12">MSSA</mat-option>
-                <mat-option value="4">Coagulase negative staph</mat-option>
-                <mat-option value="5">Enterococcus species</mat-option>
-                <mat-option value="9">Gram negative species</mat-option>
-                <mat-option value="10">Polymicrobial</mat-option>
-                <mat-option value="13">Mycobacterium (chimera)</mat-option>
-                <mat-option value="6">Fungal</mat-option>
-                <mat-option value="7">Other</mat-option>
-                <mat-option value="8">Unknown</mat-option>
-              </mat-select>
-            </mat-form-field>
+            <reg-select controlName="InfEndo" placeholder="Endocarditis" [formGroup]="formGroupD"
+              [choices]="['Yes', 'No']" fxFlex></reg-select>
+            <reg-select controlName="InfEndTy" placeholder="Endocarditis Type" [formGroup]="formGroupD"
+              [choices]="['Treated', 'Active']"
+              *ngIf="isShowControl('InfEndTy')" fxFlex></reg-select>
+            <reg-select controlName="InfEndCult" placeholder="Endocarditis Culture" [formGroup]="formGroupD"
+              [choices]="['Culture negative', 'Strep species', 'MRSA', 'MSSA', 'Coagulase negative staph',
+                          'Enterococcus species', 'Gram negative species', 'Polymicrobial',
+                          'Mycobacterium (chimera)', 'Fungal', 'Other', 'Unknown']"
+              *ngIf="isShowControl('InfEndCult')" fxFlex></reg-select>
           </div>
 
-          <mat-form-field class="item">
-            <mat-label>Tobacco use</mat-label>
-            <mat-select formControlName="TobaccoUse" required>
-              <mat-option value="1">Never smoker</mat-option>
-              <mat-option value="2">Current every day smoker</mat-option>
-              <mat-option value="3">Current some day smoker</mat-option>
-              <mat-option value="4">Smoker, current status (frequency) unknown</mat-option>
-              <mat-option value="5">Former smoker</mat-option>
-              <mat-option value="6">Smoking status unknown</mat-option>
-            </mat-select>
-          </mat-form-field>
+          <reg-select controlName="TobaccoUse" placeholder="Tobacco use" [formGroup]="formGroupD"
+            [choices]="['Never smoker', 'Current every day smoker', 'Current some day smoker',
+                        'Smoker, current status (frequency) unknown', 'Former smoker', 'Smoking status unknown']"></reg-select>
         </form>
       </div>
     </section>
@@ -233,36 +152,14 @@
       </div>
       <div class="section-body">
         <form [formGroup]="formGroupE" #formDirectiveE="ngForm">
-          <mat-form-field class="item" fxLayout="column">
-            <mat-label>Previous Cardiac Interventions</mat-label>
-            <mat-select formControlName="PrCVInt" required>
-              <mat-option value="1">Yes</mat-option>
-              <mat-option value="2">No</mat-option>
-              <mat-option value="3">Unknown</mat-option>
-            </mat-select>
-            <mat-error *ngFor="let validation of getValidations('PrCVInt')">
-              <mat-error *ngIf="isInvalid('PrCVInt', validation.type)">
-                <a>{{ validation.message }}</a>
-                <mat-icon style="cursor: help;" (click)="openInfo('PrCVInt')">info_outline</mat-icon>
-              </mat-error>
-            </mat-error>
-          </mat-form-field>
-
-          <mat-form-field class="item-1" fxLayout="column" *ngIf="isShowControl('PrCAB')">
-            <mat-label>Previous coronary artery bypass</mat-label>
-            <mat-select formControlName="PrCAB" required>
-              <mat-option value="1">Yes</mat-option>
-              <mat-option value="2">No</mat-option>
-            </mat-select>
-          </mat-form-field>
-
-          <mat-form-field class="item-1" fxLayout="column" *ngIf="isShowControl('PrValve')">
-            <mat-label>Previous valve procedure</mat-label>
-            <mat-select formControlName="PrValve" required>
-              <mat-option value="1">Yes</mat-option>
-              <mat-option value="2">No</mat-option>
-            </mat-select>
-          </mat-form-field>
+          <reg-select controlName="PrCVInt" placeholder="Previous Cardiac Interventions" [formGroup]="formGroupE"
+            [choices]="['Yes', 'No', 'Unknown']"></reg-select>
+          <reg-select controlName="PrCAB" placeholder="Previous coronary artery bypass" [formGroup]="formGroupE"
+            [choices]="['Yes', 'No']"
+            *ngIf="isShowControl('PrCAB')"></reg-select>
+          <reg-select controlName="PrValve" placeholder="Previous valve procedure" [formGroup]="formGroupE"
+            [choices]="['Yes', 'No']"
+            *ngIf="isShowControl('PrValve')"></reg-select>
         </form>
       </div>
     </section>

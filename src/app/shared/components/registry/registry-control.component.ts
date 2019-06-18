@@ -9,5 +9,5 @@ export class RegistryControlComponent {
   public openInfo = (control: string) => this.registryService.openInfo(control);
   public getValidations = (control: string): ValidationMessage[] => this.registryService.getValidations(control);
   public isInvalid = (control: string, validationType: string): boolean =>
-    this.registryService.isInvalid(control, validationType)
+    this.registryService.isInvalid(control, validationType);
 }

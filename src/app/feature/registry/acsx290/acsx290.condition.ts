@@ -4,12 +4,12 @@ export const formConditions: FormConditions = {
   sectionA: [],
   sectionB: [],
   sectionD: [
-    { control: 'DiabCtrl', parentControl: 'Diabetes', conditionValues: ['1'] },
-    { control: 'InfEndTy', parentControl: 'InfEndo', conditionValues: ['1'] },
-    { control: 'InfEndCult', parentControl: 'InfEndo', conditionValues: ['1'] }
+    { control: 'DiabCtrl', parentControl: 'Diabetes', conditionValues: ['Yes'] },
+    { control: 'InfEndTy', parentControl: 'InfEndo', conditionValues: ['Yes'] },
+    { control: 'InfEndCult', parentControl: 'InfEndo', conditionValues: ['Yes'] }
   ],
   sectionE: [
-    { control: 'PrCAB', parentControl: 'PrCVInt', conditionValues: ['1'] },
-    { control: 'PrValve', parentControl: 'PrCVInt', conditionValues: ['1'] }
+    { control: 'PrCAB', parentControl: 'PrCVInt', conditionValues: ['Yes'] },
+    { control: 'PrValve', parentControl: 'PrCVInt', conditionValues: ['Yes'] }
   ]
 };
