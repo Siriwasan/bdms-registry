@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectorRef, ElementRef, ViewChild, AfterViewI
 import { FormGroup, FormGroupDirective, FormBuilder } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
-import { BaseRegistryComponent } from '../../../shared/components/registry/base-registry.component';
+import { RegistryFormComponent } from '../../../shared/components/registry/registry-form.component';
 import { DialogService } from '../../../shared/services/dialog.service';
 import { ScrollSpyService } from '../../../shared/modules/scroll-spy/scroll-spy.service';
 
@@ -11,14 +11,14 @@ import { formConditions } from './acsx290.condition';
 import { validations } from './acsx290.validation';
 import { ACSx290Model } from './acsx290.model';
 import { RegistryService } from '../registry.service';
-import { SectionMember } from 'src/app/shared/components/registry/base-registry.model';
+import { SectionMember } from 'src/app/shared/components/registry/registry-base.model';
 
 @Component({
   selector: 'app-acsx290',
   templateUrl: './acsx290.component.html',
   styleUrls: ['./acsx290.component.scss']
 })
-export class ACSx290Component extends BaseRegistryComponent implements OnInit, AfterViewInit, OnDestroy {
+export class ACSx290Component extends RegistryFormComponent implements OnInit, AfterViewInit, OnDestroy {
   formGroupA: FormGroup;
   formGroupB: FormGroup;
   formGroupD: FormGroup;

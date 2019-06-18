@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 import { RegistryService } from '../../../feature/registry/registry.service';
-import { ValidationMessage } from './base-registry.model';
+import { ValidationMessage } from './registry-base.model';
 
 @Component({
   // tslint:disable-next-line: component-selector

@@ -1,4 +1,4 @@
-import { FormConditions } from '../../../shared/components/registry/base-registry.model';
+import { FormConditions } from '../../../shared/components/registry/registry-base.model';
 
 export const formConditions: FormConditions = {
   sectionA: [],

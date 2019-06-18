@@ -9,7 +9,7 @@ import {
   FormConditions,
   SectionMember,
   ControlCondition
-} from '../../shared/components/registry/base-registry.model';
+} from '../../shared/components/registry/registry-base.model';
 
 @Injectable()
 export class RegistryService {
