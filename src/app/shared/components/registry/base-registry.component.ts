@@ -9,14 +9,14 @@ import {
 } from '@angular/core';
 import { map, first } from 'rxjs/operators';
 
-import { BaseFormComponent } from './base-form.component';
+import { ScrollSpyFormComponent } from './scrollspy-form.component';
 import { DialogService } from '../../services/dialog.service';
 import { ScrollSpyService } from '../../modules/scroll-spy/scroll-spy.service';
 
 import { ValidationMessage } from './base-registry.model';
 import { RegistryService } from 'src/app/feature/registry/registry.service';
 
-export class BaseRegistryComponent extends BaseFormComponent implements OnInit, AfterViewInit, OnDestroy {
+export class BaseRegistryComponent extends ScrollSpyFormComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     protected dialogService: DialogService,
     protected changeDetector: ChangeDetectorRef,

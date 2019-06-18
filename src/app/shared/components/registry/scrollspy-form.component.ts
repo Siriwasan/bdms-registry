@@ -3,7 +3,7 @@ import { AfterViewInit, ChangeDetectorRef, OnInit, ElementRef, HostListener, OnD
 import { ScrollSpyService } from '../../modules/scroll-spy/scroll-spy.service';
 import { Subscription } from 'rxjs';
 
-export class BaseFormComponent implements OnInit, AfterViewInit, OnDestroy {
+export class ScrollSpyFormComponent implements OnInit, AfterViewInit, OnDestroy {
   public currentSection = '';
   public tocMaxHeight: string;
   private tocMaxHeightOffset = 0;
