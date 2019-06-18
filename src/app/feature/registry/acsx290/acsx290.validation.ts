@@ -1,4 +1,6 @@
-export const validations = {
+import { FormValidations } from '../../../shared/components/registry/base-registry.model';
+
+export const validations: FormValidations = {
   sectionA: {
     HN: [{ type: 'required', message: 'HN is required' }],
     AN: [{ type: 'required', message: 'AN is needed' }]

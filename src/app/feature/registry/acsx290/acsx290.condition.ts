@@ -1,4 +1,6 @@
-export const formConditions = {
+import { FormConditions } from '../../../shared/components/registry/base-registry.model';
+
+export const formConditions: FormConditions = {
   sectionA: [],
   sectionB: [],
   sectionD: [

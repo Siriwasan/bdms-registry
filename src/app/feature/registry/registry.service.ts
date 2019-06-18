@@ -5,8 +5,8 @@ import * as marked from 'marked';
 import { DialogService } from '../../shared/services/dialog.service';
 import {
   ValidationMessage,
-  FormValidation,
-  FormCondition,
+  FormValidations,
+  FormConditions,
   SectionMember,
   ControlCondition
 } from '../../shared/components/registry/base-registry.model';
@@ -16,14 +16,14 @@ export class RegistryService {
   private dataDict: string;
   private tokens: marked.TokensList;
 
-  private formConditions: FormCondition;
-  private validations: FormValidation;
+  private formConditions: FormConditions;
+  private validations: FormValidations;
   private sectionMembers: SectionMember[];
 
   constructor(private dialogService: DialogService) {}
 
   //#region Registry
-  public initializeForm(sectionMembers: SectionMember[], formConditions: FormCondition, validations: FormValidation) {
+  public initializeForm(sectionMembers: SectionMember[], formConditions: FormConditions, validations: FormValidations) {
     this.sectionMembers = sectionMembers;
     this.formConditions = formConditions;
     this.validations = validations;

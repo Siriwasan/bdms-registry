@@ -1,16 +1,16 @@
 import { FormGroup, FormGroupDirective } from '@angular/forms';
 
-export interface FormCondition {
+export interface FormConditions {
   [section: string]: ControlCondition[];
 }
 
 export interface ControlCondition {
   control: string;
   parentControl: string;
-  conditionValues: any[];
+  conditionValues: string[] | number[];
 }
 
-export interface FormValidation {
+export interface FormValidations {
   [section: string]: {
     [control: string]: ValidationMessage[];
   };
