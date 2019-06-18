@@ -8,7 +8,7 @@ import { RegistryControlComponent } from './registry-control.component';
   selector: 'reg-input',
   template: `
     <mat-form-field class="item" [formGroup]="formGroup" style="width: 100%">
-      <input [type]="type" matInput [placeholder]="placeholder" [formControlName]="controlName" required />
+      <input [type]="type" matInput [placeholder]="placeholder" [formControlName]="controlName" [required]="require" />
       <mat-hint>
         <a>Please enter a valid input.</a>
         <mat-icon style="cursor: help;" (click)="openInfo(controlName)" *ngIf="hasInfo(controlName)"
@@ -29,8 +29,9 @@ import { RegistryControlComponent } from './registry-control.component';
 export class RegistryInputComponent extends RegistryControlComponent {
   @Input() formGroup: string;
   @Input() controlName: string;
-  @Input() type: string;
+  @Input() type = 'text';
   @Input() placeholder: string;
+  @Input() require = true;
 
   constructor(protected registryService: RegistryService) {
     super(registryService);

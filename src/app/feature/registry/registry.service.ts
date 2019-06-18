@@ -165,9 +165,11 @@ export class RegistryService {
 
     const formGroup = this.getFormGroup(section);
 
+    // ! ExpressionChangedAfterItHasBeenCheckedError: Expression has changed after it was checked
+    // ! need for further correction
     Object.keys(formGroup.controls).forEach(key => {
       const validationErrors: ValidationErrors = formGroup.get(key).errors;
-      if (validationErrors != null) {
+      if (validationErrors !== null) {
         Object.keys(validationErrors).forEach(keyError => {
           // console.log(
           //   'Key control: ' + key + ', keyError: ' + keyError + ', err value: ',
@@ -271,5 +273,4 @@ export class RegistryService {
     return marked.parser(tokensList);
   }
   //#endregion Data Dictionary
-
 }
