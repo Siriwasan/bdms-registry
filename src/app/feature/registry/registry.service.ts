@@ -23,11 +23,8 @@ export class RegistryService {
   constructor(private dialogService: DialogService) {}
 
   //#region Registry
-  public setSectionMembers(sectionMembers: SectionMember[]) {
+  public initializeForm(sectionMembers: SectionMember[], formConditions: FormCondition, validations: FormValidation) {
     this.sectionMembers = sectionMembers;
-  }
-
-  public initializeForm(formConditions: FormCondition, validations: FormValidation) {
     this.formConditions = formConditions;
     this.validations = validations;
     this.subscribeFormConditions();
@@ -36,7 +33,7 @@ export class RegistryService {
     this.getFormGroups().forEach(formGroup => formGroup.setValue(formGroup.value));
   }
 
-  protected subscribeFormConditions() {
+  private subscribeFormConditions() {
     this.getSectionMembers().forEach(sectionMember => {
       this.subscribeValueChanges(sectionMember[1], sectionMember[3]); // FormGroup - ControlCondition[]
     });
@@ -275,13 +272,4 @@ export class RegistryService {
   }
   //#endregion Data Dictionary
 
-  //#region Validations
-  public setValidations(validations: FormValidation) {
-    this.validations = validations;
-  }
-
-  public setFormConditions(formConditions: FormCondition) {
-    this.formConditions = formConditions;
-  }
-  //#endregion Validations
 }

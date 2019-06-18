@@ -7,31 +7,16 @@ import {
   OnInit,
   OnDestroy
 } from '@angular/core';
-import { FormGroup, Validators, ValidationErrors, FormGroupDirective } from '@angular/forms';
 import { map, first } from 'rxjs/operators';
-import * as marked from 'marked';
 
 import { BaseFormComponent } from './base-form.component';
 import { DialogService } from '../../services/dialog.service';
 import { ScrollSpyService } from '../../modules/scroll-spy/scroll-spy.service';
 
-import {
-  FormCondition,
-  FormValidation,
-  ControlCondition,
-  ValidationMessage,
-  SectionMember
-} from './base-registry.model';
+import { ValidationMessage } from './base-registry.model';
 import { RegistryService } from 'src/app/feature/registry/registry.service';
 
 export class BaseRegistryComponent extends BaseFormComponent implements OnInit, AfterViewInit, OnDestroy {
-  private formConditions: FormCondition;
-  private validations: FormValidation;
-  private sectionMembers: SectionMember[];
-
-  private dataDict: string;
-  private tokens: marked.TokensList;
-
   constructor(
     protected dialogService: DialogService,
     protected changeDetector: ChangeDetectorRef,
@@ -52,7 +37,7 @@ export class BaseRegistryComponent extends BaseFormComponent implements OnInit, 
 
   ngOnDestroy() {
     super.ngOnDestroy();
-    console.log('destroy2');
+    console.log('[BaseRegistryComponent]: destroy');
   }
 
   //#region Warning before leaving
@@ -93,8 +78,10 @@ export class BaseRegistryComponent extends BaseFormComponent implements OnInit, 
   }
   //#endregion Warning before leaving
 
+  // ? Composition pattern
   public formCompletion = (section: string): string => this.registryService.formCompletion(section);
   public isShowControl = (control: string): boolean => this.registryService.isShowControl(control);
   public getValidations = (control: string): ValidationMessage[] => this.registryService.getValidations(control);
-  public isInvalid = (control: string, validationType: string): boolean => this.registryService.isInvalid(control, validationType);
+  public isInvalid = (control: string, validationType: string): boolean =>
+    this.registryService.isInvalid(control, validationType);
 }

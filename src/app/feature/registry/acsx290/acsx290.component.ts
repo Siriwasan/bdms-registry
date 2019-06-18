@@ -11,6 +11,7 @@ import { formConditions } from './acsx290.condition';
 import { validations } from './acsx290.validation';
 import { ACSx290Model } from './acsx290.model';
 import { RegistryService } from '../registry.service';
+import { SectionMember } from 'src/app/shared/components/registry/base-registry.model';
 
 @Component({
   selector: 'app-acsx290',
@@ -50,7 +51,6 @@ export class ACSx290Component extends BaseRegistryComponent implements OnInit, A
 
     // this.store.dispatch(new UI.ChangeTitle('STS 2.9'));
     this.createForm();
-    this.registrySerice.setDataDict(require('raw-loader!./acsx290.dict.md'));
   }
 
   ngAfterViewInit() {
@@ -65,7 +65,7 @@ export class ACSx290Component extends BaseRegistryComponent implements OnInit, A
   ngOnDestroy() {
     super.ngOnDestroy();
     this.subscriptions.forEach(subs => subs.unsubscribe());
-    console.log('destroy');
+    console.log('[ACSx290Component]: destroy');
   }
 
   private createForm() {
@@ -74,24 +74,15 @@ export class ACSx290Component extends BaseRegistryComponent implements OnInit, A
     this.formGroupD = this.formBuilder.group(ACSx290form.sectionD);
     this.formGroupE = this.formBuilder.group(ACSx290form.sectionE);
 
-    this.registrySerice.setSectionMembers([
+    const sectionMembers: SectionMember[] = [
       ['A', this.formGroupA, this.formDirectiveA, formConditions.sectionA],
       ['B', this.formGroupB, this.formDirectiveB, formConditions.sectionB],
       ['D', this.formGroupD, this.formDirectiveD, formConditions.sectionD],
       ['E', this.formGroupE, this.formDirectiveE, formConditions.sectionE]
-    ]);
+    ];
 
-    this.registrySerice.initializeForm(formConditions, validations);
-
+    this.registrySerice.initializeForm(sectionMembers, formConditions, validations);
     this.registrySerice.setDataDict(require('raw-loader!./acsx290.dict.md'));
-    this.registrySerice.setValidations(validations);
-    this.registrySerice.setFormConditions(formConditions);
-    this.registrySerice.setSectionMembers([
-      ['A', this.formGroupA, this.formDirectiveA, formConditions.sectionA],
-      ['B', this.formGroupB, this.formDirectiveB, formConditions.sectionB],
-      ['D', this.formGroupD, this.formDirectiveD, formConditions.sectionD],
-      ['E', this.formGroupE, this.formDirectiveE, formConditions.sectionE]
-    ]);
   }
 
   submit() {
