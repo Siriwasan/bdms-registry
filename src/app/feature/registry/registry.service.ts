@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormGroup, Validators, FormGroupDirective, ValidationErrors } from '@angular/forms';
+import { FormGroup, Validators, FormGroupDirective, ValidationErrors, FormControl, AbstractControl, FormArray } from '@angular/forms';
 import * as marked from 'marked';
 
 import { DialogService } from '../../shared/services/dialog.service';
@@ -193,7 +193,20 @@ export class RegistryService {
   }
 
   public submitAllSections() {
-    this.getFormDirectives().forEach(formDirective => formDirective.onSubmit(undefined));
+    // this.getFormDirectives().forEach(formDirective => formDirective.onSubmit(undefined));
+    // this.getFormGroups().forEach(formGroup => this.validateAllFields(formGroup));
+    this.getFormGroups().forEach(formGroup => formGroup.markAllAsTouched());
+  }
+
+  validateAllFields(formGroup: FormGroup | FormArray) {
+    Object.keys(formGroup.controls).forEach(field => {
+      const control = formGroup.get(field);
+      if (control instanceof FormControl) {
+        control.markAsTouched({ onlySelf: true });
+      } else if (control instanceof FormGroup) {
+        this.validateAllFields(control);
+      }
+    });
   }
 
   public clear() {

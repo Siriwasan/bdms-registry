@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 
 import { RegistryService } from '../../../feature/registry/registry.service';
 import { RegistryControlComponent } from './registry-control.component';
@@ -8,9 +8,24 @@ import { RegistryControlComponent } from './registry-control.component';
   selector: 'reg-input',
   template: `
     <mat-form-field class="item" [formGroup]="formGroup" style="width: 100%">
-      <input [type]="type" matInput [placeholder]="placeholder" [formControlName]="controlName" [required]="require" />
+      <input
+        *ngIf="type === 'number'"
+        type="number"
+        matInput
+        [placeholder]="placeholder"
+        [formControlName]="controlName"
+        [required]="require"
+      />
+      <input
+        *ngIf="type !== 'number'"
+        type="text"
+        matInput
+        [placeholder]="placeholder"
+        [formControlName]="controlName"
+        [required]="require"
+      />
       <mat-hint>
-        <a>Please enter a valid input.</a>
+        <a><ng-content></ng-content></a>
         <mat-icon style="cursor: help;" (click)="openInfo(controlName)" *ngIf="hasInfo(controlName)"
           >info_outline</mat-icon
         >
@@ -26,14 +41,18 @@ import { RegistryControlComponent } from './registry-control.component';
     </mat-form-field>
   `
 })
-export class RegistryInputComponent extends RegistryControlComponent {
+export class RegistryInputComponent extends RegistryControlComponent implements AfterViewInit {
   @Input() formGroup: string;
   @Input() controlName: string;
-  @Input() type = 'text';
+  @Input() type = 'number';
   @Input() placeholder: string;
   @Input() require = true;
 
-  constructor(protected registryService: RegistryService) {
+  constructor(protected registryService: RegistryService, private cdRef: ChangeDetectorRef) {
     super(registryService);
+  }
+
+  ngAfterViewInit() {
+    this.cdRef.detectChanges();
   }
 }

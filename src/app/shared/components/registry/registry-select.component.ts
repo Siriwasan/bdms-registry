@@ -8,15 +8,15 @@ import { RegistryControlComponent } from './registry-control.component';
   selector: 'reg-select',
   template: `
     <mat-form-field class="item" [formGroup]="formGroup" style="width: 100%">
-      <mat-label>{{ placeholder }}</mat-label>
+      <mat-select [formControlName]="controlName" [required]="require" [placeholder]="placeholder">
+        <mat-option *ngFor="let choice of choices" [value]="choice">{{ choice }}</mat-option>
+      </mat-select>
       <mat-hint>
+        <a><ng-content></ng-content></a>
         <mat-icon style="cursor: help;" (click)="openInfo(controlName)" *ngIf="hasInfo(controlName)"
           >info_outline</mat-icon
         >
       </mat-hint>
-      <mat-select [formControlName]="controlName" [required]="require">
-        <mat-option *ngFor="let choice of choices" value="{{ choice }}">{{ choice }}</mat-option>
-      </mat-select>
     </mat-form-field>
   `
 })

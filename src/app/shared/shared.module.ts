@@ -11,7 +11,11 @@ import { RegistryInputComponent } from './components/registry/registry-input.com
 import { RegistrySelectComponent } from './components/registry/registry-select.component';
 
 @NgModule({
-  declarations: [ModalDialogComponent, RegistryInputComponent, RegistrySelectComponent],
+  declarations: [
+    ModalDialogComponent,
+    RegistryInputComponent,
+    RegistrySelectComponent,
+  ],
   imports: [
     CommonModule,
     FormsModule,

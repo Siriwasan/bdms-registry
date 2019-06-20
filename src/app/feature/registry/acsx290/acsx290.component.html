@@ -15,9 +15,8 @@
         <a id="sectionDTOC" (click)="scrollTo('sectionD')" [class.active]="isActive('sectionD')">D. Risk Factors</a>
       </li>
       <li>
-        <a id="sectionETOC" (click)="scrollTo('sectionE')" [class.active]="isActive('sectionE')"
-          >E. Previous Cardiac Interventions</a
-        >
+        <a id="sectionETOC" (click)="scrollTo('sectionE')" [class.active]="isActive('sectionE')">E. Previous Cardiac
+          Interventions</a>
       </li>
     </ul>
   </div>
@@ -33,9 +32,8 @@
         <form [formGroup]="formGroupA" #formDirectiveA="ngForm">
           <div fxLayout="column" fxLayout.gt-xs="row" [fxLayoutGap.gt-xs]="gap">
             <reg-input controlName="HN" placeholder="HN" [formGroup]="formGroupA"
-              type="number" fxFlex="50"></reg-input>
-            <reg-input controlName="AN" placeholder="AN" [formGroup]="formGroupA"
-              type="text" fxFlex="50"></reg-input>
+              type="number" fxFlex="25"></reg-input>
+            <reg-input controlName="AN" placeholder="AN" [formGroup]="formGroupA" type="text" fxFlex="25"></reg-input>
 
             <!-- <div class="item-radio" style="color: rgba(0,0,0,.54);">
               <span>Sex:</span>
@@ -57,35 +55,35 @@
       <div class="section-body">
         <form [formGroup]="formGroupB" #formDirectiveB="ngForm">
           <div fxLayout="column" fxLayout.gt-xs="row" [fxLayoutGap.gt-xs]="gap">
-            <reg-input controlName="PatLName" placeholder="Patient Last Name" [formGroup]="formGroupB"
-              type="text" fxFlex="33"></reg-input>
-            <reg-input controlName="PatFName" placeholder="Patient First Name" [formGroup]="formGroupB"
-              type="text" fxFlex="33"></reg-input>
-            <reg-input controlName="PatMName" placeholder="Patient Middle Name" [formGroup]="formGroupB"
-              type="text" require="false" fxFlex></reg-input>
+            <reg-input controlName="PatLName" placeholder="Patient Last Name" [formGroup]="formGroupB" type="text"
+              fxFlex="33"></reg-input>
+            <reg-input controlName="PatFName" placeholder="Patient First Name" [formGroup]="formGroupB" type="text"
+              fxFlex="33"></reg-input>
+            <reg-input controlName="PatMName" placeholder="Patient Middle Name" [formGroup]="formGroupB" type="text"
+              require="false" fxFlex></reg-input>
           </div>
 
           <div fxLayout="column" fxLayout.gt-xs="row" [fxLayoutGap.gt-xs]="gap">
-            <reg-input controlName="DOB" placeholder="Date of Birth" [formGroup]="formGroupB"
-              type="text" fxFlex="33"></reg-input>
-            <reg-input controlName="Age" placeholder="Patient Age" [formGroup]="formGroupB"
-              type="text" fxFlex="33"></reg-input>
-            <reg-select controlName="Gender" placeholder="Sex" [formGroup]="formGroupB"
-              [choices]="['Male', 'Female']" fxFlex></reg-select>
+            <reg-input controlName="DOB" placeholder="Date of Birth" [formGroup]="formGroupB" type="text" fxFlex="33">
+            </reg-input>
+            <reg-input controlName="Age" placeholder="Patient Age" [formGroup]="formGroupB" type="text" fxFlex="33">
+            </reg-input>
+            <reg-select controlName="Gender" placeholder="Sex" [formGroup]="formGroupB" [choices]="['Male', 'Female']"
+              fxFlex>Please give me sex</reg-select>
           </div>
 
-          <reg-input controlName="SSN" placeholder="National ID Number" [formGroup]="formGroupB"
-            type="text"></reg-input>
+          <reg-input controlName="SSN" placeholder="National ID Number" [formGroup]="formGroupB" type="text">
+          </reg-input>
           <reg-input controlName="PatAddr" placeholder="Street Address" require="false" [formGroup]="formGroupB"
             type="text"></reg-input>
 
           <div fxLayout="column" fxLayout.gt-xs="row" [fxLayoutGap.gt-xs]="gap">
-            <reg-input controlName="PatCity" placeholder="City" [formGroup]="formGroupB"
-              type="text" fxFlex="33"></reg-input>
-            <reg-input controlName="PatRegion" placeholder="Region" [formGroup]="formGroupB"
-              type="text" fxFlex="33"></reg-input>
-            <reg-input controlName="PatientCountry" placeholder="Country" [formGroup]="formGroupB"
-              type="text" fxFlex></reg-input>
+            <reg-input controlName="PatCity" placeholder="City" [formGroup]="formGroupB" type="text" fxFlex="33">
+            </reg-input>
+            <reg-input controlName="PatRegion" placeholder="Region" [formGroup]="formGroupB" type="text" fxFlex="33">
+            </reg-input>
+            <reg-input controlName="PatientCountry" placeholder="Country" [formGroup]="formGroupB" type="text" fxFlex>
+            </reg-input>
           </div>
 
           <reg-select controlName="PermAddr" placeholder="Is This Patient’s Permanent Address" [formGroup]="formGroupB"
@@ -102,10 +100,10 @@
       <div class="section-body" fxLayout="column">
         <form [formGroup]="formGroupD" #formDirectiveD="ngForm">
           <div fxLayout="column" fxLayout.gt-xs="row" [fxLayoutGap.gt-xs]="gap">
-            <reg-input controlName="HeightCM" placeholder="Height (cm)" [formGroup]="formGroupD"
-              type="text" fxFlex="25"></reg-input>
-            <reg-input controlName="WeightKg" placeholder="Weight (kg)" [formGroup]="formGroupD"
-              type="text" fxFlex="25"></reg-input>
+            <reg-input controlName="HeightCM" placeholder="Height (cm)" [formGroup]="formGroupD" type="text"
+              fxFlex="25"></reg-input>
+            <reg-input controlName="WeightKg" placeholder="Weight (kg)" [formGroup]="formGroupD" type="text"
+              fxFlex="25"></reg-input>
             <reg-select controlName="FHCAD" placeholder="Family History of Premature CAD" [formGroup]="formGroupD"
               [choices]="['Yes', 'No', 'Unknown']" fxFlex></reg-select>
           </div>
@@ -129,18 +127,31 @@
             <reg-select controlName="InfEndo" placeholder="Endocarditis" [formGroup]="formGroupD"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
             <reg-select controlName="InfEndTy" placeholder="Endocarditis Type" [formGroup]="formGroupD"
-              [choices]="['Treated', 'Active']"
-              *ngIf="isShowControl('InfEndTy')" fxFlex></reg-select>
-            <reg-select controlName="InfEndCult" placeholder="Endocarditis Culture" [formGroup]="formGroupD"
-              [choices]="['Culture negative', 'Strep species', 'MRSA', 'MSSA', 'Coagulase negative staph',
-                          'Enterococcus species', 'Gram negative species', 'Polymicrobial',
-                          'Mycobacterium (chimera)', 'Fungal', 'Other', 'Unknown']"
-              *ngIf="isShowControl('InfEndCult')" fxFlex></reg-select>
+              [choices]="['Treated', 'Active']" *ngIf="isShowControl('InfEndTy')" fxFlex></reg-select>
+            <reg-select controlName="InfEndCult" placeholder="Endocarditis Culture" [formGroup]="formGroupD" [choices]="[
+                'Culture negative',
+                'Strep species',
+                'MRSA',
+                'MSSA',
+                'Coagulase negative staph',
+                'Enterococcus species',
+                'Gram negative species',
+                'Polymicrobial',
+                'Mycobacterium (chimera)',
+                'Fungal',
+                'Other',
+                'Unknown'
+              ]" *ngIf="isShowControl('InfEndCult')" fxFlex></reg-select>
           </div>
 
-          <reg-select controlName="TobaccoUse" placeholder="Tobacco use" [formGroup]="formGroupD"
-            [choices]="['Never smoker', 'Current every day smoker', 'Current some day smoker',
-                        'Smoker, current status (frequency) unknown', 'Former smoker', 'Smoking status unknown']"></reg-select>
+          <reg-select controlName="TobaccoUse" placeholder="Tobacco use" [formGroup]="formGroupD" [choices]="[
+              'Never smoker',
+              'Current every day smoker',
+              'Current some day smoker',
+              'Smoker, current status (frequency) unknown',
+              'Former smoker',
+              'Smoking status unknown'
+            ]"></reg-select>
         </form>
       </div>
     </section>
@@ -155,11 +166,9 @@
           <reg-select controlName="PrCVInt" placeholder="Previous Cardiac Interventions" [formGroup]="formGroupE"
             [choices]="['Yes', 'No', 'Unknown']"></reg-select>
           <reg-select controlName="PrCAB" placeholder="Previous coronary artery bypass" [formGroup]="formGroupE"
-            [choices]="['Yes', 'No']"
-            *ngIf="isShowControl('PrCAB')"></reg-select>
+            [choices]="['Yes', 'No']" *ngIf="isShowControl('PrCAB')"></reg-select>
           <reg-select controlName="PrValve" placeholder="Previous valve procedure" [formGroup]="formGroupE"
-            [choices]="['Yes', 'No']"
-            *ngIf="isShowControl('PrValve')"></reg-select>
+            [choices]="['Yes', 'No']" *ngIf="isShowControl('PrValve')"></reg-select>
         </form>
       </div>
     </section>

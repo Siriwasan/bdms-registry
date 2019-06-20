@@ -21,3 +21,9 @@ bra bra bra
 ## Admission Number
 
 Ho Ho Ho
+
+# Gender
+
+## Sex
+
+Male/Female

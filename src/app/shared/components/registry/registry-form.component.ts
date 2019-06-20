@@ -14,7 +14,7 @@ import { DialogService } from '../../services/dialog.service';
 import { ScrollSpyService } from '../../modules/scroll-spy/scroll-spy.service';
 
 import { ValidationMessage } from './registry-base.model';
-import { RegistryService } from 'src/app/feature/registry/registry.service';
+import { RegistryService } from '../../../feature/registry/registry.service';
 
 export class RegistryFormComponent extends ScrollSpyFormComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
@@ -83,5 +83,5 @@ export class RegistryFormComponent extends ScrollSpyFormComponent implements OnI
   public isShowControl = (control: string): boolean => this.registryService.isShowControl(control);
   public getValidations = (control: string): ValidationMessage[] => this.registryService.getValidations(control);
   public isInvalid = (control: string, validationType: string): boolean =>
-    this.registryService.isInvalid(control, validationType);
+    this.registryService.isInvalid(control, validationType)
 }

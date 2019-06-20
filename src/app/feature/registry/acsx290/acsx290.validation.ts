@@ -10,6 +10,9 @@ export const validations: FormValidations = {
       { type: 'required', message: 'PatLName is required' },
       { type: 'minlength', message: 'PatLName must be at least 5' },
       { type: 'maxlength', message: 'PatLName cannot be more than 10' }
+    ],
+    Gender: [
+      { type: 'required', message: 'Sex is required' }
     ]
   },
   sectionD: {
