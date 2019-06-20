@@ -9,12 +9,14 @@ import { ScrollSpyModule } from './modules/scroll-spy/scroll-spy.module';
 import { ModalDialogComponent } from './components/modal-dialog/modal-dialog.component';
 import { RegistryInputComponent } from './components/registry/registry-input.component';
 import { RegistrySelectComponent } from './components/registry/registry-select.component';
+import { NoSanitizePipe } from './pipes/no-sanitize.pipe';
 
 @NgModule({
   declarations: [
     ModalDialogComponent,
     RegistryInputComponent,
     RegistrySelectComponent,
+    NoSanitizePipe,
   ],
   imports: [
     CommonModule,
@@ -34,7 +36,8 @@ import { RegistrySelectComponent } from './components/registry/registry-select.c
     FlexLayoutModule,
     ScrollSpyModule,
     RegistryInputComponent,
-    RegistrySelectComponent
+    RegistrySelectComponent,
+    NoSanitizePipe,
   ],
   providers: [],
   entryComponents: [ModalDialogComponent]
