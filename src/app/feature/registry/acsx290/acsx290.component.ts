@@ -5,13 +5,14 @@ import { Subscription } from 'rxjs';
 import { RegistryFormComponent } from '../../../shared/components/registry/registry-form.component';
 import { DialogService } from '../../../shared/services/dialog.service';
 import { ScrollSpyService } from '../../../shared/modules/scroll-spy/scroll-spy.service';
+import { SectionMember } from '../../../shared/components/registry/registry-base.model';
 
 import { ACSx290form } from './acsx290.form';
 import { formConditions } from './acsx290.condition';
 import { validations } from './acsx290.validation';
 import { ACSx290Model } from './acsx290.model';
+import { ACSx290Service } from './acsx290.service';
 import { RegistryService } from '../registry.service';
-import { SectionMember } from 'src/app/shared/components/registry/registry-base.model';
 
 @Component({
   selector: 'app-acsx290',
@@ -41,9 +42,10 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
     protected scrollSpy: ScrollSpyService,
     protected hostElement: ElementRef,
     private formBuilder: FormBuilder,
-    public registrySerice: RegistryService
+    public registryService: RegistryService,
+    public acsx290Service: ACSx290Service
   ) {
-    super(dialogService, changeDetector, scrollSpy, hostElement, registrySerice);
+    super(dialogService, changeDetector, scrollSpy, hostElement, registryService);
   }
 
   ngOnInit() {
@@ -81,23 +83,26 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
       ['E', this.formGroupE, this.formDirectiveE, formConditions.sectionE]
     ];
 
-    this.registrySerice.initializeForm(sectionMembers, formConditions, validations);
-    this.registrySerice.setDataDict(require('raw-loader!./acsx290.dict.md'));
+    this.registryService.initializeForm(sectionMembers, formConditions, validations);
+    this.registryService.setDataDict(require('raw-loader!./acsx290.dict.md'));
   }
 
   submit() {
     console.log('submit');
-    this.registrySerice.submitAllSections();
+    this.registryService.submitAllSections();
     this.archiveRegistry();
 
-    // this.sts29Service.saveForm(this.result);
+    this.acsx290Service.saveForm(this.result);
   }
 
   archiveRegistry() {
     this.result = {
       description: {
         baseDb: 'STS Adult Cardiac Surgery version 2.9',
-        addendum: 'BDMS modefied version 1.0'
+        addendum: 'BDMS ACSx modefied version 0.1',
+        CreateDateTime: null,
+        ModifiedDateTime: null,
+        DeletedDateTime: null
       },
       sectionA: { ...this.formGroupA.value },
       sectionB: { ...this.formGroupB.value },
@@ -131,19 +136,19 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
   }
 
   clear() {
-    this.registrySerice.clear();
+    this.registryService.clear();
   }
 
   clearErrors() {
-    this.registrySerice.clearErrors();
+    this.registryService.clearErrors();
   }
 
   openInfo(control: string) {
-    this.registrySerice.openInfo(control);
+    this.registryService.openInfo(control);
   }
 
   hasInfo(control: string): boolean {
-    return this.registrySerice.hasInfo(control);
+    return this.registryService.hasInfo(control);
   }
 
   downloadCSV() {
