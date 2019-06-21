@@ -1,5 +1,5 @@
 import { RegistryService } from '../../../feature/registry/registry.service';
-import { ValidationMessage } from './registry-base.model';
+import { ValidationMessage } from '../../../feature/registry/registry.model';
 
 export class RegistryControlComponent {
 

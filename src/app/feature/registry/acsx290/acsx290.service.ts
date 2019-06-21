@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, DocumentReference } from '@angular/fire/firestore';
+import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs';
 
 import { ACSx290Model } from './acsx290.model';
@@ -19,6 +20,11 @@ const DB_COLLECTION = 'ACSx290';
 export class ACSx290Service {
   constructor(private db: AngularFirestore, private store: Store<fromRoot.State>) {}
   currentForm: ACSx290Model;
+
+  /// Firebase Server Timestamp
+  get timestamp() {
+    return firebase.firestore.FieldValue.serverTimestamp();
+  }
 
   saveForm(acsx290Model: ACSx290Model) {
     this.store.dispatch(new UI.StartLoading());

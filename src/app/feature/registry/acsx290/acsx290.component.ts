@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 import { RegistryFormComponent } from '../../../shared/components/registry/registry-form.component';
 import { DialogService } from '../../../shared/services/dialog.service';
 import { ScrollSpyService } from '../../../shared/modules/scroll-spy/scroll-spy.service';
-import { SectionMember } from '../../../shared/components/registry/registry-base.model';
+import { SectionMember } from '../registry.model';
 
 import { ACSx290form } from './acsx290.form';
 import { formConditions } from './acsx290.condition';
@@ -102,13 +102,18 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
   }
 
   archiveRegistry() {
+    const timestamp = this.acsx290Service.timestamp;
+
     this.result = {
-      description: {
+      detail: {
         baseDb: 'STS Adult Cardiac Surgery version 2.9',
         addendum: 'BDMS ACSx modefied version 0.1',
-        CreateDateTime: null,
-        ModifiedDateTime: null,
-        DeletedDateTime: null
+        createdAt: timestamp,
+        createdBy: 'admin',
+        modifiedAt: timestamp,
+        modifiedBy: 'admin',
+        deletedAt: null,
+        deletedBy: null
       },
       sectionA: { ...this.formGroupA.value },
       sectionB: { ...this.formGroupB.value },
@@ -116,7 +121,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
       sectionE: { ...this.formGroupE.value }
     };
     this.flatResult = {
-      ...this.result.description,
+      ...this.result.detail,
       ...this.result.sectionA,
       ...this.result.sectionB,
       ...this.result.sectionD,

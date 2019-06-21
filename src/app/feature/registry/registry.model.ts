@@ -27,3 +27,14 @@ export type SectionMember = [string, FormGroup, FormGroupDirective, ControlCondi
 // Multi section:
 //   ['A', this.formGroupA, this.formDirectiveA, formConditions.sectionA]
 //   ['B', this.formGroupB, this.formDirectiveB, formConditions.sectionB]
+
+export interface RegistryDetail {
+  baseDb: string;
+  addendum: string;
+  createdAt: firebase.firestore.FieldValue;
+  createdBy: string;
+  modifiedAt: firebase.firestore.FieldValue;
+  modifiedBy: string;
+  deletedAt: firebase.firestore.FieldValue;
+  deletedBy: string;
+}
