@@ -1,7 +1,9 @@
 import { Component, OnDestroy, OnInit, HostListener } from '@angular/core';
 import { MediaObserver, MediaChange } from '@angular/flex-layout';
 import { Subscription, Observable } from 'rxjs';
-// import { Store } from '@ngrx/store';
+
+import { Store } from '@ngrx/store';
+import * as fromRoot from './app.reducer';
 
 @Component({
   selector: 'app-root',
@@ -15,9 +17,7 @@ export class AppComponent implements OnInit, OnDestroy {
   navOver = 'side';
   watcher: Subscription;
 
-  constructor(media: MediaObserver
-     // , private store: Store<fromRoot.State>
-  ) {
+  constructor(media: MediaObserver, private store: Store<fromRoot.State>) {
     this.watcher = media.asObservable().subscribe((change: MediaChange[]) => {
       if (change[0].mqAlias === 'lg' || change[0].mqAlias === 'xl') {
         this.navOpened = true;
@@ -32,7 +32,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    // this.isLoading$ = this.store.select(fromRoot.getIsLoading);
+    this.isLoading$ = this.store.select(fromRoot.getIsLoading);
   }
 
   ngOnDestroy() {

@@ -6,6 +6,10 @@ import { ACSx290Model } from './acsx290.model';
 // import { Registry } from '../registry.model';
 import { map } from 'rxjs/operators';
 
+import { Store } from '@ngrx/store';
+import * as fromRoot from '../../../app.reducer';
+import * as UI from '../../../shared/ui.actions';
+
 const DB_REGISTRY = 'Registry';
 const DB_COLLECTION = 'ACSx290';
 
@@ -13,10 +17,12 @@ const DB_COLLECTION = 'ACSx290';
   providedIn: 'root'
 })
 export class ACSx290Service {
-  constructor(private db: AngularFirestore) {}
+  constructor(private db: AngularFirestore, private store: Store<fromRoot.State>) {}
   currentForm: ACSx290Model;
 
   saveForm(acsx290Model: ACSx290Model) {
+    this.store.dispatch(new UI.StartLoading());
+
     this.db
       .collection(DB_COLLECTION)
       .add(acsx290Model)
@@ -34,6 +40,8 @@ export class ACSx290Service {
         // // tslint:enable: no-string-literal
 
         // this.db.collection(DB_REGISTRY).add(registry);
+
+        this.store.dispatch(new UI.StopLoading());
       });
   }
 

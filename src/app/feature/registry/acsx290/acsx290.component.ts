@@ -57,6 +57,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
     super.ngOnInit();
 
     this.store.dispatch(new UI.ChangeTitle('STS 2.9'));
+
     this.createForm();
   }
 
