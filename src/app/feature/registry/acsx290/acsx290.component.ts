@@ -14,6 +14,10 @@ import { ACSx290Model } from './acsx290.model';
 import { ACSx290Service } from './acsx290.service';
 import { RegistryService } from '../registry.service';
 
+import { Store } from '@ngrx/store';
+import * as fromRoot from '../../../app.reducer';
+import * as UI from '../../../shared/ui.actions';
+
 @Component({
   selector: 'app-acsx290',
   templateUrl: './acsx290.component.html',
@@ -42,6 +46,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
     protected scrollSpy: ScrollSpyService,
     protected hostElement: ElementRef,
     private formBuilder: FormBuilder,
+    private store: Store<fromRoot.State>,
     public registryService: RegistryService,
     public acsx290Service: ACSx290Service
   ) {
@@ -51,7 +56,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
   ngOnInit() {
     super.ngOnInit();
 
-    // this.store.dispatch(new UI.ChangeTitle('STS 2.9'));
+    this.store.dispatch(new UI.ChangeTitle('STS 2.9'));
     this.createForm();
   }
 

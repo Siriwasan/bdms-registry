@@ -22,9 +22,11 @@ export class AppComponent implements OnInit, OnDestroy {
       if (change[0].mqAlias === 'lg' || change[0].mqAlias === 'xl') {
         this.navOpened = true;
         this.navOver = 'side';
+        document.getElementById('sidenav-content').style.marginLeft = '280px';
       } else {
         this.navOpened = false;
         this.navOver = 'over';
+        document.getElementById('sidenav-content').style.marginLeft = '0px';
       }
     });
   }
