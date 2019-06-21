@@ -1,4 +1,5 @@
 import { FormGroup, FormGroupDirective } from '@angular/forms';
+import * as firebase from 'firebase/app';
 
 export interface FormConditions {
   [section: string]: ControlCondition[];

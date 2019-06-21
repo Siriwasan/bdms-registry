@@ -2,6 +2,8 @@ import { Component, OnInit, ChangeDetectorRef, ElementRef, ViewChild, AfterViewI
 import { FormGroup, FormGroupDirective, FormBuilder } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
+import { environment } from '../../../../environments/environment';
+
 import { RegistryFormComponent } from '../../../shared/components/registry/registry-form.component';
 import { DialogService } from '../../../shared/services/dialog.service';
 import { ScrollSpyService } from '../../../shared/modules/scroll-spy/scroll-spy.service';
@@ -17,6 +19,8 @@ import { RegistryService } from '../registry.service';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../../../app.reducer';
 import * as UI from '../../../shared/ui.actions';
+
+import * as CryptoJS from 'crypto-js';
 
 @Component({
   selector: 'app-acsx290',
@@ -104,6 +108,13 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
   archiveRegistry() {
     const timestamp = this.acsx290Service.timestamp;
 
+    const encryptedSectionA = { ...this.formGroupA.value };
+
+    // tslint:disable: no-string-literal
+    encryptedSectionA['HN'] = this.encrypt(encryptedSectionA['HN'].toString());
+    encryptedSectionA['AN'] = this.encrypt(encryptedSectionA['AN'].toString());
+    // tslint:enable: no-string-literal
+
     this.result = {
       detail: {
         baseDb: 'STS Adult Cardiac Surgery version 2.9',
@@ -115,7 +126,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
         deletedAt: null,
         deletedBy: null
       },
-      sectionA: { ...this.formGroupA.value },
+      sectionA: encryptedSectionA,
       sectionB: { ...this.formGroupB.value },
       sectionD: { ...this.formGroupD.value },
       sectionE: { ...this.formGroupE.value }
@@ -127,6 +138,14 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
       ...this.result.sectionD,
       ...this.result.sectionE
     };
+  }
+
+  private encrypt(source: string): string {
+    return CryptoJS.AES.encrypt(source, environment.appKey).toString();
+  }
+
+  private decrypt(source: string): string {
+    return CryptoJS.AES.decrypt(source, environment.appKey).toString(CryptoJS.enc.Utf8);
   }
 
   loadById() {
