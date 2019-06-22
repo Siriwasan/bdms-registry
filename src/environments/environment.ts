@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  appKey: 'BDMS Registry',
+  appKey: 'SNlQeCBW5FbTMvGMNquBwFaaUw0n7nKI',
   firebase: {
     apiKey: 'AIzaSyC3kGI6Ht4l5T31WgafOLRtlzM9e7fVdSo',
     authDomain: 'bdms-registry.firebaseapp.com',
