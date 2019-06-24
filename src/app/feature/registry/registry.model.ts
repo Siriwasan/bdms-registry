@@ -8,7 +8,7 @@ export interface FormConditions {
 export interface ControlCondition {
   control: string;
   parentControl: string;
-  conditionValues: string[] | number[];
+  conditions: string[] | number[];
 }
 
 export interface FormValidations {
@@ -29,7 +29,7 @@ export type SectionMember = [string, FormGroup, FormGroupDirective, ControlCondi
 //   ['A', this.formGroupA, this.formDirectiveA, formConditions.sectionA]
 //   ['B', this.formGroupB, this.formDirectiveB, formConditions.sectionB]
 
-export interface RegistryDetail {
+export interface FormDetail {
   baseDb: string;
   addendum: string;
   createdAt: firebase.firestore.FieldValue;
@@ -47,5 +47,5 @@ export interface Registry {
   addendum: string;
   completion: number;
   modifiedAt: firebase.firestore.FieldValue;
-  registryId: string;
+  formId: string;
 }

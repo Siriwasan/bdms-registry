@@ -2,11 +2,15 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 
-import { Registry } from './registry.model';
-import { RegistryService } from './registry.service';
-
 import { environment } from '../../../environments/environment';
 import * as CryptoJS from 'crypto-js';
+
+import { Store } from '@ngrx/store';
+import * as fromRoot from '../../app.reducer';
+import * as UI from '../../shared/ui.actions';
+
+import { Registry } from './registry.model';
+import { RegistryService } from './registry.service';
 
 @Component({
   selector: 'app-registry',
@@ -20,25 +24,30 @@ export class RegistryComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor(private registryService: RegistryService, private router: Router) {}
+  constructor(private registryService: RegistryService, private router: Router, private store: Store<fromRoot.State>) {}
 
-  async ngOnInit() {
-    const data = await this.registryService.loadRegistries();
+  ngOnInit() {
+    setTimeout(async () => {
+      this.store.dispatch(new UI.StartLoading());
 
-    const decryptData: Registry[] = [];
-    data.forEach(d => {
-      decryptData.push({
-        ...d,
-        hn: this.decrypt(d.hn),
-        name: this.decrypt(d.name)
+      const data = await this.registryService.loadRegistries();
+      const decryptData: Registry[] = [];
+      data.forEach(d => {
+        decryptData.push({
+          ...d,
+          hn: this.decrypt(d.hn),
+          name: this.decrypt(d.name)
+        });
       });
+
+      console.log('loadRegistry');
+
+      this.dataSource = new MatTableDataSource(decryptData);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+
+      this.store.dispatch(new UI.StopLoading());
     });
-
-    console.log('loadRegistry');
-
-    this.dataSource = new MatTableDataSource(decryptData);
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
   }
 
   applyFilter(filterValue: string) {
@@ -51,7 +60,7 @@ export class RegistryComponent implements OnInit {
 
   click(registry: Registry) {
     if (registry.baseDb === 'STS Adult Cardiac Surgery version 2.9') {
-      this.router.navigate(['registry/acsx290', registry.registryId]);
+      this.router.navigate(['registry/acsx290', registry.formId]);
     }
   }
 

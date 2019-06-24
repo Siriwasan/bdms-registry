@@ -1,7 +1,7 @@
-import { RegistryDetail } from '../registry.model';
+import { FormDetail } from '../registry.model';
 
 export interface ACSx290Model {
-  detail: RegistryDetail;
+  detail: FormDetail;
   sectionA: object;
   sectionB: object;
   sectionD: object;

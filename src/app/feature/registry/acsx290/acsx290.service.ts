@@ -6,10 +6,6 @@ import { Subscription } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import * as CryptoJS from 'crypto-js';
 
-import { Store } from '@ngrx/store';
-import * as fromRoot from '../../../app.reducer';
-import * as UI from '../../../shared/ui.actions';
-
 import { ACSx290Model } from './acsx290.model';
 import { Registry } from '../registry.model';
 import { map } from 'rxjs/operators';
@@ -41,21 +37,21 @@ export class ACSx290Service implements OnDestroy {
     const an = acsx290Model.sectionA['AN'] as string;
     // tslint:enable: no-string-literal
 
-    const reg = await this.getACSx290Registry(hn, an);
-    return reg !== undefined;
+    const formId = await this.getFormIdByHnAn(hn, an);
+    return formId !== undefined;
   }
 
   public async saveForm(acsx290Model: ACSx290Model): Promise<string> {
     const docRef = await this.db.collection(DB_COLLECTION).add(acsx290Model);
     console.log(docRef ? docRef.id : 'void'); // docRef of type void | DocumentReference
 
-    const registry = this.createRegSummary(docRef.id, acsx290Model);
+    const registry = this.createRegistry(docRef.id, acsx290Model);
     await this.db.collection(DB_REGISTRY).add(registry);
 
-    return docRef.id;
+    return docRef.id; // Registry Id
   }
 
-  private createRegSummary(id: string, acsx290Model: ACSx290Model): Registry {
+  private createRegistry(frmId: string, acsx290Model: ACSx290Model): Registry {
     // tslint:disable: no-string-literal
     return {
       hn: acsx290Model.sectionA['HN'],
@@ -64,23 +60,23 @@ export class ACSx290Service implements OnDestroy {
       addendum: acsx290Model.detail.addendum,
       completion: 100,
       modifiedAt: acsx290Model.detail.modifiedAt,
-      registryId: id
+      formId: frmId
     };
     // tslint:enable: no-string-literal
   }
 
-  public async updateForm(regId: string, acsx290Model: ACSx290Model) {
+  public async updateForm(formId: string, acsx290Model: ACSx290Model) {
     await this.db
       .collection(DB_COLLECTION)
-      .doc(regId)
+      .doc(formId)
       .update(acsx290Model);
 
-    const registry = this.createRegSummary(regId, acsx290Model);
-    const id = await this.getRegistryListId(ref => ref.where('registryId', '==', regId));
-    this.db.doc(DB_REGISTRY + `/${id}`).update(registry);
+    const registry = this.createRegistry(formId, acsx290Model);
+    const registryId = await this.getRegistryId(ref => ref.where('formId', '==', formId));
+    this.db.doc(DB_REGISTRY + `/${registryId}`).update(registry);
   }
 
-  private getACSx290Registry(hn: string, an: string) {
+  private getFormIdByHnAn(hn: string, an: string) {
     const decryptHN = this.decrypt(hn);
     const decryptAN = this.decrypt(an);
 
@@ -102,14 +98,16 @@ export class ACSx290Service implements OnDestroy {
             map(registries => registries.find(doc => doc.hn === decryptHN && doc.an === decryptAN))
           )
           .subscribe(
-            (dc: any) => {
-              if (dc) {
-                resolve(dc.id);
+            (data: any) => {
+              if (data) {
+                resolve(data.id); // Form Id
               } else {
-                reject('not found');
+                // reject('not found');
+                resolve(undefined);
               }
             },
             error => {
+              console.log(error);
               reject(error);
             }
           )
@@ -117,7 +115,7 @@ export class ACSx290Service implements OnDestroy {
     });
   }
 
-  private getRegistryListId(search: any) {
+  private getRegistryId(search: any) {
     return new Promise<string>((resolve, reject) => {
       this.subscriptions.push(
         this.db
@@ -144,12 +142,12 @@ export class ACSx290Service implements OnDestroy {
     });
   }
 
-  public getACSx290RegistryById(registryId: string) {
+  public getACSx290FormById(formId: string) {
     return new Promise<ACSx290Model>((resolve, reject) => {
       this.subscriptions.push(
         this.db
           .collection<ACSx290Model>(DB_COLLECTION)
-          .doc(registryId)
+          .doc(formId)
           .valueChanges()
           .subscribe(
             (dc: any) => {
@@ -163,10 +161,10 @@ export class ACSx290Service implements OnDestroy {
     });
   }
 
-  public deleteForm(registryId: string) {
+  public deleteForm(formId: string) {
     this.db
       .collection(DB_COLLECTION)
-      .doc(registryId)
+      .doc(formId)
       .delete();
   }
 

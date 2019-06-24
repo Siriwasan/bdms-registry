@@ -1,7 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { FormGroup, Validators, FormGroupDirective, ValidationErrors, FormControl, FormArray } from '@angular/forms';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import * as marked from 'marked';
 
 import { DialogService } from '../../shared/services/dialog.service';
@@ -18,11 +18,14 @@ const DB_REGISTRY = 'Registry';
 
 @Injectable()
 export class RegistryService implements OnDestroy {
+  //#region Data Dictionary variables
   private dataDict: string;
   private tokens: marked.TokensList;
+  //#endregion Data Dictionary variables
+
   private subscriptions: Subscription[] = [];
 
-  private formConditions: FormConditions;
+  private conditions: FormConditions;
   private validations: FormValidations;
   private sectionMembers: SectionMember[];
 
@@ -33,9 +36,9 @@ export class RegistryService implements OnDestroy {
   }
 
   //#region Registry
-  public initializeForm(sectionMembers: SectionMember[], formConditions: FormConditions, validations: FormValidations) {
+  public initializeForm(sectionMembers: SectionMember[], conditions: FormConditions, validations: FormValidations) {
     this.sectionMembers = sectionMembers;
-    this.formConditions = formConditions;
+    this.conditions = conditions;
     this.validations = validations;
     this.subscribeFormConditions();
 
@@ -45,7 +48,7 @@ export class RegistryService implements OnDestroy {
 
   private subscribeFormConditions() {
     this.getSectionMembers().forEach(sectionMember => {
-      this.subscribeValueChanges(sectionMember[1], sectionMember[3]); // FormGroup - ControlCondition[]
+      this.subscribeValueChanges(sectionMember[1], sectionMember[3]); // FormGroup, ControlCondition[]
     });
   }
 
@@ -55,7 +58,7 @@ export class RegistryService implements OnDestroy {
         formGroup.get(condition.parentControl).valueChanges.subscribe(value => {
           const control = formGroup.get(condition.control);
 
-          if (condition.conditionValues.findIndex(o => o === value) < 0) {
+          if (condition.conditions.findIndex(o => o === value) < 0) {
             control.setValidators(null);
             control.reset();
             // control.disable();
@@ -115,7 +118,7 @@ export class RegistryService implements OnDestroy {
     let condition: ControlCondition;
     let section: string;
 
-    Object.entries(this.formConditions).find(([key, value]) => {
+    Object.entries(this.conditions).find(([key, value]) => {
       const result = (value as ControlCondition[]).find(o => o.control === control);
       if (result === undefined) {
         return false;
@@ -131,7 +134,7 @@ export class RegistryService implements OnDestroy {
 
     const formGroup = this.getFormGroup(section);
     const parentValue = formGroup.get(condition.parentControl).value;
-    if (condition.conditionValues.findIndex(o => o === parentValue) < 0) {
+    if (condition.conditions.findIndex(o => o === parentValue) < 0) {
       return false;
     }
 
@@ -210,16 +213,16 @@ export class RegistryService implements OnDestroy {
     this.getFormGroups().forEach(formGroup => formGroup.markAllAsTouched());
   }
 
-  validateAllFields(formGroup: FormGroup | FormArray) {
-    Object.keys(formGroup.controls).forEach(field => {
-      const control = formGroup.get(field);
-      if (control instanceof FormControl) {
-        control.markAsTouched({ onlySelf: true });
-      } else if (control instanceof FormGroup) {
-        this.validateAllFields(control);
-      }
-    });
-  }
+  // validateAllFields(formGroup: FormGroup | FormArray) {
+  //   Object.keys(formGroup.controls).forEach(field => {
+  //     const control = formGroup.get(field);
+  //     if (control instanceof FormControl) {
+  //       control.markAsTouched({ onlySelf: true });
+  //     } else if (control instanceof FormGroup) {
+  //       this.validateAllFields(control);
+  //     }
+  //   });
+  // }
 
   public clear() {
     this.getFormDirectives().forEach(formDirective => formDirective.resetForm());

@@ -8,7 +8,7 @@ import { ScrollSpyService } from '../../../shared/modules/scroll-spy/scroll-spy.
 import { SectionMember } from '../registry.model';
 
 import { ACSx290form } from './acsx290.form';
-import { formConditions } from './acsx290.condition';
+import { conditions } from './acsx290.condition';
 import { validations } from './acsx290.validation';
 import { ACSx290Model } from './acsx290.model';
 import { ACSx290Service } from './acsx290.service';
@@ -36,7 +36,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
 
   gap = '20px';
   public mode = 'new'; // new, edit
-  private registryId: string;
+  private formId: string;
 
   result: ACSx290Model;
   flatResult: object;
@@ -85,13 +85,13 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
     this.formGroupE = this.formBuilder.group(ACSx290form.sectionE);
 
     const sectionMembers: SectionMember[] = [
-      ['A', this.formGroupA, this.formDirectiveA, formConditions.sectionA],
-      ['B', this.formGroupB, this.formDirectiveB, formConditions.sectionB],
-      ['D', this.formGroupD, this.formDirectiveD, formConditions.sectionD],
-      ['E', this.formGroupE, this.formDirectiveE, formConditions.sectionE]
+      ['A', this.formGroupA, this.formDirectiveA, conditions.sectionA],
+      ['B', this.formGroupB, this.formDirectiveB, conditions.sectionB],
+      ['D', this.formGroupD, this.formDirectiveD, conditions.sectionD],
+      ['E', this.formGroupE, this.formDirectiveE, conditions.sectionE]
     ];
 
-    this.registryService.initializeForm(sectionMembers, formConditions, validations);
+    this.registryService.initializeForm(sectionMembers, conditions, validations);
     this.registryService.setDataDict(require('raw-loader!./acsx290.dict.md'));
   }
 
@@ -105,17 +105,17 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
     this.store.dispatch(new UI.StartLoading());
     if (this.mode === 'new') {
       if (await this.acsx290Service.isExistedForm(data)) {
-        console.log('repeat registry');
+        console.log('repeat form');
         this.store.dispatch(new UI.StopLoading());
         return;
       }
 
       console.log('new');
-      this.registryId = await this.acsx290Service.saveForm(data);
+      this.formId = await this.acsx290Service.saveForm(data);
       this.mode = 'edit';
     } else {
       console.log('edit');
-      await this.acsx290Service.updateForm(this.registryId, data);
+      await this.acsx290Service.updateForm(this.formId, data);
     }
     this.store.dispatch(new UI.StopLoading());
   }
@@ -123,7 +123,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
   private archiveForm(): ACSx290Model {
     const timestamp = this.acsx290Service.timestamp;
 
-    const acsx290Model = {
+    const acsx290Model: ACSx290Model = {
       detail: {
         baseDb: 'STS Adult Cardiac Surgery version 2.9',
         addendum: 'BDMS ACSx modefied version 0.1',
@@ -156,8 +156,8 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
     if (this.route.snapshot.params.hasOwnProperty('id')) {
       this.store.dispatch(new UI.StartLoading());
 
-      const id = this.route.snapshot.paramMap.get('id');
-      const data = await this.acsx290Service.getACSx290RegistryById(id);
+      const formId = this.route.snapshot.paramMap.get('id');
+      const data = await this.acsx290Service.getACSx290FormById(formId);
       this.store.dispatch(new UI.StopLoading());
 
       if (data) {
@@ -170,7 +170,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
         this.formGroupE.setValue(data.sectionE);
 
         this.mode = 'edit';
-        this.registryId = id;
+        this.formId = formId;
       } else {
         this.router.navigate(['registry/acsx290']);
       }

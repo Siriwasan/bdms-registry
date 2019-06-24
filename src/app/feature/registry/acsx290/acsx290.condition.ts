@@ -1,15 +1,15 @@
 import { FormConditions } from '../registry.model';
 
-export const formConditions: FormConditions = {
+export const conditions: FormConditions = {
   sectionA: [],
   sectionB: [],
   sectionD: [
-    { control: 'DiabCtrl', parentControl: 'Diabetes', conditionValues: ['Yes'] },
-    { control: 'InfEndTy', parentControl: 'InfEndo', conditionValues: ['Yes'] },
-    { control: 'InfEndCult', parentControl: 'InfEndo', conditionValues: ['Yes'] }
+    { control: 'DiabCtrl', parentControl: 'Diabetes', conditions: ['Yes'] },
+    { control: 'InfEndTy', parentControl: 'InfEndo', conditions: ['Yes'] },
+    { control: 'InfEndCult', parentControl: 'InfEndo', conditions: ['Yes'] }
   ],
   sectionE: [
-    { control: 'PrCAB', parentControl: 'PrCVInt', conditionValues: ['Yes'] },
-    { control: 'PrValve', parentControl: 'PrCVInt', conditionValues: ['Yes'] }
+    { control: 'PrCAB', parentControl: 'PrCVInt', conditions: ['Yes'] },
+    { control: 'PrValve', parentControl: 'PrCVInt', conditions: ['Yes'] }
   ]
 };
