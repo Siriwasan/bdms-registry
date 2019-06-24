@@ -5,18 +5,8 @@
       <li id="titleTOC" (click)="scrollTo('title')" [class.active]="isActive('title')" class="menu-title">
         <span>ACSx 2.9</span>
       </li>
-      <li>
-        <a id="sectionATOC" (click)="scrollTo('sectionA')" [class.active]="isActive('sectionA')">A. Administrative</a>
-      </li>
-      <li>
-        <a id="sectionBTOC" (click)="scrollTo('sectionB')" [class.active]="isActive('sectionB')">B. Demographics</a>
-      </li>
-      <li>
-        <a id="sectionDTOC" (click)="scrollTo('sectionD')" [class.active]="isActive('sectionD')">D. Risk Factors</a>
-      </li>
-      <li>
-        <a id="sectionETOC" (click)="scrollTo('sectionE')" [class.active]="isActive('sectionE')">E. Previous Cardiac
-          Interventions</a>
+      <li *ngFor="let h of toc">
+        <a [id]="h.section + 'TOC'" (click)="scrollTo(h.section)" [class.active]="isActive(h.section)">{{ h.title }}</a>
       </li>
     </ul>
   </div>

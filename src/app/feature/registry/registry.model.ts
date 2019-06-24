@@ -29,6 +29,11 @@ export type SectionMember = [string, FormGroup, FormGroupDirective, ControlCondi
 //   ['A', this.formGroupA, this.formDirectiveA, formConditions.sectionA]
 //   ['B', this.formGroupB, this.formDirectiveB, formConditions.sectionB]
 
+export interface TableOfCentent {
+  section: string;
+  title: string;
+}
+
 export interface FormDetail {
   baseDb: string;
   addendum: string;

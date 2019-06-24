@@ -12,6 +12,7 @@ import { conditions } from './acsx290.condition';
 import { validations } from './acsx290.validation';
 import { ACSx290Model } from './acsx290.model';
 import { ACSx290Service } from './acsx290.service';
+import { tableOfContent } from './acsx290.toc';
 import { RegistryService } from '../registry.service';
 
 import { Store } from '@ngrx/store';
@@ -37,6 +38,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
   gap = '20px';
   public mode = 'new'; // new, edit
   private formId: string;
+  toc = tableOfContent;
 
   result: ACSx290Model;
   flatResult: object;

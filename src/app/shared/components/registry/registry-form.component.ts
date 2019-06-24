@@ -52,17 +52,20 @@ export class RegistryFormComponent extends ScrollSpyFormComponent implements OnI
 
     const dialogRef = this.dialogService.createModalDialog({
       title: 'Warning!!!',
-      content: 'Save before leave',
-      buttons: ['Cancel', 'Discard']
+      content: 'Form is not saved before leaving',
+      buttons: ['Save', 'Discard change', 'Cancel']
     });
 
     return dialogRef.afterClosed().pipe(
       map(result => {
+        if (result === 'Save') {
+          return true;
+        }
+        if (result === 'Discard change') {
+          return true;
+        }
         if (result === 'Cancel') {
           return false;
-        }
-        if (result === 'Discard') {
-          return true;
         }
       }),
       first()
@@ -83,5 +86,5 @@ export class RegistryFormComponent extends ScrollSpyFormComponent implements OnI
   public isShowControl = (control: string): boolean => this.registryService.isShowControl(control);
   public getValidations = (control: string): ValidationMessage[] => this.registryService.getValidations(control);
   public isInvalid = (control: string, validationType: string): boolean =>
-    this.registryService.isInvalid(control, validationType)
+    this.registryService.isInvalid(control, validationType);
 }
