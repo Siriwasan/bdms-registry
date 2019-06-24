@@ -10,14 +10,10 @@ import { ModalDialogComponent } from './components/modal-dialog/modal-dialog.com
 import { RegistryInputComponent } from './components/registry/registry-input.component';
 import { RegistrySelectComponent } from './components/registry/registry-select.component';
 import { NoSanitizePipe } from './pipes/no-sanitize.pipe';
+import { DeactivateGuard } from './guards/deactivate.guard';
 
 @NgModule({
-  declarations: [
-    ModalDialogComponent,
-    RegistryInputComponent,
-    RegistrySelectComponent,
-    NoSanitizePipe,
-  ],
+  declarations: [ModalDialogComponent, RegistryInputComponent, RegistrySelectComponent, NoSanitizePipe],
   imports: [
     CommonModule,
     FormsModule,
@@ -37,9 +33,9 @@ import { NoSanitizePipe } from './pipes/no-sanitize.pipe';
     ScrollSpyModule,
     RegistryInputComponent,
     RegistrySelectComponent,
-    NoSanitizePipe,
+    NoSanitizePipe
   ],
-  providers: [],
+  providers: [DeactivateGuard],
   entryComponents: [ModalDialogComponent]
 })
 export class SharedModule {}
