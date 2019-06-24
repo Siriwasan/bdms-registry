@@ -22,7 +22,7 @@
   </div>
 
   <div scrollSpyElement id="title" fxFlexOrder="0">
-    <h1>STS 2.9</h1>
+    <h1>STS Adult Cardiac Surgery v2.9</h1>
     <section class="section-wrapper" scrollSpyElement id="sectionA">
       <div class="section-title">
         <span>A. Administrative</span>
@@ -32,7 +32,7 @@
         <form [formGroup]="formGroupA" #formDirectiveA="ngForm">
           <div fxLayout="column" fxLayout.gt-xs="row" [fxLayoutGap.gt-xs]="gap">
             <reg-input controlName="HN" placeholder="HN" [formGroup]="formGroupA"
-              type="number" fxFlex="25"></reg-input>
+              type="text" fxFlex="25"></reg-input>
             <reg-input controlName="AN" placeholder="AN" [formGroup]="formGroupA" type="text" fxFlex="25"></reg-input>
 
             <!-- <div class="item-radio" style="color: rgba(0,0,0,.54);">
@@ -175,7 +175,7 @@
 
     <br />
     <br />
-    <button mat-raised-button class="button" color="primary" (click)="submit()">Submit</button>
+    <button mat-raised-button class="button" color="primary" (click)="submit()">{{ mode === 'new' ? 'Create' : 'Update' }}</button>
     <button mat-raised-button class="button" color="warn" (click)="clear()">Clear</button>
     <button mat-raised-button class="button" color="warn" (click)="clearErrors()">Clear Errors</button>
     <button mat-raised-button class="button" color="accent" (click)="downloadJSON()">Download json</button>

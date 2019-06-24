@@ -7,9 +7,10 @@ import { ACSx290Component } from './acsx290/acsx290.component';
 import { LoremIpsumComponent } from './test-form/lorem-ipsum.component';
 import { TestFormComponent } from './test-form/test-form.component';
 import { RegistryService } from './registry.service';
+import { DecryptPipe } from './registry.pipe';
 
 @NgModule({
-  declarations: [RegistryComponent, ACSx290Component, LoremIpsumComponent, TestFormComponent],
+  declarations: [RegistryComponent, ACSx290Component, LoremIpsumComponent, TestFormComponent, DecryptPipe],
   imports: [SharedModule, RegistryRoutingModule],
   providers: [RegistryService]
 })

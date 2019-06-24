@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormGroup, Validators, FormGroupDirective, ValidationErrors, FormControl, AbstractControl, FormArray } from '@angular/forms';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
 import * as marked from 'marked';
 
 import { DialogService } from '../../shared/services/dialog.service';
@@ -8,8 +10,11 @@ import {
   FormValidations,
   FormConditions,
   SectionMember,
-  ControlCondition
+  ControlCondition,
+  Registry
 } from './registry.model';
+
+const DB_REGISTRY = 'Registry';
 
 @Injectable()
 export class RegistryService {
@@ -20,7 +25,7 @@ export class RegistryService {
   private validations: FormValidations;
   private sectionMembers: SectionMember[];
 
-  constructor(private dialogService: DialogService) {}
+  constructor(private dialogService: DialogService, private db: AngularFirestore) {}
 
   //#region Registry
   public initializeForm(sectionMembers: SectionMember[], formConditions: FormConditions, validations: FormValidations) {
@@ -286,4 +291,10 @@ export class RegistryService {
     return marked.parser(tokensList);
   }
   //#endregion Data Dictionary
+
+  //#region Cloud firestore
+  loadRegistries(): Observable<Registry[]> {
+    return this.db.collection<Registry>(DB_REGISTRY).valueChanges();
+  }
+  //#endregion Cloud firestore
 }

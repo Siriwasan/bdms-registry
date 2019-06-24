@@ -39,3 +39,13 @@ export interface RegistryDetail {
   deletedAt: firebase.firestore.FieldValue;
   deletedBy: string;
 }
+
+export interface Registry {
+  hn: string;
+  name: string;
+  baseDb: string;
+  addendum: string;
+  completion: number;
+  modifiedAt: firebase.firestore.FieldValue;
+  registryId: string;
+}

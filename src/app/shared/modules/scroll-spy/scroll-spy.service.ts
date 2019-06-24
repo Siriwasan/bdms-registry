@@ -87,7 +87,7 @@ export class ScrollSpyService implements OnDestroy {
             (key: string): void => {
               const { currentSectionId, elements, subject } = this.scrollSpies[key];
               const topElementInView: HTMLElement = elements.filter(
-                (element: HTMLElement): boolean => element.getBoundingClientRect().top <= this.topOffset
+                (element: HTMLElement): boolean => element.getBoundingClientRect().top <= this.topOffset + 1
               )[0];
 
               if (!topElementInView) {

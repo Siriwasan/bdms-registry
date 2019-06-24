@@ -1,5 +1,46 @@
-<div class="content">
-  <p>
-    registry works!
-  </p>
+<div style="top: 64px;position: relative;">
+  <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutAlign="space-between center" fxLayoutGap.gt-xs="20px">
+    <h1>Registry List</h1>
+    <mat-form-field floatLabel="never" style="width: 200px;">
+      <!-- <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter" />
+      <mat-icon matSuffix>search</mat-icon> -->
+      <input matInput type="text" placeholder="Filter" (keyup)="applyFilter($event.target.value)" #input>
+      <button mat-button *ngIf="input.value.length > 0" matSuffix mat-icon-button aria-label="Clear" (click)="input.value='';applyFilter(input.value)">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+
+  <div class="mat-elevation-z8">
+    <mat-table [dataSource]="dataSource" matSort>
+      <!-- HN Column -->
+      <ng-container matColumnDef="hn">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>HN</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.hn }}</mat-cell>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.name }}</mat-cell>
+      </ng-container>
+
+      <!-- BaseDB Column -->
+      <ng-container matColumnDef="baseDb">
+        <mat-header-cell *matHeaderCellDef mat-sort-header fxHide.xs>BaseDB</mat-header-cell>
+        <mat-cell *matCellDef="let row" fxHide.xs>{{ row.baseDb }}</mat-cell>
+      </ng-container>
+
+      <!-- Status Column -->
+      <ng-container matColumnDef="status">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
+        <mat-cell mat-cell *matCellDef="let row">{{ row.status }}</mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row class="element-row" *matRowDef="let row; columns: displayedColumns" (click)="click(row)"></mat-row>
+    </mat-table>
+
+    <mat-paginator [pageSize]="25" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  </div>
 </div>
