@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef, ElementRef, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormGroupDirective, FormBuilder } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { RegistryFormComponent } from '../../../shared/components/registry/registry-form.component';
 import { DialogService } from '../../../shared/services/dialog.service';
@@ -17,8 +17,6 @@ import { RegistryService } from '../registry.service';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../../../app.reducer';
 import * as UI from '../../../shared/ui.actions';
-
-import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-acsx290',
@@ -37,7 +35,6 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
   @ViewChild('formDirectiveE', { static: true }) formDirectiveE: FormGroupDirective;
 
   gap = '20px';
-  private subscriptions: Subscription[] = [];
   public mode = 'new'; // new, edit
   private registryId: string;
 
@@ -49,12 +46,12 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
     protected changeDetector: ChangeDetectorRef,
     protected scrollSpy: ScrollSpyService,
     protected hostElement: ElementRef,
+    protected registryService: RegistryService,
     private formBuilder: FormBuilder,
     private store: Store<fromRoot.State>,
     private route: ActivatedRoute,
     private router: Router,
-    public registryService: RegistryService,
-    public acsx290Service: ACSx290Service
+    private acsx290Service: ACSx290Service
   ) {
     super(dialogService, changeDetector, scrollSpy, hostElement, registryService);
   }
@@ -78,8 +75,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
 
   ngOnDestroy() {
     super.ngOnDestroy();
-    this.subscriptions.forEach(subs => subs.unsubscribe());
-    console.log('[ACSx290Component]: destroy');
+    // console.log('[ACSx290Component]: destroy');
   }
 
   private createForm() {
@@ -99,25 +95,32 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
     this.registryService.setDataDict(require('raw-loader!./acsx290.dict.md'));
   }
 
-  async submit() {
+  public async submit() {
     console.log('submit');
     this.registryService.submitAllSections();
-    const data = this.archiveRegistry();
+    const data = this.archiveForm();
 
     this.acsx290Service.encryptSensitiveData(data);
 
+    this.store.dispatch(new UI.StartLoading());
     if (this.mode === 'new') {
+      if (await this.acsx290Service.isExistedForm(data)) {
+        console.log('repeat registry');
+        this.store.dispatch(new UI.StopLoading());
+        return;
+      }
+
       console.log('new');
-      console.log(this.registryId);
-      this.registryId = await this.acsx290Service.saveForm(this.registryId, data);
+      this.registryId = await this.acsx290Service.saveForm(data);
       this.mode = 'edit';
     } else {
       console.log('edit');
-      this.acsx290Service.updateForm(this.registryId, data);
+      await this.acsx290Service.updateForm(this.registryId, data);
     }
+    this.store.dispatch(new UI.StopLoading());
   }
 
-  private archiveRegistry(): ACSx290Model {
+  private archiveForm(): ACSx290Model {
     const timestamp = this.acsx290Service.timestamp;
 
     const acsx290Model = {

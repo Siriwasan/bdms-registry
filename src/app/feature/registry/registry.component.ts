@@ -20,33 +20,26 @@ export class RegistryComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor(private registryService: RegistryService, private router: Router) {
-    // this.registryService.loadRegistries().subscribe(data => {
-    //   this.dataSource = new MatTableDataSource(data);
-    //   this.dataSource.paginator = this.paginator;
-    //   this.dataSource.sort = this.sort;
-    // });
+  constructor(private registryService: RegistryService, private router: Router) {}
 
-    this.registryService.loadRegistries().subscribe(data => {
-      const decryptData: Registry[] = [];
-      data.forEach(d => {
-        decryptData.push({
-          ...d,
-          hn: this.decrypt(d.hn),
-          name: this.decrypt(d.name)
-        });
+  async ngOnInit() {
+    const data = await this.registryService.loadRegistries();
+
+    const decryptData: Registry[] = [];
+    data.forEach(d => {
+      decryptData.push({
+        ...d,
+        hn: this.decrypt(d.hn),
+        name: this.decrypt(d.name)
       });
-
-      console.log('loadRegistry');
-
-      this.dataSource = new MatTableDataSource(decryptData);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
     });
-    // Assign the data to the data source for the table to render
-  }
 
-  ngOnInit() {}
+    console.log('loadRegistry');
+
+    this.dataSource = new MatTableDataSource(decryptData);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();

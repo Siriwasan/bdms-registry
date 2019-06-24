@@ -22,7 +22,7 @@ export class RegistryFormComponent extends ScrollSpyFormComponent implements OnI
     protected changeDetector: ChangeDetectorRef,
     protected scrollSpy: ScrollSpyService,
     protected hostElement: ElementRef,
-    public registryService: RegistryService
+    protected registryService: RegistryService
   ) {
     super(changeDetector, scrollSpy, hostElement);
   }
@@ -37,7 +37,7 @@ export class RegistryFormComponent extends ScrollSpyFormComponent implements OnI
 
   ngOnDestroy() {
     super.ngOnDestroy();
-    console.log('[BaseRegistryComponent]: destroy');
+    // console.log('[BaseRegistryComponent]: destroy');
   }
 
   //#region Warning before leaving

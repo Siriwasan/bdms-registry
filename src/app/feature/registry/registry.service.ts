@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import { FormGroup, Validators, FormGroupDirective, ValidationErrors, FormControl, AbstractControl, FormArray } from '@angular/forms';
+import { Injectable, OnDestroy } from '@angular/core';
+import { FormGroup, Validators, FormGroupDirective, ValidationErrors, FormControl, FormArray } from '@angular/forms';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import * as marked from 'marked';
 
 import { DialogService } from '../../shared/services/dialog.service';
@@ -17,15 +17,20 @@ import {
 const DB_REGISTRY = 'Registry';
 
 @Injectable()
-export class RegistryService {
+export class RegistryService implements OnDestroy {
   private dataDict: string;
   private tokens: marked.TokensList;
+  private subscriptions: Subscription[] = [];
 
   private formConditions: FormConditions;
   private validations: FormValidations;
   private sectionMembers: SectionMember[];
 
   constructor(private dialogService: DialogService, private db: AngularFirestore) {}
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(subs => subs.unsubscribe());
+  }
 
   //#region Registry
   public initializeForm(sectionMembers: SectionMember[], formConditions: FormConditions, validations: FormValidations) {
@@ -46,18 +51,20 @@ export class RegistryService {
 
   private subscribeValueChanges(formGroup: FormGroup, conditions: ControlCondition[]) {
     conditions.forEach(condition => {
-      formGroup.get(condition.parentControl).valueChanges.subscribe(value => {
-        const control = formGroup.get(condition.control);
+      this.subscriptions.push(
+        formGroup.get(condition.parentControl).valueChanges.subscribe(value => {
+          const control = formGroup.get(condition.control);
 
-        if (condition.conditionValues.findIndex(o => o === value) < 0) {
-          control.setValidators(null);
-          control.reset();
-          // control.disable();
-        } else {
-          control.setValidators(Validators.required);
-          // control.enable();
-        }
-      });
+          if (condition.conditionValues.findIndex(o => o === value) < 0) {
+            control.setValidators(null);
+            control.reset();
+            // control.disable();
+          } else {
+            control.setValidators(Validators.required);
+            // control.enable();
+          }
+        })
+      );
     });
   }
 
@@ -293,8 +300,24 @@ export class RegistryService {
   //#endregion Data Dictionary
 
   //#region Cloud firestore
-  loadRegistries(): Observable<Registry[]> {
-    return this.db.collection<Registry>(DB_REGISTRY).valueChanges();
+  loadRegistries(): Promise<Registry[]> {
+    // return this.db.collection<Registry>(DB_REGISTRY).valueChanges();
+
+    return new Promise((resolve, reject) => {
+      this.subscriptions.push(
+        this.db
+          .collection<Registry>(DB_REGISTRY)
+          .valueChanges()
+          .subscribe(
+            data => {
+              resolve(data);
+            },
+            error => {
+              reject(error);
+            }
+          )
+      );
+    });
   }
   //#endregion Cloud firestore
 }

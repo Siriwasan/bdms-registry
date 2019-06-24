@@ -50,7 +50,7 @@ export class ScrollSpyFormComponent implements OnInit, AfterViewInit, OnDestroy 
     }
     this.currentSectionSubscription.unsubscribe();
     // this.currentSection = '';
-    console.log(this.currentSection);
+    // console.log(this.currentSection);
   }
 
   @HostListener('window:resize')
