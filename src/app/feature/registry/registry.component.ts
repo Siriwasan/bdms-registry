@@ -11,6 +11,7 @@ import * as UI from '../../shared/ui.actions';
 
 import { Registry } from './registry.model';
 import { RegistryService } from './registry.service';
+import { FileService } from '../../shared/services/file.service';
 
 @Component({
   selector: 'app-registry',
@@ -24,7 +25,12 @@ export class RegistryComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor(private registryService: RegistryService, private router: Router, private store: Store<fromRoot.State>) {}
+  constructor(
+    private registryService: RegistryService,
+    private router: Router,
+    private store: Store<fromRoot.State>,
+    private fileService: FileService
+  ) {}
 
   ngOnInit() {
     setTimeout(async () => {
@@ -66,5 +72,23 @@ export class RegistryComponent implements OnInit {
 
   private decrypt(source: string): string {
     return CryptoJS.AES.decrypt(source, environment.appKey).toString(CryptoJS.enc.Utf8);
+  }
+
+  create() {
+    this.router.navigate(['registry/acsx290']);
+  }
+
+  async export() {
+    const data = await this.registryService.loadACSx290s();
+    data.forEach(d => {
+      d.detail.createdAt =
+        d.detail.createdAt !== null ? (d.detail.createdAt as firebase.firestore.Timestamp).toDate() : null;
+      d.detail.modifiedAt =
+        d.detail.modifiedAt !== null ? (d.detail.modifiedAt as firebase.firestore.Timestamp).toDate() : null;
+      d.detail.deletedAt =
+        d.detail.deletedAt !== null ? (d.detail.deletedAt as firebase.firestore.Timestamp).toDate() : null;
+    });
+    console.log(data);
+    this.fileService.saveJSONtoCSV(data, 'data.csv');
   }
 }

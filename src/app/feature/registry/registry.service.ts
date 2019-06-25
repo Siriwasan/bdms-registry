@@ -13,6 +13,7 @@ import {
   ControlCondition,
   Registry
 } from './registry.model';
+import { ACSx290Model } from './acsx290/acsx290.model';
 
 const DB_REGISTRY = 'Registry';
 
@@ -310,6 +311,24 @@ export class RegistryService implements OnDestroy {
       this.subscriptions.push(
         this.db
           .collection<Registry>(DB_REGISTRY)
+          .valueChanges()
+          .subscribe(
+            data => {
+              resolve(data);
+            },
+            error => {
+              reject(error);
+            }
+          )
+      );
+    });
+  }
+
+  public loadACSx290s(): Promise<ACSx290Model[]> {
+    return new Promise<ACSx290Model[]>((resolve, reject) => {
+      this.subscriptions.push(
+        this.db
+          .collection<ACSx290Model>('ACSx290')
           .valueChanges()
           .subscribe(
             data => {

@@ -142,7 +142,7 @@ export class ACSx290Service implements OnDestroy {
     });
   }
 
-  public getACSx290FormById(formId: string) {
+  public getFormById(formId: string) {
     return new Promise<ACSx290Model>((resolve, reject) => {
       this.subscriptions.push(
         this.db

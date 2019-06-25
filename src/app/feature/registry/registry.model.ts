@@ -37,11 +37,11 @@ export interface TableOfCentent {
 export interface FormDetail {
   baseDb: string;
   addendum: string;
-  createdAt: firebase.firestore.FieldValue;
+  createdAt: any;
   createdBy: string;
-  modifiedAt: firebase.firestore.FieldValue;
+  modifiedAt: any;
   modifiedBy: string;
-  deletedAt: firebase.firestore.FieldValue;
+  deletedAt: any;
   deletedBy: string;
 }
 

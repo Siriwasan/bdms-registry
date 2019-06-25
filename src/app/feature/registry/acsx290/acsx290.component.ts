@@ -159,7 +159,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
       this.store.dispatch(new UI.StartLoading());
 
       const formId = this.route.snapshot.paramMap.get('id');
-      const data = await this.acsx290Service.getACSx290FormById(formId);
+      const data = await this.acsx290Service.getFormById(formId);
       this.store.dispatch(new UI.StopLoading());
 
       if (data) {
