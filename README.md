@@ -29,3 +29,7 @@ firebase deploy
 | Id      | Registry                      | Published         |
 |---------|-------------------------------|-------------------|
 | ACSx290 | STS Adult Cardiac Surgery 2.9 | February 13, 2017 |
+
+## BUG
+
+1. remove validators when hide but cannot restore the old one.

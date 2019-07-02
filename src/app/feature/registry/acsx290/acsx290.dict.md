@@ -27,3 +27,9 @@ Ho Ho Ho
 ## Sex
 
 Male/Female
+
+# DOB
+
+## Date of Birth
+
+กรุณาใส่วันเกิด

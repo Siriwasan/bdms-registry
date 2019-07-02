@@ -24,7 +24,7 @@
 }
 
 .table-of-contents {
-  width: 200px;
+  width: 250px;
   position: fixed;
   top: 64px;
   right: 0px;
@@ -44,6 +44,7 @@
   a {
     text-decoration: none;
     display: inline-block;
+    font-size: small;
     font-weight: 300;
     color: #757575;
     padding-left: 16px;

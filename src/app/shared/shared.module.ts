@@ -9,11 +9,18 @@ import { ScrollSpyModule } from './modules/scroll-spy/scroll-spy.module';
 import { ModalDialogComponent } from './components/modal-dialog/modal-dialog.component';
 import { RegistryInputComponent } from './components/registry/registry-input.component';
 import { RegistrySelectComponent } from './components/registry/registry-select.component';
+import { RegistryDatepickerComponent } from './components/registry/registry-datapicker.component';
 import { NoSanitizePipe } from './pipes/no-sanitize.pipe';
 import { DeactivateGuard } from './guards/deactivate.guard';
 
 @NgModule({
-  declarations: [ModalDialogComponent, RegistryInputComponent, RegistrySelectComponent, NoSanitizePipe],
+  declarations: [
+    ModalDialogComponent,
+    RegistryInputComponent,
+    RegistrySelectComponent,
+    RegistryDatepickerComponent,
+    NoSanitizePipe
+  ],
   imports: [
     CommonModule,
     FormsModule,
@@ -33,6 +40,7 @@ import { DeactivateGuard } from './guards/deactivate.guard';
     ScrollSpyModule,
     RegistryInputComponent,
     RegistrySelectComponent,
+    RegistryDatepickerComponent,
     NoSanitizePipe
   ],
   providers: [DeactivateGuard],

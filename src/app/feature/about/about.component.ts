@@ -17,4 +17,9 @@ export class AboutComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {}
+
+  isShow() {
+    console.log('show');
+    return true;
+  }
 }

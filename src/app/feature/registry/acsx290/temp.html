@@ -1,0 +1,48 @@
+<!-- REG-INPUT -->
+          <reg-input controlName="XXX" placeholder="YYY" [formGroup]="formGroupJ" type="text">
+          </reg-input>
+
+          <reg-input controlName="XXX" placeholder="YYY" [formGroup]="formGroupJ" type="text" require="false">
+          </reg-input>
+
+          <reg-input controlName="XXX" placeholder="YYY" [formGroup]="formGroupJ" type="text"
+            *ngIf="isShowControl('XXX')"></reg-input>
+
+<!-- REG-SELECT -->
+          <reg-select controlName="XXX" placeholder="YYY" [formGroup]="formGroupJ"
+            [choices]="['Yes', 'No', 'Unknown']"></reg-select>
+
+          <reg-select controlName="XXX" placeholder="YYY" [formGroup]="formGroupJ"
+            [choices]="['Yes', 'No', 'Unknown']" require="false"></reg-select>
+
+          <reg-select controlName="XXX" placeholder="YYY" [formGroup]="formGroupJ"
+            [choices]="['Yes', 'No', 'Unknown']" *ngIf="isShowControl('XXX')"></reg-select>
+
+          <reg-select controlName="XXX" placeholder="YYY" [formGroup]="formGroupJ" [choices]="[
+              'Yes',
+              'No',
+              'Unknown'
+            ]"></reg-select>
+
+          <reg-select controlName="XXX" placeholder="YYY" [formGroup]="formGroupJ" [choices]="[
+              'Yes',
+              'No',
+              'Unknown'
+            ]" *ngIf="isShowControl('XXX')"></reg-select>
+
+<!-- REG-DATEPICKER -->
+          <reg-datepicker controlName="XXX" placeholder="YYY" [formGroup]="formGroupJ">
+          </reg-datepicker>
+
+          <reg-datepicker controlName="XXX" placeholder="YYY" [formGroup]="formGroupJ"
+            *ngIf="isShowControl('XXX')"></reg-datepicker>
+
+          <reg-input controlName="XXX" placeholder="YYY" [formGroup]="formGroupJ" type="text">
+            dd/mm/yyyy hh:mm - 24 hr clock</reg-input>
+
+          <reg-input controlName="XXX" placeholder="YYY" [formGroup]="formGroupJ" type="text"
+            *ngIf="isShowControl('XXX')">dd/mm/yyyy hh:mm - 24 hr clock</reg-input>
+
+<!-- DIVIDER -->
+          <mat-divider></mat-divider>
+

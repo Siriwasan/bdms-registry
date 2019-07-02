@@ -24,6 +24,7 @@ export class RegistryService implements OnDestroy {
   private tokens: marked.TokensList;
   //#endregion Data Dictionary variables
 
+  show = false; // add one more property
   private subscriptions: Subscription[] = [];
 
   private conditions: FormConditions;
@@ -57,15 +58,35 @@ export class RegistryService implements OnDestroy {
     conditions.forEach(condition => {
       this.subscriptions.push(
         formGroup.get(condition.parentControl).valueChanges.subscribe(value => {
-          const control = formGroup.get(condition.control);
+          let control = formGroup.get(condition.control);
 
-          if (condition.conditions.findIndex(o => o === value) < 0) {
-            control.setValidators(null);
-            control.reset();
-            // control.disable();
+          // tslint:disable-next-line: no-string-literal
+          if (control['vals'] === undefined) {
+            control = Object.assign(control, { vals: control.validator });
+          }
+
+          // in case of NOT conditions
+          if (value !== null && condition.conditions[0] === '!') {
+            if (condition.conditions[1] !== value) {
+              // tslint:disable-next-line: no-string-literal
+              control.setValidators(control['vals']);
+              // control.enable();
+            } else {
+              control.setValidators(null);
+              control.reset();
+              // control.disable();
+            }
           } else {
-            control.setValidators(Validators.required);
-            // control.enable();
+            if (condition.conditions.findIndex(o => o === value) < 0) {
+              control.setValidators(null);
+              control.reset();
+              // control.disable();
+            } else {
+              // ! bug fixed: remove all validator but cannot keep the old one
+              // tslint:disable-next-line: no-string-literal
+              control.setValidators(control['vals']);
+              // control.enable();
+            }
           }
         })
       );
@@ -135,6 +156,15 @@ export class RegistryService implements OnDestroy {
 
     const formGroup = this.getFormGroup(section);
     const parentValue = formGroup.get(condition.parentControl).value;
+
+    if (parentValue !== null && condition.conditions[0] === '!') {
+      if (condition.conditions[1] !== parentValue) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
     if (condition.conditions.findIndex(o => o === parentValue) < 0) {
       return false;
     }

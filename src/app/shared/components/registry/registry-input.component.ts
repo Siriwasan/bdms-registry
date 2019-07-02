@@ -27,15 +27,13 @@ import { RegistryControlComponent } from './registry-control.component';
       <mat-hint>
         <a><ng-content></ng-content></a>
         <mat-icon style="cursor: help;" (click)="openInfo(controlName)" *ngIf="hasInfo(controlName)"
-          >info_outline</mat-icon
-        >
+          >info_outline</mat-icon>
       </mat-hint>
       <mat-error *ngFor="let validation of getValidations(controlName)">
         <mat-error *ngIf="isInvalid(controlName, validation.type)">
           <a>{{ validation.message }}</a>
           <mat-icon style="cursor: help;" (click)="openInfo(controlName)" *ngIf="hasInfo(controlName)"
-            >info_outline</mat-icon
-          >
+            >info_outline</mat-icon>
         </mat-error>
       </mat-error>
     </mat-form-field>
@@ -48,11 +46,13 @@ export class RegistryInputComponent extends RegistryControlComponent implements 
   @Input() placeholder: string;
   @Input() require = true;
 
-  constructor(protected registryService: RegistryService, private cdRef: ChangeDetectorRef) {
+  constructor(protected registryService: RegistryService
+    // private cdRef: ChangeDetectorRef
+    ) {
     super(registryService);
   }
 
   ngAfterViewInit() {
-    this.cdRef.detectChanges();
+    // this.cdRef.detectChanges();
   }
 }

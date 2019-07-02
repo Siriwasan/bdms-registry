@@ -2,7 +2,7 @@
   <section style="text-align: center;">
     <h1>BDMS Registry</h1>
     <h3>by Siriwasan Akanitthapichat M.D.</h3>
-    <h4>2019</h4>
+    <h4 *ngIf="isShow()">2019</h4>
   </section>
   <div style="width: 80%; overflow: auto" class="markdown-body" [innerHTML]="html | noSanitize"></div>
 </div>
