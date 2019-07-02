@@ -14,7 +14,7 @@ import { RegistryControlComponent } from './registry-control.component';
         matInput
         [matDatepicker]="picker"
         [placeholder]="placeholder"
-        [formControlName]="controlName"
+        [formControlName]="id"
         [required]="require"
       />
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -48,6 +48,7 @@ import { RegistryControlComponent } from './registry-control.component';
   ]
 })
 export class RegistryDatepickerComponent extends RegistryControlComponent {
+  @Input() id: string;
   @Input() formGroup: string;
   @Input() controlName: string;
   @Input() placeholder: string;

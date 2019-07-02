@@ -123,6 +123,8 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
   ngAfterViewInit() {
     super.ngAfterViewInit();
 
+    this.registryService.subscribeFormConditions();
+
     // Prevent ExpressionChangedAfterItHasBeenCheckedError
     setTimeout(() => {
       this.loadById();
@@ -235,7 +237,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
       sectionJ: { ...this.formGroupJ.value },
       sectionK: { ...this.formGroupK.value },
       sectionL: { ...this.formGroupL.value },
-      sectionL2: { ...this.formGroupF.value },
+      sectionL2: { ...this.formGroupL2.value },
       sectionM: { ...this.formGroupM.value },
       sectionM1: { ...this.formGroupM1.value },
       sectionM2: { ...this.formGroupM2.value },
@@ -320,44 +322,40 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
     //   this.fileService.saveJSONtoFile([this.result]);
   }
 
-  enableSection(enable: boolean) {
-    console.log(enable);
+  enableSection(sectionId: string, value: string, conds: string[]) {
+    // if (value !== null && conds[0] === '!') {
+    //   if (conds[1] !== value) {
+    //     document.getElementById(sectionId).style.display = '';
+    //     return true;
+    //   } else {
+    //     document.getElementById(sectionId).style.display = 'none';
+    //     return false;
+    //   }
+    // } else {
+    //   if (conds.findIndex(o => o === value) < 0) {
+    //     document.getElementById(sectionId).style.display = 'none';
+    //     return false;
+    //   } else {
+    //     document.getElementById(sectionId).style.display = '';
+    //   }
+    // }
+  }
 
-    Object.keys(this.formGroupJ.controls).forEach(key => {
-      const control = this.formGroupJ.get(key);
+  showWhen(section: string, control: string, conds: string[]) {
+    const formGroup = this.registryService.getFormGroup(section);
+    const value = formGroup.get(control).value;
 
-      // if (enable) {
-      //   control.enable();
-      //   if (control['vals'] !== undefined) {
-      //     console.log(key);
-      //     control.setValidators(control['vals']);
-      //   }
-      // } else {
-      //   control.setValidators(null);
-      //   control.reset();
-      //   control.disable();
-      // }
-
-      if (!enable) {
-        control.reset();
+    if (value !== null && conds[0] === '!') {
+      if (conds[1] !== value) {
+        return true;
+      } else {
+        return false;
       }
-    });
-  }
-
-  showWhen(control: string, conds: string[]) {
-    console.log('showWhen');
-    const value = this.formGroupI.get(control).value;
-
-    if (conds.findIndex(o => o === value) < 0) {
-      return false;
+    } else {
+      if (conds.findIndex(o => o === value) < 0) {
+        return false;
+      }
     }
-
     return true;
-  }
-
-  test() {
-    console.log(document.getElementById('HN').style.display);
-    document.getElementById('HN').style.display = document.getElementById('HN').style.display === '' ? 'none' : '';
-    // this.hidd = true;
   }
 }

@@ -10,7 +10,7 @@ import { RegistryControlComponent } from './registry-control.component';
   template: `
     <mat-form-field class="item" [formGroup]="formGroup" style="width: 100%">
       <mat-select
-        [formControlName]="controlName"
+        [formControlName]="id"
         [required]="require"
         [placeholder]="placeholder"
         (selectionChange)="selectionChange($event)"
@@ -35,6 +35,7 @@ import { RegistryControlComponent } from './registry-control.component';
   `
 })
 export class RegistrySelectComponent extends RegistryControlComponent {
+  @Input() id: string;
   @Input() formGroup: string;
   @Input() controlName: string;
   @Input() placeholder: string;
@@ -44,6 +45,9 @@ export class RegistrySelectComponent extends RegistryControlComponent {
 
   constructor(protected registryService: RegistryService) {
     super(registryService);
+    if (this.controlName === undefined) {
+      this.controlName = this.id;
+    }
   }
 
   selectionChange(event: MatSelectChange) {

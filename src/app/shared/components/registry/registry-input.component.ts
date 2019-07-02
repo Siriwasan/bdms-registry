@@ -13,7 +13,7 @@ import { RegistryControlComponent } from './registry-control.component';
         type="number"
         matInput
         [placeholder]="placeholder"
-        [formControlName]="controlName"
+        [formControlName]="id"
         [required]="require"
       />
       <input
@@ -21,7 +21,7 @@ import { RegistryControlComponent } from './registry-control.component';
         type="text"
         matInput
         [placeholder]="placeholder"
-        [formControlName]="controlName"
+        [formControlName]="id"
         [required]="require"
       />
       <mat-hint>
@@ -40,6 +40,7 @@ import { RegistryControlComponent } from './registry-control.component';
   `
 })
 export class RegistryInputComponent extends RegistryControlComponent implements AfterViewInit {
+  @Input() id: string;
   @Input() formGroup: string;
   @Input() controlName: string;
   @Input() type = 'number';

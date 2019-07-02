@@ -42,16 +42,18 @@ export class RegistryService implements OnDestroy {
     this.sectionMembers = sectionMembers;
     this.conditions = conditions;
     this.validations = validations;
-    this.subscribeFormConditions();
 
-    // ! Remove validator in hiding child control
-    this.getFormGroups().forEach(formGroup => formGroup.setValue(formGroup.value));
+    // move to child form ngAfterViewInit
+    // this.subscribeFormConditions();
   }
 
-  private subscribeFormConditions() {
+  public subscribeFormConditions() {
     this.getSectionMembers().forEach(sectionMember => {
       this.subscribeValueChanges(sectionMember[1], sectionMember[3]); // FormGroup, ControlCondition[]
     });
+
+    // ! Remove validator in hiding child control
+    this.getFormGroups().forEach(formGroup => formGroup.setValue(formGroup.value));
   }
 
   private subscribeValueChanges(formGroup: FormGroup, conditions: ControlCondition[]) {
@@ -65,26 +67,46 @@ export class RegistryService implements OnDestroy {
             control = Object.assign(control, { vals: control.validator });
           }
 
+          const element = document.getElementById(condition.control);
+
+          // disable will remove control from FormGroup
+
           // in case of NOT conditions
           if (value !== null && condition.conditions[0] === '!') {
             if (condition.conditions[1] !== value) {
               // tslint:disable-next-line: no-string-literal
               control.setValidators(control['vals']);
+
+              if (element) {
+                element.style.display = '';
+              }
               // control.enable();
             } else {
               control.setValidators(null);
               control.reset();
+
+              if (element) {
+                element.style.display = 'none';
+              }
               // control.disable();
             }
           } else {
             if (condition.conditions.findIndex(o => o === value) < 0) {
               control.setValidators(null);
               control.reset();
+
+              if (element) {
+                element.style.display = 'none';
+              }
               // control.disable();
             } else {
               // ! bug fixed: remove all validator but cannot keep the old one
               // tslint:disable-next-line: no-string-literal
               control.setValidators(control['vals']);
+
+              if (element) {
+                element.style.display = '';
+              }
               // control.enable();
             }
           }
@@ -104,7 +126,7 @@ export class RegistryService implements OnDestroy {
     return this.sectionMembers;
   }
 
-  private getFormGroup(section: string): FormGroup {
+  public getFormGroup(section: string): FormGroup {
     const sectionMember = this.getSectonMember(section);
     if (sectionMember === undefined) {
       return null;
@@ -224,7 +246,11 @@ export class RegistryService implements OnDestroy {
         });
         error++;
       }
-      if (this.isShowControl(key)) {
+      // if (this.isShowControl(key)) {
+      //   total++;
+      // }
+      const element = document.getElementById(key);
+      if (element && element.style.display === '') {
         total++;
       }
     });
