@@ -101,6 +101,7 @@ export const conditions: FormConditions = {
            { control: 'Dominance', parentControl: 'CorAnatDisKnown', conditions: ['Yes'] },
            { control: 'StenSource', parentControl: 'CorAnatDisKnown', conditions: ['Yes'] },
            { control: 'NumDisV', parentControl: 'CorAnatDisKnown', conditions: ['Yes'] },
+           { control: 'H:coronary', parentControl: 'NumDisV', conditions: ['One', 'Two', 'Three'] },
            { control: 'PctStenKnown', parentControl: 'NumDisV', conditions: ['One', 'Two', 'Three'] },
            { control: 'GraftsPrsnt', parentControl: 'NumDisV', conditions: ['One', 'Two', 'Three'] },
            { control: 'StentPrsnt', parentControl: 'NumDisV', conditions: ['One', 'Two', 'Three'] },
@@ -257,6 +258,7 @@ export const conditions: FormConditions = {
            { control: 'PCancCaseDt', parentControl: 'PCancCase', conditions: ['Yes'] },
            { control: 'PCancCaseTmg', parentControl: 'PCancCase', conditions: ['Yes'] },
            { control: 'PCancCaseRsn', parentControl: 'PCancCase', conditions: ['Yes'] },
+           { control: 'I:planPreProd', parentControl: 'PCancCase', conditions: ['Yes'] },
            { control: 'PCancCaseCAB', parentControl: 'PCancCase', conditions: ['Yes'] },
            { control: 'PCancCaseMech', parentControl: 'PCancCase', conditions: ['Yes'] },
            { control: 'PCancCaseONC', parentControl: 'PCancCase', conditions: ['Yes'] },
@@ -266,6 +268,7 @@ export const conditions: FormConditions = {
 
            { control: 'CCancCaseTmg', parentControl: 'CCancCase', conditions: ['Yes'] },
            { control: 'CCancCaseRsn', parentControl: 'CCancCase', conditions: ['Yes'] },
+           { control: 'I:planProd', parentControl: 'CCancCase', conditions: ['Yes'] },
            { control: 'CCancCaseCAB', parentControl: 'CCancCase', conditions: ['Yes'] },
            { control: 'CCancCaseMech', parentControl: 'CCancCase', conditions: ['Yes'] },
            { control: 'CCancCaseONC', parentControl: 'CCancCase', conditions: ['Yes'] },
@@ -295,12 +298,14 @@ export const conditions: FormConditions = {
            { control: 'CPBCmb', parentControl: 'CPBUtil', conditions: ['Combination'] },
            { control: 'CPBCmbR', parentControl: 'CPBCmb', conditions: ['Unplanned'] },
 
+           { control: 'I:artCannSite', parentControl: 'CPBUtil', conditions: ['Combination', 'Full'] },
            { control: 'CanArtStAort', parentControl: 'CPBUtil', conditions: ['Combination', 'Full'] },
            { control: 'CanArtStFem', parentControl: 'CPBUtil', conditions: ['Combination', 'Full'] },
            { control: 'CanArtStAx', parentControl: 'CPBUtil', conditions: ['Combination', 'Full'] },
            { control: 'CanArtStInn', parentControl: 'CPBUtil', conditions: ['Combination', 'Full'] },
            { control: 'CanArtStO', parentControl: 'CPBUtil', conditions: ['Combination', 'Full'] },
 
+           { control: 'I:venCannSite', parentControl: 'CPBUtil', conditions: ['Combination', 'Full'] },
            { control: 'CanVenStFem', parentControl: 'CPBUtil', conditions: ['Combination', 'Full'] },
            { control: 'CanVenStJug', parentControl: 'CPBUtil', conditions: ['Combination', 'Full'] },
            { control: 'CanVenStRtA', parentControl: 'CPBUtil', conditions: ['Combination', 'Full'] },
@@ -346,7 +351,36 @@ export const conditions: FormConditions = {
            { control: 'PPEFMeas', parentControl: 'InOpTEE', conditions: ['Yes'] },
            { control: 'PPEF', parentControl: 'InOpTEE', conditions: ['Yes'] }
          ],
-         sectionJ: [{ control: 'NumIMADA', parentControl: 'IMAUsed', conditions: ['Yes'] }],
+         sectionJ: [
+           { control: 'IMAUsed', parentControl: 'I:OpCAB', conditions: ['!', 'No'] },
+           { control: 'NoIMARsn', parentControl: 'IMAUsed', conditions: ['No'] },
+           { control: 'NumIMADA', parentControl: 'IMAUsed', conditions: ['Yes'] },
+           { control: 'LeftIMA', parentControl: 'IMAUsed', conditions: ['Yes'] },
+           {
+             control: 'LIMAHarvTech',
+             parentControl: 'LeftIMA',
+             conditions: ['Yes, pedicle', 'Yes, skeletonized']
+           },
+           { control: 'RightIMA', parentControl: 'IMAUsed', conditions: ['Yes'] },
+           {
+             control: 'RIMAHarvTech',
+             parentControl: 'RightIMA',
+             conditions: ['Yes, pedicle', 'Yes, skeletonized']
+           },
+           { control: 'RadialArtUsed', parentControl: 'I:OpCAB', conditions: ['!', 'No'] },
+           { control: 'NumRadDA', parentControl: 'RadialArtUsed', conditions: ['Yes'] },
+           { control: 'RadHTech', parentControl: 'RadialArtUsed', conditions: ['Yes'] },
+           { control: 'RadHarvPrepTm', parentControl: 'RadialArtUsed', conditions: ['Yes'] },
+           { control: 'VenousCondUsed', parentControl: 'I:OpCAB', conditions: ['!', 'No'] },
+           { control: 'DistVein', parentControl: 'VenousCondUsed', conditions: ['Yes'] },
+           { control: 'DistVeinHTech', parentControl: 'VenousCondUsed', conditions: ['Yes'] },
+           { control: 'SaphHarPrepTm', parentControl: 'VenousCondUsed', conditions: ['Yes'] },
+           { control: 'J:numDistAnas', parentControl: 'I:OpCAB', conditions: ['!', 'No'] },
+           { control: 'NumOArtD', parentControl: 'I:OpCAB', conditions: ['!', 'No'] },
+           { control: 'NumArtVenComp', parentControl: 'I:OpCAB', conditions: ['!', 'No'] },
+           { control: 'NumVenArtComp', parentControl: 'I:OpCAB', conditions: ['!', 'No'] },
+           { control: 'NumArtArtComp', parentControl: 'I:OpCAB', conditions: ['!', 'No'] }
+         ],
          sectionK: [],
          sectionL: [],
          sectionL2: [],

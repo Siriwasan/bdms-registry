@@ -1119,7 +1119,7 @@
               'Three'
             ]"></reg-select>
 
-          <h3 *ngIf="showWhen('H', 'NumDisV', ['One', 'Two', 'Three'])">Coronary</h3>
+          <h3 id="coronary">Coronary</h3>
 
           <reg-select id="PctStenKnown" placeholder="Native Artery" [formGroup]="formGroupH" [choices]="[
               'Yes',
@@ -1531,7 +1531,7 @@
               'Other'
             ]"></reg-select>
 
-          <h4 *ngIf="showWhen('I', 'PCancCase', ['Yes'])">Planned previous procedure</h4>
+          <h4 id="planPreProd">Planned previous procedure</h4>
 
           <reg-select id="PCancCaseCAB" placeholder="CABG" [formGroup]="formGroupI"
             [choices]="['Yes', 'No']"></reg-select>
@@ -1573,7 +1573,7 @@
               'Other'
             ]"></reg-select>
 
-          <h4 *ngIf="showWhen('I', 'CCancCase', ['Yes'])">Planned procedure</h4>
+          <h4 id="planProd">Planned procedure</h4>
 
           <reg-select id="CCancCaseCAB" placeholder="CABG" [formGroup]="formGroupI"
             [choices]="['Yes', 'No']"></reg-select>
@@ -1751,7 +1751,7 @@
             'Other'
             ]"></reg-select>
 
-          <h4 *ngIf="showWhen('I', 'CPBUtil', ['Combination', 'Full'])">Arterial Cannulation Insertion Site</h4>
+          <h4 id="artCannSite">Arterial Cannulation Insertion Site</h4>
 
           <reg-select id="CanArtStAort" placeholder="Aortic" [formGroup]="formGroupI"
             [choices]="['Yes', 'No']"></reg-select>
@@ -1768,7 +1768,7 @@
           <reg-select id="CanArtStO" placeholder="Other" [formGroup]="formGroupI"
             [choices]="['Yes', 'No']"></reg-select>
 
-          <h4 *ngIf="showWhen('I', 'CPBUtil', ['Combination', 'Full'])">Venous Cannulation Insertion Site</h4>
+          <h4 id="venCannSite">Venous Cannulation Insertion Site</h4>
 
           <reg-select id="CanVenStFem" placeholder="Femoral" [formGroup]="formGroupI"
             [choices]="['Yes', 'No']"></reg-select>
@@ -1986,17 +1986,89 @@
     <section class="section-wrapper" scrollSpyElement id="sectionJ">
       <div class="section-title" (click)="scrollTo('OpCAB')">
         <span>J. Coronary Bypass</span>
-        <span>{{ showWhen('I', 'OpCAB', ['!', 'No']) ? formCompletion('J') : '0/0' }}</span>
+        <span>{{ formCompletion('J') }}</span>
       </div>
-      <div class="section-body" id="sectionJ-body" [hidden]="!showWhen('I', 'OpCAB', ['!', 'No'])">
+      <div class="section-body" id="sectionJ-body">
       <!-- <div class="section-body" id="sectionJ-body" [style.display]="'none'"> -->
         <form [formGroup]="formGroupJ" #formDirectiveJ="ngForm">
 
           <reg-select id="IMAUsed" placeholder="Internal Mammary Artery used" [formGroup]="formGroupJ"
             [choices]="['Yes', 'No']"></reg-select>
 
-          <reg-input id="NumIMADA" placeholder="Total Number of Distal Anastomoses with IMA conduits" [formGroup]="formGroupJ" type="text"
+          <reg-select id="NoIMARsn" placeholder="Reason for no IMA" [formGroup]="formGroupJ" [choices]="[
+              'Subclavian stenosis',
+              'Previous cardiac or thoracic surgery',
+              'Previous mediastinal radiation',
+              'Emergent or salvage procedure',
+              'No (bypassable) LAD disease',
+              'Other'
+            ]"></reg-select>
+
+          <reg-input id="NumIMADA" placeholder="Total Number of Distal Anastomoses with IMA conduits" [formGroup]="formGroupJ" type="number"
             ></reg-input>
+
+          <reg-select id="LeftIMA" placeholder="Left IMA" [formGroup]="formGroupJ"
+            [choices]="['Yes, pedicle', 'Yes, skeletonized', 'No']"></reg-select>
+
+          <reg-select id="LIMAHarvTech" placeholder="LIMA Harvest technique" [formGroup]="formGroupJ" [choices]="[
+              'Direct Vision (open)',
+              'Thoracoscopy',
+              'Combination',
+              'Robotic Assist'
+            ]"></reg-select>
+
+          <reg-select id="RightIMA" placeholder="Right IMA" [formGroup]="formGroupJ"
+            [choices]="['Yes, pedicle', 'Yes, skeletonized', 'No']"></reg-select>
+
+          <reg-select id="RIMAHarvTech" placeholder="RIMA Harvest technique" [formGroup]="formGroupJ" [choices]="[
+              'Direct Vision (open)',
+              'Thoracoscopy',
+              'Combination',
+              'Robotic Assist'
+            ]"></reg-select>
+
+          <reg-select id="RadialArtUsed" placeholder="Radial Artery (arteries) used" [formGroup]="formGroupJ"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-input id="NumRadDA" placeholder="Total Number of Distal Anastomoses with radial artery conduits" [formGroup]="formGroupJ" type="number">
+          </reg-input>
+
+          <reg-select id="RadHTech" placeholder="Radial Artery Harvest Technique" [formGroup]="formGroupJ"
+            [choices]="['Endoscopic', 'Direct Vision (open)', 'Both']"></reg-select>
+
+          <reg-input id="RadHarvPrepTm" placeholder="Radial Artery Harvest and Prep Time" [formGroup]="formGroupJ" type="number">
+          (minutes)</reg-input>
+
+          <reg-select id="VenousCondUsed" placeholder="Venous Conduit(s) used" [formGroup]="formGroupJ"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-input id="DistVein" placeholder="Total Number of Distal Anastomoses with venous conduits" [formGroup]="formGroupJ" type="number">
+          </reg-input>
+
+          <reg-select id="DistVeinHTech" placeholder="Vein Harvest Technique" [formGroup]="formGroupJ" [choices]="[
+              'Endoscopic',
+              'Direct Vision (open)',
+              'Both',
+              'Cryopreserved'
+            ]"></reg-select>
+
+          <reg-input id="SaphHarPrepTm" placeholder="Vein Harvest and Prep Time" [formGroup]="formGroupJ" type="number">
+          (minutes)</reg-input>
+
+          <h4 id="numDistAnas">Number of Distal Anastomoses</h4>
+
+          <reg-input id="NumOArtD" placeholder="with other arterial conduits" [formGroup]="formGroupJ" type="number">
+          </reg-input>
+
+          <reg-input id="NumArtVenComp" placeholder="with arterial- venous composite conduits" [formGroup]="formGroupJ" type="number">
+          </reg-input>
+
+          <reg-input id="NumVenArtComp" placeholder="with venous -arterial composite conduits" [formGroup]="formGroupJ" type="number">
+          </reg-input>
+
+          <reg-input id="NumArtArtComp" placeholder="with arterial- arterial composite conduits" [formGroup]="formGroupJ" type="number">
+          </reg-input>
+
 
 
         </form>

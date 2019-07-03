@@ -21,14 +21,14 @@ import { RegistryControlComponent } from './registry-control.component';
       <mat-datepicker #picker></mat-datepicker>
       <mat-hint>
         <a><ng-content></ng-content></a>
-        <mat-icon style="cursor: help;" (click)="openInfo(controlName)" *ngIf="hasInfo(controlName)"
+        <mat-icon style="cursor: help;" (click)="openInfo(id)" *ngIf="hasInfo(id)"
           >info_outline</mat-icon
         >
       </mat-hint>
-      <mat-error *ngFor="let validation of getValidations(controlName)">
-        <mat-error *ngIf="isInvalid(controlName, validation.type)">
+      <mat-error *ngFor="let validation of getValidations(id)">
+        <mat-error *ngIf="isInvalid(id, validation.type)">
           <a>{{ validation.message }}</a>
-          <mat-icon style="cursor: help;" (click)="openInfo(controlName)" *ngIf="hasInfo(controlName)"
+          <mat-icon style="cursor: help;" (click)="openInfo(id)" *ngIf="hasInfo(id)"
             >info_outline</mat-icon
           >
         </mat-error>
@@ -50,7 +50,6 @@ import { RegistryControlComponent } from './registry-control.component';
 export class RegistryDatepickerComponent extends RegistryControlComponent {
   @Input() id: string;
   @Input() formGroup: string;
-  @Input() controlName: string;
   @Input() placeholder: string;
   @Input() require = true;
 

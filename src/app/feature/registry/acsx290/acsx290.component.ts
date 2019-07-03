@@ -340,22 +340,4 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
     //   }
     // }
   }
-
-  showWhen(section: string, control: string, conds: string[]) {
-    const formGroup = this.registryService.getFormGroup(section);
-    const value = formGroup.get(control).value;
-
-    if (value !== null && conds[0] === '!') {
-      if (conds[1] !== value) {
-        return true;
-      } else {
-        return false;
-      }
-    } else {
-      if (conds.findIndex(o => o === value) < 0) {
-        return false;
-      }
-    }
-    return true;
-  }
 }

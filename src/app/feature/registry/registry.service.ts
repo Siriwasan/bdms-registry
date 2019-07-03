@@ -1,5 +1,13 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { FormGroup, Validators, FormGroupDirective, ValidationErrors, FormControl, FormArray } from '@angular/forms';
+import {
+  FormGroup,
+  Validators,
+  FormGroupDirective,
+  ValidationErrors,
+  FormControl,
+  FormArray,
+  AbstractControl
+} from '@angular/forms';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Subscription } from 'rxjs';
 import * as marked from 'marked';
@@ -58,56 +66,88 @@ export class RegistryService implements OnDestroy {
 
   private subscribeValueChanges(formGroup: FormGroup, conditions: ControlCondition[]) {
     conditions.forEach(condition => {
+      let parentControl: AbstractControl;
+
+      const pCon = condition.parentControl.split(':'); // section : control
+
+      if (pCon.length > 1) {
+        parentControl = this.getFormGroup(pCon[0]).get(pCon[1]);
+      } else {
+        parentControl = formGroup.get(condition.parentControl);
+      }
+
       this.subscriptions.push(
-        formGroup.get(condition.parentControl).valueChanges.subscribe(value => {
-          let control = formGroup.get(condition.control);
+        parentControl.valueChanges.subscribe(value => {
+          const cCon = condition.control.split(':');
 
-          // tslint:disable-next-line: no-string-literal
-          if (control['vals'] === undefined) {
-            control = Object.assign(control, { vals: control.validator });
-          }
-
-          const element = document.getElementById(condition.control);
-
-          // disable will remove control from FormGroup
-
-          // in case of NOT conditions
-          if (value !== null && condition.conditions[0] === '!') {
-            if (condition.conditions[1] !== value) {
-              // tslint:disable-next-line: no-string-literal
-              control.setValidators(control['vals']);
-
-              if (element) {
+          if (cCon.length > 1) {
+            const element = document.getElementById(cCon[1]);
+            if (value !== null && condition.conditions[0] === '!') {
+              if (condition.conditions[1] !== value) {
                 element.style.display = '';
-              }
-              // control.enable();
-            } else {
-              control.setValidators(null);
-              control.reset();
-
-              if (element) {
+              } else {
                 element.style.display = 'none';
               }
-              // control.disable();
+            } else {
+              if (condition.conditions.findIndex(o => o === value) < 0) {
+                element.style.display = 'none';
+              } else {
+                element.style.display = '';
+              }
             }
           } else {
-            if (condition.conditions.findIndex(o => o === value) < 0) {
-              control.setValidators(null);
-              control.reset();
+            let control = formGroup.get(condition.control);
 
-              if (element) {
-                element.style.display = 'none';
+            // store original validator
+            // tslint:disable-next-line: no-string-literal
+            if (control['vals'] === undefined) {
+              control = Object.assign(control, { vals: control.validator });
+            }
+
+            const element = document.getElementById(condition.control);
+
+            // disable will remove control from FormGroup
+
+            // in case of NOT conditions
+            if (value !== null && condition.conditions[0] === '!') {
+              if (condition.conditions[1] !== value) {
+                // tslint:disable-next-line: no-string-literal
+                control.setValidators(control['vals']);
+                control.updateValueAndValidity();
+
+                if (element) {
+                  element.style.display = '';
+                }
+                // control.enable();
+              } else {
+                control.setValidators(null);
+                control.reset();
+
+                if (element) {
+                  element.style.display = 'none';
+                }
+                // control.disable();
               }
-              // control.disable();
             } else {
-              // ! bug fixed: remove all validator but cannot keep the old one
-              // tslint:disable-next-line: no-string-literal
-              control.setValidators(control['vals']);
+              if (condition.conditions.findIndex(o => o === value) < 0) {
+                control.setValidators(null);
+                control.reset();
 
-              if (element) {
-                element.style.display = '';
+                if (element) {
+                  element.style.display = 'none';
+                }
+                // control.disable();
+              } else {
+                // ! bug fixed: remove all validator but cannot keep the old one
+                // tslint:disable-next-line: no-string-literal
+                control.setValidators(control['vals']);
+                control.updateValueAndValidity();
+
+                if (element) {
+                  element.style.display = '';
+                }
+                // control.enable();
               }
-              // control.enable();
             }
           }
         })
