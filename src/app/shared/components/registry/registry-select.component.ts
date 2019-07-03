@@ -1,4 +1,4 @@
-import { Component, Input, EventEmitter, Output } from '@angular/core';
+import { Component, Input, EventEmitter, Output, OnInit, ElementRef } from '@angular/core';
 import { MatSelectChange } from '@angular/material';
 
 import { RegistryService } from '../../../feature/registry/registry.service';
@@ -10,7 +10,7 @@ import { RegistryControlComponent } from './registry-control.component';
   template: `
     <mat-form-field class="item" [formGroup]="formGroup" style="width: 100%">
       <mat-select
-        [formControlName]="id"
+        [formControlName]="controlName"
         [required]="require"
         [placeholder]="placeholder"
         (selectionChange)="selectionChange($event)"
@@ -19,27 +19,35 @@ import { RegistryControlComponent } from './registry-control.component';
       </mat-select>
       <mat-hint>
         <a><ng-content></ng-content></a>
-        <mat-icon style="cursor: help;" (click)="openInfo(id)" *ngIf="hasInfo(id)">info_outline</mat-icon>
+        <mat-icon style="cursor: help;" (click)="openInfo(controlName)" *ngIf="hasInfo(controlName)"
+          >info_outline</mat-icon
+        >
       </mat-hint>
-      <mat-error *ngFor="let validation of getValidations(id)">
-        <mat-error *ngIf="isInvalid(id, validation.type)">
+      <mat-error *ngFor="let validation of getValidations(controlName)">
+        <mat-error *ngIf="isInvalid(controlName, validation.type)">
           <a>{{ validation.message }}</a>
-          <mat-icon style="cursor: help;" (click)="openInfo(id)" *ngIf="hasInfo(id)">info_outline</mat-icon>
+          <mat-icon style="cursor: help;" (click)="openInfo(controlName)" *ngIf="hasInfo(controlName)"
+            >info_outline</mat-icon
+          >
         </mat-error>
       </mat-error>
     </mat-form-field>
   `
 })
-export class RegistrySelectComponent extends RegistryControlComponent {
-  @Input() id: string;
+export class RegistrySelectComponent extends RegistryControlComponent implements OnInit {
+  @Input() controlName: string;
   @Input() formGroup: string;
   @Input() placeholder: string;
   @Input() require = true;
   @Input() choices = [];
   @Output() choiceChange: EventEmitter<MatSelectChange> = new EventEmitter();
 
-  constructor(protected registryService: RegistryService) {
+  constructor(protected registryService: RegistryService, private elementRef: ElementRef) {
     super(registryService);
+  }
+
+  ngOnInit() {
+    this.elementRef.nativeElement.setAttribute('id', this.controlName);
   }
 
   selectionChange(event: MatSelectChange) {

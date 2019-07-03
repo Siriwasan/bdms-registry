@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectorRef, AfterViewInit } from '@angular/core';
+import { Component, Input, ElementRef, OnInit } from '@angular/core';
 
 import { RegistryService } from '../../../feature/registry/registry.service';
 import { RegistryControlComponent } from './registry-control.component';
@@ -13,7 +13,7 @@ import { RegistryControlComponent } from './registry-control.component';
         type="number"
         matInput
         [placeholder]="placeholder"
-        [formControlName]="id"
+        [formControlName]="controlName"
         [required]="require"
       />
       <input
@@ -21,38 +21,41 @@ import { RegistryControlComponent } from './registry-control.component';
         type="text"
         matInput
         [placeholder]="placeholder"
-        [formControlName]="id"
+        [formControlName]="controlName"
         [required]="require"
       />
       <mat-hint>
         <a><ng-content></ng-content></a>
-        <mat-icon style="cursor: help;" (click)="openInfo(id)" *ngIf="hasInfo(id)"
-          >info_outline</mat-icon>
+        <mat-icon style="cursor: help;" (click)="openInfo(controlName)" *ngIf="hasInfo(controlName)"
+          >info_outline</mat-icon
+        >
       </mat-hint>
-      <mat-error *ngFor="let validation of getValidations(id)">
-        <mat-error *ngIf="isInvalid(id, validation.type)">
+      <mat-error *ngFor="let validation of getValidations(controlName)">
+        <mat-error *ngIf="isInvalid(controlName, validation.type)">
           <a>{{ validation.message }}</a>
-          <mat-icon style="cursor: help;" (click)="openInfo(id)" *ngIf="hasInfo(id)"
-            >info_outline</mat-icon>
+          <mat-icon style="cursor: help;" (click)="openInfo(controlName)" *ngIf="hasInfo(controlName)"
+            >info_outline</mat-icon
+          >
         </mat-error>
       </mat-error>
     </mat-form-field>
   `
 })
-export class RegistryInputComponent extends RegistryControlComponent implements AfterViewInit {
-  @Input() id: string;
+export class RegistryInputComponent extends RegistryControlComponent implements OnInit {
+  @Input() controlName: string;
   @Input() formGroup: string;
   @Input() type = 'number';
   @Input() placeholder: string;
   @Input() require = true;
 
-  constructor(protected registryService: RegistryService
-    // private cdRef: ChangeDetectorRef
-    ) {
+  constructor(
+    protected registryService: RegistryService,
+    private elementRef: ElementRef
+  ) {
     super(registryService);
   }
 
-  ngAfterViewInit() {
-    // this.cdRef.detectChanges();
+  ngOnInit() {
+    this.elementRef.nativeElement.setAttribute('id', this.controlName);
   }
 }

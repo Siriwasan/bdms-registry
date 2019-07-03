@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit, ElementRef } from '@angular/core';
 import { MAT_DATE_LOCALE, DateAdapter, MAT_DATE_FORMATS } from '@angular/material';
 import { MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from '@angular/material-moment-adapter';
 
@@ -14,21 +14,21 @@ import { RegistryControlComponent } from './registry-control.component';
         matInput
         [matDatepicker]="picker"
         [placeholder]="placeholder"
-        [formControlName]="id"
+        [formControlName]="controlName"
         [required]="require"
       />
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
       <mat-hint>
         <a><ng-content></ng-content></a>
-        <mat-icon style="cursor: help;" (click)="openInfo(id)" *ngIf="hasInfo(id)"
+        <mat-icon style="cursor: help;" (click)="openInfo(controlName)" *ngIf="hasInfo(controlName)"
           >info_outline</mat-icon
         >
       </mat-hint>
-      <mat-error *ngFor="let validation of getValidations(id)">
-        <mat-error *ngIf="isInvalid(id, validation.type)">
+      <mat-error *ngFor="let validation of getValidations(controlName)">
+        <mat-error *ngIf="isInvalid(controlName, validation.type)">
           <a>{{ validation.message }}</a>
-          <mat-icon style="cursor: help;" (click)="openInfo(id)" *ngIf="hasInfo(id)"
+          <mat-icon style="cursor: help;" (click)="openInfo(controlName)" *ngIf="hasInfo(controlName)"
             >info_outline</mat-icon
           >
         </mat-error>
@@ -47,13 +47,17 @@ import { RegistryControlComponent } from './registry-control.component';
     { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS }
   ]
 })
-export class RegistryDatepickerComponent extends RegistryControlComponent {
-  @Input() id: string;
+export class RegistryDatepickerComponent extends RegistryControlComponent implements OnInit {
+  @Input() controlName: string;
   @Input() formGroup: string;
   @Input() placeholder: string;
   @Input() require = true;
 
-  constructor(protected registryService: RegistryService) {
+  constructor(protected registryService: RegistryService, private elementRef: ElementRef) {
     super(registryService);
+  }
+
+  ngOnInit() {
+    this.elementRef.nativeElement.setAttribute('id', this.controlName);
   }
 }

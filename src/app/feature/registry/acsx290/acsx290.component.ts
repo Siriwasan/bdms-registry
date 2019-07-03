@@ -77,7 +77,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
   result: ACSx290Model;
   flatResult: object;
 
-  // tslint:disable-next-line: variable-name
+  // tslint:disable: variable-name
   H_cathResults = [
     ['Left Main', 'PctStenLMain', 'GrftStenLMain', 'StntStenLMain', 'FFRLMain', 'IFRLMain'],
     ['Proximal LAD', 'PctStenProxLAD', 'GrftStenProxLAD', 'StntStenProxLAD', 'FFRProxLAD', 'IFRProxLAD'],
@@ -96,6 +96,109 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
     ['Posterior Descending (PDA)', 'PctStenPDA', 'GrftStenPDA', 'StntStenPDA', 'FFRPDA', 'IFRPDA'],
     ['Posterolateral (PLB)', 'PctStenPLB', 'GrftStenPLB', 'StntStenPLB', 'FFRPLB', 'IFRPLB']
   ];
+  J_cabg = [
+    [
+      'CABG NUMBER 1',
+      'CAB01',
+      'CABDistSite01',
+      'CABProximalSite01',
+      'CABConduit01',
+      'CABDistPos01',
+      'CABEndArt01',
+      'CABVeinPatAng01'
+    ],
+    [
+      'CABG NUMBER 2',
+      'CAB02',
+      'CABDistSite02',
+      'CABProximalSite02',
+      'CABConduit02',
+      'CABDistPos02',
+      'CABEndArt02',
+      'CABVeinPatAng02'
+    ],
+    [
+      'CABG NUMBER 3',
+      'CAB03',
+      'CABDistSite03',
+      'CABProximalSite03',
+      'CABConduit03',
+      'CABDistPos03',
+      'CABEndArt03',
+      'CABVeinPatAng03'
+    ],
+    [
+      'CABG NUMBER 4',
+      'CAB04',
+      'CABDistSite04',
+      'CABProximalSite04',
+      'CABConduit04',
+      'CABDistPos04',
+      'CABEndArt04',
+      'CABVeinPatAng04'
+    ],
+    [
+      'CABG NUMBER 5',
+      'CAB05',
+      'CABDistSite05',
+      'CABProximalSite05',
+      'CABConduit05',
+      'CABDistPos05',
+      'CABEndArt05',
+      'CABVeinPatAng05'
+    ],
+    [
+      'CABG NUMBER 6',
+      'CAB06',
+      'CABDistSite06',
+      'CABProximalSite06',
+      'CABConduit06',
+      'CABDistPos06',
+      'CABEndArt06',
+      'CABVeinPatAng06'
+    ],
+    [
+      'CABG NUMBER 7',
+      'CAB07',
+      'CABDistSite07',
+      'CABProximalSite07',
+      'CABConduit07',
+      'CABDistPos07',
+      'CABEndArt07',
+      'CABVeinPatAng07'
+    ],
+    [
+      'CABG NUMBER 8',
+      'CAB08',
+      'CABDistSite08',
+      'CABProximalSite08',
+      'CABConduit08',
+      'CABDistPos08',
+      'CABEndArt08',
+      'CABVeinPatAng08'
+    ],
+    [
+      'CABG NUMBER 9',
+      'CAB09',
+      'CABDistSite09',
+      'CABProximalSite09',
+      'CABConduit09',
+      'CABDistPos09',
+      'CABEndArt09',
+      'CABVeinPatAng09'
+    ],
+    [
+      'CABG NUMBER 10',
+      'CAB10',
+      'CABDistSite10',
+      'CABProximalSite10',
+      'CABConduit10',
+      'CABDistPos10',
+      'CABEndArt10',
+      'CABVeinPatAng10'
+    ]
+  ];
+  // tslint:enable: variable-name
 
   constructor(
     protected dialogService: DialogService,
