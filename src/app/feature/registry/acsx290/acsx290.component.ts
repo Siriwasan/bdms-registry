@@ -231,6 +231,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
     // Prevent ExpressionChangedAfterItHasBeenCheckedError
     setTimeout(() => {
       this.loadById();
+      this.store.dispatch(new UI.StopLoading());
     });
   }
 

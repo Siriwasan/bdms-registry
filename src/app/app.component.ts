@@ -1,9 +1,20 @@
 import { Component, OnDestroy, OnInit, HostListener } from '@angular/core';
+import {
+  Router,
+  NavigationStart,
+  NavigationEnd,
+  NavigationCancel,
+  NavigationError,
+  RouterEvent,
+  RouteConfigLoadStart,
+  RouteConfigLoadEnd
+} from '@angular/router';
 import { MediaObserver, MediaChange } from '@angular/flex-layout';
 import { Subscription, Observable } from 'rxjs';
 
 import { Store } from '@ngrx/store';
 import * as fromRoot from './app.reducer';
+import * as UI from './shared/ui.actions';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +28,7 @@ export class AppComponent implements OnInit, OnDestroy {
   navOver = 'side';
   watcher: Subscription;
 
-  constructor(media: MediaObserver, private store: Store<fromRoot.State>) {
+  constructor(media: MediaObserver, private store: Store<fromRoot.State>, private router: Router) {
     this.watcher = media.asObservable().subscribe((change: MediaChange[]) => {
       if (change[0].mqAlias === 'lg' || change[0].mqAlias === 'xl') {
         this.navOpened = true;
@@ -29,6 +40,38 @@ export class AppComponent implements OnInit, OnDestroy {
         document.getElementById('sidenav-content').style.marginLeft = '0px';
       }
     });
+
+    this.router.events.subscribe(
+      (event: RouterEvent): void => {
+        switch (true) {
+          case event instanceof RouteConfigLoadStart:
+            // console.log('RouteConfigLoadStart');
+            break;
+
+          case event instanceof NavigationStart:
+            // console.log('NavigationStart');
+            this.store.dispatch(new UI.StartLoading());
+            break;
+
+          case event instanceof RouteConfigLoadEnd:
+            // console.log('RouteConfigLoadEnd');
+            break;
+
+          case event instanceof NavigationEnd:
+            // console.log('NavigationEnd');
+            break;
+
+          case event instanceof NavigationCancel:
+            // console.log('NavigationCancel');
+            break;
+
+          case event instanceof NavigationError:
+            // console.log('NavigationError');
+            // this.store.dispatch(new UI.StopLoading());
+            break;
+        }
+      }
+    );
   }
 
   ngOnInit() {
