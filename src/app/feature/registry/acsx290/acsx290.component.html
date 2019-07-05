@@ -1984,8 +1984,7 @@
         <span>J. Coronary Bypass</span>
         <span>{{ formCompletion('J') }}</span>
       </div>
-      <div class="section-body" id="sectionJ-body">
-      <!-- <div class="section-body" id="sectionJ-body" [style.display]="'none'"> -->
+      <div class="section-body">
         <form [formGroup]="formGroupJ" #formDirectiveJ="ngForm">
 
           <reg-select controlName="IMAUsed" placeholder="Internal Mammary Artery used" [formGroup]="formGroupJ"
@@ -2137,6 +2136,514 @@
               [choices]="['Yes', 'No']"></reg-select>
 
           </div>
+
+        </form>
+      </div>
+    </section>
+
+    <section class="section-wrapper" scrollSpyElement id="sectionK">
+      <div class="section-title" (click)="scrollTo('OpValve')">
+        <span>K. Valve Surgery</span>
+        <span>{{ formCompletion('K') }}</span>
+      </div>
+      <div class="section-body">
+        <form [formGroup]="formGroupK" #formDirectiveG="ngForm">
+
+          <reg-select controlName="ValExp" placeholder="Valve Prosthesis Explant" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="ValExpPos" placeholder="Explant Position" [formGroup]="formGroupK" [choices]="[
+              'Aortic',
+              'Mitral',
+              'Tricuspid',
+              'Pulmonic'
+            ]"></reg-select>
+
+          <reg-select controlName="ValExpTyp" placeholder="Explant Type" [formGroup]="formGroupK" [choices]="[
+            'Mechanical Valve',
+            'Leaflet clip',
+            'Bioprosthetic Valve',
+            'Transcatheter Device',
+            'Homograft',
+            'Annuloplasty Device',
+            'Other',
+            'Unknown'
+            ]"></reg-select>
+
+          <reg-select controlName="ValExpEt" placeholder="Explant Etiology" [formGroup]="formGroupK" [choices]="[
+            'Endocarditis',
+            'Failed repair',
+            'Hemolysis',
+            'Incompetence',
+            'Pannus Formation',
+            'Para-valvular leak',
+            'Prosthetic deterioration',
+            'Sizing/positioning issue',
+            'Stenosis',
+            'Thrombosis',
+            'Other',
+            'Unknown'
+            ]"></reg-select>
+
+          <reg-select controlName="ValExpDevKnown" placeholder="Explant Device known" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-input controlName="ValExpDev" placeholder="Explant model#" [formGroup]="formGroupK" type="text">
+          </reg-input>
+
+          <reg-input controlName="ValExpUDI" placeholder="Unique Device Identifier (UDI)" [formGroup]="formGroupK" type="text">
+          </reg-input>
+
+          <reg-select controlName="ValExp2" placeholder="Second Valve Prosthesis Explant" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="ValExpPos2" placeholder="Explant Position" [formGroup]="formGroupK" [choices]="[
+              'Aortic',
+              'Mitral',
+              'Tricuspid',
+              'Pulmonic'
+            ]"></reg-select>
+
+          <reg-select controlName="ValExpTyp2" placeholder="Explant Type" [formGroup]="formGroupK" [choices]="[
+            'Mechanical Valve',
+            'Leaflet clip',
+            'Bioprosthetic Valve',
+            'Transcatheter Device',
+            'Homograft',
+            'Annuloplasty Device',
+            'Other',
+            'Unknown'
+            ]"></reg-select>
+
+          <reg-select controlName="ValExpEt2" placeholder="Explant Etiology" [formGroup]="formGroupK" [choices]="[
+            'Endocarditis',
+            'Failed repair',
+            'Hemolysis',
+            'Incompetence',
+            'Pannus Formation',
+            'Para-valvular leak',
+            'Prosthetic deterioration',
+            'Sizing/positioning issue',
+            'Stenosis',
+            'Thrombosis',
+            'Other',
+            'Unknown'
+            ]"></reg-select>
+
+          <reg-select controlName="ValExpDevKnown2" placeholder="Explant Device known" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-input controlName="ValExpDev2" placeholder="Explant model#" [formGroup]="formGroupK" type="text">
+          </reg-input>
+
+          <reg-input controlName="ValExpUDI2" placeholder="Unique Device Identifier (UDI)" [formGroup]="formGroupK" type="text">
+          </reg-input>
+
+          <!-- AORTIC VALVE -->
+
+          <reg-select controlName="VSAV" placeholder="Aortic Valve Procedure Performed" [formGroup]="formGroupK" [choices]="[
+              'Yes, planned',
+              'Yes, unplanned due to surgical complication',
+              'Yes, unplanned due to unsuspected disease or anatomy',
+              'No'
+            ]"></reg-select>
+
+          <reg-select controlName="VSAVPr" placeholder="Procedure Performed" [formGroup]="formGroupK" [choices]="[
+              'Replacement',
+              'Repair/Reconstruction'
+            ]"></reg-select>
+
+          <reg-select controlName="VSTCV" placeholder="Transcatheter Valve Replacement" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="VSTCVR" placeholder="Approach" [formGroup]="formGroupK" [choices]="[
+              'Transapical',
+              'Transaxillary',
+              'Transfemoral',
+              'Transaortic',
+              'Subclavian',
+              'Other'
+            ]"></reg-select>
+
+          <reg-select controlName="VSAVSurgRep" placeholder="Surgical valve Replacement" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="VSAVSurgType" placeholder="Device type" [formGroup]="formGroupK" [choices]="[
+              'Mechanical',
+              'Bioprosthetic',
+              'Surgeon fashioned pericardium (Ozaki)',
+              'Other'
+            ]"></reg-select>
+
+          <reg-select controlName="VSAVSurgBioT" placeholder="Valve type" [formGroup]="formGroupK" [choices]="[
+              'Stented',
+              'Stentless subcoronary valve only',
+              'Sutureless/rapid deployment'
+            ]"></reg-select>
+
+          <h4 id="repairType">Repair Type</h4>
+
+          <reg-select controlName="VSAVRComA" placeholder="Commissural Suture Annuloplasty" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="VSAVRExSutAn" placeholder="External Suture Annuloplasty" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="VSAVRLPlic" placeholder="Leaflet Plication" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="VSAVRNodRel" placeholder="Nodular Release" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="VSAVRPTFE" placeholder="Leaflet Free Edge Reinforcement (PTFE) Suture" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="VSAVRComRS" placeholder="Leaflet Commissural Resuspension Suture" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="VSAVRRaphe" placeholder="Division of Fused Leaflet Raphe" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="VSAVRRingA" placeholder="Ring Annuloplasty" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="VSAVRRingATy" placeholder="Type" [formGroup]="formGroupK"
+            [choices]="['External Ring', 'Internal Ring']"></reg-select>
+
+          <reg-select controlName="VSAVRLResect" placeholder="Leaflet Resection Suture" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="VSAVRLeafShav" placeholder="Leaflet Shaving" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="VSAVRLPPatch" placeholder="Leaflet Pericardial Patch" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="VSAVRDeb" placeholder="Leaflet Debridement" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="VSAVRPeriLeak" placeholder="Repair of Periprosthetic Leak" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="AnlrEnl" placeholder="Aortic annular enlargement with patch" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="AnlrEnlTech" placeholder="Technique" [formGroup]="formGroupK" [choices]="[
+              'Nicks-Nunez',
+              'Manougian',
+              'Konno',
+              'Other',
+              'Unknown'
+            ]"></reg-select>
+
+          <reg-select controlName="VSAVRoot" placeholder="Root Procedure" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <h5 id="rootProcedure">(For AV surgery involving the aortic root -> also complete section M-2)</h5>
+
+          <reg-select controlName="VSAVRootOReimp" placeholder="Root Replacement with coronary Ostial Reimplantation (Bentall)" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="VSAVRootOReimpTy" placeholder="Type" [formGroup]="formGroupK" [choices]="[
+            'Mechanical',
+            'Bioprosthetic',
+            'Autograft with native pulmonary valve (Ross procedure)',
+            'Homograft root replacement'
+            ]"></reg-select>
+
+          <reg-select controlName="VSAVRepBioTy" placeholder="Bioprosthetic Type" [formGroup]="formGroupK" [choices]="[
+              'Stented valve composite graft',
+              'Stentless biologic full root'
+            ]"></reg-select>
+
+          <reg-select controlName="VSAVSparRt" placeholder="Valve Sparing root operation performed" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="VSAVSparRtOp" placeholder="Operation" [formGroup]="formGroupK" [choices]="[
+            'Resuspension AV without replacement of ascending aorta',
+            'Resuspension AV with replacement of ascending aorta',
+            'Valve sparing root reimplantation (David)',
+            'Valve sparing root remodeling (Yacoub)',
+            'Valve sparing root reconstruction (Florida Sleeve)'
+            ]"></reg-select>
+
+          <reg-select controlName="VSAVRootRecon" placeholder="Major root reconstruction/ debridement with or without pericardial patch" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="VSAVPat" placeholder="Patch used" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="VSAVPatTy" placeholder="Patch type" [formGroup]="formGroupK" [choices]="[
+              'Synthetic',
+              'Bioprosthetic',
+              'Autologous'
+            ]"></reg-select>
+
+          <reg-select controlName="AorticImplant" placeholder="Aortic Valve Implant" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <h4 id="AVimplant">Aortic valves/valve repair devices only, use section M 2 for root devices</h4>
+
+          <reg-input controlName="VSAoIm" placeholder="Implant Model Number" [formGroup]="formGroupK" type="text">
+          </reg-input>
+
+          <reg-input controlName="VSAoImSz" placeholder="Implant Size" [formGroup]="formGroupK" type="number">
+          </reg-input>
+
+          <reg-input controlName="VSAoImUDI" placeholder="Unique Device identifier (UDI)" [formGroup]="formGroupK" type="text">
+          </reg-input>
+
+          <!-- MITRAL VALVE -->
+
+          <reg-select controlName="VSMV" placeholder="Mitral Valve Procedure Performed" [formGroup]="formGroupK" [choices]="[
+              'Yes, planned',
+              'Yes, unplanned due to surgical complication',
+              'Yes, unplanned due to unsuspected disease or anatomy',
+              'No'
+            ]"></reg-select>
+
+          <reg-select controlName="VSMVPr" placeholder="Procedure Performed" [formGroup]="formGroupK" [choices]="[
+              'Repair',
+              'Replacement'
+            ]"></reg-select>
+
+          <reg-select controlName="VSMVRepApp" placeholder="Repair Approach" [formGroup]="formGroupK" [choices]="[
+              'Transcatheter',
+              'Surgical'
+            ]"></reg-select>
+
+          <reg-select controlName="VSMitRAnnulo" placeholder="Annuloplasty" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <!-- LEAFLET RESECTION -->
+
+          <reg-select controlName="VSMitRLeafRes" placeholder="Leaflet resection" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="VSLeafResTyp" placeholder="Resection Type" [formGroup]="formGroupK" [choices]="[
+              'Triangular',
+              'Quadrangular',
+              'Other'
+            ]"></reg-select>
+
+          <h3 id="resectLoc">Resection Location(s)</h3>
+
+          <reg-select controlName="VSLeafAntRes" placeholder="Anterior resection" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="VSLeafAntResLocD" placeholder="Location documented" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <h4 id="antLeafRect">Anterior leaflet resection location</h4>
+
+          <reg-select controlName="VSLeafAntResA1" placeholder="A1" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="VSLeafAntResA2" placeholder="A2" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="VSLeafAntResA3" placeholder="A3" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="VSLeafPostRes" placeholder="Posterior Resection" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="VSLeafPostResLocD" placeholder="Location documented" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <h4 id="postLeafRect">Posterior leaflet resection location</h4>
+
+          <reg-select controlName="VSLeafPostResP1" placeholder="P1" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="VSLeafPostResP2" placeholder="P2" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="VSLeafPostResP3" placeholder="P3" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="VSLeafComRes" placeholder="Commissure Resection" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="VSLeafComResLoc" placeholder="Commissural resection location" [formGroup]="formGroupK" [choices]="[
+              'Medial (C2)',
+              'Lateral (C1)',
+              'Both',
+              'Not Documented'
+            ]"></reg-select>
+
+          <!-- NEOCORDS (PTFE) -->
+
+          <reg-select controlName="VSMitRPTFE" placeholder="Neochords (PTFE)" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <h3 id="neoLoc">Neochord Location(s)</h3>
+
+          <reg-select controlName="VSNeoAnt" placeholder="Anterior Neochords" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="VSNeoAntLocD" placeholder="Location documented" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <h4 id="antNeoLoc">Anterior neochord location</h4>
+
+          <reg-select controlName="VSNeoAntA1" placeholder="A1" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="VSNeoAntA2" placeholder="A2" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="VSNeoAntA3" placeholder="A3" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="VSNeoPost" placeholder="Posterior Neochords" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="VSNeoPostLocD" placeholder="Location documented" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <h4 id="postNeoLoc">Posterior leaflet resection location</h4>
+
+          <reg-select controlName="VSNeoPostP1" placeholder="P1" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="VSNeoPostP2" placeholder="P2" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="VSNeoPostP3" placeholder="P3" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="VSNeoCom" placeholder="Commissure Neochords" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="VSNeoComLoc" placeholder="Commissure Neochord location" [formGroup]="formGroupK" [choices]="[
+              'Medial (C2)',
+              'Lateral (C1)',
+              'Both',
+              'Not Documented'
+            ]"></reg-select>
+
+          <!-- CHORDAL/LEAFLET TRANSFER -->
+
+          <reg-select controlName="VSMitRChord" placeholder="Chordal/ Leaflet transfer" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <h3 id="chorLeafLoc">Chordal/ Leaflet Transfer Location(s)</h3>
+
+          <reg-select controlName="VSChorLfAnt" placeholder="Anterior Chordal/Leaflet transfer" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="VSChorLfAntLocD" placeholder="Location documented" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <h4 id="antChorLfLoc">Anterior chordal/leaflet transfer location</h4>
+
+          <reg-select controlName="VSChorLfAntA1" placeholder="A1" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="VSChorLfAntA2" placeholder="A2" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="VSChorLfAntA3" placeholder="A3" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="VSChorLfPost" placeholder="Posterior Chordal/Leaflet transfer" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="VSChorLfPostLocD" placeholder="Location documented" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <h4 id="postChorLfLoc">Posterior chordal/leaflet transfer location</h4>
+
+          <reg-select controlName="VSChorLfPostP1" placeholder="P1" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="VSChorLfPostP2" placeholder="P2" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="VSChorLfPostP3" placeholder="P3" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="VSChorLfCom" placeholder="Commissure Chordal/Leaflet transfer" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="VSChorLfComLoc" placeholder="Commissural chordal/leaflet transfer location" [formGroup]="formGroupK" [choices]="[
+              'Medial (C2)',
+              'Lateral (C1)',
+              'Both',
+              'Not Documented'
+            ]"></reg-select>
+
+          <reg-select controlName="VSMitRFold" placeholder="Folding Plasty" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="VSMitRSlidP" placeholder="Sliding Plasty" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="VSMitRADecalc" placeholder="Annular decalcification/ debridement" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="VSMitRLeafERP" placeholder="Leaflet extension/replacement patch" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="VSMitRLeafERPLoc" placeholder="Patch Location" [formGroup]="formGroupK" [choices]="[
+              'Anterior',
+              'Posterior',
+              'Both',
+              'Not Documented'
+            ]"></reg-select>
+
+          <reg-select controlName="VSMitREdge" placeholder="Edge to edge repair" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="VSMitRMitComm" placeholder="Mitral commissurotomy" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="VSMitRMitCplasty" placeholder="Mitral commissuroplasty" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="VSMitRMitCleft" placeholder="Mitral cleft repair: (scallop closure)" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="VSMitParaprosLeak" placeholder="Mitral paraprosthetic leak repair" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="MitralIntent" placeholder="Mitral repair attempted prior to replacement" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="VSChorPres" placeholder="Mitral chords preserved" [formGroup]="formGroupK" [choices]="[
+              'Anterior',
+              'Posterior',
+              'Both',
+              'None'
+            ]"></reg-select>
+
+          <reg-select controlName="VSTCVMit" placeholder="Transcatheter replacement" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="MitralImplant" placeholder="Implant" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="MitralImplantTy" placeholder="Implant type" [formGroup]="formGroupK" [choices]="[
+            'Mechanical valve',
+            'Bioprosthetic valve',
+            'Annuloplasty device',
+            'Mitral leaflet clip',
+            'Transcatheter device',
+            'Surgically implanted transcatheter device',
+            'Other'
+            ]"></reg-select>
+
+          <reg-input controlName="VSMiIm" placeholder="Implant Model Number" [formGroup]="formGroupK" type="text">
+          </reg-input>
+
+          <reg-input controlName="VSMiImSz" placeholder="Implant Size" [formGroup]="formGroupK" type="number">
+          </reg-input>
+
+          <reg-input controlName="VSMiImUDI" placeholder="Unique Device identifier (UDI)" [formGroup]="formGroupK" type="text">
+          </reg-input>
+
+
 
         </form>
       </div>
