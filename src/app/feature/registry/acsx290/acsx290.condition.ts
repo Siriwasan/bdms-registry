@@ -612,7 +612,32 @@ export const conditions: FormConditions = {
            { control: 'MitralImplantTy', parentControl: 'MitralImplant', conditions: ['Yes'] },
            { control: 'VSMiIm', parentControl: 'MitralImplant', conditions: ['Yes'] },
            { control: 'VSMiImSz', parentControl: 'MitralImplant', conditions: ['Yes'] },
-           { control: 'VSMiImUDI', parentControl: 'MitralImplant', conditions: ['Yes'] }
+           { control: 'VSMiImUDI', parentControl: 'MitralImplant', conditions: ['Yes'] },
+
+           //  TRICUSPID VALVE
+           { control: 'VSTV', parentControl: 'I:OpValve', conditions: ['Yes'] },
+           { control: 'VSTVPr', parentControl: 'VSTV', conditions: ['!', 'No'] },
+           { control: 'VSTrRepAnnulo', parentControl: 'VSTVPr', conditions: ['Repair'] },
+           { control: 'OpTricusAnTy', parentControl: 'VSTrRepAnnulo', conditions: ['Yes'] },
+           { control: 'VSTrLeafRes', parentControl: 'VSTVPr', conditions: ['Repair'] },
+           { control: 'VSTCVTri', parentControl: 'VSTVPr', conditions: ['Replacement'] },
+           { control: 'TricuspidImplant', parentControl: 'VSTV', conditions: ['!', 'No'] },
+           { control: 'TricusImplantTy', parentControl: 'TricuspidImplant', conditions: ['Yes'] },
+           { control: 'VSTrIm', parentControl: 'TricuspidImplant', conditions: ['Yes'] },
+           { control: 'VSTrImSz', parentControl: 'TricuspidImplant', conditions: ['Yes'] },
+           { control: 'VSTrImUDI', parentControl: 'TricuspidImplant', conditions: ['Yes'] },
+
+           //  PULMONIC VALVE
+           { control: 'VSPV', parentControl: 'I:OpValve', conditions: ['Yes'] },
+           { control: 'OpPulm', parentControl: 'VSPV', conditions: ['!', 'No'] },
+           { control: 'VSTCVPu', parentControl: 'OpPulm', conditions: ['Replacement'] },
+           { control: 'PulmonicImplant', parentControl: 'VSPV', conditions: ['!', 'No'] },
+           { control: 'VSPuTypeImp', parentControl: 'PulmonicImplant', conditions: ['!', 'No'] },
+           { control: 'VSPuImpMat', parentControl: 'VSPuTypeImp', conditions: ['Surgeon Fashioned'] },
+           { control: 'PulmonicImplantTy', parentControl: 'VSPuTypeImp', conditions: ['Commercially Supplied'] },
+           { control: 'VSPuIm', parentControl: 'PulmonicImplant', conditions: ['Yes'] },
+           { control: 'VSPuImSz', parentControl: 'PulmonicImplant', conditions: ['Yes'] },
+           { control: 'VSPuImUDI', parentControl: 'PulmonicImplant', conditions: ['Yes'] }
          ],
          sectionL: [],
          sectionL2: [],

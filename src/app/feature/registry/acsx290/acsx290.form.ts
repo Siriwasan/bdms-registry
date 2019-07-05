@@ -678,7 +678,32 @@ export const ACSx290form = {
            MitralImplantTy: [null, Validators.required],
            VSMiIm: [null, Validators.required],
            VSMiImSz: [null, [Validators.required, Validators.min(5), Validators.max(100)]],
-           VSMiImUDI: [null, Validators.required]
+           VSMiImUDI: [null, Validators.required],
+
+           //  TRICUSPID VALVE
+           VSTV: [null, Validators.required],
+           VSTVPr: [null, Validators.required],
+           VSTrRepAnnulo: [null, Validators.required],
+           OpTricusAnTy: [null, Validators.required],
+           VSTrLeafRes: [null, Validators.required],
+           VSTCVTri: [null, Validators.required],
+           TricuspidImplant: [null, Validators.required],
+           TricusImplantTy: [null, Validators.required],
+           VSTrIm: [null, Validators.required],
+           VSTrImSz: [null, [Validators.required, Validators.min(5), Validators.max(100)]],
+           VSTrImUDI: [null, Validators.required],
+
+           //  PULMONIC VALVE
+           VSPV: [null, Validators.required],
+           OpPulm: [null, Validators.required],
+           VSTCVPu: [null, Validators.required],
+           PulmonicImplant: [null, Validators.required],
+           VSPuTypeImp: [null, Validators.required],
+           VSPuImpMat: [null, Validators.required],
+           PulmonicImplantTy: [null, Validators.required],
+           VSPuIm: [null, Validators.required],
+           VSPuImSz: [null, [Validators.required, Validators.min(5), Validators.max(100)]],
+           VSPuImUDI: [null, Validators.required]
          },
          sectionL: {},
          sectionL2: {},

@@ -50,7 +50,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
           case event instanceof NavigationStart:
             // console.log('NavigationStart');
-            this.store.dispatch(new UI.StartLoading());
+            // this.store.dispatch(new UI.StartLoading());
             break;
 
           case event instanceof RouteConfigLoadEnd:

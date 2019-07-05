@@ -322,6 +322,7 @@ export class RegistryService implements OnDestroy {
   // }
 
   public clear() {
+    console.log(this.getFormDirectives());
     this.getFormDirectives().forEach(formDirective => formDirective.resetForm());
   }
 

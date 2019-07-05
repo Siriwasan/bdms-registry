@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RegistryFormComponent } from '../../../shared/components/registry/registry-form.component';
 import { DialogService } from '../../../shared/services/dialog.service';
 import { ScrollSpyService } from '../../../shared/modules/scroll-spy/scroll-spy.service';
-import { SectionMember } from '../registry.model';
+import { SectionMember, FormDetail } from '../registry.model';
 
 import { ACSx290form } from './acsx290.form';
 import { conditions } from './acsx290.condition';
@@ -18,6 +18,7 @@ import { RegistryService } from '../registry.service';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../../../app.reducer';
 import * as UI from '../../../shared/ui.actions';
+import { Moment } from 'moment';
 
 @Component({
   selector: 'app-acsx290',
@@ -25,6 +26,7 @@ import * as UI from '../../../shared/ui.actions';
   styleUrls: ['./acsx290.component.scss']
 })
 export class ACSx290Component extends RegistryFormComponent implements OnInit, AfterViewInit, OnDestroy {
+  formDetail: FormDetail;
   formGroupA: FormGroup;
   formGroupB: FormGroup;
   formGroupD: FormGroup;
@@ -231,7 +233,6 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
     // Prevent ExpressionChangedAfterItHasBeenCheckedError
     setTimeout(() => {
       this.loadById();
-      this.store.dispatch(new UI.StopLoading());
     });
   }
 
@@ -319,8 +320,8 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
   private archiveForm(): ACSx290Model {
     const timestamp = this.acsx290Service.timestamp;
 
-    const acsx290Model: ACSx290Model = {
-      detail: {
+    if (this.mode === 'new') {
+      this.formDetail = {
         baseDb: 'STS Adult Cardiac Surgery version 2.9',
         addendum: 'BDMS ACSx modefied version 0.1',
         createdAt: timestamp,
@@ -329,9 +330,18 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
         modifiedBy: 'admin',
         deletedAt: null,
         deletedBy: null
-      },
+      };
+    } else {
+      this.formDetail.modifiedAt = timestamp;
+    }
+
+    const acsx290Model: ACSx290Model = {
+      detail: this.formDetail,
       sectionA: { ...this.formGroupA.value },
-      sectionB: { ...this.formGroupB.value },
+      sectionB: {
+        ...this.formGroupB.value,
+        DOB: this.serializeDateTime(this.formGroupB.get('DOB').value)
+      },
       sectionD: { ...this.formGroupD.value },
       sectionE: { ...this.formGroupE.value },
       sectionF: { ...this.formGroupF.value },
@@ -358,6 +368,14 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
     return acsx290Model;
   }
 
+  private isMoment(dateTime: any): dateTime is Moment {
+    return dateTime !== null && (dateTime as Moment).toISOString !== undefined;
+  }
+
+  private serializeDateTime(dateTime: any): any {
+    return this.isMoment(dateTime) ? dateTime.toISOString() : dateTime;
+  }
+
   async loadById() {
     if (this.route.snapshot.params.hasOwnProperty('id')) {
       this.store.dispatch(new UI.StartLoading());
@@ -370,6 +388,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
         console.log(data);
         this.acsx290Service.decryptSenitiveData(data);
 
+        this.formDetail = data.detail;
         this.formGroupA.setValue(data.sectionA);
         this.formGroupB.setValue(data.sectionB);
         this.formGroupD.setValue(data.sectionD);

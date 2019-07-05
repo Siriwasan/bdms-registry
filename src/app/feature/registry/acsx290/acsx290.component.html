@@ -2643,9 +2643,112 @@
           <reg-input controlName="VSMiImUDI" placeholder="Unique Device identifier (UDI)" [formGroup]="formGroupK" type="text">
           </reg-input>
 
+          <!-- TRICUSPID VALVE -->
+
+          <reg-select controlName="VSTV" placeholder="Tricuspid Valve Procedure Performed" [formGroup]="formGroupK" [choices]="[
+              'Yes, planned',
+              'Yes, unplanned due to surgical complication',
+              'Yes, unplanned due to unsuspected disease or anatomy',
+              'No'
+            ]"></reg-select>
+
+          <reg-select controlName="VSTVPr" placeholder="Procedure Performed" [formGroup]="formGroupK" [choices]="[
+              'Repair',
+              'Replacement',
+              'Valvectomy'
+            ]"></reg-select>
+
+          <reg-select controlName="VSTrRepAnnulo" placeholder="Annuloplasty" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="OpTricusAnTy" placeholder="Type of Annuloplasty" [formGroup]="formGroupK" [choices]="[
+              'Pericardium',
+              'Suture',
+              'Prosthetic Ring',
+              'Prosthetic Band',
+              'Other'
+            ]"></reg-select>
+
+          <reg-select controlName="VSTrLeafRes" placeholder="Leaflet Resection" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="VSTCVTri" placeholder="Transcatheter Replacement" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="TricuspidImplant" placeholder="Implant" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="TricusImplantTy" placeholder="Implant Type" [formGroup]="formGroupK" [choices]="[
+            'Mechanical valve',
+            'Annuloplasty device',
+            'Bioprosthetic valve',
+            'Transcatheter device',
+            'Homograft',
+            'Other'
+            ]"></reg-select>
+
+          <reg-input controlName="VSTrIm" placeholder="Implant Model Number" [formGroup]="formGroupK" type="text">
+          </reg-input>
+
+          <reg-input controlName="VSTrImSz" placeholder="Implant Size" [formGroup]="formGroupK" type="number">
+          </reg-input>
+
+          <reg-input controlName="VSTrImUDI" placeholder="Unique Device Identifier (UDI)" [formGroup]="formGroupK" type="text">
+          </reg-input>
+
+          <!-- PULMONIC VALVE -->
+
+          <reg-select controlName="VSPV" placeholder="Pulmonic Valve Procedure Performed" [formGroup]="formGroupK" [choices]="[
+              'Yes, planned',
+              'Yes, unplanned due to surgical complication',
+              'Yes, unplanned due to unsuspected disease or anatomy',
+              'No'
+            ]"></reg-select>
+
+          <reg-select controlName="OpPulm" placeholder="Procedure Performed" [formGroup]="formGroupK" [choices]="[
+              'Repair/Leaflet Reconstruction',
+              'Replacement',
+              'Valvectomy'
+            ]"></reg-select>
+
+          <reg-select controlName="VSTCVPu" placeholder="Transcatheter Replacement" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="PulmonicImplant" placeholder="Implant" [formGroup]="formGroupK"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="VSPuTypeImp" placeholder="Implant Type" [formGroup]="formGroupK" [choices]="[
+            'Surgeon Fashioned',
+            'Commercially Supplied'
+            ]"></reg-select>
+
+          <reg-select controlName="VSPuImpMat" placeholder="Material" [formGroup]="formGroupK" [choices]="[
+              'PTFE (Gore-Tex)',
+              'Pericardium',
+              'Other'
+            ]"></reg-select>
+
+          <reg-select controlName="PulmonicImplantTy" placeholder="Device Type" [formGroup]="formGroupK" [choices]="[
+            'Mechanical valve',
+            'Bioprosthetic valve',
+            'Transcatheter device',
+            'Annuloplasty device',
+            'Homograft',
+            'Other'
+            ]"></reg-select>
+
+          <reg-input controlName="VSPuIm" placeholder="Implant Model Number" [formGroup]="formGroupK" type="text">
+          </reg-input>
+
+          <reg-input controlName="VSPuImSz" placeholder="Implant Size" [formGroup]="formGroupK" type="number">
+          </reg-input>
+
+          <reg-input controlName="VSPuImUDI" placeholder="Unique Device Identifier (UDI)" [formGroup]="formGroupK" type="text">
+          </reg-input>
 
 
-        </form>
+
+          </form>
       </div>
     </section>
 

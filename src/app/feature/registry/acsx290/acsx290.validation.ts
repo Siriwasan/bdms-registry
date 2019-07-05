@@ -464,6 +464,14 @@ export const validations: FormValidations = {
            VSMiImSz: [
              { type: 'min', message: 'must be at least 5' },
              { type: 'max', message: 'cannot be more than 100' }
+           ],
+           VSTrImSz: [
+             { type: 'min', message: 'must be at least 5' },
+             { type: 'max', message: 'cannot be more than 100' }
+           ],
+           VSPuImSz: [
+             { type: 'min', message: 'must be at least 5' },
+             { type: 'max', message: 'cannot be more than 100' }
            ]
          },
          sectionL: {},
