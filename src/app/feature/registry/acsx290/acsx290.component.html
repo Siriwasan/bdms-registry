@@ -3074,7 +3074,98 @@
           <reg-select controlName="OCarOthr" placeholder="Other Cardiac Procedure" [formGroup]="formGroupM"
             [choices]="['Yes', 'No']"></reg-select>
 
+        </form>
+      </div>
+    </section>
 
+    <section class="section-wrapper" scrollSpyElement id="sectionM1">
+      <div class="section-title">
+        <span>M.1. Atrial Fibrillation Procedures</span>
+        <span>{{ formCompletion('M1') }}</span>
+      </div>
+      <div class="section-body">
+        <form [formGroup]="formGroupM1" #formDirectiveM1="ngForm">
+
+          <reg-select controlName="OCarAFibLesLoc" placeholder="Lesion location" [formGroup]="formGroupM1" [choices]="[
+              'Primarily epicardial',
+              'Primarily Intracardiac'
+            ]"></reg-select>
+
+          <h4 id="methLesCrea">Method of Lesion Creation</h4>
+
+          <reg-select controlName="OCarAFibMethRad" placeholder="Radiofrequency" [formGroup]="formGroupM1"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="OCarAFibMethRadBi" placeholder="Bipolar" [formGroup]="formGroupM1"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="OCarAFibMethCAS" placeholder="Cut-and-sew" [formGroup]="formGroupM1"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="OCarAFibMethCryo" placeholder="Cryo" [formGroup]="formGroupM1"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="OCarLesDoc" placeholder="Lesions Documented" [formGroup]="formGroupM1"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <div fxLayout="column" fxLayout.gt-xs="row">
+            <img id="afib1Fig" src="assets/figures/afib1.png" alt="" fxFlex="50%">
+            <img id="afib2Fig" src="assets/figures/afib2.png" alt="" fxFlex="50%">
+          </div>
+
+          <reg-select controlName="AFibLes1" placeholder="#1 - Bilateral Pulmonary V ein Isolation" [formGroup]="formGroupM1"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="AFibLes2" placeholder="#2 - Box Lesion Only" [formGroup]="formGroupM1"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="AFibLes3a" placeholder="#3a - Inferior Pulmonary Vein Connecting Lesion" [formGroup]="formGroupM1"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="AFibLes3b" placeholder="#3b - Superior Pulmonary Vein Connecting Lesion" [formGroup]="formGroupM1"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="AFibLes4" placeholder="#4 - Posterior Mitral Annular Line Lesion" [formGroup]="formGroupM1"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="AFibLes5" placeholder="#5 - Pulmonary Vein Connecting Lesion to Anterior Mitral Annulus" [formGroup]="formGroupM1"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="AFibLes6" placeholder="#6 - Mitral V alve Annular Lesion" [formGroup]="formGroupM1"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="AFibLes7" placeholder="#7 - LAA /Removal/Obliteration" [formGroup]="formGroupM1"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="AFibLes8" placeholder="#8 - Pulmonary V ein to LAA Lesion" [formGroup]="formGroupM1"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="AFibLes9" placeholder="#9 - Intercaval Line to Tricuspid Annulus (“T” lesion)" [formGroup]="formGroupM1"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="AFibLes10" placeholder="#10 - Tricuspid Cryo Lesion, Medial" [formGroup]="formGroupM1"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="AFibLes11" placeholder="#11 - Intercaval Line (SVC and IVC)" [formGroup]="formGroupM1"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="AFibLes12" placeholder="#12 - Tricuspid Annular Line to RAA" [formGroup]="formGroupM1"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="AFibLes13" placeholder="#13 - Tricuspid Cryo Lesion" [formGroup]="formGroupM1"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="AFibLes14" placeholder="#14 - RAA Ligation/Removal/Obliteration" [formGroup]="formGroupM1"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="AFibLes15a" placeholder="#15a - RAA Lateral Wall (Short)" [formGroup]="formGroupM1"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="AFibLes15b" placeholder="#15b - RAA Lateral Wall to “T” Lesion" [formGroup]="formGroupM1"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="AFitLesCSL" placeholder="#16 - Coronary Sinus Lesion" [formGroup]="formGroupM1"
+            [choices]="['Yes', 'No']"></reg-select>
 
         </form>
       </div>
