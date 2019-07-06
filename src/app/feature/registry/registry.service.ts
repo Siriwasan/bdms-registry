@@ -198,41 +198,41 @@ export class RegistryService implements OnDestroy {
     return this.sectionMembers.map(sectionMember => sectionMember[2]);
   }
 
-  public isShowControl(control: string): boolean {
-    let condition: ControlCondition;
-    let section: string;
+  // public isShowControl(control: string): boolean {
+  //   let condition: ControlCondition;
+  //   let section: string;
 
-    Object.entries(this.conditions).find(([key, value]) => {
-      const result = (value as ControlCondition[]).find(o => o.control === control);
-      if (result === undefined) {
-        return false;
-      }
-      condition = result;
-      section = key === 'section' ? null : key[key.length - 1];
-      return true;
-    });
+  //   Object.entries(this.conditions).find(([key, value]) => {
+  //     const result = (value as ControlCondition[]).find(o => o.control === control);
+  //     if (result === undefined) {
+  //       return false;
+  //     }
+  //     condition = result;
+  //     section = key === 'section' ? null : key[key.length - 1];
+  //     return true;
+  //   });
 
-    if (condition === undefined) {
-      return true;
-    }
+  //   if (condition === undefined) {
+  //     return true;
+  //   }
 
-    const formGroup = this.getFormGroup(section);
-    const parentValue = formGroup.get(condition.parentControl).value;
+  //   const formGroup = this.getFormGroup(section);
+  //   const parentValue = formGroup.get(condition.parentControl).value;
 
-    if (parentValue !== null && condition.conditions[0] === '!') {
-      if (condition.conditions[1] !== parentValue) {
-        return true;
-      } else {
-        return false;
-      }
-    }
+  //   if (parentValue !== null && condition.conditions[0] === '!') {
+  //     if (condition.conditions[1] !== parentValue) {
+  //       return true;
+  //     } else {
+  //       return false;
+  //     }
+  //   }
 
-    if (condition.conditions.findIndex(o => o === parentValue) < 0) {
-      return false;
-    }
+  //   if (condition.conditions.findIndex(o => o === parentValue) < 0) {
+  //     return false;
+  //   }
 
-    return true;
-  }
+  //   return true;
+  // }
 
   public getValidations(control: string): ValidationMessage[] {
     let vals: ValidationMessage[];
@@ -257,7 +257,7 @@ export class RegistryService implements OnDestroy {
       if (result === undefined) {
         return false;
       }
-      section = key === 'section' ? null : key[key.length - 1];
+      section = key === 'section' ? null : key.substr(key.length - 1);
       return true;
     });
 

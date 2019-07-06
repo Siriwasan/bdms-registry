@@ -200,6 +200,47 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
       'CABVeinPatAng10'
     ]
   ];
+  H_vad = [
+    [
+      'Initial implant',
+      'VImp',
+      'VADImpTmg',
+      'VImpDt',
+      'VADInd',
+      'VImpTy',
+      'VProdTy',
+      'VImpUDI',
+      'VExp',
+      'VExpRsn',
+      'VExpDt'
+    ],
+    [
+      '2nd device implanted',
+      'VImp2',
+      'VADImpTmg2',
+      'VImpDt2',
+      'VADInd2',
+      'VImpTy2',
+      'VProdTy2',
+      'VImpUDI2',
+      'VExp2',
+      'VExpRsn2',
+      'VExpDt2'
+    ],
+    [
+      '3rd device implanted',
+      'VImp3',
+      'VADImpTmg3',
+      'VImpDt3',
+      'VADInd3',
+      'VImpTy3',
+      'VProdTy3',
+      'VImpUDI3',
+      'VExp3',
+      'VExpRsn3',
+      'VExpDt3'
+    ]
+  ];
   // tslint:enable: variable-name
 
   constructor(

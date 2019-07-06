@@ -2752,6 +2752,334 @@
       </div>
     </section>
 
+    <section class="section-wrapper" scrollSpyElement id="sectionL">
+      <div class="section-title">
+        <span>L. Mechanical Cardiac Assist Devices</span>
+        <span>{{ formCompletion('L') }}</span>
+      </div>
+      <div class="section-body">
+        <form [formGroup]="formGroupL" #formDirectiveL="ngForm">
+
+          <reg-select controlName="IABP" placeholder="Intra-Aortic Balloon Pump (IABP)" [formGroup]="formGroupL"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="IABPWhen" placeholder="IABPInsertion" [formGroup]="formGroupL" [choices]="[
+              'Preop',
+              'Intraop',
+              'Postop'
+            ]"></reg-select>
+
+          <reg-select controlName="IABPInd" placeholder="Primary Reason for Insertion" [formGroup]="formGroupL" [choices]="[
+              'Hemodyn Instability',
+              'Procedural Support',
+              'Unstable Angina',
+              'Cardiopulmonary Bypass (CPB) Weaning Failure',
+              'Prophylactic',
+              'Other'
+            ]"></reg-select>
+
+          <reg-select controlName="CathBasAssist" placeholder="Catheter Based Assist Device Used" [formGroup]="formGroupL"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="CathBasAssistTy" placeholder="Type" [formGroup]="formGroupL" [choices]="[
+              'RV',
+              'LV',
+              'BiV'
+            ]"></reg-select>
+
+          <reg-select controlName="CathBasAssistWhen" placeholder="When Inserted" [formGroup]="formGroupL" [choices]="[
+              'Preop',
+              'Intraop',
+              'Postop'
+            ]"></reg-select>
+
+          <reg-select controlName="CathBasAssistInd" placeholder="Primary Reason for Insertion" [formGroup]="formGroupL" [choices]="[
+              'Hemodynamic instability',
+              'CPB weaning failure',
+              'PCI failure',
+              'Procedural support',
+              'Other'
+            ]"></reg-select>
+
+          <reg-select controlName="ECMO" placeholder="ECMO" [formGroup]="formGroupL" [choices]="[
+              'Veno-venous',
+              'Veno-arterial',
+              'Veno-venous converted to Veno-arterial',
+              'No'
+            ]"></reg-select>
+
+          <reg-select controlName="ECMOWhen" placeholder="ECMO Initiated" [formGroup]="formGroupL" [choices]="[
+              'Preop',
+              'Intraop',
+              'Postop',
+              'Non-operative'
+            ]"></reg-select>
+
+          <reg-select controlName="ECMOInd" placeholder="Clinical Indication for ECMO" [formGroup]="formGroupL" [choices]="[
+              'Cardiac Failure',
+              'Respiratory Failure',
+              'Hypothermia',
+              'Rescue/salvage',
+              'Other'
+            ]"></reg-select>
+
+        </form>
+      </div>
+    </section>
+
+    <section class="section-wrapper" scrollSpyElement id="sectionL2">
+      <div class="section-title">
+        <span>L.2 Ventricular Assist Devices</span>
+        <span>{{ formCompletion('L2') }}</span>
+      </div>
+      <div class="section-body">
+        <form [formGroup]="formGroupL2" #formDirectiveL2="ngForm">
+
+          <reg-select controlName="PrevVAD" placeholder="Was patient admitted with VAD" [formGroup]="formGroupL2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="PrevVADF" placeholder="Previous VAD implanted at another facility" [formGroup]="formGroupL2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-datepicker controlName="PrevVADD" placeholder="Insertion date" [formGroup]="formGroupL2">
+          </reg-datepicker>
+
+          <reg-select controlName="PrevVADIn" placeholder="Indication" [formGroup]="formGroupL2" [choices]="[
+            'Bridge to Transplantation',
+            'Bridge to Recovery',
+            'Destination',
+            'Post Cardiotomy Ventricular Failure',
+            'Device Malfunction',
+            'End of (device) Life',
+            'Salvage'
+            ]"></reg-select>
+
+          <reg-select controlName="PrevVADTy" placeholder="Type" [formGroup]="formGroupL2" [choices]="[
+            'RVAD',
+            'LVAD',
+            'BiVAD',
+            'TAH'
+            ]"></reg-select>
+
+          <reg-input controlName="PrevVADDevice" placeholder="Device Model Number" [formGroup]="formGroupL2" type="text">
+          </reg-input>
+
+          <reg-input controlName="PrevVADUDI" placeholder="UDI" [formGroup]="formGroupL2" type="text">
+          </reg-input>
+
+          <reg-select controlName="PrevVADExp" placeholder="Previous VAD Explanted During This Admission" [formGroup]="formGroupL2" [choices]="[
+              'Yes, not during this procedure',
+              'Yes, during this procedure',
+              'No'
+            ]"></reg-select>
+
+          <reg-select controlName="PrevVADExpRsn" placeholder="Reason" [formGroup]="formGroupL2" [choices]="[
+            'Cardiac Transplant',
+            'Recovery',
+            'Device Transfer',
+            'Device-Related Infection',
+            'Device Malfunction',
+            'End of (device) Life'
+            ]"></reg-select>
+
+          <reg-datepicker controlName="PrevVADExpDt" placeholder="Date" [formGroup]="formGroupL2">
+          </reg-datepicker>
+
+          <reg-select controlName="VADImp" placeholder="Ventricular Assist Device Implanted during this hospitalization" [formGroup]="formGroupL2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <h4 id="vadImplant">VAD IMPLANT(s)</h4>
+
+          <div *ngFor="let vad of H_vad; let i = index">
+            <h4 [id]="'vad' + (i+1)">{{ 'Venticular Assist Device #' + (i+1) }}</h4>
+
+            <reg-select [controlName]="vad[1]" [placeholder]="vad[0]" [formGroup]="formGroupL2"
+              [choices]="['Yes', 'No']"></reg-select>
+
+            <reg-select [controlName]="vad[2]" placeholder="Timing" [formGroup]="formGroupL2" [choices]="[
+                'Pre-Operative',
+                'Stand-alone VAD procedure',
+                'In conjunction with CV surgical procedure - planned',
+                'In conjunction with CV surgical procedure - unplanned',
+                'Post-Operative'
+              ]"></reg-select>
+
+            <reg-datepicker [controlName]="vad[3]" placeholder="Implant Date" [formGroup]="formGroupL2">
+            </reg-datepicker>
+
+            <reg-select [controlName]="vad[4]" placeholder="Indication" [formGroup]="formGroupL2" [choices]="[
+              'Bridge to Transplantation',
+              'Bridge to Recovery',
+              'Destination',
+              'Post Cardiotomy Ventricular Failure',
+              'Device Malfunction',
+              'End of (device) Life',
+              'Salvage'
+              ]"></reg-select>
+
+            <reg-select [controlName]="vad[5]" placeholder="Type" [formGroup]="formGroupL2" [choices]="[
+              'RVAD',
+              'LVAD',
+              'BiVAD',
+              'TAH'
+              ]"></reg-select>
+
+            <reg-input [controlName]="vad[6]" placeholder="Device" [formGroup]="formGroupL2" type="text">
+            </reg-input>
+
+            <reg-input [controlName]="vad[7]" placeholder="UDI" [formGroup]="formGroupL2" type="text">
+            </reg-input>
+
+            <reg-select [controlName]="vad[8]" placeholder="VAD was explanted" [formGroup]="formGroupL2" [choices]="[
+                'Yes, not during this procedure',
+                'Yes, during this procedure',
+                'No'
+              ]"></reg-select>
+
+            <reg-select [controlName]="vad[9]" placeholder="Reason" [formGroup]="formGroupL2" [choices]="[
+              'Cardiac Transplant',
+              'Recovery',
+              'Device Transfer',
+              'Device-Related Infection',
+              'Device Malfunction',
+              'End of (device) Life'
+              ]"></reg-select>
+
+            <reg-datepicker [controlName]="vad[10]" placeholder="Date" [formGroup]="formGroupL2">
+            </reg-datepicker>
+
+          </div>
+
+        </form>
+      </div>
+    </section>
+
+    <section class="section-wrapper" scrollSpyElement id="sectionM">
+      <div class="section-title">
+        <span>M. Other Cardiac Procedures</span>
+        <span>{{ formCompletion('M') }}</span>
+      </div>
+      <div class="section-body">
+        <form [formGroup]="formGroupM" #formDirectiveM="ngForm">
+
+          <reg-select controlName="OCarASDPFO" placeholder="ASD repair- PFO type" [formGroup]="formGroupM"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="OCarASDSec" placeholder="ASD Repair- secundum or sinus venosus" [formGroup]="formGroupM"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="OCarAFibIntraLes" placeholder="AFib Intracardiac lesions" [formGroup]="formGroupM"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="OCarAFibEpLes" placeholder="AFib Epicardial lesions" [formGroup]="formGroupM"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="OCarAAProc" placeholder="Atrial Appendage procedure" [formGroup]="formGroupM" [choices]="[
+              'RAA',
+              'LAA',
+              'Both',
+              'No'
+            ]"></reg-select>
+
+          <reg-select controlName="OCarAAMeth" placeholder="Indicate method for atrial appendage ligation/exclusion" [formGroup]="formGroupM" [choices]="[
+            'Intra-atrial oversewing',
+            'Epicardial Suture Ligation',
+            'Amputation with oversewing',
+            'Stapler (cutting)',
+            'Stapler (noncutting)',
+            'Epicardially applied occlusion device'
+            ]"></reg-select>
+
+          <reg-select controlName="OCarAAModel" placeholder="Model" [formGroup]="formGroupM" [choices]="[
+              'AtriClip',
+              'Lariat',
+              'Other'
+            ]"></reg-select>
+
+          <reg-input controlName="OCarAAUDI" placeholder="UDI" [formGroup]="formGroupM" type="text">
+          </reg-input>
+
+          <reg-select controlName="OCarACD" placeholder="Arrhythmia Device" [formGroup]="formGroupM" [choices]="[
+            'Pacemaker',
+            'Pacemaker with CRT',
+            'ICD',
+            'ICD with CRT',
+            'Implantable Recorder',
+            'None'
+            ]"></reg-select>
+
+          <reg-select controlName="OCarLeadInsert" placeholder="Lead Insertion" [formGroup]="formGroupM"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="OCarACDLE" placeholder="Lead Extraction" [formGroup]="formGroupM" [choices]="[
+            'Yes, planned',
+            'Yes, unplanned due to surgical complication',
+            'Yes, unplanned due to unsuspected disease or anatomy',
+            'No'
+            ]"></reg-select>
+
+          <reg-select controlName="OCarCong" placeholder="Congenital Defect Repair" [formGroup]="formGroupM"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="OCarLVA" placeholder="LV Aneurysm Repair" [formGroup]="formGroupM"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="OCarStemCell" placeholder="MyocardialStemCell Therapy" [formGroup]="formGroupM"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="OCPulThromDis" placeholder="Pulmonary Thromboembolectomy" [formGroup]="formGroupM" [choices]="[
+              'Yes, Acute',
+              'Yes, Chronic',
+              'No'
+            ]"></reg-select>
+
+          <reg-select controlName="OCarSubaStenRes" placeholder="Subaortic Stenosis Resection" [formGroup]="formGroupM"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="OCarSubaStenResTy" placeholder="Type" [formGroup]="formGroupM" [choices]="[
+              'Muscle',
+              'Ring',
+              'Membrane',
+              'Web',
+              'Not Reported'
+            ]"></reg-select>
+
+          <reg-select controlName="OCarSVR" placeholder="Surgical Ventricular Restoration" [formGroup]="formGroupM"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="OCarLasr" placeholder="Transmyocardial revascularization (TMR)" [formGroup]="formGroupM"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="OCTumor" placeholder="Tumor" [formGroup]="formGroupM" [choices]="[
+              'Myxoma',
+              'Fibroelastoma',
+              'Hypernephroma',
+              'Sarcoma',
+              'Other',
+              'No'
+            ]"></reg-select>
+
+          <reg-select controlName="OCarCrTx" placeholder="Transplant, Cardiac" [formGroup]="formGroupM"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="OCarTrma" placeholder="Trauma, Cardiac" [formGroup]="formGroupM"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="OCarVSD" placeholder="VSD Repair" [formGroup]="formGroupM" [choices]="[
+              'Yes-congenital',
+              'Yes-acquired',
+              'No'
+            ]"></reg-select>
+
+          <reg-select controlName="OCarOthr" placeholder="Other Cardiac Procedure" [formGroup]="formGroupM"
+            [choices]="['Yes', 'No']"></reg-select>
+
+
+
+        </form>
+      </div>
+    </section>
+
     <!-- <section class="section-wrapper" scrollSpyElement id="sectionG">
       <div class="section-title">
         <span>G. Preoperative Medications</span>

@@ -639,9 +639,117 @@ export const conditions: FormConditions = {
            { control: 'VSPuImSz', parentControl: 'PulmonicImplant', conditions: ['Yes'] },
            { control: 'VSPuImUDI', parentControl: 'PulmonicImplant', conditions: ['Yes'] }
          ],
-         sectionL: [],
-         sectionL2: [],
-         sectionM: [],
+         sectionL: [
+           { control: 'IABPWhen', parentControl: 'IABP', conditions: ['Yes'] },
+           { control: 'IABPInd', parentControl: 'IABP', conditions: ['Yes'] },
+           { control: 'CathBasAssistTy', parentControl: 'CathBasAssist', conditions: ['Yes'] },
+           { control: 'CathBasAssistWhen', parentControl: 'CathBasAssist', conditions: ['Yes'] },
+           { control: 'CathBasAssistInd', parentControl: 'CathBasAssist', conditions: ['Yes'] },
+           { control: 'ECMOWhen', parentControl: 'ECMO', conditions: ['!', 'No'] },
+           { control: 'ECMOInd', parentControl: 'ECMO', conditions: ['!', 'No'] }
+         ],
+         sectionL2: [
+           { control: 'PrevVADF', parentControl: 'PrevVAD', conditions: ['Yes'] },
+           { control: 'PrevVADD', parentControl: 'PrevVAD', conditions: ['Yes'] },
+           { control: 'PrevVADIn', parentControl: 'PrevVAD', conditions: ['Yes'] },
+           { control: 'PrevVADTy', parentControl: 'PrevVAD', conditions: ['Yes'] },
+           { control: 'PrevVADDevice', parentControl: 'PrevVAD', conditions: ['Yes'] },
+           { control: 'PrevVADUDI', parentControl: 'PrevVAD', conditions: ['Yes'] },
+           { control: 'PrevVADExp', parentControl: 'PrevVAD', conditions: ['Yes'] },
+           {
+             control: 'PrevVADExpRsn',
+             parentControl: 'PrevVADExp',
+             conditions: ['Yes, not during this procedure', 'Yes, during this procedure']
+           },
+           {
+             control: 'PrevVADExpDt',
+             parentControl: 'PrevVADExp',
+             conditions: ['Yes, not during this procedure']
+           },
+
+           { control: 'L2:vadImplant', parentControl: 'VADImp', conditions: ['Yes'] },
+           { control: 'L2:vad1', parentControl: 'VADImp', conditions: ['Yes'] },
+           { control: 'VImp', parentControl: 'VADImp', conditions: ['Yes'] },
+           { control: 'VADImpTmg', parentControl: 'VImp', conditions: ['Yes'] },
+           { control: 'VImpDt', parentControl: 'VImp', conditions: ['Yes'] },
+           { control: 'VADInd', parentControl: 'VImp', conditions: ['Yes'] },
+           { control: 'VImpTy', parentControl: 'VImp', conditions: ['Yes'] },
+           { control: 'VProdTy', parentControl: 'VImp', conditions: ['Yes'] },
+           { control: 'VImpUDI', parentControl: 'VImp', conditions: ['Yes'] },
+           { control: 'VExp', parentControl: 'VImp', conditions: ['Yes'] },
+           {
+             control: 'VExpRsn',
+             parentControl: 'VExp',
+             conditions: ['Yes, not during this procedure', 'Yes, during this procedure']
+           },
+           { control: 'VExpDt', parentControl: 'VExp', conditions: ['Yes, not during this procedure'] },
+
+           { control: 'L2:vad2', parentControl: 'VImp', conditions: ['Yes'] },
+           { control: 'VImp2', parentControl: 'VImp', conditions: ['Yes'] },
+           { control: 'VADImpTmg2', parentControl: 'VImp2', conditions: ['Yes'] },
+           { control: 'VImpDt2', parentControl: 'VImp2', conditions: ['Yes'] },
+           { control: 'VADInd2', parentControl: 'VImp2', conditions: ['Yes'] },
+           { control: 'VImpTy2', parentControl: 'VImp2', conditions: ['Yes'] },
+           { control: 'VProdTy2', parentControl: 'VImp2', conditions: ['Yes'] },
+           { control: 'VImpUDI2', parentControl: 'VImp2', conditions: ['Yes'] },
+           { control: 'VExp2', parentControl: 'VImp2', conditions: ['Yes'] },
+           {
+             control: 'VExpRsn2',
+             parentControl: 'VExp2',
+             conditions: ['Yes, not during this procedure', 'Yes, during this procedure']
+           },
+           { control: 'VExpDt2', parentControl: 'VExp2', conditions: ['Yes, not during this procedure'] },
+
+           { control: 'L2:vad3', parentControl: 'VImp2', conditions: ['Yes'] },
+           { control: 'VImp3', parentControl: 'VImp2', conditions: ['Yes'] },
+           { control: 'VADImpTmg3', parentControl: 'VImp3', conditions: ['Yes'] },
+           { control: 'VImpDt3', parentControl: 'VImp3', conditions: ['Yes'] },
+           { control: 'VADInd3', parentControl: 'VImp3', conditions: ['Yes'] },
+           { control: 'VImpTy3', parentControl: 'VImp3', conditions: ['Yes'] },
+           { control: 'VProdTy3', parentControl: 'VImp3', conditions: ['Yes'] },
+           { control: 'VImpUDI3', parentControl: 'VImp3', conditions: ['Yes'] },
+           { control: 'VExp3', parentControl: 'VImp3', conditions: ['Yes'] },
+           {
+             control: 'VExpRsn3',
+             parentControl: 'VExp3',
+             conditions: ['Yes, not during this procedure', 'Yes, during this procedure']
+           },
+           { control: 'VExpDt3', parentControl: 'VExp3', conditions: ['Yes, not during this procedure'] }
+         ],
+         sectionM: [
+           { control: 'OCarASDPFO', parentControl: 'I:OpOCard', conditions: ['!', 'No'] },
+           { control: 'OCarASDSec', parentControl: 'I:OpOCard', conditions: ['!', 'No'] },
+           { control: 'OCarAFibIntraLes', parentControl: 'I:OpOCard', conditions: ['!', 'No'] },
+           { control: 'OCarAFibEpLes', parentControl: 'I:OpOCard', conditions: ['!', 'No'] },
+           { control: 'OCarAAProc', parentControl: 'I:OpOCard', conditions: ['!', 'No'] },
+           { control: 'OCarAAMeth', parentControl: 'OCarAAProc', conditions: ['!', 'No'] },
+           {
+             control: 'OCarAAModel',
+             parentControl: 'OCarAAMeth',
+             conditions: ['Epicardially applied occlusion device']
+           },
+           {
+             control: 'OCarAAUDI',
+             parentControl: 'OCarAAMeth',
+             conditions: ['Epicardially applied occlusion device']
+           },
+           { control: 'OCarACD', parentControl: 'I:OpOCard', conditions: ['!', 'No'] },
+           { control: 'OCarLeadInsert', parentControl: 'I:OpOCard', conditions: ['!', 'No'] },
+           { control: 'OCarACDLE', parentControl: 'I:OpOCard', conditions: ['!', 'No'] },
+           { control: 'OCarCong', parentControl: 'I:OpOCard', conditions: ['!', 'No'] },
+           { control: 'OCarLVA', parentControl: 'I:OpOCard', conditions: ['!', 'No'] },
+           { control: 'OCarStemCell', parentControl: 'I:OpOCard', conditions: ['!', 'No'] },
+           { control: 'OCPulThromDis', parentControl: 'I:OpOCard', conditions: ['!', 'No'] },
+           { control: 'OCarSubaStenRes', parentControl: 'I:OpOCard', conditions: ['!', 'No'] },
+           { control: 'OCarSubaStenResTy', parentControl: 'OCarSubaStenRes', conditions: ['Yes'] },
+           { control: 'OCarSVR', parentControl: 'I:OpOCard', conditions: ['!', 'No'] },
+           { control: 'OCarLasr', parentControl: 'I:OpOCard', conditions: ['!', 'No'] },
+           { control: 'OCTumor', parentControl: 'I:OpOCard', conditions: ['!', 'No'] },
+           { control: 'OCarCrTx', parentControl: 'I:OpOCard', conditions: ['!', 'No'] },
+           { control: 'OCarTrma', parentControl: 'I:OpOCard', conditions: ['!', 'No'] },
+           { control: 'OCarVSD', parentControl: 'I:OpOCard', conditions: ['!', 'No'] },
+           { control: 'OCarOthr', parentControl: 'I:OpOCard', conditions: ['!', 'No'] }
+         ],
          sectionM1: [],
          sectionM2: [],
          sectionM3: [],
