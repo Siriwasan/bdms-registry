@@ -415,21 +415,51 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
       sectionE: { ...this.formGroupE.value },
       sectionF: { ...this.formGroupF.value },
       sectionG: { ...this.formGroupG.value },
-      sectionH: { ...this.formGroupH.value },
-      sectionI: { ...this.formGroupI.value },
+      sectionH: {
+        ...this.formGroupH.value,
+        CarCathDt: this.serializeDateTime(this.formGroupH.get('CarCathDt').value)
+      },
+      sectionI: {
+        ...this.formGroupI.value,
+        PCancCaseDt: this.serializeDateTime(this.formGroupI.get('PCancCaseDt').value)
+      },
       sectionJ: { ...this.formGroupJ.value },
       sectionK: { ...this.formGroupK.value },
       sectionL: { ...this.formGroupL.value },
-      sectionL2: { ...this.formGroupL2.value },
+      sectionL2: {
+        ...this.formGroupL2.value,
+        PrevVADD: this.serializeDateTime(this.formGroupL2.get('PrevVADD').value),
+        PrevVADExpDt: this.serializeDateTime(this.formGroupL2.get('PrevVADExpDt').value),
+        VImpDt: this.serializeDateTime(this.formGroupL2.get('VImpDt').value),
+        VImpDt2: this.serializeDateTime(this.formGroupL2.get('VImpDt2').value),
+        VImpDt3: this.serializeDateTime(this.formGroupL2.get('VImpDt3').value),
+        VExpDt: this.serializeDateTime(this.formGroupL2.get('VExpDt').value),
+        VExpDt2: this.serializeDateTime(this.formGroupL2.get('VExpDt2').value),
+        VExpDt3: this.serializeDateTime(this.formGroupL2.get('VExpDt3').value)
+      },
       sectionM: { ...this.formGroupM.value },
       sectionM1: { ...this.formGroupM1.value },
-      sectionM2: { ...this.formGroupM2.value },
+      sectionM2: {
+        ...this.formGroupM2.value,
+        DisOnsetDt: this.serializeDateTime(this.formGroupM2.get('DisOnsetDt').value)
+      },
       sectionM3: { ...this.formGroupM3.value },
       sectionN: { ...this.formGroupN.value },
       sectionO: { ...this.formGroupO.value },
-      sectionP: { ...this.formGroupP.value },
-      sectionQ: { ...this.formGroupQ.value },
-      sectionR: { ...this.formGroupR.value },
+      sectionP: {
+        ...this.formGroupP.value,
+        DeepSternInfDt: this.serializeDateTime(this.formGroupP.get('DeepSternInfDt').value)
+      },
+      sectionQ: {
+        ...this.formGroupQ.value,
+        LFUDate: this.serializeDateTime(this.formGroupQ.get('LFUDate').value),
+        DischDt: this.serializeDateTime(this.formGroupQ.get('DischDt').value),
+        MtDate: this.serializeDateTime(this.formGroupQ.get('MtDate').value)
+      },
+      sectionR: {
+        ...this.formGroupR.value,
+        ReadmitDt: this.serializeDateTime(this.formGroupR.get('ReadmitDt').value)
+      },
       sectionS: { ...this.formGroupS.value }
     };
 
