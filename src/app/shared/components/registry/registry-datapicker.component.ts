@@ -4,6 +4,7 @@ import { MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from '@angular/material-mo
 
 import { RegistryService } from '../../../feature/registry/registry.service';
 import { RegistryControlComponent } from './registry-control.component';
+import { AbstractControl } from '@angular/forms';
 
 @Component({
   // tslint:disable-next-line: component-selector
@@ -21,17 +22,15 @@ import { RegistryControlComponent } from './registry-control.component';
       <mat-datepicker #picker></mat-datepicker>
       <mat-hint>
         <a><ng-content></ng-content></a>
-        <mat-icon style="cursor: help;" (click)="openInfo(controlName)" *ngIf="hasInfo(controlName)"
-          >info_outline</mat-icon
-        >
+        <mat-icon style="cursor: help;" (click)="openInfo(controlName)" *ngIf="bInfo">info_outline</mat-icon>
       </mat-hint>
-      <mat-error *ngFor="let validation of getValidations(controlName)">
-        <mat-error *ngIf="isInvalid(controlName, validation.type)">
-          <a>{{ validation.message }}</a>
-          <mat-icon style="cursor: help;" (click)="openInfo(controlName)" *ngIf="hasInfo(controlName)"
-            >info_outline</mat-icon
-          >
-        </mat-error>
+      <mat-error *ngIf="self?.invalid && (self?.dirty || self?.touched)">
+        <div *ngFor="let validation of getValidations(controlName)">
+          <div *ngIf="isInvalid(controlName, validation.type)">
+            <a>{{ validation.message }}</a>
+            <mat-icon style="cursor: help;" (click)="openInfo(controlName)" *ngIf="bInfo">info_outline</mat-icon>
+          </div>
+        </div>
       </mat-error>
     </mat-form-field>
   `,
@@ -53,11 +52,20 @@ export class RegistryDatepickerComponent extends RegistryControlComponent implem
   @Input() placeholder: string;
   @Input() require = true;
 
+  bInfo: boolean;
+  self: AbstractControl;
+
   constructor(protected registryService: RegistryService, private elementRef: ElementRef) {
     super(registryService);
   }
 
   ngOnInit() {
     this.elementRef.nativeElement.setAttribute('id', this.controlName);
+    this.bInfo = this.hasInfo(this.controlName);
+
+    const section = this.registryService.getControlSection(this.controlName);
+    if (section) {
+      this.self = this.registryService.getFormGroup(section).get(this.controlName);
+    }
   }
 }

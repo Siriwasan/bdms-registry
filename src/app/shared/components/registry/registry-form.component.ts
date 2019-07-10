@@ -85,6 +85,6 @@ export class RegistryFormComponent extends ScrollSpyFormComponent implements OnI
   public formCompletion = (section: string): string => this.registryService.formCompletion(section);
   // public isShowControl = (control: string): boolean => this.registryService.isShowControl(control);
   public getValidations = (control: string): ValidationMessage[] => this.registryService.getValidations(control);
-  public isInvalid = (control: string, validationType: string): boolean =>
-    this.registryService.isInvalid(control, validationType);
+  // public isInvalid = (control: string, validationType: string): boolean =>
+  //   this.registryService.isInvalid(control, validationType);
 }

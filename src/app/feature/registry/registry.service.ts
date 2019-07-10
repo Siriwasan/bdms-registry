@@ -195,6 +195,7 @@ export class RegistryService implements OnDestroy {
   }
 
   private getFormDirectives(): FormGroupDirective[] {
+    console.log(this.sectionMembers);
     return this.sectionMembers.map(sectionMember => sectionMember[2]);
   }
 
@@ -248,7 +249,7 @@ export class RegistryService implements OnDestroy {
     return vals;
   }
 
-  public isInvalid(control: string, validationType: string): boolean {
+  public getControlSection(control: string): string {
     let section: string;
 
     // find control's section
@@ -257,9 +258,17 @@ export class RegistryService implements OnDestroy {
       if (result === undefined) {
         return false;
       }
-      section = key === 'section' ? null : key.substr(7);
+      section = key === 'section' ? null : key.substr(7); // 'section'.lenght
       return true;
     });
+
+    return section;
+  }
+
+  public isInvalid(control: string, validationType: string): boolean {
+    const section = this.getControlSection(control);
+
+    console.log(control);
 
     return this.getFormGroup(section)
       .get(control)
