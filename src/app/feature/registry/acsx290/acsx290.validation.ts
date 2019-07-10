@@ -478,11 +478,314 @@ export const validations: FormValidations = {
          sectionL2: {},
          sectionM: {},
          sectionM1: {},
-         sectionM2: {},
+         sectionM2: {
+           Diam3DAnnulus: [
+             { type: 'min', message: 'must be at least 10' },
+             { type: 'max', message: 'cannot be more than 120' }
+           ],
+           Diam3DSinus: [
+             { type: 'min', message: 'must be at least 10' },
+             { type: 'max', message: 'cannot be more than 120' }
+           ],
+           Diam3DSinotubular: [
+             { type: 'min', message: 'must be at least 10' },
+             { type: 'max', message: 'cannot be more than 120' }
+           ],
+           Diam3DMidAsc: [
+             { type: 'min', message: 'must be at least 10' },
+             { type: 'max', message: 'cannot be more than 120' }
+           ],
+           Diam3DDistalAsc: [
+             { type: 'min', message: 'must be at least 10' },
+             { type: 'max', message: 'cannot be more than 120' }
+           ],
+           Diam3DZone1: [
+             { type: 'min', message: 'must be at least 10' },
+             { type: 'max', message: 'cannot be more than 120' }
+           ],
+           Diam3DZone2: [
+             { type: 'min', message: 'must be at least 10' },
+             { type: 'max', message: 'cannot be more than 120' }
+           ],
+           Diam3DZone3: [
+             { type: 'min', message: 'must be at least 10' },
+             { type: 'max', message: 'cannot be more than 120' }
+           ],
+           Diam3DZone4: [
+             { type: 'min', message: 'must be at least 10' },
+             { type: 'max', message: 'cannot be more than 120' }
+           ],
+           Diam3DZone5: [
+             { type: 'min', message: 'must be at least 10' },
+             { type: 'max', message: 'cannot be more than 120' }
+           ],
+           Diam3DZone6: [
+             { type: 'min', message: 'must be at least 10' },
+             { type: 'max', message: 'cannot be more than 120' }
+           ],
+           Diam3DZone7: [
+             { type: 'min', message: 'must be at least 10' },
+             { type: 'max', message: 'cannot be more than 120' }
+           ],
+           Diam3DZone8: [
+             { type: 'min', message: 'must be at least 10' },
+             { type: 'max', message: 'cannot be more than 120' }
+           ],
+           Diam3DZone9: [
+             { type: 'min', message: 'must be at least 10' },
+             { type: 'max', message: 'cannot be more than 120' }
+           ],
+           Diam3DZone10: [
+             { type: 'min', message: 'must be at least 10' },
+             { type: 'max', message: 'cannot be more than 120' }
+           ],
+           Diam3DZone11: [
+             { type: 'min', message: 'must be at least 10' },
+             { type: 'max', message: 'cannot be more than 120' }
+           ],
+
+           DiamLgstAnnulus: [
+             { type: 'min', message: 'must be at least 10' },
+             { type: 'max', message: 'cannot be more than 120' }
+           ],
+           DiamLgstSinus: [
+             { type: 'min', message: 'must be at least 10' },
+             { type: 'max', message: 'cannot be more than 120' }
+           ],
+           DiamLgstSinotubular: [
+             { type: 'min', message: 'must be at least 10' },
+             { type: 'max', message: 'cannot be more than 120' }
+           ],
+           DiamLgstMidAsc: [
+             { type: 'min', message: 'must be at least 10' },
+             { type: 'max', message: 'cannot be more than 120' }
+           ],
+           DiamLgstDistalAsc: [
+             { type: 'min', message: 'must be at least 10' },
+             { type: 'max', message: 'cannot be more than 120' }
+           ],
+           DiamLgstZone1: [
+             { type: 'min', message: 'must be at least 10' },
+             { type: 'max', message: 'cannot be more than 120' }
+           ],
+           DiamLgstZone2: [
+             { type: 'min', message: 'must be at least 10' },
+             { type: 'max', message: 'cannot be more than 120' }
+           ],
+           DiamLgstZone3: [
+             { type: 'min', message: 'must be at least 10' },
+             { type: 'max', message: 'cannot be more than 120' }
+           ],
+           DiamLgstZone4: [
+             { type: 'min', message: 'must be at least 10' },
+             { type: 'max', message: 'cannot be more than 120' }
+           ],
+           DiamLgstZone5: [
+             { type: 'min', message: 'must be at least 10' },
+             { type: 'max', message: 'cannot be more than 120' }
+           ],
+           DiamLgstZone6: [
+             { type: 'min', message: 'must be at least 10' },
+             { type: 'max', message: 'cannot be more than 120' }
+           ],
+           DiamLgstZone7: [
+             { type: 'min', message: 'must be at least 10' },
+             { type: 'max', message: 'cannot be more than 120' }
+           ],
+           DiamLgstZone8: [
+             { type: 'min', message: 'must be at least 10' },
+             { type: 'max', message: 'cannot be more than 120' }
+           ],
+           DiamLgstZone9: [
+             { type: 'min', message: 'must be at least 10' },
+             { type: 'max', message: 'cannot be more than 120' }
+           ],
+           DiamLgstZone10: [
+             { type: 'min', message: 'must be at least 10' },
+             { type: 'max', message: 'cannot be more than 120' }
+           ],
+           DiamLgstZone11: [
+             { type: 'min', message: 'must be at least 10' },
+             { type: 'max', message: 'cannot be more than 120' }
+           ],
+           IntraOpAngVol: [
+             { type: 'min', message: 'must be at least 0' },
+             { type: 'max', message: 'cannot be more than 2000' }
+           ],
+           IntraOpAngFlTm: [
+             { type: 'min', message: 'must be at least 0' },
+             { type: 'max', message: 'cannot be more than 300' }
+           ]
+         },
          sectionM3: {},
          sectionN: {},
-         sectionO: {},
+         sectionO: {
+           PostOpPeakGlu: [
+             { type: 'min', message: 'must be at least 30' },
+             { type: 'max', message: 'cannot be more than 1500' }
+           ],
+           PostCreat: [
+             { type: 'min', message: 'must be at least 0.1' },
+             { type: 'max', message: 'cannot be more than 30.0' }
+           ],
+           PostopHemoglobin: [
+             { type: 'min', message: 'must be at least 1.0' },
+             { type: 'max', message: 'cannot be more than 50.0' }
+           ],
+           PostopHct: [
+             { type: 'min', message: 'must be at least 1.00' },
+             { type: 'max', message: 'cannot be more than 99.99' }
+           ],
+           VentHrsA: [
+             { type: 'min', message: 'must be at least 0.1' },
+             { type: 'max', message: 'cannot be more than 5000.0' }
+           ],
+           VentHrsTot: [
+             { type: 'min', message: 'must be at least 0.0' },
+             { type: 'max', message: 'cannot be more than 6000.0' }
+           ],
+           ICUInHrs: [
+             { type: 'min', message: 'must be at least 0.1' },
+             { type: 'max', message: 'cannot be more than 5000.0' }
+           ],
+           ICUAdHrs: [
+             { type: 'min', message: 'must be at least 0.1' },
+             { type: 'max', message: 'cannot be more than 5000.0' }
+           ]
+         },
          sectionP: {},
          sectionQ: {},
-         sectionR: {}
+         sectionR: {},
+         sectionS: {
+           CellSavVol: [
+             { type: 'min', message: 'must be at least 0' },
+             { type: 'max', message: 'cannot be more than 10000' }
+           ],
+           TotHep: [
+             { type: 'min', message: 'must be at least 0' },
+             { type: 'max', message: 'cannot be more than 200000' }
+           ],
+           TotProt: [
+             { type: 'min', message: 'must be at least 0' },
+             { type: 'max', message: 'cannot be more than 1000' }
+           ],
+           AntithromDose: [
+             { type: 'min', message: 'must be at least 0' },
+             { type: 'max', message: 'cannot be more than 7500' }
+           ],
+           MidazIntra: [
+             { type: 'min', message: 'must be at least 0' },
+             { type: 'max', message: 'cannot be more than 50' }
+           ],
+           TotInsuIntra: [
+             { type: 'min', message: 'must be at least 0' },
+             { type: 'max', message: 'cannot be more than 200' }
+           ],
+           PreAnesthBPSys: [
+             { type: 'min', message: 'must be at least 50' },
+             { type: 'max', message: 'cannot be more than 300' }
+           ],
+           PreAnesthBPDia: [
+             { type: 'min', message: 'must be at least 20' },
+             { type: 'max', message: 'cannot be more than 150' }
+           ],
+           PreAnesthBPMean: [
+             { type: 'min', message: 'must be at least 30' },
+             { type: 'max', message: 'cannot be more than 150' }
+           ],
+           PreAnesthHR: [
+             { type: 'min', message: 'must be at least 30' },
+             { type: 'max', message: 'cannot be more than 170' }
+           ],
+           CoreTempMax: [
+             { type: 'min', message: 'must be at least 33.0' },
+             { type: 'max', message: 'cannot be more than 41.0' }
+           ],
+           TotCrystAnesth: [
+             { type: 'min', message: 'must be at least 0' },
+             { type: 'max', message: 'cannot be more than 10,000' }
+           ],
+           TotColloidAnesth: [
+             { type: 'min', message: 'must be at least 0' },
+             { type: 'max', message: 'cannot be more than 4,000' }
+           ],
+           TotAlbumAnesth: [
+             { type: 'min', message: 'must be at least 0' },
+             { type: 'max', message: 'cannot be more than 2,000' }
+           ],
+           GlucTroughIntraop: [
+             { type: 'min', message: 'must be at least 20' },
+             { type: 'max', message: 'cannot be more than 250' }
+           ],
+           PreLVEF: [
+             { type: 'min', message: 'must be at least 1.0' },
+             { type: 'max', message: 'cannot be more than 99.0' }
+           ],
+           PreAVA: [
+             { type: 'min', message: 'must be at least 0.2' },
+             { type: 'max', message: 'cannot be more than 5.0' }
+           ],
+           MxAscAo: [
+             { type: 'min', message: 'must be at least 1.0' },
+             { type: 'max', message: 'cannot be more than 8.0' }
+           ],
+           MxAscAoThick: [
+             { type: 'min', message: 'must be at least 0.0' },
+             { type: 'max', message: 'cannot be more than 20.0' }
+           ],
+           MxArcAth: [
+             { type: 'min', message: 'must be at least 0.0' },
+             { type: 'max', message: 'cannot be more than 20.0' }
+           ],
+
+           TotCrystPerf: [
+             { type: 'min', message: 'must be at least 0' },
+             { type: 'max', message: 'cannot be more than 10,000' }
+           ],
+           TotColloidPerf: [
+             { type: 'min', message: 'must be at least 0' },
+             { type: 'max', message: 'cannot be more than 4,000' }
+           ],
+           TotAlbumPerf: [
+             { type: 'min', message: 'must be at least 0' },
+             { type: 'max', message: 'cannot be more than 2,000' }
+           ],
+           HemofilPerf: [
+             { type: 'min', message: 'must be at least 0' },
+             { type: 'max', message: 'cannot be more than 10,000' }
+           ],
+           PostLVEF: [
+             { type: 'min', message: 'must be at least 1.0' },
+             { type: 'max', message: 'cannot be more than 99.0' }
+           ],
+
+           PostCoreTemp: [
+             { type: 'min', message: 'must be at least 30.0' },
+             { type: 'max', message: 'cannot be more than 41.0' }
+           ],
+           PostINR: [
+             { type: 'min', message: 'must be at least 0.5' },
+             { type: 'max', message: 'cannot be more than 5.0' }
+           ],
+           PostWBC: [
+             { type: 'min', message: 'must be at least 1,000' },
+             { type: 'max', message: 'cannot be more than 50,000' }
+           ],
+           PostPlt: [
+             { type: 'min', message: 'must be at least 5,000' },
+             { type: 'max', message: 'cannot be more than 500,000' }
+           ],
+           PostHCT: [
+             { type: 'min', message: 'must be at least 10.0' },
+             { type: 'max', message: 'cannot be more than 60.0' }
+           ],
+           PostFibrin: [
+             { type: 'min', message: 'must be at least 0.0' },
+             { type: 'max', message: 'cannot be more than 1,200.0' }
+           ],
+           PostLact: [
+             { type: 'min', message: 'must be at least 0' },
+             { type: 'max', message: 'cannot be more than 20' }
+           ]
+         }
        };

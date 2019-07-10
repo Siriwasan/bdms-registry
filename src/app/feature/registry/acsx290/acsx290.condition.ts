@@ -777,13 +777,1140 @@ export const conditions: FormConditions = {
            { control: 'AFibLes14', parentControl: 'OCarLesDoc', conditions: ['Yes'] },
            { control: 'AFibLes15a', parentControl: 'OCarLesDoc', conditions: ['Yes'] },
            { control: 'AFibLes15b', parentControl: 'OCarLesDoc', conditions: ['Yes'] },
-           { control: 'AFitLesCSL', parentControl: 'OCarLesDoc', conditions: ['Yes'] },
+           { control: 'AFitLesCSL', parentControl: 'OCarLesDoc', conditions: ['Yes'] }
          ],
-         sectionM2: [],
-         sectionM3: [],
-         sectionN: [],
-         sectionO: [],
-         sectionP: [],
-         sectionQ: [],
-         sectionR: []
+         sectionM2: [
+           { control: 'FamHistAorta', parentControl: 'I:AortProc', conditions: ['!', 'No'] },
+           { control: 'PatGenHist', parentControl: 'I:AortProc', conditions: ['!', 'No'] },
+           { control: 'PriorAorta', parentControl: 'I:AortProc', conditions: ['!', 'No'] },
+
+           { control: 'M2:int1', parentControl: 'PriorAorta', conditions: ['Yes'] },
+           { control: 'PriorRepRoot', parentControl: 'PriorAorta', conditions: ['Yes'] },
+           { control: 'PriorRepTyRoot', parentControl: 'PriorRepRoot', conditions: ['Yes'] },
+           { control: 'PriorFailRoot', parentControl: 'PriorRepRoot', conditions: ['Yes'] },
+           { control: 'PriorProgRoot', parentControl: 'PriorRepRoot', conditions: ['Yes'] },
+
+           { control: 'M2:int2', parentControl: 'PriorAorta', conditions: ['Yes'] },
+           { control: 'PriorRepAsc', parentControl: 'PriorAorta', conditions: ['Yes'] },
+           { control: 'PriorRepTyAsc', parentControl: 'PriorRepAsc', conditions: ['Yes'] },
+           { control: 'PriorFailAsc', parentControl: 'PriorRepAsc', conditions: ['Yes'] },
+           { control: 'PriorProgAsc', parentControl: 'PriorRepAsc', conditions: ['Yes'] },
+
+           { control: 'M2:int3', parentControl: 'PriorAorta', conditions: ['Yes'] },
+           { control: 'PriorRepArch', parentControl: 'PriorAorta', conditions: ['Yes'] },
+           { control: 'PriorRepTyArch', parentControl: 'PriorRepArch', conditions: ['Yes'] },
+           { control: 'PriorFailArch', parentControl: 'PriorRepArch', conditions: ['Yes'] },
+           { control: 'PriorProgArch', parentControl: 'PriorRepArch', conditions: ['Yes'] },
+
+           { control: 'M2:int4', parentControl: 'PriorAorta', conditions: ['Yes'] },
+           { control: 'PriorRepDesc', parentControl: 'PriorAorta', conditions: ['Yes'] },
+           { control: 'PriorRepTyDesc', parentControl: 'PriorRepDesc', conditions: ['Yes'] },
+           { control: 'PriorFailDesc', parentControl: 'PriorRepDesc', conditions: ['Yes'] },
+           { control: 'PriorProgDesc', parentControl: 'PriorRepDesc', conditions: ['Yes'] },
+
+           { control: 'M2:int5', parentControl: 'PriorAorta', conditions: ['Yes'] },
+           { control: 'PriorRepSupraAb', parentControl: 'PriorAorta', conditions: ['Yes'] },
+           { control: 'PriorRepTySupraAb', parentControl: 'PriorRepSupraAb', conditions: ['Yes'] },
+           { control: 'PriorFailSupraAb', parentControl: 'PriorRepSupraAb', conditions: ['Yes'] },
+           { control: 'PriorProgSupraAb', parentControl: 'PriorRepSupraAb', conditions: ['Yes'] },
+
+           { control: 'M2:int6', parentControl: 'PriorAorta', conditions: ['Yes'] },
+           { control: 'PriorRepInfraAb', parentControl: 'PriorAorta', conditions: ['Yes'] },
+           { control: 'PriorRepTyInfraAb', parentControl: 'PriorRepInfraAb', conditions: ['Yes'] },
+           { control: 'PriorFailInfraAb', parentControl: 'PriorRepInfraAb', conditions: ['Yes'] },
+           { control: 'PriorProgInfraAb', parentControl: 'PriorRepInfraAb', conditions: ['Yes'] },
+
+           { control: 'Endoleak', parentControl: 'I:AortProc', conditions: ['!', 'No'] },
+           { control: 'EndoleakTypeI', parentControl: 'Endoleak', conditions: ['Yes'] },
+           { control: 'EndoleakTyILoc', parentControl: 'EndoleakTypeI', conditions: ['Yes'] },
+           { control: 'EndoleakTypeII', parentControl: 'Endoleak', conditions: ['Yes'] },
+           { control: 'EndoleakVessNum', parentControl: 'EndoleakTypeII', conditions: ['Yes'] },
+           { control: 'EndoleakTypeIII', parentControl: 'Endoleak', conditions: ['Yes'] },
+           { control: 'EndoleakType', parentControl: 'EndoleakTypeIII', conditions: ['Yes'] },
+           { control: 'EndoleakTypeIV', parentControl: 'Endoleak', conditions: ['Yes'] },
+           { control: 'EndoleakTypeV', parentControl: 'Endoleak', conditions: ['Yes'] },
+
+           { control: 'Infection', parentControl: 'I:AortProc', conditions: ['!', 'No'] },
+           { control: 'InfecType', parentControl: 'Infection', conditions: ['Yes'] },
+
+           { control: 'Trauma', parentControl: 'I:AortProc', conditions: ['!', 'No'] },
+           { control: 'M2:traumaLoc', parentControl: 'Trauma', conditions: ['Yes'] },
+           { control: 'TraumacRoot', parentControl: 'Trauma', conditions: ['Yes'] },
+           { control: 'TraumaAsc', parentControl: 'Trauma', conditions: ['Yes'] },
+           { control: 'TraumaArch', parentControl: 'Trauma', conditions: ['Yes'] },
+           { control: 'TraumaDesc', parentControl: 'Trauma', conditions: ['Yes'] },
+           { control: 'TraumaThorac', parentControl: 'Trauma', conditions: ['Yes'] },
+           { control: 'TraumaAbdom', parentControl: 'Trauma', conditions: ['Yes'] },
+
+           { control: 'Presentation', parentControl: 'I:AortProc', conditions: ['!', 'No'] },
+           { control: 'PrimIndic', parentControl: 'I:AortProc', conditions: ['!', 'No'] },
+
+           //  ANEURYSM
+           { control: 'AnEtilogy', parentControl: 'PrimIndic', conditions: ['Aneurysm'] },
+           { control: 'AnType', parentControl: 'PrimIndic', conditions: ['Aneurysm'] },
+           { control: 'AnRupt', parentControl: 'PrimIndic', conditions: ['Aneurysm'] },
+           { control: 'AnRuptCon', parentControl: 'AnRupt', conditions: ['Yes'] },
+           { control: 'AnLoc', parentControl: 'PrimIndic', conditions: ['Aneurysm'] },
+
+           //  DISSECTION
+           { control: 'DisTiming', parentControl: 'PrimIndic', conditions: ['Dissection'] },
+           { control: 'DisOnsetDtKnown', parentControl: 'PrimIndic', conditions: ['Dissection'] },
+           { control: 'DisOnsetDt', parentControl: 'DisOnsetDtKnown', conditions: ['Yes'] },
+           { control: 'DisTearLoc', parentControl: 'PrimIndic', conditions: ['Dissection'] },
+           { control: 'DisSecLoc', parentControl: 'PrimIndic', conditions: ['Dissection'] },
+           { control: 'DisRetExt', parentControl: 'PrimIndic', conditions: ['Dissection'] },
+           { control: 'DisRetLoc', parentControl: 'DisRetExt', conditions: ['Yes'] },
+           { control: 'DisPosTEVAR', parentControl: 'DisRetExt', conditions: ['Yes'] },
+           { control: 'DistalExt', parentControl: 'PrimIndic', conditions: ['Dissection'] },
+           { control: 'DistalExtLoc', parentControl: 'DistalExt', conditions: ['Yes'] },
+
+           { control: 'DisMal', parentControl: 'PrimIndic', conditions: ['Dissection'] },
+           { control: 'DisMalCor', parentControl: 'DisMal', conditions: ['Yes'] },
+           { control: 'DisMalRtSubclav', parentControl: 'DisMal', conditions: ['Yes'] },
+           { control: 'DisMalRtComCar', parentControl: 'DisMal', conditions: ['Yes'] },
+           { control: 'DisMalComL', parentControl: 'DisMal', conditions: ['Yes'] },
+           { control: 'DisMalSubL', parentControl: 'DisMal', conditions: ['Yes'] },
+           { control: 'DisMalCel', parentControl: 'DisMal', conditions: ['Yes'] },
+           { control: 'DisMalSup', parentControl: 'DisMal', conditions: ['Yes'] },
+           { control: 'DisMalRenL', parentControl: 'DisMal', conditions: ['Yes'] },
+           { control: 'DisMalRenR', parentControl: 'DisMal', conditions: ['Yes'] },
+           { control: 'DisMalIlio', parentControl: 'DisMal', conditions: ['Yes'] },
+           { control: 'DisMalSpin', parentControl: 'DisMal', conditions: ['Yes'] },
+
+           { control: 'DisLowMotFun', parentControl: 'PrimIndic', conditions: ['Dissection'] },
+           { control: 'DisLowSenDef', parentControl: 'PrimIndic', conditions: ['Dissection'] },
+           { control: 'DisRupt', parentControl: 'PrimIndic', conditions: ['Dissection'] },
+           { control: 'DisRuptCon', parentControl: 'DisRupt', conditions: ['Yes'] },
+           { control: 'DisRuptLoc', parentControl: 'DisRupt', conditions: ['Yes'] },
+
+           //  ROOT
+           { control: 'M2:root', parentControl: 'I:AortProc', conditions: ['!', 'No'] },
+           { control: 'RootAAnnEctasia', parentControl: 'I:AortProc', conditions: ['!', 'No'] },
+           { control: 'RootDilaAsym', parentControl: 'I:AortProc', conditions: ['!', 'No'] },
+           { control: 'RoottDilaAsym', parentControl: 'RootDilaAsym', conditions: ['Yes'] },
+           { control: 'RootSinus', parentControl: 'I:AortProc', conditions: ['!', 'No'] },
+           { control: 'RootSinusLoc', parentControl: 'RootSinus', conditions: ['Yes'] },
+
+           //  ARCH
+           { control: 'M2:arch', parentControl: 'I:AortProc', conditions: ['!', 'No'] },
+           { control: 'ArchType', parentControl: 'I:AortProc', conditions: ['!', 'No'] },
+           { control: 'ArchAbRtSub', parentControl: 'I:AortProc', conditions: ['!', 'No'] },
+           { control: 'ArchAbLtSub', parentControl: 'I:AortProc', conditions: ['!', 'No'] },
+           { control: 'ArchKom', parentControl: 'I:AortProc', conditions: ['!', 'No'] },
+           { control: 'ArchBovine', parentControl: 'I:AortProc', conditions: ['!', 'No'] },
+           { control: 'ArchVarVertOr', parentControl: 'I:AortProc', conditions: ['!', 'No'] },
+           { control: 'ArchPatIMA', parentControl: 'I:AortProc', conditions: ['!', 'No'] },
+
+           //  ASCENDING
+           { control: 'M2:ascending', parentControl: 'I:AortProc', conditions: ['!', 'No'] },
+           { control: 'AscAsymDil', parentControl: 'I:AortProc', conditions: ['!', 'No'] },
+           { control: 'AscProxGr', parentControl: 'I:AortProc', conditions: ['!', 'No'] },
+
+           { control: 'Diameter3DMeas', parentControl: 'I:AortProc', conditions: ['!', 'No'] },
+           { control: 'Diam3DAnnulus', parentControl: 'Diameter3DMeas', conditions: ['Yes'] },
+           { control: 'Diam3DSinus', parentControl: 'Diameter3DMeas', conditions: ['Yes'] },
+           { control: 'Diam3DSinotubular', parentControl: 'Diameter3DMeas', conditions: ['Yes'] },
+           { control: 'Diam3DMidAsc', parentControl: 'Diameter3DMeas', conditions: ['Yes'] },
+           { control: 'Diam3DDistalAsc', parentControl: 'Diameter3DMeas', conditions: ['Yes'] },
+           { control: 'Diam3DZone1', parentControl: 'Diameter3DMeas', conditions: ['Yes'] },
+           { control: 'Diam3DZone2', parentControl: 'Diameter3DMeas', conditions: ['Yes'] },
+           { control: 'Diam3DZone3', parentControl: 'Diameter3DMeas', conditions: ['Yes'] },
+           { control: 'Diam3DZone4', parentControl: 'Diameter3DMeas', conditions: ['Yes'] },
+           { control: 'Diam3DZone5', parentControl: 'Diameter3DMeas', conditions: ['Yes'] },
+           { control: 'Diam3DZone6', parentControl: 'Diameter3DMeas', conditions: ['Yes'] },
+           { control: 'Diam3DZone7', parentControl: 'Diameter3DMeas', conditions: ['Yes'] },
+           { control: 'Diam3DZone8', parentControl: 'Diameter3DMeas', conditions: ['Yes'] },
+           { control: 'Diam3DZone9', parentControl: 'Diameter3DMeas', conditions: ['Yes'] },
+           { control: 'Diam3DZone10', parentControl: 'Diameter3DMeas', conditions: ['Yes'] },
+           { control: 'Diam3DZone11', parentControl: 'Diameter3DMeas', conditions: ['Yes'] },
+
+           { control: 'M2:preopDiameter', parentControl: 'I:AortProc', conditions: ['!', 'No'] },
+           { control: 'DiamLgstAnnulus', parentControl: 'I:AortProc', conditions: ['!', 'No'] },
+           { control: 'DiamLgstSinus', parentControl: 'I:AortProc', conditions: ['!', 'No'] },
+           { control: 'DiamLgstSinotubular', parentControl: 'I:AortProc', conditions: ['!', 'No'] },
+           { control: 'DiamLgstMidAsc', parentControl: 'I:AortProc', conditions: ['!', 'No'] },
+           { control: 'DiamLgstDistalAsc', parentControl: 'I:AortProc', conditions: ['!', 'No'] },
+           { control: 'DiamLgstZone1', parentControl: 'I:AortProc', conditions: ['!', 'No'] },
+           { control: 'DiamLgstZone2', parentControl: 'I:AortProc', conditions: ['!', 'No'] },
+           { control: 'DiamLgstZone3', parentControl: 'I:AortProc', conditions: ['!', 'No'] },
+           { control: 'DiamLgstZone4', parentControl: 'I:AortProc', conditions: ['!', 'No'] },
+           { control: 'DiamLgstZone5', parentControl: 'I:AortProc', conditions: ['!', 'No'] },
+           { control: 'DiamLgstZone6', parentControl: 'I:AortProc', conditions: ['!', 'No'] },
+           { control: 'DiamLgstZone7', parentControl: 'I:AortProc', conditions: ['!', 'No'] },
+           { control: 'DiamLgstZone8', parentControl: 'I:AortProc', conditions: ['!', 'No'] },
+           { control: 'DiamLgstZone9', parentControl: 'I:AortProc', conditions: ['!', 'No'] },
+           { control: 'DiamLgstZone10', parentControl: 'I:AortProc', conditions: ['!', 'No'] },
+           { control: 'DiamLgstZone11', parentControl: 'I:AortProc', conditions: ['!', 'No'] },
+
+           //  INTERVENTION
+           { control: 'M2:intervention', parentControl: 'I:AortProc', conditions: ['!', 'No'] },
+           { control: 'PlanStagHybrid', parentControl: 'I:AortProc', conditions: ['!', 'No'] },
+           { control: 'ArchProc', parentControl: 'I:AortProc', conditions: ['!', 'No'] },
+           { control: 'ArchDisTech', parentControl: 'ArchProc', conditions: ['Yes'] },
+           { control: 'ArchDiscSite', parentControl: 'ArchProc', conditions: ['Yes'] },
+           { control: 'ArchDisExt', parentControl: 'ArchProc', conditions: ['Yes'] },
+           { control: 'ArchBranReimp', parentControl: 'ArchProc', conditions: ['Yes'] },
+           { control: 'ArchBranInnom', parentControl: 'ArchBranReimp', conditions: ['Yes'] },
+           { control: 'ArchBranRSub', parentControl: 'ArchBranReimp', conditions: ['Yes'] },
+           { control: 'ArchBranRComm', parentControl: 'ArchBranReimp', conditions: ['Yes'] },
+           { control: 'ArchBranLComm', parentControl: 'ArchBranReimp', conditions: ['Yes'] },
+           { control: 'ArchBranLSub', parentControl: 'ArchBranReimp', conditions: ['Yes'] },
+           { control: 'ArchBranLVert', parentControl: 'ArchBranReimp', conditions: ['Yes'] },
+           { control: 'ArchBranOth', parentControl: 'ArchBranReimp', conditions: ['Yes'] },
+
+           { control: 'DescAortaProc', parentControl: 'I:AortProc', conditions: ['!', 'No'] },
+           { control: 'DescAortaLoc', parentControl: 'DescAortaProc', conditions: ['Yes'] },
+           { control: 'AortaInterReimp', parentControl: 'DescAortaProc', conditions: ['Yes'] },
+           { control: 'AortaDisZone', parentControl: 'DescAortaProc', conditions: ['Yes'] },
+           { control: 'AortaVisceral', parentControl: 'DescAortaProc', conditions: ['Yes'] },
+           { control: 'AortaViscCel', parentControl: 'AortaVisceral', conditions: ['Yes'] },
+           { control: 'AortaViscSup', parentControl: 'AortaVisceral', conditions: ['Yes'] },
+           { control: 'AortaViscRenR', parentControl: 'AortaVisceral', conditions: ['Yes'] },
+           { control: 'AortaViscRenL', parentControl: 'AortaVisceral', conditions: ['Yes'] },
+
+           { control: 'EndovasProc', parentControl: 'I:AortProc', conditions: ['!', 'No'] },
+           { control: 'EndovasAccess', parentControl: 'EndovasProc', conditions: ['Yes'] },
+           { control: 'EndovasPercAcc', parentControl: 'EndovasProc', conditions: ['Yes'] },
+           { control: 'EndoProxZone', parentControl: 'EndovasProc', conditions: ['Yes'] },
+           { control: 'EndoDistalZone', parentControl: 'EndovasProc', conditions: ['Yes'] },
+           { control: 'EndovasTAVR', parentControl: 'EndovasProc', conditions: ['Yes'] },
+           { control: 'EndovasTEVAR', parentControl: 'EndovasProc', conditions: ['Yes'] },
+
+           //  Arch Vessel management
+           { control: 'M2:archVessel', parentControl: 'EndovasProc', conditions: ['Yes'] },
+           { control: 'Innominate', parentControl: 'EndovasProc', conditions: ['Yes'] },
+           { control: 'InAortaInnom', parentControl: 'Innominate', conditions: ['Extra-anatomic Bypass'] },
+           { control: 'InAortaCarotid', parentControl: 'Innominate', conditions: ['Extra-anatomic Bypass'] },
+           { control: 'InAortaSubclav', parentControl: 'Innominate', conditions: ['Extra-anatomic Bypass'] },
+           { control: 'InCaroSubclav', parentControl: 'Innominate', conditions: ['Extra-anatomic Bypass'] },
+           { control: 'InOther', parentControl: 'Innominate', conditions: ['Extra-anatomic Bypass'] },
+
+           { control: 'LeftCarotid', parentControl: 'EndovasProc', conditions: ['Yes'] },
+           { control: 'LTCaroAortaCaro', parentControl: 'LeftCarotid', conditions: ['Extra-anatomic Bypass'] },
+           { control: 'LTCaroInnomCaro', parentControl: 'LeftCarotid', conditions: ['Extra-anatomic Bypass'] },
+           { control: 'LTCaroCarotid', parentControl: 'LeftCarotid', conditions: ['Extra-anatomic Bypass'] },
+           { control: 'LTCaroOther', parentControl: 'LeftCarotid', conditions: ['Extra-anatomic Bypass'] },
+
+           { control: 'LeftSubclavian', parentControl: 'EndovasProc', conditions: ['Yes'] },
+           { control: 'LTSubAortaSub', parentControl: 'LeftSubclavian', conditions: ['Extra-anatomic Bypass'] },
+           {
+             control: 'LTSubCarotidSub',
+             parentControl: 'LeftSubclavian',
+             conditions: ['Extra-anatomic Bypass']
+           },
+           { control: 'LTSubOther', parentControl: 'LeftSubclavian', conditions: ['Extra-anatomic Bypass'] },
+           { control: 'OthArchVes', parentControl: 'EndovasProc', conditions: ['Yes'] },
+           { control: 'OthInnomCaro', parentControl: 'OthArchVes', conditions: ['Yes'] },
+           { control: 'OthInnomSub', parentControl: 'OthArchVes', conditions: ['Yes'] },
+           { control: 'OthSubSub', parentControl: 'OthArchVes', conditions: ['Yes'] },
+           { control: 'OthOther', parentControl: 'OthArchVes', conditions: ['Yes'] },
+
+           //  Visceral Vessel management
+           { control: 'M2:visceralVessel', parentControl: 'EndovasProc', conditions: ['Yes'] },
+           { control: 'Celiac', parentControl: 'EndovasProc', conditions: ['Yes'] },
+           { control: 'CeliacAortaCeli', parentControl: 'Celiac', conditions: ['Extra-anatomic Bypass'] },
+           { control: 'CeliacIliacCeliac', parentControl: 'Celiac', conditions: ['Extra-anatomic Bypass'] },
+           { control: 'CeliacOther', parentControl: 'Celiac', conditions: ['Extra-anatomic Bypass'] },
+
+           { control: 'SupMesenteric', parentControl: 'EndovasProc', conditions: ['Yes'] },
+           { control: 'SupMesAortaSuMe', parentControl: 'SupMesenteric', conditions: ['Extra-anatomic Bypass'] },
+           {
+             control: 'SupMesIliacSupMe',
+             parentControl: 'SupMesenteric',
+             conditions: ['Extra-anatomic Bypass']
+           },
+           { control: 'SupMesOther', parentControl: 'SupMesenteric', conditions: ['Extra-anatomic Bypass'] },
+
+           { control: 'RightRenal', parentControl: 'EndovasProc', conditions: ['Yes'] },
+           { control: 'RtRenAortaRtRe', parentControl: 'RightRenal', conditions: ['Extra-anatomic Bypass'] },
+           { control: 'RtRenIliacRtRen', parentControl: 'RightRenal', conditions: ['Extra-anatomic Bypass'] },
+           { control: 'RtRenOther', parentControl: 'RightRenal', conditions: ['Extra-anatomic Bypass'] },
+
+           { control: 'LeftRenal', parentControl: 'EndovasProc', conditions: ['Yes'] },
+           { control: 'LtRenAortaLtRe', parentControl: 'LeftRenal', conditions: ['Extra-anatomic Bypass'] },
+           { control: 'LtRenIliacLtRen', parentControl: 'LeftRenal', conditions: ['Extra-anatomic Bypass'] },
+           { control: 'LtRenOther', parentControl: 'LeftRenal', conditions: ['Extra-anatomic Bypass'] },
+
+           { control: 'RightIliac', parentControl: 'EndovasProc', conditions: ['Yes'] },
+           { control: 'RtIliacFemFem', parentControl: 'RightIliac', conditions: ['Extra-anatomic Bypass'] },
+           { control: 'RtIliacOther', parentControl: 'RightIliac', conditions: ['Extra-anatomic Bypass'] },
+
+           { control: 'LeftIliac', parentControl: 'EndovasProc', conditions: ['Yes'] },
+           { control: 'LtIliacFemFem', parentControl: 'LeftIliac', conditions: ['Extra-anatomic Bypass'] },
+           { control: 'LtIliacOther', parentControl: 'LeftIliac', conditions: ['Extra-anatomic Bypass'] },
+
+           { control: 'IntIliacPres', parentControl: 'EndovasProc', conditions: ['Yes'] },
+
+           { control: 'OthVisVes', parentControl: 'EndovasProc', conditions: ['Yes'] },
+           { control: 'OthVisAortOth', parentControl: 'OthVisVes', conditions: ['Extra-anatomic Bypass'] },
+           { control: 'OthVisIliacOth', parentControl: 'OthVisVes', conditions: ['Extra-anatomic Bypass'] },
+           { control: 'OthVisOther', parentControl: 'OthVisVes', conditions: ['Extra-anatomic Bypass'] },
+
+           { control: 'DisProxTearCov', parentControl: 'EndovasProc', conditions: ['Yes'] },
+           { control: 'EndoEndProc', parentControl: 'EndovasProc', conditions: ['Yes'] },
+           { control: 'EndoEndProcTy', parentControl: 'EndoEndProc', conditions: ['Yes'] },
+
+           { control: 'ConvToOpen', parentControl: 'EndovasProc', conditions: ['Yes'] },
+           { control: 'ConvToOpenRes', parentControl: 'ConvToOpen', conditions: ['Yes'] },
+           { control: 'IntDisExten', parentControl: 'EndovasProc', conditions: ['Yes'] },
+
+           { control: 'UnintRup', parentControl: 'EndovasProc', conditions: ['Yes'] },
+           { control: 'UnintRupLoc', parentControl: 'UnintRup', conditions: ['Yes'] },
+
+           { control: 'SpinalDrain', parentControl: 'I:AortProc', conditions: ['!', 'No'] },
+           { control: 'MotorEvoke', parentControl: 'I:AortProc', conditions: ['!', 'No'] },
+           { control: 'MotorEvokeAb', parentControl: 'MotorEvoke', conditions: ['Yes'] },
+           { control: 'SomatEvoke', parentControl: 'I:AortProc', conditions: ['!', 'No'] },
+           { control: 'SomatEvokeAb', parentControl: 'SomatEvoke', conditions: ['Yes'] },
+           { control: 'IntraOpEEG', parentControl: 'I:AortProc', conditions: ['!', 'No'] },
+           { control: 'IntraOpEEGAb', parentControl: 'IntraOpEEG', conditions: ['Yes'] },
+           { control: 'IntraOpIVUS', parentControl: 'I:AortProc', conditions: ['!', 'No'] },
+           { control: 'TransDoppler', parentControl: 'I:AortProc', conditions: ['!', 'No'] },
+           { control: 'IntraOpAng', parentControl: 'I:AortProc', conditions: ['!', 'No'] },
+           { control: 'IntraOpAngVol', parentControl: 'IntraOpAng', conditions: ['Yes'] },
+           { control: 'IntraOpAngFlTm', parentControl: 'IntraOpAng', conditions: ['Yes'] },
+
+           { control: 'M2:endovasDevices', parentControl: 'I:AortProc', conditions: ['!', 'No'] },
+           { control: 'ADevIns', parentControl: 'I:AortProc', conditions: ['!', 'No'] },
+           { control: 'M2:endoDevice1', parentControl: 'ADevIns', conditions: ['Yes'] },
+           { control: 'ADevLoc01', parentControl: 'ADevIns', conditions: ['Yes'] },
+           { control: 'ADevDelMeth01', parentControl: 'ADevIns', conditions: ['Yes'] },
+           { control: 'ADevOut01', parentControl: 'ADevIns', conditions: ['Yes'] },
+           { control: 'ADevModel01', parentControl: 'ADevIns', conditions: ['Yes'] },
+           { control: 'ADevUDI01', parentControl: 'ADevIns', conditions: ['Yes'] },
+
+           { control: 'M2:endoDevice2', parentControl: 'ADevIns', conditions: ['Yes'] },
+           { control: 'ADevLoc02', parentControl: 'ADevIns', conditions: ['Yes'] },
+           {
+             control: 'ADevDelMeth02',
+             parentControl: 'ADevLoc02',
+             conditions: ['!', 'No additional devices inserted']
+           },
+           {
+             control: 'ADevOut02',
+             parentControl: 'ADevLoc02',
+             conditions: ['!', 'No additional devices inserted']
+           },
+           {
+             control: 'ADevModel02',
+             parentControl: 'ADevLoc02',
+             conditions: ['!', 'No additional devices inserted']
+           },
+           {
+             control: 'ADevUDI02',
+             parentControl: 'ADevLoc02',
+             conditions: ['!', 'No additional devices inserted']
+           },
+
+           {
+             control: 'M2:endoDevice3',
+             parentControl: 'ADevLoc02',
+             conditions: ['!', 'No additional devices inserted']
+           },
+           {
+             control: 'ADevLoc03',
+             parentControl: 'ADevLoc02',
+             conditions: ['!', 'No additional devices inserted']
+           },
+           {
+             control: 'ADevDelMeth03',
+             parentControl: 'ADevLoc03',
+             conditions: ['!', 'No additional devices inserted']
+           },
+           {
+             control: 'ADevOut03',
+             parentControl: 'ADevLoc03',
+             conditions: ['!', 'No additional devices inserted']
+           },
+           {
+             control: 'ADevModel03',
+             parentControl: 'ADevLoc03',
+             conditions: ['!', 'No additional devices inserted']
+           },
+           {
+             control: 'ADevUDI03',
+             parentControl: 'ADevLoc03',
+             conditions: ['!', 'No additional devices inserted']
+           },
+
+           {
+             control: 'M2:endoDevice4',
+             parentControl: 'ADevLoc03',
+             conditions: ['!', 'No additional devices inserted']
+           },
+           {
+             control: 'ADevLoc04',
+             parentControl: 'ADevLoc03',
+             conditions: ['!', 'No additional devices inserted']
+           },
+           {
+             control: 'ADevDelMeth04',
+             parentControl: 'ADevLoc04',
+             conditions: ['!', 'No additional devices inserted']
+           },
+           {
+             control: 'ADevOut04',
+             parentControl: 'ADevLoc04',
+             conditions: ['!', 'No additional devices inserted']
+           },
+           {
+             control: 'ADevModel04',
+             parentControl: 'ADevLoc04',
+             conditions: ['!', 'No additional devices inserted']
+           },
+           {
+             control: 'ADevUDI04',
+             parentControl: 'ADevLoc04',
+             conditions: ['!', 'No additional devices inserted']
+           },
+
+           {
+             control: 'M2:endoDevice5',
+             parentControl: 'ADevLoc04',
+             conditions: ['!', 'No additional devices inserted']
+           },
+           {
+             control: 'ADevLoc05',
+             parentControl: 'ADevLoc04',
+             conditions: ['!', 'No additional devices inserted']
+           },
+           {
+             control: 'ADevDelMeth05',
+             parentControl: 'ADevLoc05',
+             conditions: ['!', 'No additional devices inserted']
+           },
+           {
+             control: 'ADevOut05',
+             parentControl: 'ADevLoc05',
+             conditions: ['!', 'No additional devices inserted']
+           },
+           {
+             control: 'ADevModel05',
+             parentControl: 'ADevLoc05',
+             conditions: ['!', 'No additional devices inserted']
+           },
+           {
+             control: 'ADevUDI05',
+             parentControl: 'ADevLoc05',
+             conditions: ['!', 'No additional devices inserted']
+           },
+
+           {
+             control: 'M2:endoDevice6',
+             parentControl: 'ADevLoc05',
+             conditions: ['!', 'No additional devices inserted']
+           },
+           {
+             control: 'ADevLoc06',
+             parentControl: 'ADevLoc05',
+             conditions: ['!', 'No additional devices inserted']
+           },
+           {
+             control: 'ADevDelMeth06',
+             parentControl: 'ADevLoc06',
+             conditions: ['!', 'No additional devices inserted']
+           },
+           {
+             control: 'ADevOut06',
+             parentControl: 'ADevLoc06',
+             conditions: ['!', 'No additional devices inserted']
+           },
+           {
+             control: 'ADevModel06',
+             parentControl: 'ADevLoc06',
+             conditions: ['!', 'No additional devices inserted']
+           },
+           {
+             control: 'ADevUDI06',
+             parentControl: 'ADevLoc06',
+             conditions: ['!', 'No additional devices inserted']
+           },
+
+           {
+             control: 'M2:endoDevice7',
+             parentControl: 'ADevLoc06',
+             conditions: ['!', 'No additional devices inserted']
+           },
+           {
+             control: 'ADevLoc07',
+             parentControl: 'ADevLoc06',
+             conditions: ['!', 'No additional devices inserted']
+           },
+           {
+             control: 'ADevDelMeth07',
+             parentControl: 'ADevLoc07',
+             conditions: ['!', 'No additional devices inserted']
+           },
+           {
+             control: 'ADevOut07',
+             parentControl: 'ADevLoc07',
+             conditions: ['!', 'No additional devices inserted']
+           },
+           {
+             control: 'ADevModel07',
+             parentControl: 'ADevLoc07',
+             conditions: ['!', 'No additional devices inserted']
+           },
+           {
+             control: 'ADevUDI07',
+             parentControl: 'ADevLoc07',
+             conditions: ['!', 'No additional devices inserted']
+           },
+
+           {
+             control: 'M2:endoDevice8',
+             parentControl: 'ADevLoc07',
+             conditions: ['!', 'No additional devices inserted']
+           },
+           {
+             control: 'ADevLoc08',
+             parentControl: 'ADevLoc07',
+             conditions: ['!', 'No additional devices inserted']
+           },
+           {
+             control: 'ADevDelMeth08',
+             parentControl: 'ADevLoc08',
+             conditions: ['!', 'No additional devices inserted']
+           },
+           {
+             control: 'ADevOut08',
+             parentControl: 'ADevLoc08',
+             conditions: ['!', 'No additional devices inserted']
+           },
+           {
+             control: 'ADevModel08',
+             parentControl: 'ADevLoc08',
+             conditions: ['!', 'No additional devices inserted']
+           },
+           {
+             control: 'ADevUDI08',
+             parentControl: 'ADevLoc08',
+             conditions: ['!', 'No additional devices inserted']
+           },
+
+           {
+             control: 'M2:endoDevice9',
+             parentControl: 'ADevLoc08',
+             conditions: ['!', 'No additional devices inserted']
+           },
+           {
+             control: 'ADevLoc09',
+             parentControl: 'ADevLoc08',
+             conditions: ['!', 'No additional devices inserted']
+           },
+           {
+             control: 'ADevDelMeth09',
+             parentControl: 'ADevLoc09',
+             conditions: ['!', 'No additional devices inserted']
+           },
+           {
+             control: 'ADevOut09',
+             parentControl: 'ADevLoc09',
+             conditions: ['!', 'No additional devices inserted']
+           },
+           {
+             control: 'ADevModel09',
+             parentControl: 'ADevLoc09',
+             conditions: ['!', 'No additional devices inserted']
+           },
+           {
+             control: 'ADevUDI09',
+             parentControl: 'ADevLoc09',
+             conditions: ['!', 'No additional devices inserted']
+           },
+
+           {
+             control: 'M2:endoDevice10',
+             parentControl: 'ADevLoc09',
+             conditions: ['!', 'No additional devices inserted']
+           },
+           {
+             control: 'ADevLoc10',
+             parentControl: 'ADevLoc09',
+             conditions: ['!', 'No additional devices inserted']
+           },
+           {
+             control: 'ADevDelMeth10',
+             parentControl: 'ADevLoc10',
+             conditions: ['!', 'No additional devices inserted']
+           },
+           {
+             control: 'ADevOut10',
+             parentControl: 'ADevLoc10',
+             conditions: ['!', 'No additional devices inserted']
+           },
+           {
+             control: 'ADevModel10',
+             parentControl: 'ADevLoc10',
+             conditions: ['!', 'No additional devices inserted']
+           },
+           {
+             control: 'ADevUDI10',
+             parentControl: 'ADevLoc10',
+             conditions: ['!', 'No additional devices inserted']
+           },
+
+           {
+             control: 'M2:endoDevice11',
+             parentControl: 'ADevLoc10',
+             conditions: ['!', 'No additional devices inserted']
+           },
+           {
+             control: 'ADevLoc11',
+             parentControl: 'ADevLoc10',
+             conditions: ['!', 'No additional devices inserted']
+           },
+           {
+             control: 'ADevDelMeth11',
+             parentControl: 'ADevLoc11',
+             conditions: ['!', 'No additional devices inserted']
+           },
+           {
+             control: 'ADevOut11',
+             parentControl: 'ADevLoc11',
+             conditions: ['!', 'No additional devices inserted']
+           },
+           {
+             control: 'ADevModel11',
+             parentControl: 'ADevLoc11',
+             conditions: ['!', 'No additional devices inserted']
+           },
+           {
+             control: 'ADevUDI11',
+             parentControl: 'ADevLoc11',
+             conditions: ['!', 'No additional devices inserted']
+           },
+
+           {
+             control: 'M2:endoDevice12',
+             parentControl: 'ADevLoc11',
+             conditions: ['!', 'No additional devices inserted']
+           },
+           {
+             control: 'ADevLoc12',
+             parentControl: 'ADevLoc11',
+             conditions: ['!', 'No additional devices inserted']
+           },
+           {
+             control: 'ADevDelMeth12',
+             parentControl: 'ADevLoc12',
+             conditions: ['!', 'No additional devices inserted']
+           },
+           {
+             control: 'ADevOut12',
+             parentControl: 'ADevLoc12',
+             conditions: ['!', 'No additional devices inserted']
+           },
+           {
+             control: 'ADevModel12',
+             parentControl: 'ADevLoc12',
+             conditions: ['!', 'No additional devices inserted']
+           },
+           {
+             control: 'ADevUDI12',
+             parentControl: 'ADevLoc12',
+             conditions: ['!', 'No additional devices inserted']
+           },
+
+           {
+             control: 'M2:endoDevice13',
+             parentControl: 'ADevLoc12',
+             conditions: ['!', 'No additional devices inserted']
+           },
+           {
+             control: 'ADevLoc13',
+             parentControl: 'ADevLoc12',
+             conditions: ['!', 'No additional devices inserted']
+           },
+           {
+             control: 'ADevDelMeth13',
+             parentControl: 'ADevLoc13',
+             conditions: ['!', 'No additional devices inserted']
+           },
+           {
+             control: 'ADevOut13',
+             parentControl: 'ADevLoc13',
+             conditions: ['!', 'No additional devices inserted']
+           },
+           {
+             control: 'ADevModel13',
+             parentControl: 'ADevLoc13',
+             conditions: ['!', 'No additional devices inserted']
+           },
+           {
+             control: 'ADevUDI13',
+             parentControl: 'ADevLoc13',
+             conditions: ['!', 'No additional devices inserted']
+           },
+
+           {
+             control: 'M2:endoDevice14',
+             parentControl: 'ADevLoc13',
+             conditions: ['!', 'No additional devices inserted']
+           },
+           {
+             control: 'ADevLoc14',
+             parentControl: 'ADevLoc13',
+             conditions: ['!', 'No additional devices inserted']
+           },
+           {
+             control: 'ADevDelMeth14',
+             parentControl: 'ADevLoc14',
+             conditions: ['!', 'No additional devices inserted']
+           },
+           {
+             control: 'ADevOut14',
+             parentControl: 'ADevLoc14',
+             conditions: ['!', 'No additional devices inserted']
+           },
+           {
+             control: 'ADevModel14',
+             parentControl: 'ADevLoc14',
+             conditions: ['!', 'No additional devices inserted']
+           },
+           {
+             control: 'ADevUDI14',
+             parentControl: 'ADevLoc14',
+             conditions: ['!', 'No additional devices inserted']
+           },
+
+           {
+             control: 'M2:endoDevice15',
+             parentControl: 'ADevLoc14',
+             conditions: ['!', 'No additional devices inserted']
+           },
+           {
+             control: 'ADevLoc15',
+             parentControl: 'ADevLoc14',
+             conditions: ['!', 'No additional devices inserted']
+           },
+           {
+             control: 'ADevDelMeth15',
+             parentControl: 'ADevLoc15',
+             conditions: ['!', 'No additional devices inserted']
+           },
+           {
+             control: 'ADevOut15',
+             parentControl: 'ADevLoc15',
+             conditions: ['!', 'No additional devices inserted']
+           },
+           {
+             control: 'ADevModel15',
+             parentControl: 'ADevLoc15',
+             conditions: ['!', 'No additional devices inserted']
+           },
+           {
+             control: 'ADevUDI15',
+             parentControl: 'ADevLoc15',
+             conditions: ['!', 'No additional devices inserted']
+           }
+         ],
+         sectionM3: [
+           { control: 'M3:congenDiag', parentControl: 'M:OCarCong', conditions: ['Yes'] },
+           { control: 'OCarCongDiag1', parentControl: 'M:OCarCong', conditions: ['Yes'] },
+           { control: 'OCarCongDiag2', parentControl: 'M:OCarCong', conditions: ['Yes'] },
+           { control: 'OCarCongDiag3', parentControl: 'M:OCarCong', conditions: ['Yes'] },
+           { control: 'M3:congenProc', parentControl: 'M:OCarCong', conditions: ['Yes'] },
+           { control: 'OCarCongProc1', parentControl: 'M:OCarCong', conditions: ['Yes'] },
+           { control: 'OCarCongProc2', parentControl: 'M:OCarCong', conditions: ['Yes'] },
+           { control: 'OCarCongProc3', parentControl: 'M:OCarCong', conditions: ['Yes'] }
+         ],
+         sectionN: [
+           { control: 'ONCCarEn', parentControl: 'I:OpONCard', conditions: ['Yes'] },
+           { control: 'ONCOVasc', parentControl: 'I:OpONCard', conditions: ['Yes'] },
+           { control: 'ONCOThor', parentControl: 'I:OpONCard', conditions: ['Yes'] },
+           { control: 'ONCOther', parentControl: 'I:OpONCard', conditions: ['Yes'] }
+         ],
+         sectionO: [
+           { control: 'BdRBCU', parentControl: 'BldProd', conditions: ['Yes'] },
+           { control: 'BdFFPU', parentControl: 'BldProd', conditions: ['Yes'] },
+           { control: 'BdCryoU', parentControl: 'BldProd', conditions: ['Yes'] },
+           { control: 'BdPlatU', parentControl: 'BldProd', conditions: ['Yes'] },
+           { control: 'VentHrsA', parentControl: 'PostopIntub', conditions: ['Yes'] },
+           { control: 'ICUInHrs', parentControl: 'ICUVisit', conditions: ['Yes'] },
+           { control: 'ICUAdHrs', parentControl: 'ICUReadm', conditions: ['Yes'] },
+           { control: 'POpTTAR', parentControl: 'POpTTEch', conditions: ['Yes'] },
+           { control: 'POpAortParaLk', parentControl: 'POpTTEch', conditions: ['Yes'] },
+           { control: 'POpTTMR', parentControl: 'POpTTEch', conditions: ['Yes'] },
+           { control: 'POpMitParaLk', parentControl: 'POpTTEch', conditions: ['Yes'] },
+           { control: 'POpTTTR', parentControl: 'POpTTEch', conditions: ['Yes'] },
+           { control: 'POpTTPu', parentControl: 'POpTTEch', conditions: ['Yes'] },
+           { control: 'POpEF', parentControl: 'POpEFD', conditions: ['Yes'] },
+           { control: 'POpPkCKMB', parentControl: 'POpEnzDrawn', conditions: ['Yes'] },
+           { control: 'POpPkTrI', parentControl: 'POpEnzDrawn', conditions: ['Yes'] }
+         ],
+         sectionP: [
+           { control: 'CSternalSupInf', parentControl: 'SurSInf', conditions: ['Yes'] },
+           { control: 'DeepSternInf', parentControl: 'SurSInf', conditions: ['Yes'] },
+           { control: 'DeepSternInfDt', parentControl: 'DeepSternInf', conditions: ['!', 'No'] },
+           { control: 'CIThor', parentControl: 'SurSInf', conditions: ['Yes'] },
+           { control: 'ConduitHarv', parentControl: 'SurSInf', conditions: ['Yes'] },
+           { control: 'CanSite', parentControl: 'SurSInf', conditions: ['Yes'] },
+           { control: 'WoundInter', parentControl: 'SurSInf', conditions: ['Yes'] },
+           { control: 'WoundIntOpen', parentControl: 'WoundInter', conditions: ['Yes'] },
+           { control: 'WoundIntVac', parentControl: 'WoundInter', conditions: ['Yes'] },
+           { control: 'WoundIntMuscle', parentControl: 'WoundInter', conditions: ['Yes'] },
+           { control: 'WoundIntOmental', parentControl: 'WoundInter', conditions: ['Yes'] },
+
+           { control: 'P:compliOperative', parentControl: 'Complics', conditions: ['Yes'] },
+           { control: 'COpReBld', parentControl: 'Complics', conditions: ['Yes'] },
+           { control: 'COpReBldTim', parentControl: 'COpReBld', conditions: ['Yes'] },
+           { control: 'COpReVlv', parentControl: 'Complics', conditions: ['Yes'] },
+           { control: 'CReintMI', parentControl: 'Complics', conditions: ['Yes'] },
+           { control: 'CReintMIVes', parentControl: 'CReintMI', conditions: ['Yes'] },
+           { control: 'CReintMIIntTy', parentControl: 'CReintMI', conditions: ['Yes'] },
+           { control: 'CAortReint', parentControl: 'Complics', conditions: ['Yes'] },
+           { control: 'CAortReintTy', parentControl: 'CAortReint', conditions: ['Yes'] },
+           { control: 'COpReOth', parentControl: 'Complics', conditions: ['Yes'] },
+           { control: 'COpReNon', parentControl: 'Complics', conditions: ['Yes'] },
+           { control: 'COpPlndDelay', parentControl: 'Complics', conditions: ['Yes'] },
+           { control: 'CSternal', parentControl: 'Complics', conditions: ['Yes'] },
+           { control: 'CSternalDehis', parentControl: 'CSternal', conditions: ['Yes'] },
+
+           { control: 'P:compliInfection', parentControl: 'Complics', conditions: ['Yes'] },
+           { control: 'CSepsis', parentControl: 'Complics', conditions: ['Yes'] },
+           { control: 'CSepsisPBC', parentControl: 'CSepsis', conditions: ['Yes'] },
+
+           { control: 'P:compliNeuroCentral', parentControl: 'Complics', conditions: ['Yes'] },
+           { control: 'CNStrokP', parentControl: 'Complics', conditions: ['Yes'] },
+           { control: 'CNStrokTTIA', parentControl: 'Complics', conditions: ['Yes'] },
+           { control: 'CNEnceph', parentControl: 'Complics', conditions: ['Yes'] },
+           { control: 'CNComa', parentControl: 'Complics', conditions: ['Yes'] },
+
+           { control: 'P:compliNeuroPeripheral', parentControl: 'Complics', conditions: ['Yes'] },
+           { control: 'CNParal', parentControl: 'Complics', conditions: ['Yes'] },
+           { control: 'CNParalTy', parentControl: 'CNParal', conditions: ['Yes'] },
+           { control: 'CNParesis', parentControl: 'Complics', conditions: ['Yes'] },
+           { control: 'CNParesisTy', parentControl: 'CNParesis', conditions: ['Yes'] },
+           { control: 'PhrenNrvInj', parentControl: 'Complics', conditions: ['Yes'] },
+           { control: 'RecLarynNrvInj', parentControl: 'Complics', conditions: ['Yes'] },
+
+           { control: 'P:compliPulmonary', parentControl: 'Complics', conditions: ['Yes'] },
+           { control: 'CPVntLng', parentControl: 'Complics', conditions: ['Yes'] },
+           { control: 'P:desCPVntLng', parentControl: 'Complics', conditions: ['Yes'] },
+           { control: 'CPPneum', parentControl: 'Complics', conditions: ['Yes'] },
+           { control: 'CVTE', parentControl: 'Complics', conditions: ['Yes'] },
+           { control: 'PulmEmb', parentControl: 'CVTE', conditions: ['Yes'] },
+           { control: 'DVT', parentControl: 'CVTE', conditions: ['Yes'] },
+           { control: 'CPlEff', parentControl: 'Complics', conditions: ['Yes'] },
+           { control: 'PostOpPneumo', parentControl: 'Complics', conditions: ['Yes'] },
+
+           { control: 'P:compliRenal', parentControl: 'Complics', conditions: ['Yes'] },
+           { control: 'CRenFail', parentControl: 'Complics', conditions: ['Yes'] },
+           { control: 'CRenDial', parentControl: 'Complics', conditions: ['Yes'] },
+           { control: 'DialDur', parentControl: 'CRenDial', conditions: ['Yes'] },
+           { control: 'DialStat', parentControl: 'CRenDial', conditions: ['Yes'] },
+           { control: 'CUltraFil', parentControl: 'Complics', conditions: ['Yes'] },
+
+           { control: 'P:compliVascular', parentControl: 'Complics', conditions: ['Yes'] },
+           { control: 'CVaIlFem', parentControl: 'Complics', conditions: ['Yes'] },
+           { control: 'CVaLbIsc', parentControl: 'Complics', conditions: ['Yes'] },
+
+           { control: 'P:compliMAD', parentControl: 'Complics', conditions: ['Yes'] },
+           { control: 'CMAD', parentControl: 'Complics', conditions: ['Yes'] },
+           { control: 'CMADCanIns', parentControl: 'CMAD', conditions: ['Yes'] },
+           { control: 'CMADHem', parentControl: 'CMAD', conditions: ['Yes'] },
+           { control: 'CMADThromEm', parentControl: 'CMAD', conditions: ['Yes'] },
+           { control: 'CMADHemolytic', parentControl: 'CMAD', conditions: ['Yes'] },
+           { control: 'CMADInf', parentControl: 'CMAD', conditions: ['Yes'] },
+           { control: 'CMADOther', parentControl: 'CMAD', conditions: ['Yes'] },
+
+           { control: 'P:compliOther', parentControl: 'Complics', conditions: ['Yes'] },
+           { control: 'CRhythmDis', parentControl: 'Complics', conditions: ['Yes'] },
+           { control: 'COtArrst', parentControl: 'Complics', conditions: ['Yes'] },
+           { control: 'COtAortEndo', parentControl: 'Complics', conditions: ['Yes'] },
+           { control: 'COtAortEndoTy', parentControl: 'COtAortEndo', conditions: ['Yes'] },
+           { control: 'COtAortRupt', parentControl: 'Complics', conditions: ['Yes'] },
+           { control: 'CVaAoDis', parentControl: 'Complics', conditions: ['Yes'] },
+           { control: 'CVaAoDisTy', parentControl: 'CVaAoDis', conditions: ['Yes'] },
+           { control: 'COtAortSide', parentControl: 'Complics', conditions: ['Yes'] },
+           { control: 'COtAortTear', parentControl: 'Complics', conditions: ['Yes'] },
+           { control: 'COtCoag', parentControl: 'Complics', conditions: ['Yes'] },
+           { control: 'COtTamp', parentControl: 'Complics', conditions: ['Yes'] },
+           { control: 'COtGI', parentControl: 'Complics', conditions: ['Yes'] },
+           { control: 'COtLiver', parentControl: 'Complics', conditions: ['Yes'] },
+           { control: 'COtMSF', parentControl: 'Complics', conditions: ['Yes'] },
+           { control: 'COtAFib', parentControl: 'Complics', conditions: ['Yes'] },
+           { control: 'COtOther', parentControl: 'Complics', conditions: ['Yes'] }
+         ],
+         sectionQ: [
+           {
+             control: 'DischDt',
+             parentControl: 'DischMortStat',
+             conditions: [
+               'Discharged alive, last known status is alive',
+               'Discharged alive, died after discharge'
+             ]
+           },
+           {
+             control: 'DisLoctn',
+             parentControl: 'DischMortStat',
+             conditions: [
+               'Discharged alive, last known status is alive',
+               'Discharged alive, died after discharge'
+             ]
+           },
+           {
+             control: 'CardRef',
+             parentControl: 'DischMortStat',
+             conditions: [
+               'Discharged alive, last known status is alive',
+               'Discharged alive, died after discharge'
+             ]
+           },
+           {
+             control: 'SmokCoun',
+             parentControl: 'DischMortStat',
+             conditions: [
+               'Discharged alive, last known status is alive',
+               'Discharged alive, died after discharge'
+             ]
+           },
+           {
+             control: 'Q:medPresDC',
+             parentControl: 'DischMortStat',
+             conditions: [
+               'Discharged alive, last known status is alive',
+               'Discharged alive, died after discharge'
+             ]
+           },
+           {
+             control: 'Q:antiplateletDC',
+             parentControl: 'DischMortStat',
+             conditions: [
+               'Discharged alive, last known status is alive',
+               'Discharged alive, died after discharge'
+             ]
+           },
+           {
+             control: 'DCASA',
+             parentControl: 'DischMortStat',
+             conditions: [
+               'Discharged alive, last known status is alive',
+               'Discharged alive, died after discharge'
+             ]
+           },
+           {
+             control: 'DCADP',
+             parentControl: 'DischMortStat',
+             conditions: [
+               'Discharged alive, last known status is alive',
+               'Discharged alive, died after discharge'
+             ]
+           },
+           {
+             control: 'DCOthAntiplat',
+             parentControl: 'DischMortStat',
+             conditions: [
+               'Discharged alive, last known status is alive',
+               'Discharged alive, died after discharge'
+             ]
+           },
+           {
+             control: 'Q:anticoagulantDC',
+             parentControl: 'DischMortStat',
+             conditions: [
+               'Discharged alive, last known status is alive',
+               'Discharged alive, died after discharge'
+             ]
+           },
+           {
+             control: 'DCDirThromIn',
+             parentControl: 'DischMortStat',
+             conditions: [
+               'Discharged alive, last known status is alive',
+               'Discharged alive, died after discharge'
+             ]
+           },
+           {
+             control: 'DCCoum',
+             parentControl: 'DischMortStat',
+             conditions: [
+               'Discharged alive, last known status is alive',
+               'Discharged alive, died after discharge'
+             ]
+           },
+           {
+             control: 'DCFactorXa',
+             parentControl: 'DischMortStat',
+             conditions: [
+               'Discharged alive, last known status is alive',
+               'Discharged alive, died after discharge'
+             ]
+           },
+           {
+             control: 'DCNovOrAnti',
+             parentControl: 'DischMortStat',
+             conditions: [
+               'Discharged alive, last known status is alive',
+               'Discharged alive, died after discharge'
+             ]
+           },
+           {
+             control: 'DCOthAnticoag',
+             parentControl: 'DischMortStat',
+             conditions: [
+               'Discharged alive, last known status is alive',
+               'Discharged alive, died after discharge'
+             ]
+           },
+           {
+             control: 'DCACE',
+             parentControl: 'DischMortStat',
+             conditions: [
+               'Discharged alive, last known status is alive',
+               'Discharged alive, died after discharge'
+             ]
+           },
+           {
+             control: 'DCAmiodarone',
+             parentControl: 'DischMortStat',
+             conditions: [
+               'Discharged alive, last known status is alive',
+               'Discharged alive, died after discharge'
+             ]
+           },
+           {
+             control: 'DCBeta',
+             parentControl: 'DischMortStat',
+             conditions: [
+               'Discharged alive, last known status is alive',
+               'Discharged alive, died after discharge'
+             ]
+           },
+           {
+             control: 'DCLipLowStat',
+             parentControl: 'DischMortStat',
+             conditions: [
+               'Discharged alive, last known status is alive',
+               'Discharged alive, died after discharge'
+             ]
+           },
+           {
+             control: 'DCLipLowNonStat',
+             parentControl: 'DischMortStat',
+             conditions: [
+               'Discharged alive, last known status is alive',
+               'Discharged alive, died after discharge'
+             ]
+           },
+           {
+             control: 'MtDate',
+             parentControl: 'DischMortStat',
+             conditions: ['Died in hospital', 'Discharged alive, died after discharge']
+           },
+           {
+             control: 'MtCause',
+             parentControl: 'DischMortStat',
+             conditions: ['Died in hospital', 'Discharged alive, died after discharge']
+           },
+           {
+             control: 'InHospDthLoc',
+             parentControl: 'DischMortStat',
+             conditions: ['Died in hospital']
+           },
+           {
+             control: 'MtOpD',
+             parentControl: 'DischMortStat',
+             conditions: ['Discharged alive, died after discharge']
+           },
+           {
+             control: 'PostDisDthLoc',
+             parentControl: 'DischMortStat',
+             conditions: ['Discharged alive, died after discharge']
+           }
+         ],
+         sectionR: [
+           {
+             control: 'Readmit',
+             parentControl: 'Q:DischMortStat',
+             conditions: [
+               'Discharged alive, last known status is alive',
+               'Discharged alive, died after discharge'
+             ]
+           },
+           { control: 'ReadmitDt', parentControl: 'Readmit', conditions: ['Yes'] },
+           { control: 'ReadmRsn', parentControl: 'Readmit', conditions: ['Yes'] },
+           { control: 'ReadmPro', parentControl: 'Readmit', conditions: ['Yes'] },
+           { control: 'ReadmAortIntTy', parentControl: 'ReadmPro', conditions: ['OR for Aorta Intervention'] },
+           { control: 'ReadmAortIntInd', parentControl: 'ReadmPro', conditions: ['OR for Aorta Intervention'] }
+         ],
+         sectionS: [
+           { control: 'TotHep', parentControl: 'HepUse', conditions: ['Yes'] },
+           { control: 'HepMgmt', parentControl: 'HepUse', conditions: ['Yes'] },
+           { control: 'TotProt', parentControl: 'HepUse', conditions: ['Yes'] },
+
+           { control: 'S:volatAgtUsed', parentControl: 'VolAgentUsed', conditions: ['Yes'] },
+           { control: 'VolAgentIso', parentControl: 'VolAgentUsed', conditions: ['Yes'] },
+           { control: 'VolAgentSevo', parentControl: 'VolAgentUsed', conditions: ['Yes'] },
+           { control: 'VolAgentDes', parentControl: 'VolAgentUsed', conditions: ['Yes'] },
+           { control: 'VolAgentOth', parentControl: 'VolAgentUsed', conditions: ['Yes'] },
+           { control: 'S:volatAgtTiming', parentControl: 'VolAgentUsed', conditions: ['Yes'] },
+           { control: 'VolAgentTimPre', parentControl: 'VolAgentUsed', conditions: ['Yes'] },
+           { control: 'VolAgentTimDur', parentControl: 'VolAgentUsed', conditions: ['Yes'] },
+           { control: 'VolAgentTimPost', parentControl: 'VolAgentUsed', conditions: ['Yes'] },
+           { control: 'VolAgentTimMaint', parentControl: 'VolAgentUsed', conditions: ['Yes'] },
+
+           { control: 'TotProt', parentControl: 'HepUse', conditions: ['Yes'] },
+           { control: 'TotProt', parentControl: 'HepUse', conditions: ['Yes'] },
+           { control: 'TotProt', parentControl: 'HepUse', conditions: ['Yes'] },
+           { control: 'TotProt', parentControl: 'HepUse', conditions: ['Yes'] },
+           { control: 'TotProt', parentControl: 'HepUse', conditions: ['Yes'] },
+           { control: 'TotProt', parentControl: 'HepUse', conditions: ['Yes'] },
+           { control: 'TotProt', parentControl: 'HepUse', conditions: ['Yes'] },
+
+           { control: 'PreLVEFMeas', parentControl: 'IntraOpPreTEE', conditions: ['Yes'] },
+           { control: 'PreLVEF', parentControl: 'PreLVEFMeas', conditions: ['Yes'] },
+           { control: 'PreRVFx', parentControl: 'IntraOpPreTEE', conditions: ['Yes'] },
+           { control: 'PreMR', parentControl: 'IntraOpPreTEE', conditions: ['Yes'] },
+           { control: 'PreMS', parentControl: 'IntraOpPreTEE', conditions: ['Yes'] },
+           { control: 'PreAR', parentControl: 'IntraOpPreTEE', conditions: ['Yes'] },
+           { control: 'PreAS', parentControl: 'IntraOpPreTEE', conditions: ['Yes'] },
+           { control: 'PreAVAAssessed', parentControl: 'IntraOpPreTEE', conditions: ['Yes'] },
+           { control: 'PreAVA', parentControl: 'PreAVAAssessed', conditions: ['Yes'] },
+           { control: 'PreTR', parentControl: 'IntraOpPreTEE', conditions: ['Yes'] },
+           { control: 'PrePFO', parentControl: 'IntraOpPreTEE', conditions: ['Yes'] },
+           { control: 'AscAoAssessed', parentControl: 'IntraOpPreTEE', conditions: ['Yes'] },
+           { control: 'MxAscAo', parentControl: 'AscAoAssessed', conditions: ['Yes'] },
+           { control: 'MxAscAoThick', parentControl: 'AscAoAssessed', conditions: ['Yes'] },
+           { control: 'AsAthMo', parentControl: 'AscAoAssessed', conditions: ['Yes'] },
+           { control: 'AoArcVis', parentControl: 'IntraOpPreTEE', conditions: ['Yes'] },
+           { control: 'MxArcAth', parentControl: 'AoArcVis', conditions: ['Yes'] },
+           { control: 'ArcAthMo', parentControl: 'AoArcVis', conditions: ['Yes'] },
+
+           { control: 'RetrAutolPrim', parentControl: 'CPBUsed', conditions: ['Yes'] },
+           { control: 'TotCrystPerf', parentControl: 'CPBUsed', conditions: ['Yes'] },
+           { control: 'TotColloidPerf', parentControl: 'CPBUsed', conditions: ['Yes'] },
+           { control: 'TotAlbumPerf', parentControl: 'CPBUsed', conditions: ['Yes'] },
+           { control: 'HemofilPerf', parentControl: 'CPBUsed', conditions: ['Yes'] },
+           { control: 'InotropWeanCPB', parentControl: 'CPBUsed', conditions: ['Yes'] },
+           { control: 'VasopWeanCPB', parentControl: 'CPBUsed', conditions: ['Yes'] },
+
+           { control: 'PostSAM', parentControl: 'IntraOpPostTEE', conditions: ['Yes'] },
+           { control: 'RetCPBEch', parentControl: 'IntraOpPostTEE', conditions: ['Yes'] },
+           { control: 'PostLVEFMeas', parentControl: 'IntraOpPostTEE', conditions: ['Yes'] },
+           { control: 'PostLVEF', parentControl: 'IntraOpPostTEE', conditions: ['Yes'] },
+           { control: 'PostRVFx', parentControl: 'IntraOpPostTEE', conditions: ['Yes'] },
+
+           { control: 'PostTempMeas', parentControl: 'ORDeath', conditions: ['Yes'] },
+           { control: 'PostCoreTemp', parentControl: 'PostTempMeas', conditions: ['Yes'] },
+           { control: 'PostINRMeas', parentControl: 'ORDeath', conditions: ['Yes'] },
+           { control: 'PostINR', parentControl: 'PostINRMeas', conditions: ['Yes'] },
+           { control: 'PostWBCMeas', parentControl: 'ORDeath', conditions: ['Yes'] },
+           { control: 'PostWBC', parentControl: 'PostWBCMeas', conditions: ['Yes'] },
+           { control: 'PostPltMeas', parentControl: 'ORDeath', conditions: ['Yes'] },
+           { control: 'PostPlt', parentControl: 'PostPltMeas', conditions: ['Yes'] },
+           { control: 'PostHCTMeas', parentControl: 'ORDeath', conditions: ['Yes'] },
+           { control: 'PostHCT', parentControl: 'PostHCTMeas', conditions: ['Yes'] },
+           { control: 'PostFibrinMeas', parentControl: 'ORDeath', conditions: ['Yes'] },
+           { control: 'PostFibrin', parentControl: 'PostFibrinMeas', conditions: ['Yes'] },
+           { control: 'PostLactMeas', parentControl: 'ORDeath', conditions: ['Yes'] },
+           { control: 'PostLact', parentControl: 'PostLactMeas', conditions: ['Yes'] },
+           { control: 'DexPost', parentControl: 'ORDeath', conditions: ['Yes'] },
+           { control: 'PropPost', parentControl: 'ORDeath', conditions: ['Yes'] },
+           { control: 'PostopDel', parentControl: 'ORDeath', conditions: ['Yes'] },
+           { control: 'PostHITAnti', parentControl: 'ORDeath', conditions: ['Yes'] },
+           { control: 'PainScorePOD3', parentControl: 'ORDeath', conditions: ['Yes'] },
+           { control: 'PainScoreDisch', parentControl: 'ORDeath', conditions: ['Yes'] }
+         ]
        };

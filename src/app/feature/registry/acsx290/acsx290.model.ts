@@ -23,4 +23,5 @@ export interface ACSx290Model {
   sectionP: object;
   sectionQ: object;
   sectionR: object;
+  sectionS: object;
 }

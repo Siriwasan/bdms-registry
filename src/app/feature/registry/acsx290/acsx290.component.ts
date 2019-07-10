@@ -48,6 +48,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
   formGroupP: FormGroup;
   formGroupQ: FormGroup;
   formGroupR: FormGroup;
+  formGroupS: FormGroup;
 
   @ViewChild('formDirectiveA', { static: true }) formDirectiveA: FormGroupDirective;
   @ViewChild('formDirectiveB', { static: true }) formDirectiveB: FormGroupDirective;
@@ -70,6 +71,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
   @ViewChild('formDirectiveP', { static: true }) formDirectiveP: FormGroupDirective;
   @ViewChild('formDirectiveQ', { static: true }) formDirectiveQ: FormGroupDirective;
   @ViewChild('formDirectiveR', { static: true }) formDirectiveR: FormGroupDirective;
+  @ViewChild('formDirectiveS', { static: true }) formDirectiveS: FormGroupDirective;
 
   gap = '20px';
   public mode = 'new'; // new, edit
@@ -241,6 +243,30 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
       'VExpDt3'
     ]
   ];
+  M2_priorAoInt = [
+    ['Root', 'PriorRepRoot', 'PriorRepTyRoot', 'PriorFailRoot', 'PriorProgRoot'],
+    ['Ascending', 'PriorRepAsc', 'PriorRepTyAsc', 'PriorFailAsc', 'PriorProgAsc'],
+    ['Arch', 'PriorRepArch', 'PriorRepTyArch', 'PriorFailArch', 'PriorProgArch'],
+    ['Descending', 'PriorRepDesc', 'PriorRepTyDesc', 'PriorFailDesc', 'PriorProgDesc'],
+    ['Suprarenal abdominal', 'PriorRepSupraAb', 'PriorRepTySupraAb', 'PriorFailSupraAb', 'PriorProgSupraAb'],
+    ['Infrarenal abdominal', 'PriorRepInfraAb', 'PriorRepTyInfraAb', 'PriorFailInfraAb', 'PriorProgInfraAb']
+  ];
+  M2_device = [
+    ['ADevLoc02', 'ADevDelMeth02', 'ADevOut02', 'ADevModel02', 'ADevUDI02'],
+    ['ADevLoc03', 'ADevDelMeth03', 'ADevOut03', 'ADevModel03', 'ADevUDI03'],
+    ['ADevLoc04', 'ADevDelMeth04', 'ADevOut04', 'ADevModel04', 'ADevUDI04'],
+    ['ADevLoc05', 'ADevDelMeth05', 'ADevOut05', 'ADevModel05', 'ADevUDI05'],
+    ['ADevLoc06', 'ADevDelMeth06', 'ADevOut06', 'ADevModel06', 'ADevUDI06'],
+    ['ADevLoc07', 'ADevDelMeth07', 'ADevOut07', 'ADevModel07', 'ADevUDI07'],
+    ['ADevLoc08', 'ADevDelMeth08', 'ADevOut08', 'ADevModel08', 'ADevUDI08'],
+    ['ADevLoc09', 'ADevDelMeth09', 'ADevOut09', 'ADevModel09', 'ADevUDI09'],
+    ['ADevLoc10', 'ADevDelMeth10', 'ADevOut10', 'ADevModel10', 'ADevUDI10'],
+    ['ADevLoc11', 'ADevDelMeth11', 'ADevOut11', 'ADevModel11', 'ADevUDI11'],
+    ['ADevLoc12', 'ADevDelMeth12', 'ADevOut12', 'ADevModel12', 'ADevUDI12'],
+    ['ADevLoc13', 'ADevDelMeth13', 'ADevOut13', 'ADevModel13', 'ADevUDI13'],
+    ['ADevLoc14', 'ADevDelMeth14', 'ADevOut14', 'ADevModel14', 'ADevUDI14'],
+    ['ADevLoc15', 'ADevDelMeth15', 'ADevOut15', 'ADevModel15', 'ADevUDI15']
+  ];
   // tslint:enable: variable-name
 
   constructor(
@@ -304,6 +330,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
     this.formGroupP = this.formBuilder.group(ACSx290form.sectionP);
     this.formGroupQ = this.formBuilder.group(ACSx290form.sectionQ);
     this.formGroupR = this.formBuilder.group(ACSx290form.sectionR);
+    this.formGroupS = this.formBuilder.group(ACSx290form.sectionS);
 
     const sectionMembers: SectionMember[] = [
       ['A', this.formGroupA, this.formDirectiveA, conditions.sectionA],
@@ -326,7 +353,8 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
       ['O', this.formGroupO, this.formDirectiveO, conditions.sectionO],
       ['P', this.formGroupP, this.formDirectiveP, conditions.sectionP],
       ['Q', this.formGroupQ, this.formDirectiveQ, conditions.sectionQ],
-      ['R', this.formGroupR, this.formDirectiveR, conditions.sectionR]
+      ['R', this.formGroupR, this.formDirectiveR, conditions.sectionR],
+      ['S', this.formGroupS, this.formDirectiveS, conditions.sectionS]
     ];
 
     this.registryService.initializeForm(sectionMembers, conditions, validations);
@@ -401,7 +429,8 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
       sectionO: { ...this.formGroupO.value },
       sectionP: { ...this.formGroupP.value },
       sectionQ: { ...this.formGroupQ.value },
-      sectionR: { ...this.formGroupR.value }
+      sectionR: { ...this.formGroupR.value },
+      sectionS: { ...this.formGroupS.value }
     };
 
     this.result = acsx290Model;
@@ -441,16 +470,17 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
         this.formGroupJ.setValue(data.sectionJ);
         this.formGroupK.setValue(data.sectionK);
         this.formGroupL.setValue(data.sectionL);
+        this.formGroupL2.setValue(data.sectionL2);
         this.formGroupM.setValue(data.sectionM);
+        this.formGroupM1.setValue(data.sectionM1);
+        this.formGroupM2.setValue(data.sectionM2);
+        this.formGroupM3.setValue(data.sectionM3);
         this.formGroupN.setValue(data.sectionN);
         this.formGroupO.setValue(data.sectionO);
         this.formGroupP.setValue(data.sectionP);
         this.formGroupQ.setValue(data.sectionQ);
         this.formGroupR.setValue(data.sectionR);
-        this.formGroupL2.setValue(data.sectionL2);
-        this.formGroupM1.setValue(data.sectionM1);
-        this.formGroupM2.setValue(data.sectionM2);
-        this.formGroupM3.setValue(data.sectionM3);
+        this.formGroupS.setValue(data.sectionS);
 
         this.mode = 'edit';
         this.formId = formId;

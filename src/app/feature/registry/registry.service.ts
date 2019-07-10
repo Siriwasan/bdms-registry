@@ -257,7 +257,7 @@ export class RegistryService implements OnDestroy {
       if (result === undefined) {
         return false;
       }
-      section = key === 'section' ? null : key.substr(key.length - 1);
+      section = key === 'section' ? null : key.substr(7);
       return true;
     });
 

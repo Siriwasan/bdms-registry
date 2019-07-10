@@ -13,6 +13,7 @@
 
   <div scrollSpyElement id="title" fxFlexOrder="0">
     <h1>STS Adult Cardiac Surgery v2.9</h1>
+
     <section class="section-wrapper" scrollSpyElement id="sectionA">
       <div class="section-title">
         <span>A. Administrative</span>
@@ -1662,10 +1663,10 @@
           <!-- CPT CODE -->
 
           <reg-input controlName="OREntryDT" placeholder="OR Entry Date And Time" [formGroup]="formGroupI" type="text">
-            dd/mm/yyyy hh:mm - 24 hr clock</reg-input>
+            dd/mm/Zone 1 (mm)y hh:mm - 24 hr clock</reg-input>
 
           <reg-input controlName="ORExitDT" placeholder="OR Exit Date And Time" [formGroup]="formGroupI" type="text">
-            dd/mm/yyyy hh:mm - 24 hr clock</reg-input>
+            dd/mm/Zone 1 (mm)y hh:mm - 24 hr clock</reg-input>
 
           <reg-select controlName="GenAnes" placeholder="General Anesthesia" [formGroup]="formGroupI"
             [choices]="['Yes', 'No']"></reg-select>
@@ -1680,19 +1681,19 @@
             ]"></reg-select>
 
           <reg-input controlName="IntubateDT" placeholder="Intubation Date and Time" [formGroup]="formGroupI" type="text"
-            >dd/mm/yyyy hh:mm - 24 hr clock</reg-input>
+            >dd/mm/Zone 1 (mm)y hh:mm - 24 hr clock</reg-input>
 
           <reg-input controlName="ExtubateDT" placeholder="Initial Extubation Date and Time" [formGroup]="formGroupI" type="text"
-            >dd/mm/yyyy hh:mm - 24 hr clock</reg-input>
+            >dd/mm/Zone 1 (mm)y hh:mm - 24 hr clock</reg-input>
 
           <reg-input controlName="SIStartDT" placeholder="Skin Incision Start Date and Time" [formGroup]="formGroupI" type="text">
-            dd/mm/yyyy hh:mm - 24 hr clock</reg-input>
+            dd/mm/Zone 1 (mm)y hh:mm - 24 hr clock</reg-input>
 
           <reg-input controlName="SIStopDT" placeholder="Skin Incision Stop Date and Time" [formGroup]="formGroupI" type="text">
-            dd/mm/yyyy hh:mm - 24 hr clock</reg-input>
+            dd/mm/Zone 1 (mm)y hh:mm - 24 hr clock</reg-input>
 
           <reg-input controlName="AnesEndDT" placeholder="Anesthesia End Date and Time" [formGroup]="formGroupI" type="text">
-            dd/mm/yyyy hh:mm - 24 hr clock</reg-input>
+            dd/mm/Zone 1 (mm)y hh:mm - 24 hr clock</reg-input>
 
           <reg-select controlName="AbxSelect" placeholder="Appropriate Antibiotic Selection" [formGroup]="formGroupI"
             [choices]="['Yes', 'No', 'Exclusion']"></reg-select>
@@ -3166,6 +3167,2233 @@
 
           <reg-select controlName="AFitLesCSL" placeholder="#16 - Coronary Sinus Lesion" [formGroup]="formGroupM1"
             [choices]="['Yes', 'No']"></reg-select>
+
+        </form>
+      </div>
+    </section>
+
+    <section class="section-wrapper" scrollSpyElement id="sectionM2">
+      <div class="section-title">
+        <span>M.2. Aorta And Aortic Root Procedures</span>
+        <span>{{ formCompletion('M2') }}</span>
+      </div>
+      <div class="section-body">
+        <form [formGroup]="formGroupM2" #formDirectiveM2="ngForm">
+
+          <reg-select controlName="FamHistAorta" placeholder="Family history of disease of aorta" [formGroup]="formGroupM2" [choices]="[
+            'Aneurysm',
+            'Dissection',
+            'Both Aneurysm and Dissection',
+            'Sudden Death',
+            'None',
+            'Unknown'
+            ]"></reg-select>
+
+          <reg-select controlName="PatGenHist" placeholder="Patient’s genetic history" [formGroup]="formGroupM2" [choices]="[
+            'Marfan',
+            'Ehlers-Danlos',
+            'Loeys-Dietz',
+            'Non-Specific familial thoracic aortic syndrome',
+            'Bicuspid AV',
+            'Turner syndrome',
+            'Other',
+            'None',
+            'Unknown'
+            ]"></reg-select>
+
+          <reg-select controlName="PriorAorta" placeholder="Prior aortic intervention" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <div *ngFor="let int of M2_priorAoInt; let i = index">
+            <h4 [id]="'int' + (i+1)">{{ 'Location - ' + int[0] }}</h4>
+
+            <reg-select [controlName]="int[1]" placeholder="Previous repair location(s)" [formGroup]="formGroupM2"
+              [choices]="['Yes', 'No']"></reg-select>
+
+            <reg-select [controlName]="int[2]" placeholder="Repair Type" [formGroup]="formGroupM2" [choices]="[
+                'Open',
+                'Endovascular',
+                'Hybrid'
+              ]"></reg-select>
+
+            <reg-select [controlName]="int[3]" placeholder="Repair failure" [formGroup]="formGroupM2"
+              [choices]="['Yes', 'No']"></reg-select>
+
+            <reg-select [controlName]="int[4]" placeholder="Disease progression" [formGroup]="formGroupM2"
+              [choices]="['Yes', 'No']"></reg-select>
+          </div>
+
+          <reg-select controlName="Endoleak" placeholder="Endoleak" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No', 'Unknown']"></reg-select>
+
+          <reg-select controlName="EndoleakTypeI" placeholder="Type I: leak at graft attachment site" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="EndoleakTyILoc" placeholder="Type I location" [formGroup]="formGroupM2" [choices]="[
+              'Ia - proximal',
+              'Ib - distal',
+              'Ic - iliac occluder'
+            ]"></reg-select>
+
+          <reg-select controlName="EndoleakTypeII" placeholder="Type II: aneurysm sac filling via branch vessel" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="EndoleakVessNum" placeholder="Number of vessels" [formGroup]="formGroupM2" [choices]="[
+              'IIa - single vessel',
+              'IIb - two vessels or more'
+            ]"></reg-select>
+
+          <reg-select controlName="EndoleakTypeIII" placeholder="Type III: leak through defect in graft" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="EndoleakType" placeholder="Graft defect type" [formGroup]="formGroupM2" [choices]="[
+              'IIIa - junctional separation of modular components',
+              'IIIb - endograft fractures or holes'
+            ]"></reg-select>
+
+          <reg-select controlName="EndoleakTypeIV" placeholder="Type IV: leak through graft fabric – porosity" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="EndoleakTypeV" placeholder="Type V: endotension - expansion aneurysm sac without leak" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="Infection" placeholder="Infection" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No', 'Unknown']"></reg-select>
+
+          <reg-select controlName="InfecType" placeholder="Aorta Infection Type" [formGroup]="formGroupM2" [choices]="[
+            'Graft infection',
+            'Valvular endocarditis',
+            'Nonvalvular endocarditis',
+            'Native aorta',
+            'Multiple infection types'
+            ]"></reg-select>
+
+          <reg-select controlName="Trauma" placeholder="Trauma" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No', 'Unknown']"></reg-select>
+
+          <h4 id="traumaLoc">Location</h4>
+
+          <reg-select controlName="TraumacRoot" placeholder="Root" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="TraumaAsc" placeholder="Ascending" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="TraumaArch" placeholder="Arch" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="TraumaDesc" placeholder="Descending" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="TraumaThorac" placeholder="Thoracoabdominal" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="TraumaAbdom" placeholder="Abdominal" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="Presentation" placeholder="Presentation" [formGroup]="formGroupM2" [choices]="[
+            'Pain',
+            'CHF',
+            'Cardiac Arrest',
+            'Syncope',
+            'Stroke',
+            'Limb numbness',
+            'Paralysis',
+            'Fatigue',
+            'Infection',
+            'Weakness',
+            'Hoarseness (vocal cord dysfunction)',
+            'Asymptomatic'
+            ]"></reg-select>
+
+          <reg-select controlName="PrimIndic" placeholder="Primary Indication" [formGroup]="formGroupM2" [choices]="[
+            'Aneurysm',
+            'Dissection',
+            'Valvular Dysfunction',
+            'Obstruction',
+            'Intramural Hematoma',
+            'Infection',
+            'Stenosis',
+            'Coarctation'
+            ]"></reg-select>
+
+          <!-- ANEURYSM -->
+
+          <reg-select controlName="AnEtilogy" placeholder="Etiology" [formGroup]="formGroupM2" [choices]="[
+            'Atherosclerosis',
+            'Infection',
+            'Inflammatory',
+            'Connective Tissue Disorder',
+            'Penetrating Ulcer',
+            'Pseudoaneurysm',
+            'Mycotic',
+            'Traumatic transection',
+            'Intercostal visceral patch',
+            'Anastomotic site',
+            'Unknown'
+            ]"></reg-select>
+
+          <reg-select controlName="AnType" placeholder="Type" [formGroup]="formGroupM2" [choices]="[
+              'Fusiform',
+              'Saccular',
+              'Unknown'
+            ]"></reg-select>
+
+          <reg-select controlName="AnRupt" placeholder="Rupture" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="AnRuptCon" placeholder="Contained rupture" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+
+          <reg-select controlName="AnLoc" placeholder="Location" [formGroup]="formGroupM2" [choices]="[
+            'Below STJ',
+            'STJ-midascending',
+            'Midascending to distal ascending',
+            'Zone 1',
+            'Zone 2',
+            'Zone 3',
+            'Zone 4',
+            'Zone 5',
+            'Zone 6',
+            'Zone 7',
+            'Zone 8',
+            'Zone 9',
+            'Zone 10',
+            'Zone 11'
+            ]"></reg-select>
+
+          <!-- DISSECTION -->
+
+          <reg-select controlName="DisTiming" placeholder="Timing" [formGroup]="formGroupM2" [choices]="[
+            'Hyperacute (< 48 hrs)',
+            'Acute (48 hrs - 2 weeks)',
+            'Subacute (>= 2 weeks, < 90 days)',
+            'Chronic (> 90 days)',
+            'Acute on chronic',
+            'Unknown'
+            ]"></reg-select>
+
+          <reg-select controlName="DisOnsetDtKnown" placeholder="Disection onset date known" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-datepicker controlName="DisOnsetDt" placeholder="Date of onset" [formGroup]="formGroupM2">
+          </reg-datepicker>
+
+          <reg-select controlName="DisTearLoc" placeholder="Primary tear location" [formGroup]="formGroupM2" [choices]="[
+            'Below STJ',
+            'STJ-midascending',
+            'Midascending to distal ascending',
+            'Zone 1',
+            'Zone 2',
+            'Zone 3',
+            'Zone 4',
+            'Zone 5',
+            'Zone 6',
+            'Zone 7',
+            'Zone 8',
+            'Zone 9',
+            'Zone 10',
+            'Zone 11'
+            ]"></reg-select>
+
+          <reg-select controlName="DisSecLoc" placeholder="Secondary tear location" [formGroup]="formGroupM2" [choices]="[
+            'Below STJ',
+            'STJ-midascending',
+            'Midascending to distal ascending',
+            'Zone 1',
+            'Zone 2',
+            'Zone 3',
+            'Zone 4',
+            'Zone 5',
+            'Zone 6',
+            'Zone 7',
+            'Zone 8',
+            'Zone 9',
+            'Zone 10',
+            'Zone 11'
+            ]"></reg-select>
+
+          <reg-select controlName="DisRetExt" placeholder="Retrograde extension" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No', 'Unknown']"></reg-select>
+
+          <reg-select controlName="DisRetLoc" placeholder="Retrograde Location" [formGroup]="formGroupM2" [choices]="[
+            'Below STJ',
+            'STJ-midascending',
+            'Midascending to distal ascending',
+            'Zone 1',
+            'Zone 2',
+            'Zone 3',
+            'Zone 4'
+            ]"></reg-select>
+
+          <reg-select controlName="DisPosTEVAR" placeholder="Post TEVAR" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="DistalExt" placeholder="Distal extension" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No', 'Unknown']"></reg-select>
+
+          <reg-select controlName="DistalExtLoc" placeholder="Distal Extension Location" [formGroup]="formGroupM2" [choices]="[
+            'Below STJ',
+            'STJ-midascending',
+            'Midascending to distal ascending',
+            'Zone 1',
+            'Zone 2',
+            'Zone 3',
+            'Zone 4',
+            'Zone 5',
+            'Zone 6',
+            'Zone 7',
+            'Zone 8',
+            'Zone 9',
+            'Zone 10',
+            'Zone 11'
+            ]"></reg-select>
+
+          <reg-select controlName="DisMal" placeholder="Malperfusion" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No', 'Unknown']"></reg-select>
+
+          <reg-select controlName="DisMalCor" placeholder="Coronary" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="DisMalRtSubclav" placeholder="Right Subclavian" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="DisMalRtComCar" placeholder="Right Common Carotid" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="DisMalComL" placeholder="Left Common Carotid" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="DisMalSubL" placeholder="Left Subclavian" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="DisMalCel" placeholder="Celiac" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="DisMalSup" placeholder="Superior Mesenteric" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="DisMalRenL" placeholder="Renal, left" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="DisMalRenR" placeholder="Renal, right" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="DisMalIlio" placeholder="Iliofemoral" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="DisMalSpin" placeholder="Spinal" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="DisLowMotFun" placeholder="Lower Extremity Motor Function" [formGroup]="formGroupM2" [choices]="[
+              'No deficit',
+              'Weakness',
+              'Paralysis',
+              'Unknown'
+            ]"></reg-select>
+
+          <reg-select controlName="DisLowSenDef" placeholder="Lower Extremity Sensory Deficit" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No', 'Unknown']"></reg-select>
+
+          <reg-select controlName="DisRupt" placeholder="Rupture" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="DisRuptCon" placeholder="Contained rupture" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="DisRuptLoc" placeholder="Rupture Location" [formGroup]="formGroupM2" [choices]="[
+            'Below STJ',
+            'STJ-midascending',
+            'Midascending to distal ascending',
+            'Zone 1',
+            'Zone 2',
+            'Zone 3',
+            'Zone 4',
+            'Zone 5',
+            'Zone 6',
+            'Zone 7',
+            'Zone 8',
+            'Zone 9',
+            'Zone 10',
+            'Zone 11'
+            ]"></reg-select>
+
+          <!-- ROOT -->
+
+          <h4 id="root">Root</h4>
+
+          <reg-select controlName="RootAAnnEctasia" placeholder="Aorto-annular ectasia" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No', 'Unknown']"></reg-select>
+
+          <reg-select controlName="RootDilaAsym" placeholder="Asymmetric Root Dilation" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No', 'Unknown']"></reg-select>
+
+          <reg-select controlName="RoottDilaAsym" placeholder="Dilation Location" [formGroup]="formGroupM2" [choices]="[
+              'Right',
+              'Left',
+              'Non-coronary'
+            ]"></reg-select>
+
+          <reg-select controlName="RootSinus" placeholder="Sinus of Valsalva aneurysm" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No', 'Unknown']"></reg-select>
+
+          <reg-select controlName="RootSinusLoc" placeholder="SV Aneurysm Location" [formGroup]="formGroupM2" [choices]="[
+              'Right',
+              'Left',
+              'Non-coronary'
+            ]"></reg-select>
+
+          <!-- ARCH -->
+
+          <h4 id="arch">Arch</h4>
+
+          <reg-select controlName="ArchType" placeholder="Arch Type" [formGroup]="formGroupM2"
+            [choices]="['Left', 'Right']"></reg-select>
+
+          <reg-select controlName="ArchAbRtSub" placeholder="Aberrant Right Subclavian" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="ArchAbLtSub" placeholder="Aberrant Left Subclavian" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="ArchKom" placeholder="Kommerell" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="ArchBovine" placeholder="Bovine" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="ArchVarVertOr" placeholder="Variant vertebral origin" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="ArchPatIMA" placeholder="Patent internal mammary artery bypass graft" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <h4 id="ascending">Ascending</h4>
+
+          <reg-select controlName="AscAsymDil" placeholder="Asymmetric Dilatation" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No', 'Unknown']"></reg-select>
+
+          <reg-select controlName="AscProxGr" placeholder="Proximal coronary bypass grafts" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No', 'Unknown']"></reg-select>
+
+
+          <reg-select controlName="Diameter3DMeas" placeholder="3-D reconstruction aortic diameter measurements available" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-input controlName="Diam3DAnnulus" placeholder="Annulus (mm)" [formGroup]="formGroupM2" type="number">
+          </reg-input>
+
+          <reg-input controlName="Diam3DSinus" placeholder="Sinus segment (mm)" [formGroup]="formGroupM2" type="number">
+          </reg-input>
+
+          <reg-input controlName="Diam3DSinotubular" placeholder="Sinotubular junction (mm)" [formGroup]="formGroupM2" type="number">
+          </reg-input>
+
+          <reg-input controlName="Diam3DMidAsc" placeholder="Mid-ascending (mm)" [formGroup]="formGroupM2" type="number">
+          </reg-input>
+
+          <reg-input controlName="Diam3DDistalAsc" placeholder="Distal Ascending (mm)" [formGroup]="formGroupM2" type="number">
+          </reg-input>
+
+          <reg-input controlName="Diam3DZone1" placeholder="Zone 1 (mm)" [formGroup]="formGroupM2" type="number">
+          </reg-input>
+
+          <reg-input controlName="Diam3DZone2" placeholder="Zone 2 (mm)" [formGroup]="formGroupM2" type="number">
+          </reg-input>
+
+          <reg-input controlName="Diam3DZone3" placeholder="Zone 3 (mm)" [formGroup]="formGroupM2" type="number">
+          </reg-input>
+
+          <reg-input controlName="Diam3DZone4" placeholder="Zone 4 (mm)" [formGroup]="formGroupM2" type="number">
+          </reg-input>
+
+          <reg-input controlName="Diam3DZone5" placeholder="Zone 5 (mm)" [formGroup]="formGroupM2" type="number">
+          </reg-input>
+
+          <reg-input controlName="Diam3DZone6" placeholder="Zone 6 (mm)" [formGroup]="formGroupM2" type="number">
+          </reg-input>
+
+          <reg-input controlName="Diam3DZone7" placeholder="Zone 7 (mm)" [formGroup]="formGroupM2" type="number">
+          </reg-input>
+
+          <reg-input controlName="Diam3DZone8" placeholder="Zone 8 (mm)" [formGroup]="formGroupM2" type="number">
+          </reg-input>
+
+          <reg-input controlName="Diam3DZone9" placeholder="Zone 9 (mm)" [formGroup]="formGroupM2" type="number">
+          </reg-input>
+
+          <reg-input controlName="Diam3DZone10" placeholder="Zone 10 (mm)" [formGroup]="formGroupM2" type="number">
+          </reg-input>
+
+          <reg-input controlName="Diam3DZone11" placeholder="Zone 11 (mm)" [formGroup]="formGroupM2" type="number">
+          </reg-input>
+
+          <h4 id="preopDiameter">Largest (pre-operative) diameter of treated segment(s)</h4>
+
+          <reg-input controlName="DiamLgstAnnulus" placeholder="Annulus (mm)" [formGroup]="formGroupM2" type="number">
+          </reg-input>
+
+          <reg-input controlName="DiamLgstSinus" placeholder="Sinus segment (mm)" [formGroup]="formGroupM2" type="number">
+          </reg-input>
+
+          <reg-input controlName="DiamLgstSinotubular" placeholder="Sinotubular junction (mm)" [formGroup]="formGroupM2" type="number">
+          </reg-input>
+
+          <reg-input controlName="DiamLgstMidAsc" placeholder="Mid-ascending (mm)" [formGroup]="formGroupM2" type="number">
+          </reg-input>
+
+          <reg-input controlName="DiamLgstDistalAsc" placeholder="Distal Ascending (mm)" [formGroup]="formGroupM2" type="number">
+          </reg-input>
+
+          <reg-input controlName="DiamLgstZone1" placeholder="Zone 1 (mm)" [formGroup]="formGroupM2" type="number">
+          </reg-input>
+
+          <reg-input controlName="DiamLgstZone2" placeholder="Zone 2 (mm)" [formGroup]="formGroupM2" type="number">
+          </reg-input>
+
+          <reg-input controlName="DiamLgstZone3" placeholder="Zone 3 (mm)" [formGroup]="formGroupM2" type="number">
+          </reg-input>
+
+          <reg-input controlName="DiamLgstZone4" placeholder="Zone 4 (mm)" [formGroup]="formGroupM2" type="number">
+          </reg-input>
+
+          <reg-input controlName="DiamLgstZone5" placeholder="Zone 5 (mm)" [formGroup]="formGroupM2" type="number">
+          </reg-input>
+
+          <reg-input controlName="DiamLgstZone6" placeholder="Zone 6 (mm)" [formGroup]="formGroupM2" type="number">
+          </reg-input>
+
+          <reg-input controlName="DiamLgstZone7" placeholder="Zone 7 (mm)" [formGroup]="formGroupM2" type="number">
+          </reg-input>
+
+          <reg-input controlName="DiamLgstZone8" placeholder="Zone 8 (mm)" [formGroup]="formGroupM2" type="number">
+          </reg-input>
+
+          <reg-input controlName="DiamLgstZone9" placeholder="Zone 9 (mm)" [formGroup]="formGroupM2" type="number">
+          </reg-input>
+
+          <reg-input controlName="DiamLgstZone10" placeholder="Zone 10 (mm)" [formGroup]="formGroupM2" type="number">
+          </reg-input>
+
+          <reg-input controlName="DiamLgstZone11" placeholder="Zone 11 (mm)" [formGroup]="formGroupM2" type="number">
+          </reg-input>
+
+          <h3 id="intervention">Intervention</h3>
+
+          <reg-select controlName="PlanStagHybrid" placeholder="Planned Staged Hybrid" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="ArchProc" placeholder="Open Arch Procedure" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="ArchDisTech" placeholder="Distal Technique" [formGroup]="formGroupM2" [choices]="[
+              'Open',
+              'Clamped'
+            ]"></reg-select>
+
+          <reg-select controlName="ArchDiscSite" placeholder="Distal Site" [formGroup]="formGroupM2" [choices]="[
+              'Ascending Aorta',
+              'Hemiarch',
+              'Zone 1',
+              'Zone 2',
+              'Zone 3',
+              'Zone 4'
+            ]"></reg-select>
+
+          <reg-select controlName="ArchDisExt" placeholder="Distal Extention" [formGroup]="formGroupM2" [choices]="[
+              'Elephant trunk',
+              'Frozen Elephant trunk',
+              'No'
+            ]"></reg-select>
+
+          <reg-select controlName="ArchBranReimp" placeholder="Arch Branch Reimplantation" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="ArchBranInnom" placeholder="Innominate" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="ArchBranRSub" placeholder="Right Subclavian" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="ArchBranRComm" placeholder="Right Common Carotid" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="ArchBranLComm" placeholder="Left Common Carotid" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="ArchBranLSub" placeholder="Left Subclavian" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="ArchBranLVert" placeholder="Left Vertebral" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="ArchBranOth" placeholder="Other" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="DescAortaProc" placeholder="Open Descending Thoracic Aorta or Thoracoabdominal Procedure" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="DescAortaLoc" placeholder="Proximal Location" [formGroup]="formGroupM2" [choices]="[
+            'Reverse Hemiarch',
+            'Zone 0',
+            'Zone 1',
+            'Zone 2',
+            'Zone 3',
+            'Zone 4',
+            'Zone 5',
+            'Zone 6',
+            'Zone 7',
+            'Zone 8',
+            'Zone 9'
+            ]"></reg-select>
+
+          <reg-select controlName="AortaInterReimp" placeholder="Intercostal Reimplantation" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="AortaDisZone" placeholder="Distal Location" [formGroup]="formGroupM2" [choices]="[
+            'Zone 3',
+            'Zone 4',
+            'Zone 5',
+            'Zone 6',
+            'Zone 7',
+            'Zone 8',
+            'Zone 9',
+            'Zone 10',
+            'Zone 11'
+            ]"></reg-select>
+
+          <reg-select controlName="AortaVisceral" placeholder="Visceral vessel intervention" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="AortaViscCel" placeholder="Celiac" [formGroup]="formGroupM2" [choices]="[
+              'Reimplantation',
+              'Branch Graft',
+              'None'
+            ]"></reg-select>
+
+          <reg-select controlName="AortaViscSup" placeholder="Superior mesenteric" [formGroup]="formGroupM2" [choices]="[
+              'Reimplantation',
+              'Branch Graft',
+              'None'
+            ]"></reg-select>
+
+          <reg-select controlName="AortaViscRenR" placeholder="Right Renal" [formGroup]="formGroupM2" [choices]="[
+              'Reimplantation',
+              'Branch Graft',
+              'None'
+            ]"></reg-select>
+
+          <reg-select controlName="AortaViscRenL" placeholder="Left Renal" [formGroup]="formGroupM2" [choices]="[
+              'Reimplantation',
+              'Branch Graft',
+              'None'
+            ]"></reg-select>
+
+          <reg-select controlName="EndovasProc" placeholder="Endovascular Procedure" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="EndovasAccess" placeholder="Access" [formGroup]="formGroupM2" [choices]="[
+            'Femoral',
+            'Iliac',
+            'Abdominal Aorta',
+            'Left Subclavian',
+            'Right Subclavian',
+            'Ascending Aorta',
+            'LV Apex'
+            ]"></reg-select>
+
+          <reg-select controlName="EndovasPercAcc" placeholder="Percutaneous Access" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="EndoProxZone" placeholder="Proximal landing zone" [formGroup]="formGroupM2" [choices]="[
+            'Below STJ',
+            'STJ-midascending',
+            'Midascending to distal ascending',
+            'Zone 1',
+            'Zone 2',
+            'Zone 3',
+            'Zone 4',
+            'Zone 5',
+            'Zone 6',
+            'Zone 7',
+            'Zone 8',
+            'Zone 9',
+            'Zone 10',
+            'Zone 11'
+            ]"></reg-select>
+
+          <reg-select controlName="EndoDistalZone" placeholder="Distal landing zone" [formGroup]="formGroupM2" [choices]="[
+            'Below STJ',
+            'STJ-midascending',
+            'Midascending to distal ascending',
+            'Zone 1',
+            'Zone 2',
+            'Zone 3',
+            'Zone 4',
+            'Zone 5',
+            'Zone 6',
+            'Zone 7',
+            'Zone 8',
+            'Zone 9',
+            'Zone 10',
+            'Zone 11'
+            ]"></reg-select>
+
+          <reg-select controlName="EndovasTAVR" placeholder="TAVR (for combination procedures)" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="EndovasTEVAR" placeholder="Ascending TEV AR" [formGroup]="formGroupM2" [choices]="[
+              'Dedicated IDE',
+              'Off Label Stent',
+              'No'
+            ]"></reg-select>
+
+          <h4 id="archVessel">Arch Vessel management</h4>
+
+          <reg-select controlName="Innominate" placeholder="Innominate" [formGroup]="formGroupM2" [choices]="[
+            'Native Flow',
+            'Endovascular Branch Graft',
+            'Endovascular Parallel Graft',
+            'Extra-anatomic Bypass',
+            'Fenestrated'
+            ]"></reg-select>
+
+          <reg-select controlName="InAortaInnom" placeholder="Aorta-Innominate" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="InAortaCarotid" placeholder="Aorta-right carotid" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="InAortaSubclav" placeholder="Aorta-right subclavian" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="InCaroSubclav" placeholder="Right Carotid-Right subclavian" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="InOther" placeholder="Other" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="LeftCarotid" placeholder="Left Carotid" [formGroup]="formGroupM2" [choices]="[
+            'Native Flow',
+            'Endovascular Branch Graft',
+            'Endovascular Parallel Graft',
+            'Extra-anatomic Bypass',
+            'Fenestrated'
+            ]"></reg-select>
+
+          <reg-select controlName="LTCaroAortaCaro" placeholder="Aorta-left carotid" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="LTCaroInnomCaro" placeholder="Innominate-left carotid" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="LTCaroCarotid" placeholder="Right carotid-Left carotid" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="LTCaroOther" placeholder="Other" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="LeftSubclavian" placeholder="Left Subclavian" [formGroup]="formGroupM2" [choices]="[
+            'Native Flow',
+            'Endovascular Branch Graft',
+            'Endovascular Parallel Graft',
+            'Extra-anatomic Bypass',
+            'Fenestrated'
+            ]"></reg-select>
+
+          <reg-select controlName="LTSubAortaSub" placeholder="Aorta-left subclavian" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="LTSubCarotidSub" placeholder="Left carotid-left subclavian" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="LTSubOther" placeholder="Other" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="OthArchVes" placeholder="Other Arch Vessel(s) Extra-anatomic bypass" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="OthInnomCaro" placeholder="Innominate–carotid" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="OthInnomSub" placeholder="Innominate-subclavian" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="OthSubSub" placeholder="Subclavian-subclavian" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="OthOther" placeholder="Other" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <h4 id="visceralVessel">Visceral Vessel management</h4>
+
+          <reg-select controlName="Celiac" placeholder="Celiac" [formGroup]="formGroupM2" [choices]="[
+            'Native Flow',
+            'Endovascular Branch Graft',
+            'Endovascular Parallel Graft',
+            'Extra-anatomic Bypass',
+            'Fenestrated'
+            ]"></reg-select>
+
+          <reg-select controlName="CeliacAortaCeli" placeholder="Aorta-celiac" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="CeliacIliacCeliac" placeholder="Iliac-celiac" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="CeliacOther" placeholder="Other" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="SupMesenteric" placeholder="Superior mesenteric" [formGroup]="formGroupM2" [choices]="[
+            'Native Flow',
+            'Endovascular Branch Graft',
+            'Endovascular Parallel Graft',
+            'Extra-anatomic Bypass',
+            'Fenestrated'
+            ]"></reg-select>
+
+          <reg-select controlName="SupMesAortaSuMe" placeholder="Aorta-superior mesenteric" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="SupMesIliacSupMe" placeholder="Iliac-superior mesenteric" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="SupMesOther" placeholder="Other" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="RightRenal" placeholder="Right renal" [formGroup]="formGroupM2" [choices]="[
+            'Native Flow',
+            'Endovascular Branch Graft',
+            'Endovascular Parallel Graft',
+            'Extra-anatomic Bypass',
+            'Fenestrated'
+            ]"></reg-select>
+
+          <reg-select controlName="RtRenAortaRtRe" placeholder="Aorta-right renal" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="RtRenIliacRtRen" placeholder="Iliac-right renal" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="RtRenOther" placeholder="Other" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="LeftRenal" placeholder="Left renal" [formGroup]="formGroupM2" [choices]="[
+            'Native Flow',
+            'Endovascular Branch Graft',
+            'Endovascular Parallel Graft',
+            'Extra-anatomic Bypass',
+            'Fenestrated'
+            ]"></reg-select>
+
+          <reg-select controlName="LtRenAortaLtRe" placeholder="Aorta-left renal" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="LtRenIliacLtRen" placeholder="Iliac–left renal" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="LtRenOther" placeholder="Other" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="RightIliac" placeholder="Right Iliac" [formGroup]="formGroupM2" [choices]="[
+            'Native Flow',
+            'Bifurcated Graft',
+            'Extra-anatomic Bypass'
+            ]"></reg-select>
+
+          <reg-select controlName="RtIliacFemFem" placeholder="Femoral-Femoral" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="RtIliacOther" placeholder="Other" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="LeftIliac" placeholder="Left Iliac" [formGroup]="formGroupM2" [choices]="[
+            'Native Flow',
+            'Bifurcated Graft',
+            'Extra-anatomic Bypass'
+            ]"></reg-select>
+
+          <reg-select controlName="LtIliacFemFem" placeholder="Femoral-Femoral" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="LtIliacOther" placeholder="Other" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="IntIliacPres" placeholder="Internal Iliac Preserved" [formGroup]="formGroupM2" [choices]="[
+              'Right Iliac only',
+              'Left Iliac only',
+              'Both',
+              'No'
+            ]"></reg-select>
+
+          <reg-select controlName="OthVisVes" placeholder="Other Visceral Vessel(s) Extra-anatomic Bypass" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="OthVisAortOth" placeholder="Aorta-other" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="OthVisIliacOth" placeholder="Iliac-other" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="OthVisOther" placeholder="Other" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="DisProxTearCov" placeholder="Dissection proximal entry tear covered" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="EndoEndProc" placeholder="Endoleak at end of procedure" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="EndoEndProcTy" placeholder="Type" [formGroup]="formGroupM2" [choices]="[
+              'Ia',
+              'Ib',
+              'II',
+              'III',
+              'IV',
+              'V'
+            ]"></reg-select>
+
+          <reg-select controlName="ConvToOpen" placeholder="Conversion to open" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="ConvToOpenRes" placeholder="Conversion reason" [formGroup]="formGroupM2" [choices]="[
+              'Deployment failure',
+              'Endoleak',
+              'Rupture',
+              'Occlusion/loss of branch'
+            ]"></reg-select>
+
+          <reg-select controlName="IntDisExten" placeholder="Intraop Dissection Extension" [formGroup]="formGroupM2" [choices]="[
+              'None',
+              'Antegrade',
+              'Retrograde',
+              'Both'
+            ]"></reg-select>
+
+          <reg-select controlName="UnintRup" placeholder="Unintentional rupture of dissection septum" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="UnintRupLoc" placeholder="Location" [formGroup]="formGroupM2" [choices]="[
+            'Below STJ',
+            'STJ-midascending',
+            'Midascending to distal ascending',
+            'Zone 1',
+            'Zone 2',
+            'Zone 3',
+            'Zone 4',
+            'Zone 5',
+            'Zone 6',
+            'Zone 7',
+            'Zone 8',
+            'Zone 9',
+            'Zone 10',
+            'Zone 11'
+            ]"></reg-select>
+
+          <reg-select controlName="SpinalDrain" placeholder="Spinal Drain Placement" [formGroup]="formGroupM2" [choices]="[
+              'Pre-aortic procedure',
+              'Post-aortic procedure',
+              'None'
+            ]"></reg-select>
+
+          <reg-select controlName="MotorEvoke" placeholder="IntraOp Motor Evoked Potential (MEP)" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="MotorEvokeAb" placeholder="Documented MEP abnormality" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No', 'Unknown']"></reg-select>
+
+          <reg-select controlName="SomatEvoke" placeholder="IntraOp Somatosensory Evoked Potential (SEP)" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="SomatEvokeAb" placeholder="Documented SEP abnormality" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No', 'Unknown']"></reg-select>
+
+          <reg-select controlName="IntraOpEEG" placeholder="IntraOp Electroencephalogram (EEG)" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="IntraOpEEGAb" placeholder="Documented EEG abnormality" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No', 'Unknown']"></reg-select>
+
+          <reg-select controlName="IntraOpIVUS" placeholder="IntraOp Intravascular Ultrasound (IVUS)" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="TransDoppler" placeholder="IntraOp Transcutaneous Doppler" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="IntraOpAng" placeholder="Intraoperative Angiogram" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-input controlName="IntraOpAngVol" placeholder="Volume of contrast (ml)" [formGroup]="formGroupM2" type="text">
+          </reg-input>
+
+          <reg-input controlName="IntraOpAngFlTm" placeholder="Fluoroscopy time (min)" [formGroup]="formGroupM2" type="text">
+          </reg-input>
+
+          <h4 id="endovasDevices">Devices</h4>
+
+          <reg-select controlName="ADevIns" placeholder="Device(s) Inserted" [formGroup]="formGroupM2"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <h4 id="endoDevice1">Device - 1</h4>
+
+          <reg-select controlName="ADevLoc01" placeholder="Location" [formGroup]="formGroupM2" [choices]="[
+            'Below sinotubular junction',
+            'Sinotubular junction to mid ascending',
+            'Mid ascending to distal ascending',
+            'Zone 1 (between innominate and left carotid)',
+            'Zone 2 (between left carotid and left subclavian)',
+            'Zone 3 (first 2 cm. distal to left subclavian)',
+            'Zone 4 (end of zone 3 to mid descending aorta ~ T6)',
+            'Zone 5 (mid descending aorta to celiac)',
+            'Zone 6 (celiac to superior mesenteric)',
+            'Zone 7 (superior mesenteric to renals)',
+            'Zone 8 (renal to infra-renal abdominal aorta)',
+            'Zone 9 (infrarenal abdominal aorta)',
+            'Zone 10 (common iliac)',
+            'Zone 11 (external iliacs)'
+            ]"></reg-select>
+
+          <reg-select controlName="ADevDelMeth01" placeholder="Delivery Method" [formGroup]="formGroupM2" [choices]="[
+              'Open',
+              'Endovascular'
+            ]"></reg-select>
+
+          <reg-select controlName="ADevOut01" placeholder="Outcome" [formGroup]="formGroupM2" [choices]="[
+              'Maldeployed',
+              'Deployed and removed',
+              'Successfully deployed'
+            ]"></reg-select>
+
+          <reg-input controlName="ADevModel01" placeholder="Model Number" [formGroup]="formGroupM2" type="text">
+          </reg-input>
+
+          <reg-input controlName="ADevUDI01" placeholder="UDI (not serial number)" [formGroup]="formGroupM2" type="text">
+          </reg-input>
+
+          <div *ngFor="let device of M2_device; let i = index">
+            <h4 [id]="'endoDevice' + (i+2)">{{ 'Device - ' + (i+2) }}</h4>
+
+            <reg-select [controlName]="device[0]" placeholder="Location" [formGroup]="formGroupM2" [choices]="[
+              'No additional devices inserted',
+              'Below sinotubular junction',
+              'Sinotubular junction to mid ascending',
+              'Mid ascending to distal ascending',
+              'Zone 1 (between innominate and left carotid)',
+              'Zone 2 (between left carotid and left subclavian)',
+              'Zone 3 (first 2 cm. distal to left subclavian)',
+              'Zone 4 (end of zone 3 to mid descending aorta ~ T6)',
+              'Zone 5 (mid descending aorta to celiac)',
+              'Zone 6 (celiac to superior mesenteric)',
+              'Zone 7 (superior mesenteric to renals)',
+              'Zone 8 (renal to infra-renal abdominal aorta)',
+              'Zone 9 (infrarenal abdominal aorta)',
+              'Zone 10 (common iliac)',
+              'Zone 11 (external iliacs)'
+              ]"></reg-select>
+
+            <reg-select [controlName]="device[1]" placeholder="Delivery Method" [formGroup]="formGroupM2" [choices]="[
+                'Open',
+                'Endovascular'
+              ]"></reg-select>
+
+            <reg-select [controlName]="device[2]" placeholder="Outcome" [formGroup]="formGroupM2" [choices]="[
+                'Maldeployed',
+                'Deployed and removed',
+                'Successfully deployed'
+              ]"></reg-select>
+
+            <reg-input [controlName]="device[3]" placeholder="Model Number" [formGroup]="formGroupM2" type="text">
+            </reg-input>
+
+            <reg-input [controlName]="device[4]" placeholder="UDI (not serial number)" [formGroup]="formGroupM2" type="text">
+            </reg-input>
+
+          </div>
+
+        </form>
+      </div>
+    </section>
+
+    <section class="section-wrapper" scrollSpyElement id="sectionM3">
+      <div class="section-title">
+        <span>M.3. Congenital Defect Repair (other than ASD, VSD or Bicuspid valve)</span>
+        <span>{{ formCompletion('M3') }}</span>
+      </div>
+      <div class="section-body">
+        <form [formGroup]="formGroupM3" #formDirectiveM3="ngForm">
+
+          <h4 id="congenDiag">Congenital Diagnoses: Select up to three most significant diagnoses</h4>
+
+          <reg-input controlName="OCarCongDiag1" placeholder="Diagnosis 1" [formGroup]="formGroupM3" type="number">
+          </reg-input>
+
+          <reg-input controlName="OCarCongDiag2" placeholder="Diagnosis 2" [formGroup]="formGroupM3" type="number">
+          </reg-input>
+
+          <reg-input controlName="OCarCongDiag3" placeholder="Diagnosis 3" [formGroup]="formGroupM3" type="number">
+          </reg-input>
+
+          <h4 id="congenProc">Congenital Procedures: Select up to three most significant diagnoses</h4>
+
+          <reg-input controlName="OCarCongProc1" placeholder="Procedure 1" [formGroup]="formGroupM3" type="number">
+          </reg-input>
+
+          <reg-input controlName="OCarCongProc2" placeholder="Procedure 2" [formGroup]="formGroupM3" type="number">
+          </reg-input>
+
+          <reg-input controlName="OCarCongProc3" placeholder="Procedure 3" [formGroup]="formGroupM3" type="number">
+          </reg-input>
+
+
+
+        </form>
+      </div>
+    </section>
+
+    <section class="section-wrapper" scrollSpyElement id="sectionN">
+      <div class="section-title">
+        <span>N. Other Non-Cardiac Procedures</span>
+        <span>{{ formCompletion('N') }}</span>
+      </div>
+      <div class="section-body">
+        <form [formGroup]="formGroupN" #formDirectiveN="ngForm">
+
+          <reg-select controlName="ONCCarEn" placeholder="Carotid Endarterectomy" [formGroup]="formGroupN" [choices]="[
+              'Yes, planned',
+              'Yes, unplanned due to surgical complication',
+              'Yes, unplanned due to unsuspected disease or anatomy',
+              'No'
+            ]"></reg-select>
+
+          <reg-select controlName="ONCOVasc" placeholder="Other Vascular" [formGroup]="formGroupN" [choices]="[
+              'Yes, planned',
+              'Yes, unplanned due to surgical complication',
+              'Yes, unplanned due to unsuspected disease or anatomy',
+              'No'
+            ]"></reg-select>
+
+          <reg-select controlName="ONCOThor" placeholder="Other Thoracic" [formGroup]="formGroupN" [choices]="[
+              'Yes, planned',
+              'Yes, unplanned due to surgical complication',
+              'Yes, unplanned due to unsuspected disease or anatomy',
+              'No'
+            ]"></reg-select>
+
+          <reg-select controlName="ONCOther" placeholder="Other" [formGroup]="formGroupN" [choices]="[
+              'Yes, planned',
+              'Yes, unplanned due to surgical complication',
+              'Yes, unplanned due to unsuspected disease or anatomy',
+              'No'
+            ]"></reg-select>
+
+
+
+        </form>
+      </div>
+    </section>
+
+    <section class="section-wrapper" scrollSpyElement id="sectionO">
+      <div class="section-title">
+        <span>O. Post-Operative</span>
+        <span>{{ formCompletion('O') }}</span>
+      </div>
+      <div class="section-body">
+        <form [formGroup]="formGroupO" #formDirectiveO="ngForm">
+
+          <reg-input controlName="PostOpPeakGlu" placeholder="Peak Glucose within18-24 hours of anesthesia end time" [formGroup]="formGroupO" type="number">
+          </reg-input>
+
+          <reg-input controlName="PostCreat" placeholder="Postoperative Creatinine Level" [formGroup]="formGroupO" type="number">
+          </reg-input>
+
+          <reg-input controlName="PostopHemoglobin" placeholder="Discharge Hemoglobin" [formGroup]="formGroupO" type="number">
+          </reg-input>
+
+          <reg-input controlName="PostopHct" placeholder="Discharge Hematocrit" [formGroup]="formGroupO" type="number">
+          </reg-input>
+
+          <reg-select controlName="BldProd" placeholder="Blood Products Used Postoperatively" [formGroup]="formGroupO"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-input controlName="BdRBCU" placeholder="Red Blood Cell Units" [formGroup]="formGroupO" type="number">
+          </reg-input>
+
+          <reg-input controlName="BdFFPU" placeholder="Fresh Frozen Plasma Units" [formGroup]="formGroupO" type="number">
+          </reg-input>
+
+          <reg-input controlName="BdCryoU" placeholder="Cryoprecipitate Units" [formGroup]="formGroupO" type="number">
+          </reg-input>
+
+          <reg-input controlName="BdPlatU" placeholder="Platelet Units" [formGroup]="formGroupO" type="number">
+          </reg-input>
+
+          <reg-select controlName="ExtubOR" placeholder="Extubated in OR" [formGroup]="formGroupO"
+            [choices]="['Yes', 'No', 'NA']"></reg-select>
+
+          <reg-select controlName="PostopIntub" placeholder="Re-intubated /or intubated Post Op During Hospital Stay" [formGroup]="formGroupO"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-input controlName="VentHrsA" placeholder="Additional Hours Ventilated" [formGroup]="formGroupO" type="number">
+          </reg-input>
+
+          <reg-input controlName="VentHrsTot" placeholder="Total post-operative ventilation hours" [formGroup]="formGroupO" type="number">
+          </reg-input>
+          <!-- System Calculation -->
+
+          <reg-select controlName="ICUVisit" placeholder="ICU Visit" [formGroup]="formGroupO"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-input controlName="ICUInHrs" placeholder="Initial ICU Hours" [formGroup]="formGroupO" type="number">
+          </reg-input>
+
+          <reg-select controlName="ICUReadm" placeholder="Readmission to ICU" [formGroup]="formGroupO"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-input controlName="ICUAdHrs" placeholder="Additional ICU Hours" [formGroup]="formGroupO" type="number">
+          </reg-input>
+
+          <reg-select controlName="POpTTEch" placeholder="Post Op Echo Performed to evaluate valve(s)" [formGroup]="formGroupO"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="POpTTAR" placeholder="Level aortic insufficiency found" [formGroup]="formGroupO" [choices]="[
+              'None',
+              'Trivial/Trace',
+              'Mild',
+              'Moderate',
+              'Severe',
+              'Not Documented'
+            ]"></reg-select>
+
+          <reg-select controlName="POpAortParaLk" placeholder="Aortic Paravalvular leak" [formGroup]="formGroupO" [choices]="[
+              'None',
+              'Trivial/Trace',
+              'Mild',
+              'Moderate',
+              'Severe',
+              'Not Documented'
+            ]"></reg-select>
+
+          <reg-select controlName="POpTTMR" placeholder="Level mitral insufficiency found" [formGroup]="formGroupO" [choices]="[
+              'None',
+              'Trivial/Trace',
+              'Mild',
+              'Moderate',
+              'Severe',
+              'Not Documented'
+            ]"></reg-select>
+
+          <reg-select controlName="POpMitParaLk" placeholder="Mitral Paravalvular leak" [formGroup]="formGroupO" [choices]="[
+              'None',
+              'Trivial/Trace',
+              'Mild',
+              'Moderate',
+              'Severe',
+              'Not Documented'
+            ]"></reg-select>
+
+          <reg-select controlName="POpTTTR" placeholder="Level tricuspid insufficiency found" [formGroup]="formGroupO" [choices]="[
+              'None',
+              'Trivial/Trace',
+              'Mild',
+              'Moderate',
+              'Severe',
+              'Not Documented'
+            ]"></reg-select>
+
+          <reg-select controlName="POpTTPu" placeholder="Level pulmonic insufficiency found" [formGroup]="formGroupO" [choices]="[
+              'None',
+              'Trivial/Trace',
+              'Mild',
+              'Moderate',
+              'Severe',
+              'Not Documented'
+            ]"></reg-select>
+
+          <reg-select controlName="POpEFD" placeholder="Post Op Ejection Fraction" [formGroup]="formGroupO"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-input controlName="POpEF" placeholder="Post Op Ejection Fraction (%)" [formGroup]="formGroupO" type="number">
+          </reg-input>
+
+          <reg-select controlName="POpEnzDrawn" placeholder="Cardiac Enzymes (biomarkers) Drawn" [formGroup]="formGroupO"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-input controlName="POpPkCKMB" placeholder="Peak CKMB" [formGroup]="formGroupO" type="number">
+          </reg-input>
+
+          <reg-input controlName="POpPkTrI" placeholder="Peak Troponin I" [formGroup]="formGroupO" type="number">
+          </reg-input>
+
+          <reg-input controlName="POpPkTrT" placeholder="Peak Troponin T" [formGroup]="formGroupO" type="number">
+          </reg-input>
+
+          <reg-select controlName="POpEKG" placeholder="12-Lead EKG Findings" [formGroup]="formGroupO" [choices]="[
+            'Not Performed',
+            'No ischemic changes',
+            'New ST changes',
+            'New Pathological Q-Wave or LBBB',
+            'New RBBB',
+            'New AV Conduction Block',
+            'New STEMI',
+            'Other',
+            'NA (no pre-op EKG for comparison, transplant)'
+            ]"></reg-select>
+
+        </form>
+      </div>
+    </section>
+
+    <section class="section-wrapper" scrollSpyElement id="sectionP">
+      <div class="section-title">
+        <span>P. Postoperative Events</span>
+        <span>{{ formCompletion('P') }}</span>
+      </div>
+      <div class="section-body">
+        <form [formGroup]="formGroupP" #formDirectiveP="ngForm">
+
+          <reg-select controlName="SurSInf" placeholder="Surgical Site Infection within 30 days of operation" [formGroup]="formGroupP"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="CSternalSupInf" placeholder="Sternal Superficial Wound Infection" [formGroup]="formGroupP" [choices]="[
+              'Yes, within 30 days of procedure',
+              'Yes, >30 days after procedure but during hosp. for surgery',
+              'No'
+            ]"></reg-select>
+
+          <reg-select controlName="DeepSternInf" placeholder="Deep Sternal Infection/ Mediastinitis" [formGroup]="formGroupP" [choices]="[
+              'Yes, within 30 days of procedure',
+              'Yes, >30 days after procedure but during hosp. for surgery',
+              'No'
+            ]"></reg-select>
+
+          <reg-datepicker controlName="DeepSternInfDt" placeholder="Diagnosis Date" [formGroup]="formGroupP">
+          </reg-datepicker>
+
+          <reg-select controlName="CIThor" placeholder="Thoracotomy" [formGroup]="formGroupP" [choices]="[
+              'Yes, within 30 days of procedure',
+              'Yes, >30 days after procedure but during hosp. for surgery',
+              'No'
+            ]"></reg-select>
+
+          <reg-select controlName="ConduitHarv" placeholder="Conduit Harvest" [formGroup]="formGroupP" [choices]="[
+              'Yes, within 30 days of procedure',
+              'Yes, >30 days after procedure but during hosp. for surgery',
+              'No'
+            ]"></reg-select>
+
+          <reg-select controlName="CanSite" placeholder="Cannulation Site" [formGroup]="formGroupP" [choices]="[
+              'Yes, within 30 days of procedure',
+              'Yes, >30 days after procedure but during hosp. for surgery',
+              'No'
+            ]"></reg-select>
+
+          <reg-select controlName="WoundInter" placeholder="Wound Intervention/Procedure" [formGroup]="formGroupP"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="WoundIntOpen" placeholder="Wound Intervention – Open with Packing/Irrigation" [formGroup]="formGroupP" [choices]="[
+              'Yes, primary incision',
+              'Yes, secondary incision',
+              'Both',
+              'No'
+            ]"></reg-select>
+
+          <reg-select controlName="WoundIntVac" placeholder="Wound Intervention – Wound Vac" [formGroup]="formGroupP" [choices]="[
+              'Yes, primary incision',
+              'Yes, secondary incision',
+              'Both',
+              'No'
+            ]"></reg-select>
+
+          <reg-select controlName="WoundIntMuscle" placeholder="Secondary Procedure Muscle Flap" [formGroup]="formGroupP" [choices]="[
+              'Yes, primary incision',
+              'Yes, secondary incision',
+              'Both',
+              'No'
+            ]"></reg-select>
+
+          <reg-select controlName="WoundIntOmental" placeholder="Secondary Procedure Omental Flap" [formGroup]="formGroupP"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="Complics" placeholder="Other In Hospital Postoperative Event Occurred" [formGroup]="formGroupP"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <h4 id="compliOperative">Operative</h4>
+
+          <reg-select controlName="COpReBld" placeholder="ReOp for Bleeding/Tamponade" [formGroup]="formGroupP"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="COpReBldTim" placeholder="Bleed Timing" [formGroup]="formGroupP" [choices]="[
+              'Aute',
+              'Late'
+            ]"></reg-select>
+
+          <reg-select controlName="COpReVlv" placeholder="ReOp for Valvular Dysfunction" [formGroup]="formGroupP" [choices]="[
+              'Yes, surgical',
+              'Yes, transcatheter',
+              'No'
+            ]"></reg-select>
+
+          <reg-select controlName="CReintMI" placeholder="Reintervention for Myocardial Ischemia" [formGroup]="formGroupP"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="CReintMIVes" placeholder="Vessel" [formGroup]="formGroupP" [choices]="[
+              'Native coronary',
+              'Graft',
+              'Both'
+            ]"></reg-select>
+
+          <reg-select controlName="CReintMIIntTy" placeholder="Intervention Type" [formGroup]="formGroupP" [choices]="[
+              'Surgery',
+              'PCI',
+              'Both'
+            ]"></reg-select>
+
+          <reg-select controlName="CAortReint" placeholder="Aortic Reintervention" [formGroup]="formGroupP"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="CAortReintTy" placeholder="Type" [formGroup]="formGroupP" [choices]="[
+              'Open',
+              'Endovascular'
+            ]"></reg-select>
+
+          <reg-select controlName="COpReOth" placeholder="ReOp for Other Cardiac Reasons" [formGroup]="formGroupP"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="COpReNon" placeholder="Returned to the OR for Other Non-Cardiac Reasons" [formGroup]="formGroupP"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="COpPlndDelay" placeholder="Open chest with planned delayed sternal closure" [formGroup]="formGroupP"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="CSternal" placeholder="Sternotomy Issue" [formGroup]="formGroupP"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="CSternalDehis" placeholder="Sternal instability/dehiscence (sterile)" [formGroup]="formGroupP"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <h4 id="compliInfection">Infection</h4>
+
+          <reg-select controlName="CSepsis" placeholder="Sepsis" [formGroup]="formGroupP"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="CSepsisPBC" placeholder="Positive Blood Cultures" [formGroup]="formGroupP"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <h4 id="compliNeuroCentral">Neurologic, Central</h4>
+
+          <reg-select controlName="CNStrokP" placeholder="Postoperative Stroke" [formGroup]="formGroupP" [choices]="[
+              'Yes, hemorrhagic',
+              'Yes, ischemic',
+              'Yes, undetermined type',
+              'No'
+            ]"></reg-select>
+
+          <reg-select controlName="CNStrokTTIA" placeholder="Transient Ischemic Attack (TIA)" [formGroup]="formGroupP"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="CNEnceph" placeholder="Encephalopathy" [formGroup]="formGroupP" [choices]="[
+              'None',
+              'Anoxic',
+              'Drug',
+              'Metabolic',
+              'Mixed',
+              'Unknown'
+            ]"></reg-select>
+
+          <reg-select controlName="CNComa" placeholder="Coma/unresponsive state (not stroke)" [formGroup]="formGroupP"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <h4 id="compliNeuroPeripheral">Neurologic, Peripheral</h4>
+
+          <reg-select controlName="CNParal" placeholder="Lower Extremity Paralysis" [formGroup]="formGroupP"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="CNParalTy" placeholder="Paralysis Type" [formGroup]="formGroupP" [choices]="[
+              'Transient',
+              'Permanent'
+            ]"></reg-select>
+
+          <reg-select controlName="CNParesis" placeholder="Paresis" [formGroup]="formGroupP"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="CNParesisTy" placeholder="Paresis Type" [formGroup]="formGroupP" [choices]="[
+              'Transient',
+              'Permanent'
+            ]"></reg-select>
+
+          <reg-select controlName="PhrenNrvInj" placeholder="Phrenic Nerve Injury" [formGroup]="formGroupP"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="RecLarynNrvInj" placeholder="Recurrent Laryngeal Nerve Injury" [formGroup]="formGroupP"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <h4 id="compliPulmonary">Pulmonary</h4>
+
+          <reg-select controlName="CPVntLng" placeholder="Prolonged Ventilation" [formGroup]="formGroupP"
+            [choices]="['Yes', 'No']"></reg-select>
+          <h6 id="desCPVntLng">(OR exit time until initial extubation, plus any additional reintubation hours)</h6>
+
+          <reg-select controlName="CPPneum" placeholder="Pneumonia" [formGroup]="formGroupP"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="CVTE" placeholder="Venous Thromboembolism – VTE" [formGroup]="formGroupP"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="PulmEmb" placeholder="Pulmonary Thromboembolism" [formGroup]="formGroupP"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="DVT" placeholder="Deep Venous Thrombosis" [formGroup]="formGroupP"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="CPlEff" placeholder="Pleural Effusion Requiring Drainage" [formGroup]="formGroupP"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="PostOpPneumo" placeholder="Pneumothorax Requiring Intervention" [formGroup]="formGroupP"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <h4 id="compliRenal">Renal</h4>
+
+          <reg-select controlName="CRenFail" placeholder="Renal Failure" [formGroup]="formGroupP"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="CRenDial" placeholder="Dialysis (Newly Required)" [formGroup]="formGroupP"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="DialDur" placeholder="Required after Hospital Discharge" [formGroup]="formGroupP"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="DialStat" placeholder="Duration" [formGroup]="formGroupP" [choices]="[
+              'Temporary',
+              'Permanent',
+              'Unknown'
+            ]"></reg-select>
+
+          <reg-select controlName="CUltraFil" placeholder="Ultra-Filtration Required" [formGroup]="formGroupP"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <h4 id="compliVascular">Vascular</h4>
+
+          <reg-select controlName="CVaIlFem" placeholder="Iliac/Femoral Dissection" [formGroup]="formGroupP"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="CVaLbIsc" placeholder="Acute Limb Ischemia" [formGroup]="formGroupP"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <h4 id="compliMAD">Mechanical assist device</h4>
+
+          <reg-select controlName="CMAD" placeholder="Mechanical assist device related complication" [formGroup]="formGroupP"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="CMADCanIns" placeholder="Cannula/Insertion site issue" [formGroup]="formGroupP"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="CMADHem" placeholder="Hemorrhagic" [formGroup]="formGroupP"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="CMADThromEm" placeholder="Thrombotic/Embolic" [formGroup]="formGroupP"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="CMADHemolytic" placeholder="Hemolytic" [formGroup]="formGroupP"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="CMADInf" placeholder="Infection" [formGroup]="formGroupP"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="CMADOther" placeholder="Other mechanical assist device related complication" [formGroup]="formGroupP"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <h4 id="compliOther">Other</h4>
+
+          <reg-select controlName="CRhythmDis" placeholder="RhythmDisturbanceRequiringPermanentDevice" [formGroup]="formGroupP" [choices]="[
+              'Pacemaker',
+              'ICD',
+              'Pacemaker/ICD',
+              'Other',
+              'None'
+            ]"></reg-select>
+
+          <reg-select controlName="COtArrst" placeholder="Cardiac Arrest" [formGroup]="formGroupP"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="COtAortEndo" placeholder="Post Op Aortic Endoleak" [formGroup]="formGroupP"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="COtAortEndoTy" placeholder="Type" [formGroup]="formGroupP" [choices]="[
+              'Ia',
+              'Ib',
+              'II',
+              'III',
+              'IV',
+              'V'
+            ]"></reg-select>
+
+          <reg-select controlName="COtAortRupt" placeholder="Aortic Rupture" [formGroup]="formGroupP"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="CVaAoDis" placeholder="Aortic Dissection" [formGroup]="formGroupP"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="CVaAoDisTy" placeholder="Type" [formGroup]="formGroupP" [choices]="[
+              'Antegrade',
+              'Retrograde',
+              'Both'
+            ]"></reg-select>
+
+          <reg-select controlName="COtAortSide" placeholder="Aortic Side Branch malperfusion" [formGroup]="formGroupP"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="COtAortTear" placeholder="Aortic stent graft induced entry tear" [formGroup]="formGroupP"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="COtCoag" placeholder="Anticoagulant Event" [formGroup]="formGroupP"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="COtTamp" placeholder="Pericardiocentesis" [formGroup]="formGroupP"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="COtGI" placeholder="Gastro-Intestinal Event" [formGroup]="formGroupP"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="COtLiver" placeholder="Liver Dysfunction/ Failure" [formGroup]="formGroupP"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="COtMSF" placeholder="Multi-System Failure" [formGroup]="formGroupP"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="COtAFib" placeholder="Atrial Fibrillation" [formGroup]="formGroupP"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="COtOther" placeholder="Other" [formGroup]="formGroupP"
+            [choices]="['Yes', 'No']"></reg-select>
+
+
+
+        </form>
+      </div>
+    </section>
+
+    <section class="section-wrapper" scrollSpyElement id="sectionQ">
+      <div class="section-title">
+        <span>Q. Discharge / Mortality</span>
+        <span>{{ formCompletion('Q') }}</span>
+      </div>
+      <div class="section-body">
+        <form [formGroup]="formGroupQ" #formDirectiveQ="ngForm">
+
+          <reg-datepicker controlName="LFUDate" placeholder="Date of Last Follow-up" [formGroup]="formGroupQ">
+          </reg-datepicker>
+
+          <reg-select controlName="Mt30Stat" placeholder="Status at 30 days After Surgery" [formGroup]="formGroupQ" [choices]="[
+              'Alive',
+              'Dead',
+              'Unknown'
+            ]"></reg-select>
+
+          <reg-select controlName="Mt30StatMeth" placeholder="Primary method used to verify 30-day status" [formGroup]="formGroupQ" [choices]="[
+            'Phone call to patient or family',
+            'Letter from medical provider',
+            'Medical record (evidence of life or death)',
+            'Office visit >= 30 days after procedure',
+            'Social Security Death Master File /NDI',
+            'Other'
+            ]"></reg-select>
+
+          <reg-select controlName="DischMortStat" placeholder="Discharge/Mortality status" [formGroup]="formGroupQ" [choices]="[
+            'In hospital, alive',
+            'Died in hospital',
+            'Discharged alive, last known status is alive',
+            'Discharged alive, died after discharge'
+            ]"></reg-select>
+
+          <reg-datepicker controlName="DischDt" placeholder="Discharge Date" [formGroup]="formGroupQ">
+          </reg-datepicker>
+
+          <reg-select controlName="DisLoctn" placeholder="Discharge Location" [formGroup]="formGroupQ" [choices]="[
+            'Home',
+            'Extended Care/Transitional Care Unit/Rehab',
+            'Other Acute Care Hospital',
+            'Nursing Home',
+            'Hospice',
+            'Left AMA',
+            'Other'
+            ]"></reg-select>
+
+          <reg-select controlName="CardRef" placeholder="Cardiac Rehabilitation Referral" [formGroup]="formGroupQ" [choices]="[
+              'Yes',
+              'No',
+              'Not Applicable'
+            ]"></reg-select>
+
+          <reg-select controlName="SmokCoun" placeholder="Smoking Cessation Counseling" [formGroup]="formGroupQ" [choices]="[
+              'Yes',
+              'No',
+              'Not Applicable'
+            ]"></reg-select>
+
+          <h4 id="medPresDC">Medications Prescribed at Discharge</h4>
+
+          <h5 id="antiplateletDC">Antiplatelet</h5>
+
+          <reg-select controlName="DCASA" placeholder="Aspirin" [formGroup]="formGroupQ"
+            [choices]="['Yes', 'No', 'Contraindicated']"></reg-select>
+
+          <reg-select controlName="DCADP" placeholder="ADP Inhibitor" [formGroup]="formGroupQ"
+            [choices]="['Yes', 'No', 'Contraindicated']"></reg-select>
+
+          <reg-select controlName="DCOthAntiplat" placeholder="Other Antiplatelet" [formGroup]="formGroupQ"
+            [choices]="['Yes', 'No', 'Contraindicated']"></reg-select>
+
+          <h5 id="anticoagulantDC">Anticoagulant</h5>
+
+          <reg-select controlName="DCDirThromIn" placeholder="Thrombin Inhibitors" [formGroup]="formGroupQ"
+            [choices]="['Yes', 'No', 'Contraindicated']"></reg-select>
+
+          <reg-select controlName="DCCoum" placeholder="Warfarin (Coumadin)" [formGroup]="formGroupQ"
+            [choices]="['Yes', 'No', 'Contraindicated']"></reg-select>
+
+          <reg-select controlName="DCFactorXa" placeholder="Factor Xa inhibitors" [formGroup]="formGroupQ"
+            [choices]="['Yes', 'No', 'Contraindicated']"></reg-select>
+
+          <reg-select controlName="DCNovOrAnti" placeholder="Novel Oral Anticoagulant" [formGroup]="formGroupQ"
+            [choices]="['Yes', 'No', 'Contraindicated']"></reg-select>
+
+          <reg-select controlName="DCOthAnticoag" placeholder="Other Anticoagulant" [formGroup]="formGroupQ"
+            [choices]="['Yes', 'No', 'Contraindicated']"></reg-select>
+
+          <reg-select controlName="DCACE" placeholder="ACE or ARB" [formGroup]="formGroupQ"
+            [choices]="['Yes', 'No', 'Contraindicated', 'Not Indicated (no CHF or EF > 40%)']"></reg-select>
+
+          <reg-select controlName="DCAmiodarone" placeholder="Amiodarone" [formGroup]="formGroupQ"
+            [choices]="['Yes', 'No', 'Contraindicated']"></reg-select>
+
+          <reg-select controlName="DCBeta" placeholder="Beta Blocker" [formGroup]="formGroupQ"
+            [choices]="['Yes', 'No', 'Contraindicated']"></reg-select>
+
+          <reg-select controlName="DCLipLowStat" placeholder="Lipid Lowering - Statin" [formGroup]="formGroupQ"
+            [choices]="['Yes', 'No', 'Contraindicated']"></reg-select>
+
+          <reg-select controlName="DCLipLowNonStat" placeholder="Lipid Lowering - Other" [formGroup]="formGroupQ"
+            [choices]="['Yes', 'No', 'Contraindicated']"></reg-select>
+
+          <reg-datepicker controlName="MtDate" placeholder="Mortality - Date" [formGroup]="formGroupQ">
+          </reg-datepicker>
+
+          <reg-select controlName="MtCause" placeholder="Primary Cause of Death" [formGroup]="formGroupQ" [choices]="[
+            'Cardiac',
+            'Neurologic',
+            'Renal',
+            'Vascular',
+            'Infection',
+            'Pulmonary',
+            'Unknown',
+            'Other'
+            ]"></reg-select>
+
+          <reg-select controlName="InHospDthLoc" placeholder="In-Hospital death location" [formGroup]="formGroupQ" [choices]="[
+            'OR During Initial Surgery',
+            'OR during reoperation',
+            'In Hospital (Other than OR)'
+            ]"></reg-select>
+
+          <reg-select controlName="MtOpD" placeholder="Operative Death" [formGroup]="formGroupQ"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="PostDisDthLoc" placeholder="Post Discharge death location" [formGroup]="formGroupQ" [choices]="[
+            'Home',
+            'Extended Care Facility',
+            'Hospice',
+            'Acute Rehabilitation',
+            'Hospital during readmission',
+            'Other',
+            'Unknown'
+            ]"></reg-select>
+
+        </form>
+      </div>
+    </section>
+
+    <section class="section-wrapper" scrollSpyElement id="sectionR">
+      <div class="section-title">
+        <span>R. Readmission</span>
+        <span>{{ formCompletion('R') }}</span>
+      </div>
+      <div class="section-body">
+        <form [formGroup]="formGroupR" #formDirectiveR="ngForm">
+
+          <reg-select controlName="Readmit" placeholder="Readmit" [formGroup]="formGroupR"
+            [choices]="['Yes', 'No', 'Unknown']"></reg-select>
+
+          <reg-datepicker controlName="ReadmitDt" placeholder="Readmit Date" [formGroup]="formGroupR">
+          </reg-datepicker>
+
+          <reg-select controlName="ReadmRsn" placeholder="Readmit Primary Reason" [formGroup]="formGroupR" [choices]="[
+            'Angina',
+            'Anticoagulation Complication - Pharmacological',
+            'Anticoagulation Complication – Valvular',
+            'Aortic Complication',
+            'Arrhythmia or Heart Block',
+            'Blood Pressure (hyper or hypotension)',
+            'Chest pain, noncardiac',
+            'Congestive Heart Failure',
+            'Coronary Artery/Graft Dysfunction',
+            'Depression/psychiatric issue',
+            'DVT',
+            'Electrolyte imbalance',
+            'Endocarditis',
+            'Failure to thrive',
+            'GI issue',
+            'Infection, Conduit Harvest Site',
+            'Infection, Deep Sternum / Mediastinitis',
+            'Mental status changes',
+            'Myocardial Infarction',
+            'PE',
+            'Pericardial Effusion and/or Tamponade',
+            'Pericarditis/Post Cardiotomy Syndrome',
+            'Pleural effusion requiring intervention',
+            'Pneumonia',
+            'Renal Failure',
+            'Renal Insufficiency',
+            'Respiratory complication, Other',
+            'Sepsis',
+            'Stroke',
+            'TIA',
+            'Transfusion',
+            'Transplant Rejection',
+            'VAD Complication',
+            'Valve Dysfunction',
+            'Vascular Complication, acute',
+            'Wound , other (drainage, cellulitis)',
+            'Other – Related Readmission',
+            'Other – Nonrelated Readmission',
+            'Other – Planned Readmission',
+            'Unknown'
+            ]"></reg-select>
+
+          <reg-select controlName="ReadmPro" placeholder="Readmit Primary Procedure" [formGroup]="formGroupR" [choices]="[
+            'No Procedure Performed',
+            'Cath lab for Valve Intervention',
+            'Cath lab for Coronary Intervention (PCI)',
+            'Dialysis',
+            'OR for Bleeding',
+            'OR for Coronary Artery Intervention',
+            'OR for Sternal Debridement / Muscle Flap',
+            'OR for Valve Intervention',
+            'OR for Vascular Procedure',
+            'OR for Aorta Intervention',
+            'Pacemaker Insertion / AICD',
+            'Pericardiotomy / Pericardiocentesis',
+            'Planned noncardiac procedure',
+            'Thoracentesis/ Chest tube insertion',
+            'Wound vac',
+            'Other Procedure',
+            'Unknown'
+            ]"></reg-select>
+
+          <reg-select controlName="ReadmAortIntTy" placeholder="Type" [formGroup]="formGroupR" [choices]="[
+              'Open',
+              'Endovascular'
+            ]"></reg-select>
+
+          <reg-select controlName="ReadmAortIntInd" placeholder="Indication" [formGroup]="formGroupR" [choices]="[
+            'Rupture',
+            'Endoleak',
+            'Infection',
+            'Dissection',
+            'Expansion',
+            'Loss of side branch patency',
+            'Other'
+            ]"></reg-select>
+
+        </form>
+      </div>
+    </section>
+
+    <section class="section-wrapper" scrollSpyElement id="sectionS">
+      <div class="section-title">
+        <span>S. Anesthesiology</span>
+        <span>{{ formCompletion('S') }}</span>
+      </div>
+      <div class="section-body">
+        <form [formGroup]="formGroupS" #formDirectiveS="ngForm">
+
+          <reg-input controlName="PrimAnesName" placeholder="Primary Anesthesiologist Name" [formGroup]="formGroupS" type="text">
+          </reg-input>
+
+          <reg-select controlName="AnesCareTeamMod" placeholder="Anesthesiology Care Team Model" [formGroup]="formGroupS" [choices]="[
+            'Anesthesiologist working alone',
+            'Attending anesthesiologist teaching/medically directing fellow',
+            'Attending anesthesiologist teaching/medically directing house staff',
+            'Attending anesthesiologist medically directing CRNA (1:4 ratio or less)',
+            'Attending anesthesiologist medically directing CRNA (1:5 ratio or greater)',
+            'Surgeon medically directing CRNA',
+            'CRNA practicing independently'
+            ]"></reg-select>
+
+          <reg-select controlName="PainScorePre" placeholder="Pain Score Baseline" [formGroup]="formGroupS" [choices]="[
+            '0',
+            '1',
+            '2',
+            '3',
+            '4',
+            '5',
+            '6',
+            '7',
+            '8',
+            '9',
+            '10',
+            'Not Recorded'
+            ]"></reg-select>
+
+          <reg-select controlName="TransfAlg" placeholder="Algorithm to Guide Transfusion" [formGroup]="formGroupS" [choices]="[
+              'Yes, SCA/STS algorithm used',
+              'Yes, other algorithm used',
+              'Unknown'
+            ]"></reg-select>
+
+          <reg-input controlName="CellSavVol" placeholder="Cell Saver Volume" [formGroup]="formGroupS" type="number">
+          </reg-input>
+
+          <reg-select controlName="HepUse" placeholder="Heparin Used Intraop" [formGroup]="formGroupS"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-input controlName="TotHep" placeholder="Heparin Total Dose (unit)" [formGroup]="formGroupS" type="number">
+          </reg-input>
+
+          <reg-select controlName="HepMgmt" placeholder="Heparin Management" [formGroup]="formGroupS" [choices]="[
+              'Heparin titration based on activated clotting time (ACT)',
+              'Heparin titration based on heparin concentration (e.g. Hepcon system)',
+              'Other method'
+            ]"></reg-select>
+
+          <reg-input controlName="TotProt" placeholder="Protamine Total Dose" [formGroup]="formGroupS" type="number">
+          </reg-input>
+
+          <reg-input controlName="AntithromDose" placeholder="Antithrombin III Total Dose" [formGroup]="formGroupS" type="number">
+          </reg-input>
+
+          <reg-select controlName="IntraViscoTest" placeholder="Viscoelastic Testing Used Intraop" [formGroup]="formGroupS"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="VolAgentUsed" placeholder="Volatile Agent Used" [formGroup]="formGroupS"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <h5 id="volatAgtUsed">Volatile Agent(s) used</h5>
+
+          <reg-select controlName="VolAgentIso" placeholder="Isoflurane" [formGroup]="formGroupS"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="VolAgentSevo" placeholder="Sevoflurane" [formGroup]="formGroupS"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="VolAgentDes" placeholder="Desflurane" [formGroup]="formGroupS"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="VolAgentOth" placeholder="Other" [formGroup]="formGroupS"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <h5 id="volatAgtTiming">Volatile Agent(s) timing</h5>
+
+          <reg-select controlName="VolAgentTimPre" placeholder="Pre CPB" [formGroup]="formGroupS"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="VolAgentTimDur" placeholder="During CPB" [formGroup]="formGroupS"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="VolAgentTimPost" placeholder="Post CPB" [formGroup]="formGroupS"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="VolAgentTimMaint" placeholder="Maintenance (if no CPB)" [formGroup]="formGroupS"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="DexIntra" placeholder="Intraop Infusion Dexmedetomidine" [formGroup]="formGroupS"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="PropIntra" placeholder="Intraop Infusion Propofol" [formGroup]="formGroupS"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-input controlName="MidazIntra" placeholder="Intraop Midazolam (mg)" [formGroup]="formGroupS" type="number">
+          </reg-input>
+
+          <reg-input controlName="TotInsuIntra" placeholder="Intraop Insulin Total Dose" [formGroup]="formGroupS" type="number">
+          </reg-input>
+
+          <reg-input controlName="PreAnesthBPSys" placeholder="Pre Induction Systolic BP" [formGroup]="formGroupS" type="number">
+          </reg-input>
+
+          <reg-input controlName="PreAnesthBPDia" placeholder="Pre Induction Diastolic BP" [formGroup]="formGroupS" type="number">
+          </reg-input>
+
+          <reg-input controlName="PreAnesthBPMean" placeholder="Pre Induction Mean BP" [formGroup]="formGroupS" type="number">
+          </reg-input>
+
+          <reg-input controlName="PreAnesthHR" placeholder="Pre Induction Heart Rate" [formGroup]="formGroupS" type="number">
+          </reg-input>
+
+          <reg-select controlName="PACIntra" placeholder="Pulmonary Artery Catheter Used" [formGroup]="formGroupS"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="CoreTempSrc" placeholder="Core Temperature Source" [formGroup]="formGroupS" [choices]="[
+            'Esophageal',
+            'Bladder',
+            'Nasopharyngeal',
+            'Pulmonary artery catheter thermistor',
+            'Tympanic',
+            'Rectal'
+            ]"></reg-select>
+
+          <reg-input controlName="CoreTempMax" placeholder="Core Temp Max" [formGroup]="formGroupS" type="number">
+          </reg-input>
+
+          <reg-select controlName="NitricOxIntraop" placeholder="Intra Op Nitric Oxide" [formGroup]="formGroupS"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-input controlName="TotCrystAnesth" placeholder="Anesthesiology Total Crystalloid" [formGroup]="formGroupS" type="number">
+          </reg-input>
+
+          <reg-input controlName="TotColloidAnesth" placeholder="Anesthesiology Synthetic Colloid" [formGroup]="formGroupS" type="number">
+          </reg-input>
+
+          <reg-input controlName="TotAlbumAnesth" placeholder="Anesthesiology Total Albumin" [formGroup]="formGroupS" type="number">
+          </reg-input>
+
+          <reg-input controlName="GlucTroughIntraop" placeholder="Intraop Glucose Trough" [formGroup]="formGroupS" type="number">
+          </reg-input>
+
+          <reg-select controlName="VasodilIntraop" placeholder="Intraop Vasodilators Used" [formGroup]="formGroupS"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="IntraProcEEG" placeholder="Intraoperative Processed EEG (BIS)" [formGroup]="formGroupS"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="IntraOpPreTEE" placeholder="Intraop Transesophageal Echo (TEE)" [formGroup]="formGroupS"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="PreLVEFMeas" placeholder="Pre-procedure LVEF Measured" [formGroup]="formGroupS"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-input controlName="PreLVEF" placeholder="LVEF" [formGroup]="formGroupS" type="number">
+          </reg-input>
+
+          <reg-select controlName="PreRVFx" placeholder="Pre-procedure RV Function" [formGroup]="formGroupS" [choices]="[
+              'Normal',
+              'Mild Dysfunction',
+              'Moderate Dysfunction',
+              'Severe Dysfunction',
+              'Not Assessed'
+            ]"></reg-select>
+
+          <reg-select controlName="PreMR" placeholder="Mitral Regurgitation" [formGroup]="formGroupS" [choices]="[
+              'None',
+              'Trace/trivial',
+              'Mild',
+              'Moderate',
+              'Severe',
+              'Not assessed'
+            ]"></reg-select>
+
+          <reg-select controlName="PreMS" placeholder="Mitral Stenosis" [formGroup]="formGroupS" [choices]="[
+              'None',
+              'Mild',
+              'Moderate',
+              'Severe',
+              'Not assessed'
+            ]"></reg-select>
+
+          <reg-select controlName="PreAR" placeholder="Aortic Regurgitation" [formGroup]="formGroupS" [choices]="[
+              'None',
+              'Trace/trivial',
+              'Mild',
+              'Moderate',
+              'Severe',
+              'Not assessed'
+            ]"></reg-select>
+
+          <reg-select controlName="PreAS" placeholder="Aortic Stenosis" [formGroup]="formGroupS" [choices]="[
+              'None',
+              'Mild',
+              'Moderate',
+              'Severe',
+              'Not assessed'
+            ]"></reg-select>
+
+          <reg-select controlName="PreAVAAssessed" placeholder="Aortic Valve Area Assessed" [formGroup]="formGroupS"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-input controlName="PreAVA" placeholder="Aortic Valve Area" [formGroup]="formGroupS" type="number">
+          </reg-input>
+
+          <reg-select controlName="PreTR" placeholder="Tricuspid Regurgitation" [formGroup]="formGroupS" [choices]="[
+              'None',
+              'Trace/trivial',
+              'Mild',
+              'Moderate',
+              'Severe',
+              'Not assessed'
+            ]"></reg-select>
+
+          <reg-select controlName="PrePFO" placeholder="Patent Foramen Ovale" [formGroup]="formGroupS"
+            [choices]="['Yes', 'No', 'Not assessed']"></reg-select>
+
+          <reg-select controlName="AscAoAssessed" placeholder="Ascending Aorta Assessed" [formGroup]="formGroupS"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-input controlName="MxAscAo" placeholder="Maximal Ascending Aorta Diameter" [formGroup]="formGroupS" type="number">
+          </reg-input>
+
+          <reg-input controlName="MxAscAoThick" placeholder="Maximal Ascending Aorta Atheroma Thickness" [formGroup]="formGroupS" type="number">
+          </reg-input>
+
+          <reg-select controlName="AsAthMo" placeholder="Ascending Aorta Atheroma Mobility" [formGroup]="formGroupS"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="AoArcVis" placeholder="Aortic Arch Visualized" [formGroup]="formGroupS"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-input controlName="MxArcAth" placeholder="Maximal Aortic Arch Atheroma Thickness" [formGroup]="formGroupS" type="number">
+          </reg-input>
+
+          <reg-select controlName="ArcAthMo" placeholder="Aortic Arch Atheroma Mobility" [formGroup]="formGroupS"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="CPBUsed" placeholder="Cardiopulmonary Bypass Used" [formGroup]="formGroupS"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="RetrAutolPrim" placeholder="Retrograde Autologous Priming of CPB Circuit" [formGroup]="formGroupS"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-input controlName="TotCrystPerf" placeholder="Total Crystalloid Administered by Perfusion Team" [formGroup]="formGroupS" type="number">
+          </reg-input>
+
+          <reg-input controlName="TotColloidPerf" placeholder="Total Synthetic Colloid Administered by Perfusion Team" [formGroup]="formGroupS" type="number">
+          </reg-input>
+
+          <reg-input controlName="TotAlbumPerf" placeholder="Total Albumin Administered by Perfusion Team" [formGroup]="formGroupS" type="number">
+          </reg-input>
+
+          <reg-input controlName="HemofilPerf" placeholder="Hemofiltration Volume Removed by Perfusion Team" [formGroup]="formGroupS" type="number">
+          </reg-input>
+
+          <reg-select controlName="InotropWeanCPB" placeholder="Inotropes used to wean from CPB" [formGroup]="formGroupS"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="VasopWeanCPB" placeholder="Vasopressors used to wean from CPB" [formGroup]="formGroupS"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="IntraOpPostTEE" placeholder="Post-Procedure Use Of Intraoperative TEE" [formGroup]="formGroupS"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="PostSAM" placeholder="Systolic Anterior Motion of Mitral Valve" [formGroup]="formGroupS"
+            [choices]="['Yes', 'No', 'Not assessed']"></reg-select>
+
+          <reg-select controlName="RetCPBEch" placeholder="Return to CPB for Echo Related Diagnosis" [formGroup]="formGroupS"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="PostLVEFMeas" placeholder="Post-ProcedureLVEFMeasured" [formGroup]="formGroupS"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-input controlName="PostLVEF" placeholder="Post-Procedure LVEF" [formGroup]="formGroupS" type="number">
+          </reg-input>
+
+          <reg-select controlName="PostRVFx" placeholder="Post-Procedure RV Function" [formGroup]="formGroupS" [choices]="[
+              'Normal',
+              'Mild Dysfunction',
+              'Moderate Dysfunction',
+              'Severe Dysfunction',
+              'Not Assessed'
+            ]"></reg-select>
+
+          <reg-select controlName="IntraCardArr" placeholder="Intraoperative cardiac arrest related to anesthesia care" [formGroup]="formGroupS"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="ORDeath" placeholder="Patient Died in the OR" [formGroup]="formGroupS"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="PostTempMeas" placeholder="Core Temp Measured upon Entry to ICU/PACU" [formGroup]="formGroupS"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-input controlName="PostCoreTemp" placeholder="Post Op Core Temp" [formGroup]="formGroupS" type="number">
+          </reg-input>
+
+          <reg-select controlName="PostINRMeas" placeholder="Post-Op INR Measured upon admission to post op care location (PACU, ICU)" [formGroup]="formGroupS"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-input controlName="PostINR" placeholder="INR" [formGroup]="formGroupS" type="number">
+          </reg-input>
+
+          <reg-select controlName="PostWBCMeas" placeholder="WBC Measured upon admission to post op care location (PACU, ICU)" [formGroup]="formGroupS"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-input controlName="PostWBC" placeholder="WBC" [formGroup]="formGroupS" type="number">
+          </reg-input>
+
+          <reg-select controlName="PostPltMeas" placeholder="Platelets Measured upon admission to post op care location (PACU, ICU)" [formGroup]="formGroupS"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-input controlName="PostPlt" placeholder="Platelet Count" [formGroup]="formGroupS" type="number">
+          </reg-input>
+
+          <reg-select controlName="PostHCTMeas" placeholder="Hematocrit Measured upon admission to post op care location (PACU, ICU)" [formGroup]="formGroupS"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-input controlName="PostHCT" placeholder="Hematocrit" [formGroup]="formGroupS" type="number">
+          </reg-input>
+
+          <reg-select controlName="PostFibrinMeas" placeholder="Fibrinogen Measured upon admission to post op care location (PACU, ICU)" [formGroup]="formGroupS"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-input controlName="PostFibrin" placeholder="Fibrinogen" [formGroup]="formGroupS" type="number">
+          </reg-input>
+
+          <reg-select controlName="PostLactMeas" placeholder="Lactate Measured upon admission to post op care location (PACU, ICU)" [formGroup]="formGroupS"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-input controlName="PostLact" placeholder="Lactate" [formGroup]="formGroupS" type="number">
+          </reg-input>
+
+          <reg-select controlName="DexPost" placeholder="Post Op Dexmedetomidine" [formGroup]="formGroupS"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="PropPost" placeholder="Post Op Propofol" [formGroup]="formGroupS"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="PostopDel" placeholder="Post Op Delirium" [formGroup]="formGroupS"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="PostHITAnti" placeholder="Post Op Heparin Induced Thrombocytopenia" [formGroup]="formGroupS"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select controlName="PainScorePOD3" placeholder="Pain Score POD #3" [formGroup]="formGroupS" [choices]="[
+            '0',
+            '1',
+            '2',
+            '3',
+            '4',
+            '5',
+            '6',
+            '7',
+            '8',
+            '9',
+            '10',
+            'Not Recorded',
+            'NA'
+            ]"></reg-select>
+
+          <reg-select controlName="PainScoreDisch" placeholder="Pain Score Discharge" [formGroup]="formGroupS" [choices]="[
+            '0',
+            '1',
+            '2',
+            '3',
+            '4',
+            '5',
+            '6',
+            '7',
+            '8',
+            '9',
+            '10',
+            'Not Recorded',
+            'NA'
+            ]"></reg-select>
 
         </form>
       </div>
