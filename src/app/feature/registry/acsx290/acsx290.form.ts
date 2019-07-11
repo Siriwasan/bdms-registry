@@ -20,8 +20,8 @@ export const ACSx290form = {
          },
          sectionC: {
            HospName: [null, Validators.required],
-           PriPayor: [null, Validators.required],
-           SecPayor: [null, Validators.required],
+           PayorPrim: [null, Validators.required],
+           PayorSecond: [null, Validators.required],
            AdmitDt: [null, Validators.required],
            SurgDt: [null, Validators.required],
            AdmitSrc: [null, Validators.required],
@@ -1249,9 +1249,9 @@ export const ACSx290form = {
            POpEFD: [null, Validators.required],
            POpEF: [null, [Validators.required, Validators.min(1.0), Validators.max(99.0)]],
            POpEnzDrawn: [null, Validators.required],
-           POpPkCKMB: [null, [Validators.required, Validators.min(0.0), Validators.max(5000.0)]],
-           POpPkTrI: [null, [Validators.required, Validators.min(0.0), Validators.max(5000.0)]],
-           POpPkTrT: [null, [Validators.required, Validators.min(0.0), Validators.max(5000.0)]],
+           POpPkCKMB: [null, [Validators.min(0.0), Validators.max(5000.0)]],
+           POpPkTrI: [null, [Validators.min(0.0), Validators.max(5000.0)]],
+           POpPkTrT: [null, [Validators.min(0.0), Validators.max(5000.0)]],
            POpEKG: [null, Validators.required]
          },
          sectionP: {
@@ -1379,7 +1379,6 @@ export const ACSx290form = {
            ReadmAortIntInd: [null, Validators.required]
          },
          sectionS: {
-           PrimAnesName: [null, Validators.required],
            AnesCareTeamMod: [null, Validators.required],
            PainScorePre: [null, Validators.required],
            TransfAlg: [null, Validators.required],

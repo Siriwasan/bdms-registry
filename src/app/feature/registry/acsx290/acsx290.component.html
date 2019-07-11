@@ -21,6 +21,7 @@
       </div>
       <div class="section-body">
         <form [formGroup]="formGroupA" #formDirectiveA="ngForm">
+
           <div fxLayout="column" fxLayout.gt-xs="row" [fxLayoutGap.gt-xs]="gap">
             <reg-input controlName="CaseNo" placeholder="Case No" [formGroup]="formGroupA"
               type="text" fxFlex="25">(software generated)</reg-input>
@@ -36,6 +37,7 @@
               </mat-radio-group>
             </div> -->
           </div>
+
         </form>
       </div>
     </section>
@@ -47,6 +49,7 @@
       </div>
       <div class="section-body">
         <form [formGroup]="formGroupB" #formDirectiveB="ngForm">
+
           <div fxLayout="column" fxLayout.gt-xs="row" [fxLayoutGap.gt-xs]="gap">
             <reg-input controlName="PatLName" placeholder="Patient Last Name" [formGroup]="formGroupB" type="text"
               fxFlex="33"></reg-input>
@@ -93,7 +96,7 @@
           <reg-select controlName="HospName" placeholder="Hospital Name" [formGroup]="formGroupC"
             [choices]="['BHT']"></reg-select>
 
-          <reg-select controlName="PriPayor" placeholder="Primary Payor" [formGroup]="formGroupC" [choices]="[
+          <reg-select controlName="PayorPrim" placeholder="Primary Payor" [formGroup]="formGroupC" [choices]="[
               'Self',
               'Comptroller General\'s Department',
               'NHSO (National Health Security Officer)',
@@ -105,7 +108,7 @@
               'Other'
             ]"></reg-select>
 
-          <reg-select controlName="SecPayor" placeholder="Secondary Payor" [formGroup]="formGroupC" [choices]="[
+          <reg-select controlName="PayorSecond" placeholder="Secondary Payor" [formGroup]="formGroupC" [choices]="[
               'None',
               'Comptroller General\'s Department',
               'NHSO (National Health Security Officer)',
@@ -144,6 +147,7 @@
       </div>
       <div class="section-body" fxLayout="column">
         <form [formGroup]="formGroupD" #formDirectiveD="ngForm">
+
           <div fxLayout="column" fxLayout.gt-xs="row" [fxLayoutGap.gt-xs]="gap">
             <reg-input controlName="HeightCM" placeholder="Height (cm)" [formGroup]="formGroupD" type="number"
               fxFlex="20"></reg-input>
@@ -1231,7 +1235,7 @@
           <reg-select controlName="SyntaxScrKnown" placeholder="Syntax Score Known" [formGroup]="formGroupH"
             [choices]="['Yes', 'No']"></reg-select>
 
-          <reg-input controlName="SyntaxScr" placeholder="Syntax Score" [formGroup]="formGroupH" type="text"
+          <reg-input controlName="SyntaxScr" placeholder="Syntax Score" [formGroup]="formGroupH" type="number"
             ></reg-input>
 
           <reg-select controlName="StressTst" placeholder="Stress Test" [formGroup]="formGroupH"
@@ -1246,23 +1250,23 @@
           <reg-select controlName="HDEFD" placeholder="Ejection Fraction Done" [formGroup]="formGroupH"
             [choices]="['Yes', 'No']"></reg-select>
 
-          <reg-input controlName="HDEF" placeholder="Ejection Fraction" [formGroup]="formGroupH" type="number"
-            >(%)</reg-input>
+          <reg-input controlName="HDEF" placeholder="Ejection Fraction (%)" [formGroup]="formGroupH" type="number">
+          </reg-input>
 
           <reg-select controlName="DimAvail" placeholder="Dimensions Available" [formGroup]="formGroupH"
             [choices]="['Yes', 'No']"></reg-select>
 
-          <reg-input controlName="LVSD" placeholder="LV End-Systolic Dimension" [formGroup]="formGroupH" type="number"
-            >(mm)</reg-input>
+          <reg-input controlName="LVSD" placeholder="LV End-Systolic Dimension (mm)" [formGroup]="formGroupH" type="number">
+          </reg-input>
 
-          <reg-input controlName="LVEDD" placeholder="LV End-Diastolic Dimension" [formGroup]="formGroupH" type="number"
-            >(mm)</reg-input>
+          <reg-input controlName="LVEDD" placeholder="LV End-Diastolic Dimension (mm)" [formGroup]="formGroupH" type="number">
+          </reg-input>
 
           <reg-select controlName="PASYSMeas" placeholder="PA Systolic Pressure Measured" [formGroup]="formGroupH"
             [choices]="['Yes', 'No']"></reg-select>
 
-          <reg-input controlName="PASYS" placeholder="PA Systolic Pressure" [formGroup]="formGroupH" type="number"
-            >mmHg</reg-input>
+          <reg-input controlName="PASYS" placeholder="PA Systolic Pressure (mmHg)" [formGroup]="formGroupH" type="number">
+          </reg-input>
 
           <h3>Aortic Valve</h3>
 
@@ -1276,7 +1280,7 @@
             ]"></reg-select>
 
           <reg-select controlName="VDAVEccJet" placeholder="Eccentric Jet" [formGroup]="formGroupH"
-            [choices]="['Yes', 'No', 'Unknown']"></reg-select>
+            [choices]="['Yes', 'No', 'Not Documented']"></reg-select>
 
           <reg-select controlName="VDAort" placeholder="Aortic Valve Disease" [formGroup]="formGroupH"
             [choices]="['Yes', 'No']"></reg-select>
@@ -1287,14 +1291,14 @@
           <reg-select controlName="AoHemoDatAvail" placeholder="Hemodynamic/Echo data available" [formGroup]="formGroupH"
             [choices]="['Yes', 'No']"></reg-select>
 
-          <reg-input controlName="VDAoVA" placeholder="Smallest Aortic Valve Area" [formGroup]="formGroupH" type="number"
-            >cm2</reg-input>
+          <reg-input controlName="VDAoVA" placeholder="Smallest Aortic Valve Area (cm2)" [formGroup]="formGroupH" type="number">
+          </reg-input>
 
-          <reg-input controlName="VDGradA" placeholder="Highest Mean Gradient" [formGroup]="formGroupH" type="number"
-            >mmHg</reg-input>
+          <reg-input controlName="VDGradA" placeholder="Highest Mean Gradient (mmHg)" [formGroup]="formGroupH" type="number">
+          </reg-input>
 
-          <reg-input controlName="VDVMax" placeholder="Maximum Aortic jet velocity (Vmax)" [formGroup]="formGroupH" type="number"
-            >m/s</reg-input>
+          <reg-input controlName="VDVMax" placeholder="Maximum Aortic jet velocity (Vmax)" [formGroup]="formGroupH" type="number">
+          </reg-input>
 
           <reg-select controlName="VDAoPrimEt" placeholder="AV Disease Etiology" [formGroup]="formGroupH" [choices]="[
             'Bicuspid valve disease',
@@ -1362,11 +1366,11 @@
           <reg-select controlName="MiHemoDatAvail" placeholder="Hemodynamic/ Echo data available" [formGroup]="formGroupH"
             [choices]="['Yes', 'No']"></reg-select>
 
-          <reg-input controlName="VDMVA" placeholder="Smallest Valve Area" [formGroup]="formGroupH" type="text"
-            >cm2</reg-input>
+          <reg-input controlName="VDMVA" placeholder="Smallest Valve Area (cm2)" [formGroup]="formGroupH" type="text">
+          </reg-input>
 
-          <reg-input controlName="VDGradM" placeholder="Highest Mean Gradient" [formGroup]="formGroupH" type="text"
-            >mmHg</reg-input>
+          <reg-input controlName="VDGradM" placeholder="Highest Mean Gradient (mmHg)" [formGroup]="formGroupH" type="text">
+          </reg-input>
 
           <reg-select controlName="VDMiPrimEt" placeholder="MV Disease Etiology" [formGroup]="formGroupH" [choices]="[
             'Myxomatous degeneration / prolapse',
@@ -1432,7 +1436,7 @@
             [choices]="['Yes', 'No']"></reg-select>
 
           <reg-select controlName="VDTrPrimEt" placeholder="TV Etiology" [formGroup]="formGroupH" [choices]="[
-            'Functional / secondary',
+            'Functional/secondary',
             'Endocarditis',
             'Carcinoid',
             'Congenital',
@@ -1463,8 +1467,8 @@
           <reg-select controlName="RVEDDKnown" placeholder="RVEDD Known" [formGroup]="formGroupH"
             [choices]="['Yes', 'No']"></reg-select>
 
-          <reg-input controlName="RVEDD" placeholder="RVEDD Indexed to BSA" [formGroup]="formGroupH" type="number"
-            >cm2</reg-input>
+          <reg-input controlName="RVEDD" placeholder="RVEDD Indexed to BSA (cm2)" [formGroup]="formGroupH" type="number">
+          </reg-input>
 
           <reg-select controlName="VDStenP" placeholder="Pulmonic Stenosis" [formGroup]="formGroupH"
             [choices]="['Yes', 'No']"></reg-select>
@@ -1472,8 +1476,8 @@
           <reg-select controlName="PuHemoDatAvail" placeholder="Hemodynamic /Echo data available" [formGroup]="formGroupH"
             [choices]="['Yes', 'No']"></reg-select>
 
-          <reg-input controlName="VDGradP" placeholder="Highest Mean Gradient" [formGroup]="formGroupH" type="number"
-            >mmHg</reg-input>
+          <reg-input controlName="VDGradP" placeholder="Highest Mean Gradient (mmHg)" [formGroup]="formGroupH" type="number">
+          </reg-input>
 
           <reg-select controlName="VDPuEt" placeholder="Etiology" [formGroup]="formGroupH" [choices]="[
             'Acquired',
@@ -1483,8 +1487,6 @@
             'Mixed Etiology',
             'Not Documented'
             ]"></reg-select>
-
-
 
         </form>
       </div>
@@ -1576,7 +1578,7 @@
               'Second re-op cardiovascular surgery',
               'Third re-op cardiovascular surgery',
               'Fourth or more re-op cardiovascular surgery',
-              'NA- not a cardiovascular surgery'
+              'NA, Not a cardiovascular surgery'
             ]"></reg-select>
 
           <reg-select controlName="Status" placeholder="Status" [formGroup]="formGroupI" [choices]="[
@@ -1586,7 +1588,7 @@
               'Emergent Salvage'
             ]"></reg-select>
 
-          <reg-select controlName="UrgEmergRsn" placeholder="Urgent / Emergent reason" [formGroup]="formGroupI" [choices]="[
+          <reg-select controlName="UrgEmergRsn" placeholder="Urgent/Emergent reason" [formGroup]="formGroupI" [choices]="[
               'AMI',
               'Anatomy',
               'Aortic Aneurysm',
@@ -1903,20 +1905,20 @@
           <reg-select controlName="CanVenStOth" placeholder="Other" [formGroup]="formGroupI"
             [choices]="['Yes', 'No']"></reg-select>
 
-          <reg-input controlName="PerfusTm" placeholder="Cardiopulmonary Bypass Time (minutes)" [formGroup]="formGroupI" type="text"
+          <reg-input controlName="PerfusTm" placeholder="Cardiopulmonary Bypass Time (minutes)" [formGroup]="formGroupI" type="number"
             ></reg-input>
 
           <reg-select controlName="CircArr" placeholder="Circulatory Arrest" [formGroup]="formGroupI"
             [choices]="['Yes', 'No']"></reg-select>
 
-          <reg-input controlName="DHCATm" placeholder="Circulatory Arrest Without Cerebral Perfusion Time" [formGroup]="formGroupI" type="text"
-            >(min)</reg-input>
+          <reg-input controlName="DHCATm" placeholder="Circulatory Arrest Without Cerebral Perfusion Time (min)" [formGroup]="formGroupI" type="number">
+          </reg-input>
 
           <reg-select controlName="CPerfUtil" placeholder="Circulatory Arrest With Cerebral Perfusion" [formGroup]="formGroupI"
             [choices]="['Yes', 'No']"></reg-select>
 
-          <reg-input controlName="CPerfTime" placeholder="Cerebral Perfusion Time" [formGroup]="formGroupI" type="text"
-            >(min)</reg-input>
+          <reg-input controlName="CPerfTime" placeholder="Cerebral Perfusion Time (min)" [formGroup]="formGroupI" type="number">
+          </reg-input>
 
           <reg-select controlName="CPerfTyp" placeholder="CerebralPerfusionType" [formGroup]="formGroupI" [choices]="[
               'Antegrade',
@@ -1935,8 +1937,8 @@
             'Balloon Occlusion'
             ]"></reg-select>
 
-          <reg-input controlName="XClampTm" placeholder="Cross Clamp Time" [formGroup]="formGroupI" type="text"
-            ></reg-input>
+          <reg-input controlName="XClampTm" placeholder="Cross Clamp Time (min)" [formGroup]="formGroupI" type="number">
+          </reg-input>
 
           <reg-select controlName="CplegiaDeliv" placeholder="Cardioplegia Delivery" [formGroup]="formGroupI" [choices]="[
               'None',
@@ -1986,16 +1988,16 @@
           <reg-select controlName="IBldProd" placeholder="Intraop Blood Products" [formGroup]="formGroupI"
             [choices]="['Yes', 'No']"></reg-select>
 
-          <reg-input controlName="IBdRBCU" placeholder="Red Blood Cell Units" [formGroup]="formGroupI" type="text"
+          <reg-input controlName="IBdRBCU" placeholder="Red Blood Cell Units" [formGroup]="formGroupI" type="number"
             ></reg-input>
 
-          <reg-input controlName="IBdFFPU" placeholder="Fresh Frozen Plasma Units" [formGroup]="formGroupI" type="text"
+          <reg-input controlName="IBdFFPU" placeholder="Fresh Frozen Plasma Units" [formGroup]="formGroupI" type="number"
             ></reg-input>
 
-          <reg-input controlName="IBdPlatU" placeholder="Platelet Units" [formGroup]="formGroupI" type="text"
+          <reg-input controlName="IBdPlatU" placeholder="Platelet Units" [formGroup]="formGroupI" type="number"
             ></reg-input>
 
-          <reg-input controlName="IBdCryoU" placeholder="Cryoprecipitate Units" [formGroup]="formGroupI" type="text"
+          <reg-input controlName="IBdCryoU" placeholder="Cryoprecipitate Units" [formGroup]="formGroupI" type="number"
             ></reg-input>
 
           <reg-select controlName="IntraClotFact" placeholder="Intraop Clotting Factors" [formGroup]="formGroupI" [choices]="[
@@ -2028,7 +2030,7 @@
               'Not Documented'
             ]"></reg-select>
 
-          <reg-input controlName="PRepAGradM" placeholder="Mean Aortic Gradient" [formGroup]="formGroupI" type="text"
+          <reg-input controlName="PRepAGradM" placeholder="Mean Aortic Gradient" [formGroup]="formGroupI" type="number"
             ></reg-input>
 
           <reg-select controlName="PRepAPVL" placeholder="Aortic Paravalvular leak" [formGroup]="formGroupI" [choices]="[
@@ -2049,7 +2051,7 @@
               'Not Documented'
             ]"></reg-select>
 
-          <reg-input controlName="PRepMGradM" placeholder="Mean Mitral Gradient" [formGroup]="formGroupI" type="text"
+          <reg-input controlName="PRepMGradM" placeholder="Mean Mitral Gradient" [formGroup]="formGroupI" type="number"
             ></reg-input>
 
           <reg-select controlName="PRepMPVL" placeholder="Mitral Paravalvular leak" [formGroup]="formGroupI" [choices]="[
@@ -2070,7 +2072,7 @@
               'Not Documented'
             ]"></reg-select>
 
-          <reg-input controlName="PRepTGradM" placeholder="Mean Tricuspid Gradient" [formGroup]="formGroupI" type="text"
+          <reg-input controlName="PRepTGradM" placeholder="Mean Tricuspid Gradient" [formGroup]="formGroupI" type="number"
             ></reg-input>
 
           <reg-select controlName="PRepTPVL" placeholder="Tricuspid Paravalvular leak" [formGroup]="formGroupI" [choices]="[
@@ -2085,8 +2087,8 @@
           <reg-select controlName="PPEFMeas" placeholder="Ejection Fraction Measured post procedure" [formGroup]="formGroupI"
             [choices]="['Yes', 'No']"></reg-select>
 
-          <reg-input controlName="PPEF" placeholder="Ejection Fraction" [formGroup]="formGroupI" type="text"
-            ></reg-input>
+          <reg-input controlName="PPEF" placeholder="Ejection Fraction" [formGroup]="formGroupI" type="number">
+          </reg-input>
 
           <reg-select controlName="PPPlanedPCI" placeholder="Surgery followed by a planned PCI" [formGroup]="formGroupI"
             [choices]="['Yes', 'No']"></reg-select>
@@ -2147,8 +2149,8 @@
           <reg-select controlName="RadHTech" placeholder="Radial Artery Harvest Technique" [formGroup]="formGroupJ"
             [choices]="['Endoscopic', 'Direct Vision (open)', 'Both']"></reg-select>
 
-          <reg-input controlName="RadHarvPrepTm" placeholder="Radial Artery Harvest and Prep Time" [formGroup]="formGroupJ" type="number">
-          (minutes)</reg-input>
+          <reg-input controlName="RadHarvPrepTm" placeholder="Radial Artery Harvest and Prep Time (min)" [formGroup]="formGroupJ" type="number">
+          </reg-input>
 
           <reg-select controlName="VenousCondUsed" placeholder="Venous Conduit(s) used" [formGroup]="formGroupJ"
             [choices]="['Yes', 'No']"></reg-select>
@@ -2163,8 +2165,8 @@
               'Cryopreserved'
             ]"></reg-select>
 
-          <reg-input controlName="SaphHarPrepTm" placeholder="Vein Harvest and Prep Time" [formGroup]="formGroupJ" type="number">
-          (minutes)</reg-input>
+          <reg-input controlName="SaphHarPrepTm" placeholder="Vein Harvest and Prep Time (min)" [formGroup]="formGroupJ" type="number">
+          </reg-input>
 
           <h4 id="numDistAnas">Number of Distal Anastomoses</h4>
 
@@ -2834,8 +2836,8 @@
             [choices]="['Yes', 'No']"></reg-select>
 
           <reg-select controlName="VSPuTypeImp" placeholder="Implant Type" [formGroup]="formGroupK" [choices]="[
-            'Surgeon Fashioned',
-            'Commercially Supplied'
+              'Surgeon Fashioned',
+              'Commercially Supplied'
             ]"></reg-select>
 
           <reg-select controlName="VSPuImpMat" placeholder="Material" [formGroup]="formGroupK" [choices]="[
@@ -2845,12 +2847,12 @@
             ]"></reg-select>
 
           <reg-select controlName="PulmonicImplantTy" placeholder="Device Type" [formGroup]="formGroupK" [choices]="[
-            'Mechanical valve',
-            'Bioprosthetic valve',
-            'Transcatheter device',
-            'Annuloplasty device',
-            'Homograft',
-            'Other'
+              'Mechanical valve',
+              'Bioprosthetic valve',
+              'Transcatheter device',
+              'Annuloplasty device',
+              'Homograft',
+              'Other'
             ]"></reg-select>
 
           <reg-input controlName="VSPuIm" placeholder="Implant Model Number" [formGroup]="formGroupK" type="text">
@@ -2861,8 +2863,6 @@
 
           <reg-input controlName="VSPuImUDI" placeholder="Unique Device Identifier (UDI)" [formGroup]="formGroupK" type="text">
           </reg-input>
-
-
 
           </form>
       </div>
@@ -3098,12 +3098,12 @@
             ]"></reg-select>
 
           <reg-select controlName="OCarAAMeth" placeholder="Indicate method for atrial appendage ligation/exclusion" [formGroup]="formGroupM" [choices]="[
-            'Intra-atrial oversewing',
-            'Epicardial Suture Ligation',
-            'Amputation with oversewing',
-            'Stapler (cutting)',
-            'Stapler (noncutting)',
-            'Epicardially applied occlusion device'
+              'Intra-atrial oversewing',
+              'Epicardial Suture Ligation',
+              'Amputation with oversewing',
+              'Stapler (cutting)',
+              'Stapler (noncutting)',
+              'Epicardially applied occlusion device'
             ]"></reg-select>
 
           <reg-select controlName="OCarAAModel" placeholder="Model" [formGroup]="formGroupM" [choices]="[
@@ -3116,22 +3116,22 @@
           </reg-input>
 
           <reg-select controlName="OCarACD" placeholder="Arrhythmia Device" [formGroup]="formGroupM" [choices]="[
-            'Pacemaker',
-            'Pacemaker with CRT',
-            'ICD',
-            'ICD with CRT',
-            'Implantable Recorder',
-            'None'
+              'Pacemaker',
+              'Pacemaker with CRT',
+              'ICD',
+              'ICD with CRT',
+              'Implantable Recorder',
+              'None'
             ]"></reg-select>
 
           <reg-select controlName="OCarLeadInsert" placeholder="Lead Insertion" [formGroup]="formGroupM"
             [choices]="['Yes', 'No']"></reg-select>
 
           <reg-select controlName="OCarACDLE" placeholder="Lead Extraction" [formGroup]="formGroupM" [choices]="[
-            'Yes, planned',
-            'Yes, unplanned due to surgical complication',
-            'Yes, unplanned due to unsuspected disease or anatomy',
-            'No'
+              'Yes, planned',
+              'Yes, unplanned due to surgical complication',
+              'Yes, unplanned due to unsuspected disease or anatomy',
+              'No'
             ]"></reg-select>
 
           <reg-select controlName="OCarCong" placeholder="Congenital Defect Repair" [formGroup]="formGroupM"
@@ -3317,7 +3317,7 @@
             ]"></reg-select>
 
           <reg-select controlName="PriorAorta" placeholder="Prior aortic intervention" [formGroup]="formGroupM2"
-            [choices]="['Yes', 'No']"></reg-select>
+            [choices]="['Yes', 'No', 'Unknown']"></reg-select>
 
           <div *ngFor="let int of M2_priorAoInt; let i = index">
             <h4 [id]="'int' + (i+1)">{{ 'Location - ' + int[0] }}</h4>
@@ -4239,10 +4239,10 @@
           <reg-select controlName="IntraOpAng" placeholder="Intraoperative Angiogram" [formGroup]="formGroupM2"
             [choices]="['Yes', 'No']"></reg-select>
 
-          <reg-input controlName="IntraOpAngVol" placeholder="Volume of contrast (ml)" [formGroup]="formGroupM2" type="text">
+          <reg-input controlName="IntraOpAngVol" placeholder="Volume of contrast (ml)" [formGroup]="formGroupM2" type="number">
           </reg-input>
 
-          <reg-input controlName="IntraOpAngFlTm" placeholder="Fluoroscopy time (min)" [formGroup]="formGroupM2" type="text">
+          <reg-input controlName="IntraOpAngFlTm" placeholder="Fluoroscopy time (min)" [formGroup]="formGroupM2" type="number">
           </reg-input>
 
           <h4 id="endovasDevices">Devices</h4>
@@ -4360,8 +4360,6 @@
           <reg-input controlName="OCarCongProc3" placeholder="Procedure 3" [formGroup]="formGroupM3" type="number">
           </reg-input>
 
-
-
         </form>
       </div>
     </section>
@@ -4401,8 +4399,6 @@
               'Yes, unplanned due to unsuspected disease or anatomy',
               'No'
             ]"></reg-select>
-
-
 
         </form>
       </div>
@@ -4446,7 +4442,7 @@
           <reg-select controlName="ExtubOR" placeholder="Extubated in OR" [formGroup]="formGroupO"
             [choices]="['Yes', 'No', 'NA']"></reg-select>
 
-          <reg-select controlName="PostopIntub" placeholder="Re-intubated /or intubated Post Op During Hospital Stay" [formGroup]="formGroupO"
+          <reg-select controlName="PostopIntub" placeholder="Re-intubated or intubated Post Op During Hospital Stay" [formGroup]="formGroupO"
             [choices]="['Yes', 'No']"></reg-select>
 
           <reg-input controlName="VentHrsA" placeholder="Additional Hours Ventilated" [formGroup]="formGroupO" type="number">
@@ -4534,13 +4530,13 @@
           <reg-select controlName="POpEnzDrawn" placeholder="Cardiac Enzymes (biomarkers) Drawn" [formGroup]="formGroupO"
             [choices]="['Yes', 'No']"></reg-select>
 
-          <reg-input controlName="POpPkCKMB" placeholder="Peak CKMB" [formGroup]="formGroupO" type="number">
+          <reg-input controlName="POpPkCKMB" placeholder="Peak CKMB" [formGroup]="formGroupO" require="false" type="number">
           </reg-input>
 
-          <reg-input controlName="POpPkTrI" placeholder="Peak Troponin I" [formGroup]="formGroupO" type="number">
+          <reg-input controlName="POpPkTrI" placeholder="Peak Troponin I" [formGroup]="formGroupO" require="false" type="number">
           </reg-input>
 
-          <reg-input controlName="POpPkTrT" placeholder="Peak Troponin T" [formGroup]="formGroupO" type="number">
+          <reg-input controlName="POpPkTrT" placeholder="Peak Troponin T" [formGroup]="formGroupO" require="false" type="number">
           </reg-input>
 
           <reg-select controlName="POpEKG" placeholder="12-Lead EKG Findings" [formGroup]="formGroupO" [choices]="[
@@ -4882,8 +4878,6 @@
           <reg-select controlName="COtOther" placeholder="Other" [formGroup]="formGroupP"
             [choices]="['Yes', 'No']"></reg-select>
 
-
-
         </form>
       </div>
     </section>
@@ -5131,9 +5125,6 @@
       </div>
       <div class="section-body">
         <form [formGroup]="formGroupS" #formDirectiveS="ngForm">
-
-          <reg-input controlName="PrimAnesName" placeholder="Primary Anesthesiologist Name" [formGroup]="formGroupS" type="text">
-          </reg-input>
 
           <reg-select controlName="AnesCareTeamMod" placeholder="Anesthesiology Care Team Model" [formGroup]="formGroupS" [choices]="[
             'Anesthesiologist working alone',

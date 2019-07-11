@@ -415,7 +415,11 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
         ...this.formGroupB.value,
         DOB: this.serializeDateTime(this.formGroupB.get('DOB').value)
       },
-      sectionC: { ...this.formGroupC.value },
+      sectionC: {
+        ...this.formGroupC.value,
+        AdmitDt: this.serializeDateTime(this.formGroupC.get('AdmitDt').value),
+        SurgDt: this.serializeDateTime(this.formGroupC.get('SurgDt').value)
+       },
       sectionD: { ...this.formGroupD.value },
       sectionE: { ...this.formGroupE.value },
       sectionF: { ...this.formGroupF.value },

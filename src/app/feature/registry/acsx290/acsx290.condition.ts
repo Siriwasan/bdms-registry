@@ -117,97 +117,111 @@ export const conditions: FormConditions = {
 
            // cath result
            { control: 'H:cathresult0', parentControl: 'NumDisV', conditions: ['One', 'Two', 'Three'] },
-
            { control: 'PctStenLMain', parentControl: 'PctStenKnown', conditions: ['Yes'] },
            { control: 'GrftStenLMain', parentControl: 'GraftsPrsnt', conditions: ['Yes'] },
            { control: 'StntStenLMain', parentControl: 'StentPrsnt', conditions: ['Yes'] },
            { control: 'FFRLMain', parentControl: 'FFRPerf', conditions: ['Yes'] },
            { control: 'IFRLMain', parentControl: 'IFRPerf', conditions: ['Yes'] },
 
+           { control: 'H:cathresult1', parentControl: 'NumDisV', conditions: ['One', 'Two', 'Three'] },
            { control: 'PctStenProxLAD', parentControl: 'PctStenKnown', conditions: ['Yes'] },
            { control: 'GrftStenProxLAD', parentControl: 'GraftsPrsnt', conditions: ['Yes'] },
            { control: 'StntStenProxLAD', parentControl: 'StentPrsnt', conditions: ['Yes'] },
            { control: 'FFRProxLAD', parentControl: 'FFRPerf', conditions: ['Yes'] },
            { control: 'IFRProxLAD', parentControl: 'IFRPerf', conditions: ['Yes'] },
 
+           { control: 'H:cathresult2', parentControl: 'NumDisV', conditions: ['One', 'Two', 'Three'] },
            { control: 'PctStenMidLAD', parentControl: 'PctStenKnown', conditions: ['Yes'] },
            { control: 'GrftStenMidLAD', parentControl: 'GraftsPrsnt', conditions: ['Yes'] },
            { control: 'StntStenMidLAD', parentControl: 'StentPrsnt', conditions: ['Yes'] },
            { control: 'FFRMidLAD', parentControl: 'FFRPerf', conditions: ['Yes'] },
            { control: 'IFRMidLAD', parentControl: 'IFRPerf', conditions: ['Yes'] },
 
+           { control: 'H:cathresult3', parentControl: 'NumDisV', conditions: ['One', 'Two', 'Three'] },
            { control: 'PctStenDistLAD', parentControl: 'PctStenKnown', conditions: ['Yes'] },
            { control: 'GrftStenDistLAD', parentControl: 'GraftsPrsnt', conditions: ['Yes'] },
            { control: 'StntStenDistLAD', parentControl: 'StentPrsnt', conditions: ['Yes'] },
            { control: 'FFRDistLAD', parentControl: 'FFRPerf', conditions: ['Yes'] },
            { control: 'IFRDistLAD', parentControl: 'IFRPerf', conditions: ['Yes'] },
 
+           { control: 'H:cathresult4', parentControl: 'NumDisV', conditions: ['One', 'Two', 'Three'] },
            { control: 'PctStenDiag1', parentControl: 'PctStenKnown', conditions: ['Yes'] },
            { control: 'GrftStenDiag1', parentControl: 'GraftsPrsnt', conditions: ['Yes'] },
            { control: 'StntStenDiag1', parentControl: 'StentPrsnt', conditions: ['Yes'] },
            { control: 'FFRDiag1', parentControl: 'FFRPerf', conditions: ['Yes'] },
            { control: 'IFRDiag1', parentControl: 'IFRPerf', conditions: ['Yes'] },
 
+           { control: 'H:cathresult5', parentControl: 'NumDisV', conditions: ['One', 'Two', 'Three'] },
            { control: 'PctStenDiag2', parentControl: 'PctStenKnown', conditions: ['Yes'] },
            { control: 'GrftStenDiag2', parentControl: 'GraftsPrsnt', conditions: ['Yes'] },
            { control: 'StntStenDiag2', parentControl: 'StentPrsnt', conditions: ['Yes'] },
            { control: 'FFRDiag2', parentControl: 'FFRPerf', conditions: ['Yes'] },
            { control: 'IFRDiag2', parentControl: 'IFRPerf', conditions: ['Yes'] },
 
+           { control: 'H:cathresult6', parentControl: 'NumDisV', conditions: ['One', 'Two', 'Three'] },
            { control: 'PctStenDiag3', parentControl: 'PctStenKnown', conditions: ['Yes'] },
            { control: 'GrftStenDiag3', parentControl: 'GraftsPrsnt', conditions: ['Yes'] },
            { control: 'StntStenDiag3', parentControl: 'StentPrsnt', conditions: ['Yes'] },
            { control: 'FFRDiag3', parentControl: 'FFRPerf', conditions: ['Yes'] },
            { control: 'IFRDiag3', parentControl: 'IFRPerf', conditions: ['Yes'] },
 
+           { control: 'H:cathresult7', parentControl: 'NumDisV', conditions: ['One', 'Two', 'Three'] },
            { control: 'PctStenCircflx', parentControl: 'PctStenKnown', conditions: ['Yes'] },
            { control: 'GrftStenCircflx', parentControl: 'GraftsPrsnt', conditions: ['Yes'] },
            { control: 'StntStenCircflx', parentControl: 'StentPrsnt', conditions: ['Yes'] },
            { control: 'FFRCircflx', parentControl: 'FFRPerf', conditions: ['Yes'] },
            { control: 'IFRCircflx', parentControl: 'IFRPerf', conditions: ['Yes'] },
 
+           { control: 'H:cathresult8', parentControl: 'NumDisV', conditions: ['One', 'Two', 'Three'] },
            { control: 'PctStenOM1', parentControl: 'PctStenKnown', conditions: ['Yes'] },
            { control: 'GrftStenOM1', parentControl: 'GraftsPrsnt', conditions: ['Yes'] },
            { control: 'StntStenOM1', parentControl: 'StentPrsnt', conditions: ['Yes'] },
            { control: 'FFROM1', parentControl: 'FFRPerf', conditions: ['Yes'] },
            { control: 'IFROM1', parentControl: 'IFRPerf', conditions: ['Yes'] },
 
+           { control: 'H:cathresult9', parentControl: 'NumDisV', conditions: ['One', 'Two', 'Three'] },
            { control: 'PctStenOM2', parentControl: 'PctStenKnown', conditions: ['Yes'] },
            { control: 'GrftStenOM2', parentControl: 'GraftsPrsnt', conditions: ['Yes'] },
            { control: 'StntStenOM2', parentControl: 'StentPrsnt', conditions: ['Yes'] },
            { control: 'FFROM2', parentControl: 'FFRPerf', conditions: ['Yes'] },
            { control: 'IFROM2', parentControl: 'IFRPerf', conditions: ['Yes'] },
 
+           { control: 'H:cathresult10', parentControl: 'NumDisV', conditions: ['One', 'Two', 'Three'] },
            { control: 'PctStenOM3', parentControl: 'PctStenKnown', conditions: ['Yes'] },
            { control: 'GrftStenOM3', parentControl: 'GraftsPrsnt', conditions: ['Yes'] },
            { control: 'StntStenOM3', parentControl: 'StentPrsnt', conditions: ['Yes'] },
            { control: 'FFROM3', parentControl: 'FFRPerf', conditions: ['Yes'] },
            { control: 'IFROM3', parentControl: 'IFRPerf', conditions: ['Yes'] },
 
+           { control: 'H:cathresult11', parentControl: 'NumDisV', conditions: ['One', 'Two', 'Three'] },
            { control: 'PctStenRamus', parentControl: 'PctStenKnown', conditions: ['Yes'] },
            { control: 'GrftStenRamus', parentControl: 'GraftsPrsnt', conditions: ['Yes'] },
            { control: 'StntStenRamus', parentControl: 'StentPrsnt', conditions: ['Yes'] },
            { control: 'FFRRamus', parentControl: 'FFRPerf', conditions: ['Yes'] },
            { control: 'IFRRamus', parentControl: 'IFRPerf', conditions: ['Yes'] },
 
+           { control: 'H:cathresult12', parentControl: 'NumDisV', conditions: ['One', 'Two', 'Three'] },
            { control: 'PctStenRCA', parentControl: 'PctStenKnown', conditions: ['Yes'] },
            { control: 'GrftStenRCA', parentControl: 'GraftsPrsnt', conditions: ['Yes'] },
            { control: 'StntStenRCA', parentControl: 'StentPrsnt', conditions: ['Yes'] },
            { control: 'FFRRCA', parentControl: 'FFRPerf', conditions: ['Yes'] },
            { control: 'IFRRCA', parentControl: 'IFRPerf', conditions: ['Yes'] },
 
+           { control: 'H:cathresult13', parentControl: 'NumDisV', conditions: ['One', 'Two', 'Three'] },
            { control: 'PctStenAM', parentControl: 'PctStenKnown', conditions: ['Yes'] },
            { control: 'GrftStenAM', parentControl: 'GraftsPrsnt', conditions: ['Yes'] },
            { control: 'StntStenAM', parentControl: 'StentPrsnt', conditions: ['Yes'] },
            { control: 'FFRAM', parentControl: 'FFRPerf', conditions: ['Yes'] },
            { control: 'IFRAM', parentControl: 'IFRPerf', conditions: ['Yes'] },
 
+           { control: 'H:cathresult14', parentControl: 'NumDisV', conditions: ['One', 'Two', 'Three'] },
            { control: 'PctStenPDA', parentControl: 'PctStenKnown', conditions: ['Yes'] },
            { control: 'GrftStenPDA', parentControl: 'GraftsPrsnt', conditions: ['Yes'] },
            { control: 'StntStenPDA', parentControl: 'StentPrsnt', conditions: ['Yes'] },
            { control: 'FFRPDA', parentControl: 'FFRPerf', conditions: ['Yes'] },
            { control: 'IFRPDA', parentControl: 'IFRPerf', conditions: ['Yes'] },
 
+           { control: 'H:cathresult15', parentControl: 'NumDisV', conditions: ['One', 'Two', 'Three'] },
            { control: 'PctStenPLB', parentControl: 'PctStenKnown', conditions: ['Yes'] },
            { control: 'GrftStenPLB', parentControl: 'GraftsPrsnt', conditions: ['Yes'] },
            { control: 'StntStenPLB', parentControl: 'StentPrsnt', conditions: ['Yes'] },
@@ -312,7 +326,7 @@ export const conditions: FormConditions = {
            { control: 'CanArtStFem', parentControl: 'CPBUtil', conditions: ['Combination', 'Full'] },
            { control: 'CanArtStAx', parentControl: 'CPBUtil', conditions: ['Combination', 'Full'] },
            { control: 'CanArtStInn', parentControl: 'CPBUtil', conditions: ['Combination', 'Full'] },
-           { control: 'CanArtStO', parentControl: 'CPBUtil', conditions: ['Combination', 'Full'] },
+           { control: 'CanArtStOth', parentControl: 'CPBUtil', conditions: ['Combination', 'Full'] },
 
            { control: 'I:venCannSite', parentControl: 'CPBUtil', conditions: ['Combination', 'Full'] },
            { control: 'CanVenStFem', parentControl: 'CPBUtil', conditions: ['Combination', 'Full'] },
@@ -358,7 +372,7 @@ export const conditions: FormConditions = {
            { control: 'PRepTGradM', parentControl: 'InOpTEE', conditions: ['Yes'] },
            { control: 'PRepTPVL', parentControl: 'InOpTEE', conditions: ['Yes'] },
            { control: 'PPEFMeas', parentControl: 'InOpTEE', conditions: ['Yes'] },
-           { control: 'PPEF', parentControl: 'InOpTEE', conditions: ['Yes'] }
+           { control: 'PPEF', parentControl: 'PPEFMeas', conditions: ['Yes'] }
          ],
          sectionJ: [
            { control: 'IMAUsed', parentControl: 'I:OpCAB', conditions: ['!', 'No'] },
@@ -1544,7 +1558,8 @@ export const conditions: FormConditions = {
            { control: 'POpTTPu', parentControl: 'POpTTEch', conditions: ['Yes'] },
            { control: 'POpEF', parentControl: 'POpEFD', conditions: ['Yes'] },
            { control: 'POpPkCKMB', parentControl: 'POpEnzDrawn', conditions: ['Yes'] },
-           { control: 'POpPkTrI', parentControl: 'POpEnzDrawn', conditions: ['Yes'] }
+           { control: 'POpPkTrI', parentControl: 'POpEnzDrawn', conditions: ['Yes'] },
+           { control: 'POpPkTrT', parentControl: 'POpEnzDrawn', conditions: ['Yes'] }
          ],
          sectionP: [
            { control: 'CSternalSupInf', parentControl: 'SurSInf', conditions: ['Yes'] },
