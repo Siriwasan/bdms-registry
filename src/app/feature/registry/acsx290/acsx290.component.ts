@@ -29,6 +29,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
   formDetail: FormDetail;
   formGroupA: FormGroup;
   formGroupB: FormGroup;
+  formGroupC: FormGroup;
   formGroupD: FormGroup;
   formGroupE: FormGroup;
   formGroupF: FormGroup;
@@ -52,6 +53,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
 
   @ViewChild('formDirectiveA', { static: true }) formDirectiveA: FormGroupDirective;
   @ViewChild('formDirectiveB', { static: true }) formDirectiveB: FormGroupDirective;
+  @ViewChild('formDirectiveC', { static: true }) formDirectiveC: FormGroupDirective;
   @ViewChild('formDirectiveD', { static: true }) formDirectiveD: FormGroupDirective;
   @ViewChild('formDirectiveE', { static: true }) formDirectiveE: FormGroupDirective;
   @ViewChild('formDirectiveF', { static: true }) formDirectiveF: FormGroupDirective;
@@ -311,6 +313,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
   private createForm() {
     this.formGroupA = this.formBuilder.group(ACSx290form.sectionA);
     this.formGroupB = this.formBuilder.group(ACSx290form.sectionB);
+    this.formGroupC = this.formBuilder.group(ACSx290form.sectionC);
     this.formGroupD = this.formBuilder.group(ACSx290form.sectionD);
     this.formGroupE = this.formBuilder.group(ACSx290form.sectionE);
     this.formGroupF = this.formBuilder.group(ACSx290form.sectionF);
@@ -335,6 +338,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
     const sectionMembers: SectionMember[] = [
       ['A', this.formGroupA, this.formDirectiveA, conditions.sectionA],
       ['B', this.formGroupB, this.formDirectiveB, conditions.sectionB],
+      ['C', this.formGroupC, this.formDirectiveC, conditions.sectionC],
       ['D', this.formGroupD, this.formDirectiveD, conditions.sectionD],
       ['E', this.formGroupE, this.formDirectiveE, conditions.sectionE],
       ['F', this.formGroupF, this.formDirectiveF, conditions.sectionF],
@@ -411,6 +415,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
         ...this.formGroupB.value,
         DOB: this.serializeDateTime(this.formGroupB.get('DOB').value)
       },
+      sectionC: { ...this.formGroupC.value },
       sectionD: { ...this.formGroupD.value },
       sectionE: { ...this.formGroupE.value },
       sectionF: { ...this.formGroupF.value },
@@ -491,6 +496,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
         this.formDetail = data.detail;
         this.formGroupA.setValue(data.sectionA);
         this.formGroupB.setValue(data.sectionB);
+        this.formGroupC.setValue(data.sectionC);
         this.formGroupD.setValue(data.sectionD);
         this.formGroupE.setValue(data.sectionE);
         this.formGroupF.setValue(data.sectionF);

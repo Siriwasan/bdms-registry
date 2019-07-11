@@ -3,6 +3,13 @@ import { FormConditions } from '../registry.model';
 export const conditions: FormConditions = {
          sectionA: [],
          sectionB: [],
+         sectionC: [
+           {
+             control: 'OthHosCS',
+             parentControl: 'AdmitSrc',
+             conditions: ['Transfer in from another hospital/acute care facility']
+           }
+         ],
          sectionD: [
            { control: 'DiabCtrl', parentControl: 'Diabetes', conditions: ['Yes'] },
            { control: 'InfEndTy', parentControl: 'InfEndo', conditions: ['Yes'] },

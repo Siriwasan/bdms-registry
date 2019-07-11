@@ -268,7 +268,7 @@ export class RegistryService implements OnDestroy {
   public isInvalid(control: string, validationType: string): boolean {
     const section = this.getControlSection(control);
 
-    console.log(control);
+    // console.log(control);
 
     return this.getFormGroup(section)
       .get(control)

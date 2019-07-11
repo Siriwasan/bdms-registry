@@ -22,6 +22,8 @@
       <div class="section-body">
         <form [formGroup]="formGroupA" #formDirectiveA="ngForm">
           <div fxLayout="column" fxLayout.gt-xs="row" [fxLayoutGap.gt-xs]="gap">
+            <reg-input controlName="CaseNo" placeholder="Case No" [formGroup]="formGroupA"
+              type="text" fxFlex="25">(software generated)</reg-input>
             <reg-input controlName="HN" placeholder="HN" [formGroup]="formGroupA"
               type="text" fxFlex="25"></reg-input>
             <reg-input controlName="AN" placeholder="AN" [formGroup]="formGroupA" type="text" fxFlex="25"></reg-input>
@@ -70,16 +72,67 @@
             type="text"></reg-input>
 
           <div fxLayout="column" fxLayout.gt-xs="row" [fxLayoutGap.gt-xs]="gap">
-            <reg-input controlName="PatCity" placeholder="City" [formGroup]="formGroupB" type="text" fxFlex="33">
-            </reg-input>
-            <reg-input controlName="PatRegion" placeholder="Region" [formGroup]="formGroupB" type="text" fxFlex="33">
-            </reg-input>
-            <reg-input controlName="PatientCountry" placeholder="Country" [formGroup]="formGroupB" type="text" fxFlex>
+            <reg-input controlName="PatNation" placeholder="Nationality" [formGroup]="formGroupB" type="text" fxFlex>
             </reg-input>
           </div>
 
           <reg-select controlName="PermAddr" placeholder="Is This Patient’s Permanent Address" [formGroup]="formGroupB"
             [choices]="['Yes', 'No', 'Unknown']"></reg-select>
+        </form>
+      </div>
+    </section>
+
+    <section class="section-wrapper" scrollSpyElement id="sectionC">
+      <div class="section-title">
+        <span>C. Hospitalization</span>
+        <span>{{ formCompletion('C') }}</span>
+      </div>
+      <div class="section-body">
+        <form [formGroup]="formGroupC" #formDirectiveC="ngForm">
+
+          <reg-select controlName="HospName" placeholder="Hospital Name" [formGroup]="formGroupC"
+            [choices]="['BHT']"></reg-select>
+
+          <reg-select controlName="PriPayor" placeholder="Primary Payor" [formGroup]="formGroupC" [choices]="[
+              'Self',
+              'Comptroller General\'s Department',
+              'NHSO (National Health Security Officer)',
+              'SSO (Social Security Officer)',
+              'Embassy',
+              'Corporate',
+              'Private Health Insurance',
+              'Charitable care/Foundation Funding',
+              'Other'
+            ]"></reg-select>
+
+          <reg-select controlName="SecPayor" placeholder="Secondary Payor" [formGroup]="formGroupC" [choices]="[
+              'None',
+              'Comptroller General\'s Department',
+              'NHSO (National Health Security Officer)',
+              'SSO (Social Security Officer)',
+              'Embassy',
+              'Corporate',
+              'Private Health Insurance',
+              'Charitable care/Foundation Funding',
+              'Other'
+            ]"></reg-select>
+
+          <reg-datepicker controlName="AdmitDt" placeholder="Admit Date" [formGroup]="formGroupC">
+          </reg-datepicker>
+
+          <reg-datepicker controlName="SurgDt" placeholder="Date of Surgery" [formGroup]="formGroupC">
+          </reg-datepicker>
+
+          <reg-select controlName="AdmitSrc" placeholder="Admit Source" [formGroup]="formGroupC" [choices]="[
+              'Elective Admission',
+              'Emergency Department',
+              'Transfer in from another hospital/acute care facility',
+              'Other'
+            ]"></reg-select>
+
+          <reg-select controlName="OthHosCS" placeholder="Other Hospital Performs Cardiac Surgery" [formGroup]="formGroupC"
+            [choices]="['Yes', 'No']"></reg-select>
+
         </form>
       </div>
     </section>
@@ -93,9 +146,11 @@
         <form [formGroup]="formGroupD" #formDirectiveD="ngForm">
           <div fxLayout="column" fxLayout.gt-xs="row" [fxLayoutGap.gt-xs]="gap">
             <reg-input controlName="HeightCM" placeholder="Height (cm)" [formGroup]="formGroupD" type="number"
-              fxFlex="25"></reg-input>
+              fxFlex="20"></reg-input>
             <reg-input controlName="WeightKg" placeholder="Weight (kg)" [formGroup]="formGroupD" type="number"
-              fxFlex="25"></reg-input>
+              fxFlex="20"></reg-input>
+            <reg-input controlName="BMI" placeholder="Body Mass Index" [formGroup]="formGroupD" type="number"
+              fxFlex="20"></reg-input>
             <reg-select controlName="FHCAD" placeholder="Family History of Premature CAD" [formGroup]="formGroupD"
               [choices]="['Yes', 'No', 'Unknown']" fxFlex></reg-select>
           </div>
@@ -1443,7 +1498,67 @@
       <div class="section-body">
         <form [formGroup]="formGroupI" #formDirectiveI="ngForm">
 
+          <reg-input controlName="Procedure1" placeholder="Procedure 1" [formGroup]="formGroupI" type="text">
+          </reg-input>
+
+          <reg-input controlName="Procedure2" placeholder="Procedure 2" require="false" [formGroup]="formGroupI" type="text">
+          </reg-input>
+
+          <reg-input controlName="Procedure3" placeholder="Procedure 3" require="false" [formGroup]="formGroupI" type="text">
+          </reg-input>
+
+          <reg-input controlName="Procedure4" placeholder="Procedure 4" require="false" [formGroup]="formGroupI" type="text">
+          </reg-input>
+
           <reg-input controlName="Surgeon" placeholder="Surgeon" [formGroup]="formGroupI" type="text">
+          </reg-input>
+
+          <reg-input controlName="Assist1" placeholder="Assist 1" require="false" [formGroup]="formGroupI" type="text">
+          </reg-input>
+
+          <reg-input controlName="Assist2" placeholder="Assist 2" require="false" [formGroup]="formGroupI" type="text">
+          </reg-input>
+
+          <reg-input controlName="Assist3" placeholder="Assist 3" require="false" [formGroup]="formGroupI" type="text">
+          </reg-input>
+
+          <reg-input controlName="Assist4" placeholder="Assist 4" require="false" [formGroup]="formGroupI" type="text">
+          </reg-input>
+
+          <reg-input controlName="Assist5" placeholder="Assist 5" require="false" [formGroup]="formGroupI" type="text">
+          </reg-input>
+
+          <reg-input controlName="Assist6" placeholder="Assist 6" require="false" [formGroup]="formGroupI" type="text">
+          </reg-input>
+
+          <reg-input controlName="Anesth1" placeholder="Anesth 1" [formGroup]="formGroupI" type="text">
+          </reg-input>
+
+          <reg-input controlName="Anesth2" placeholder="Anesth 2" require="false" [formGroup]="formGroupI" type="text">
+          </reg-input>
+
+          <reg-input controlName="Scrub1" placeholder="Scrub 1" [formGroup]="formGroupI" type="text">
+          </reg-input>
+
+          <reg-input controlName="Scrub2" placeholder="Scrub 2" require="false" [formGroup]="formGroupI" type="text">
+          </reg-input>
+
+          <reg-input controlName="Scrub3" placeholder="Scrub 3" require="false" [formGroup]="formGroupI" type="text">
+          </reg-input>
+
+          <reg-input controlName="Scrub4" placeholder="Scrub 4" require="false" [formGroup]="formGroupI" type="text">
+          </reg-input>
+
+          <reg-input controlName="CTT1" placeholder="CTT 1" [formGroup]="formGroupI" type="text">
+          </reg-input>
+
+          <reg-input controlName="CTT2" placeholder="CTT 2" require="false" [formGroup]="formGroupI" type="text">
+          </reg-input>
+
+          <reg-input controlName="CTT3" placeholder="CTT 3" require="false" [formGroup]="formGroupI" type="text">
+          </reg-input>
+
+          <reg-input controlName="CTT4" placeholder="CTT 4" require="false" [formGroup]="formGroupI" type="text">
           </reg-input>
 
           <reg-select controlName="RiskDiscussed" placeholder="Indicate whether the STS Risk Calculator score was discussed with the patient/family prior to surgery" [formGroup]="formGroupI" [choices]="[

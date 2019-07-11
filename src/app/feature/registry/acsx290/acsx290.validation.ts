@@ -11,6 +11,7 @@ export const validations: FormValidations = {
              { type: 'maxlength', message: 'Patient Last Name cannot be more than 10' }
            ]
          },
+         sectionC: {},
          sectionD: {
            HeightCM: [
              { type: 'min', message: 'Height must be at least 20 cm' },

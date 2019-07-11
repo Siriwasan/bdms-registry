@@ -2,6 +2,7 @@ import { Validators } from '@angular/forms';
 
 export const ACSx290form = {
          sectionA: {
+           CaseNo: [null, Validators.required],
            HN: [null, Validators.required],
            AN: [null, Validators.required]
          },
@@ -14,14 +15,23 @@ export const ACSx290form = {
            Gender: [null, Validators.required],
            SSN: [null, Validators.required],
            PatAddr: [null],
-           PatCity: [null, Validators.required],
-           PatRegion: [null, Validators.required],
-           PatientCountry: [null, Validators.required],
+           PatNation: [null, Validators.required],
            PermAddr: [null, Validators.required]
+         },
+         sectionC: {
+           HospName: [null, Validators.required],
+           PriPayor: [null, Validators.required],
+           SecPayor: [null, Validators.required],
+           AdmitDt: [null, Validators.required],
+           SurgDt: [null, Validators.required],
+           AdmitSrc: [null, Validators.required],
+           OthHosCS: [null, Validators.required],
+
          },
          sectionD: {
            HeightCM: [null, [Validators.required, Validators.min(20), Validators.max(251)]],
            WeightKg: [null, [Validators.required, Validators.min(10), Validators.max(250)]],
+           BMI: [null, Validators.required],
            FHCAD: [null, Validators.required],
            Diabetes: [null, Validators.required],
            DiabCtrl: [null, Validators.required],
@@ -323,7 +333,28 @@ export const ACSx290form = {
            VDPuEt: [null, Validators.required]
          },
          sectionI: {
+           Procedure1: [null, Validators.required],
+           Procedure2: [null],
+           Procedure3: [null],
+           Procedure4: [null],
            Surgeon: [null, Validators.required],
+           Assist1: [null],
+           Assist2: [null],
+           Assist3: [null],
+           Assist4: [null],
+           Assist5: [null],
+           Assist6: [null],
+           Anesth1: [null, Validators.required],
+           Anesth2: [null],
+           Scrub1: [null, Validators.required],
+           Scrub2: [null],
+           Scrub3: [null],
+           Scrub4: [null],
+           CTT1: [null, Validators.required],
+           CTT2: [null],
+           CTT3: [null],
+           CTT4: [null],
+
            RiskDiscussed: [null, Validators.required],
            STSscore: [null, Validators.required],
            Incidenc: [null, Validators.required],
@@ -1182,7 +1213,7 @@ export const ACSx290form = {
            OCarCongDiag3: [null, Validators.required],
            OCarCongProc1: [null, Validators.required],
            OCarCongProc2: [null, Validators.required],
-           OCarCongProc3: [null, Validators.required],
+           OCarCongProc3: [null, Validators.required]
          },
          sectionN: {
            ONCCarEn: [null, Validators.required],
@@ -1447,7 +1478,6 @@ export const ACSx290form = {
            PostopDel: [null, Validators.required],
            PostHITAnti: [null, Validators.required],
            PainScorePOD3: [null, Validators.required],
-           PainScoreDisch: [null, Validators.required],
-
+           PainScoreDisch: [null, Validators.required]
          }
        };
