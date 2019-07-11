@@ -426,7 +426,7 @@ export const ACSx290form = {
            CanArtStFem: [null, Validators.required],
            CanArtStAx: [null, Validators.required],
            CanArtStInn: [null, Validators.required],
-           CanArtStO: [null, Validators.required],
+           CanArtStOth: [null, Validators.required],
 
            CanVenStFem: [null, Validators.required],
            CanVenStJug: [null, Validators.required],
