@@ -53,18 +53,21 @@
           <div fxLayout="column" fxLayout.gt-xs="row" [fxLayoutGap.gt-xs]="gap">
             <reg-input controlName="PatLName" placeholder="Patient Last Name" [formGroup]="formGroupB" type="text"
               fxFlex="33"></reg-input>
+
             <reg-input controlName="PatFName" placeholder="Patient First Name" [formGroup]="formGroupB" type="text"
               fxFlex="33"></reg-input>
+
             <reg-input controlName="PatMName" placeholder="Patient Middle Name" [formGroup]="formGroupB" type="text"
               require="false" fxFlex></reg-input>
           </div>
 
           <div fxLayout="column" fxLayout.gt-xs="row" [fxLayoutGap.gt-xs]="gap">
             <reg-datepicker controlName="DOB" placeholder="Date of Birth" [formGroup]="formGroupB" fxFlex="33">
-            </reg-datepicker>
+            dd/mm/yyyy</reg-datepicker>
 
             <reg-input controlName="Age" placeholder="Patient Age" [formGroup]="formGroupB" type="text" fxFlex="33">
             </reg-input>
+
             <reg-select controlName="Gender" placeholder="Sex" [formGroup]="formGroupB" [choices]="['Male', 'Female']"
               fxFlex></reg-select>
           </div>
@@ -121,10 +124,10 @@
             ]"></reg-select>
 
           <reg-datepicker controlName="AdmitDt" placeholder="Admit Date" [formGroup]="formGroupC">
-          </reg-datepicker>
+          dd/mm/yyyy</reg-datepicker>
 
           <reg-datepicker controlName="SurgDt" placeholder="Date of Surgery" [formGroup]="formGroupC">
-          </reg-datepicker>
+          dd/mm/yyyy</reg-datepicker>
 
           <reg-select controlName="AdmitSrc" placeholder="Admit Source" [formGroup]="formGroupC" [choices]="[
               'Elective Admission',
@@ -1151,7 +1154,7 @@
             [choices]="['Yes', 'No']"></reg-select>
 
           <reg-datepicker controlName="CarCathDt" placeholder="Cardiac Catheterization Date" [formGroup]="formGroupH"
-            ></reg-datepicker>
+            >dd/mm/yyyy</reg-datepicker>
 
           <reg-select controlName="CorAnatDisKnown" placeholder="Coronary Anatomy/Disease known" [formGroup]="formGroupH"
             [choices]="['Yes', 'No']"></reg-select>
@@ -1626,7 +1629,7 @@
             [choices]="['Yes', 'No']"></reg-select>
 
           <reg-datepicker controlName="PCancCaseDt" placeholder="Date of previous case" [formGroup]="formGroupI"
-            ></reg-datepicker>
+            >dd/mm/yyyy</reg-datepicker>
 
           <reg-select controlName="PCancCaseTmg" placeholder="Timing of previous case" [formGroup]="formGroupI" [choices]="[
               'Prior to induction of anesthesia',
@@ -1779,11 +1782,11 @@
 
           <!-- CPT CODE -->
 
-          <reg-input controlName="OREntryDT" placeholder="OR Entry Date And Time" [formGroup]="formGroupI" type="text">
-            dd/mm/Zone 1 (mm)y hh:mm - 24 hr clock</reg-input>
+          <reg-datepicker controlName="OREntryDT" placeholder="OR Entry Date And Time" [formGroup]="formGroupI" type="datetime">
+            dd/mm/yyyy hh:mm</reg-datepicker>
 
-          <reg-input controlName="ORExitDT" placeholder="OR Exit Date And Time" [formGroup]="formGroupI" type="text">
-            dd/mm/Zone 1 (mm)y hh:mm - 24 hr clock</reg-input>
+          <reg-datepicker controlName="ORExitDT" placeholder="OR Exit Date And Time" [formGroup]="formGroupI" type="datetime">
+            dd/mm/yyyy hh:mm</reg-datepicker>
 
           <reg-select controlName="GenAnes" placeholder="General Anesthesia" [formGroup]="formGroupI"
             [choices]="['Yes', 'No']"></reg-select>
@@ -1797,20 +1800,20 @@
               'No'
             ]"></reg-select>
 
-          <reg-input controlName="IntubateDT" placeholder="Intubation Date and Time" [formGroup]="formGroupI" type="text"
-            >dd/mm/Zone 1 (mm)y hh:mm - 24 hr clock</reg-input>
+          <reg-datepicker controlName="IntubateDT" placeholder="Intubation Date and Time" [formGroup]="formGroupI" type="datetime"
+            >dd/mm/yyyy hh:mm</reg-datepicker>
 
-          <reg-input controlName="ExtubateDT" placeholder="Initial Extubation Date and Time" [formGroup]="formGroupI" type="text"
-            >dd/mm/Zone 1 (mm)y hh:mm - 24 hr clock</reg-input>
+          <reg-datepicker controlName="ExtubateDT" placeholder="Initial Extubation Date and Time" [formGroup]="formGroupI" type="datetime"
+            >dd/mm/yyyy hh:mm</reg-datepicker>
 
-          <reg-input controlName="SIStartDT" placeholder="Skin Incision Start Date and Time" [formGroup]="formGroupI" type="text">
-            dd/mm/Zone 1 (mm)y hh:mm - 24 hr clock</reg-input>
+          <reg-datepicker controlName="SIStartDT" placeholder="Skin Incision Start Date and Time" [formGroup]="formGroupI" type="datetime">
+            dd/mm/yyyy hh:mm</reg-datepicker>
 
-          <reg-input controlName="SIStopDT" placeholder="Skin Incision Stop Date and Time" [formGroup]="formGroupI" type="text">
-            dd/mm/Zone 1 (mm)y hh:mm - 24 hr clock</reg-input>
+          <reg-datepicker controlName="SIStopDT" placeholder="Skin Incision Stop Date and Time" [formGroup]="formGroupI" type="datetime">
+            dd/mm/yyyy hh:mm</reg-datepicker>
 
-          <reg-input controlName="AnesEndDT" placeholder="Anesthesia End Date and Time" [formGroup]="formGroupI" type="text">
-            dd/mm/Zone 1 (mm)y hh:mm - 24 hr clock</reg-input>
+          <reg-datepicker controlName="AnesEndDT" placeholder="Anesthesia End Date and Time" [formGroup]="formGroupI" type="datetime">
+            dd/mm/yyyy hh:mm</reg-datepicker>
 
           <reg-select controlName="AbxSelect" placeholder="Appropriate Antibiotic Selection" [formGroup]="formGroupI"
             [choices]="['Yes', 'No', 'Exclusion']"></reg-select>
@@ -2958,7 +2961,7 @@
             [choices]="['Yes', 'No']"></reg-select>
 
           <reg-datepicker controlName="PrevVADD" placeholder="Insertion date" [formGroup]="formGroupL2">
-          </reg-datepicker>
+          dd/mm/yyyy</reg-datepicker>
 
           <reg-select controlName="PrevVADIn" placeholder="Indication" [formGroup]="formGroupL2" [choices]="[
             'Bridge to Transplantation',
@@ -2999,7 +3002,7 @@
             ]"></reg-select>
 
           <reg-datepicker controlName="PrevVADExpDt" placeholder="Date" [formGroup]="formGroupL2">
-          </reg-datepicker>
+          dd/mm/yyyy</reg-datepicker>
 
           <reg-select controlName="VADImp" placeholder="Ventricular Assist Device Implanted during this hospitalization" [formGroup]="formGroupL2"
             [choices]="['Yes', 'No']"></reg-select>
@@ -3021,7 +3024,7 @@
               ]"></reg-select>
 
             <reg-datepicker [controlName]="vad[3]" placeholder="Implant Date" [formGroup]="formGroupL2">
-            </reg-datepicker>
+            dd/mm/yyyy</reg-datepicker>
 
             <reg-select [controlName]="vad[4]" placeholder="Indication" [formGroup]="formGroupL2" [choices]="[
               'Bridge to Transplantation',
@@ -3062,7 +3065,7 @@
               ]"></reg-select>
 
             <reg-datepicker [controlName]="vad[10]" placeholder="Date" [formGroup]="formGroupL2">
-            </reg-datepicker>
+            dd/mm/yyyy</reg-datepicker>
 
           </div>
 
@@ -3493,7 +3496,7 @@
             [choices]="['Yes', 'No']"></reg-select>
 
           <reg-datepicker controlName="DisOnsetDt" placeholder="Date of onset" [formGroup]="formGroupM2">
-          </reg-datepicker>
+          dd/mm/yyyy</reg-datepicker>
 
           <reg-select controlName="DisTearLoc" placeholder="Primary tear location" [formGroup]="formGroupM2" [choices]="[
             'Below STJ',
@@ -4579,7 +4582,7 @@
             ]"></reg-select>
 
           <reg-datepicker controlName="DeepSternInfDt" placeholder="Diagnosis Date" [formGroup]="formGroupP">
-          </reg-datepicker>
+          dd/mm/yyyy</reg-datepicker>
 
           <reg-select controlName="CIThor" placeholder="Thoracotomy" [formGroup]="formGroupP" [choices]="[
               'Yes, within 30 days of procedure',
@@ -4891,7 +4894,7 @@
         <form [formGroup]="formGroupQ" #formDirectiveQ="ngForm">
 
           <reg-datepicker controlName="LFUDate" placeholder="Date of Last Follow-up" [formGroup]="formGroupQ">
-          </reg-datepicker>
+          dd/mm/yyyy</reg-datepicker>
 
           <reg-select controlName="Mt30Stat" placeholder="Status at 30 days After Surgery" [formGroup]="formGroupQ" [choices]="[
               'Alive',
@@ -4916,7 +4919,7 @@
             ]"></reg-select>
 
           <reg-datepicker controlName="DischDt" placeholder="Discharge Date" [formGroup]="formGroupQ">
-          </reg-datepicker>
+          dd/mm/yyyy</reg-datepicker>
 
           <reg-select controlName="DisLoctn" placeholder="Discharge Location" [formGroup]="formGroupQ" [choices]="[
             'Home',
@@ -4986,7 +4989,7 @@
             [choices]="['Yes', 'No', 'Contraindicated']"></reg-select>
 
           <reg-datepicker controlName="MtDate" placeholder="Mortality - Date" [formGroup]="formGroupQ">
-          </reg-datepicker>
+          dd/mm/yyyy</reg-datepicker>
 
           <reg-select controlName="MtCause" placeholder="Primary Cause of Death" [formGroup]="formGroupQ" [choices]="[
             'Cardiac',
@@ -5034,7 +5037,7 @@
             [choices]="['Yes', 'No', 'Unknown']"></reg-select>
 
           <reg-datepicker controlName="ReadmitDt" placeholder="Readmit Date" [formGroup]="formGroupR">
-          </reg-datepicker>
+          dd/mm/yyyy</reg-datepicker>
 
           <reg-select controlName="ReadmRsn" placeholder="Readmit Primary Reason" [formGroup]="formGroupR" [choices]="[
             'Angina',

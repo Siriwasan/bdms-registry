@@ -7,7 +7,7 @@ import {
   MatListModule,
   MatFormFieldModule,
   MatInputModule,
-  MatDatepickerModule,
+  // MatDatepickerModule,
   MatNativeDateModule,
   MatCheckboxModule,
   MatRadioModule,
@@ -21,6 +21,7 @@ import {
   MatPaginatorModule,
   MatSortModule
 } from '@angular/material';
+import { MatDatepickerModule, MatMomentDateModule } from '@coachcare/datepicker';
 
 @NgModule({
   imports: [
@@ -32,6 +33,7 @@ import {
     MatFormFieldModule,
     MatInputModule,
     MatDatepickerModule,
+    MatMomentDateModule,
     MatNativeDateModule,
     MatCheckboxModule,
     MatRadioModule,
