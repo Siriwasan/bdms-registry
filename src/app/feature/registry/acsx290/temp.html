@@ -28,3 +28,16 @@
 <!-- DIVIDER -->
           <mat-divider></mat-divider>
 
+<!-- FLEX LAYOUT -->
+          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+
+          </div>
+
+
+            <span style="padding-top: 30px;color: #757575;">Cardiac Presentation/Symptoms:</span>
+
+          <div [id]="'cathresult'+i" style="margin-top: 25px;" *ngFor="let cathresult of H_cathResults; let i = index">
+            <fieldset style="border:1px solid #a1a1a1; border-radius:10px; padding: 20px 30px 20px 30px;">
+              <legend style="color:#757575;">{{ cathresult[0] }}</legend>
+
+

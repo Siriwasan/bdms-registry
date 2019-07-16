@@ -301,7 +301,7 @@ export const conditions: FormConditions = {
 
            { control: 'RobotTim', parentControl: 'Robotic', conditions: ['Yes'] },
            { control: 'OpValSurgInput', parentControl: 'OpValve', conditions: ['Yes'] },
-           { control: 'AortProcSurgInput', parentControl: 'AortProc', conditions: ['Yes'] },
+           { control: 'AortProcSurgInput', parentControl: 'AortProc', conditions: ['!', 'No'] },
            { control: 'AFibProcSurgInput', parentControl: 'AFibProc', conditions: ['Yes'] },
            { control: 'ProcSed', parentControl: 'GenAnes', conditions: ['No'] },
            { control: 'Intubate', parentControl: 'GenAnes', conditions: ['Yes'] },
@@ -520,7 +520,6 @@ export const conditions: FormConditions = {
            { control: 'VSAVSurgType', parentControl: 'VSAVSurgRep', conditions: ['Yes'] },
            { control: 'VSAVSurgBioT', parentControl: 'VSAVSurgType', conditions: ['Bioprosthetic'] },
 
-           { control: 'K:repairType', parentControl: 'VSAVPr', conditions: ['Repair/Reconstruction'] },
            { control: 'VSAVRComA', parentControl: 'VSAVPr', conditions: ['Repair/Reconstruction'] },
            { control: 'VSAVRExSutAn', parentControl: 'VSAVPr', conditions: ['Repair/Reconstruction'] },
            { control: 'VSAVRLPlic', parentControl: 'VSAVPr', conditions: ['Repair/Reconstruction'] },
@@ -538,7 +537,6 @@ export const conditions: FormConditions = {
            { control: 'AnlrEnl', parentControl: 'VSAV', conditions: ['!', 'No'] },
            { control: 'AnlrEnlTech', parentControl: 'AnlrEnl', conditions: ['Yes'] },
            { control: 'VSAVRoot', parentControl: 'VSAV', conditions: ['!', 'No'] },
-           { control: 'K:rootProcedure', parentControl: 'VSAV', conditions: ['!', 'No'] },
            { control: 'VSAVRootOReimp', parentControl: 'VSAVRoot', conditions: ['Yes'] },
            { control: 'VSAVRootOReimpTy', parentControl: 'VSAVRootOReimp', conditions: ['Yes'] },
            { control: 'VSAVRepBioTy', parentControl: 'VSAVRootOReimpTy', conditions: ['Bioprosthetic'] },
@@ -548,7 +546,6 @@ export const conditions: FormConditions = {
            { control: 'VSAVPat', parentControl: 'VSAV', conditions: ['!', 'No'] },
            { control: 'VSAVPatTy', parentControl: 'VSAVPat', conditions: ['Yes'] },
            { control: 'AorticImplant', parentControl: 'VSAV', conditions: ['!', 'No'] },
-           { control: 'K:AVimplant', parentControl: 'VSAV', conditions: ['!', 'No'] },
            { control: 'VSAoIm', parentControl: 'AorticImplant', conditions: ['Yes'] },
            { control: 'VSAoImSz', parentControl: 'AorticImplant', conditions: ['Yes'] },
            { control: 'VSAoImUDI', parentControl: 'AorticImplant', conditions: ['Yes'] },
@@ -614,16 +611,16 @@ export const conditions: FormConditions = {
            { control: 'VSChorLfCom', parentControl: 'VSMitRChord', conditions: ['Yes'] },
            { control: 'VSChorLfComLoc', parentControl: 'VSChorLfCom', conditions: ['Yes'] },
 
-           { control: 'VSMitRFold', parentControl: 'VSMVPr', conditions: ['Repair'] },
-           { control: 'VSMitRSlidP', parentControl: 'VSMVPr', conditions: ['Repair'] },
-           { control: 'VSMitRADecalc', parentControl: 'VSMVPr', conditions: ['Repair'] },
-           { control: 'VSMitRLeafERP', parentControl: 'VSMVPr', conditions: ['Repair'] },
+           { control: 'VSMitRFold', parentControl: 'VSMVRepApp', conditions: ['Surgical'] },
+           { control: 'VSMitRSlidP', parentControl: 'VSMVRepApp', conditions: ['Surgical'] },
+           { control: 'VSMitRADecalc', parentControl: 'VSMVRepApp', conditions: ['Surgical'] },
+           { control: 'VSMitRLeafERP', parentControl: 'VSMVRepApp', conditions: ['Surgical'] },
            { control: 'VSMitRLeafERPLoc', parentControl: 'VSMitRLeafERP', conditions: ['Yes'] },
-           { control: 'VSMitREdge', parentControl: 'VSMVPr', conditions: ['Repair'] },
-           { control: 'VSMitRMitComm', parentControl: 'VSMVPr', conditions: ['Repair'] },
-           { control: 'VSMitRMitCplasty', parentControl: 'VSMVPr', conditions: ['Repair'] },
-           { control: 'VSMitRMitCleft', parentControl: 'VSMVPr', conditions: ['Repair'] },
-           { control: 'VSMitParaprosLeak', parentControl: 'VSMVPr', conditions: ['Repair'] },
+           { control: 'VSMitREdge', parentControl: 'VSMVRepApp', conditions: ['Surgical'] },
+           { control: 'VSMitRMitComm', parentControl: 'VSMVRepApp', conditions: ['Surgical'] },
+           { control: 'VSMitRMitCplasty', parentControl: 'VSMVRepApp', conditions: ['Surgical'] },
+           { control: 'VSMitRMitCleft', parentControl: 'VSMVRepApp', conditions: ['Surgical'] },
+           { control: 'VSMitParaprosLeak', parentControl: 'VSMVRepApp', conditions: ['Surgical'] },
 
            { control: 'MitralIntent', parentControl: 'VSMVPr', conditions: ['Replacement'] },
            { control: 'VSChorPres', parentControl: 'VSMVPr', conditions: ['Replacement'] },
@@ -688,7 +685,6 @@ export const conditions: FormConditions = {
              conditions: ['Yes, not during this procedure']
            },
 
-           { control: 'L2:vadImplant', parentControl: 'VADImp', conditions: ['Yes'] },
            { control: 'L2:vad1', parentControl: 'VADImp', conditions: ['Yes'] },
            { control: 'VImp', parentControl: 'VADImp', conditions: ['Yes'] },
            { control: 'VADImpTmg', parentControl: 'VImp', conditions: ['Yes'] },
@@ -886,6 +882,7 @@ export const conditions: FormConditions = {
            { control: 'DistalExtLoc', parentControl: 'DistalExt', conditions: ['Yes'] },
 
            { control: 'DisMal', parentControl: 'PrimIndic', conditions: ['Dissection'] },
+           { control: 'M2:malperfus', parentControl: 'DisMal', conditions: ['Yes'] },
            { control: 'DisMalCor', parentControl: 'DisMal', conditions: ['Yes'] },
            { control: 'DisMalRtSubclav', parentControl: 'DisMal', conditions: ['Yes'] },
            { control: 'DisMalRtComCar', parentControl: 'DisMal', conditions: ['Yes'] },
@@ -1063,9 +1060,9 @@ export const conditions: FormConditions = {
            { control: 'IntIliacPres', parentControl: 'EndovasProc', conditions: ['Yes'] },
 
            { control: 'OthVisVes', parentControl: 'EndovasProc', conditions: ['Yes'] },
-           { control: 'OthVisAortOth', parentControl: 'OthVisVes', conditions: ['Extra-anatomic Bypass'] },
-           { control: 'OthVisIliacOth', parentControl: 'OthVisVes', conditions: ['Extra-anatomic Bypass'] },
-           { control: 'OthVisOther', parentControl: 'OthVisVes', conditions: ['Extra-anatomic Bypass'] },
+           { control: 'OthVisAortOth', parentControl: 'OthVisVes', conditions: ['Yes'] },
+           { control: 'OthVisIliacOth', parentControl: 'OthVisVes', conditions: ['Yes'] },
+           { control: 'OthVisOther', parentControl: 'OthVisVes', conditions: ['Yes'] },
 
            { control: 'DisProxTearCov', parentControl: 'EndovasProc', conditions: ['Yes'] },
            { control: 'EndoEndProc', parentControl: 'EndovasProc', conditions: ['Yes'] },
@@ -1609,7 +1606,6 @@ export const conditions: FormConditions = {
 
            { control: 'P:compliPulmonary', parentControl: 'Complics', conditions: ['Yes'] },
            { control: 'CPVntLng', parentControl: 'Complics', conditions: ['Yes'] },
-           { control: 'P:desCPVntLng', parentControl: 'Complics', conditions: ['Yes'] },
            { control: 'CPPneum', parentControl: 'Complics', conditions: ['Yes'] },
            { control: 'CVTE', parentControl: 'Complics', conditions: ['Yes'] },
            { control: 'PulmEmb', parentControl: 'CVTE', conditions: ['Yes'] },
@@ -1777,6 +1773,14 @@ export const conditions: FormConditions = {
              ]
            },
            {
+             control: 'Q:otherDC',
+             parentControl: 'DischMortStat',
+             conditions: [
+               'Discharged alive, last known status is alive',
+               'Discharged alive, died after discharge'
+             ]
+           },
+           {
              control: 'DCACE',
              parentControl: 'DischMortStat',
              conditions: [
@@ -1911,7 +1915,7 @@ export const conditions: FormConditions = {
            { control: 'PostSAM', parentControl: 'IntraOpPostTEE', conditions: ['Yes'] },
            { control: 'RetCPBEch', parentControl: 'IntraOpPostTEE', conditions: ['Yes'] },
            { control: 'PostLVEFMeas', parentControl: 'IntraOpPostTEE', conditions: ['Yes'] },
-           { control: 'PostLVEF', parentControl: 'IntraOpPostTEE', conditions: ['Yes'] },
+           { control: 'PostLVEF', parentControl: 'PostLVEFMeas', conditions: ['Yes'] },
            { control: 'PostRVFx', parentControl: 'IntraOpPostTEE', conditions: ['Yes'] },
 
            { control: 'PostTempMeas', parentControl: 'ORDeath', conditions: ['Yes'] },

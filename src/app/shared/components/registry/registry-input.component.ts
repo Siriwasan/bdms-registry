@@ -1,4 +1,4 @@
-import { Component, Input, ElementRef, OnInit } from '@angular/core';
+import { Component, Input, ElementRef, OnInit, ViewEncapsulation } from '@angular/core';
 
 import { RegistryService } from '../../../feature/registry/registry.service';
 import { RegistryControlComponent } from './registry-control.component';
@@ -8,7 +8,7 @@ import { AbstractControl } from '@angular/forms';
   // tslint:disable-next-line: component-selector
   selector: 'reg-input',
   template: `
-    <mat-form-field class="item" [formGroup]="formGroup" style="width: 100%">
+    <mat-form-field [formGroup]="formGroup" style="width: 100%">
       <input
         *ngIf="type === 'number'"
         type="number"
@@ -24,6 +24,7 @@ import { AbstractControl } from '@angular/forms';
         [placeholder]="placeholder"
         [formControlName]="controlName"
         [required]="require"
+        [readonly]="readonly"
       />
       <mat-hint>
         <a><ng-content></ng-content></a>
@@ -38,7 +39,7 @@ import { AbstractControl } from '@angular/forms';
         </div>
       </mat-error>
     </mat-form-field>
-  `
+  `,
 })
 export class RegistryInputComponent extends RegistryControlComponent implements OnInit {
   @Input() controlName: string;
@@ -46,6 +47,7 @@ export class RegistryInputComponent extends RegistryControlComponent implements 
   @Input() type = 'number';
   @Input() placeholder: string;
   @Input() require = true;
+  @Input() readonly = false;
 
   bInfo: boolean;
   self: AbstractControl;

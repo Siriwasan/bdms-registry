@@ -1,23 +1,40 @@
 @import '../registry.component.scss';
 
-.item {
-  // margin: 5px;
-  width: 100%;
+reg-input,
+reg-select,
+reg-datepicker {
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
-.item-1 {
-  // margin: 5px;
-  width: 100%;
+.subitem-horz {
+  margin-left: 30px;
+  flex: 1 1 0%;
+  box-sizing: border-box;
+  display: flex;
+}
+
+.subitem-horz2 {
+  margin-left: 60px;
+  flex: 1 1 0%;
+  box-sizing: border-box;
+  display: flex;
+}
+
+.subitem-horz3 {
+  margin-left: 90px;
+  flex: 1 1 0%;
+  box-sizing: border-box;
+  display: flex;
+}
+
+.subitem-horz4 {
+  margin-left: 120px;
+  flex: 1 1 0%;
+  box-sizing: border-box;
+  display: flex;
 }
 
 .button {
   margin: 5px;
-}
-
-.item-radio {
-  align-content: center;
-  align-items: center;
-  display: flex;
-  flex-direction: row;
-  place-content: center space-between;
 }
