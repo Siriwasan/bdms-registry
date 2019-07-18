@@ -1,0 +1,54 @@
+<form [formGroup]="staffForm" (submit)="onSubmit()" #staffFormDirective="ngForm">
+  <fieldset style="border:1px solid #a1a1a1; border-radius:10px; padding: 20px 30px 20px 30px;">
+    <legend style="color:#757575;">Staff Profile</legend>
+
+    <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap.gt-xs="20px">
+      <mat-form-field class="item" fxFlex>
+        <input matInput formControlName="staffId" placeholder="Staff ID" readonly />
+      </mat-form-field>
+
+      <mat-form-field class="item" fxFlex>
+        <input matInput formControlName="title" placeholder="Title" />
+      </mat-form-field>
+
+      <mat-form-field class="item" fxFlex>
+        <input matInput formControlName="firstName" placeholder="First Name" />
+      </mat-form-field>
+
+      <mat-form-field class="item" fxFlex>
+        <input matInput formControlName="lastName" placeholder="Last Name" />
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap.gt-xs="20px">
+      <mat-form-field class="item" fxFlex>
+        <mat-select formControlName="position" placeholder="Position">
+          <mat-option value="Cardiothoracic Surgeon">Cardiothoracic Surgeon</mat-option>
+          <mat-option value="Anesthesiologist">Anesthesiologist</mat-option>
+          <mat-option value="Registered Nurse">Register Nurse</mat-option>
+          <mat-option value="Cardiothoracic Technician">Cardiothoracic Technician</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="item" fxFlex>
+        <mat-select formControlName="primaryHospId" placeholder="Primary Hospital">
+          <mat-option value="BHT">Bangkok Heart Hospital (BHT)</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="item" fxFlex>
+        <mat-select formControlName="status" placeholder="Status">
+          <mat-option value="Active">Active</mat-option>
+          <mat-option value="Inactive">Inactive</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="20px">
+      <button type="submit" mat-raised-button class="button" color="primary" [disabled]="!staffForm.valid">
+        {{ staff === null ? 'Create' : 'Update' }}
+      </button>
+      <button mat-raised-button class="button" color="warn" (click)="onDelete()">Delete</button>
+    </div>
+  </fieldset>
+</form>

@@ -16,6 +16,7 @@ import { AbstractControl } from '@angular/forms';
         [placeholder]="placeholder"
         [formControlName]="controlName"
         [required]="require"
+        [readonly]="readonly"
       />
       <input
         *ngIf="type !== 'number'"
@@ -39,7 +40,7 @@ import { AbstractControl } from '@angular/forms';
         </div>
       </mat-error>
     </mat-form-field>
-  `,
+  `
 })
 export class RegistryInputComponent extends RegistryControlComponent implements OnInit {
   @Input() controlName: string;

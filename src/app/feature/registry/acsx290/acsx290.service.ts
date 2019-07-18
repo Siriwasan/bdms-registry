@@ -42,13 +42,19 @@ export class ACSx290Service implements OnDestroy {
   }
 
   public async saveForm(acsx290Model: ACSx290Model): Promise<string> {
-    const docRef = await this.db.collection(DB_COLLECTION).add(acsx290Model);
-    console.log(docRef ? docRef.id : 'void'); // docRef of type void | DocumentReference
+    // const docRef = await this.db.collection(DB_COLLECTION).add(acsx290Model);
+    // console.log(docRef ? docRef.id : 'void'); // docRef of type void | DocumentReference
 
-    const registry = this.createRegistry(docRef.id, acsx290Model);
+    await this.db
+      .collection(DB_COLLECTION)
+      .doc(acsx290Model.sectionA['CaseNo'])
+      .set(acsx290Model);
+    const docRefid = acsx290Model.sectionA['CaseNo'];
+
+    const registry = this.createRegistry(docRefid, acsx290Model);
     await this.db.collection(DB_REGISTRY).add(registry);
 
-    return docRef.id; // Registry Id
+    return docRefid; // Registry Id
   }
 
   private createRegistry(frmId: string, acsx290Model: ACSx290Model): Registry {

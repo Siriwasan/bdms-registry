@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef, ElementRef, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormGroupDirective, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Moment } from 'moment';
 
 import { RegistryFormComponent } from '../../../shared/components/registry/registry-form.component';
 import { DialogService } from '../../../shared/services/dialog.service';
@@ -18,7 +19,8 @@ import { RegistryService } from '../registry.service';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../../../app.reducer';
 import * as UI from '../../../shared/ui.actions';
-import { Moment } from 'moment';
+
+import { staffs } from '../../staff/staff.model';
 
 @Component({
   selector: 'app-acsx290',
@@ -82,6 +84,8 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
 
   result: ACSx290Model;
   flatResult: object;
+
+  staff = staffs;
 
   // tslint:disable: variable-name
   H_cathResults = [
@@ -299,6 +303,8 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
 
     this.registryService.subscribeFormConditions();
 
+    this.formGroupA.get('CaseNo').setValue('ACX19XXX');
+
     // Prevent ExpressionChangedAfterItHasBeenCheckedError
     setTimeout(() => {
       this.loadById();
@@ -419,7 +425,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
         ...this.formGroupC.value,
         AdmitDt: this.serializeDateTime(this.formGroupC.get('AdmitDt').value),
         SurgDt: this.serializeDateTime(this.formGroupC.get('SurgDt').value)
-       },
+      },
       sectionD: { ...this.formGroupD.value },
       sectionE: { ...this.formGroupE.value },
       sectionF: { ...this.formGroupF.value },

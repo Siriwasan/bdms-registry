@@ -12,7 +12,7 @@
   </div>
 
   <div scrollSpyElement id="title" fxFlexOrder="0">
-    <h1>STS Adult Cardiac Surgery v2.9</h1>
+    <h1 (click)="scrollTo('SurgeonId')">STS Adult Cardiac Surgery v2.9</h1>
 
     <section class="section-wrapper" scrollSpyElement id="sectionA">
       <div class="section-title">
@@ -22,7 +22,7 @@
       <div class="section-body">
         <form [formGroup]="formGroupA" #formDirectiveA="ngForm">
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-input class="item" controlName="CaseNo" placeholder="Case No" [formGroup]="formGroupA"
               type="text" readonly="true" fxFlex="25">(software generated)</reg-input>
@@ -47,7 +47,7 @@
       <div class="section-body">
         <form [formGroup]="formGroupB" #formDirectiveB="ngForm">
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-input controlName="PatLName" placeholder="Patient Last Name" [formGroup]="formGroupB"
               type="text" fxFlex></reg-input>
@@ -60,7 +60,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-datepicker controlName="DOB" placeholder="Date of Birth" [formGroup]="formGroupB"
               fxFlex>dd/mm/yyyy</reg-datepicker>
@@ -79,7 +79,7 @@
           <reg-input controlName="PatAddr" placeholder="Street Address" require="false" [formGroup]="formGroupB"
             type="text"></reg-input>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="PatNation" placeholder="Nationality" [formGroup]="formGroupB" [choices]="[
                 'Afghan', 'Albanian', 'Algerian', 'American',
@@ -160,7 +160,7 @@
       <div class="section-body">
         <form [formGroup]="formGroupC" #formDirectiveC="ngForm">
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="HospName" placeholder="Hospital Name" [formGroup]="formGroupC"
               [choices]="['BHT']" fxFlex="20"></reg-select>
@@ -191,7 +191,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-datepicker controlName="AdmitDt" placeholder="Admit Date" [formGroup]="formGroupC"
               fxFlex>dd/mm/yyyy</reg-datepicker>
@@ -201,7 +201,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="AdmitSrc" placeholder="Admit Source" [formGroup]="formGroupC" [choices]="[
                 'Elective Admission',
@@ -227,7 +227,7 @@
       <div class="section-body" fxLayout="column">
         <form [formGroup]="formGroupD" #formDirectiveD="ngForm">
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-input controlName="HeightCM" placeholder="Height (cm)" [formGroup]="formGroupD"
               type="number" fxFlex="15"></reg-input>
@@ -244,7 +244,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="Diabetes" placeholder="Diabetes" [formGroup]="formGroupD"
               [choices]="['Yes', 'No', 'Unknown']" fxFlex></reg-select>
@@ -258,7 +258,7 @@
 
             </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="Hypertn" placeholder="Hypertension" [formGroup]="formGroupD"
               [choices]="['Yes', 'No', 'Unknown']" fxFlex></reg-select>
@@ -268,7 +268,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="InfEndo" placeholder="Endocarditis" [formGroup]="formGroupD"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -302,7 +302,7 @@
               'Smoking status unknown'
             ]"></reg-select>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="ChrLungD" placeholder="Lung Disease" [formGroup]="formGroupD" [choices]="[
                 'No',
@@ -328,7 +328,7 @@
           <reg-select controlName="PFT" placeholder="Pulmonary Function Test Done" [formGroup]="formGroupD"
             [choices]="['Yes', 'No']"></reg-select>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-input controlName="FEV1" placeholder="FEV1 % Predicted" [formGroup]="formGroupD"
               type="number" fxFlex></reg-input>
@@ -344,7 +344,7 @@
           <reg-select controlName="ABG" placeholder="Room Air ABG Performed" [formGroup]="formGroupD"
             [choices]="['Yes', 'No']"></reg-select>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-input controlName="PCO2" placeholder="Carbon Dioxide Level" [formGroup]="formGroupD"
               type="number" fxFlex></reg-input>
@@ -354,7 +354,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="HmO2" placeholder="Home Oxygen" [formGroup]="formGroupD" [choices]="[
                 'Yes, PRN',
@@ -368,7 +368,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="SlpApn" placeholder="Sleep Apnea" [formGroup]="formGroupD"
               [choices]="['Yes', 'No', 'Unknown']" fxFlex></reg-select>
@@ -381,7 +381,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="Depression" placeholder="Depression" [formGroup]="formGroupD"
               [choices]="['Yes', 'No', 'Unknown']" fxFlex></reg-select>
@@ -399,7 +399,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="LiverChildPugh" placeholder="Child–Pugh Class" [formGroup]="formGroupD"
               [choices]="['A', 'B', 'C', 'Unknown']" fxFlex></reg-select>
@@ -412,7 +412,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="ImmSupp" placeholder="Immunocompromise Present" [formGroup]="formGroupD"
               [choices]="['Yes', 'No', 'Unknown']" fxFlex></reg-select>
@@ -425,7 +425,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="PVD" placeholder="Peripheral Artery Disease" [formGroup]="formGroupD"
               [choices]="['Yes', 'No', 'Unknown']" fxFlex></reg-select>
@@ -438,7 +438,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="UnrespStat" placeholder="Unresponsive State" [formGroup]="formGroupD"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -451,7 +451,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="CVA" placeholder="Prior CVA" [formGroup]="formGroupD"
               [choices]="['Yes', 'No', 'Unknown']" fxFlex></reg-select>
@@ -472,7 +472,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="CVDStenRt" placeholder="Severity of stenosis on the right carotid artery" [formGroup]="formGroupD" [choices]="[
                 '50-79%',
@@ -493,7 +493,7 @@
           <reg-select controlName="CVDPCarSurg" placeholder="History of previous carotid artery surgery and/or stenting" [formGroup]="formGroupD"
             [choices]="['Yes', 'No']"></reg-select>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-input controlName="WBC" placeholder="WBC Count" [formGroup]="formGroupD"
               type="number" require="false" fxFlex></reg-input>
@@ -509,7 +509,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-input controlName="CreatLst" placeholder="Last Creatinine Level" [formGroup]="formGroupD"
               type="number" require="false" fxFlex></reg-input>
@@ -525,7 +525,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="HITAnti" placeholder="HIT Antibodies" [formGroup]="formGroupD"
               [choices]="['Yes', 'No', 'Not Applicable']" require="false" fxFlex></reg-select>
@@ -541,7 +541,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="FiveMWalkTest" placeholder="Five Meter Walk Test Done" [formGroup]="formGroupD"
               [choices]="['Yes', 'No', 'Non-ambulatory patient']" require="false" fxFlex></reg-select>
@@ -557,7 +557,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="SixMWalkDone" placeholder="Six Minute Walk test done" [formGroup]="formGroupD"
               [choices]="['Yes', 'No']" require="false" fxFlex></reg-select>
@@ -720,7 +720,7 @@
           <reg-select class="subitem-horz" controlName="POCPCI" placeholder="Previous PCI" [formGroup]="formGroupE"
             [choices]="['Yes', 'No']"></reg-select>
 
-          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="POCPCIWhen" placeholder="PCI Performed Within This Episode Of Care" [formGroup]="formGroupE" [choices]="[
                 'Yes, at this facility',
@@ -739,7 +739,7 @@
 
           </div>
 
-          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="POCPCISt" placeholder="PCI Stent" [formGroup]="formGroupE"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -1044,7 +1044,7 @@
       <div class="section-body">
         <form [formGroup]="formGroupF" #formDirectiveF="ngForm">
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="PrevMI" placeholder="Prior Myocardial Infarction" [formGroup]="formGroupF"
               [choices]="['Yes', 'No', 'Unknown']" fxFlex></reg-select>
@@ -1059,7 +1059,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <span style="padding-top: 30px;color: #757575;">Cardiac Presentation/Symptoms:</span>
 
@@ -1088,7 +1088,7 @@
           <reg-select controlName="HeartFail" placeholder="Heart Failure" [formGroup]="formGroupF"
             [choices]="['Yes', 'No', 'Unknown']"></reg-select>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="HeartFailTmg" placeholder="Timing" [formGroup]="formGroupF"
               [choices]="['Acute', 'Chronic', 'Both']" fxFlex></reg-select>
@@ -1125,7 +1125,7 @@
           <reg-select controlName="Arrhythmia" placeholder="Arrhythmia" [formGroup]="formGroupF"
             [choices]="['Yes', 'No']"></reg-select>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="ArrhythPPaced" placeholder="Permanently Paced Rhythm" [formGroup]="formGroupF"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -1144,7 +1144,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="ArrhythAFlutter" placeholder="AFlutter" [formGroup]="formGroupF" [choices]="[
                 'None',
@@ -1167,7 +1167,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="ArrhythSecond" placeholder="Second Degree Heart Block" [formGroup]="formGroupF" [choices]="[
                 'None',
@@ -1195,7 +1195,7 @@
       <div class="section-body">
         <form [formGroup]="formGroupG" #formDirectiveG="ngForm">
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="MedACEI48" placeholder="ACE or ARB" [formGroup]="formGroupG" [choices]="[
                 'Yes',
@@ -1215,7 +1215,7 @@
 
           <div style="margin-top: 50px;color: #757575;">Antianginal</div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="MedBeta" placeholder="Beta Blocker" [formGroup]="formGroupG" [choices]="[
                 'Yes',
@@ -1239,7 +1239,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="MedLongActNit" placeholder="Long-acting Nitrate" [formGroup]="formGroupG" [choices]="[
                 'Yes',
@@ -1264,7 +1264,7 @@
 
           <div style="margin-top: 50px;color: #757575;">Antiplatelet</div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="MedADP5Days" placeholder="ADP Inhibitor (includes P2Y12)" [formGroup]="formGroupG" [choices]="[
                 'Yes',
@@ -1278,7 +1278,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="MedASA" placeholder="Aspirin" [formGroup]="formGroupG" [choices]="[
                 'Yes',
@@ -1302,7 +1302,7 @@
 
           <div style="margin-top: 50px;color: #757575;">Anticoagulant</div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="MedACoag" placeholder="Anticoagulants (Intravenous/ SubQ)" [formGroup]="formGroupG"
               [choices]="['Yes', 'No']" fxFlex>Within 48 hours</reg-select>
@@ -1316,7 +1316,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="MedCoum5Days" placeholder="Warfarin (Coumadin)" [formGroup]="formGroupG"
               [choices]="['Yes', 'No', 'Unknown']" fxFlex>Within 5 days</reg-select>
@@ -1326,7 +1326,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="MedXa5Days" placeholder="Factor Xa inhibitors" [formGroup]="formGroupG"
               [choices]="['Yes', 'No', 'Unknown']" fxFlex>Within 5 days</reg-select>
@@ -1336,7 +1336,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
           <reg-select controlName="MedNOAC5Days" placeholder="Novel Oral Anticoagulant" [formGroup]="formGroupG"
             [choices]="['Yes', 'No', 'Unknown']" fxFlex>Within 5 days</reg-select>
@@ -1346,7 +1346,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="MedThromIn5Days" placeholder="Thrombin Inhibitors" [formGroup]="formGroupG"
               [choices]="['Yes', 'No', 'Unknown']" fxFlex>Within 5 days</reg-select>
@@ -1356,7 +1356,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="MedThrom" placeholder="Thrombolytics" [formGroup]="formGroupG"
               [choices]="['Yes', 'No']" fxFlex>Within 48 hours</reg-select>
@@ -1366,7 +1366,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="MedLipid" placeholder="Lipid lowering" [formGroup]="formGroupG"
               [choices]="['Yes', 'No', 'Contraindicated', 'Unknown']" fxFlex>Within 24 hours</reg-select>
@@ -1394,7 +1394,7 @@
       <div class="section-body">
         <form [formGroup]="formGroupH" #formDirectiveH="ngForm">
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="CarCathPer" placeholder="Cardiac Catheterization Performed" [formGroup]="formGroupH"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -1407,7 +1407,7 @@
           <reg-select controlName="CorAnatDisKnown" placeholder="Coronary Anatomy/Disease known" [formGroup]="formGroupH"
             [choices]="['Yes', 'No']"></reg-select>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="Dominance" placeholder="Dominance" [formGroup]="formGroupH" [choices]="[
                 'Left',
@@ -1492,7 +1492,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="SyntaxScrKnown" placeholder="Syntax Score Known" [formGroup]="formGroupH"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -1502,7 +1502,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="StressTst" placeholder="Stress Test" [formGroup]="formGroupH"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -1515,7 +1515,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="HDEFD" placeholder="Ejection Fraction Done" [formGroup]="formGroupH"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -1525,7 +1525,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="DimAvail" placeholder="Dimensions Available" [formGroup]="formGroupH"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -1538,7 +1538,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="PASYSMeas" placeholder="PA Systolic Pressure Measured" [formGroup]="formGroupH"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -1550,7 +1550,7 @@
 
           <h3>Aortic Valve</h3>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="VDInsufA" placeholder="Aortic Insufficiency" [formGroup]="formGroupH" [choices]="[
                 'None',
@@ -1571,7 +1571,7 @@
 
           <div fxLayout="column">
 
-            <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+            <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
               <reg-select controlName="VDStenA" placeholder="Aortic Stenosis" [formGroup]="formGroupH"
                 [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -1581,7 +1581,7 @@
 
             </div>
 
-            <div class="subitem-horz2" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+            <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
               <reg-input controlName="VDAoVA" placeholder="Smallest Aortic Valve Area (cm2)" [formGroup]="formGroupH"
                 type="number" fxFlex></reg-input>
@@ -1641,7 +1641,7 @@
 
           <h3>Mitral Valve</h3>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="VDInsufM" placeholder="Mitral Insufficiency" [formGroup]="formGroupH" [choices]="[
                 'None',
@@ -1660,7 +1660,7 @@
           <reg-select controlName="VDMit" placeholder="Mitral Valve Disease" [formGroup]="formGroupH"
             [choices]="['Yes', 'No']"></reg-select>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="VDStenM" placeholder="Mitral Stenosis" [formGroup]="formGroupH"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -1670,7 +1670,7 @@
 
           </div>
 
-          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-input controlName="VDMVA" placeholder="Smallest Valve Area (cm2)" [formGroup]="formGroupH"
             type="text" fxFlex></reg-input>
@@ -1731,7 +1731,7 @@
               'Not Documented'
             ]"></reg-select>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="VDTrAnnMeas" placeholder="Tricuspid Annular Echo Measurement Available" [formGroup]="formGroupH"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -1744,7 +1744,7 @@
           <reg-select controlName="VDTr" placeholder="Tricuspid Valve Disease" [formGroup]="formGroupH"
             [choices]="['Yes', 'No']"></reg-select>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="VDStenT" placeholder="Tricuspid Stenosis" [formGroup]="formGroupH"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -1780,7 +1780,7 @@
           <reg-select controlName="VDPulm" placeholder="Pulmonic Valve Disease" [formGroup]="formGroupH"
             [choices]="['Yes', 'No']"></reg-select>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="RVEDDKnown" placeholder="RVEDD Known" [formGroup]="formGroupH"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -1790,7 +1790,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="VDStenP" placeholder="Pulmonic Stenosis" [formGroup]="formGroupH"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -1836,58 +1836,73 @@
           <reg-input controlName="Procedure4" placeholder="Procedure 4" require="false" [formGroup]="formGroupI" type="text">
           </reg-input>
 
-          <reg-input controlName="Surgeon" placeholder="Surgeon" [formGroup]="formGroupI" type="text">
+          <!-- <reg-input controlName="SurgeonId" placeholder="Surgeon" [formGroup]="formGroupI" type="text">
+          </reg-input> -->
+
+          <!-- <reg-select controlName="SurgeonId" placeholder="Surgeon" [formGroup]="formGroupI" [choices]="[
+              'Art',
+              'Auh',
+              'Ae'
+            ]"></reg-select> -->
+
+          <mat-form-field>
+            <mat-label>Surgeon</mat-label>
+            <mat-select id="SurgeonId" formControlName="SurgeonId">
+              <mat-option *ngFor="let s of staff" [value]="s.staffId">
+                {{ s.title + ' ' + s.firstName + ' ' + s.lastName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <reg-input controlName="Assist1Id" placeholder="Assist 1" require="false" [formGroup]="formGroupI" type="text">
           </reg-input>
 
-          <reg-input controlName="Assist1" placeholder="Assist 1" require="false" [formGroup]="formGroupI" type="text">
+          <reg-input controlName="Assist2Id" placeholder="Assist 2" require="false" [formGroup]="formGroupI" type="text">
           </reg-input>
 
-          <reg-input controlName="Assist2" placeholder="Assist 2" require="false" [formGroup]="formGroupI" type="text">
+          <reg-input controlName="Assist3Id" placeholder="Assist 3" require="false" [formGroup]="formGroupI" type="text">
           </reg-input>
 
-          <reg-input controlName="Assist3" placeholder="Assist 3" require="false" [formGroup]="formGroupI" type="text">
+          <reg-input controlName="Assist4Id" placeholder="Assist 4" require="false" [formGroup]="formGroupI" type="text">
           </reg-input>
 
-          <reg-input controlName="Assist4" placeholder="Assist 4" require="false" [formGroup]="formGroupI" type="text">
+          <reg-input controlName="Assist5Id" placeholder="Assist 5" require="false" [formGroup]="formGroupI" type="text">
           </reg-input>
 
-          <reg-input controlName="Assist5" placeholder="Assist 5" require="false" [formGroup]="formGroupI" type="text">
+          <reg-input controlName="Assist6Id" placeholder="Assist 6" require="false" [formGroup]="formGroupI" type="text">
           </reg-input>
 
-          <reg-input controlName="Assist6" placeholder="Assist 6" require="false" [formGroup]="formGroupI" type="text">
+          <reg-input controlName="Anesth1Id" placeholder="Anesth 1" [formGroup]="formGroupI" type="text">
           </reg-input>
 
-          <reg-input controlName="Anesth1" placeholder="Anesth 1" [formGroup]="formGroupI" type="text">
+          <reg-input controlName="Anesth2Id" placeholder="Anesth 2" require="false" [formGroup]="formGroupI" type="text">
           </reg-input>
 
-          <reg-input controlName="Anesth2" placeholder="Anesth 2" require="false" [formGroup]="formGroupI" type="text">
+          <reg-input controlName="Scrub1Id" placeholder="Scrub 1" [formGroup]="formGroupI" type="text">
           </reg-input>
 
-          <reg-input controlName="Scrub1" placeholder="Scrub 1" [formGroup]="formGroupI" type="text">
+          <reg-input controlName="Scrub2Id" placeholder="Scrub 2" require="false" [formGroup]="formGroupI" type="text">
           </reg-input>
 
-          <reg-input controlName="Scrub2" placeholder="Scrub 2" require="false" [formGroup]="formGroupI" type="text">
+          <reg-input controlName="Scrub3Id" placeholder="Scrub 3" require="false" [formGroup]="formGroupI" type="text">
           </reg-input>
 
-          <reg-input controlName="Scrub3" placeholder="Scrub 3" require="false" [formGroup]="formGroupI" type="text">
+          <reg-input controlName="Scrub4Id" placeholder="Scrub 4" require="false" [formGroup]="formGroupI" type="text">
           </reg-input>
 
-          <reg-input controlName="Scrub4" placeholder="Scrub 4" require="false" [formGroup]="formGroupI" type="text">
+          <reg-input controlName="CTT1Id" placeholder="CTT 1" [formGroup]="formGroupI" type="text">
           </reg-input>
 
-          <reg-input controlName="CTT1" placeholder="CTT 1" [formGroup]="formGroupI" type="text">
+          <reg-input controlName="CTT2Id" placeholder="CTT 2" require="false" [formGroup]="formGroupI" type="text">
           </reg-input>
 
-          <reg-input controlName="CTT2" placeholder="CTT 2" require="false" [formGroup]="formGroupI" type="text">
+          <reg-input controlName="CTT3Id" placeholder="CTT 3" require="false" [formGroup]="formGroupI" type="text">
           </reg-input>
 
-          <reg-input controlName="CTT3" placeholder="CTT 3" require="false" [formGroup]="formGroupI" type="text">
+          <reg-input controlName="CTT4Id" placeholder="CTT 4" require="false" [formGroup]="formGroupI" type="text">
           </reg-input>
 
-          <reg-input controlName="CTT4" placeholder="CTT 4" require="false" [formGroup]="formGroupI" type="text">
-          </reg-input>
-
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="RiskDiscussed" placeholder="Indicate whether the STS Risk Calculator score was discussed with the patient/family prior to surgery" [formGroup]="formGroupI" [choices]="[
                 'Yes, STS score was calculated, discussed and documented',
@@ -1909,7 +1924,7 @@
               'NA, Not a cardiovascular surgery'
             ]"></reg-select>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="Status" placeholder="Status" [formGroup]="formGroupI" [choices]="[
                 'Elective',
@@ -1955,7 +1970,7 @@
           <reg-select controlName="PCancCase" placeholder="Was case previously attempted during this admission, but canceled" [formGroup]="formGroupI"
             [choices]="['Yes', 'No']"></reg-select>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-datepicker controlName="PCancCaseDt" placeholder="Date of previous case" [formGroup]="formGroupI"
               fxFlex>dd/mm/yyyy</reg-datepicker>
@@ -1981,7 +1996,7 @@
 
           <h4 class="subitem-horz" id="planPreProd">Planned previous procedure</h4>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="PCancCaseCAB" placeholder="CABG" [formGroup]="formGroupI"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -1994,7 +2009,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="PCancCaseValSur" placeholder="Valve, Surgical" [formGroup]="formGroupI"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -2010,7 +2025,7 @@
           <reg-select controlName="CCancCase" placeholder="Was the current procedure canceled" [formGroup]="formGroupI"
             [choices]="['Yes', 'No']"></reg-select>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="CCancCaseTmg" placeholder="Canceled Timing" [formGroup]="formGroupI" [choices]="[
                 'Prior to induction of anesthesia',
@@ -2033,7 +2048,7 @@
 
           <h4 class="subitem-horz" id="planProd">Planned procedure</h4>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="CCancCaseCAB" placeholder="CABG" [formGroup]="formGroupI"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -2046,7 +2061,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="CCancCaseValSur" placeholder="Valve, Surgical" [formGroup]="formGroupI"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -2059,7 +2074,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="OPApp" placeholder="Initial Operative Approach" [formGroup]="formGroupI" [choices]="[
               'Full conventional sternotomy',
@@ -2086,7 +2101,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="Robotic" placeholder="Robot Used" [formGroup]="formGroupI"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -2103,7 +2118,7 @@
               'No'
             ]" (choiceChange)="enableSection('sectionJ-body', $event.value, ['!', 'No'])"></reg-select>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="OpValve" placeholder="Valve Surgery" [formGroup]="formGroupI"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -2113,7 +2128,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="AortProc" placeholder="Aorta procedure Performed" [formGroup]="formGroupI" [choices]="[
                 'Yes, planned',
@@ -2134,7 +2149,7 @@
               'No'
             ]"></reg-select>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="AFibProc" placeholder="Other Cardiac Procedure, AFib" [formGroup]="formGroupI"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -2149,7 +2164,7 @@
 
           <!-- CPT CODE -->
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-datepicker controlName="OREntryDT" placeholder="OR Entry Date And Time" [formGroup]="formGroupI"
               type="datetime" fxFlex>dd/mm/yyyy hh:mm</reg-datepicker>
@@ -2159,7 +2174,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="GenAnes" placeholder="General Anesthesia" [formGroup]="formGroupI"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -2175,7 +2190,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-datepicker controlName="IntubateDT" placeholder="Intubation Date and Time" [formGroup]="formGroupI"
               type="datetime" fxFlex>dd/mm/yyyy hh:mm</reg-datepicker>
@@ -2185,7 +2200,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-datepicker controlName="SIStartDT" placeholder="Skin Incision Start Date and Time" [formGroup]="formGroupI"
               type="datetime" fxFlex>dd/mm/yyyy hh:mm</reg-datepicker>
@@ -2198,7 +2213,7 @@
           <reg-datepicker controlName="AnesEndDT" placeholder="Anesthesia End Date and Time" [formGroup]="formGroupI"
             type="datetime">dd/mm/yyyy hh:mm</reg-datepicker>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="AbxSelect" placeholder="Appropriate Antibiotic Selection" [formGroup]="formGroupI"
               [choices]="['Yes', 'No', 'Exclusion']" fxFlex></reg-select>
@@ -2208,7 +2223,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="AbxDisc" placeholder="Appropriate Antibiotic Discontinuation" [formGroup]="formGroupI"
               [choices]="['Yes', 'No', 'Exclusion']" fxFlex></reg-select>
@@ -2218,7 +2233,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="TempMeas" placeholder="Temperature Measured" [formGroup]="formGroupI"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -2239,7 +2254,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-input controlName="LwstIntraHemo" placeholder="Lowest Intra-op Hemoglobin" [formGroup]="formGroupI"
               type="number" fxFlex></reg-input>
@@ -2255,7 +2270,7 @@
           <reg-select controlName="CPBUtil" placeholder="CPB Utilization" [formGroup]="formGroupI"
             [choices]="['None', 'Combination', 'Full']"></reg-select>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="CPBCmb" placeholder="Combination Plan" [formGroup]="formGroupI"
               [choices]="['Planned', 'Unplanned']" fxFlex></reg-select>
@@ -2273,7 +2288,7 @@
 
           <h4 class="subitem-horz" id="artCannSite">Arterial Cannulation Insertion Site</h4>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="CanArtStAort" placeholder="Aortic" [formGroup]="formGroupI"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -2286,7 +2301,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="CanArtStInn" placeholder="Innominate" [formGroup]="formGroupI"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -2300,7 +2315,7 @@
 
           <h4 class="subitem-horz" id="venCannSite">Venous Cannulation Insertion Site</h4>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="CanVenStFem" placeholder="Femoral" [formGroup]="formGroupI"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -2313,7 +2328,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="CanVenStLfA" placeholder="Lt. Atrial" [formGroup]="formGroupI"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -2326,7 +2341,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="CanVenStOth" placeholder="Other" [formGroup]="formGroupI"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -2346,7 +2361,7 @@
           <reg-input class="subitem-horz" controlName="DHCATm" placeholder="Circulatory Arrest Without Cerebral Perfusion Time (min)" [formGroup]="formGroupI" type="number">
           </reg-input>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="CPerfUtil" placeholder="Circulatory Arrest With Cerebral Perfusion" [formGroup]="formGroupI"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -2366,7 +2381,7 @@
             ></reg-input>
           <!-- system calculation -->
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="AortOccl" placeholder="Aortic Occlusion" [formGroup]="formGroupI" [choices]="[
               'None - beating heart',
@@ -2380,7 +2395,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="CplegiaDeliv" placeholder="Cardioplegia Delivery" [formGroup]="formGroupI" [choices]="[
                 'None',
@@ -2398,7 +2413,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="CerOxUsed" placeholder="Cerebral Oximetry" [formGroup]="formGroupI"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -2411,7 +2426,7 @@
           <reg-select controlName="AsmtAscAA" placeholder="Assessment of Ascending Aorta/Arch for atheroma/plaque" [formGroup]="formGroupI"
             [choices]="['Yes', 'No', 'Not Reported']"></reg-select>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="AsmtAoDxMeth" placeholder="Assessment method" [formGroup]="formGroupI" [choices]="[
                 'TEE',
@@ -2434,7 +2449,7 @@
           <reg-select controlName="AsmtAPln" placeholder="Aortic Condition Altered Plan" [formGroup]="formGroupI"
             [choices]="['Yes', 'No']"></reg-select>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="IBldProdRef" placeholder="Intraop Blood Products Refused" [formGroup]="formGroupI"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -2444,7 +2459,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-input controlName="IBdRBCU" placeholder="Red Blood Cell Units" [formGroup]="formGroupI"
               type="number" fxFlex></reg-input>
@@ -2460,7 +2475,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="IntraClotFact" placeholder="Intraop Clotting Factors" [formGroup]="formGroupI" [choices]="[
                 'Yes, Factor VIIa',
@@ -2474,7 +2489,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <span style="padding-top: 30px;color: #757575;">Intraop Antifibrinolytic Medications:</span>
 
@@ -2489,7 +2504,7 @@
           <reg-select controlName="InOpTEE" placeholder="Intraoperative TEE Performed post procedure" [formGroup]="formGroupI"
             [choices]="['Yes', 'No']"></reg-select>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="PRepAR" placeholder="Highest level aortic insufficiency found" [formGroup]="formGroupI" [choices]="[
                 'None',
@@ -2514,7 +2529,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="PRepMR" placeholder="Highest level Mitral insufficiency found" [formGroup]="formGroupI" [choices]="[
                 'None',
@@ -2539,7 +2554,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="PRepTR" placeholder="Highest level Tricuspid insufficiency found" [formGroup]="formGroupI" [choices]="[
                 'None',
@@ -2564,7 +2579,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="PPEFMeas" placeholder="Ejection Fraction Measured post procedure" [formGroup]="formGroupI"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -2589,7 +2604,7 @@
       <div class="section-body">
         <form [formGroup]="formGroupJ" #formDirectiveJ="ngForm">
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="IMAUsed" placeholder="Internal Mammary Artery used" [formGroup]="formGroupJ"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -2608,7 +2623,7 @@
           <reg-input class="subitem-horz" controlName="NumIMADA" placeholder="Total Number of Distal Anastomoses with IMA conduits" [formGroup]="formGroupJ" type="number"
             ></reg-input>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="LeftIMA" placeholder="Left IMA" [formGroup]="formGroupJ"
               [choices]="['Yes, pedicle', 'Yes, skeletonized', 'No']" fxFlex></reg-select>
@@ -2622,7 +2637,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="RightIMA" placeholder="Right IMA" [formGroup]="formGroupJ"
               [choices]="['Yes, pedicle', 'Yes, skeletonized', 'No']" fxFlex></reg-select>
@@ -2642,7 +2657,7 @@
           <reg-input class="subitem-horz" controlName="NumRadDA" placeholder="Total Number of Distal Anastomoses with radial artery conduits" [formGroup]="formGroupJ" type="number">
           </reg-input>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="RadHTech" placeholder="Radial Artery Harvest Technique" [formGroup]="formGroupJ"
               [choices]="['Endoscopic', 'Direct Vision (open)', 'Both']" fxFlex></reg-select>
@@ -2658,7 +2673,7 @@
           <reg-input class="subitem-horz" controlName="DistVein" placeholder="Total Number of Distal Anastomoses with venous conduits" [formGroup]="formGroupJ" type="number">
           </reg-input>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="DistVeinHTech" placeholder="Vein Harvest Technique" [formGroup]="formGroupJ" [choices]="[
                 'Endoscopic',
@@ -2674,7 +2689,7 @@
 
           <h4 id="numDistAnas">Number of Distal Anastomoses</h4>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-input controlName="NumOArtD" placeholder="with other arterial conduits" [formGroup]="formGroupJ"
               type="number" fxFlex></reg-input>
@@ -2684,7 +2699,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-input controlName="NumVenArtComp" placeholder="with venous -arterial composite conduits" [formGroup]="formGroupJ"
               type="number" fxFlex></reg-input>
@@ -2711,7 +2726,7 @@
             <reg-select [controlName]="cabg[1]" placeholder="GRAFT" [formGroup]="formGroupJ"
               [choices]="['Yes', 'No']"></reg-select>
 
-            <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+            <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
               <reg-select [controlName]="cabg[2]" placeholder="DISTAL INSERTION SITE" [formGroup]="formGroupJ" [choices]="[
                 'Left Main',
@@ -2760,7 +2775,7 @@
 
             </div>
 
-            <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+            <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
               <reg-select [controlName]="cabg[5]" placeholder="DISTAL POSITION" [formGroup]="formGroupJ" [choices]="[
                   'End to Side',
@@ -2794,7 +2809,7 @@
           <reg-select controlName="ValExp" placeholder="Valve Prosthesis Explant" [formGroup]="formGroupK"
             [choices]="['Yes', 'No']"></reg-select>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="ValExpPos" placeholder="Explant Position" [formGroup]="formGroupK" [choices]="[
                 'Aortic',
@@ -2831,7 +2846,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="ValExpDevKnown" placeholder="Explant Device known" [formGroup]="formGroupK"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -2847,7 +2862,7 @@
           <reg-select class="subitem-horz" controlName="ValExp2" placeholder="Second Valve Prosthesis Explant" [formGroup]="formGroupK"
             [choices]="['Yes', 'No']"></reg-select>
 
-          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="ValExpPos2" placeholder="Explant Position" [formGroup]="formGroupK" [choices]="[
                 'Aortic',
@@ -2884,7 +2899,7 @@
 
           </div>
 
-          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="ValExpDevKnown2" placeholder="Explant Device known" [formGroup]="formGroupK"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -2911,7 +2926,7 @@
               'Repair/Reconstruction'
             ]"></reg-select>
 
-          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="VSTCV" placeholder="Transcatheter Valve Replacement" [formGroup]="formGroupK"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -2927,7 +2942,7 @@
 
           </div>
 
-          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="VSAVSurgRep" placeholder="Surgical valve Replacement" [formGroup]="formGroupK"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -2947,7 +2962,7 @@
 
           </div>
 
-          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="VSAVRComA" placeholder="Commissural Suture Annuloplasty" [formGroup]="formGroupK"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -2960,7 +2975,7 @@
 
           </div>
 
-          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="VSAVRNodRel" placeholder="Nodular Release" [formGroup]="formGroupK"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -2973,7 +2988,7 @@
 
           </div>
 
-          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="VSAVRRaphe" placeholder="Division of Fused Leaflet Raphe" [formGroup]="formGroupK"
               [choices]="['Yes', 'No']" fxFlex="32"></reg-select>
@@ -2986,7 +3001,7 @@
 
           </div>
 
-          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="VSAVRLResect" placeholder="Leaflet Resection Suture" [formGroup]="formGroupK"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -2999,7 +3014,7 @@
 
           </div>
 
-          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="VSAVRDeb" placeholder="Leaflet Debridement" [formGroup]="formGroupK"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -3009,7 +3024,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="AnlrEnl" placeholder="Aortic annular enlargement with patch" [formGroup]="formGroupK"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -3030,7 +3045,7 @@
           <reg-select class="subitem-horz2" controlName="VSAVRootOReimp" placeholder="Root Replacement with coronary Ostial Reimplantation (Bentall)" [formGroup]="formGroupK"
             [choices]="['Yes', 'No']"></reg-select>
 
-          <div class="subitem-horz3" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz3" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="VSAVRootOReimpTy" placeholder="Type" [formGroup]="formGroupK" [choices]="[
               'Mechanical',
@@ -3046,7 +3061,7 @@
 
           </div>
 
-          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="VSAVSparRt" placeholder="Valve Sparing root operation performed" [formGroup]="formGroupK"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -3064,7 +3079,7 @@
           <reg-select class="subitem-horz2" controlName="VSAVRootRecon" placeholder="Major root reconstruction/ debridement with or without pericardial patch" [formGroup]="formGroupK"
             [choices]="['Yes', 'No']"></reg-select>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="VSAVPat" placeholder="Patch used" [formGroup]="formGroupK"
               [choices]="['Yes', 'No']"></reg-select>
@@ -3080,7 +3095,7 @@
           <reg-select class="subitem-horz" controlName="AorticImplant" placeholder="Aortic Valve Implant" [formGroup]="formGroupK"
             [choices]="['Yes', 'No']">Aortic valves/valve repair devices only, use section M2 for root devices</reg-select>
 
-          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-input controlName="VSAoIm" placeholder="Implant Model Number" [formGroup]="formGroupK" type="text">
             </reg-input>
@@ -3102,7 +3117,7 @@
               'No'
             ]"></reg-select>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="VSMVPr" placeholder="Procedure Performed" [formGroup]="formGroupK" [choices]="[
                 'Repair',
@@ -3132,7 +3147,7 @@
 
           <h4 class="subitem-horz3" id="resectLoc">Resection Location(s)</h4>
 
-          <div class="subitem-horz3" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz3" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="VSLeafAntRes" placeholder="Anterior resection" [formGroup]="formGroupK"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -3142,7 +3157,7 @@
 
           </div>
 
-          <div class="subitem-horz4" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz4" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <span id="antLeafRect"style="padding-top: 30px;color: #757575;">Anterior leaflet resection location:</span>
 
@@ -3157,7 +3172,7 @@
 
           </div>
 
-          <div class="subitem-horz3" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz3" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="VSLeafPostRes" placeholder="Posterior Resection" [formGroup]="formGroupK"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -3167,7 +3182,7 @@
 
           </div>
 
-          <div class="subitem-horz4" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz4" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <span id="postLeafRect"style="padding-top: 30px;color: #757575;">Posterior leaflet resection location:</span>
 
@@ -3182,7 +3197,7 @@
 
           </div>
 
-          <div class="subitem-horz3" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz3" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="VSLeafComRes" placeholder="Commissure Resection" [formGroup]="formGroupK"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -3203,7 +3218,7 @@
 
           <h4 class="subitem-horz3" id="neoLoc">Neochord Location(s)</h4>
 
-          <div class="subitem-horz3" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz3" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="VSNeoAnt" placeholder="Anterior Neochords" [formGroup]="formGroupK"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -3213,7 +3228,7 @@
 
           </div>
 
-          <div class="subitem-horz4" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz4" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <span id="antNeoLoc"style="padding-top: 30px;color: #757575;">Anterior neochord location:</span>
 
@@ -3228,7 +3243,7 @@
 
           </div>
 
-          <div class="subitem-horz3" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz3" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="VSNeoPost" placeholder="Posterior Neochords" [formGroup]="formGroupK"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -3238,7 +3253,7 @@
 
           </div>
 
-          <div class="subitem-horz4" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz4" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <span id="postNeoLoc"style="padding-top: 30px;color: #757575;">Posterior Neochord location:</span>
 
@@ -3253,7 +3268,7 @@
 
           </div>
 
-          <div class="subitem-horz3" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz3" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="VSNeoCom" placeholder="Commissure Neochords" [formGroup]="formGroupK"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -3274,7 +3289,7 @@
 
           <h4 class="subitem-horz3" id="chorLeafLoc">Chordal/ Leaflet Transfer Location(s)</h4>
 
-          <div class="subitem-horz3" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz3" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="VSChorLfAnt" placeholder="Anterior Chordal/Leaflet transfer" [formGroup]="formGroupK"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -3284,7 +3299,7 @@
 
           </div>
 
-          <div class="subitem-horz4" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz4" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <span id="antChorLfLoc"style="padding-top: 30px;color: #757575;">Anterior chordal/leaflet transfer location:</span>
 
@@ -3299,7 +3314,7 @@
 
           </div>
 
-          <div class="subitem-horz3" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz3" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="VSChorLfPost" placeholder="Posterior Chordal/Leaflet transfer" [formGroup]="formGroupK"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -3309,7 +3324,7 @@
 
           </div>
 
-          <div class="subitem-horz4" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz4" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <span id="postChorLfLoc"style="padding-top: 30px;color: #757575;">Posterior chordal/leaflet transfer location:</span>
 
@@ -3324,7 +3339,7 @@
 
           </div>
 
-          <div class="subitem-horz3" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz3" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="VSChorLfCom" placeholder="Commissure Chordal/Leaflet transfer" [formGroup]="formGroupK"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -3338,7 +3353,7 @@
 
           </div>
 
-          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="VSMitRFold" placeholder="Folding Plasty" [formGroup]="formGroupK"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -3351,7 +3366,7 @@
 
           </div>
 
-          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="VSMitRLeafERP" placeholder="Leaflet extension/replacement patch" [formGroup]="formGroupK"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -3365,7 +3380,7 @@
 
           </div>
 
-          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="VSMitREdge" placeholder="Edge to edge repair" [formGroup]="formGroupK"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -3378,7 +3393,7 @@
 
           </div>
 
-          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="VSMitRMitCleft" placeholder="Mitral cleft repair: (scallop closure)" [formGroup]="formGroupK"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -3388,7 +3403,7 @@
 
           </div>
 
-          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="MitralIntent" placeholder="Mitral repair attempted prior to replacement" [formGroup]="formGroupK"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -3408,7 +3423,7 @@
           <reg-select class="subitem-horz" controlName="MitralImplant" placeholder="Implant" [formGroup]="formGroupK"
             [choices]="['Yes', 'No']"></reg-select>
 
-          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="MitralImplantTy" placeholder="Implant type" [formGroup]="formGroupK" [choices]="[
               'Mechanical valve',
@@ -3425,7 +3440,7 @@
 
           </div>
 
-          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-input controlName="VSMiImSz" placeholder="Implant Size" [formGroup]="formGroupK"
               type="number" fxFlex></reg-input>
@@ -3450,7 +3465,7 @@
               'Valvectomy'
             ]"></reg-select>
 
-          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="VSTrRepAnnulo" placeholder="Annuloplasty" [formGroup]="formGroupK"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -3474,7 +3489,7 @@
           <reg-select class="subitem-horz" controlName="TricuspidImplant" placeholder="Implant" [formGroup]="formGroupK"
             [choices]="['Yes', 'No']"></reg-select>
 
-          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="TricusImplantTy" placeholder="Implant Type" [formGroup]="formGroupK" [choices]="[
               'Mechanical valve',
@@ -3490,7 +3505,7 @@
 
           </div>
 
-          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-input controlName="VSTrImSz" placeholder="Implant Size" [formGroup]="formGroupK"
               type="number" fxFlex></reg-input>
@@ -3521,7 +3536,7 @@
           <reg-select class="subitem-horz" controlName="PulmonicImplant" placeholder="Implant" [formGroup]="formGroupK"
             [choices]="['Yes', 'No']"></reg-select>
 
-          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="VSPuTypeImp" placeholder="Implant Type" [formGroup]="formGroupK" [choices]="[
                 'Surgeon Fashioned',
@@ -3545,7 +3560,7 @@
 
           </div>
 
-          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-input controlName="VSPuIm" placeholder="Implant Model Number" [formGroup]="formGroupK"
               type="text" fxFlex></reg-input>
@@ -3573,7 +3588,7 @@
           <reg-select controlName="IABP" placeholder="Intra-Aortic Balloon Pump (IABP)" [formGroup]="formGroupL"
             [choices]="['Yes', 'No']"></reg-select>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="IABPWhen" placeholder="IABPInsertion" [formGroup]="formGroupL" [choices]="[
                 'Preop',
@@ -3595,7 +3610,7 @@
           <reg-select controlName="CathBasAssist" placeholder="Catheter Based Assist Device Used" [formGroup]="formGroupL"
             [choices]="['Yes', 'No']"></reg-select>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="CathBasAssistTy" placeholder="Type" [formGroup]="formGroupL" [choices]="[
                 'RV',
@@ -3626,7 +3641,7 @@
               'No'
             ]"></reg-select>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="ECMOWhen" placeholder="ECMO Initiated" [formGroup]="formGroupL" [choices]="[
                 'Preop',
@@ -3663,7 +3678,7 @@
           <reg-select class="subitem-horz" controlName="PrevVADF" placeholder="Previous VAD implanted at another facility" [formGroup]="formGroupL2"
             [choices]="['Yes', 'No']"></reg-select>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-datepicker controlName="PrevVADD" placeholder="Insertion date" [formGroup]="formGroupL2"
               fxFlex>dd/mm/yyyy</reg-datepicker>
@@ -3680,7 +3695,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="PrevVADTy" placeholder="Type" [formGroup]="formGroupL2" [choices]="[
               'RVAD',
@@ -3697,7 +3712,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="PrevVADExp" placeholder="Previous VAD Explanted During This Admission" [formGroup]="formGroupL2" [choices]="[
                 'Yes, not during this procedure',
@@ -3738,7 +3753,7 @@
                 'Post-Operative'
               ]"></reg-select>
 
-            <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+            <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
               <reg-datepicker [controlName]="vad[3]" placeholder="Implant Date" [formGroup]="formGroupL2"
                 fxFlex>dd/mm/yyyy</reg-datepicker>
@@ -3755,7 +3770,7 @@
 
               </div>
 
-            <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+            <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
               <reg-select [controlName]="vad[5]" placeholder="Type" [formGroup]="formGroupL2" [choices]="[
                 'RVAD',
@@ -3772,7 +3787,7 @@
 
             </div>
 
-            <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+            <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
               <reg-select [controlName]="vad[8]" placeholder="VAD was explanted" [formGroup]="formGroupL2" [choices]="[
                   'Yes, not during this procedure',
@@ -3810,7 +3825,7 @@
       <div class="section-body">
         <form [formGroup]="formGroupM" #formDirectiveM="ngForm">
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="OCarASDPFO" placeholder="ASD repair- PFO type" [formGroup]="formGroupM"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -3820,7 +3835,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="OCarAFibIntraLes" placeholder="AFib Intracardiac lesions" [formGroup]="formGroupM"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -3830,7 +3845,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="OCarAAProc" placeholder="Atrial Appendage procedure" [formGroup]="formGroupM" [choices]="[
                 'RAA',
@@ -3850,7 +3865,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="OCarAAModel" placeholder="Model" [formGroup]="formGroupM" [choices]="[
                 'AtriClip',
@@ -3872,7 +3887,7 @@
               'None'
             ]"></reg-select>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="OCarLeadInsert" placeholder="Lead Insertion" [formGroup]="formGroupM"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -3886,7 +3901,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="OCarCong" placeholder="Congenital Defect Repair" [formGroup]="formGroupM"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -3896,7 +3911,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="OCarStemCell" placeholder="MyocardialStemCell Therapy" [formGroup]="formGroupM"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -3909,7 +3924,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="OCarSubaStenRes" placeholder="Subaortic Stenosis Resection" [formGroup]="formGroupM"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -3927,7 +3942,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="OCarLasr" placeholder="Transmyocardial revascularization (TMR)" [formGroup]="formGroupM"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -3946,7 +3961,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="OCarTrma" placeholder="Trauma, Cardiac" [formGroup]="formGroupM"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -3981,7 +3996,7 @@
 
           <h4 id="methLesCrea">Method of Lesion Creation</h4>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="OCarAFibMethRad" placeholder="Radiofrequency" [formGroup]="formGroupM1"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -4071,7 +4086,7 @@
       <div class="section-body">
         <form [formGroup]="formGroupM2" #formDirectiveM2="ngForm">
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="FamHistAorta" placeholder="Family history of disease of aorta" [formGroup]="formGroupM2" [choices]="[
               'Aneurysm',
@@ -4106,7 +4121,7 @@
             <reg-select [controlName]="int[1]" placeholder="Previous repair location(s)" [formGroup]="formGroupM2"
               [choices]="['Yes', 'No']"></reg-select>
 
-            <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+            <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
               <reg-select [controlName]="int[2]" placeholder="Repair Type" [formGroup]="formGroupM2" [choices]="[
                   'Open',
@@ -4128,7 +4143,7 @@
           <reg-select controlName="Endoleak" placeholder="Endoleak" [formGroup]="formGroupM2"
             [choices]="['Yes', 'No', 'Unknown']"></reg-select>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="EndoleakTypeI" placeholder="Type I: leak at graft attachment site" [formGroup]="formGroupM2"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -4141,7 +4156,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="EndoleakTypeII" placeholder="Type II: aneurysm sac filling via branch vessel" [formGroup]="formGroupM2"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -4153,7 +4168,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="EndoleakTypeIII" placeholder="Type III: leak through defect in graft" [formGroup]="formGroupM2"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -4171,7 +4186,7 @@
           <reg-select class="subitem-horz" controlName="EndoleakTypeV" placeholder="Type V: endotension - expansion aneurysm sac without leak" [formGroup]="formGroupM2"
             [choices]="['Yes', 'No']"></reg-select>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="Infection" placeholder="Infection" [formGroup]="formGroupM2"
               [choices]="['Yes', 'No', 'Unknown']" fxFlex></reg-select>
@@ -4192,7 +4207,7 @@
           <fieldset id="traumaLoc" style="border:1px solid #a1a1a1; border-radius:10px; padding: 20px 30px 20px 30px;">
             <legend style="color:#757575;">Location</legend>
 
-            <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+            <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
               <reg-select controlName="TraumacRoot" placeholder="Root" [formGroup]="formGroupM2"
                 [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -4202,7 +4217,7 @@
 
             </div>
 
-            <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+            <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
               <reg-select controlName="TraumaAsc" placeholder="Ascending" [formGroup]="formGroupM2"
                 [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -4212,7 +4227,7 @@
 
             </div>
 
-            <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+            <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
               <reg-select controlName="TraumaArch" placeholder="Arch" [formGroup]="formGroupM2"
                 [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -4252,7 +4267,7 @@
 
           <!-- ANEURYSM -->
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="AnEtilogy" placeholder="Etiology" [formGroup]="formGroupM2" [choices]="[
               'Atherosclerosis',
@@ -4276,7 +4291,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="AnRupt" placeholder="Rupture" [formGroup]="formGroupM2"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -4305,7 +4320,7 @@
 
           <!-- DISSECTION -->
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="DisTiming" placeholder="Timing" [formGroup]="formGroupM2" [choices]="[
               'Hyperacute (< 48 hrs)',
@@ -4324,7 +4339,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="DisTearLoc" placeholder="Primary tear location" [formGroup]="formGroupM2" [choices]="[
               'Below STJ',
@@ -4362,7 +4377,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="DisRetExt" placeholder="Retrograde extension" [formGroup]="formGroupM2"
               [choices]="['Yes', 'No', 'Unknown']" fxFlex></reg-select>
@@ -4382,7 +4397,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="DistalExt" placeholder="Distal extension" [formGroup]="formGroupM2"
               [choices]="['Yes', 'No', 'Unknown']" fxFlex></reg-select>
@@ -4411,7 +4426,7 @@
 
           <fieldset class="subitem-horz" id="malperfus" style="border:1px solid #a1a1a1; border-radius:10px; padding: 20px 30px 20px 30px;">
 
-            <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+            <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
               <reg-select controlName="DisMalCor" placeholder="Coronary" [formGroup]="formGroupM2"
                 [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -4421,7 +4436,7 @@
 
             </div>
 
-            <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+            <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
               <reg-select controlName="DisMalRtSubclav" placeholder="Right Subclavian" [formGroup]="formGroupM2"
                 [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -4431,7 +4446,7 @@
 
             </div>
 
-            <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+            <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
               <reg-select controlName="DisMalRtComCar" placeholder="Right Common Carotid" [formGroup]="formGroupM2"
                 [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -4441,7 +4456,7 @@
 
             </div>
 
-            <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+            <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
               <reg-select controlName="DisMalComL" placeholder="Left Common Carotid" [formGroup]="formGroupM2"
                 [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -4451,7 +4466,7 @@
 
             </div>
 
-            <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+            <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
               <reg-select controlName="DisMalSubL" placeholder="Left Subclavian" [formGroup]="formGroupM2"
                 [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -4461,7 +4476,7 @@
 
             </div>
 
-            <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+            <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
               <reg-select controlName="DisMalCel" placeholder="Celiac" [formGroup]="formGroupM2"
                 [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -4472,7 +4487,7 @@
 
           </fieldset>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="DisLowMotFun" placeholder="Lower Extremity Motor Function" [formGroup]="formGroupM2" [choices]="[
                 'No deficit',
@@ -4486,7 +4501,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="DisRupt" placeholder="Rupture" [formGroup]="formGroupM2"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -4520,7 +4535,7 @@
           <reg-select controlName="RootAAnnEctasia" placeholder="Aorto-annular ectasia" [formGroup]="formGroupM2"
             [choices]="['Yes', 'No', 'Unknown']"></reg-select>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="RootDilaAsym" placeholder="Asymmetric Root Dilation" [formGroup]="formGroupM2"
               [choices]="['Yes', 'No', 'Unknown']" fxFlex></reg-select>
@@ -4533,7 +4548,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="RootSinus" placeholder="Sinus of Valsalva aneurysm" [formGroup]="formGroupM2"
               [choices]="['Yes', 'No', 'Unknown']" fxFlex></reg-select>
@@ -4553,7 +4568,7 @@
           <reg-select controlName="ArchType" placeholder="Arch Type" [formGroup]="formGroupM2"
             [choices]="['Left', 'Right']"></reg-select>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="ArchAbRtSub" placeholder="Aberrant Right Subclavian" [formGroup]="formGroupM2"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -4563,7 +4578,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="ArchKom" placeholder="Kommerell" [formGroup]="formGroupM2"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -4573,7 +4588,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="ArchVarVertOr" placeholder="Variant vertebral origin" [formGroup]="formGroupM2"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -4585,7 +4600,7 @@
 
           <h4 id="ascending">Ascending</h4>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="AscAsymDil" placeholder="Asymmetric Dilatation" [formGroup]="formGroupM2"
               [choices]="['Yes', 'No', 'Unknown']" fxFlex></reg-select>
@@ -4598,7 +4613,7 @@
           <reg-select controlName="Diameter3DMeas" placeholder="3-D reconstruction aortic diameter measurements available" [formGroup]="formGroupM2"
             [choices]="['Yes', 'No']"></reg-select>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-input controlName="Diam3DAnnulus" placeholder="Annulus (mm)" [formGroup]="formGroupM2"
               type="number" fxFlex></reg-input>
@@ -4611,7 +4626,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-input controlName="Diam3DSinus" placeholder="Sinus segment (mm)" [formGroup]="formGroupM2"
               type="number" fxFlex></reg-input>
@@ -4624,7 +4639,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-input controlName="Diam3DSinotubular" placeholder="Sinotubular junction (mm)" [formGroup]="formGroupM2"
               type="number" fxFlex></reg-input>
@@ -4637,7 +4652,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-input controlName="Diam3DMidAsc" placeholder="Mid-ascending (mm)" [formGroup]="formGroupM2"
               type="number" fxFlex></reg-input>
@@ -4650,7 +4665,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-input controlName="Diam3DDistalAsc" placeholder="Distal Ascending (mm)" [formGroup]="formGroupM2"
               type="number" fxFlex></reg-input>
@@ -4662,7 +4677,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-input controlName="Diam3DZone1" placeholder="Zone 1 (mm)" [formGroup]="formGroupM2"
               type="number" fxFlex></reg-input>
@@ -4676,7 +4691,7 @@
 
           <h4 id="preopDiameter">Largest (pre-operative) diameter of treated segment(s)</h4>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-input controlName="DiamLgstAnnulus" placeholder="Annulus (mm)" [formGroup]="formGroupM2"
               type="number" fxFlex></reg-input>
@@ -4689,7 +4704,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-input controlName="DiamLgstSinus" placeholder="Sinus segment (mm)" [formGroup]="formGroupM2"
               type="number" fxFlex></reg-input>
@@ -4702,7 +4717,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-input controlName="DiamLgstSinotubular" placeholder="Sinotubular junction (mm)" [formGroup]="formGroupM2"
               type="number" fxFlex></reg-input>
@@ -4715,7 +4730,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-input controlName="DiamLgstMidAsc" placeholder="Mid-ascending (mm)" [formGroup]="formGroupM2"
               type="number" fxFlex></reg-input>
@@ -4728,7 +4743,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-input controlName="DiamLgstDistalAsc" placeholder="Distal Ascending (mm)" [formGroup]="formGroupM2"
               type="number" fxFlex></reg-input>
@@ -4740,7 +4755,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-input controlName="DiamLgstZone1" placeholder="Zone 1 (mm)" [formGroup]="formGroupM2"
               type="number" fxFlex></reg-input>
@@ -4760,7 +4775,7 @@
           <reg-select controlName="ArchProc" placeholder="Open Arch Procedure" [formGroup]="formGroupM2"
             [choices]="['Yes', 'No']"></reg-select>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="ArchDisTech" placeholder="Distal Technique" [formGroup]="formGroupM2" [choices]="[
                 'Open',
@@ -4787,7 +4802,7 @@
           <reg-select class="subitem-horz" controlName="ArchBranReimp" placeholder="Arch Branch Reimplantation" [formGroup]="formGroupM2"
             [choices]="['Yes', 'No']"></reg-select>
 
-          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="ArchBranInnom" placeholder="Innominate" [formGroup]="formGroupM2"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -4800,7 +4815,7 @@
 
           </div>
 
-          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="ArchBranLComm" placeholder="Left Common Carotid" [formGroup]="formGroupM2"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -4813,7 +4828,7 @@
 
           </div>
 
-          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="ArchBranOth" placeholder="Other" [formGroup]="formGroupM2"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -4827,7 +4842,7 @@
           <reg-select controlName="DescAortaProc" placeholder="Open Descending Thoracic Aorta or Thoracoabdominal Procedure" [formGroup]="formGroupM2"
             [choices]="['Yes', 'No']"></reg-select>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="DescAortaLoc" placeholder="Proximal Location" [formGroup]="formGroupM2" [choices]="[
               'Reverse Hemiarch',
@@ -4863,7 +4878,7 @@
           <reg-select class="subitem-horz" controlName="AortaVisceral" placeholder="Visceral vessel intervention" [formGroup]="formGroupM2"
             [choices]="['Yes', 'No']"></reg-select>
 
-          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="AortaViscCel" placeholder="Celiac" [formGroup]="formGroupM2" [choices]="[
                 'Reimplantation',
@@ -4885,7 +4900,7 @@
 
           </div>
 
-          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="AortaViscRenL" placeholder="Left Renal" [formGroup]="formGroupM2" [choices]="[
                 'Reimplantation',
@@ -4902,7 +4917,7 @@
           <reg-select controlName="EndovasProc" placeholder="Endovascular Procedure" [formGroup]="formGroupM2"
             [choices]="['Yes', 'No']"></reg-select>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="EndovasAccess" placeholder="Access" [formGroup]="formGroupM2" [choices]="[
               'Femoral',
@@ -4919,7 +4934,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="EndoProxZone" placeholder="Proximal landing zone" [formGroup]="formGroupM2" [choices]="[
               'Below STJ',
@@ -4957,7 +4972,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="EndovasTAVR" placeholder="TAVR (for combination procedures)" [formGroup]="formGroupM2"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -4980,7 +4995,7 @@
             'Fenestrated'
             ]"></reg-select>
 
-          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="InAortaInnom" placeholder="Aorta-Innominate" [formGroup]="formGroupM2"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -4993,7 +5008,7 @@
 
           </div>
 
-          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="InCaroSubclav" placeholder="Right Carotid-Right subclavian" [formGroup]="formGroupM2"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -5013,7 +5028,7 @@
             'Fenestrated'
             ]"></reg-select>
 
-          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="LTCaroAortaCaro" placeholder="Aorta-left carotid" [formGroup]="formGroupM2"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -5026,7 +5041,7 @@
 
           </div>
 
-          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="LTCaroOther" placeholder="Other" [formGroup]="formGroupM2"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -5045,7 +5060,7 @@
             'Fenestrated'
             ]"></reg-select>
 
-          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="LTSubAortaSub" placeholder="Aorta-left subclavian" [formGroup]="formGroupM2"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -5061,7 +5076,7 @@
           <reg-select class="subitem-horz" controlName="OthArchVes" placeholder="Other Arch Vessel(s) Extra-anatomic bypass" [formGroup]="formGroupM2"
             [choices]="['Yes', 'No']"></reg-select>
 
-          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="OthInnomCaro" placeholder="Innominate–carotid" [formGroup]="formGroupM2"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -5074,7 +5089,7 @@
 
           </div>
 
-          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="OthOther" placeholder="Other" [formGroup]="formGroupM2"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -5095,7 +5110,7 @@
             'Fenestrated'
             ]"></reg-select>
 
-          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="CeliacAortaCeli" placeholder="Aorta-celiac" [formGroup]="formGroupM2"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -5116,7 +5131,7 @@
             'Fenestrated'
             ]"></reg-select>
 
-          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="SupMesAortaSuMe" placeholder="Aorta-superior mesenteric" [formGroup]="formGroupM2"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -5137,7 +5152,7 @@
             'Fenestrated'
             ]"></reg-select>
 
-          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="RtRenAortaRtRe" placeholder="Aorta-right renal" [formGroup]="formGroupM2"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -5158,7 +5173,7 @@
             'Fenestrated'
             ]"></reg-select>
 
-          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="LtRenAortaLtRe" placeholder="Aorta-left renal" [formGroup]="formGroupM2"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -5177,7 +5192,7 @@
             'Extra-anatomic Bypass'
             ]"></reg-select>
 
-          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="RtIliacFemFem" placeholder="Femoral-Femoral" [formGroup]="formGroupM2"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -5195,7 +5210,7 @@
             'Extra-anatomic Bypass'
             ]"></reg-select>
 
-          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="LtIliacFemFem" placeholder="Femoral-Femoral" [formGroup]="formGroupM2"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -5217,7 +5232,7 @@
           <reg-select class="subitem-horz" controlName="OthVisVes" placeholder="Other Visceral Vessel(s) Extra-anatomic Bypass" [formGroup]="formGroupM2"
             [choices]="['Yes', 'No']"></reg-select>
 
-          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="OthVisAortOth" placeholder="Aorta-other" [formGroup]="formGroupM2"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -5230,7 +5245,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="DisProxTearCov" placeholder="Dissection proximal entry tear covered" [formGroup]="formGroupM2"
               [choices]="['Yes', 'No']" fxFlex="49"></reg-select>
@@ -5249,7 +5264,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="ConvToOpen" placeholder="Conversion to open" [formGroup]="formGroupM2"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -5271,7 +5286,7 @@
           </div>
 
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="UnintRup" placeholder="Unintentional rupture of dissection septum" [formGroup]="formGroupM2"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -5303,7 +5318,7 @@
               'None'
             ]"></reg-select>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="MotorEvoke" placeholder="IntraOp Motor Evoked Potential (MEP)" [formGroup]="formGroupM2"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -5313,7 +5328,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="SomatEvoke" placeholder="IntraOp Somatosensory Evoked Potential (SEP)" [formGroup]="formGroupM2"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -5323,7 +5338,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="IntraOpEEG" placeholder="IntraOp Electroencephalogram (EEG)" [formGroup]="formGroupM2"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -5333,7 +5348,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="IntraOpIVUS" placeholder="IntraOp Intravascular Ultrasound (IVUS)" [formGroup]="formGroupM2"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -5343,7 +5358,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="IntraOpAng" placeholder="Intraoperative Angiogram" [formGroup]="formGroupM2"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -5381,7 +5396,7 @@
               'Zone 11 (external iliacs)'
               ]"></reg-select>
 
-            <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+            <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
               <reg-select controlName="ADevDelMeth01" placeholder="Delivery Method" [formGroup]="formGroupM2" [choices]="[
                   'Open',
@@ -5396,7 +5411,7 @@
 
             </div>
 
-            <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+            <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
               <reg-input controlName="ADevModel01" placeholder="Model Number" [formGroup]="formGroupM2"
                 type="text" fxFlex></reg-input>
@@ -5431,7 +5446,7 @@
               'Zone 11 (external iliacs)'
               ]"></reg-select>
 
-            <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+            <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
               <reg-select [controlName]="device[1]" placeholder="Delivery Method" [formGroup]="formGroupM2" [choices]="[
                   'Open',
@@ -5446,7 +5461,7 @@
 
             </div>
 
-            <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+            <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
               <reg-input [controlName]="device[3]" placeholder="Model Number" [formGroup]="formGroupM2"
                 type="text" fxFlex></reg-input>
@@ -5546,7 +5561,7 @@
       <div class="section-body">
         <form [formGroup]="formGroupO" #formDirectiveO="ngForm">
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-input controlName="PostOpPeakGlu" placeholder="Peak Glucose within18-24 hours of anesthesia end time" [formGroup]="formGroupO"
               type="number" fxFlex></reg-input>
@@ -5556,7 +5571,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-input controlName="PostopHemoglobin" placeholder="Discharge Hemoglobin" [formGroup]="formGroupO"
               type="number" fxFlex></reg-input>
@@ -5569,7 +5584,7 @@
           <reg-select controlName="BldProd" placeholder="Blood Products Used Postoperatively" [formGroup]="formGroupO"
             [choices]="['Yes', 'No']"></reg-select>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-input controlName="BdRBCU" placeholder="Red Blood Cell Units" [formGroup]="formGroupO"
               type="number" fxFlex></reg-input>
@@ -5579,7 +5594,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-input controlName="BdCryoU" placeholder="Cryoprecipitate Units" [formGroup]="formGroupO"
               type="number" fxFlex></reg-input>
@@ -5592,7 +5607,7 @@
           <reg-select controlName="ExtubOR" placeholder="Extubated in OR" [formGroup]="formGroupO"
             [choices]="['Yes', 'No', 'NA']"></reg-select>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="PostopIntub" placeholder="Re-intubated or intubated Post Op During Hospital Stay" [formGroup]="formGroupO"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -5606,7 +5621,7 @@
           </reg-input>
           <!-- System Calculation -->
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="ICUVisit" placeholder="ICU Visit" [formGroup]="formGroupO"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -5616,7 +5631,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="ICUReadm" placeholder="Readmission to ICU" [formGroup]="formGroupO"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -5629,7 +5644,7 @@
           <reg-select controlName="POpTTEch" placeholder="Post Op Echo Performed to evaluate valve(s)" [formGroup]="formGroupO"
             [choices]="['Yes', 'No']"></reg-select>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="POpTTAR" placeholder="Level aortic insufficiency found" [formGroup]="formGroupO" [choices]="[
                 'None',
@@ -5651,7 +5666,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="POpTTMR" placeholder="Level mitral insufficiency found" [formGroup]="formGroupO" [choices]="[
                 'None',
@@ -5691,7 +5706,7 @@
               'Not Documented'
             ]"></reg-select>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="POpEFD" placeholder="Post Op Ejection Fraction" [formGroup]="formGroupO"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -5704,7 +5719,7 @@
           <reg-select controlName="POpEnzDrawn" placeholder="Cardiac Enzymes (biomarkers) Drawn" [formGroup]="formGroupO"
             [choices]="['Yes', 'No']"></reg-select>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-input controlName="POpPkCKMB" placeholder="Peak CKMB" [formGroup]="formGroupO" require="false"
               type="number" fxFlex></reg-input>
@@ -5750,7 +5765,7 @@
               'No'
             ]"></reg-select>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="DeepSternInf" placeholder="Deep Sternal Infection/ Mediastinitis" [formGroup]="formGroupP" [choices]="[
                 'Yes, within 30 days of procedure',
@@ -5784,7 +5799,7 @@
           <reg-select class="subitem-horz" controlName="WoundInter" placeholder="Wound Intervention/Procedure" [formGroup]="formGroupP"
             [choices]="['Yes', 'No']"></reg-select>
 
-          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="WoundIntOpen" placeholder="Wound Intervention – Open with Packing/Irrigation" [formGroup]="formGroupP" [choices]="[
                 'Yes, primary incision',
@@ -5802,7 +5817,7 @@
 
           </div>
 
-          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="WoundIntMuscle" placeholder="Secondary Procedure Muscle Flap" [formGroup]="formGroupP" [choices]="[
                 'Yes, primary incision',
@@ -5821,7 +5836,7 @@
 
           <h4 class="subitem-horz" id="compliOperative">Operative</h4>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="COpReBld" placeholder="ReOp for Bleeding/Tamponade" [formGroup]="formGroupP"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -5839,7 +5854,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="CReintMI" placeholder="Reintervention for Myocardial Ischemia" [formGroup]="formGroupP"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -5858,7 +5873,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="CAortReint" placeholder="Aortic Reintervention" [formGroup]="formGroupP"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -5873,7 +5888,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="COpReNon" placeholder="Returned to the OR for Other Non-Cardiac Reasons" [formGroup]="formGroupP"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -5883,7 +5898,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="CSternal" placeholder="Sternotomy Issue" [formGroup]="formGroupP"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -5895,7 +5910,7 @@
 
           <h4 class="subitem-horz" id="compliInfection">Infection</h4>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="CSepsis" placeholder="Sepsis" [formGroup]="formGroupP"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -5907,7 +5922,7 @@
 
           <h4 class="subitem-horz" id="compliNeuroCentral">Neurologic, Central</h4>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="CNStrokP" placeholder="Postoperative Stroke" [formGroup]="formGroupP" [choices]="[
                 'Yes, hemorrhagic',
@@ -5921,7 +5936,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="CNEnceph" placeholder="Encephalopathy" [formGroup]="formGroupP" [choices]="[
                 'None',
@@ -5939,7 +5954,7 @@
 
           <h4 class="subitem-horz" id="compliNeuroPeripheral">Neurologic, Peripheral</h4>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="CNParal" placeholder="Lower Extremity Paralysis" [formGroup]="formGroupP"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -5954,7 +5969,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="CNParesis" placeholder="Paresis" [formGroup]="formGroupP"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -5971,7 +5986,7 @@
 
           <h4 class="subitem-horz" id="compliPulmonary">Pulmonary</h4>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="CPVntLng" placeholder="Prolonged Ventilation" [formGroup]="formGroupP"
               [choices]="['Yes', 'No']" fxFlex>OR exit time until initial extubation, plus any additional reintubation hours</reg-select>
@@ -5981,7 +5996,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="CVTE" placeholder="Venous Thromboembolism – VTE" [formGroup]="formGroupP"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -5994,7 +6009,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="CPlEff" placeholder="Pleural Effusion Requiring Drainage" [formGroup]="formGroupP"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -6006,7 +6021,7 @@
 
           <h4 class="subitem-horz" id="compliRenal">Renal</h4>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="CRenFail" placeholder="Renal Failure" [formGroup]="formGroupP"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -6016,7 +6031,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="CRenDial" placeholder="Dialysis (Newly Required)" [formGroup]="formGroupP"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -6034,7 +6049,7 @@
 
           <h4 class="subitem-horz" id="compliVascular">Vascular</h4>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="CVaIlFem" placeholder="Iliac/Femoral Dissection" [formGroup]="formGroupP"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -6049,7 +6064,7 @@
           <reg-select class="subitem-horz" controlName="CMAD" placeholder="Mechanical assist device related complication" [formGroup]="formGroupP"
             [choices]="['Yes', 'No']"></reg-select>
 
-          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="CMADCanIns" placeholder="Cannula/Insertion site issue" [formGroup]="formGroupP"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -6059,7 +6074,7 @@
 
           </div>
 
-          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="CMADThromEm" placeholder="Thrombotic/Embolic" [formGroup]="formGroupP"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -6069,7 +6084,7 @@
 
           </div>
 
-          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="CMADInf" placeholder="Infection" [formGroup]="formGroupP"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -6081,7 +6096,7 @@
 
           <h4 class="subitem-horz" id="compliOther">Other</h4>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="CRhythmDis" placeholder="RhythmDisturbanceRequiringPermanentDevice" [formGroup]="formGroupP" [choices]="[
                 'Pacemaker',
@@ -6096,7 +6111,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="COtAortEndo" placeholder="Post Op Aortic Endoleak" [formGroup]="formGroupP"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -6115,7 +6130,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="CVaAoDis" placeholder="Aortic Dissection" [formGroup]="formGroupP"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -6131,7 +6146,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="COtAortTear" placeholder="Aortic stent graft induced entry tear" [formGroup]="formGroupP"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -6141,7 +6156,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="COtTamp" placeholder="Pericardiocentesis" [formGroup]="formGroupP"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -6151,7 +6166,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="COtLiver" placeholder="Liver Dysfunction/ Failure" [formGroup]="formGroupP"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -6161,7 +6176,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="COtAFib" placeholder="Atrial Fibrillation" [formGroup]="formGroupP"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -6183,7 +6198,7 @@
       <div class="section-body">
         <form [formGroup]="formGroupQ" #formDirectiveQ="ngForm">
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-datepicker controlName="LFUDate" placeholder="Date of Last Follow-up" [formGroup]="formGroupQ"
               fxFlex>dd/mm/yyyy</reg-datepicker>
@@ -6212,7 +6227,7 @@
             'Discharged alive, died after discharge'
             ]"></reg-select>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-datepicker controlName="DischDt" placeholder="Discharge Date" [formGroup]="formGroupQ"
               fxFlex>dd/mm/yyyy</reg-datepicker>
@@ -6229,7 +6244,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="CardRef" placeholder="Cardiac Rehabilitation Referral" [formGroup]="formGroupQ" [choices]="[
                 'Yes',
@@ -6249,7 +6264,7 @@
 
           <h5 class="subitem-horz" id="antiplateletDC">Antiplatelet</h5>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="DCASA" placeholder="Aspirin" [formGroup]="formGroupQ"
               [choices]="['Yes', 'No', 'Contraindicated']" fxFlex></reg-select>
@@ -6264,7 +6279,7 @@
 
           <h5 class="subitem-horz" id="anticoagulantDC">Anticoagulant</h5>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="DCDirThromIn" placeholder="Thrombin Inhibitors" [formGroup]="formGroupQ"
               [choices]="['Yes', 'No', 'Contraindicated']" fxFlex></reg-select>
@@ -6277,7 +6292,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="DCNovOrAnti" placeholder="Novel Oral Anticoagulant" [formGroup]="formGroupQ"
               [choices]="['Yes', 'No', 'Contraindicated']" fxFlex></reg-select>
@@ -6291,7 +6306,7 @@
 
           <h5 class="subitem-horz" id="otherDC">Other</h5>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="DCACE" placeholder="ACE or ARB" [formGroup]="formGroupQ"
               [choices]="['Yes', 'No', 'Contraindicated', 'Not Indicated (no CHF or EF > 40%)']" fxFlex></reg-select>
@@ -6304,7 +6319,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="DCLipLowStat" placeholder="Lipid Lowering - Statin" [formGroup]="formGroupQ"
               [choices]="['Yes', 'No', 'Contraindicated']" fxFlex></reg-select>
@@ -6316,7 +6331,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-datepicker controlName="MtDate" placeholder="Mortality - Date" [formGroup]="formGroupQ"
               fxFlex>dd/mm/yyyy</reg-datepicker>
@@ -6340,7 +6355,7 @@
             'In Hospital (Other than OR)'
             ]"></reg-select>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="MtOpD" placeholder="Operative Death" [formGroup]="formGroupQ"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -6438,7 +6453,7 @@
             'Unknown'
             ]"></reg-select>
 
-          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="ReadmAortIntTy" placeholder="Type" [formGroup]="formGroupR" [choices]="[
                 'Open',
@@ -6479,7 +6494,7 @@
             'CRNA practicing independently'
             ]"></reg-select>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="PainScorePre" placeholder="Pain Score Baseline" [formGroup]="formGroupS" [choices]="[
               '0',
@@ -6507,7 +6522,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="HepUse" placeholder="Heparin Used Intraop" [formGroup]="formGroupS"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -6523,7 +6538,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-input controlName="TotProt" placeholder="Protamine Total Dose" [formGroup]="formGroupS"
               type="number" fxFlex></reg-input>
@@ -6541,7 +6556,7 @@
 
           <h5 class="subitem-horz" id="volatAgtUsed">Volatile Agent(s) used</h5>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="VolAgentIso" placeholder="Isoflurane" [formGroup]="formGroupS"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -6551,7 +6566,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="VolAgentDes" placeholder="Desflurane" [formGroup]="formGroupS"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -6563,7 +6578,7 @@
 
           <h5 class="subitem-horz" id="volatAgtTiming">Volatile Agent(s) timing</h5>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="VolAgentTimPre" placeholder="Pre CPB" [formGroup]="formGroupS"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -6573,7 +6588,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="VolAgentTimPost" placeholder="Post CPB" [formGroup]="formGroupS"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -6583,7 +6598,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="DexIntra" placeholder="Intraop Infusion Dexmedetomidine" [formGroup]="formGroupS"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -6596,7 +6611,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-input controlName="TotInsuIntra" placeholder="Intraop Insulin Total Dose" [formGroup]="formGroupS"
               type="number" fxFlex></reg-input>
@@ -6609,7 +6624,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-input controlName="PreAnesthBPMean" placeholder="Pre Induction Mean BP" [formGroup]="formGroupS"
               type="number" fxFlex></reg-input>
@@ -6622,7 +6637,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="CoreTempSrc" placeholder="Core Temperature Source" [formGroup]="formGroupS" [choices]="[
               'Esophageal',
@@ -6641,7 +6656,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-input controlName="TotCrystAnesth" placeholder="Anesthesiology Total Crystalloid" [formGroup]="formGroupS"
               type="number" fxFlex></reg-input>
@@ -6654,7 +6669,7 @@
 
           </div>
 
-          <div fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-input controlName="GlucTroughIntraop" placeholder="Intraop Glucose Trough" [formGroup]="formGroupS"
               type="number" fxFlex></reg-input>
@@ -6670,7 +6685,7 @@
           <reg-select controlName="IntraOpPreTEE" placeholder="Intraop Transesophageal Echo (TEE)" [formGroup]="formGroupS"
             [choices]="['Yes', 'No']"></reg-select>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="PreLVEFMeas" placeholder="Pre-procedure LVEF Measured" [formGroup]="formGroupS"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -6688,7 +6703,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="PreMR" placeholder="Mitral Regurgitation" [formGroup]="formGroupS" [choices]="[
                 'None',
@@ -6709,7 +6724,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="PreAR" placeholder="Aortic Regurgitation" [formGroup]="formGroupS" [choices]="[
                 'None',
@@ -6730,7 +6745,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="PreAVAAssessed" placeholder="Aortic Valve Area Assessed" [formGroup]="formGroupS"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -6740,7 +6755,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="PreTR" placeholder="Tricuspid Regurgitation" [formGroup]="formGroupS" [choices]="[
                 'None',
@@ -6759,7 +6774,7 @@
           <reg-select class="subitem-horz" controlName="AscAoAssessed" placeholder="Ascending Aorta Assessed" [formGroup]="formGroupS"
             [choices]="['Yes', 'No']"></reg-select>
 
-          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-input controlName="MxAscAo" placeholder="Maximal Ascending Aorta Diameter" [formGroup]="formGroupS"
               type="number" fxFlex></reg-input>
@@ -6769,7 +6784,7 @@
 
           </div>
 
-          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="AsAthMo" placeholder="Ascending Aorta Atheroma Mobility" [formGroup]="formGroupS"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -6781,7 +6796,7 @@
           <reg-select class="subitem-horz" controlName="AoArcVis" placeholder="Aortic Arch Visualized" [formGroup]="formGroupS"
             [choices]="['Yes', 'No']"></reg-select>
 
-          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-input controlName="MxArcAth" placeholder="Maximal Aortic Arch Atheroma Thickness" [formGroup]="formGroupS"
               type="number" fxFlex></reg-input>
@@ -6797,7 +6812,7 @@
           <reg-select class="subitem-horz" controlName="RetrAutolPrim" placeholder="Retrograde Autologous Priming of CPB Circuit" [formGroup]="formGroupS"
             [choices]="['Yes', 'No']"></reg-select>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-input controlName="TotCrystPerf" placeholder="Total Crystalloid Administered by Perfusion Team" [formGroup]="formGroupS"
               type="number" fxFlex></reg-input>
@@ -6807,7 +6822,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-input controlName="TotAlbumPerf" placeholder="Total Albumin Administered by Perfusion Team" [formGroup]="formGroupS"
               type="number" fxFlex></reg-input>
@@ -6817,7 +6832,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="InotropWeanCPB" placeholder="Inotropes used to wean from CPB" [formGroup]="formGroupS"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -6830,7 +6845,7 @@
           <reg-select controlName="IntraOpPostTEE" placeholder="Post-Procedure Use Of Intraoperative TEE" [formGroup]="formGroupS"
             [choices]="['Yes', 'No']"></reg-select>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="PostSAM" placeholder="Systolic Anterior Motion of Mitral Valve" [formGroup]="formGroupS"
               [choices]="['Yes', 'No', 'Not assessed']" fxFlex></reg-select>
@@ -6840,7 +6855,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="PostLVEFMeas" placeholder="Post-ProcedureLVEFMeasured" [formGroup]="formGroupS"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -6864,7 +6879,7 @@
           <reg-select controlName="ORDeath" placeholder="Patient Died in the OR" [formGroup]="formGroupS"
             [choices]="['Yes', 'No']"></reg-select>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="PostTempMeas" placeholder="Core Temp Measured upon Entry to ICU/PACU" [formGroup]="formGroupS"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -6874,7 +6889,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="PostINRMeas" placeholder="Post-Op INR Measured upon admission to post op care location (PACU, ICU)" [formGroup]="formGroupS"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -6884,7 +6899,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="PostWBCMeas" placeholder="WBC Measured upon admission to post op care location (PACU, ICU)" [formGroup]="formGroupS"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -6894,7 +6909,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="PostPltMeas" placeholder="Platelets Measured upon admission to post op care location (PACU, ICU)" [formGroup]="formGroupS"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -6904,7 +6919,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="PostHCTMeas" placeholder="Hematocrit Measured upon admission to post op care location (PACU, ICU)" [formGroup]="formGroupS"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -6914,7 +6929,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="PostFibrinMeas" placeholder="Fibrinogen Measured upon admission to post op care location (PACU, ICU)" [formGroup]="formGroupS"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -6924,7 +6939,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="PostLactMeas" placeholder="Lactate Measured upon admission to post op care location (PACU, ICU)" [formGroup]="formGroupS"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -6934,7 +6949,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="DexPost" placeholder="Post Op Dexmedetomidine" [formGroup]="formGroupS"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -6944,7 +6959,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="PostopDel" placeholder="Post Op Delirium" [formGroup]="formGroupS"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
@@ -6954,7 +6969,7 @@
 
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-xs="column" [fxLayoutGap.gt-xs]="gap">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="PainScorePOD3" placeholder="Pain Score POD #3" [formGroup]="formGroupS" [choices]="[
               '0',
@@ -7014,20 +7029,12 @@
     <button mat-raised-button class="button" color="accent" (click)="downloadCSV()">Download csv</button>
     <br />
 
-    <div class="label-text">FormA value: {{ formGroupA.value | json }}</div>
-    <br />
-    <div class="label-text">FormB value: {{ formGroupB.value | json }}</div>
-    <br />
-    <div class="label-text">FormD value: {{ formGroupD.value | json }}</div>
-    <br />
-    <div class="label-text">FormJ value: {{ formGroupJ.value | json }}</div>
-    <br />
-    <div class="label-text">Result value: {{ result | json }}</div>
-    <br />
-    <div class="label-text">Flat Result value: {{ flatResult | json }}</div>
+    <div class="label-text">FormI value: {{ formGroupI.value | json }}</div>
     <br />
 
-    <div class="label-text">FormD status: {{ formGroupJ.status }}</div>
+    <div class="label-text">Result value: {{ result | json }}</div>
     <br />
+    <!-- <div class="label-text">Flat Result value: {{ flatResult | json }}</div>
+    <br /> -->
   </div>
 </div>

@@ -50,7 +50,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
           case event instanceof NavigationStart:
             // console.log('NavigationStart');
-            // this.store.dispatch(new UI.StartLoading());
+            this.store.dispatch(new UI.StartLoading());
             break;
 
           case event instanceof RouteConfigLoadEnd:
@@ -59,15 +59,20 @@ export class AppComponent implements OnInit, OnDestroy {
 
           case event instanceof NavigationEnd:
             // console.log('NavigationEnd');
+            // this.store.dispatch(new UI.StopLoading());
+
+            setTimeout(() => {
+              this.store.dispatch(new UI.StopLoading());
+            }, 1000);
             break;
 
           case event instanceof NavigationCancel:
             // console.log('NavigationCancel');
+            this.store.dispatch(new UI.StopLoading());
             break;
 
           case event instanceof NavigationError:
             // console.log('NavigationError');
-            // this.store.dispatch(new UI.StopLoading());
             break;
         }
       }
