@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef, ElementRef, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormGroupDirective, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { Moment } from 'moment';
 
 import { RegistryFormComponent } from '../../../shared/components/registry/registry-form.component';
@@ -20,7 +21,7 @@ import { Store } from '@ngrx/store';
 import * as fromRoot from '../../../app.reducer';
 import * as UI from '../../../shared/ui.actions';
 
-import { staffs } from '../../staff/staff.model';
+import { staffs, Staff } from '../../staff/staff.model';
 
 @Component({
   selector: 'app-acsx290',
@@ -81,11 +82,17 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
   public mode = 'new'; // new, edit
   private formId: string;
   toc = tableOfContent;
+  private subscriptions: Subscription[] = [];
 
   result: ACSx290Model;
   flatResult: object;
 
   staff = staffs;
+
+  cvt: Staff[];
+  anesth: Staff[];
+  rn: Staff[];
+  ctt: Staff[];
 
   // tslint:disable: variable-name
   H_cathResults = [
@@ -296,6 +303,15 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
     this.store.dispatch(new UI.ChangeTitle('STS 2.9'));
 
     this.createForm();
+
+    this.subscriptions.push(
+      this.acsx290Service.getStaffs().subscribe(data => {
+        this.cvt = data.filter(e => e.position === 'Cardiothoracic Surgeon');
+        this.anesth = data.filter(e => e.position === 'Anesthesiologist');
+        this.rn = data.filter(e => e.position === 'Registered Nurse');
+        this.ctt = data.filter(e => e.position === 'Cardiothoracic Technician');
+      })
+    );
   }
 
   ngAfterViewInit() {
@@ -313,6 +329,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
 
   ngOnDestroy() {
     super.ngOnDestroy();
+    this.subscriptions.forEach(subs => subs.unsubscribe());
     // console.log('[ACSx290Component]: destroy');
   }
 

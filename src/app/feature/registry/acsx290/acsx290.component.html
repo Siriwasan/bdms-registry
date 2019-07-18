@@ -1836,71 +1836,173 @@
           <reg-input controlName="Procedure4" placeholder="Procedure 4" require="false" [formGroup]="formGroupI" type="text">
           </reg-input>
 
-          <!-- <reg-input controlName="SurgeonId" placeholder="Surgeon" [formGroup]="formGroupI" type="text">
-          </reg-input> -->
-
-          <!-- <reg-select controlName="SurgeonId" placeholder="Surgeon" [formGroup]="formGroupI" [choices]="[
-              'Art',
-              'Auh',
-              'Ae'
-            ]"></reg-select> -->
-
-          <mat-form-field>
-            <mat-label>Surgeon</mat-label>
-            <mat-select id="SurgeonId" formControlName="SurgeonId">
-              <mat-option *ngFor="let s of staff" [value]="s.staffId">
+          <mat-form-field style="width: 100%">
+            <mat-select id="SurgeonId" formControlName="SurgeonId" placeholder="Surgeon" required>
+              <mat-option *ngFor="let s of cvt" [value]="s.staffId">
                 {{ s.title + ' ' + s.firstName + ' ' + s.lastName }}
               </mat-option>
             </mat-select>
           </mat-form-field>
 
-          <reg-input controlName="Assist1Id" placeholder="Assist 1" require="false" [formGroup]="formGroupI" type="text">
-          </reg-input>
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
-          <reg-input controlName="Assist2Id" placeholder="Assist 2" require="false" [formGroup]="formGroupI" type="text">
-          </reg-input>
+            <mat-form-field style="width: 100%" fxFlex>
+              <mat-select id="Assist1Id" formControlName="Assist1Id" placeholder="Assist 1">
+                <mat-option *ngFor="let s of cvt" [value]="s.staffId">
+                  {{ s.title + ' ' + s.firstName + ' ' + s.lastName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
 
-          <reg-input controlName="Assist3Id" placeholder="Assist 3" require="false" [formGroup]="formGroupI" type="text">
-          </reg-input>
+            <mat-form-field style="width: 100%" fxFlex>
+              <mat-select id="Assist2Id" formControlName="Assist2Id" placeholder="Assist 2">
+                <mat-option *ngFor="let s of cvt" [value]="s.staffId">
+                  {{ s.title + ' ' + s.firstName + ' ' + s.lastName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
 
-          <reg-input controlName="Assist4Id" placeholder="Assist 4" require="false" [formGroup]="formGroupI" type="text">
-          </reg-input>
+          </div>
 
-          <reg-input controlName="Assist5Id" placeholder="Assist 5" require="false" [formGroup]="formGroupI" type="text">
-          </reg-input>
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
-          <reg-input controlName="Assist6Id" placeholder="Assist 6" require="false" [formGroup]="formGroupI" type="text">
-          </reg-input>
+            <mat-form-field style="width: 100%" fxFlex>
+              <mat-select id="Assist3Id" formControlName="Assist3Id" placeholder="Assist 3">
+                <mat-option *ngFor="let s of cvt" [value]="s.staffId">
+                  {{ s.title + ' ' + s.firstName + ' ' + s.lastName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
 
-          <reg-input controlName="Anesth1Id" placeholder="Anesth 1" [formGroup]="formGroupI" type="text">
-          </reg-input>
+            <mat-form-field style="width: 100%" fxFlex>
+              <mat-select id="Assist4Id" formControlName="Assist4Id" placeholder="Assist 4">
+                <mat-option *ngFor="let s of cvt" [value]="s.staffId">
+                  {{ s.title + ' ' + s.firstName + ' ' + s.lastName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
 
-          <reg-input controlName="Anesth2Id" placeholder="Anesth 2" require="false" [formGroup]="formGroupI" type="text">
-          </reg-input>
+          </div>
 
-          <reg-input controlName="Scrub1Id" placeholder="Scrub 1" [formGroup]="formGroupI" type="text">
-          </reg-input>
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
-          <reg-input controlName="Scrub2Id" placeholder="Scrub 2" require="false" [formGroup]="formGroupI" type="text">
-          </reg-input>
+            <mat-form-field style="width: 100%" fxFlex>
+              <mat-select id="Assist5Id" formControlName="Assist5Id" placeholder="Assist 5">
+                <mat-option *ngFor="let s of cvt" [value]="s.staffId">
+                  {{ s.title + ' ' + s.firstName + ' ' + s.lastName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
 
-          <reg-input controlName="Scrub3Id" placeholder="Scrub 3" require="false" [formGroup]="formGroupI" type="text">
-          </reg-input>
+            <mat-form-field style="width: 100%" fxFlex>
+              <mat-select id="Assist6Id" formControlName="Assist6Id" placeholder="Assist 6">
+                <mat-option *ngFor="let s of cvt" [value]="s.staffId">
+                  {{ s.title + ' ' + s.firstName + ' ' + s.lastName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
 
-          <reg-input controlName="Scrub4Id" placeholder="Scrub 4" require="false" [formGroup]="formGroupI" type="text">
-          </reg-input>
+          </div>
 
-          <reg-input controlName="CTT1Id" placeholder="CTT 1" [formGroup]="formGroupI" type="text">
-          </reg-input>
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
-          <reg-input controlName="CTT2Id" placeholder="CTT 2" require="false" [formGroup]="formGroupI" type="text">
-          </reg-input>
+            <mat-form-field style="width: 100%" fxFlex>
+              <mat-select id="Anesth1Id" formControlName="Anesth1Id" placeholder="Anesth 1" required>
+                <mat-option *ngFor="let s of anesth" [value]="s.staffId">
+                  {{ s.title + ' ' + s.firstName + ' ' + s.lastName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
 
-          <reg-input controlName="CTT3Id" placeholder="CTT 3" require="false" [formGroup]="formGroupI" type="text">
-          </reg-input>
+            <mat-form-field style="width: 100%" fxFlex>
+              <mat-select id="Anesth2Id" formControlName="Anesth2Id" placeholder="Anesth 2">
+                <mat-option *ngFor="let s of anesth" [value]="s.staffId">
+                  {{ s.title + ' ' + s.firstName + ' ' + s.lastName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
 
-          <reg-input controlName="CTT4Id" placeholder="CTT 4" require="false" [formGroup]="formGroupI" type="text">
-          </reg-input>
+          </div>
+
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+
+            <mat-form-field style="width: 100%" fxFlex>
+              <mat-select id="Scrub1Id" formControlName="Scrub1Id" placeholder="Scrub 1" required>
+                <mat-option *ngFor="let s of rn" [value]="s.staffId">
+                  {{ s.title + ' ' + s.firstName + ' ' + s.lastName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field style="width: 100%" fxFlex>
+              <mat-select id="Scrub2Id" formControlName="Scrub2Id" placeholder="Scrub 2">
+                <mat-option *ngFor="let s of rn" [value]="s.staffId">
+                  {{ s.title + ' ' + s.firstName + ' ' + s.lastName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+          </div>
+
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+
+            <mat-form-field style="width: 100%" fxFlex>
+              <mat-select id="Scrub3Id" formControlName="Scrub3Id" placeholder="Scrub 3">
+                <mat-option *ngFor="let s of rn" [value]="s.staffId">
+                  {{ s.title + ' ' + s.firstName + ' ' + s.lastName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field style="width: 100%" fxFlex>
+              <mat-select id="Scrub4Id" formControlName="Scrub4Id" placeholder="Scrub 4">
+                <mat-option *ngFor="let s of rn" [value]="s.staffId">
+                  {{ s.title + ' ' + s.firstName + ' ' + s.lastName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+          </div>
+
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+
+            <mat-form-field style="width: 100%" fxFlex>
+              <mat-select id="CTT1Id" formControlName="CTT1Id" placeholder="CTT 1" required>
+                <mat-option *ngFor="let s of ctt" [value]="s.staffId">
+                  {{ s.title + ' ' + s.firstName + ' ' + s.lastName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field style="width: 100%" fxFlex>
+              <mat-select id="CTT2Id" formControlName="CTT2Id" placeholder="CTT 2">
+                <mat-option *ngFor="let s of ctt" [value]="s.staffId">
+                  {{ s.title + ' ' + s.firstName + ' ' + s.lastName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+          </div>
+
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+
+            <mat-form-field style="width: 100%" fxFlex>
+              <mat-select id="CTT3Id" formControlName="CTT3Id" placeholder="CTT 3">
+                <mat-option *ngFor="let s of ctt" [value]="s.staffId">
+                  {{ s.title + ' ' + s.firstName + ' ' + s.lastName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field style="width: 100%" fxFlex>
+              <mat-select id="CTT4Id" formControlName="CTT4Id" placeholder="CTT 4">
+                <mat-option *ngFor="let s of ctt" [value]="s.staffId">
+                  {{ s.title + ' ' + s.firstName + ' ' + s.lastName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+          </div>
 
           <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 

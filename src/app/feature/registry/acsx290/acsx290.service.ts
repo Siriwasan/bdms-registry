@@ -9,8 +9,10 @@ import * as CryptoJS from 'crypto-js';
 import { ACSx290Model } from './acsx290.model';
 import { Registry } from '../registry.model';
 import { map } from 'rxjs/operators';
+import { Staff } from '../../staff/staff.model';
 
 const DB_REGISTRY = 'Registry';
+const DB_STAFF = 'Staff';
 const DB_COLLECTION = 'ACSx290';
 
 @Injectable({
@@ -172,6 +174,10 @@ export class ACSx290Service implements OnDestroy {
       .collection(DB_COLLECTION)
       .doc(formId)
       .delete();
+  }
+
+  public getStaffs() {
+    return this.db.collection<Staff>(DB_STAFF).valueChanges();
   }
 
   // ? Prototype for mapping before query
