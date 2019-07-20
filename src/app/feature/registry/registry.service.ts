@@ -21,7 +21,7 @@ import {
   ControlCondition,
   Registry
 } from './registry.model';
-import { ACSx290Model } from './acsx290/acsx290.model';
+import { ACSx290Form, FormCompletion } from './acsx290/acsx290.model';
 
 const DB_REGISTRY = 'Registry';
 
@@ -307,6 +307,29 @@ export class RegistryService implements OnDestroy {
     return `${total - error}/${total}`;
   }
 
+  public formCompletion2(section: string): FormCompletion {
+    let error = 0;
+    let totl = 0;
+
+    const formGroup = this.getFormGroup(section);
+
+    // ! ExpressionChangedAfterItHasBeenCheckedError: Expression has changed after it was checked
+    // ! need for further correction
+    Object.keys(formGroup.controls).forEach(key => {
+      const validationErrors: ValidationErrors = formGroup.get(key).errors;
+      if (validationErrors !== null) {
+        error++;
+      }
+
+      const element = document.getElementById(key);
+      if (element && element.style.display === '') {
+        totl++;
+      }
+    });
+
+    return { valid: totl - error, total: totl };
+  }
+
   public isFormDirty(): boolean {
     let isDirty = false;
     this.getFormGroups().forEach(formGroup => (isDirty = isDirty || formGroup.dirty));
@@ -430,11 +453,11 @@ export class RegistryService implements OnDestroy {
     });
   }
 
-  public loadACSx290s(): Promise<ACSx290Model[]> {
-    return new Promise<ACSx290Model[]>((resolve, reject) => {
+  public loadACSx290s(): Promise<ACSx290Form[]> {
+    return new Promise<ACSx290Form[]>((resolve, reject) => {
       this.subscriptions.push(
         this.db
-          .collection<ACSx290Model>('ACSx290')
+          .collection<ACSx290Form>('ACSx290')
           .valueChanges()
           .subscribe(
             data => {

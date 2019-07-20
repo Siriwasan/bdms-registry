@@ -20,28 +20,39 @@
 
   <div class="mat-elevation-z8">
     <mat-table [dataSource]="dataSource" matSort>
-      <!-- HN Column -->
+      <ng-container matColumnDef="registryId">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Registry ID</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.registryId }}</mat-cell>
+      </ng-container>
+
       <ng-container matColumnDef="hn">
         <mat-header-cell *matHeaderCellDef mat-sort-header>HN</mat-header-cell>
         <mat-cell *matCellDef="let row">{{ row.hn }}</mat-cell>
       </ng-container>
 
-      <!-- Name Column -->
-      <ng-container matColumnDef="name">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
-        <mat-cell *matCellDef="let row">{{ row.name }}</mat-cell>
+      <ng-container matColumnDef="an">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>AN</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.an }}</mat-cell>
       </ng-container>
 
-      <!-- BaseDB Column -->
+      <ng-container matColumnDef="firstName">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>First Name</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.firstName }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="lastName">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Last Name</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.lastName }}</mat-cell>
+      </ng-container>
+
       <ng-container matColumnDef="baseDb">
         <mat-header-cell *matHeaderCellDef mat-sort-header fxHide.xs>BaseDB</mat-header-cell>
         <mat-cell *matCellDef="let row" fxHide.xs>{{ row.baseDb }}</mat-cell>
       </ng-container>
 
-      <!-- Status Column -->
-      <ng-container matColumnDef="status">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
-        <mat-cell mat-cell *matCellDef="let row">{{ row.status }}</mat-cell>
+      <ng-container matColumnDef="completion">
+        <mat-header-cell *matHeaderCellDef mat-sort-header fxHide.xs>Completion</mat-header-cell>
+        <mat-cell *matCellDef="let row" fxHide.xs>{{ row.completion }}%</mat-cell>
       </ng-container>
 
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

@@ -19,7 +19,7 @@ import { FileService } from '../../shared/services/file.service';
   styleUrls: ['./registry.component.scss']
 })
 export class RegistryComponent implements OnInit {
-  displayedColumns: string[] = ['hn', 'name', 'baseDb', 'status'];
+  displayedColumns: string[] = ['registryId', 'hn', 'an', 'firstName', 'lastName', 'baseDb', 'completion'];
   dataSource: MatTableDataSource<Registry>;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -42,7 +42,9 @@ export class RegistryComponent implements OnInit {
         decryptData.push({
           ...d,
           hn: this.decrypt(d.hn),
-          name: this.decrypt(d.name)
+          an: this.decrypt(d.an),
+          firstName: this.decrypt(d.firstName),
+          lastName: this.decrypt(d.lastName)
         });
       });
 
@@ -66,11 +68,14 @@ export class RegistryComponent implements OnInit {
 
   click(registry: Registry) {
     if (registry.baseDb === 'STS Adult Cardiac Surgery version 2.9') {
-      this.router.navigate(['registry/acsx290', registry.formId]);
+      this.router.navigate(['registry/acsx290', registry.registryId]);
     }
   }
 
   private decrypt(source: string): string {
+    if (source === null) {
+      return null;
+    }
     return CryptoJS.AES.decrypt(source, environment.appKey).toString(CryptoJS.enc.Utf8);
   }
 

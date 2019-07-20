@@ -1,8 +1,10 @@
 import { Validators } from '@angular/forms';
 
+// Title
+
 export const ACSx290form = {
   sectionA: {
-    CaseNo: [null, Validators.required],
+    registryId: [null, Validators.required],
     HN: [null, Validators.required],
     AN: [null, Validators.required]
   },

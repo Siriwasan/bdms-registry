@@ -24,7 +24,7 @@
 
           <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
-            <reg-input class="item" controlName="CaseNo" placeholder="Case No" [formGroup]="formGroupA"
+            <reg-input class="item" controlName="registryId" placeholder="Registry ID" [formGroup]="formGroupA"
               type="text" readonly="true" fxFlex="25">(software generated)</reg-input>
 
             <reg-input controlName="HN" placeholder="HN" [formGroup]="formGroupA"
@@ -2218,7 +2218,7 @@
               'Yes, unplanned due to surgical complication',
               'Yes, unplanned due to unsuspected disease or anatomy',
               'No'
-            ]" (choiceChange)="enableSection('sectionJ-body', $event.value, ['!', 'No'])"></reg-select>
+            ]"></reg-select>
 
           <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 

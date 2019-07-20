@@ -46,11 +46,14 @@ export interface FormDetail {
 }
 
 export interface Registry {
+  registryId: string;
   hn: string;
-  name: string;
+  an: string;
+  firstName: string;
+  lastName: string;
+  age: number;
   baseDb: string;
   addendum: string;
   completion: number;
   modifiedAt: firebase.firestore.FieldValue;
-  formId: string;
 }

@@ -12,7 +12,7 @@ import { SectionMember, FormDetail } from '../registry.model';
 import { ACSx290form } from './acsx290.form';
 import { conditions } from './acsx290.condition';
 import { validations } from './acsx290.validation';
-import { ACSx290Model } from './acsx290.model';
+import { ACSx290Form, ACSx290FormCompletion } from './acsx290.model';
 import { ACSx290Service } from './acsx290.service';
 import { tableOfContent } from './acsx290.toc';
 import * as acsx290Data from './acsx290.data';
@@ -29,7 +29,6 @@ import * as UI from '../../../shared/ui.actions';
   styleUrls: ['./acsx290.component.scss']
 })
 export class ACSx290Component extends RegistryFormComponent implements OnInit, AfterViewInit, OnDestroy {
-
   //#region FormGroup and FormDirective
 
   formDetail: FormDetail;
@@ -106,7 +105,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
   public mode = 'new'; // new, edit
   private formId: string;
   private subscriptions: Subscription[] = [];
-  result: ACSx290Model;
+  result: ACSx290Form;
 
   constructor(
     protected dialogService: DialogService,
@@ -127,25 +126,15 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
     super.ngOnInit();
 
     this.store.dispatch(new UI.ChangeTitle('STS 2.9'));
-
     this.createForm();
-
-    this.subscriptions.push(
-      this.acsx290Service.getStaffs().subscribe(data => {
-        this.cvt = data.filter(e => e.position === 'Cardiothoracic Surgeon');
-        this.anesth = data.filter(e => e.position === 'Anesthesiologist');
-        this.rn = data.filter(e => e.position === 'Registered Nurse');
-        this.ctt = data.filter(e => e.position === 'Cardiothoracic Technician');
-      })
-    );
+    this.loadStaffs();
   }
 
   ngAfterViewInit() {
     super.ngAfterViewInit();
 
     this.registryService.subscribeFormConditions();
-
-    this.formGroupA.get('CaseNo').setValue('ACX19XXX');
+    this.formGroupA.get('registryId').setValue('(new)');
 
     // Prevent ExpressionChangedAfterItHasBeenCheckedError
     setTimeout(() => {
@@ -155,6 +144,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
 
   ngOnDestroy() {
     super.ngOnDestroy();
+
     this.subscriptions.forEach(subs => subs.unsubscribe());
     // console.log('[ACSx290Component]: destroy');
   }
@@ -214,6 +204,17 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
     this.registryService.setDataDict(require('raw-loader!./acsx290.dict.md'));
   }
 
+  private loadStaffs() {
+    this.subscriptions.push(
+      this.acsx290Service.getStaffs().subscribe(data => {
+        this.cvt = data.filter(e => e.position === 'Cardiothoracic Surgeon');
+        this.anesth = data.filter(e => e.position === 'Anesthesiologist');
+        this.rn = data.filter(e => e.position === 'Registered Nurse');
+        this.ctt = data.filter(e => e.position === 'Cardiothoracic Technician');
+      })
+    );
+  }
+
   public async submit() {
     console.log('submit');
     this.registryService.submitAllSections();
@@ -230,7 +231,8 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
       }
 
       console.log('new');
-      this.formId = await this.acsx290Service.saveForm(data);
+      this.formId = await this.acsx290Service.createForm(data);
+      this.formGroupA.get('registryId').setValue(this.formId);
       this.mode = 'edit';
     } else {
       console.log('edit');
@@ -239,7 +241,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
     this.store.dispatch(new UI.StopLoading());
   }
 
-  private archiveForm(): ACSx290Model {
+  private archiveForm(): ACSx290Form {
     const timestamp = this.acsx290Service.timestamp;
 
     if (this.mode === 'new') {
@@ -257,8 +259,9 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
       this.formDetail.modifiedAt = timestamp;
     }
 
-    const acsx290Model: ACSx290Model = {
+    const acsx290Model: ACSx290Form = {
       detail: this.formDetail,
+      completion: this.getFormCompletion(),
       sectionA: { ...this.formGroupA.value },
       sectionB: {
         ...this.formGroupB.value,
@@ -333,6 +336,51 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
     return acsx290Model;
   }
 
+  private getFormCompletion(): ACSx290FormCompletion {
+    const completion: ACSx290FormCompletion = {
+      summary: null,
+      sectionA: null,
+      sectionB: null,
+      sectionC: null,
+      sectionD: null,
+      sectionE: null,
+      sectionF: null,
+      sectionG: null,
+      sectionH: null,
+      sectionI: null,
+      sectionJ: null,
+      sectionK: null,
+      sectionL: null,
+      sectionL2: null,
+      sectionM: null,
+      sectionM1: null,
+      sectionM2: null,
+      sectionM3: null,
+      sectionN: null,
+      sectionO: null,
+      sectionP: null,
+      sectionQ: null,
+      sectionR: null,
+      sectionS: null
+    };
+
+    let valid = 0;
+    let total = 0;
+
+    Object.keys(completion).forEach(key => {
+      if (key !== 'summary') {
+        const sectionCompletion = this.registryService.formCompletion2(key.substr(7));
+        completion[key] = sectionCompletion;
+        valid += sectionCompletion.valid;
+        total += sectionCompletion.total;
+      }
+    });
+
+    completion.summary = { valid, total };
+
+    return completion;
+  }
+
   private isMoment(dateTime: any): dateTime is Moment {
     return dateTime !== null && (dateTime as Moment).toISOString !== undefined;
   }
@@ -346,37 +394,13 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
       this.store.dispatch(new UI.StartLoading());
 
       const formId = this.route.snapshot.paramMap.get('id');
-      const data = await this.acsx290Service.getFormById(formId);
+      const data = await this.acsx290Service.getForm(formId);
       this.store.dispatch(new UI.StopLoading());
 
       if (data) {
         console.log(data);
         this.acsx290Service.decryptSenitiveData(data);
-
-        this.formDetail = data.detail;
-        this.formGroupA.setValue(data.sectionA);
-        this.formGroupB.setValue(data.sectionB);
-        this.formGroupC.setValue(data.sectionC);
-        this.formGroupD.setValue(data.sectionD);
-        this.formGroupE.setValue(data.sectionE);
-        this.formGroupF.setValue(data.sectionF);
-        this.formGroupG.setValue(data.sectionG);
-        this.formGroupH.setValue(data.sectionH);
-        this.formGroupI.setValue(data.sectionI);
-        this.formGroupJ.setValue(data.sectionJ);
-        this.formGroupK.setValue(data.sectionK);
-        this.formGroupL.setValue(data.sectionL);
-        this.formGroupL2.setValue(data.sectionL2);
-        this.formGroupM.setValue(data.sectionM);
-        this.formGroupM1.setValue(data.sectionM1);
-        this.formGroupM2.setValue(data.sectionM2);
-        this.formGroupM3.setValue(data.sectionM3);
-        this.formGroupN.setValue(data.sectionN);
-        this.formGroupO.setValue(data.sectionO);
-        this.formGroupP.setValue(data.sectionP);
-        this.formGroupQ.setValue(data.sectionQ);
-        this.formGroupR.setValue(data.sectionR);
-        this.formGroupS.setValue(data.sectionS);
+        this.setFormValue(data);
 
         this.mode = 'edit';
         this.formId = formId;
@@ -384,6 +408,33 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
         this.router.navigate(['registry/acsx290']);
       }
     }
+  }
+
+  private setFormValue(acsx290Model: ACSx290Form) {
+    this.formDetail = acsx290Model.detail;
+    this.formGroupA.setValue(acsx290Model.sectionA);
+    this.formGroupB.setValue(acsx290Model.sectionB);
+    this.formGroupC.setValue(acsx290Model.sectionC);
+    this.formGroupD.setValue(acsx290Model.sectionD);
+    this.formGroupE.setValue(acsx290Model.sectionE);
+    this.formGroupF.setValue(acsx290Model.sectionF);
+    this.formGroupG.setValue(acsx290Model.sectionG);
+    this.formGroupH.setValue(acsx290Model.sectionH);
+    this.formGroupI.setValue(acsx290Model.sectionI);
+    this.formGroupJ.setValue(acsx290Model.sectionJ);
+    this.formGroupK.setValue(acsx290Model.sectionK);
+    this.formGroupL.setValue(acsx290Model.sectionL);
+    this.formGroupL2.setValue(acsx290Model.sectionL2);
+    this.formGroupM.setValue(acsx290Model.sectionM);
+    this.formGroupM1.setValue(acsx290Model.sectionM1);
+    this.formGroupM2.setValue(acsx290Model.sectionM2);
+    this.formGroupM3.setValue(acsx290Model.sectionM3);
+    this.formGroupN.setValue(acsx290Model.sectionN);
+    this.formGroupO.setValue(acsx290Model.sectionO);
+    this.formGroupP.setValue(acsx290Model.sectionP);
+    this.formGroupQ.setValue(acsx290Model.sectionQ);
+    this.formGroupR.setValue(acsx290Model.sectionR);
+    this.formGroupS.setValue(acsx290Model.sectionS);
   }
 
   clear() {
@@ -394,14 +445,6 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
     this.registryService.clearErrors();
   }
 
-  openInfo(control: string) {
-    this.registryService.openInfo(control);
-  }
-
-  hasInfo(control: string): boolean {
-    return this.registryService.hasInfo(control);
-  }
-
   downloadCSV() {
     //   this.archiveRegistry();
     //   this.fileService.saveJSONtoCSV([this.result], 'art.csv');
@@ -410,24 +453,5 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
   downloadJSON() {
     //   this.archiveRegistry();
     //   this.fileService.saveJSONtoFile([this.result]);
-  }
-
-  enableSection(sectionId: string, value: string, conds: string[]) {
-    // if (value !== null && conds[0] === '!') {
-    //   if (conds[1] !== value) {
-    //     document.getElementById(sectionId).style.display = '';
-    //     return true;
-    //   } else {
-    //     document.getElementById(sectionId).style.display = 'none';
-    //     return false;
-    //   }
-    // } else {
-    //   if (conds.findIndex(o => o === value) < 0) {
-    //     document.getElementById(sectionId).style.display = 'none';
-    //     return false;
-    //   } else {
-    //     document.getElementById(sectionId).style.display = '';
-    //   }
-    // }
   }
 }

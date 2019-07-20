@@ -18,11 +18,6 @@ export class StaffService implements OnDestroy {
     this.subscriptions.forEach(subs => subs.unsubscribe());
   }
 
-  /// Firebase Server Timestamp
-  get timestamp() {
-    return firebase.firestore.FieldValue.serverTimestamp();
-  }
-
   public loadStaffs() {
     return this.db
       .collection<Staff>(DB_COLLECTION)
@@ -58,7 +53,7 @@ export class StaffService implements OnDestroy {
     await this.db.doc(DB_COLLECTION + `/${id}`).update(staff);
   }
 
-  public generateStaffId(position: string) {
+  private generateStaffId(position: string) {
     return new Promise<string>((resolve, reject) => {
       this.subscriptions.push(
         this.db
@@ -90,7 +85,7 @@ export class StaffService implements OnDestroy {
     });
   }
 
-  getAbbreviation(position: string) {
+  private getAbbreviation(position: string) {
     switch (position) {
       case 'Cardiothoracic Surgeon':
         return 'CS';
