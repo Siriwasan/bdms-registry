@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef, ElementRef, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormGroupDirective, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { Moment } from 'moment';
 
@@ -117,7 +118,8 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
     private store: Store<fromRoot.State>,
     private route: ActivatedRoute,
     private router: Router,
-    private acsx290Service: ACSx290Service
+    private acsx290Service: ACSx290Service,
+    private location: Location
   ) {
     super(dialogService, changeDetector, scrollSpy, hostElement, registryService);
   }
@@ -217,8 +219,25 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
 
   public async submit() {
     console.log('submit');
+
     this.registryService.submitAllSections();
     const data = this.archiveForm();
+
+    if (!this.isNeededDataComplete(data)) {
+      this.dialogService.createModalDialog({
+        title: 'Alert!!!',
+        content: `These information must fill before submitting
+        <ul>
+        <li>HN</li>
+        <li>AN</li>
+        <li>First Name</li>
+        <li>Last Name</li>
+        <li>Hospital</li>
+        </ul>`,
+        buttons: ['OK']
+      });
+      return;
+    }
 
     this.acsx290Service.encryptSensitiveData(data);
 
@@ -233,6 +252,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
       console.log('new');
       this.formId = await this.acsx290Service.createForm(data);
       this.formGroupA.get('registryId').setValue(this.formId);
+      this.location.go('/registry/acsx290/' + this.formId);
       this.mode = 'edit';
     } else {
       console.log('edit');
@@ -334,6 +354,32 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
     this.result = acsx290Model;
 
     return acsx290Model;
+  }
+
+  // tslint:disable: no-string-literal
+  private isNeededDataComplete(data: ACSx290Form): boolean {
+    if (
+      this.isNullorEmpty(data.sectionA['HN']) ||
+      this.isNullorEmpty(data.sectionA['AN']) ||
+      this.isNullorEmpty(data.sectionB['PatFName']) ||
+      this.isNullorEmpty(data.sectionB['PatLName']) ||
+      this.isNullorEmpty(data.sectionC['HospName'])
+    ) {
+      return false;
+    }
+    return true;
+  }
+  // tslint:enable: no-string-literal
+
+  private isNullorEmpty(data: any): boolean {
+    // if (!data) {
+    //   return true;
+    // }
+    // if (typeof data === 'string' && data.trim() === '') {
+    //   return true;
+    // }
+    // return false;
+    return !data || data.trim() === '';
   }
 
   private getFormCompletion(): ACSx290FormCompletion {
