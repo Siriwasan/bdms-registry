@@ -1,13 +1,12 @@
-import { RegistryService } from '../../../feature/registry/registry.service';
 import { ValidationMessage } from '../../../feature/registry/registry.model';
+import { RegistryFormService } from './registry-form.service';
 
 export class RegistryControlComponent {
+  constructor(protected registryFormService: RegistryFormService) {}
 
-  constructor(protected registryService: RegistryService) {}
-
-  public hasInfo = (control: string) => this.registryService.hasInfo(control);
-  public openInfo = (control: string) => this.registryService.openInfo(control);
-  public getValidations = (control: string): ValidationMessage[] => this.registryService.getValidations(control);
+  public hasInfo = (control: string) => this.registryFormService.hasInfo(control);
+  public openInfo = (control: string) => this.registryFormService.openInfo(control);
+  public getValidations = (control: string): ValidationMessage[] => this.registryFormService.getValidations(control);
   public isInvalid = (control: string, validationType: string): boolean =>
-    this.registryService.isInvalid(control, validationType);
+    this.registryFormService.isInvalid(control, validationType);
 }

@@ -17,8 +17,8 @@ import { ACSx290Form, ACSx290FormCompletion } from './acsx290.model';
 import { ACSx290Service } from './acsx290.service';
 import { tableOfContent } from './acsx290.toc';
 import * as acsx290Data from './acsx290.data';
-import { RegistryService } from '../registry.service';
 import { Staff } from '../../staff/staff.model';
+import { RegistryFormService } from '../../../shared/components/registry/registry-form.service';
 
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../../../app.reducer';
@@ -113,7 +113,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
     protected changeDetector: ChangeDetectorRef,
     protected scrollSpy: ScrollSpyService,
     protected hostElement: ElementRef,
-    protected registryService: RegistryService,
+    protected registryFormService: RegistryFormService,
     private formBuilder: FormBuilder,
     private store: Store<fromRoot.State>,
     private route: ActivatedRoute,
@@ -121,7 +121,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
     private acsx290Service: ACSx290Service,
     private location: Location
   ) {
-    super(dialogService, changeDetector, scrollSpy, hostElement, registryService);
+    super(dialogService, changeDetector, scrollSpy, hostElement, registryFormService);
   }
 
   ngOnInit() {
@@ -135,7 +135,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
   ngAfterViewInit() {
     super.ngAfterViewInit();
 
-    this.registryService.subscribeFormConditions();
+    this.registryFormService.subscribeFormConditions();
     this.formGroupA.get('registryId').setValue('(new)');
 
     // Prevent ExpressionChangedAfterItHasBeenCheckedError
@@ -202,8 +202,8 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
       ['S', this.formGroupS, this.formDirectiveS, conditions.sectionS]
     ];
 
-    this.registryService.initializeForm(sectionMembers, conditions, validations);
-    this.registryService.setDataDict(require('raw-loader!./acsx290.dict.md'));
+    this.registryFormService.initializeForm(sectionMembers, conditions, validations);
+    this.registryFormService.setDataDict(require('raw-loader!./acsx290.dict.md'));
   }
 
   private loadStaffs() {
@@ -220,7 +220,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
   public async submit() {
     console.log('submit');
 
-    this.registryService.submitAllSections();
+    this.registryFormService.submitAllSections();
     const data = this.archiveForm();
 
     if (!this.isNeededDataComplete(data)) {
@@ -415,7 +415,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
 
     Object.keys(completion).forEach(key => {
       if (key !== 'summary') {
-        const sectionCompletion = this.registryService.formCompletion2(key.substr(7));
+        const sectionCompletion = this.registryFormService.formCompletion2(key.substr(7));
         completion[key] = sectionCompletion;
         valid += sectionCompletion.valid;
         total += sectionCompletion.total;
@@ -484,11 +484,11 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
   }
 
   clear() {
-    this.registryService.clear();
+    this.registryFormService.clear();
   }
 
   clearErrors() {
-    this.registryService.clearErrors();
+    this.registryFormService.clearErrors();
   }
 
   downloadCSV() {

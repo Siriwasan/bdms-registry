@@ -9,20 +9,20 @@ import {
 } from '@angular/core';
 import { map, first } from 'rxjs/operators';
 
-import { ScrollSpyFormComponent } from './scrollspy-form.component';
+import { ScrollSpyComponent } from '../../modules/scroll-spy/scroll-spy.component';
 import { DialogService } from '../../services/dialog.service';
 import { ScrollSpyService } from '../../modules/scroll-spy/scroll-spy.service';
 
 import { ValidationMessage } from '../../../feature/registry/registry.model';
-import { RegistryService } from '../../../feature/registry/registry.service';
+import { RegistryFormService } from './registry-form.service';
 
-export class RegistryFormComponent extends ScrollSpyFormComponent implements OnInit, AfterViewInit, OnDestroy {
+export class RegistryFormComponent extends ScrollSpyComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     protected dialogService: DialogService,
     protected changeDetector: ChangeDetectorRef,
     protected scrollSpy: ScrollSpyService,
     protected hostElement: ElementRef,
-    protected registryService: RegistryService
+    protected registryFormService: RegistryFormService
   ) {
     super(changeDetector, scrollSpy, hostElement);
   }
@@ -46,7 +46,7 @@ export class RegistryFormComponent extends ScrollSpyFormComponent implements OnI
     // ? return confirm('Do you really want to leave?');
     // ? return this.form.submitted || !this.form.dirty;
 
-    if (!this.registryService.isFormDirty()) {
+    if (!this.registryFormService.isFormDirty()) {
       return true;
     }
 
@@ -82,9 +82,9 @@ export class RegistryFormComponent extends ScrollSpyFormComponent implements OnI
   //#endregion Warning before leaving
 
   // ? Composition pattern
-  public formCompletion = (section: string): string => this.registryService.formCompletion(section);
+  public formCompletion = (section: string): string => this.registryFormService.formCompletion(section);
   // public isShowControl = (control: string): boolean => this.registryService.isShowControl(control);
-  public getValidations = (control: string): ValidationMessage[] => this.registryService.getValidations(control);
+  public getValidations = (control: string): ValidationMessage[] => this.registryFormService.getValidations(control);
   // public isInvalid = (control: string, validationType: string): boolean =>
   //   this.registryService.isInvalid(control, validationType);
 }

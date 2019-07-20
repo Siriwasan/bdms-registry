@@ -14,6 +14,7 @@ import { RegistryDatePickerComponent } from './components/registry/registry-date
 
 import { NoSanitizePipe } from './pipes/no-sanitize.pipe';
 import { DeactivateGuard } from './guards/deactivate.guard';
+import { RegistryFormService } from './components/registry/registry-form.service';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,7 @@ import { DeactivateGuard } from './guards/deactivate.guard';
     RegistryDatePickerComponent,
     NoSanitizePipe
   ],
-  providers: [DeactivateGuard],
+  providers: [DeactivateGuard, RegistryFormService],
   entryComponents: [ModalDialogComponent]
 })
 export class SharedModule {}

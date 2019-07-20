@@ -1,4 +1,5 @@
 import { FormDetail } from '../registry.model';
+import { FormCompletion } from '../../../shared/components/registry/registry-form.model';
 
 export interface ACSx290Form {
   detail: FormDetail;
@@ -26,11 +27,6 @@ export interface ACSx290Form {
   sectionQ: object;
   sectionR: object;
   sectionS: object;
-}
-
-export interface FormCompletion {
-  valid: number;
-  total: number;
 }
 
 export interface ACSx290FormCompletion {

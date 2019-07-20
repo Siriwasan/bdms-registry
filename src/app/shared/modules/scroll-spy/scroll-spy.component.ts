@@ -1,9 +1,9 @@
 import { AfterViewInit, ChangeDetectorRef, OnInit, ElementRef, HostListener, OnDestroy } from '@angular/core';
 
-import { ScrollSpyService } from '../../modules/scroll-spy/scroll-spy.service';
+import { ScrollSpyService } from './scroll-spy.service';
 import { Subscription } from 'rxjs';
 
-export class ScrollSpyFormComponent implements OnInit, AfterViewInit, OnDestroy {
+export class ScrollSpyComponent implements OnInit, AfterViewInit, OnDestroy {
   public currentSection = '';
   public tocMaxHeight: string;
   private tocMaxHeightOffset = 0;

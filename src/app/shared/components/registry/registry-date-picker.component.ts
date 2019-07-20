@@ -1,10 +1,10 @@
 import { Component, Input, OnInit, ElementRef } from '@angular/core';
 import { MAT_DATE_FORMATS, DateAdapter } from '@coachcare/datepicker';
 
-import { RegistryService } from '../../../feature/registry/registry.service';
 import { RegistryControlComponent } from './registry-control.component';
 import { AbstractControl } from '@angular/forms';
 import { MomentDateAdapter } from '@coachcare/datepicker';
+import { RegistryFormService } from './registry-form.service';
 
 // See the Moment.js docs for the meaning of these formats:
 // https://momentjs.com/docs/#/displaying/format/
@@ -76,8 +76,12 @@ export class RegistryDatePickerComponent extends RegistryControlComponent implem
   bInfo: boolean;
   self: AbstractControl;
 
-  constructor(protected registryService: RegistryService, private elementRef: ElementRef, private dateAdapter: DateAdapter<Date>) {
-    super(registryService);
+  constructor(
+    protected registryFormService: RegistryFormService,
+    private elementRef: ElementRef,
+    private dateAdapter: DateAdapter<Date>
+  ) {
+    super(registryFormService);
 
     dateAdapter.setLocale('th');
   }
@@ -86,9 +90,9 @@ export class RegistryDatePickerComponent extends RegistryControlComponent implem
     this.elementRef.nativeElement.setAttribute('id', this.controlName);
     this.bInfo = this.hasInfo(this.controlName);
 
-    const section = this.registryService.getControlSection(this.controlName);
+    const section = this.registryFormService.getControlSection(this.controlName);
     if (section) {
-      this.self = this.registryService.getFormGroup(section).get(this.controlName);
+      this.self = this.registryFormService.getFormGroup(section).get(this.controlName);
     }
   }
 }

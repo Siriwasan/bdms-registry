@@ -1,8 +1,8 @@
 import { Component, Input, ElementRef, OnInit, ViewEncapsulation } from '@angular/core';
 
-import { RegistryService } from '../../../feature/registry/registry.service';
 import { RegistryControlComponent } from './registry-control.component';
 import { AbstractControl } from '@angular/forms';
+import { RegistryFormService } from './registry-form.service';
 
 @Component({
   // tslint:disable-next-line: component-selector
@@ -53,17 +53,17 @@ export class RegistryInputComponent extends RegistryControlComponent implements 
   bInfo: boolean;
   self: AbstractControl;
 
-  constructor(protected registryService: RegistryService, private elementRef: ElementRef) {
-    super(registryService);
+  constructor(protected registryFormService: RegistryFormService, private elementRef: ElementRef) {
+    super(registryFormService);
   }
 
   ngOnInit() {
     this.elementRef.nativeElement.setAttribute('id', this.controlName);
     this.bInfo = this.hasInfo(this.controlName);
 
-    const section = this.registryService.getControlSection(this.controlName);
+    const section = this.registryFormService.getControlSection(this.controlName);
     if (section) {
-      this.self = this.registryService.getFormGroup(section).get(this.controlName);
+      this.self = this.registryFormService.getFormGroup(section).get(this.controlName);
     }
   }
 }
