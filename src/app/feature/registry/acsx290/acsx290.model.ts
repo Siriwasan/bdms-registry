@@ -1,5 +1,5 @@
 import { FormDetail } from '../registry.model';
-import { FormCompletion } from '../../../shared/components/registry/registry-form.model';
+import { FormCompletion } from '../../../shared/modules/registry-form/registry-form.model';
 
 export interface ACSx290Form {
   detail: FormDetail;

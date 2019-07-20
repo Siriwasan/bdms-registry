@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef, ElementRef } from '@angular/core';
 
-import { RegistryFormComponent } from '../../../shared/components/registry/registry-form.component';
+import { RegistryFormComponent } from '../../../shared/modules/registry-form/registry-form.component';
 import { DialogService } from '../../../shared/services/dialog.service';
 import { ScrollSpyService } from '../../../shared/modules/scroll-spy/scroll-spy.service';
 
@@ -10,7 +10,6 @@ import { ScrollSpyService } from '../../../shared/modules/scroll-spy/scroll-spy.
   styleUrls: ['./test-form.component.scss']
 })
 export class TestFormComponent extends RegistryFormComponent implements OnInit {
-
   constructor(
     protected dialogService: DialogService,
     protected changeDetector: ChangeDetectorRef,
@@ -23,5 +22,4 @@ export class TestFormComponent extends RegistryFormComponent implements OnInit {
   // ngOnInit() {
   //   super.ngOnInit();
   // }
-
 }

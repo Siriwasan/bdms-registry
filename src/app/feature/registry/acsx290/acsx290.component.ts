@@ -5,7 +5,7 @@ import { Location } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { Moment } from 'moment';
 
-import { RegistryFormComponent } from '../../../shared/components/registry/registry-form.component';
+import { RegistryFormComponent } from '../../../shared/modules/registry-form/registry-form.component';
 import { DialogService } from '../../../shared/services/dialog.service';
 import { ScrollSpyService } from '../../../shared/modules/scroll-spy/scroll-spy.service';
 import { SectionMember, FormDetail } from '../registry.model';
@@ -18,7 +18,7 @@ import { ACSx290Service } from './acsx290.service';
 import { tableOfContent } from './acsx290.toc';
 import * as acsx290Data from './acsx290.data';
 import { Staff } from '../../staff/staff.model';
-import { RegistryFormService } from '../../../shared/components/registry/registry-form.service';
+import { RegistryFormService } from '../../../shared/modules/registry-form/registry-form.service';
 
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../../../app.reducer';

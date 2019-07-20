@@ -9,9 +9,9 @@ import {
 } from '@angular/core';
 import { map, first } from 'rxjs/operators';
 
-import { ScrollSpyComponent } from '../../modules/scroll-spy/scroll-spy.component';
+import { ScrollSpyComponent } from '../scroll-spy/scroll-spy.component';
 import { DialogService } from '../../services/dialog.service';
-import { ScrollSpyService } from '../../modules/scroll-spy/scroll-spy.service';
+import { ScrollSpyService } from '../scroll-spy/scroll-spy.service';
 
 import { ValidationMessage } from '../../../feature/registry/registry.model';
 import { RegistryFormService } from './registry-form.service';

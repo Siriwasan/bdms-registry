@@ -5,25 +5,14 @@ import { RouterModule } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { MaterialModule } from '../shared/material.module';
-import { ScrollSpyModule } from './modules/scroll-spy/scroll-spy.module';
+import { RegistryFormModule } from './modules/registry-form/registry-form.module';
 
 import { ModalDialogComponent } from './components/modal-dialog/modal-dialog.component';
-import { RegistryInputComponent } from './components/registry/registry-input.component';
-import { RegistrySelectComponent } from './components/registry/registry-select.component';
-import { RegistryDatePickerComponent } from './components/registry/registry-date-picker.component';
-
 import { NoSanitizePipe } from './pipes/no-sanitize.pipe';
 import { DeactivateGuard } from './guards/deactivate.guard';
-import { RegistryFormService } from './components/registry/registry-form.service';
 
 @NgModule({
-  declarations: [
-    ModalDialogComponent,
-    RegistryInputComponent,
-    RegistrySelectComponent,
-    RegistryDatePickerComponent,
-    NoSanitizePipe
-  ],
+  declarations: [ModalDialogComponent, NoSanitizePipe],
   imports: [
     CommonModule,
     FormsModule,
@@ -31,7 +20,7 @@ import { RegistryFormService } from './components/registry/registry-form.service
     ReactiveFormsModule,
     MaterialModule,
     FlexLayoutModule,
-    ScrollSpyModule
+    RegistryFormModule
   ],
   exports: [
     CommonModule,
@@ -40,13 +29,10 @@ import { RegistryFormService } from './components/registry/registry-form.service
     ReactiveFormsModule,
     MaterialModule,
     FlexLayoutModule,
-    ScrollSpyModule,
-    RegistryInputComponent,
-    RegistrySelectComponent,
-    RegistryDatePickerComponent,
+    RegistryFormModule,
     NoSanitizePipe
   ],
-  providers: [DeactivateGuard, RegistryFormService],
+  providers: [DeactivateGuard],
   entryComponents: [ModalDialogComponent]
 })
 export class SharedModule {}
