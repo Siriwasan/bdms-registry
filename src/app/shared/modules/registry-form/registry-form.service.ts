@@ -1,13 +1,5 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import {
-  FormGroup,
-  Validators,
-  FormGroupDirective,
-  ValidationErrors,
-  FormControl,
-  FormArray,
-  AbstractControl
-} from '@angular/forms';
+import { FormGroup, FormGroupDirective, ValidationErrors, AbstractControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import * as marked from 'marked';
 
@@ -20,9 +12,6 @@ import {
   ControlCondition,
   FormCompletion
 } from './registry-form.model';
-// import { ACSx290Form, FormCompletion } from './acsx290/acsx290.model';
-
-const DB_REGISTRY = 'Registry';
 
 @Injectable()
 export class RegistryFormService implements OnDestroy {
@@ -31,12 +20,11 @@ export class RegistryFormService implements OnDestroy {
   private tokens: marked.TokensList;
   //#endregion Data Dictionary variables
 
-  show = false; // add one more property
   private subscriptions: Subscription[] = [];
 
+  private sectionMembers: SectionMember[];
   private conditions: FormConditions;
   private validations: FormValidations;
-  private sectionMembers: SectionMember[];
 
   constructor(private dialogService: DialogService) {}
 
@@ -54,6 +42,7 @@ export class RegistryFormService implements OnDestroy {
     // this.subscribeFormConditions();
   }
 
+  // need to subscribe in ngAfterViewInit
   public subscribeFormConditions() {
     this.getSectionMembers().forEach(sectionMember => {
       this.subscribeValueChanges(sectionMember[1], sectionMember[3]); // FormGroup, ControlCondition[]
@@ -306,7 +295,7 @@ export class RegistryFormService implements OnDestroy {
     return `${total - error}/${total}`;
   }
 
-  public formCompletion2(section: string): FormCompletion {
+  public getSectionCompletion(section: string): FormCompletion {
     let error = 0;
     let totl = 0;
 

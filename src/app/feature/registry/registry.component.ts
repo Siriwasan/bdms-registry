@@ -84,7 +84,7 @@ export class RegistryComponent implements OnInit {
   }
 
   async export() {
-    const data = await this.registryService.loadACSx290s();
+    const data = await this.registryService.loadACSx290sForExport();
     data.forEach(d => {
       d.detail.createdAt =
         d.detail.createdAt !== null ? (d.detail.createdAt as firebase.firestore.Timestamp).toDate() : null;

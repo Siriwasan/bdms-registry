@@ -59,7 +59,7 @@
       <mat-row class="element-row" *matRowDef="let row; columns: displayedColumns" (click)="click(row)"></mat-row>
     </mat-table>
 
-    <mat-paginator [pageSize]="25" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
   </div>
   <br />
   <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="20px">

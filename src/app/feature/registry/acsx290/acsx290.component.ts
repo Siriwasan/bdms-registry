@@ -8,17 +8,18 @@ import { Moment } from 'moment';
 import { RegistryFormComponent } from '../../../shared/modules/registry-form/registry-form.component';
 import { DialogService } from '../../../shared/services/dialog.service';
 import { ScrollSpyService } from '../../../shared/modules/scroll-spy/scroll-spy.service';
-import { SectionMember, FormDetail } from '../registry.model';
+import { RegistryFormService } from '../../../shared/modules/registry-form/registry-form.service';
+import { FormCompletion } from '../../../shared/modules/registry-form/registry-form.model';
 
 import { ACSx290form } from './acsx290.form';
 import { conditions } from './acsx290.condition';
 import { validations } from './acsx290.validation';
-import { ACSx290Form, ACSx290FormCompletion } from './acsx290.model';
 import { ACSx290Service } from './acsx290.service';
 import { tableOfContent } from './acsx290.toc';
 import * as acsx290Data from './acsx290.data';
+import { ACSx290Form, ACSx290FormCompletion } from './acsx290.model';
 import { Staff } from '../../staff/staff.model';
-import { RegistryFormService } from '../../../shared/modules/registry-form/registry-form.service';
+import { SectionMember, FormDetail } from '../registry.model';
 
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../../../app.reducer';
@@ -104,7 +105,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
 
   gap = '20px';
   public mode = 'new'; // new, edit
-  private formId: string;
+  private registryId: string;
   private subscriptions: Subscription[] = [];
   result: ACSx290Form;
 
@@ -208,11 +209,11 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
 
   private loadStaffs() {
     this.subscriptions.push(
-      this.acsx290Service.getStaffs().subscribe(data => {
-        this.cvt = data.filter(e => e.position === 'Cardiothoracic Surgeon');
-        this.anesth = data.filter(e => e.position === 'Anesthesiologist');
-        this.rn = data.filter(e => e.position === 'Registered Nurse');
-        this.ctt = data.filter(e => e.position === 'Cardiothoracic Technician');
+      this.acsx290Service.getStaffs().subscribe(staffs => {
+        this.cvt = staffs.filter(e => e.position === 'Cardiothoracic Surgeon');
+        this.anesth = staffs.filter(e => e.position === 'Anesthesiologist');
+        this.rn = staffs.filter(e => e.position === 'Registered Nurse');
+        this.ctt = staffs.filter(e => e.position === 'Cardiothoracic Technician');
       })
     );
   }
@@ -223,17 +224,11 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
     this.registryFormService.submitAllSections();
     const data = this.archiveForm();
 
-    if (!this.isNeededDataComplete(data)) {
+    const alert = this.acsx290Service.checkNeededDataCompletion(data);
+    if (alert) {
       this.dialogService.createModalDialog({
-        title: 'Alert!!!',
-        content: `These information must fill before submitting
-        <ul>
-        <li>HN</li>
-        <li>AN</li>
-        <li>First Name</li>
-        <li>Last Name</li>
-        <li>Hospital</li>
-        </ul>`,
+        title: '!!Alert!!',
+        content: `These information must fill before submitting ${alert}`,
         buttons: ['OK']
       });
       return;
@@ -246,17 +241,22 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
       if (await this.acsx290Service.isExistedForm(data)) {
         console.log('repeat form');
         this.store.dispatch(new UI.StopLoading());
+        this.dialogService.createModalDialog({
+          title: '!!Alert!!',
+          content: `You can not create ACSx 2.9 registry more than one in same episode`,
+          buttons: ['OK']
+        });
         return;
       }
 
       console.log('new');
-      this.formId = await this.acsx290Service.createForm(data);
-      this.formGroupA.get('registryId').setValue(this.formId);
-      this.location.go('/registry/acsx290/' + this.formId);
+      this.registryId = await this.acsx290Service.createForm(data);
+      this.formGroupA.get('registryId').setValue(this.registryId);
+      this.location.go('/registry/acsx290/' + this.registryId);
       this.mode = 'edit';
     } else {
       console.log('edit');
-      await this.acsx290Service.updateForm(this.formId, data);
+      await this.acsx290Service.updateForm(this.registryId, data);
     }
     this.store.dispatch(new UI.StopLoading());
   }
@@ -356,32 +356,6 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
     return acsx290Model;
   }
 
-  // tslint:disable: no-string-literal
-  private isNeededDataComplete(data: ACSx290Form): boolean {
-    if (
-      this.isNullorEmpty(data.sectionA['HN']) ||
-      this.isNullorEmpty(data.sectionA['AN']) ||
-      this.isNullorEmpty(data.sectionB['PatFName']) ||
-      this.isNullorEmpty(data.sectionB['PatLName']) ||
-      this.isNullorEmpty(data.sectionC['HospName'])
-    ) {
-      return false;
-    }
-    return true;
-  }
-  // tslint:enable: no-string-literal
-
-  private isNullorEmpty(data: any): boolean {
-    // if (!data) {
-    //   return true;
-    // }
-    // if (typeof data === 'string' && data.trim() === '') {
-    //   return true;
-    // }
-    // return false;
-    return !data || data.trim() === '';
-  }
-
   private getFormCompletion(): ACSx290FormCompletion {
     const completion: ACSx290FormCompletion = {
       summary: null,
@@ -410,37 +384,39 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
       sectionS: null
     };
 
-    let valid = 0;
-    let total = 0;
+    const summary: FormCompletion = {
+      valid: 0,
+      total: 0
+    };
 
     Object.keys(completion).forEach(key => {
       if (key !== 'summary') {
-        const sectionCompletion = this.registryFormService.formCompletion2(key.substr(7));
+        const sectionCompletion = this.registryFormService.getSectionCompletion(key.substr(7));
         completion[key] = sectionCompletion;
-        valid += sectionCompletion.valid;
-        total += sectionCompletion.total;
+        summary.valid += sectionCompletion.valid;
+        summary.total += sectionCompletion.total;
       }
     });
 
-    completion.summary = { valid, total };
+    completion.summary = summary;
 
     return completion;
   }
 
   private isMoment(dateTime: any): dateTime is Moment {
-    return dateTime !== null && (dateTime as Moment).toISOString !== undefined;
+    return dateTime !== null && (dateTime as Moment).toISOString() !== undefined;
   }
 
   private serializeDateTime(dateTime: any): any {
     return this.isMoment(dateTime) ? dateTime.toISOString() : dateTime;
   }
 
-  async loadById() {
+  private async loadById() {
     if (this.route.snapshot.params.hasOwnProperty('id')) {
       this.store.dispatch(new UI.StartLoading());
 
-      const formId = this.route.snapshot.paramMap.get('id');
-      const data = await this.acsx290Service.getForm(formId);
+      const registryId = this.route.snapshot.paramMap.get('id');
+      const data = await this.acsx290Service.getForm(registryId);
       this.store.dispatch(new UI.StopLoading());
 
       if (data) {
@@ -449,7 +425,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
         this.setFormValue(data);
 
         this.mode = 'edit';
-        this.formId = formId;
+        this.registryId = registryId;
       } else {
         this.router.navigate(['registry/acsx290']);
       }

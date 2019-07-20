@@ -2,13 +2,13 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import * as firebase from 'firebase/app';
 import { Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
+import * as CryptoJS from 'crypto-js';
 
 import { environment } from '../../../../environments/environment';
-import * as CryptoJS from 'crypto-js';
 
 import { ACSx290Form } from './acsx290.model';
 import { Registry } from '../registry.model';
-import { map } from 'rxjs/operators';
 import { Staff } from '../../staff/staff.model';
 
 const DB_REGISTRY = 'Registry';
@@ -33,22 +33,22 @@ export class ACSx290Service implements OnDestroy {
     return firebase.firestore.FieldValue.serverTimestamp();
   }
 
-  public async isExistedForm(acsx290Model: ACSx290Form): Promise<boolean> {
+  public async isExistedForm(data: ACSx290Form): Promise<boolean> {
     // tslint:disable: no-string-literal
-    const hn = acsx290Model.sectionA['HN'] as string;
-    const an = acsx290Model.sectionA['AN'] as string;
+    const hn = data.sectionA['HN'] as string;
+    const an = data.sectionA['AN'] as string;
     // tslint:enable: no-string-literal
 
-    const formId = await this.getFormIdByHnAn(hn, an);
-    return formId !== undefined;
+    const registryId = await this.getRegistryIdByHnAn(hn, an);
+    return registryId !== undefined;
   }
 
-  private generateFormId(hospital: string) {
+  private generateRegistryId(hospitalId: string) {
     const year = new Date()
       .getFullYear()
       .toString()
       .substr(-2);
-    const prefix = 'ACX-' + hospital + '-' + year;
+    const prefix = 'ACX-' + hospitalId + '-' + year;
 
     return new Promise<string>((resolve, reject) => {
       this.subscriptions.push(
@@ -82,21 +82,18 @@ export class ACSx290Service implements OnDestroy {
     });
   }
 
-  public async createForm(acsx290Model: ACSx290Form): Promise<string> {
-    // const docRef = await this.db.collection(DB_COLLECTION).add(acsx290Model);
-    // console.log(docRef ? docRef.id : 'void'); // docRef of type void | DocumentReference
-
+  public async createForm(data: ACSx290Form): Promise<string> {
     // tslint:disable: no-string-literal
-    const registryId = await this.generateFormId(acsx290Model.sectionC['HospName']);
-    acsx290Model.sectionA['registryId'] = registryId;
+    const registryId = await this.generateRegistryId(data.sectionC['HospName']);
+    data.sectionA['registryId'] = registryId;
     // tslint:enable: no-string-literal
 
     await this.db
       .collection(DB_COLLECTION)
       .doc(registryId)
-      .set(acsx290Model);
+      .set(data);
 
-    const registry = this.createRegistryModel(registryId, acsx290Model);
+    const registry = this.createRegistryModel(registryId, data);
     await this.db
       .collection(DB_REGISTRY)
       .doc(registryId)
@@ -105,44 +102,43 @@ export class ACSx290Service implements OnDestroy {
     return registryId; // Registry Id
   }
 
-  public async updateForm(formId: string, acsx290Model: ACSx290Form) {
+  public async updateForm(registryId: string, data: ACSx290Form) {
     await this.db
       .collection(DB_COLLECTION)
-      .doc(formId)
-      .update(acsx290Model);
+      .doc(registryId)
+      .update(data);
 
-    const registry = this.createRegistryModel(formId, acsx290Model);
-    // const registryId = await this.getRegistryId(ref => ref.where('formId', '==', formId));
-    this.db.doc(DB_REGISTRY + `/${formId}`).update(registry);
+    const registry = this.createRegistryModel(registryId, data);
+    this.db.doc(DB_REGISTRY + `/${registryId}`).update(registry);
   }
 
-  private createRegistryModel(frmId: string, acsx290Model: ACSx290Form): Registry {
-    const complete = Math.round((acsx290Model.completion.summary.valid / acsx290Model.completion.summary.total) * 100);
+  private createRegistryModel(regisId: string, data: ACSx290Form): Registry {
+    const complete = Math.round((data.completion.summary.valid / data.completion.summary.total) * 100);
 
     // tslint:disable: no-string-literal
     return {
-      registryId: frmId,
-      hn: acsx290Model.sectionA['HN'],
-      an: acsx290Model.sectionA['AN'],
-      firstName: acsx290Model.sectionB['PatFName'],
-      lastName: acsx290Model.sectionB['PatLName'],
-      age: acsx290Model.sectionB['Age'],
-      baseDb: acsx290Model.detail.baseDb,
-      addendum: acsx290Model.detail.addendum,
+      registryId: regisId,
+      hn: data.sectionA['HN'],
+      an: data.sectionA['AN'],
+      firstName: data.sectionB['PatFName'],
+      lastName: data.sectionB['PatLName'],
+      age: data.sectionB['Age'],
+      baseDb: data.detail.baseDb,
+      addendum: data.detail.addendum,
       completion: complete,
-      modifiedAt: acsx290Model.detail.modifiedAt
+      modifiedAt: data.detail.modifiedAt
     };
     // tslint:enable: no-string-literal
   }
 
-  public deleteForm(formId: string) {
+  public deleteForm(registryId: string) {
     this.db
       .collection(DB_COLLECTION)
-      .doc(formId)
+      .doc(registryId)
       .delete();
   }
 
-  private getFormIdByHnAn(hn: string, an: string) {
+  private getRegistryIdByHnAn(hn: string, an: string) {
     const decryptHN = this.decrypt(hn);
     const decryptAN = this.decrypt(an);
 
@@ -181,12 +177,12 @@ export class ACSx290Service implements OnDestroy {
     });
   }
 
-  public getForm(formId: string) {
+  public getForm(registryId: string) {
     return new Promise<ACSx290Form>((resolve, reject) => {
       this.subscriptions.push(
         this.db
           .collection<ACSx290Form>(DB_COLLECTION)
-          .doc(formId)
+          .doc(registryId)
           .valueChanges()
           .subscribe(
             (dc: any) => {
@@ -202,6 +198,31 @@ export class ACSx290Service implements OnDestroy {
 
   public getStaffs() {
     return this.db.collection<Staff>(DB_STAFF).valueChanges();
+  }
+
+  public checkNeededDataCompletion(data: ACSx290Form): string {
+    let alert = '';
+    // tslint:disable: no-string-literal
+    const neededData = [
+      [data.sectionA['HN'], '<li>HN</li>'],
+      [data.sectionA['AN'], '<li>AN</li>'],
+      [data.sectionB['PatFName'], '<li>First Name</li>'],
+      [data.sectionB['PatLName'], '<li>Last Name</li>'],
+      [data.sectionC['HospName'], '<li>Hospital</li>']
+    ];
+    // tslint:enable: no-string-literal
+
+    neededData.forEach(c => {
+      if (this.isNullorEmpty(c[0])) {
+        alert += c[1];
+      }
+    });
+
+    return alert;
+  }
+
+  private isNullorEmpty(data: any): boolean {
+    return !data || data.trim() === '';
   }
 
   public encryptSensitiveData(acsx290Model: ACSx290Form) {
