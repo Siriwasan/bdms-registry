@@ -404,7 +404,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
   }
 
   private isMoment(dateTime: any): dateTime is Moment {
-    return dateTime !== null && (dateTime as Moment).toISOString() !== undefined;
+    return dateTime !== null && (dateTime as Moment).toISOString !== undefined;
   }
 
   private serializeDateTime(dateTime: any): any {
