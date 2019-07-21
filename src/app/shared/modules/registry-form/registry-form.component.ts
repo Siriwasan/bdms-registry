@@ -72,13 +72,13 @@ export class RegistryFormComponent extends ScrollSpyComponent implements OnInit,
     );
   }
 
-  // @HostListener('window:beforeunload', ['$event'])
-  // unloadHandler(event: Event) {
-  //   if (!isDevMode()) {
-  //     console.log('Processing beforeunload...');
-  //     event.returnValue = false;
-  //   }
-  // }
+  @HostListener('window:beforeunload', ['$event'])
+  unloadHandler(event: Event) {
+    if (!isDevMode()) {
+      console.log('Processing beforeunload...');
+      event.returnValue = false;
+    }
+  }
   //#endregion Warning before leaving
 
   // ? Composition pattern

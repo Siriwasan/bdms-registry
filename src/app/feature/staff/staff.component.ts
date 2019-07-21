@@ -61,8 +61,6 @@ export class StaffComponent implements OnInit, OnDestroy {
   }
 
   submit(staff: Staff) {
-    console.log(staff);
-
     if (this.selectedStaff === null) {
       this.staffService.createStaff(staff);
     } else {

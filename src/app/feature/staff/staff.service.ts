@@ -18,6 +18,11 @@ export class StaffService implements OnDestroy {
     this.subscriptions.forEach(subs => subs.unsubscribe());
   }
 
+  /// Firebase Server Timestamp
+  get timestamp() {
+    return firebase.firestore.FieldValue.serverTimestamp();
+  }
+
   public loadStaffs() {
     return this.db
       .collection<Staff>(DB_COLLECTION)
@@ -39,6 +44,8 @@ export class StaffService implements OnDestroy {
     console.log('create staff');
     const id = await this.generateStaffId(this.getAbbreviation(staff.position));
     staff.staffId = id;
+    staff.createdAt = this.timestamp;
+    staff.createdBy = 'admin';
 
     // await this.db.collection(DB_COLLECTION).add(staff);
     await this.db
@@ -49,6 +56,8 @@ export class StaffService implements OnDestroy {
 
   public async updateStaff(id: string, staff: Staff) {
     console.log('update staff');
+    staff.modifiedAt = this.timestamp;
+    staff.modifiedBy = 'admin';
 
     await this.db.doc(DB_COLLECTION + `/${id}`).update(staff);
   }

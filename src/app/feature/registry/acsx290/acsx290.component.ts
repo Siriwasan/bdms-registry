@@ -137,6 +137,18 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
     super.ngAfterViewInit();
 
     this.registryFormService.subscribeFormConditions();
+
+    this.subscriptions.push(
+      this.subscribeDOBChanged(),
+      this.subscribeHeightCMChanged(),
+      this.subscribeWeightKgChanged(),
+      this.subscribeDHCATmChanged(),
+      this.subscribeCPerfTimeChanged(),
+      this.subscribeORExitDTChanged(),
+      this.subscribeExtubateDTChanged(),
+      this.subscribeVentHrsAChanged()
+    );
+
     this.formGroupA.get('registryId').setValue('(new)');
 
     // Prevent ExpressionChangedAfterItHasBeenCheckedError
@@ -216,6 +228,96 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
         this.ctt = staffs.filter(e => e.position === 'Cardiothoracic Technician');
       })
     );
+  }
+
+  private subscribeDOBChanged(): Subscription {
+    return this.formGroupB.get('DOB').valueChanges.subscribe(value => {
+      if (!value || !this.isMoment(value)) {
+        return;
+      }
+      const dob = value as Moment;
+      const age = -dob.diff(new Date(), 'years', false);
+      this.formGroupB.get('Age').setValue(age);
+    });
+  }
+
+  private subscribeHeightCMChanged(): Subscription {
+    return this.formGroupD.get('HeightCM').valueChanges.subscribe(value => {
+      this.calculateBMI();
+    });
+  }
+
+  private subscribeWeightKgChanged(): Subscription {
+    return this.formGroupD.get('WeightKg').valueChanges.subscribe(value => {
+      this.calculateBMI();
+    });
+  }
+
+  private calculateBMI() {
+    const HeightCM = this.formGroupD.get('HeightCM').value;
+    const WeightKg = this.formGroupD.get('WeightKg').value;
+
+    if (HeightCM && WeightKg) {
+      const BMI = +(WeightKg / (HeightCM / 100) / (HeightCM / 100)).toFixed(2);
+      this.formGroupD.get('BMI').setValue(BMI);
+    } else {
+      this.formGroupD.get('BMI').reset();
+    }
+  }
+
+  private subscribeDHCATmChanged(): Subscription {
+    return this.formGroupI.get('DHCATm').valueChanges.subscribe(value => {
+      this.calculateTotCircArrTm();
+    });
+  }
+
+  private subscribeCPerfTimeChanged(): Subscription {
+    return this.formGroupI.get('CPerfTime').valueChanges.subscribe(value => {
+      this.calculateTotCircArrTm();
+    });
+  }
+
+  private calculateTotCircArrTm() {
+    const DHCATm = this.formGroupI.get('DHCATm').value;
+    const CPerfTime = this.formGroupI.get('CPerfTime').value;
+
+    if (DHCATm || CPerfTime) {
+      const TotCircArrTm = DHCATm + CPerfTime;
+      this.formGroupI.get('TotCircArrTm').setValue(TotCircArrTm);
+    } else {
+      this.formGroupI.get('TotCircArrTm').reset();
+    }
+  }
+
+  private subscribeORExitDTChanged(): Subscription {
+    return this.formGroupI.get('ORExitDT').valueChanges.subscribe(value => {
+      this.calculateVentHrsTot();
+    });
+  }
+
+  private subscribeExtubateDTChanged(): Subscription {
+    return this.formGroupI.get('ExtubateDT').valueChanges.subscribe(value => {
+      this.calculateVentHrsTot();
+    });
+  }
+
+  private subscribeVentHrsAChanged(): Subscription {
+    return this.formGroupO.get('VentHrsA').valueChanges.subscribe(value => {
+      this.calculateVentHrsTot();
+    });
+  }
+
+  private calculateVentHrsTot() {
+    const ORExitDT = this.formGroupI.get('ORExitDT').value as Moment;
+    const ExtubateDT = this.formGroupI.get('ExtubateDT').value as Moment;
+    const VentHrsA = this.formGroupO.get('VentHrsA').value;
+
+    if ((ORExitDT && ExtubateDT) || VentHrsA) {
+      const VentHrsTot = (ExtubateDT.diff(ORExitDT, 'minutes', false) / 60 + VentHrsA).toFixed(2);
+      this.formGroupO.get('VentHrsTot').setValue(VentHrsTot);
+    } else {
+      this.formGroupO.get('VentHrsTot').reset();
+    }
   }
 
   public async submit() {

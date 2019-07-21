@@ -12,7 +12,7 @@
   </div>
 
   <div scrollSpyElement id="title" fxFlexOrder="0">
-    <h1 (click)="scrollTo('SurgeonId')">STS Adult Cardiac Surgery v2.9</h1>
+    <h1>STS Adult Cardiac Surgery v2.9</h1>
 
     <section class="section-wrapper" scrollSpyElement id="sectionA">
       <div class="section-title">
@@ -66,7 +66,7 @@
               fxFlex>dd/mm/yyyy</reg-datepicker>
 
             <reg-input controlName="Age" placeholder="Patient Age" [formGroup]="formGroupB"
-              type="text" fxFlex></reg-input>
+              type="text" readonly="true" fxFlex></reg-input>
 
             <reg-select controlName="Gender" placeholder="Sex" [formGroup]="formGroupB"
               [choices]="['Male', 'Female']" fxFlex></reg-select>
@@ -236,7 +236,7 @@
               type="number" fxFlex="15"></reg-input>
 
             <reg-input controlName="BMI" placeholder="Body Mass Index" [formGroup]="formGroupD"
-              type="number" fxFlex="20"></reg-input>
+              type="number" readonly="true" fxFlex="20"></reg-input>
             <!-- CALCULATE -->
 
             <reg-select controlName="FHCAD" placeholder="Family History of Premature CAD" [formGroup]="formGroupD"
@@ -1466,27 +1466,27 @@
             <fieldset style="border:1px solid #a1a1a1; border-radius:10px; padding: 20px 30px 20px 30px;">
               <legend style="color:#757575;">{{ cathresult[0] }}</legend>
 
-            <reg-input [controlName]="cathresult[1]" placeholder="Native Artery" [formGroup]="formGroupH" type="number"
-              >% Stenosis Known</reg-input>
+            <reg-input [controlName]="cathresult[1]" placeholder="Native Artery" [formGroup]="formGroupH"
+              type="number" require="false">% Stenosis Known</reg-input>
 
             <reg-select [controlName]="cathresult[2]" placeholder="Graft(s)" [formGroup]="formGroupH" [choices]="[
                 'Patent',
                 'Stenosis >=50%',
                 '100% occlusion',
                 'Not Documented'
-              ]">Graft(s) Present</reg-select>
+              ]" require="false">Graft(s) Present</reg-select>
 
             <reg-select [controlName]="cathresult[3]" placeholder="Stent(s)" [formGroup]="formGroupH" [choices]="[
                 'Patent',
                 'Stenosis >=50%',
                 'Not Documented'
-              ]">Stent(s) Present</reg-select>
+              ]" require="false">Stent(s) Present</reg-select>
 
-            <reg-input [controlName]="cathresult[4]" placeholder="Fractional Flow Reserve (FFR)" [formGroup]="formGroupH" type="number"
-              >Performed</reg-input>
+            <reg-input [controlName]="cathresult[4]" placeholder="Fractional Flow Reserve (FFR)" [formGroup]="formGroupH"
+              type="number" require="false">Performed</reg-input>
 
-            <reg-input [controlName]="cathresult[5]" placeholder="Instantaneous wave-free ratio (iFR)" [formGroup]="formGroupH" type="number"
-              >Performed</reg-input>
+            <reg-input [controlName]="cathresult[5]" placeholder="Instantaneous wave-free ratio (iFR)" [formGroup]="formGroupH"
+              type="number" require="false">Performed</reg-input>
 
             </fieldset>
 
@@ -2454,8 +2454,8 @@
 
           </div>
 
-          <reg-input class="subitem-horz" controlName="PerfusTm" placeholder="Cardiopulmonary Bypass Time (minutes)" [formGroup]="formGroupI" type="number"
-            ></reg-input>
+          <reg-input class="subitem-horz" controlName="PerfusTm" placeholder="Cardiopulmonary Bypass Time (minutes)" [formGroup]="formGroupI"
+            type="number"></reg-input>
 
           <reg-select controlName="CircArr" placeholder="Circulatory Arrest" [formGroup]="formGroupI"
             [choices]="['Yes', 'No']"></reg-select>
@@ -2479,9 +2479,8 @@
 
           </div>
 
-          <reg-input class="subitem-horz" controlName="TotCircArrTm" placeholder="Total Circulatory Arrest Time" [formGroup]="formGroupI" type="text"
-            ></reg-input>
-          <!-- system calculation -->
+          <reg-input class="subitem-horz" controlName="TotCircArrTm" placeholder="Total Circulatory Arrest Time" [formGroup]="formGroupI"
+            type="number" readonly="true"></reg-input>
 
           <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
@@ -5707,7 +5706,7 @@
           </div>
 
           <reg-select controlName="ExtubOR" placeholder="Extubated in OR" [formGroup]="formGroupO"
-            [choices]="['Yes', 'No', 'NA']"></reg-select>
+            [choices]="['Yes', 'No', 'N/A']"></reg-select>
 
           <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
@@ -5719,8 +5718,8 @@
 
           </div>
 
-          <reg-input controlName="VentHrsTot" placeholder="Total post-operative ventilation hours" [formGroup]="formGroupO" type="number">
-          </reg-input>
+          <reg-input controlName="VentHrsTot" placeholder="Total post-operative ventilation hours" [formGroup]="formGroupO"
+            type="number" readonly="true"></reg-input>
           <!-- System Calculation -->
 
           <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
@@ -7086,7 +7085,7 @@
               '9',
               '10',
               'Not Recorded',
-              'NA'
+              'N/A'
               ]" fxFlex></reg-select>
 
             <reg-select controlName="PainScoreDisch" placeholder="Pain Score Discharge" [formGroup]="formGroupS" [choices]="[
@@ -7102,7 +7101,7 @@
               '9',
               '10',
               'Not Recorded',
-              'NA'
+              'N/A'
               ]" fxFlex></reg-select>
 
           </div>
