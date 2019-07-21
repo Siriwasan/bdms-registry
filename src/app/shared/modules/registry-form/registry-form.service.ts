@@ -69,24 +69,16 @@ export class RegistryFormService implements OnDestroy {
           const cCon = condition.control.split(':');
 
           if (cCon.length > 1) {
-            const element = document.getElementById(cCon[1]);
+            const element = cCon[1];
             if (value !== null && condition.conditions[0] === '!') {
-              if (condition.conditions[1] !== value) {
-                element.style.display = '';
-              } else {
-                element.style.display = 'none';
-              }
+              this.displayElement(element, condition.conditions[1] !== value);
             } else {
-              if (condition.conditions.findIndex(o => o === value) < 0) {
-                element.style.display = 'none';
-              } else {
-                element.style.display = '';
-              }
+              this.displayElement(element, condition.conditions.findIndex(o => o === value) >= 0);
             }
           } else {
             let control = formGroup.get(condition.control);
 
-            // store original validator
+            // ? store original validator
             // tslint:disable-next-line: no-string-literal
             if (control['vals'] === undefined) {
               control = Object.assign(control, { vals: control.validator });
@@ -94,53 +86,60 @@ export class RegistryFormService implements OnDestroy {
 
             const element = document.getElementById(condition.control);
 
-            // disable will remove control from FormGroup
-
             // in case of NOT conditions
             if (value !== null && condition.conditions[0] === '!') {
-              if (condition.conditions[1] !== value) {
-                // tslint:disable-next-line: no-string-literal
-                control.setValidators(control['vals']);
-                control.updateValueAndValidity();
-
-                if (element) {
-                  element.style.display = '';
-                }
-                // control.enable();
-              } else {
-                control.setValidators(null);
-                control.reset();
-
-                if (element) {
-                  element.style.display = 'none';
-                }
-                // control.disable();
-              }
+              this.displayControl(condition.control, control, condition.conditions[1] !== value);
             } else {
-              if (condition.conditions.findIndex(o => o === value) < 0) {
-                control.setValidators(null);
-                control.reset();
-
-                if (element) {
-                  element.style.display = 'none';
-                }
-                // control.disable();
-              } else {
-                // ! bug fixed: remove all validator but cannot keep the old one
-                // tslint:disable-next-line: no-string-literal
-                control.setValidators(control['vals']);
-                control.updateValueAndValidity();
-
-                if (element) {
-                  element.style.display = '';
-                }
-                // control.enable();
-              }
+              this.displayControl(condition.control, control, condition.conditions.findIndex(o => o === value) >= 0);
             }
           }
         })
       );
     });
+  }
+
+  private displayElement(element: string, condition: boolean) {
+    if (condition) {
+      this.expandElement(element);
+    } else {
+      this.collapseElement(element);
+    }
+  }
+
+  private expandElement(element: string) {
+    const el = document.getElementById(element);
+    el.style.display = '';
+  }
+
+  private collapseElement(element: string) {
+    const el = document.getElementById(element);
+    el.style.display = 'none';
+  }
+
+  private displayControl(controlId: string, control: AbstractControl, condition: boolean) {
+    // ! disable will remove control from FormGroup structure
+    if (condition) {
+      this.expandControl(controlId, control);
+    } else {
+      this.collapseControl(controlId, control);
+    }
+  }
+
+  private expandControl(controlId: string, control: AbstractControl) {
+    const el = document.getElementById(controlId);
+
+    // tslint:disable-next-line: no-string-literal
+    control.setValidators(control['vals']);
+    control.updateValueAndValidity();
+    el.style.display = '';
+  }
+
+  private collapseControl(controlId: string, control: AbstractControl) {
+    const el = document.getElementById(controlId);
+
+    control.setValidators(null);
+    control.reset();
+    el.style.display = 'none';
   }
 
   private getSectonMember(section: string): SectionMember {
