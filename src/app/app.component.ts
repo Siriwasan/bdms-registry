@@ -61,9 +61,9 @@ export class AppComponent implements OnInit, OnDestroy {
             // console.log('NavigationEnd');
             // this.store.dispatch(new UI.StopLoading());
 
-            setTimeout(() => {
-              this.store.dispatch(new UI.StopLoading());
-            }, 1000);
+            // setTimeout(() => {
+            this.store.dispatch(new UI.StopLoading());
+            // }, 1000);
             break;
 
           case event instanceof NavigationCancel:

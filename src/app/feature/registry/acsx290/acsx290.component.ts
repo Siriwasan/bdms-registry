@@ -369,7 +369,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
     if (this.mode === 'new') {
       this.formDetail = {
         baseDb: 'STS Adult Cardiac Surgery version 2.9',
-        addendum: 'BDMS ACSx modefied version 0.1',
+        addendum: 'BDMS ACSx modefication version 0.1',
         createdAt: timestamp,
         createdBy: 'admin',
         modifiedAt: timestamp,

@@ -68,8 +68,4 @@ export class StaffComponent implements OnInit, OnDestroy {
       this.selectedStaff = null;
     }
   }
-
-  clear() {
-    this.selectedStaff = null;
-  }
 }

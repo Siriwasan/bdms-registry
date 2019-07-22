@@ -94,4 +94,8 @@ export class StaffProfileComponent implements OnInit, OnChanges {
   onDelete() {
     console.log('delete staff');
   }
+
+  clear() {
+    this.selectedStaff = null;
+  }
 }

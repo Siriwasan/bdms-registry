@@ -1,5 +1,5 @@
-# 0.1.0 (2019-06-07)
+# 0.6.0 (2019-07-22)
 
 ### Features
 
-- **Tools:** add preparation of COE Heart Registry [GLS] from 2nd stage
+- **App:** first published. Limitation for ACSx290 form input and staff management.
