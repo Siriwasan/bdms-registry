@@ -13,7 +13,7 @@ export const ACSx290form = {
            PatFName: [null, Validators.required],
            PatMName: [null],
            DOB: [null, Validators.required],
-           Age: [null, Validators.required],
+           Age: [null, [Validators.required, Validators.min(0), Validators.max(120)]],
            Gender: [null, Validators.required],
            SSN: [null, Validators.required],
            PatAddr: [null],

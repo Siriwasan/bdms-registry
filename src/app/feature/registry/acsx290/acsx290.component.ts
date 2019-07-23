@@ -129,6 +129,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
     super.ngOnInit();
 
     this.store.dispatch(new UI.ChangeTitle('STS 2.9'));
+    this.store.dispatch(new UI.StopLoading());
     this.createForm();
     this.loadStaffs();
   }
@@ -232,7 +233,9 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
 
   private subscribeDOBChanged(): Subscription {
     return this.formGroupB.get('DOB').valueChanges.subscribe(value => {
+      this.formGroupB.get('Age').markAsTouched();
       if (!value || !this.isMoment(value)) {
+        this.formGroupB.get('Age').reset();
         return;
       }
       const dob = value as Moment;
@@ -263,6 +266,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
     } else {
       this.formGroupD.get('BMI').reset();
     }
+    this.formGroupD.get('BMI').markAsTouched();
   }
 
   private subscribeDHCATmChanged(): Subscription {
@@ -287,6 +291,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
     } else {
       this.formGroupI.get('TotCircArrTm').reset();
     }
+    this.formGroupI.get('TotCircArrTm').markAsTouched();
   }
 
   private subscribeORExitDTChanged(): Subscription {
@@ -318,6 +323,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
     } else {
       this.formGroupO.get('VentHrsTot').reset();
     }
+    this.formGroupO.get('VentHrsTot').markAsTouched();
   }
 
   public async submit() {

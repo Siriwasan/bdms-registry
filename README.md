@@ -26,9 +26,9 @@ firebase deploy
 
 ## Registry List
 
-| Id      | Registry                      | Published         |
-|---------|-------------------------------|-------------------|
-| ACSx290 | STS Adult Cardiac Surgery 2.9 | February 13, 2017 |
+| Id      | Abbreviate | Registry                      | Published         |
+| ------- | ---------- | ----------------------------- | ----------------- |
+| ACSx290 | ACX        | STS Adult Cardiac Surgery 2.9 | February 13, 2017 |
 
 ## BUG
 

@@ -68,7 +68,10 @@ export class RegistryComponent implements OnInit {
 
   click(registry: Registry) {
     if (registry.baseDb === 'STS Adult Cardiac Surgery version 2.9') {
-      this.router.navigate(['registry/acsx290', registry.registryId]);
+      this.store.dispatch(new UI.StartLoading());
+      setTimeout(() => {
+        this.router.navigate(['registry/acsx290', registry.registryId]);
+      }, 300);
     }
   }
 
@@ -80,7 +83,10 @@ export class RegistryComponent implements OnInit {
   }
 
   create() {
-    this.router.navigate(['registry/acsx290']);
+    this.store.dispatch(new UI.StartLoading());
+    setTimeout(() => {
+      this.router.navigate(['registry/acsx290']);
+    }, 300);
   }
 
   async export() {
