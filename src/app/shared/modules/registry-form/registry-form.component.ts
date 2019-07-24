@@ -53,14 +53,15 @@ export class RegistryFormComponent extends ScrollSpyComponent implements OnInit,
     const dialogRef = this.dialogService.createModalDialog({
       title: 'Warning!!!',
       content: 'Form is not saved before leaving',
-      buttons: ['Save', 'Discard change', 'Cancel']
+      buttons: ['Discard change', 'Cancel']
+      // buttons: ['Save', 'Discard change', 'Cancel']
     });
 
     return dialogRef.afterClosed().pipe(
       map(result => {
-        if (result === 'Save') {
-          return true;
-        }
+        // if (result === 'Save') {
+        //   return true;
+        // }
         if (result === 'Discard change') {
           return true;
         }

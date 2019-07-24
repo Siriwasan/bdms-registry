@@ -233,7 +233,13 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
 
   private subscribeDOBChanged(): Subscription {
     return this.formGroupB.get('DOB').valueChanges.subscribe(value => {
-      this.formGroupB.get('Age').markAsTouched();
+      // this.formGroupB.get('Age').markAsTouched();
+      const isoPattern = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/; // 2017-06-17T00:00:00.000Z
+
+      if (isoPattern.test(value)) {
+        return;
+      }
+
       if (!value || !this.isMoment(value)) {
         this.formGroupB.get('Age').reset();
         return;
@@ -266,7 +272,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
     } else {
       this.formGroupD.get('BMI').reset();
     }
-    this.formGroupD.get('BMI').markAsTouched();
+    // this.formGroupD.get('BMI').markAsTouched();
   }
 
   private subscribeDHCATmChanged(): Subscription {
@@ -291,7 +297,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
     } else {
       this.formGroupI.get('TotCircArrTm').reset();
     }
-    this.formGroupI.get('TotCircArrTm').markAsTouched();
+    // this.formGroupI.get('TotCircArrTm').markAsTouched();
   }
 
   private subscribeORExitDTChanged(): Subscription {
@@ -323,7 +329,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
     } else {
       this.formGroupO.get('VentHrsTot').reset();
     }
-    this.formGroupO.get('VentHrsTot').markAsTouched();
+    // this.formGroupO.get('VentHrsTot').markAsTouched();
   }
 
   public async submit() {
