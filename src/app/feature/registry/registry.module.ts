@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 
+import { RoundProgressModule } from 'angular-svg-round-progressbar';
+
 import { SharedModule } from '../../shared/shared.module';
 import { RegistryRoutingModule } from './registry-routing.module';
 import { RegistryComponent } from './registry.component';
@@ -11,7 +13,7 @@ import { DecryptPipe } from './registry.pipe';
 
 @NgModule({
   declarations: [RegistryComponent, ACSx290Component, LoremIpsumComponent, TestFormComponent, DecryptPipe],
-  imports: [SharedModule, RegistryRoutingModule],
+  imports: [SharedModule, RegistryRoutingModule, RoundProgressModule],
   providers: [RegistryService]
 })
 export class RegistryModule {}

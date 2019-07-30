@@ -10,7 +10,24 @@
         </li>
       </ul>
     </div>
-    <div class="completion-container"></div>
+    <div class="completion-container">
+      <div class="progress-wrapper">
+        <div class="summary">
+          <div class="current">25/50</div>
+          <div class="completion">(100%)</div>
+        </div>
+        <round-progress
+          [current]="10"
+          [max]="50"
+          [color]="'#45ccce'"
+          [background]="'#eaeaea'"
+          [radius]="125"
+          [stroke]="15"
+          [rounded]="true"
+          [responsive]="true"
+        ></round-progress>
+      </div>
+    </div>
   </div>
 
   <div scrollSpyElement id="title" fxFlexOrder="0" fxFlex>
