@@ -1,3 +1,9 @@
+# 0.6.2 (2019-07-30)
+
+### Features
+
+- **UI:** added fab speed dial to registry form.
+
 # 0.6.1 (2019-07-23)
 
 ### Features

@@ -12,6 +12,54 @@
   </div>
 
   <div scrollSpyElement id="title" fxFlexOrder="0">
+
+  <fab-speed-dial class="speed-dial-container"
+    [(open)]="open"
+    [direction]="direction"
+    [animationMode]="animationMode"
+    [fixed]="fixed">
+    <fab-speed-dial-trigger spin="true">
+      <button mat-fab>
+        <mat-icon class="fab-spin90">more_horiz</mat-icon>
+      </button>
+    </fab-speed-dial-trigger>
+
+    <fab-speed-dial-actions>
+      <button
+        mat-mini-fab
+        matTooltip="Save"
+        matTooltipPosition="before"
+        color="secondary"
+        (click)="submit()">
+        <mat-icon>save</mat-icon>
+      </button>
+      <button
+        mat-mini-fab
+        matTooltip="Save and Exit"
+        matTooltipPosition="before"
+        color="secondary"
+        (click)="submitAndExit()">
+        <mat-icon>exit_to_app</mat-icon>
+      </button>
+      <button
+        mat-mini-fab
+        matTooltip="Check validation"
+        matTooltipPosition="before"
+        color="secondary"
+        (click)="checkValidation()">
+        <mat-icon>error_outline</mat-icon>
+      </button>
+      <button
+        mat-mini-fab
+        matTooltip="Clear validation"
+        matTooltipPosition="before"
+        color="secondary"
+        (click)="clearValidations()">
+        <mat-icon>highlight_off</mat-icon>
+      </button>
+    </fab-speed-dial-actions>
+  </fab-speed-dial>
+
     <h1>STS Adult Cardiac Surgery v2.9</h1>
 
     <section class="section-wrapper" scrollSpyElement id="sectionA">
@@ -7124,9 +7172,9 @@
     <br />
     <br />
     <!-- <button mat-raised-button class="button" color="primary" (click)="submit()">{{ mode === 'new' ? 'Create' : 'Update' }}</!-->
-    <button mat-raised-button class="button" color="primary" (click)="submit()">Save</button>
+    <!-- <button mat-raised-button class="button" color="primary" (click)="submit()">Save</button>
     <button mat-raised-button class="button" color="warn" (click)="clear()">Clear</button>
-    <button mat-raised-button class="button" color="warn" (click)="clearErrors()">Clear Errors</button>
+    <button mat-raised-button class="button" color="warn" (click)="clearValidations()">Clear Errors</button> -->
     <!-- <button mat-raised-button class="button" color="accent" (click)="downloadJSON()">Download json</button>
     <button mat-raised-button class="button" color="accent" (click)="downloadCSV()">Download csv</button> -->
     <br />

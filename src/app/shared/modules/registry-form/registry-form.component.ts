@@ -75,7 +75,7 @@ export class RegistryFormComponent extends ScrollSpyComponent implements OnInit,
 
   @HostListener('window:beforeunload', ['$event'])
   unloadHandler(event: Event) {
-    if (!isDevMode()) {
+    if (!isDevMode() && this.registryFormService.isFormDirty()) {
       console.log('Processing beforeunload...');
       event.returnValue = false;
     }

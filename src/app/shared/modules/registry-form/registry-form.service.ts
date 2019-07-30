@@ -323,6 +323,11 @@ export class RegistryFormService implements OnDestroy {
     return isDirty;
   }
 
+  public markAllFormsUntouched() {
+    // this.getFormGroups().forEach(formGroup => this.markAllAsUntouched(formGroup));
+    this.getFormGroups().forEach(formGroup => formGroup.markAsPristine());
+  }
+
   public submitAllSections() {
     // this.getFormDirectives().forEach(formDirective => formDirective.onSubmit(undefined));
     // this.getFormGroups().forEach(formGroup => this.validateAllFields(formGroup));

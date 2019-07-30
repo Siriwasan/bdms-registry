@@ -10,6 +10,7 @@ import { RegistryFormModule } from './modules/registry-form/registry-form.module
 import { ModalDialogComponent } from './components/modal-dialog/modal-dialog.component';
 import { NoSanitizePipe } from './pipes/no-sanitize.pipe';
 import { DeactivateGuard } from './guards/deactivate.guard';
+import { FabSpeedDialModule } from './modules/fab-speed-dial/fab-speed-dial.module';
 
 @NgModule({
   declarations: [ModalDialogComponent, NoSanitizePipe],
@@ -20,7 +21,8 @@ import { DeactivateGuard } from './guards/deactivate.guard';
     ReactiveFormsModule,
     MaterialModule,
     FlexLayoutModule,
-    RegistryFormModule
+    RegistryFormModule,
+    FabSpeedDialModule
   ],
   exports: [
     CommonModule,
@@ -30,7 +32,8 @@ import { DeactivateGuard } from './guards/deactivate.guard';
     MaterialModule,
     FlexLayoutModule,
     RegistryFormModule,
-    NoSanitizePipe
+    NoSanitizePipe,
+    FabSpeedDialModule
   ],
   providers: [DeactivateGuard],
   entryComponents: [ModalDialogComponent]

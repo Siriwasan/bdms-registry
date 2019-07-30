@@ -19,7 +19,8 @@ import {
   MatProgressSpinnerModule,
   MatTableModule,
   MatPaginatorModule,
-  MatSortModule
+  MatSortModule,
+  MatTooltipModule
 } from '@angular/material';
 import { MatDatepickerModule, MatMomentDateModule } from '@coachcare/datepicker';
 
@@ -45,7 +46,8 @@ import { MatDatepickerModule, MatMomentDateModule } from '@coachcare/datepicker'
     MatProgressSpinnerModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatTooltipModule
   ],
   exports: [
     MatButtonModule,
@@ -67,7 +69,8 @@ import { MatDatepickerModule, MatMomentDateModule } from '@coachcare/datepicker'
     MatProgressSpinnerModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatTooltipModule
   ]
 })
 export class MaterialModule {}

@@ -31,6 +31,25 @@ import * as UI from '../../../shared/ui.actions';
   styleUrls: ['./acsx290.component.scss']
 })
 export class ACSx290Component extends RegistryFormComponent implements OnInit, AfterViewInit, OnDestroy {
+  // tslint:disable-next-line: variable-name
+  private _fixed = false;
+
+  public open = false;
+  public spin = true;
+  public direction = 'up'; // up, down, left, right
+  public animationMode = 'fling'; // fling, scale
+
+  get fixed(): boolean {
+    return this._fixed;
+  }
+
+  set fixed(fixed: boolean) {
+    this._fixed = fixed;
+    if (this._fixed) {
+      this.open = true;
+    }
+  }
+
   //#region FormGroup and FormDirective
 
   formDetail: FormDetail;
@@ -82,6 +101,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
   @ViewChild('formDirectiveR', { static: true }) formDirectiveR: FormGroupDirective;
   @ViewChild('formDirectiveS', { static: true }) formDirectiveS: FormGroupDirective;
 
+  private sectionMembers: SectionMember[];
   //#endregion
 
   //#region form data
@@ -190,7 +210,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
     this.formGroupR = this.formBuilder.group(ACSx290form.sectionR);
     this.formGroupS = this.formBuilder.group(ACSx290form.sectionS);
 
-    const sectionMembers: SectionMember[] = [
+    this.sectionMembers = [
       ['A', this.formGroupA, this.formDirectiveA, conditions.sectionA],
       ['B', this.formGroupB, this.formDirectiveB, conditions.sectionB],
       ['C', this.formGroupC, this.formDirectiveC, conditions.sectionC],
@@ -216,7 +236,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
       ['S', this.formGroupS, this.formDirectiveS, conditions.sectionS]
     ];
 
-    this.registryFormService.initializeForm(sectionMembers, conditions, validations);
+    this.registryFormService.initializeForm(this.sectionMembers, conditions, validations);
     this.registryFormService.setDataDict(require('raw-loader!./acsx290.dict.md'));
   }
 
@@ -373,6 +393,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
       await this.acsx290Service.updateForm(this.registryId, data);
     }
     this.store.dispatch(new UI.StopLoading());
+    this.registryFormService.markAllFormsUntouched();
   }
 
   private archiveForm(): ACSx290Form {
@@ -573,11 +594,20 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
     this.formGroupS.setValue(acsx290Model.sectionS);
   }
 
+  async submitAndExit() {
+    await this.submit();
+    this.router.navigate(['registry']);
+  }
+
   clear() {
     this.registryFormService.clear();
   }
 
-  clearErrors() {
+  checkValidation() {
+    this.registryFormService.submitAllSections();
+  }
+
+  clearValidations() {
     this.registryFormService.clearErrors();
   }
 
@@ -589,5 +619,9 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
   downloadJSON() {
     //   this.archiveRegistry();
     //   this.fileService.saveJSONtoFile([this.result]);
+  }
+
+  doAction(action: string) {
+    console.log(action);
   }
 }

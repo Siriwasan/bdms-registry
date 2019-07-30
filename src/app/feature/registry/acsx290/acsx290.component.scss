@@ -38,3 +38,10 @@ reg-datepicker {
 .button {
   margin: 5px;
 }
+
+.speed-dial-container {
+  position: fixed;
+  bottom: 15px;
+  right: 325px;
+  z-index: 100;
+}
