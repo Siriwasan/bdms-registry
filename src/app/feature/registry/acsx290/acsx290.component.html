@@ -1,64 +1,65 @@
 <div class="content" fxLayout="row" fxLayoutGap="20px">
-  <div fxFlexOrder="1" fxFlex="250px" fxHide.lt-md></div>
-  <div class="table-of-contents" [style.max-height.px]="tocMaxHeight" fxHide.lt-md>
-    <ul>
-      <li id="titleTOC" (click)="scrollTo('title')" [class.active]="isActive('title')" class="menu-title">
-        <span>ACSx 2.9</span>
-      </li>
-      <li *ngFor="let h of toc">
-        <a [id]="h.section + 'TOC'" (click)="scrollTo(h.section)" [class.active]="isActive(h.section)">{{ h.title }}</a>
-      </li>
-    </ul>
+  <div fxFlexOrder="1" fxFlex="250px" fxHide.lt-lg>
+    <div class="table-of-contents" [style.max-height.px]="tocMaxHeight" fxHide.lt-md>
+      <ul>
+        <li id="titleTOC" (click)="scrollTo('title')" [class.active]="isActive('title')" class="menu-title">
+          <span>ACSx 2.9</span>
+        </li>
+        <li *ngFor="let h of toc">
+          <a [id]="h.section + 'TOC'" (click)="scrollTo(h.section)" [class.active]="isActive(h.section)">{{ h.title }}</a>
+        </li>
+      </ul>
+    </div>
   </div>
 
-  <div scrollSpyElement id="title" fxFlexOrder="0">
+  <div scrollSpyElement id="title" fxFlexOrder="0" fxFlex>
 
-  <fab-speed-dial class="speed-dial-container"
-    [(open)]="open"
-    [direction]="direction"
-    [animationMode]="animationMode"
-    [fixed]="fixed">
-    <fab-speed-dial-trigger spin="true">
-      <button mat-fab>
-        <mat-icon class="fab-spin90">more_horiz</mat-icon>
-      </button>
-    </fab-speed-dial-trigger>
+    <fab-speed-dial class="speed-dial-container"
+      [(open)]="open"
+      [direction]="direction"
+      [animationMode]="animationMode"
+      [fixed]="fixed">
+      <fab-speed-dial-trigger spin="true">
+        <button mat-fab>
+          <mat-icon class="fab-spin90">more_horiz</mat-icon>
+        </button>
+      </fab-speed-dial-trigger>
 
-    <fab-speed-dial-actions>
-      <button
-        mat-mini-fab
-        matTooltip="Save"
-        matTooltipPosition="before"
-        color="secondary"
-        (click)="submit()">
-        <mat-icon>save</mat-icon>
-      </button>
-      <button
-        mat-mini-fab
-        matTooltip="Save and Exit"
-        matTooltipPosition="before"
-        color="secondary"
-        (click)="submitAndExit()">
-        <mat-icon>exit_to_app</mat-icon>
-      </button>
-      <button
-        mat-mini-fab
-        matTooltip="Check validation"
-        matTooltipPosition="before"
-        color="secondary"
-        (click)="checkValidation()">
-        <mat-icon>error_outline</mat-icon>
-      </button>
-      <button
-        mat-mini-fab
-        matTooltip="Clear validation"
-        matTooltipPosition="before"
-        color="secondary"
-        (click)="clearValidations()">
-        <mat-icon>highlight_off</mat-icon>
-      </button>
-    </fab-speed-dial-actions>
-  </fab-speed-dial>
+      <fab-speed-dial-actions>
+        <button
+          mat-mini-fab
+          matTooltip="Save"
+          matTooltipPosition="before"
+          color="secondary"
+          (click)="submit()">
+          <mat-icon>save</mat-icon>
+        </button>
+        <button
+          mat-mini-fab
+          matTooltip="Save and Exit"
+          matTooltipPosition="before"
+          color="secondary"
+          (click)="submitAndExit()">
+          <mat-icon>exit_to_app</mat-icon>
+        </button>
+        <button
+          mat-mini-fab
+          matTooltip="Check validation"
+          matTooltipPosition="before"
+          color="secondary"
+          (click)="checkValidation()">
+          <mat-icon>error_outline</mat-icon>
+        </button>
+        <button
+          mat-mini-fab
+          matTooltip="Clear validation"
+          matTooltipPosition="before"
+          color="secondary"
+          (click)="clearValidations()">
+          <mat-icon>highlight_off</mat-icon>
+        </button>
+      </fab-speed-dial-actions>
+    </fab-speed-dial>
 
     <h1>STS Adult Cardiac Surgery v2.9</h1>
 
