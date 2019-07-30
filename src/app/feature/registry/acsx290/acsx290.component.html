@@ -1,5 +1,5 @@
 <div class="content" fxLayout="row" fxLayoutGap="20px">
-  <div fxFlexOrder="1" fxFlex="250px" fxHide.lt-lg>
+  <div class="sidebar-right" fxFlexOrder="1" fxFlex="250px" fxHide.lt-lg>
     <div class="table-of-contents" [style.max-height.px]="tocMaxHeight" fxHide.lt-md>
       <ul>
         <li id="titleTOC" (click)="scrollTo('title')" [class.active]="isActive('title')" class="menu-title">
@@ -10,6 +10,7 @@
         </li>
       </ul>
     </div>
+    <div class="completion-container"></div>
   </div>
 
   <div scrollSpyElement id="title" fxFlexOrder="0" fxFlex>

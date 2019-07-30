@@ -3,6 +3,8 @@ import { AfterViewInit, ChangeDetectorRef, OnInit, ElementRef, HostListener, OnD
 import { ScrollSpyService } from './scroll-spy.service';
 import { Subscription } from 'rxjs';
 
+const COMPLETION_CONTAINER = 250;
+
 export class ScrollSpyComponent implements OnInit, AfterViewInit, OnDestroy {
   public currentSection = '';
   public tocMaxHeight: string;
@@ -73,7 +75,12 @@ export class ScrollSpyComponent implements OnInit, AfterViewInit, OnDestroy {
       // }
       this.tocMaxHeightOffset = headerEl.clientHeight;
     }
-    this.tocMaxHeight = (document.body.scrollHeight - window.pageYOffset - this.tocMaxHeightOffset).toFixed(2);
+    this.tocMaxHeight = (
+      document.body.scrollHeight -
+      window.pageYOffset -
+      this.tocMaxHeightOffset -
+      COMPLETION_CONTAINER
+    ).toFixed(2);
   }
 
   public isActive(section: string): boolean {

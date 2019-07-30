@@ -45,3 +45,15 @@ reg-datepicker {
   right: 325px;
   z-index: 100;
 }
+
+.sidebar-right {
+  position: relative;
+}
+
+.completion-container {
+  width: 250px;
+  height: 250px;
+  background-color: aqua;
+  position: fixed;
+  bottom: 0px;
+}
