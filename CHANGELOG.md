@@ -1,3 +1,9 @@
+# 0.6.3 (2019-08-1)
+
+### Features
+
+- **UI:** added round progress bar to registry form.
+
 # 0.6.2 (2019-07-30)
 
 ### Features

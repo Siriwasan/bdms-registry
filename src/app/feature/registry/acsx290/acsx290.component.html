@@ -13,12 +13,12 @@
     <div class="completion-container">
       <div class="progress-wrapper">
         <div class="summary">
-          <div class="current">25/50</div>
-          <div class="completion">(100%)</div>
+          <div class="current">{{ completion?.summary.valid + '/' + completion?.summary.total }}</div>
+          <div class="completion">{{ calculateCompletion() }}</div>
         </div>
         <round-progress
-          [current]="10"
-          [max]="50"
+          [current]="completion?.summary.valid"
+          [max]="completion?.summary.total"
           [color]="'#45ccce'"
           [background]="'#eaeaea'"
           [radius]="125"
@@ -84,7 +84,7 @@
     <section class="section-wrapper" scrollSpyElement id="sectionA">
       <div class="section-title">
         <span>A. Administrative</span>
-        <span>{{ formCompletion('A') }}</span>
+        <span>{{ calculateCurrent('A') }}</span>
       </div>
       <div class="section-body">
         <form [formGroup]="formGroupA" #formDirectiveA="ngForm">
@@ -109,7 +109,7 @@
     <section class="section-wrapper" scrollSpyElement id="sectionB">
       <div class="section-title">
         <span>B. Demographics</span>
-        <span>{{ formCompletion('B') }}</span>
+        <span>{{ calculateCurrent('B') }}</span>
       </div>
       <div class="section-body">
         <form [formGroup]="formGroupB" #formDirectiveB="ngForm">
@@ -133,7 +133,7 @@
               fxFlex>dd/mm/yyyy</reg-datepicker>
 
             <reg-input controlName="Age" placeholder="Patient Age" [formGroup]="formGroupB"
-              type="text" readonly="true" fxFlex></reg-input>
+              type="text" readonly="true" fxFlex>(auto calculated)</reg-input>
 
             <reg-select controlName="Gender" placeholder="Sex" [formGroup]="formGroupB"
               [choices]="['Male', 'Female']" fxFlex></reg-select>
@@ -222,7 +222,7 @@
     <section class="section-wrapper" scrollSpyElement id="sectionC">
       <div class="section-title">
         <span>C. Hospitalization</span>
-        <span>{{ formCompletion('C') }}</span>
+        <span>{{ calculateCurrent('C') }}</span>
       </div>
       <div class="section-body">
         <form [formGroup]="formGroupC" #formDirectiveC="ngForm">
@@ -289,7 +289,7 @@
     <section class="section-wrapper" scrollSpyElement id="sectionD">
       <div class="section-title">
         <span>D. Risk Factors</span>
-        <span>{{ formCompletion('D') }}</span>
+        <span>{{ calculateCurrent('D') }}</span>
       </div>
       <div class="section-body" fxLayout="column">
         <form [formGroup]="formGroupD" #formDirectiveD="ngForm">
@@ -303,7 +303,7 @@
               type="number" fxFlex="15"></reg-input>
 
             <reg-input controlName="BMI" placeholder="Body Mass Index" [formGroup]="formGroupD"
-              type="number" readonly="true" fxFlex="20"></reg-input>
+              type="number" readonly="true" fxFlex="20">(auto calculated)</reg-input>
             <!-- CALCULATE -->
 
             <reg-select controlName="FHCAD" placeholder="Family History of Premature CAD" [formGroup]="formGroupD"
@@ -641,7 +641,7 @@
     <section class="section-wrapper" scrollSpyElement id="sectionE">
       <div class="section-title">
         <span>E. Previous Cardiac Interventions</span>
-        <span>{{ formCompletion('E') }}</span>
+        <span>{{ calculateCurrent('E') }}</span>
       </div>
       <div class="section-body">
         <form [formGroup]="formGroupE" #formDirectiveE="ngForm">
@@ -1106,7 +1106,7 @@
     <section class="section-wrapper" scrollSpyElement id="sectionF">
       <div class="section-title">
         <span>F. Preoperative Cardiac Status</span>
-        <span>{{ formCompletion('F') }}</span>
+        <span>{{ calculateCurrent('F') }}</span>
       </div>
       <div class="section-body">
         <form [formGroup]="formGroupF" #formDirectiveF="ngForm">
@@ -1257,7 +1257,7 @@
     <section class="section-wrapper" scrollSpyElement id="sectionG">
       <div class="section-title">
         <span>G. Preoperative Medications</span>
-        <span>{{ formCompletion('G') }}</span>
+        <span>{{ calculateCurrent('G') }}</span>
       </div>
       <div class="section-body">
         <form [formGroup]="formGroupG" #formDirectiveG="ngForm">
@@ -1456,7 +1456,7 @@
     <section class="section-wrapper" scrollSpyElement id="sectionH">
       <div class="section-title">
         <span>H. Hemodynamics/Cath/Echo</span>
-        <span>{{ formCompletion('H') }}</span>
+        <span>{{ calculateCurrent('H') }}</span>
       </div>
       <div class="section-body">
         <form [formGroup]="formGroupH" #formDirectiveH="ngForm">
@@ -1886,7 +1886,7 @@
     <section class="section-wrapper" scrollSpyElement id="sectionI">
       <div class="section-title">
         <span>I. Operative</span>
-        <span>{{ formCompletion('I') }}</span>
+        <span>{{ calculateCurrent('I') }}</span>
       </div>
       <div class="section-body">
         <form [formGroup]="formGroupI" #formDirectiveI="ngForm">
@@ -2547,7 +2547,7 @@
           </div>
 
           <reg-input class="subitem-horz" controlName="TotCircArrTm" placeholder="Total Circulatory Arrest Time" [formGroup]="formGroupI"
-            type="number" readonly="true"></reg-input>
+            type="number" readonly="true">(auto calculated)</reg-input>
 
           <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
@@ -2767,7 +2767,7 @@
     <section class="section-wrapper" scrollSpyElement id="sectionJ">
       <div class="section-title" (click)="scrollTo('OpCAB')">
         <span>J. Coronary Bypass</span>
-        <span>{{ formCompletion('J') }}</span>
+        <span>{{ calculateCurrent('J') }}</span>
       </div>
       <div class="section-body">
         <form [formGroup]="formGroupJ" #formDirectiveJ="ngForm">
@@ -2969,7 +2969,7 @@
     <section class="section-wrapper" scrollSpyElement id="sectionK">
       <div class="section-title" (click)="scrollTo('OpValve')">
         <span>K. Valve Surgery</span>
-        <span>{{ formCompletion('K') }}</span>
+        <span>{{ calculateCurrent('K') }}</span>
       </div>
       <div class="section-body">
         <form [formGroup]="formGroupK" #formDirectiveK="ngForm">
@@ -3748,7 +3748,7 @@
     <section class="section-wrapper" scrollSpyElement id="sectionL">
       <div class="section-title">
         <span>L. Mechanical Cardiac Assist Devices</span>
-        <span>{{ formCompletion('L') }}</span>
+        <span>{{ calculateCurrent('L') }}</span>
       </div>
       <div class="section-body">
         <form [formGroup]="formGroupL" #formDirectiveL="ngForm">
@@ -3835,7 +3835,7 @@
     <section class="section-wrapper" scrollSpyElement id="sectionL2">
       <div class="section-title">
         <span>L.2 Ventricular Assist Devices</span>
-        <span>{{ formCompletion('L2') }}</span>
+        <span>{{ calculateCurrent('L2') }}</span>
       </div>
       <div class="section-body">
         <form [formGroup]="formGroupL2" #formDirectiveL2="ngForm">
@@ -3988,7 +3988,7 @@
     <section class="section-wrapper" scrollSpyElement id="sectionM">
       <div class="section-title" (click)="scrollTo('OpOCard')">
         <span>M. Other Cardiac Procedures</span>
-        <span>{{ formCompletion('M') }}</span>
+        <span>{{ calculateCurrent('M') }}</span>
       </div>
       <div class="section-body">
         <form [formGroup]="formGroupM" #formDirectiveM="ngForm">
@@ -4152,7 +4152,7 @@
     <section class="section-wrapper" scrollSpyElement id="sectionM1">
       <div class="section-title" (click)="scrollTo('AFibProc')">
         <span>M.1. Atrial Fibrillation Procedures</span>
-        <span>{{ formCompletion('M1') }}</span>
+        <span>{{ calculateCurrent('M1') }}</span>
       </div>
       <div class="section-body">
         <form [formGroup]="formGroupM1" #formDirectiveM1="ngForm">
@@ -4249,7 +4249,7 @@
     <section class="section-wrapper" scrollSpyElement id="sectionM2">
       <div class="section-title" (click)="scrollTo('AortProc')">
         <span>M.2. Aorta And Aortic Root Procedures</span>
-        <span>{{ formCompletion('M2') }}</span>
+        <span>{{ calculateCurrent('M2') }}</span>
       </div>
       <div class="section-body">
         <form [formGroup]="formGroupM2" #formDirectiveM2="ngForm">
@@ -5650,7 +5650,7 @@
     <section class="section-wrapper" scrollSpyElement id="sectionM3">
       <div class="section-title" (click)="scrollTo('OCarCong')">
         <span>M.3. Congenital Defect Repair (other than ASD, VSD or Bicuspid valve)</span>
-        <span>{{ formCompletion('M3') }}</span>
+        <span>{{ calculateCurrent('M3') }}</span>
       </div>
       <div class="section-body">
         <form [formGroup]="formGroupM3" #formDirectiveM3="ngForm">
@@ -5684,7 +5684,7 @@
     <section class="section-wrapper" scrollSpyElement id="sectionN">
       <div class="section-title" (click)="scrollTo('OpONCard')">
         <span>N. Other Non-Cardiac Procedures</span>
-        <span>{{ formCompletion('N') }}</span>
+        <span>{{ calculateCurrent('N') }}</span>
       </div>
       <div class="section-body">
         <form [formGroup]="formGroupN" #formDirectiveN="ngForm">
@@ -5724,7 +5724,7 @@
     <section class="section-wrapper" scrollSpyElement id="sectionO">
       <div class="section-title">
         <span>O. Post-Operative</span>
-        <span>{{ formCompletion('O') }}</span>
+        <span>{{ calculateCurrent('O') }}</span>
       </div>
       <div class="section-body">
         <form [formGroup]="formGroupO" #formDirectiveO="ngForm">
@@ -5786,7 +5786,7 @@
           </div>
 
           <reg-input controlName="VentHrsTot" placeholder="Total post-operative ventilation hours" [formGroup]="formGroupO"
-            type="number" readonly="true"></reg-input>
+            type="number" readonly="true">(auto calculated)</reg-input>
           <!-- System Calculation -->
 
           <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
@@ -5919,7 +5919,7 @@
     <section class="section-wrapper" scrollSpyElement id="sectionP">
       <div class="section-title">
         <span>P. Postoperative Events</span>
-        <span>{{ formCompletion('P') }}</span>
+        <span>{{ calculateCurrent('P') }}</span>
       </div>
       <div class="section-body">
         <form [formGroup]="formGroupP" #formDirectiveP="ngForm">
@@ -6361,7 +6361,7 @@
     <section class="section-wrapper" scrollSpyElement id="sectionQ">
       <div class="section-title">
         <span>Q. Discharge / Mortality</span>
-        <span>{{ formCompletion('Q') }}</span>
+        <span>{{ calculateCurrent('Q') }}</span>
       </div>
       <div class="section-body">
         <form [formGroup]="formGroupQ" #formDirectiveQ="ngForm">
@@ -6547,7 +6547,7 @@
     <section class="section-wrapper" scrollSpyElement id="sectionR">
       <div class="section-title" (click)="scrollTo('DischMortStat')">
         <span>R. Readmission</span>
-        <span>{{ formCompletion('R') }}</span>
+        <span>{{ calculateCurrent('R') }}</span>
       </div>
       <div class="section-body">
         <form [formGroup]="formGroupR" #formDirectiveR="ngForm">
@@ -6647,7 +6647,7 @@
     <section class="section-wrapper" scrollSpyElement id="sectionS">
       <div class="section-title">
         <span>S. Anesthesiology</span>
-        <span>{{ formCompletion('S') }}</span>
+        <span>{{ calculateCurrent('S') }}</span>
       </div>
       <div class="section-body">
         <form [formGroup]="formGroupS" #formDirectiveS="ngForm">
@@ -7180,7 +7180,7 @@
     <!-- <section class="section-wrapper" scrollSpyElement id="sectionG">
       <div class="section-title">
         <span>G. Preoperative Medications</span>
-        <span>{{ formCompletion('G') }}</span>
+        <span>{{ calculateCurrent('G') }}</span>
       </div>
       <div class="section-body">
         <form [formGroup]="formGroupG" #formDirectiveG="ngForm">

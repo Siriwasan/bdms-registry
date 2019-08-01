@@ -50,6 +50,8 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
     }
   }
 
+  public completion: ACSx290FormCompletion;
+
   //#region FormGroup and FormDirective
 
   formDetail: FormDetail;
@@ -175,6 +177,33 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
     // Prevent ExpressionChangedAfterItHasBeenCheckedError
     setTimeout(() => {
       this.loadById();
+    });
+
+    this.completion = this.getFormCompletion();
+
+    this.sectionMembers.forEach(sm => {
+      this.subscriptions.push(
+        sm[1].valueChanges.subscribe(value => {
+          const sectionCompletion = this.registryFormService.getSectionCompletion(sm[0]);
+          this.completion['section' + sm[0]] = sectionCompletion;
+
+          const summary: FormCompletion = {
+            valid: 0,
+            total: 0
+          };
+
+          Object.keys(this.completion).forEach(key => {
+            if (key !== 'summary') {
+              const sectionId = key.substr(7);
+              const secCompletion = this.completion['section' + sectionId];
+              summary.valid += secCompletion.valid;
+              summary.total += secCompletion.total;
+            }
+          });
+
+          this.completion.summary = summary;
+        })
+      );
     });
   }
 
@@ -623,5 +652,23 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
 
   doAction(action: string) {
     console.log(action);
+  }
+
+  public calculateCurrent(section: string) {
+    if (!this.completion) {
+      return;
+    }
+
+    const current = this.completion['section' + section];
+    return current.valid + '/' + current.total;
+  }
+
+  public calculateCompletion() {
+    if (!this.completion) {
+      return;
+    }
+
+    const completion = Math.round((this.completion.summary.valid / this.completion.summary.total) * 100);
+    return `(${completion}%)`;
   }
 }
