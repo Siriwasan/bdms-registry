@@ -1,10 +1,10 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { Registry } from './registry.model';
 import { ACSx290Form } from './acsx290/acsx290.model';
-import { map } from 'rxjs/operators';
 
 const DB_REGISTRY = 'Registry';
 
@@ -58,6 +58,19 @@ export class RegistryService implements OnDestroy {
                 delete d.sectionB['SSN'];
                 delete d.sectionB['PatAddr'];
                 // tslint:enable: no-string-literal
+
+                d.detail.createdAt =
+                  d.detail.createdAt !== null
+                    ? (d.detail.createdAt as firebase.firestore.Timestamp).toDate().toISOString()
+                    : null;
+                d.detail.modifiedAt =
+                  d.detail.modifiedAt !== null
+                    ? (d.detail.modifiedAt as firebase.firestore.Timestamp).toDate().toISOString()
+                    : null;
+                d.detail.deletedAt =
+                  d.detail.deletedAt !== null
+                    ? (d.detail.deletedAt as firebase.firestore.Timestamp).toDate().toISOString()
+                    : null;
 
                 return d;
               })

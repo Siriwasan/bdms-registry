@@ -4,7 +4,7 @@ import * as firebase from 'firebase/app';
 
 import { Staff } from './staff.model';
 import { map } from 'rxjs/operators';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 
 const DB_COLLECTION = 'Staff';
 
@@ -23,21 +23,8 @@ export class StaffService implements OnDestroy {
     return firebase.firestore.FieldValue.serverTimestamp();
   }
 
-  public loadStaffs() {
-    return this.db
-      .collection<Staff>(DB_COLLECTION)
-      .snapshotChanges()
-      .pipe(
-        map(actions =>
-          actions.map(({ payload: { doc } }) => {
-            const id = doc.id;
-            const data = doc.data();
-
-            // tslint:disable-next-line: no-string-literal
-            return { id, ...data };
-          })
-        )
-      );
+  public loadStaffs(): Observable<Staff[]> {
+    return this.db.collection<Staff>(DB_COLLECTION).valueChanges();
   }
 
   public async createStaff(staff: Staff) {
@@ -47,7 +34,6 @@ export class StaffService implements OnDestroy {
     staff.createdAt = this.timestamp;
     staff.createdBy = 'admin';
 
-    // await this.db.collection(DB_COLLECTION).add(staff);
     await this.db
       .collection(DB_COLLECTION)
       .doc(id)
@@ -62,7 +48,7 @@ export class StaffService implements OnDestroy {
     await this.db.doc(DB_COLLECTION + `/${id}`).update(staff);
   }
 
-  private generateStaffId(position: string) {
+  private generateStaffId(position: string): Promise<string> {
     return new Promise<string>((resolve, reject) => {
       this.subscriptions.push(
         this.db

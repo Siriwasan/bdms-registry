@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectorRef, ElementRef, ViewChild, AfterViewI
 import { FormGroup, FormGroupDirective, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { Moment } from 'moment';
 
 import { RegistryFormComponent } from '../../../shared/modules/registry-form/registry-form.component';
@@ -28,29 +28,30 @@ import * as UI from '../../../shared/ui.actions';
 @Component({
   selector: 'app-acsx290',
   templateUrl: './acsx290.component.html',
-  styleUrls: ['./acsx290.component.scss']
+  styleUrls: ['./acsx290.component.scss'],
+  providers: [ACSx290Service]
 })
 export class ACSx290Component extends RegistryFormComponent implements OnInit, AfterViewInit, OnDestroy {
-  // tslint:disable-next-line: variable-name
-  private _fixed = false;
-
   public open = false;
   public spin = true;
   public direction = 'up'; // up, down, left, right
   public animationMode = 'fling'; // fling, scale
 
-  get fixed(): boolean {
-    return this._fixed;
-  }
-
-  set fixed(fixed: boolean) {
-    this._fixed = fixed;
-    if (this._fixed) {
-      this.open = true;
-    }
-  }
-
   public completion: ACSx290FormCompletion;
+
+  get current() {
+    if (!this.completion) {
+      return 0;
+    }
+    return this.completion.summary.valid;
+  }
+
+  get max() {
+    if (!this.completion) {
+      return 1;
+    }
+    return this.completion.summary.total;
+  }
 
   //#region FormGroup and FormDirective
 
@@ -156,7 +157,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
     this.loadStaffs();
   }
 
-  ngAfterViewInit() {
+  async ngAfterViewInit() {
     super.ngAfterViewInit();
 
     this.registryFormService.subscribeFormConditions();
@@ -175,36 +176,14 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
     this.formGroupA.get('registryId').setValue('(new)');
 
     // Prevent ExpressionChangedAfterItHasBeenCheckedError
-    setTimeout(() => {
-      this.loadById();
-    });
+    // setTimeout(() => {
+    //   await this.loadById();
+    // });
+
+    await this.loadById();
 
     this.completion = this.getFormCompletion();
-
-    this.sectionMembers.forEach(sm => {
-      this.subscriptions.push(
-        sm[1].valueChanges.subscribe(value => {
-          const sectionCompletion = this.registryFormService.getSectionCompletion(sm[0]);
-          this.completion['section' + sm[0]] = sectionCompletion;
-
-          const summary: FormCompletion = {
-            valid: 0,
-            total: 0
-          };
-
-          Object.keys(this.completion).forEach(key => {
-            if (key !== 'summary') {
-              const sectionId = key.substr(7);
-              const secCompletion = this.completion['section' + sectionId];
-              summary.valid += secCompletion.valid;
-              summary.total += secCompletion.total;
-            }
-          });
-
-          this.completion.summary = summary;
-        })
-      );
-    });
+    this.calculateCompletion();
   }
 
   ngOnDestroy() {
@@ -269,15 +248,20 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
     this.registryFormService.setDataDict(require('raw-loader!./acsx290.dict.md'));
   }
 
-  private loadStaffs() {
-    this.subscriptions.push(
-      this.acsx290Service.getStaffs().subscribe(staffs => {
-        this.cvt = staffs.filter(e => e.position === 'Cardiothoracic Surgeon');
-        this.anesth = staffs.filter(e => e.position === 'Anesthesiologist');
-        this.rn = staffs.filter(e => e.position === 'Registered Nurse');
-        this.ctt = staffs.filter(e => e.position === 'Cardiothoracic Technician');
-      })
-    );
+  private async loadStaffs() {
+    // this.subscriptions.push(
+    //   this.acsx290Service.getStaffs().subscribe(staffs => {
+    //     this.cvt = staffs.filter(e => e.position === 'Cardiothoracic Surgeon');
+    //     this.anesth = staffs.filter(e => e.position === 'Anesthesiologist');
+    //     this.rn = staffs.filter(e => e.position === 'Registered Nurse');
+    //     this.ctt = staffs.filter(e => e.position === 'Cardiothoracic Technician');
+    //   })
+    // );
+    const staffs = await this.acsx290Service.getStaffs();
+    this.cvt = staffs.filter(e => e.position === 'Cardiothoracic Surgeon');
+    this.anesth = staffs.filter(e => e.position === 'Anesthesiologist');
+    this.rn = staffs.filter(e => e.position === 'Registered Nurse');
+    this.ctt = staffs.filter(e => e.position === 'Cardiothoracic Technician');
   }
 
   private subscribeDOBChanged(): Subscription {
@@ -640,20 +624,6 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
     this.registryFormService.clearErrors();
   }
 
-  downloadCSV() {
-    //   this.archiveRegistry();
-    //   this.fileService.saveJSONtoCSV([this.result], 'art.csv');
-  }
-
-  downloadJSON() {
-    //   this.archiveRegistry();
-    //   this.fileService.saveJSONtoFile([this.result]);
-  }
-
-  doAction(action: string) {
-    console.log(action);
-  }
-
   public calculateCurrent(section: string) {
     if (!this.completion) {
       return;
@@ -663,9 +633,43 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
     return current.valid + '/' + current.total;
   }
 
-  public calculateCompletion() {
+  private calculateCompletion() {
+    this.sectionMembers.forEach(sm => {
+      this.subscriptions.push(
+        sm[1].valueChanges.subscribe(value => {
+          const sectionCompletion = this.registryFormService.getSectionCompletion(sm[0]);
+          this.completion['section' + sm[0]] = sectionCompletion;
+
+          const summary: FormCompletion = {
+            valid: 0,
+            total: 0
+          };
+
+          Object.keys(this.completion).forEach(key => {
+            if (key !== 'summary') {
+              const sectionId = key.substr(7);
+              const secCompletion = this.completion['section' + sectionId];
+              summary.valid += secCompletion.valid;
+              summary.total += secCompletion.total;
+            }
+          });
+
+          this.completion.summary = summary;
+        })
+      );
+    });
+  }
+
+  public displaySummary() {
     if (!this.completion) {
-      return;
+      return '0/0';
+    }
+    return this.completion.summary.valid + '/' + this.completion.summary.total;
+  }
+
+  public displayCompletion() {
+    if (!this.completion) {
+      return `(0%)`;
     }
 
     const completion = Math.round((this.completion.summary.valid / this.completion.summary.total) * 100);

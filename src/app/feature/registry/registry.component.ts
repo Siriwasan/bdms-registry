@@ -91,20 +91,6 @@ export class RegistryComponent implements OnInit {
 
   async export() {
     const data = await this.registryService.loadACSx290sForExport();
-    data.forEach(d => {
-      d.detail.createdAt =
-        d.detail.createdAt !== null
-          ? (d.detail.createdAt as firebase.firestore.Timestamp).toDate().toISOString()
-          : null;
-      d.detail.modifiedAt =
-        d.detail.modifiedAt !== null
-          ? (d.detail.modifiedAt as firebase.firestore.Timestamp).toDate().toISOString()
-          : null;
-      d.detail.deletedAt =
-        d.detail.deletedAt !== null
-          ? (d.detail.deletedAt as firebase.firestore.Timestamp).toDate().toISOString()
-          : null;
-    });
     console.log(data);
     this.fileService.saveJSONtoCSV(data, 'data.csv');
   }

@@ -15,9 +15,7 @@ const DB_REGISTRY = 'Registry';
 const DB_STAFF = 'Staff';
 const DB_COLLECTION = 'ACSx290';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class ACSx290Service implements OnDestroy {
   currentForm: ACSx290Form;
   private subscriptions: Subscription[] = [];
@@ -43,7 +41,7 @@ export class ACSx290Service implements OnDestroy {
     return registryId !== undefined;
   }
 
-  private generateRegistryId(hospitalId: string) {
+  private generateRegistryId(hospitalId: string): Promise<string> {
     const year = new Date()
       .getFullYear()
       .toString()
@@ -138,7 +136,7 @@ export class ACSx290Service implements OnDestroy {
       .delete();
   }
 
-  private getRegistryIdByHnAn(hn: string, an: string) {
+  private getRegistryIdByHnAn(hn: string, an: string): Promise<string> {
     const decryptHN = this.decrypt(hn);
     const decryptAN = this.decrypt(an);
 
@@ -177,7 +175,7 @@ export class ACSx290Service implements OnDestroy {
     });
   }
 
-  public getForm(registryId: string) {
+  public getForm(registryId: string): Promise<ACSx290Form> {
     return new Promise<ACSx290Form>((resolve, reject) => {
       this.subscriptions.push(
         this.db
@@ -196,9 +194,23 @@ export class ACSx290Service implements OnDestroy {
     });
   }
 
-  public getStaffs() {
-    return this.db.collection<Staff>(DB_STAFF).valueChanges();
-  }
+  public getStaffs(): Promise<Staff[]> {
+    // return this.db.collection<Staff>(DB_STAFF).valueChanges();
+    return new Promise<Staff[]>((resolve, reject) => {
+      this.subscriptions.push(
+        this.db
+          .collection<Staff>(DB_STAFF)
+          .valueChanges()
+          .subscribe(
+            (dc: any) => {
+              resolve(dc);
+            },
+            error => {
+              reject(error);
+            }
+          )
+      );
+    });  }
 
   public checkNeededDataCompletion(data: ACSx290Form): string {
     let alert = '';

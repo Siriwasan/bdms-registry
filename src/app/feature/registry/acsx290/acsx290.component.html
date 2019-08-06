@@ -13,17 +13,17 @@
     <div class="completion-container">
       <div class="progress-wrapper">
         <div class="summary">
-          <div class="current">{{ completion?.summary.valid + '/' + completion?.summary.total }}</div>
-          <div class="completion">{{ calculateCompletion() }}</div>
+          <div class="current">{{ displaySummary() }}</div>
+          <div class="completion">{{ displayCompletion() }}</div>
         </div>
         <round-progress
-          [current]="completion?.summary.valid"
-          [max]="completion?.summary.total"
+          [current]="current"
+          [max]="max"
           [color]="'#45ccce'"
           [background]="'#eaeaea'"
           [radius]="125"
           [stroke]="15"
-          [rounded]="true"
+          [rounded]="false"
           [responsive]="true"
         ></round-progress>
       </div>
@@ -35,8 +35,7 @@
     <fab-speed-dial class="speed-dial-container"
       [(open)]="open"
       [direction]="direction"
-      [animationMode]="animationMode"
-      [fixed]="fixed">
+      [animationMode]="animationMode">
       <fab-speed-dial-trigger spin="true">
         <button mat-fab>
           <mat-icon class="fab-spin90">more_horiz</mat-icon>
