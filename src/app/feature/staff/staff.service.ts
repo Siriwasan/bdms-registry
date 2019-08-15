@@ -23,7 +23,7 @@ export class StaffService implements OnDestroy {
     return firebase.firestore.FieldValue.serverTimestamp();
   }
 
-  public loadStaffs(): Observable<Staff[]> {
+  public getStaffs(): Observable<Staff[]> {
     return this.db.collection<Staff>(DB_COLLECTION).valueChanges();
   }
 
@@ -33,6 +33,10 @@ export class StaffService implements OnDestroy {
     staff.staffId = id;
     staff.createdAt = this.timestamp;
     staff.createdBy = 'admin';
+
+    if (staff.password) {
+      staff.password = this.passwordHashing(staff.password);
+    }
 
     await this.db
       .collection(DB_COLLECTION)
@@ -44,11 +48,15 @@ export class StaffService implements OnDestroy {
     console.log('update staff');
     staff.modifiedAt = this.timestamp;
     staff.modifiedBy = 'admin';
-    if (!staff.password) {
-      delete staff.password;
+
+    if (staff.password) {
+      staff.password = this.passwordHashing(staff.password);
     } else {
-      const hash = CryptoJS.SHA3(staff.password).toString(CryptoJS.enc.Base64);
-      console.log(hash);
+      delete staff.password;
+    }
+
+    if (!staff.userName) {
+      delete staff.userName;
     }
 
     await this.db.doc(DB_COLLECTION + `/${staff.staffId}`).update(staff);
@@ -97,5 +105,9 @@ export class StaffService implements OnDestroy {
       case 'Cardiothoracic Technician':
         return 'CT';
     }
+  }
+
+  private passwordHashing(password: string): string {
+    return CryptoJS.SHA3(password).toString(CryptoJS.enc.Base64);
   }
 }

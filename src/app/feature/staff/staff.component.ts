@@ -31,7 +31,7 @@ export class StaffComponent implements OnInit, OnDestroy {
 
     this.store.dispatch(new UI.StartLoading());
 
-    this.staffListSubscription = this.staffService.loadStaffs().subscribe(data => {
+    this.staffListSubscription = this.staffService.getStaffs().subscribe(data => {
       this.dataSource = new MatTableDataSource(data);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;

@@ -7,12 +7,14 @@
   >
     <h1>Login</h1>
     <mat-form-field fxFlex>
-      <input matInput formControlName="userName" placeholder="User name" required />
+      <input matInput formControlName="userName" placeholder="Username" required />
     </mat-form-field>
 
     <mat-form-field fxFlex>
       <input matInput type="password" formControlName="password" placeholder="Password" required />
     </mat-form-field>
+
+    <p style="color: red; font-style: italic; font-size: small">{{ errorMessage }}</p>
 
     <button
       mat-raised-button

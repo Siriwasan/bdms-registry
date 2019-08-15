@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { first } from 'rxjs/operators';
+import * as CryptoJS from 'crypto-js';
 
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../../app.reducer';
@@ -18,11 +19,13 @@ export class AuthService {
   constructor(private store: Store<fromRoot.State>, private db: AngularFirestore) {}
 
   async login(userName: string, password: string): Promise<boolean> {
+    const hashPassword = this.passwordHashing(password);
+
     const staffs = await this.db
       .collection<Staff>(DB_COLLECTION, ref =>
         ref
           .where('userName', '==', userName)
-          .where('password', '==', password)
+          .where('password', '==', hashPassword)
           .limit(1)
       )
       .valueChanges()
@@ -30,7 +33,7 @@ export class AuthService {
       .toPromise();
 
     if (staffs.length < 1) {
-      console.log('user name or password not matched!!');
+      console.log('username or password not matched!!');
       return false;
     } else {
       console.log(staffs);
@@ -50,17 +53,16 @@ export class AuthService {
       return;
     }
 
-    // const logged = localStorage.getItem('userData');
-    // if (logged === 'true') {
     console.log('autoLogin');
-    // const user = new User(userData, 'token', new Date());
-    // console.log(user);
     this.store.dispatch(new Auth.Login(user));
-    // }
   }
 
   logout() {
     this.store.dispatch(new Auth.Logout());
     localStorage.removeItem('userData');
+  }
+
+  private passwordHashing(password: string): string {
+    return CryptoJS.SHA3(password).toString(CryptoJS.enc.Base64);
   }
 }

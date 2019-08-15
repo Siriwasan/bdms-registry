@@ -5,6 +5,7 @@ import { AboutComponent } from './feature/about/about.component';
 import { AuthGuard } from './core/auth/auth.guard';
 import { AuthComponent } from './core/auth/auth.component';
 import { PageNotFoundComponent } from './feature/page-not-found/page-not-found.component';
+import { HomeComponent } from './feature/home/home.component';
 
 const routes: Routes = [
   { path: 'tools', loadChildren: () => import('./feature/tools/tools.module').then(m => m.ToolsModule) },
@@ -21,7 +22,7 @@ const routes: Routes = [
       role: ['Administrator']
     }
   },
-  { path: 'home', component: AboutComponent },
+  { path: 'home', component: HomeComponent },
   { path: 'about', component: AboutComponent },
   { path: 'auth', component: AuthComponent },
   { path: '', redirectTo: '/about', pathMatch: 'full' },

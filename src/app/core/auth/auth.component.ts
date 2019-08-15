@@ -25,6 +25,7 @@ export class AuthComponent implements OnInit, OnDestroy {
 
   loginFG: FormGroup;
   profileFG: FormGroup;
+  errorMessage: string;
 
   constructor(
     private authService: AuthService,
@@ -37,7 +38,28 @@ export class AuthComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.user$ = this.store.select(fromRoot.getUser);
     this.userSubscription = this.user$.subscribe(user => {
-      this.user = user;
+      if (user) {
+        this.user = user;
+      } else {
+        this.user = new User(
+          {
+            staffId: null,
+            title: null,
+            firstName: null,
+            lastName: null,
+            phone: null,
+            email: null,
+            position: null,
+            primaryHospId: null,
+            registries: null,
+            userName: null,
+            password: null,
+            status: null
+          },
+          null,
+          null
+        );
+      }
     });
 
     this.loginFG = this.formBuilder.group({
@@ -75,6 +97,11 @@ export class AuthComponent implements OnInit, OnDestroy {
     this.store.dispatch(new UI.StopLoading());
     if (result) {
       this.router.navigate(['/about']);
+    } else {
+      this.errorMessage = 'Username and password not matched';
+      setTimeout(() => {
+        this.errorMessage = null;
+      }, 3000);
     }
   }
 
