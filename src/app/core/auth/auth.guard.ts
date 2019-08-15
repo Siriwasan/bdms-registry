@@ -17,7 +17,7 @@ export class AuthGuard implements CanActivate {
     return this.store.select(fromRoot.getUser).pipe(
       map(user => {
         if (user) {
-          if (route.data.role && route.data.role.indexOf(user.staff.role) < 0) {
+          if (route.data.roles && route.data.roles.indexOf(user.staff.role) < 0) {
             return this.router.createUrlTree(['/404']); // Authenticated but role is not permit
           }
           return true; // Authenticated

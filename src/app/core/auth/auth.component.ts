@@ -1,12 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from './auth.service';
+import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../../app.reducer';
 import * as UI from '../../shared/ui.actions';
-import { Router } from '@angular/router';
+
+import { AuthService } from './auth.service';
 import { User } from './user.model';
 import { CustomValidators } from '../../../app/shared/classes/custom-validators';
 import { StaffService } from '../../../app/feature/staff/staff.service';

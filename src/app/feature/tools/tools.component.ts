@@ -2,6 +2,11 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 import { saveAs } from 'file-saver'; // save the file
 import * as converter from 'json-2-csv';
+import { ToolsService } from './tools.service';
+import { FileService } from 'src/app/shared/services/file.service';
+import { Registry } from '../registry/registry.model';
+import { Staff } from '../staff/staff.model';
+import { ACSx290Form } from '../registry/acsx290/acsx290.model';
 
 interface Model {
   hn: number;
@@ -19,7 +24,7 @@ export class ToolsComponent implements OnInit {
   fileContent = '';
   html: string;
 
-  constructor() {}
+  constructor(private toolsService: ToolsService, private fileService: FileService) {}
 
   ngOnInit() {}
 
@@ -86,5 +91,65 @@ export class ToolsComponent implements OnInit {
       .catch(err => {
         console.log(err);
       });
+  }
+
+  async exportStaff() {
+    console.log('export staff');
+    const data = await this.toolsService.loadStaffs();
+    this.fileService.saveJSONtoFile(data, 'staff.json');
+  }
+
+  async exportRegistry() {
+    console.log('export registry');
+    const data = await this.toolsService.loadRegistries();
+    this.fileService.saveJSONtoFile(data, 'registry.json');
+  }
+
+  async exportACSx290() {
+    console.log('export ACSx290');
+    const data = await this.toolsService.loadACSx290s();
+    this.fileService.saveJSONtoFile(data, 'acsx290.json');
+  }
+
+  importStaff(fileList: FileList) {
+    const fileReader: FileReader = new FileReader();
+    this.file = fileList[0];
+
+    console.log('import staff');
+    fileReader.readAsText(this.file);
+    fileReader.onloadend = async x => {
+      console.log('load staff completed');
+      const staffs = JSON.parse(fileReader.result as string) as Staff[];
+      await this.toolsService.dumpStaffs(staffs);
+      console.log('dump staff completed');
+    };
+  }
+
+  importRegistry(fileList: FileList) {
+    const fileReader: FileReader = new FileReader();
+    this.file = fileList[0];
+
+    console.log('import registry');
+    fileReader.readAsText(this.file);
+    fileReader.onloadend = async x => {
+      console.log('load registry completed');
+      const registries = JSON.parse(fileReader.result as string) as Registry[];
+      await this.toolsService.dumpRegistries(registries);
+      console.log('dump registry completed');
+    };
+  }
+
+  importACSx290(fileList: FileList) {
+    const fileReader: FileReader = new FileReader();
+    this.file = fileList[0];
+
+    console.log('import ACSx290');
+    fileReader.readAsText(this.file);
+    fileReader.onloadend = async x => {
+      console.log('load ACSx290 completed');
+      const acsxs = JSON.parse(fileReader.result as string) as ACSx290Form[];
+      await this.toolsService.dumpACSx290s(acsxs);
+      console.log('dump ACSx290 completed');
+    };
   }
 }

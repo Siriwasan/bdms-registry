@@ -104,6 +104,14 @@ export class StaffService implements OnDestroy {
         return 'RN';
       case 'Cardiothoracic Technician':
         return 'CT';
+      case 'Scrub Nurse':
+        return 'SN';
+      case 'Heart Coordinator':
+        return 'HC';
+      case 'Researcher':
+        return 'RS';
+      case 'Register':
+        return 'RG';
     }
   }
 

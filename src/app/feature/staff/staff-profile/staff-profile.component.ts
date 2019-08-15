@@ -1,27 +1,53 @@
-import { Component, OnInit, Output, EventEmitter, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Output,
+  EventEmitter,
+  Input,
+  OnChanges,
+  SimpleChanges,
+  ViewChild,
+  OnDestroy
+} from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormGroupDirective } from '@angular/forms';
+
+import { Store } from '@ngrx/store';
+import * as fromRoot from '../../../app.reducer';
+import * as UI from '../../../shared/ui.actions';
 
 import { Staff } from '../staff.model';
 import { CustomValidators } from '../../../../app/shared/classes/custom-validators';
+import { Observable, Subscription } from 'rxjs';
+import { User } from '../../../../app/core/auth/user.model';
+import * as Data from '../../../shared/data/position.data';
 
 @Component({
   selector: 'app-staff-profile',
   templateUrl: './staff-profile.component.html',
   styleUrls: ['./staff-profile.component.scss']
 })
-export class StaffProfileComponent implements OnInit, OnChanges {
+export class StaffProfileComponent implements OnInit, OnChanges, OnDestroy {
   @Input() staff: Staff;
   @Output() submitStaff: EventEmitter<Staff> = new EventEmitter();
   @Output() deleteStaff: EventEmitter<void> = new EventEmitter();
+
+  user$: Observable<User>;
+  user: User;
+  private userSubscription: Subscription;
 
   staffForm: FormGroup;
   @ViewChild('staffFormDirective', { static: true }) staffFormDirective: FormGroupDirective;
 
   private selectedStaff: Staff;
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder, private store: Store<fromRoot.State>) {}
 
   ngOnInit() {
+    this.user$ = this.store.select(fromRoot.getUser);
+    this.userSubscription = this.user$.subscribe(user => {
+      this.user = user;
+    });
+
     this.staffForm = this.formBuilder.group(
       {
         staffId: ['(new)', Validators.required],
@@ -40,10 +66,13 @@ export class StaffProfileComponent implements OnInit, OnChanges {
         status: [null, Validators.required]
       },
       {
-        // check whether our password and confirm password match
         validator: CustomValidators.passwordMatchValidator
       }
     );
+  }
+
+  ngOnDestroy() {
+    this.userSubscription.unsubscribe();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -128,5 +157,25 @@ export class StaffProfileComponent implements OnInit, OnChanges {
     this.staffFormDirective.resetForm();
     this.staffForm.get('staffId').setValue('(new)');
     console.log('clear');
+  }
+
+  getAvailablePositions(): string[] {
+    return Data.postions.map(data => data[1]);
+  }
+
+  getAvailableRoles(): string[] {
+    const roles = ['Director', 'Administrator', 'Editor', 'Staff'];
+    const userIndex = roles.indexOf(this.user.staff.role);
+
+    if (!this.selectedStaff || !this.selectedStaff.role) {
+      return roles.slice(userIndex + 1);
+    }
+
+    const staffIndex = roles.indexOf(this.selectedStaff.role);
+    if (userIndex >= staffIndex) {
+      return [this.selectedStaff.role];
+    } else {
+      return roles.slice(staffIndex);
+    }
   }
 }

@@ -7,7 +7,12 @@
     <mat-icon>list</mat-icon>
     <span class="nav-caption">Registry</span>
   </a>
-  <a mat-list-item routerLink="/staff" (click)="onClose()" *ngIf="(user$ | async)?.staff.role === 'Administrator'">
+  <a
+    mat-list-item
+    routerLink="/staff"
+    (click)="onClose()"
+    *ngIf="['Director', 'Administrator'].indexOf((user$ | async)?.staff.role) >= 0"
+  >
     <mat-icon>people</mat-icon>
     <span class="nav-caption">Staff</span>
   </a>
@@ -15,10 +20,15 @@
     <mat-icon>description</mat-icon>
     <span class="nav-caption">Test Form</span>
   </a> -->
-  <!-- <a mat-list-item routerLink="/tools" (click)="onClose()">
+  <a
+    mat-list-item
+    routerLink="/tools"
+    (click)="onClose()"
+    *ngIf="['Director'].indexOf((user$ | async)?.staff.role) >= 0"
+  >
     <mat-icon>build</mat-icon>
     <span class="nav-caption">Tools</span>
-  </a> -->
+  </a>
   <a mat-list-item routerLink="/about" (click)="onClose()">
     <mat-icon>information</mat-icon>
     <span class="nav-caption">About</span>

@@ -55,5 +55,5 @@ export interface Registry {
   baseDb: string;
   addendum: string;
   completion: number;
-  modifiedAt: firebase.firestore.FieldValue;
+  modifiedAt: any;
 }

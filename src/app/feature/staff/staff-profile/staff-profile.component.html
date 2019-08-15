@@ -31,10 +31,11 @@
 
       <mat-form-field class="item" fxFlex>
         <mat-select formControlName="position" placeholder="Position" required>
-          <mat-option value="Cardiothoracic Surgeon">Cardiothoracic Surgeon</mat-option>
+          <!-- <mat-option value="Cardiothoracic Surgeon">Cardiothoracic Surgeon</mat-option>
           <mat-option value="Anesthesiologist">Anesthesiologist</mat-option>
           <mat-option value="Registered Nurse">Register Nurse</mat-option>
-          <mat-option value="Cardiothoracic Technician">Cardiothoracic Technician</mat-option>
+          <mat-option value="Cardiothoracic Technician">Cardiothoracic Technician</mat-option> -->
+          <mat-option *ngFor="let choice of getAvailablePositions()" [value]="choice">{{ choice }}</mat-option>
         </mat-select>
       </mat-form-field>
 
@@ -48,9 +49,7 @@
     <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap.gt-xs="20px">
       <mat-form-field class="item" fxFlex>
         <mat-select formControlName="role" placeholder="Role" required>
-          <mat-option value="Administrator">Administrator</mat-option>
-          <mat-option value="Viewer">Viewer</mat-option>
-          <mat-option value="Editor">Editor</mat-option>
+          <mat-option *ngFor="let choice of getAvailableRoles()" [value]="choice">{{ choice }}</mat-option>
         </mat-select>
       </mat-form-field>
 

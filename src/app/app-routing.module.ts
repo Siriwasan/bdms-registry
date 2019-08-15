@@ -8,7 +8,14 @@ import { PageNotFoundComponent } from './feature/page-not-found/page-not-found.c
 import { HomeComponent } from './feature/home/home.component';
 
 const routes: Routes = [
-  { path: 'tools', loadChildren: () => import('./feature/tools/tools.module').then(m => m.ToolsModule) },
+  {
+    path: 'tools',
+    loadChildren: () => import('./feature/tools/tools.module').then(m => m.ToolsModule),
+    canActivate: [AuthGuard],
+    data: {
+      roles: ['Director']
+    }
+  },
   {
     path: 'registry',
     loadChildren: () => import('./feature/registry/registry.module').then(m => m.RegistryModule),
@@ -19,13 +26,13 @@ const routes: Routes = [
     loadChildren: () => import('./feature/staff/staff.module').then(m => m.StaffModule),
     canActivate: [AuthGuard],
     data: {
-      role: ['Administrator']
+      roles: ['Director', 'Administrator']
     }
   },
   { path: 'home', component: HomeComponent },
   { path: 'about', component: AboutComponent },
   { path: 'auth', component: AuthComponent },
-  { path: '', redirectTo: '/about', pathMatch: 'full' },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 ];
 

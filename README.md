@@ -30,6 +30,49 @@ firebase deploy
 | ------- | ---------- | ----------------------------- | ----------------- |
 | ACSx290 | ACX        | STS Adult Cardiac Surgery 2.9 | February 13, 2017 |
 
-## BUG
+## Position
 
-1. remove validators when hide but cannot restore the old one.
+| abbreviation | position                  |
+|--------------|---------------------------|
+| CS           | Cardiac Surgeon           |
+| AN           | Anesthesiologist          |
+| SN           | Scrub Nurse               |
+| CT           | Cardiothoracic technician |
+| HC           | Heart Coordinator         |
+| RS           | Researcher                |
+| RG           | Register                  |
+
+## Hospital
+
+| hospId | name                   |
+|--------|------------------------|
+| BHT    | Bangkok Heart Hospital |
+
+## Role
+
+| role          |
+|---------------|
+| Director      |
+| Administrator |
+| Editor        |
+| Viewer        |
+| Staff         |
+
+## Permission
+
+| permission |
+|------------|
+| Hospital   |
+| Group      |
+| BDMS       |
+
+## Menu
+
+| menu       | authenticate | role                            |
+|------------|--------------|---------------------------------|
+| Home       | N            | -                               |
+| Registry   | Y            | Director, Administrator, Editor |
+| My Patient | Y            | Director, Staff                 |
+| Staff      | Y            | Director, Administrator         |
+| About      | N            | -                               |
+

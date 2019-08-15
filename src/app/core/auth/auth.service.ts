@@ -36,7 +36,6 @@ export class AuthService {
       console.log('username or password not matched!!');
       return false;
     } else {
-      console.log(staffs);
       const staff = staffs[0];
       staff.userName = null;
       staff.password = null;
