@@ -21,7 +21,7 @@ export class StaffComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  selectedStaff: any;
+  selectedStaff: Staff;
   staffListSubscription: Subscription;
 
   constructor(private router: Router, private staffService: StaffService, private store: Store<fromRoot.State>) {}
@@ -52,7 +52,7 @@ export class StaffComponent implements OnInit, OnDestroy {
     }
   }
 
-  click(staff: any) {
+  click(staff: Staff) {
     this.selectedStaff = staff;
   }
 
@@ -64,7 +64,7 @@ export class StaffComponent implements OnInit, OnDestroy {
     if (this.selectedStaff === null) {
       this.staffService.createStaff(staff);
     } else {
-      this.staffService.updateStaff(this.selectedStaff.id, staff);
+      this.staffService.updateStaff(staff);
       this.selectedStaff = null;
     }
   }

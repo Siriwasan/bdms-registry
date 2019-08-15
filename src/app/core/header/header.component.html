@@ -11,10 +11,7 @@
   <div fxFlex fxLayout fxLayoutAlign="flex-end" fxShow fxHide.lt-md>
     <ul fxLayout fxLayoutGap="10px" class="navigation-items">
       <li>
-        <a routerLink="/home">Home</a>
-      </li>
-      <li>
-        <a routerLink="/about">About</a>
+        <a routerLink="/auth">{{ !(user$ | async) ? 'Login' : (user$ | async).staff.firstName }}</a>
       </li>
     </ul>
   </div>

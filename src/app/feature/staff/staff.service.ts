@@ -1,9 +1,9 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import * as firebase from 'firebase/app';
+import * as CryptoJS from 'crypto-js';
 
 import { Staff } from './staff.model';
-import { map } from 'rxjs/operators';
 import { Subscription, Observable } from 'rxjs';
 
 const DB_COLLECTION = 'Staff';
@@ -40,12 +40,18 @@ export class StaffService implements OnDestroy {
       .set(staff);
   }
 
-  public async updateStaff(id: string, staff: Staff) {
+  public async updateStaff(staff: Staff) {
     console.log('update staff');
     staff.modifiedAt = this.timestamp;
     staff.modifiedBy = 'admin';
+    if (!staff.password) {
+      delete staff.password;
+    } else {
+      const hash = CryptoJS.SHA3(staff.password).toString(CryptoJS.enc.Base64);
+      console.log(hash);
+    }
 
-    await this.db.doc(DB_COLLECTION + `/${id}`).update(staff);
+    await this.db.doc(DB_COLLECTION + `/${staff.staffId}`).update(staff);
   }
 
   private generateStaffId(position: string): Promise<string> {

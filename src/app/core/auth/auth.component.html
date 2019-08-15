@@ -1,0 +1,83 @@
+<div class="content">
+  <form
+    [formGroup]="loginFG"
+    fxLayout="column"
+    style="width: 300px; margin: auto; text-align: center"
+    *ngIf="!(user$ | async)"
+  >
+    <h1>Login</h1>
+    <mat-form-field fxFlex>
+      <input matInput formControlName="userName" placeholder="User name" required />
+    </mat-form-field>
+
+    <mat-form-field fxFlex>
+      <input matInput type="password" formControlName="password" placeholder="Password" required />
+    </mat-form-field>
+
+    <button
+      mat-raised-button
+      color="primary"
+      style="width: 100px; margin: auto"
+      (click)="login()"
+      [disabled]="!loginFG.valid"
+    >
+      Login
+    </button>
+  </form>
+
+  <form
+    [formGroup]="profileFG"
+    fxLayout="column"
+    style="width: 400px; margin: auto; text-align: center"
+    *ngIf="user$ | async as user"
+  >
+    <h1>Profile</h1>
+
+    <mat-form-field fxFlex>
+      <input matInput readonly formControlName="name" placeholder="Name" required />
+    </mat-form-field>
+
+    <mat-form-field fxFlex>
+      <input matInput formControlName="phone" placeholder="Phone" />
+    </mat-form-field>
+
+    <mat-form-field fxFlex>
+      <input matInput formControlName="email" placeholder="Email" />
+    </mat-form-field>
+
+    <mat-form-field fxFlex>
+      <input matInput readonly formControlName="position" placeholder="Position" required />
+    </mat-form-field>
+
+    <mat-form-field fxFlex>
+      <input matInput readonly formControlName="primaryHospId" placeholder="Primary Hospital" required />
+    </mat-form-field>
+
+    <mat-form-field fxFlex>
+      <input matInput readonly formControlName="registries" placeholder="Registries" required />
+    </mat-form-field>
+
+    <mat-form-field fxFlex>
+      <input matInput type="password" formControlName="password" placeholder="Password" />
+    </mat-form-field>
+
+    <mat-form-field fxFlex>
+      <input matInput type="password" formControlName="confirmedPassword" placeholder="Confirmed Password" />
+      <mat-error *ngIf="profileFG.controls['confirmedPassword'].hasError('NoPassswordMatch')">
+        Password & Confirmed Password does not match.
+      </mat-error>
+    </mat-form-field>
+
+    <br />
+
+    <div fxLayout="row" fxLayoutAlign="space-around">
+      <button mat-raised-button color="primary" (click)="update()" [disabled]="!isProfileFormValid()">
+        Update
+      </button>
+
+      <button mat-raised-button color="warn" (click)="logout()">
+        Logout
+      </button>
+    </div>
+  </form>
+</div>

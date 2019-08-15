@@ -1,28 +1,36 @@
-<form [formGroup]="staffForm" (submit)="onSubmit()" #staffFormDirective="ngForm">
-  <fieldset style="border:1px solid #a1a1a1; border-radius:10px; padding: 20px 30px 20px 30px;">
+<form [formGroup]="staffForm" #staffFormDirective="ngForm">
+  <fieldset style="border:1px solid #a1a1a1; border-radius:10px; padding: 20px 30px 20px 30px; background-color: white">
     <legend style="color:#757575;">Staff Profile</legend>
 
     <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap.gt-xs="20px">
       <mat-form-field class="item" fxFlex>
-        <input matInput formControlName="staffId" placeholder="Staff ID" readonly />
+        <input matInput formControlName="staffId" placeholder="Staff ID" readonly required />
       </mat-form-field>
 
       <mat-form-field class="item" fxFlex>
-        <input matInput formControlName="title" placeholder="Title" />
+        <input matInput formControlName="title" placeholder="Title" required />
       </mat-form-field>
 
       <mat-form-field class="item" fxFlex>
-        <input matInput formControlName="firstName" placeholder="First Name" />
+        <input matInput formControlName="firstName" placeholder="First Name" required />
       </mat-form-field>
 
       <mat-form-field class="item" fxFlex>
-        <input matInput formControlName="lastName" placeholder="Last Name" />
+        <input matInput formControlName="lastName" placeholder="Last Name" required />
       </mat-form-field>
     </div>
 
     <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap.gt-xs="20px">
       <mat-form-field class="item" fxFlex>
-        <mat-select formControlName="position" placeholder="Position">
+        <input matInput formControlName="phone" placeholder="Phone" />
+      </mat-form-field>
+
+      <mat-form-field class="item" fxFlex>
+        <input matInput formControlName="email" placeholder="Email" />
+      </mat-form-field>
+
+      <mat-form-field class="item" fxFlex>
+        <mat-select formControlName="position" placeholder="Position" required>
           <mat-option value="Cardiothoracic Surgeon">Cardiothoracic Surgeon</mat-option>
           <mat-option value="Anesthesiologist">Anesthesiologist</mat-option>
           <mat-option value="Registered Nurse">Register Nurse</mat-option>
@@ -31,21 +39,54 @@
       </mat-form-field>
 
       <mat-form-field class="item" fxFlex>
-        <mat-select formControlName="primaryHospId" placeholder="Primary Hospital">
+        <mat-select formControlName="primaryHospId" placeholder="Primary Hospital" required>
           <mat-option value="BHT">Bangkok Heart Hospital (BHT)</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap.gt-xs="20px">
+      <mat-form-field class="item" fxFlex>
+        <mat-select formControlName="role" placeholder="Role" required>
+          <mat-option value="Administrator">Administrator</mat-option>
+          <mat-option value="Viewer">Viewer</mat-option>
+          <mat-option value="Editor">Editor</mat-option>
         </mat-select>
       </mat-form-field>
 
       <mat-form-field class="item" fxFlex>
-        <mat-select formControlName="status" placeholder="Status">
+        <mat-select formControlName="permission" placeholder="Permission" required>
+          <mat-option value="Hospital">Hospital</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="item" fxFlex>
+        <mat-select formControlName="status" placeholder="Status" required>
           <mat-option value="Active">Active</mat-option>
           <mat-option value="Inactive">Inactive</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
 
+    <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap.gt-xs="20px">
+      <mat-form-field class="item" fxFlex>
+        <input matInput formControlName="userName" placeholder="User name" />
+      </mat-form-field>
+
+      <mat-form-field class="item" fxFlex>
+        <input matInput type="password" formControlName="password" placeholder="Password" />
+      </mat-form-field>
+
+      <mat-form-field class="item" fxFlex>
+        <input matInput type="password" formControlName="confirmedPassword" placeholder="Confirmed password" />
+        <mat-error *ngIf="staffForm.controls['confirmedPassword'].hasError('NoPassswordMatch')">
+          Password & Confirmed Password does not match.
+        </mat-error>
+      </mat-form-field>
+    </div>
+
     <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="20px">
-      <button type="submit" mat-raised-button class="button" color="primary" [disabled]="!staffForm.valid">
+      <button mat-raised-button class="button" color="primary" [disabled]="!isStaffFormValid()" (click)="onSubmit()">
         {{ staff === null ? 'Create' : 'Update' }}
       </button>
       <!-- <button mat-raised-button class="button" color="warn" (click)="onDelete()">Delete</button> -->

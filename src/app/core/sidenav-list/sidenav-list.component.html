@@ -3,11 +3,11 @@
     <mat-icon>home</mat-icon>
     <span class="nav-caption">Home</span>
   </a>
-  <a mat-list-item routerLink="/registry" (click)="onClose()">
+  <a mat-list-item routerLink="/registry" (click)="onClose()" *ngIf="user$ | async">
     <mat-icon>list</mat-icon>
     <span class="nav-caption">Registry</span>
   </a>
-  <a mat-list-item routerLink="/staff" (click)="onClose()">
+  <a mat-list-item routerLink="/staff" (click)="onClose()" *ngIf="(user$ | async)?.staff.role === 'Administrator'">
     <mat-icon>people</mat-icon>
     <span class="nav-caption">Staff</span>
   </a>
