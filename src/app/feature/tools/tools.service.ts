@@ -52,12 +52,13 @@ export class ToolsService implements OnDestroy {
   }
 
   async dumpStaffs(staffs: Staff[]) {
-    console.log(staffs);
-
     await staffs
       .map(staff => {
+        staff.staffId = this.migrateStaffId(staff.staffId);
         staff.createdAt = firebase.firestore.Timestamp.fromDate(new Date(staff.createdAt));
+        staff.createdBy = this.migrateStaffId(staff.createdBy);
         staff.modifiedAt = firebase.firestore.Timestamp.fromDate(new Date(staff.modifiedAt));
+        staff.modifiedBy = this.migrateStaffId(staff.modifiedBy);
         return staff;
       })
       .forEach(staff => {
@@ -154,8 +155,32 @@ export class ToolsService implements OnDestroy {
     await acsxs
       .map(acsx => {
         acsx.detail.createdAt = firebase.firestore.Timestamp.fromDate(new Date(acsx.detail.createdAt));
+        acsx.detail.createdBy = this.migrateStaffId(acsx.detail.createdBy);
         acsx.detail.modifiedAt = firebase.firestore.Timestamp.fromDate(new Date(acsx.detail.modifiedAt));
+        acsx.detail.modifiedBy = this.migrateStaffId(acsx.detail.modifiedBy);
         acsx.detail.deletedAt = firebase.firestore.Timestamp.fromDate(new Date(acsx.detail.deletedAt));
+        acsx.detail.deletedBy = this.migrateStaffId(acsx.detail.deletedBy);
+
+        // tslint:disable: no-string-literal
+        acsx.sectionI['SurgeonId'] = this.migrateStaffId(acsx.sectionI['SurgeonId']);
+        acsx.sectionI['Assist1Id'] = this.migrateStaffId(acsx.sectionI['Assist1Id']);
+        acsx.sectionI['Assist2Id'] = this.migrateStaffId(acsx.sectionI['Assist2Id']);
+        acsx.sectionI['Assist3Id'] = this.migrateStaffId(acsx.sectionI['Assist3Id']);
+        acsx.sectionI['Assist4Id'] = this.migrateStaffId(acsx.sectionI['Assist4Id']);
+        acsx.sectionI['Assist5Id'] = this.migrateStaffId(acsx.sectionI['Assist5Id']);
+        acsx.sectionI['Assist6Id'] = this.migrateStaffId(acsx.sectionI['Assist6Id']);
+        acsx.sectionI['Anesth1Id'] = this.migrateStaffId(acsx.sectionI['Anesth1Id']);
+        acsx.sectionI['Anesth2Id'] = this.migrateStaffId(acsx.sectionI['Anesth2Id']);
+        acsx.sectionI['Scrub1Id'] = this.migrateStaffId(acsx.sectionI['Scrub1Id']);
+        acsx.sectionI['Scrub2Id'] = this.migrateStaffId(acsx.sectionI['Scrub2Id']);
+        acsx.sectionI['Scrub3Id'] = this.migrateStaffId(acsx.sectionI['Scrub3Id']);
+        acsx.sectionI['Scrub4Id'] = this.migrateStaffId(acsx.sectionI['Scrub4Id']);
+        acsx.sectionI['CTT1Id'] = this.migrateStaffId(acsx.sectionI['CTT1Id']);
+        acsx.sectionI['CTT2Id'] = this.migrateStaffId(acsx.sectionI['CTT2Id']);
+        acsx.sectionI['CTT3Id'] = this.migrateStaffId(acsx.sectionI['CTT3Id']);
+        acsx.sectionI['CTT4Id'] = this.migrateStaffId(acsx.sectionI['CTT4Id']);
+        // tslint:enable: no-string-literal
+
         return acsx;
       })
       .forEach(acsx => {
@@ -165,5 +190,18 @@ export class ToolsService implements OnDestroy {
           .doc(acsx.sectionA['registryId'])
           .set(acsx);
       });
+  }
+
+  private migrateStaffId(oldId: string): string {
+    if (!oldId || oldId.trim() === '') {
+      return null;
+    }
+
+    if (oldId === 'admin') {
+      return 'admin';
+    }
+
+    const oldIdList = ['CS001', 'CS002', 'AN001', 'RN001', 'CT001', 'RS001'];
+    return (oldIdList.indexOf(oldId) + 1).toString().padStart(5, '0');
   }
 }

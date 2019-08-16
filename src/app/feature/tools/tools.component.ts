@@ -94,21 +94,21 @@ export class ToolsComponent implements OnInit {
   }
 
   async exportStaff() {
-    console.log('export staff');
     const data = await this.toolsService.loadStaffs();
     this.fileService.saveJSONtoFile(data, 'staff.json');
+    console.log('export staff ' + data.length + ' records');
   }
 
   async exportRegistry() {
-    console.log('export registry');
     const data = await this.toolsService.loadRegistries();
     this.fileService.saveJSONtoFile(data, 'registry.json');
+    console.log('export registry ' + data.length + ' records');
   }
 
   async exportACSx290() {
-    console.log('export ACSx290');
     const data = await this.toolsService.loadACSx290s();
     this.fileService.saveJSONtoFile(data, 'acsx290.json');
+    console.log('export ACSx290 ' + data.length + ' records');
   }
 
   importStaff(fileList: FileList) {
@@ -121,7 +121,7 @@ export class ToolsComponent implements OnInit {
       console.log('load staff completed');
       const staffs = JSON.parse(fileReader.result as string) as Staff[];
       await this.toolsService.dumpStaffs(staffs);
-      console.log('dump staff completed');
+      console.log('dump staff completed ' + staffs.length + ' records');
     };
   }
 
@@ -135,7 +135,7 @@ export class ToolsComponent implements OnInit {
       console.log('load registry completed');
       const registries = JSON.parse(fileReader.result as string) as Registry[];
       await this.toolsService.dumpRegistries(registries);
-      console.log('dump registry completed');
+      console.log('dump registry completed ' + registries.length + ' records');
     };
   }
 
@@ -149,7 +149,7 @@ export class ToolsComponent implements OnInit {
       console.log('load ACSx290 completed');
       const acsxs = JSON.parse(fileReader.result as string) as ACSx290Form[];
       await this.toolsService.dumpACSx290s(acsxs);
-      console.log('dump ACSx290 completed');
+      console.log('dump ACSx290 completed ' + acsxs.length + ' records');
     };
   }
 }

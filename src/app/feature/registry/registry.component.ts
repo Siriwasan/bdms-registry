@@ -91,7 +91,7 @@ export class RegistryComponent implements OnInit {
 
   async export() {
     const data = await this.registryService.loadACSx290sForExport();
-    console.log(data);
     this.fileService.saveJSONtoCSV(data, 'acsx.csv');
+    console.log('export acsx ' + data.length + ' records');
   }
 }

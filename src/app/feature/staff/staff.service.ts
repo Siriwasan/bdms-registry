@@ -29,7 +29,7 @@ export class StaffService implements OnDestroy {
 
   public async createStaff(staff: Staff) {
     console.log('create staff');
-    const id = await this.generateStaffId(this.getAbbreviation(staff.position));
+    const id = await this.generateStaffId();
     staff.staffId = id;
     staff.createdAt = this.timestamp;
     staff.createdBy = 'admin';
@@ -62,28 +62,54 @@ export class StaffService implements OnDestroy {
     await this.db.doc(DB_COLLECTION + `/${staff.staffId}`).update(staff);
   }
 
-  private generateStaffId(position: string): Promise<string> {
+  // private generateStaffId(position: string): Promise<string> {
+  //   return new Promise<string>((resolve, reject) => {
+  //     this.subscriptions.push(
+  //       this.db
+  //         .collection<Staff>(DB_COLLECTION, ref =>
+  //           ref
+  //             .orderBy('staffId', 'desc')
+  //             .startAt(position + '\uf8ff')
+  //             .endAt(position)
+  //             .limit(1)
+  //         )
+  //         .valueChanges()
+  //         .subscribe(
+  //           (data: Staff[]) => {
+  //             if (data.length === 0) {
+  //               resolve(position + '001');
+  //             } else {
+  //               const lastId = data[0].staffId as string;
+  //               let index = +lastId.split(position)[1];
+  //               const nextId = (++index).toString().padStart(3, '0');
+
+  //               resolve(position + nextId); // first result of query [0]
+  //             }
+  //           },
+  //           error => {
+  //             reject(error);
+  //           }
+  //         )
+  //     );
+  //   });
+  // }
+
+  private generateStaffId(): Promise<string> {
     return new Promise<string>((resolve, reject) => {
       this.subscriptions.push(
         this.db
-          .collection<Staff>(DB_COLLECTION, ref =>
-            ref
-              .orderBy('staffId', 'desc')
-              .startAt(position + '\uf8ff')
-              .endAt(position)
-              .limit(1)
-          )
+          .collection<Staff>(DB_COLLECTION, ref => ref.orderBy('staffId', 'desc').limit(1))
           .valueChanges()
           .subscribe(
             (data: Staff[]) => {
               if (data.length === 0) {
-                resolve(position + '001');
+                resolve('00001');
               } else {
                 const lastId = data[0].staffId as string;
-                let index = +lastId.split(position)[1];
-                const nextId = (++index).toString().padStart(3, '0');
+                let index = +lastId;
+                const nextId = (++index).toString().padStart(5, '0');
 
-                resolve(position + nextId); // first result of query [0]
+                resolve(nextId); // first result of query [0]
               }
             },
             error => {
