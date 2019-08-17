@@ -32,7 +32,7 @@ export class StaffService implements OnDestroy {
     const id = await this.generateStaffId();
     staff.staffId = id;
     staff.createdAt = this.timestamp;
-    staff.createdBy = 'admin';
+    staff.createdBy = '00001';
 
     if (staff.password) {
       staff.password = this.passwordHashing(staff.password);
@@ -47,7 +47,7 @@ export class StaffService implements OnDestroy {
   public async updateStaff(staff: Staff) {
     console.log('update staff');
     staff.modifiedAt = this.timestamp;
-    staff.modifiedBy = 'admin';
+    staff.modifiedBy = '00001';
 
     if (staff.password) {
       staff.password = this.passwordHashing(staff.password);

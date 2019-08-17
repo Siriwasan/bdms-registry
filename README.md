@@ -68,10 +68,11 @@ firebase deploy
 
 ## Menu
 
-| menu       | authenticate | role                            |
-|------------|--------------|---------------------------------|
-| Home       | N            | -                               |
-| Registry   | Y            | Director, Administrator, Editor |
-| My Patient | Y            | Director, Staff                 |
-| Staff      | Y            | Director, Administrator         |
-| About      | N            | -                               |
+| menu        | authenticate | role                            |
+|-------------|--------------|---------------------------------|
+| Home        | N            | -                               |
+| Registry    | Y            | Director, Administrator, Editor |
+| My Patients | Y            | Director, Administrator, Staff  |
+| Staff       | Y            | Director, Administrator         |
+| Tools       | Y            | Director                        |
+| About       | N            | -                               |

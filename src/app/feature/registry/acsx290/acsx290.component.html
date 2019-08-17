@@ -1904,6 +1904,7 @@
 
           <mat-form-field style="width: 100%">
             <mat-select id="SurgeonId" formControlName="SurgeonId" placeholder="Surgeon" required>
+              <mat-option [value]="null">--</mat-option>
               <mat-option *ngFor="let s of cvt" [value]="s.staffId">
                 {{ s.title + ' ' + s.firstName + ' ' + s.lastName }}
               </mat-option>
@@ -1914,6 +1915,7 @@
 
             <mat-form-field style="width: 100%" fxFlex>
               <mat-select id="Assist1Id" formControlName="Assist1Id" placeholder="Assist 1">
+                <mat-option [value]="null">--</mat-option>
                 <mat-option *ngFor="let s of cvt" [value]="s.staffId">
                   {{ s.title + ' ' + s.firstName + ' ' + s.lastName }}
                 </mat-option>
@@ -1922,6 +1924,7 @@
 
             <mat-form-field style="width: 100%" fxFlex>
               <mat-select id="Assist2Id" formControlName="Assist2Id" placeholder="Assist 2">
+                <mat-option [value]="null">--</mat-option>
                 <mat-option *ngFor="let s of cvt" [value]="s.staffId">
                   {{ s.title + ' ' + s.firstName + ' ' + s.lastName }}
                 </mat-option>
@@ -1934,6 +1937,7 @@
 
             <mat-form-field style="width: 100%" fxFlex>
               <mat-select id="Assist3Id" formControlName="Assist3Id" placeholder="Assist 3">
+                <mat-option [value]="null">--</mat-option>
                 <mat-option *ngFor="let s of cvt" [value]="s.staffId">
                   {{ s.title + ' ' + s.firstName + ' ' + s.lastName }}
                 </mat-option>
@@ -1942,6 +1946,7 @@
 
             <mat-form-field style="width: 100%" fxFlex>
               <mat-select id="Assist4Id" formControlName="Assist4Id" placeholder="Assist 4">
+                <mat-option [value]="null">--</mat-option>
                 <mat-option *ngFor="let s of cvt" [value]="s.staffId">
                   {{ s.title + ' ' + s.firstName + ' ' + s.lastName }}
                 </mat-option>
@@ -1954,6 +1959,7 @@
 
             <mat-form-field style="width: 100%" fxFlex>
               <mat-select id="Assist5Id" formControlName="Assist5Id" placeholder="Assist 5">
+                <mat-option [value]="null">--</mat-option>
                 <mat-option *ngFor="let s of cvt" [value]="s.staffId">
                   {{ s.title + ' ' + s.firstName + ' ' + s.lastName }}
                 </mat-option>
@@ -1962,6 +1968,7 @@
 
             <mat-form-field style="width: 100%" fxFlex>
               <mat-select id="Assist6Id" formControlName="Assist6Id" placeholder="Assist 6">
+                <mat-option [value]="null">--</mat-option>
                 <mat-option *ngFor="let s of cvt" [value]="s.staffId">
                   {{ s.title + ' ' + s.firstName + ' ' + s.lastName }}
                 </mat-option>
@@ -1974,6 +1981,7 @@
 
             <mat-form-field style="width: 100%" fxFlex>
               <mat-select id="Anesth1Id" formControlName="Anesth1Id" placeholder="Anesth 1" required>
+                <mat-option [value]="null">--</mat-option>
                 <mat-option *ngFor="let s of anesth" [value]="s.staffId">
                   {{ s.title + ' ' + s.firstName + ' ' + s.lastName }}
                 </mat-option>
@@ -1982,6 +1990,7 @@
 
             <mat-form-field style="width: 100%" fxFlex>
               <mat-select id="Anesth2Id" formControlName="Anesth2Id" placeholder="Anesth 2">
+                <mat-option [value]="null">--</mat-option>
                 <mat-option *ngFor="let s of anesth" [value]="s.staffId">
                   {{ s.title + ' ' + s.firstName + ' ' + s.lastName }}
                 </mat-option>
@@ -1994,6 +2003,7 @@
 
             <mat-form-field style="width: 100%" fxFlex>
               <mat-select id="Scrub1Id" formControlName="Scrub1Id" placeholder="Scrub 1" required>
+                <mat-option [value]="null">--</mat-option>
                 <mat-option *ngFor="let s of rn" [value]="s.staffId">
                   {{ s.title + ' ' + s.firstName + ' ' + s.lastName }}
                 </mat-option>
@@ -2002,6 +2012,7 @@
 
             <mat-form-field style="width: 100%" fxFlex>
               <mat-select id="Scrub2Id" formControlName="Scrub2Id" placeholder="Scrub 2">
+                <mat-option [value]="null">--</mat-option>
                 <mat-option *ngFor="let s of rn" [value]="s.staffId">
                   {{ s.title + ' ' + s.firstName + ' ' + s.lastName }}
                 </mat-option>
@@ -2014,6 +2025,7 @@
 
             <mat-form-field style="width: 100%" fxFlex>
               <mat-select id="Scrub3Id" formControlName="Scrub3Id" placeholder="Scrub 3">
+                <mat-option [value]="null">--</mat-option>
                 <mat-option *ngFor="let s of rn" [value]="s.staffId">
                   {{ s.title + ' ' + s.firstName + ' ' + s.lastName }}
                 </mat-option>
@@ -2022,6 +2034,7 @@
 
             <mat-form-field style="width: 100%" fxFlex>
               <mat-select id="Scrub4Id" formControlName="Scrub4Id" placeholder="Scrub 4">
+                <mat-option [value]="null">--</mat-option>
                 <mat-option *ngFor="let s of rn" [value]="s.staffId">
                   {{ s.title + ' ' + s.firstName + ' ' + s.lastName }}
                 </mat-option>
@@ -2034,6 +2047,7 @@
 
             <mat-form-field style="width: 100%" fxFlex>
               <mat-select id="CTT1Id" formControlName="CTT1Id" placeholder="CTT 1" required>
+                <mat-option [value]="null">--</mat-option>
                 <mat-option *ngFor="let s of ctt" [value]="s.staffId">
                   {{ s.title + ' ' + s.firstName + ' ' + s.lastName }}
                 </mat-option>
@@ -2042,6 +2056,7 @@
 
             <mat-form-field style="width: 100%" fxFlex>
               <mat-select id="CTT2Id" formControlName="CTT2Id" placeholder="CTT 2">
+                <mat-option [value]="null">--</mat-option>
                 <mat-option *ngFor="let s of ctt" [value]="s.staffId">
                   {{ s.title + ' ' + s.firstName + ' ' + s.lastName }}
                 </mat-option>
@@ -2054,6 +2069,7 @@
 
             <mat-form-field style="width: 100%" fxFlex>
               <mat-select id="CTT3Id" formControlName="CTT3Id" placeholder="CTT 3">
+                <mat-option [value]="null">--</mat-option>
                 <mat-option *ngFor="let s of ctt" [value]="s.staffId">
                   {{ s.title + ' ' + s.firstName + ' ' + s.lastName }}
                 </mat-option>
@@ -2062,6 +2078,7 @@
 
             <mat-form-field style="width: 100%" fxFlex>
               <mat-select id="CTT4Id" formControlName="CTT4Id" placeholder="CTT 4">
+                <mat-option [value]="null">--</mat-option>
                 <mat-option *ngFor="let s of ctt" [value]="s.staffId">
                   {{ s.title + ' ' + s.firstName + ' ' + s.lastName }}
                 </mat-option>

@@ -20,6 +20,7 @@ import { CustomValidators } from '../../../../app/shared/classes/custom-validato
 import { Observable, Subscription } from 'rxjs';
 import { User } from '../../../../app/core/auth/user.model';
 import * as Data from '../../../shared/data/position.data';
+import * as Auth from '../../../core/auth/auth.data';
 
 @Component({
   selector: 'app-staff-profile',
@@ -164,7 +165,7 @@ export class StaffProfileComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   getAvailableRoles(): string[] {
-    const roles = ['Director', 'Administrator', 'Editor', 'Staff'];
+    const roles = Auth.role;
     const userIndex = roles.indexOf(this.user.staff.role);
 
     if (!this.selectedStaff || !this.selectedStaff.role) {
@@ -172,10 +173,10 @@ export class StaffProfileComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     const staffIndex = roles.indexOf(this.selectedStaff.role);
-    if (userIndex >= staffIndex) {
-      return [this.selectedStaff.role];
+    if (userIndex < staffIndex) {
+      return roles.slice(userIndex + 1);
     } else {
-      return roles.slice(staffIndex);
+      return [this.selectedStaff.role];
     }
   }
 }

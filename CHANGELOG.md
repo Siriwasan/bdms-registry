@@ -1,3 +1,9 @@
+# 0.7.1 (2019-08-XX)
+
+### Features
+
+- **UI:** dropdown can deselect choosen option
+
 # 0.7.0 (2019-08-17)
 
 ### Features

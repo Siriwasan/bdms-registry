@@ -16,6 +16,7 @@ import { RegistryFormService } from './registry-form.service';
         [placeholder]="placeholder"
         (selectionChange)="selectionChange($event)"
       >
+        <mat-option [value]="null">--</mat-option>
         <mat-option *ngFor="let choice of choices" [value]="choice">{{ choice }}</mat-option>
       </mat-select>
       <mat-hint>
