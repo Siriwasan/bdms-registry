@@ -7,6 +7,8 @@ import { AuthComponent } from './core/auth/auth.component';
 import { PageNotFoundComponent } from './feature/page-not-found/page-not-found.component';
 import { HomeComponent } from './feature/home/home.component';
 import { MyPatientsComponent } from './feature/my-patients/my-patients.component';
+import * as Auth from './core/auth/auth.data';
+import { PageNotAutherizedComponent } from './feature/page-not-autherized/page-not-autherized.component';
 
 const routes: Routes = [
   {
@@ -14,7 +16,7 @@ const routes: Routes = [
     loadChildren: () => import('./feature/registry/registry.module').then(m => m.RegistryModule),
     canActivate: [AuthGuard],
     data: {
-      roles: ['Director', 'Administrator', 'Editor']
+      roles: Auth.menu.registry
     }
   },
   {
@@ -22,7 +24,7 @@ const routes: Routes = [
     component: MyPatientsComponent,
     canActivate: [AuthGuard],
     data: {
-      roles: ['Director', 'Staff']
+      roles: Auth.menu.myPatients
     }
   },
   {
@@ -30,7 +32,7 @@ const routes: Routes = [
     loadChildren: () => import('./feature/staff/staff.module').then(m => m.StaffModule),
     canActivate: [AuthGuard],
     data: {
-      roles: ['Director', 'Administrator']
+      roles: Auth.menu.staff
     }
   },
   {
@@ -38,12 +40,13 @@ const routes: Routes = [
     loadChildren: () => import('./feature/tools/tools.module').then(m => m.ToolsModule),
     canActivate: [AuthGuard],
     data: {
-      roles: ['Director']
+      roles: Auth.menu.tools
     }
   },
   { path: 'home', component: HomeComponent },
   { path: 'about', component: AboutComponent },
   { path: 'auth', component: AuthComponent },
+  { path: 'page-not-autherized', component: PageNotAutherizedComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 ];

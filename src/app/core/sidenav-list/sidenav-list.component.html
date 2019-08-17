@@ -7,7 +7,7 @@
     mat-list-item
     routerLink="/registry"
     (click)="onClose()"
-    *ngIf="['Director', 'Administrator', 'Editor'].indexOf((user$ | async)?.staff.role) >= 0"
+    *ngIf="authMenu.registry.indexOf((user$ | async)?.staff.role) >= 0"
   >
     <mat-icon>list</mat-icon>
     <span class="nav-caption">Registry</span>
@@ -16,7 +16,7 @@
     mat-list-item
     routerLink="/my-patients"
     (click)="onClose()"
-    *ngIf="['Director', 'Staff'].indexOf((user$ | async)?.staff.role) >= 0"
+    *ngIf="authMenu.myPatients.indexOf((user$ | async)?.staff.role) >= 0"
   >
     <mat-icon>assignment</mat-icon>
     <span class="nav-caption">My Patients</span>
@@ -25,7 +25,7 @@
     mat-list-item
     routerLink="/staff"
     (click)="onClose()"
-    *ngIf="['Director', 'Administrator'].indexOf((user$ | async)?.staff.role) >= 0"
+    *ngIf="authMenu.staff.indexOf((user$ | async)?.staff.role) >= 0"
   >
     <mat-icon>people</mat-icon>
     <span class="nav-caption">Staff</span>
@@ -38,7 +38,7 @@
     mat-list-item
     routerLink="/tools"
     (click)="onClose()"
-    *ngIf="['Director'].indexOf((user$ | async)?.staff.role) >= 0"
+    *ngIf="authMenu.tools.indexOf((user$ | async)?.staff.role) >= 0"
   >
     <mat-icon>build</mat-icon>
     <span class="nav-caption">Tools</span>

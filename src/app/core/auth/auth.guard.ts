@@ -14,11 +14,12 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     router: RouterStateSnapshot
   ): boolean | UrlTree | Promise<boolean | UrlTree> | Observable<boolean | UrlTree> {
+    console.log(router);
     return this.store.select(fromRoot.getUser).pipe(
       map(user => {
         if (user) {
           if (route.data.roles && route.data.roles.indexOf(user.staff.role) < 0) {
-            return this.router.createUrlTree(['/404']); // Authenticated but role is not permit
+            return this.router.createUrlTree(['/page-not-autherized']); // Authenticated but role is not permit
           }
           return true; // Authenticated
         }

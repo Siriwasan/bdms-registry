@@ -75,4 +75,3 @@ firebase deploy
 | My Patient | Y            | Director, Staff                 |
 | Staff      | Y            | Director, Administrator         |
 | About      | N            | -                               |
-

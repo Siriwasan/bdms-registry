@@ -5,6 +5,8 @@ import { Store } from '@ngrx/store';
 import * as fromRoot from '../../app.reducer';
 import { User } from '../auth/user.model';
 
+import * as Auth from '../auth/auth.data';
+
 @Component({
   selector: 'app-sidenav-list',
   templateUrl: './sidenav-list.component.html',
@@ -15,6 +17,7 @@ export class SidenavListComponent implements OnInit {
   @Output() closeSidenav = new EventEmitter<void>();
 
   user$: Observable<User>;
+  authMenu = Auth.menu;
 
   constructor(private store: Store<fromRoot.State>) {}
 
