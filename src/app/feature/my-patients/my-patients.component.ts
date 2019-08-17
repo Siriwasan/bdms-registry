@@ -13,6 +13,7 @@ import { MyPatientsService } from './my-patients.service';
 import { Registry } from '../registry/registry.model';
 import { Observable, Subscription } from 'rxjs';
 import { User } from '../../../app/core/auth/user.model';
+import { FileService } from '../../../app/shared/services/file.service';
 
 @Component({
   selector: 'app-my-patients',
@@ -34,7 +35,8 @@ export class MyPatientsComponent implements OnInit {
   constructor(
     private myPatientsService: MyPatientsService,
     private router: Router,
-    private store: Store<fromRoot.State>
+    private store: Store<fromRoot.State>,
+    private fileService: FileService
   ) {}
 
   async ngOnInit() {
@@ -87,5 +89,11 @@ export class MyPatientsComponent implements OnInit {
       return null;
     }
     return CryptoJS.AES.decrypt(source, environment.appKey).toString(CryptoJS.enc.Utf8);
+  }
+
+  async export() {
+    const data = await this.myPatientsService.loadMyACSx290sForExport(this.user.staff.staffId);
+    this.fileService.saveJSONtoCSV(data, 'my-registry.csv');
+    console.log('export acsx ' + data.length + ' records');
   }
 }

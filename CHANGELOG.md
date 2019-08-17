@@ -1,8 +1,9 @@
-# 0.7.0 (2019-08-xx)
+# 0.7.0 (2019-08-17)
 
 ### Features
 
 - **Authentication:** enable user login and role
+- **My Patients:** filter result for staff attended case
 - **Tools:** add export/import functions for backup database
 - **UI:** improve round progress bar visual effect
 

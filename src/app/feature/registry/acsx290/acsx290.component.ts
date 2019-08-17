@@ -609,7 +609,8 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
 
   async submitAndExit() {
     await this.submit();
-    this.router.navigate(['registry']);
+    // this.router.navigate(['registry']);
+    this.location.back();
   }
 
   clear() {
