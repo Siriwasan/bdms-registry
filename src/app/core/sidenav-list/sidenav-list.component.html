@@ -3,9 +3,23 @@
     <mat-icon>home</mat-icon>
     <span class="nav-caption">Home</span>
   </a>
-  <a mat-list-item routerLink="/registry" (click)="onClose()" *ngIf="user$ | async">
+  <a
+    mat-list-item
+    routerLink="/registry"
+    (click)="onClose()"
+    *ngIf="['Director', 'Administrator', 'Editor'].indexOf((user$ | async)?.staff.role) >= 0"
+  >
     <mat-icon>list</mat-icon>
     <span class="nav-caption">Registry</span>
+  </a>
+  <a
+    mat-list-item
+    routerLink="/my-patients"
+    (click)="onClose()"
+    *ngIf="['Director', 'Staff'].indexOf((user$ | async)?.staff.role) >= 0"
+  >
+    <mat-icon>assignment</mat-icon>
+    <span class="nav-caption">My Patients</span>
   </a>
   <a
     mat-list-item

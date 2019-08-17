@@ -6,20 +6,24 @@ import { AuthGuard } from './core/auth/auth.guard';
 import { AuthComponent } from './core/auth/auth.component';
 import { PageNotFoundComponent } from './feature/page-not-found/page-not-found.component';
 import { HomeComponent } from './feature/home/home.component';
+import { MyPatientsComponent } from './feature/my-patients/my-patients.component';
 
 const routes: Routes = [
   {
-    path: 'tools',
-    loadChildren: () => import('./feature/tools/tools.module').then(m => m.ToolsModule),
+    path: 'registry',
+    loadChildren: () => import('./feature/registry/registry.module').then(m => m.RegistryModule),
     canActivate: [AuthGuard],
     data: {
-      roles: ['Director']
+      roles: ['Director', 'Administrator', 'Editor']
     }
   },
   {
-    path: 'registry',
-    loadChildren: () => import('./feature/registry/registry.module').then(m => m.RegistryModule),
-    canActivate: [AuthGuard]
+    path: 'my-patients',
+    component: MyPatientsComponent,
+    canActivate: [AuthGuard],
+    data: {
+      roles: ['Director', 'Staff']
+    }
   },
   {
     path: 'staff',
@@ -27,6 +31,14 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: {
       roles: ['Director', 'Administrator']
+    }
+  },
+  {
+    path: 'tools',
+    loadChildren: () => import('./feature/tools/tools.module').then(m => m.ToolsModule),
+    canActivate: [AuthGuard],
+    data: {
+      roles: ['Director']
     }
   },
   { path: 'home', component: HomeComponent },
