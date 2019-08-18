@@ -20,8 +20,10 @@ import * as acsx290Data from './acsx290.data';
 import { ACSx290Form, ACSx290FormCompletion } from './acsx290.model';
 import { Staff } from '../../staff/staff.model';
 import { SectionMember, FormDetail } from '../registry.model';
+
 import * as Auth from '../../../core/auth/auth.data';
 import { User } from '../../../../app/core/auth/user.model';
+import { AuthService } from 'src/app/core/auth/auth.service';
 
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../../../app.reducer';
@@ -151,7 +153,8 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
     private route: ActivatedRoute,
     private router: Router,
     private acsx290Service: ACSx290Service,
-    private location: Location
+    private location: Location,
+    private authService: AuthService
   ) {
     super(dialogService, changeDetector, scrollSpy, hostElement, registryFormService);
   }
@@ -195,7 +198,10 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
 
     await this.loadById();
 
-    this.avHospitals = this.getAvailableHospitals();
+    this.avHospitals = this.authService
+      .getAvailableHospitals(this.user.staff.primaryHospId, this.user.staff.permission)
+      .map(hosp => hosp.id);
+
     this.completion = this.getFormCompletion();
     this.calculateCompletion();
   }
@@ -261,29 +267,6 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
 
     this.registryFormService.initializeForm(this.sectionMembers, conditions, validations);
     this.registryFormService.setDataDict(require('raw-loader!./acsx290.dict.md'));
-  }
-
-  private getAvailableHospitals(): string[] {
-    const userHosp = this.user.staff.primaryHospId;
-    const userHospGroup = Auth.hospitals.find(h => h[1] === userHosp)[0];
-    const userPermission = this.user.staff.permission;
-
-    let hospitals: string[][];
-
-    switch (userPermission) {
-      case 'BDMS':
-        hospitals = Auth.hospitals;
-        break;
-      case 'Group':
-        hospitals = Auth.hospitals.filter(h => h[0] === userHospGroup);
-        break;
-      case 'Hospital':
-        hospitals = Auth.hospitals.filter(h => h[1] === userHosp);
-        break;
-    }
-
-    const avHospitals = hospitals.map(hosp => hosp[1]);
-    return avHospitals;
   }
 
   private async loadStaffs() {
@@ -487,14 +470,15 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
         baseDb: 'STS Adult Cardiac Surgery version 2.9',
         addendum: 'BDMS ACSx modefication version 0.1',
         createdAt: timestamp,
-        createdBy: '00001',
+        createdBy: this.user.staff.staffId,
         modifiedAt: timestamp,
-        modifiedBy: '00001',
+        modifiedBy: this.user.staff.staffId,
         deletedAt: null,
         deletedBy: null
       };
     } else {
       this.formDetail.modifiedAt = timestamp;
+      this.formDetail.modifiedBy = this.user.staff.staffId;
     }
 
     const acsx290Model: ACSx290Form = {

@@ -3,8 +3,8 @@ import { Observable } from 'rxjs';
 
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../../app.reducer';
-import { User } from '../auth/user.model';
 
+import { User } from '../auth/user.model';
 import * as Auth from '../auth/auth.data';
 
 @Component({

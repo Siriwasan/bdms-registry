@@ -1,17 +1,22 @@
 export const postions = [
   ['CS', 'Cardiothoracic Surgeon'],
   ['AN', 'Anesthesiologist'],
-  ['RN', 'Registered Nurse'],
-  ['CT', 'Cardiothoracic Technician'],
   ['SN', 'Scrub Nurse'],
+  ['CT', 'Cardiothoracic Technician'],
   ['HC', 'Heart Coordinator'],
   ['RS', 'Researcher'],
-  ['RG', 'Register']
+  ['DS', 'Data scientist']
 ];
 
-export const hospitals = [
-  ['Group1', 'BHT', 'Bangkok Heart Hospital'],
-  ['Group4', 'BCM', 'Bangkok Chiang Mai Hospital']
+export interface Hospital {
+  group: string;
+  id: string;
+  name: string;
+}
+
+export const hospitals: Hospital[] = [
+  { group: 'Group1', id: 'BHT', name: 'Bangkok Heart Hospital' },
+  { group: 'Group4', id: 'BCM', name: 'Bangkok Chiang Mai Hospital' }
 ];
 
 export const roles = ['Director', 'Administrator', 'Editor', 'Staff'];

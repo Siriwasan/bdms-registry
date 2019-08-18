@@ -58,7 +58,7 @@ export class MyPatientsComponent implements OnInit, OnDestroy {
       });
     });
 
-    console.log('loadRegistry');
+    console.log('load my patients');
 
     this.dataSource = new MatTableDataSource(decryptData);
     this.dataSource.paginator = this.paginator;

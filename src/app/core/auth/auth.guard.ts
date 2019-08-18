@@ -5,6 +5,7 @@ import { flatMap } from 'rxjs/operators';
 
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../../app.reducer';
+
 import { AuthService } from './auth.service';
 
 @Injectable({ providedIn: 'root' })

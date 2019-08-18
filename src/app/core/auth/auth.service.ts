@@ -11,6 +11,7 @@ import { User } from './user.model';
 import { Staff } from '../../../app/feature/staff/staff.model';
 import { Subscription, combineLatest, Observable } from 'rxjs';
 import { ACSx290Form } from 'src/app/feature/registry/acsx290/acsx290.model';
+import * as AuthData from './auth.data';
 
 const DB_COLLECTION = 'ACSx290';
 const DB_STAFF = 'Staff';
@@ -125,5 +126,24 @@ export class AuthService implements OnDestroy {
           )
       );
     });
+  }
+
+  public getAvailableHospitals(userHosp: string, userPermission: string): AuthData.Hospital[] {
+    const userHospGroup = AuthData.hospitals.find(hosp => hosp.id === userHosp).group;
+
+    let hospitals: AuthData.Hospital[];
+
+    switch (userPermission) {
+      case 'BDMS':
+        hospitals = AuthData.hospitals;
+        break;
+      case 'Group':
+        hospitals = AuthData.hospitals.filter(hosp => hosp.group === userHospGroup);
+        break;
+      case 'Hospital':
+        hospitals = AuthData.hospitals.filter(hosp => hosp.id === userHosp);
+        break;
+    }
+    return hospitals;
   }
 }

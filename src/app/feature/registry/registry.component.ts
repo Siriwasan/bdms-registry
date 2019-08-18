@@ -13,13 +13,16 @@ import { Registry } from './registry.model';
 import { RegistryService } from './registry.service';
 import { FileService } from '../../shared/services/file.service';
 import { Observable, Subscription } from 'rxjs';
+
 import { User } from '../../../app/core/auth/user.model';
 import * as Auth from '../../core/auth/auth.data';
+import { AuthService } from 'src/app/core/auth/auth.service';
 
 @Component({
   selector: 'app-registry',
   templateUrl: './registry.component.html',
-  styleUrls: ['./registry.component.scss']
+  styleUrls: ['./registry.component.scss'],
+  providers: [AuthService]
 })
 export class RegistryComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = ['registryId', 'hn', 'an', 'firstName', 'lastName', 'baseDb', 'completion'];
@@ -31,13 +34,14 @@ export class RegistryComponent implements OnInit, OnDestroy {
   user$: Observable<User>;
   user: User;
   private userSubscription: Subscription;
-  avHospitals: string[][];
+  avHospitals: Auth.Hospital[];
 
   constructor(
     private registryService: RegistryService,
     private router: Router,
     private store: Store<fromRoot.State>,
-    private fileService: FileService
+    private fileService: FileService,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -49,7 +53,10 @@ export class RegistryComponent implements OnInit, OnDestroy {
     setTimeout(async () => {
       this.store.dispatch(new UI.StartLoading());
 
-      this.avHospitals = this.getAvailableHospitals();
+      this.avHospitals = this.authService.getAvailableHospitals(
+        this.user.staff.primaryHospId,
+        this.user.staff.permission
+      );
 
       const data = await this.registryService.loadRegistries(this.avHospitals);
       const decryptData: Registry[] = [];
@@ -109,29 +116,8 @@ export class RegistryComponent implements OnInit, OnDestroy {
   }
 
   async export() {
-    const data = await this.registryService.loadACSx290sForExport();
+    const data = await this.registryService.loadACSx290sForExport(this.avHospitals);
     this.fileService.saveJSONtoCSV(data, 'acsx.csv');
     console.log('export acsx ' + data.length + ' records');
-  }
-
-  private getAvailableHospitals(): string[][] {
-    const userHosp = this.user.staff.primaryHospId;
-    const userHospGroup = Auth.hospitals.find(h => h[1] === userHosp)[0];
-    const userPermission = this.user.staff.permission;
-
-    let hospitals: string[][];
-
-    switch (userPermission) {
-      case 'BDMS':
-        hospitals = Auth.hospitals;
-        break;
-      case 'Group':
-        hospitals = Auth.hospitals.filter(h => h[0] === userHospGroup);
-        break;
-      case 'Hospital':
-        hospitals = Auth.hospitals.filter(h => h[1] === userHosp);
-        break;
-    }
-    return hospitals;
   }
 }

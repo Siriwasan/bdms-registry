@@ -11,21 +11,24 @@ import {
   AfterViewInit
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormGroupDirective } from '@angular/forms';
+import { Observable, Subscription } from 'rxjs';
+import * as firebase from 'firebase/app';
 
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../../../app.reducer';
-import * as UI from '../../../shared/ui.actions';
 
 import { Staff } from '../staff.model';
 import { CustomValidators } from '../../../../app/shared/classes/custom-validators';
-import { Observable, Subscription } from 'rxjs';
+
 import { User } from '../../../../app/core/auth/user.model';
 import * as Auth from '../../../core/auth/auth.data';
+import { AuthService } from '../../../../app/core/auth/auth.service';
 
 @Component({
   selector: 'app-staff-profile',
   templateUrl: './staff-profile.component.html',
-  styleUrls: ['./staff-profile.component.scss']
+  styleUrls: ['./staff-profile.component.scss'],
+  providers: [AuthService]
 })
 export class StaffProfileComponent implements OnInit, OnChanges, OnDestroy, AfterViewInit {
   @Input() staff: Staff;
@@ -37,7 +40,7 @@ export class StaffProfileComponent implements OnInit, OnChanges, OnDestroy, Afte
   private userSubscription: Subscription;
 
   avPositions: string[];
-  avHospitals: any[];
+  avHospitals: Auth.Hospital[];
   avRoles: string[];
   avPermissions: string[];
 
@@ -46,7 +49,16 @@ export class StaffProfileComponent implements OnInit, OnChanges, OnDestroy, Afte
 
   private selectedStaff: Staff;
 
-  constructor(private formBuilder: FormBuilder, private store: Store<fromRoot.State>) {}
+  /// Firebase Server Timestamp
+  get timestamp() {
+    return firebase.firestore.FieldValue.serverTimestamp();
+  }
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private store: Store<fromRoot.State>,
+    private authService: AuthService
+  ) {}
 
   ngOnInit() {
     this.user$ = this.store.select(fromRoot.getUser);
@@ -112,10 +124,99 @@ export class StaffProfileComponent implements OnInit, OnChanges, OnDestroy, Afte
         permission: staff.permission,
         status: staff.status
       });
+
+      const userRoleIndex = Auth.roles.indexOf(this.user.staff.role);
+      const staffRoleIndex = Auth.roles.indexOf(staff.role);
+      if (staffRoleIndex >= 0 && staffRoleIndex <= userRoleIndex) {
+        this.disableForm();
+      } else {
+        this.enableForm();
+      }
     }
 
     this.selectedStaff = staff;
     this.resetDropdowns();
+  }
+
+  private enableForm() {
+    this.staffForm.get('staffId').enable();
+    this.staffForm.get('userName').enable();
+    this.staffForm.get('password').enable();
+    this.staffForm.get('confirmedPassword').enable();
+    this.staffForm.get('title').enable();
+    this.staffForm.get('firstName').enable();
+    this.staffForm.get('lastName').enable();
+    this.staffForm.get('phone').enable();
+    this.staffForm.get('email').enable();
+    this.staffForm.get('position').enable();
+    this.staffForm.get('primaryHospId').enable();
+    this.staffForm.get('role').enable();
+    this.staffForm.get('permission').enable();
+    this.staffForm.get('status').enable();
+  }
+
+  private disableForm() {
+    this.staffForm.get('staffId').disable();
+    this.staffForm.get('userName').disable();
+    this.staffForm.get('password').disable();
+    this.staffForm.get('confirmedPassword').disable();
+    this.staffForm.get('title').disable();
+    this.staffForm.get('firstName').disable();
+    this.staffForm.get('lastName').disable();
+    this.staffForm.get('phone').disable();
+    this.staffForm.get('email').disable();
+    this.staffForm.get('position').disable();
+    this.staffForm.get('primaryHospId').disable();
+    this.staffForm.get('role').disable();
+    this.staffForm.get('permission').disable();
+    this.staffForm.get('status').disable();
+  }
+
+  private resetDropdowns() {
+    this.avPositions = this.getAvailablePositions();
+    this.avHospitals = this.getAvailableHospitals();
+    this.avRoles = this.getAvailableRoles();
+    this.avPermissions = this.getAvailablePermissions();
+  }
+
+  private getAvailablePositions(): string[] {
+    return Auth.postions.map(position => position[1]);
+  }
+
+  private getAvailableHospitals(): Auth.Hospital[] {
+    return this.authService
+      .getAvailableHospitals(this.user.staff.primaryHospId, this.user.staff.permission)
+      .map(hosp => {
+        return { group: hosp.group, id: hosp.id, name: `${hosp.name} (${hosp.id})` };
+      });
+  }
+
+  private getAvailableRoles(): string[] {
+    const userRoleIndex = Auth.roles.indexOf(this.user.staff.role);
+    if (!this.selectedStaff || !this.selectedStaff.role) {
+      return Auth.roles.slice(userRoleIndex + 1);
+    }
+
+    const staffRoleIndex = Auth.roles.indexOf(this.selectedStaff.role);
+    if (staffRoleIndex <= userRoleIndex) {
+      return Auth.roles;
+    } else {
+      return Auth.roles.slice(userRoleIndex + 1);
+    }
+  }
+
+  private getAvailablePermissions(): string[] {
+    const userPermIndex = Auth.permissions.indexOf(this.user.staff.permission);
+    if (!this.selectedStaff || !this.selectedStaff.role) {
+      return Auth.permissions.slice(userPermIndex);
+    }
+
+    const staffPermIndex = Auth.permissions.indexOf(this.selectedStaff.permission);
+    if (staffPermIndex <= userPermIndex) {
+      return Auth.permissions;
+    } else {
+      return Auth.permissions.slice(userPermIndex);
+    }
   }
 
   isStaffFormValid(): boolean {
@@ -146,10 +247,10 @@ export class StaffProfileComponent implements OnInit, OnChanges, OnDestroy, Afte
       role: this.staffForm.value.role,
       permission: this.staffForm.value.permission,
       status: this.staffForm.value.status,
-      createdAt: this.selectedStaff ? this.selectedStaff.createdAt : null,
-      createdBy: this.selectedStaff ? this.selectedStaff.createdBy : null,
-      modifiedAt: this.selectedStaff ? this.selectedStaff.modifiedAt : null,
-      modifiedBy: this.selectedStaff ? this.selectedStaff.modifiedBy : null
+      createdAt: this.selectedStaff ? this.selectedStaff.createdAt : this.timestamp,
+      createdBy: this.selectedStaff ? this.selectedStaff.createdBy : this.user.staff.staffId,
+      modifiedAt: this.timestamp,
+      modifiedBy: this.user.staff.staffId
     };
 
     this.staffFormDirective.resetForm();
@@ -168,73 +269,5 @@ export class StaffProfileComponent implements OnInit, OnChanges, OnDestroy, Afte
     this.staffFormDirective.resetForm();
     this.staffForm.get('staffId').setValue('(new)');
     this.resetDropdowns();
-  }
-
-  private resetDropdowns() {
-    this.avPositions = this.getAvailablePositions();
-    this.avHospitals = this.getAvailableHospitals();
-    this.avRoles = this.getAvailableRoles();
-    this.avPermissions = this.getAvailablePermissions();
-  }
-
-  private getAvailableHospitals(): any[] {
-    const userHosp = this.user.staff.primaryHospId;
-    const userHospGroup = Auth.hospitals.find(h => h[1] === userHosp)[0];
-    const userPermission = this.user.staff.permission;
-
-    let hospitals: string[][];
-
-    switch (userPermission) {
-      case 'BDMS':
-        hospitals = Auth.hospitals;
-        break;
-      case 'Group':
-        hospitals = Auth.hospitals.filter(h => h[0] === userHospGroup);
-        break;
-      case 'Hospital':
-        hospitals = Auth.hospitals.filter(h => h[1] === userHosp);
-        break;
-    }
-
-    const avHospitals = hospitals.map(hosp => {
-      return { hospGroup: hosp[0], hospId: hosp[1], hospName: `${hosp[2]} (${hosp[1]})` };
-    });
-    return avHospitals;
-  }
-
-  private getAvailablePositions(): string[] {
-    return Auth.postions.map(data => data[1]);
-  }
-
-  private getAvailableRoles(): string[] {
-    const roles = Auth.roles;
-    const userIndex = roles.indexOf(this.user.staff.role);
-
-    if (!this.selectedStaff || !this.selectedStaff.role) {
-      return roles.slice(userIndex + 1);
-    }
-
-    const staffIndex = roles.indexOf(this.selectedStaff.role);
-    if (userIndex < staffIndex) {
-      return roles.slice(userIndex + 1);
-    } else {
-      return [this.selectedStaff.role];
-    }
-  }
-
-  private getAvailablePermissions(): string[] {
-    const permissions = Auth.permissions;
-    const userIndex = permissions.indexOf(this.user.staff.permission);
-
-    if (!this.selectedStaff || !this.selectedStaff.permission) {
-      return permissions.slice(userIndex);
-    }
-
-    const staffIndex = permissions.indexOf(this.selectedStaff.permission);
-    if (userIndex < staffIndex) {
-      return permissions.slice(userIndex);
-    } else {
-      return [this.selectedStaff.permission];
-    }
   }
 }

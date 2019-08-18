@@ -2,10 +2,11 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import * as firebase from 'firebase/app';
 import * as CryptoJS from 'crypto-js';
-
-import { Staff } from './staff.model';
 import { Subscription, Observable, combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
+
+import { Staff } from './staff.model';
+import * as Auth from '../../core/auth/auth.data';
 
 const DB_COLLECTION = 'Staff';
 
@@ -24,11 +25,11 @@ export class StaffService implements OnDestroy {
     return firebase.firestore.FieldValue.serverTimestamp();
   }
 
-  public getStaffs(avHospitals: string[][]): Observable<Staff[]> {
+  public getStaffs(avHospitals: Auth.Hospital[]): Observable<Staff[]> {
     const staffList: Observable<Staff[]>[] = [];
-    avHospitals.forEach(a => {
+    avHospitals.forEach(hosp => {
       staffList.push(
-        this.db.collection<Staff>(DB_COLLECTION, ref => ref.where('primaryHospId', '==', a[1])).valueChanges()
+        this.db.collection<Staff>(DB_COLLECTION, ref => ref.where('primaryHospId', '==', hosp.id)).valueChanges()
       );
     });
 
@@ -39,8 +40,6 @@ export class StaffService implements OnDestroy {
     console.log('create staff');
     const id = await this.generateStaffId();
     staff.staffId = id;
-    staff.createdAt = this.timestamp;
-    staff.createdBy = '00001';
 
     if (staff.password) {
       staff.password = this.passwordHashing(staff.password);
@@ -54,8 +53,6 @@ export class StaffService implements OnDestroy {
 
   public async updateStaff(staff: Staff) {
     console.log('update staff');
-    staff.modifiedAt = this.timestamp;
-    staff.modifiedBy = '00001';
 
     if (staff.password) {
       staff.password = this.passwordHashing(staff.password);

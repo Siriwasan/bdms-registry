@@ -47,6 +47,7 @@ firebase deploy
 | hospId | name                   |
 |--------|------------------------|
 | BHT    | Bangkok Heart Hospital |
+| BCM    | Bangkok Bangkok Chiang Mai Hospital |
 
 ## Role
 

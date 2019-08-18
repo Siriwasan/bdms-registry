@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
+import * as firebase from 'firebase/app';
 
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../../app.reducer';
@@ -28,6 +29,11 @@ export class AuthComponent implements OnInit, OnDestroy {
   profileFG: FormGroup;
   errorMessage: string;
 
+  /// Firebase Server Timestamp
+  get timestamp() {
+    return firebase.firestore.FieldValue.serverTimestamp();
+  }
+
   constructor(
     private authService: AuthService,
     private staffService: StaffService,
@@ -53,6 +59,12 @@ export class AuthComponent implements OnInit, OnDestroy {
             position: null,
             primaryHospId: null,
             registries: null,
+            role: null,
+            permission: null,
+            createdAt: null,
+            createdBy: null,
+            modifiedAt: null,
+            modifiedBy: null,
             userName: null,
             password: null,
             status: null
@@ -124,6 +136,8 @@ export class AuthComponent implements OnInit, OnDestroy {
     if (this.profileFG.value.password) {
       staff.password = this.profileFG.value.password;
     }
+    staff.modifiedAt = this.timestamp;
+    staff.modifiedBy = this.user.staff.staffId;
     this.staffService.updateStaff(staff);
   }
 

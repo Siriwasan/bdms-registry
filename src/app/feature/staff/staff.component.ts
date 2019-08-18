@@ -11,11 +11,13 @@ import * as UI from '../../shared/ui.actions';
 
 import { User } from '../../../app/core/auth/user.model';
 import * as Auth from '../../core/auth/auth.data';
+import { AuthService } from 'src/app/core/auth/auth.service';
 
 @Component({
   selector: 'app-staff',
   templateUrl: './staff.component.html',
-  styleUrls: ['./staff.component.scss']
+  styleUrls: ['./staff.component.scss'],
+  providers: [AuthService]
 })
 export class StaffComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = ['staffId', 'title', 'firstName', 'lastName', 'position', 'primaryHospId', 'status'];
@@ -30,9 +32,14 @@ export class StaffComponent implements OnInit, OnDestroy {
   user$: Observable<User>;
   user: User;
   private userSubscription: Subscription;
-  avHospitals: string[][];
+  avHospitals: Auth.Hospital[];
 
-  constructor(private router: Router, private staffService: StaffService, private store: Store<fromRoot.State>) {}
+  constructor(
+    private router: Router,
+    private staffService: StaffService,
+    private store: Store<fromRoot.State>,
+    private authService: AuthService
+  ) {}
 
   ngOnInit() {
     this.user$ = this.store.select(fromRoot.getUser);
@@ -44,7 +51,10 @@ export class StaffComponent implements OnInit, OnDestroy {
 
     this.store.dispatch(new UI.StartLoading());
 
-    this.avHospitals = this.getAvailableHospitals();
+    this.avHospitals = this.authService.getAvailableHospitals(
+      this.user.staff.primaryHospId,
+      this.user.staff.permission
+    );
 
     this.staffListSubscription = this.staffService.getStaffs(this.avHospitals).subscribe(data => {
       this.dataSource = new MatTableDataSource(data);
@@ -83,26 +93,5 @@ export class StaffComponent implements OnInit, OnDestroy {
       this.staffService.updateStaff(staff);
       this.selectedStaff = null;
     }
-  }
-
-  private getAvailableHospitals(): string[][] {
-    const userHosp = this.user.staff.primaryHospId;
-    const userHospGroup = Auth.hospitals.find(h => h[1] === userHosp)[0];
-    const userPermission = this.user.staff.permission;
-
-    let hospitals: string[][];
-
-    switch (userPermission) {
-      case 'BDMS':
-        hospitals = Auth.hospitals;
-        break;
-      case 'Group':
-        hospitals = Auth.hospitals.filter(h => h[0] === userHospGroup);
-        break;
-      case 'Hospital':
-        hospitals = Auth.hospitals.filter(h => h[1] === userHosp);
-        break;
-    }
-    return hospitals;
   }
 }

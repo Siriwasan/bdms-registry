@@ -39,7 +39,7 @@
       <mat-form-field class="item" fxFlex>
         <mat-select formControlName="primaryHospId" placeholder="Primary Hospital" required>
           <mat-option [value]="null">--</mat-option>
-          <mat-option *ngFor="let choice of avHospitals" [value]="choice.hospId">{{ choice.hospName }}</mat-option>
+          <mat-option *ngFor="let choice of avHospitals" [value]="choice.id">{{ choice.name }}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>

@@ -11,11 +11,11 @@ export interface Staff {
   primaryHospId: string;
   secondHospIds?: string[];
   registries: string[];
-  role?: string;
-  permission?: string;
+  role: string;
+  permission: string;
   status: string;
-  createdAt?: any;
-  createdBy?: string;
-  modifiedAt?: any;
-  modifiedBy?: string;
+  createdAt: any;
+  createdBy: string;
+  modifiedAt: any;
+  modifiedBy: string;
 }
