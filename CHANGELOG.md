@@ -1,8 +1,14 @@
-# 0.7.1 (2019-08-XX)
+# 0.7.1 (2019-08-19)
 
 ### Features
 
+- **Registry:** enable for multi-site
+- **Authentication:** filter by role and permission
+
+### Bug Fixes
+
 - **UI:** dropdown can deselect choosen option
+- **Database:** add hospital id to Registry model
 
 # 0.7.0 (2019-08-17)
 

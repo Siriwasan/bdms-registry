@@ -229,7 +229,7 @@
           <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="HospName" placeholder="Hospital Name" [formGroup]="formGroupC"
-              [choices]="['BHT']" fxFlex="20"></reg-select>
+              [choices]="avHospitals" fxFlex="20"></reg-select>
 
             <reg-select controlName="PayorPrim" placeholder="Primary Payor" [formGroup]="formGroupC" [choices]="[
                 'Self',
@@ -1902,6 +1902,10 @@
           <reg-input controlName="Procedure4" placeholder="Procedure 4" require="false" [formGroup]="formGroupI" type="text">
           </reg-input>
 
+          <a id="beforeSelectStaff" style="font-size: small; font-style: italic; color: red" (click)="scrollTo('HospName')">
+            **You need to assign Hospital in section C before select staffs**
+          </a>
+
           <mat-form-field style="width: 100%">
             <mat-select id="SurgeonId" formControlName="SurgeonId" placeholder="Surgeon" required>
               <mat-option [value]="null">--</mat-option>
@@ -2004,7 +2008,7 @@
             <mat-form-field style="width: 100%" fxFlex>
               <mat-select id="Scrub1Id" formControlName="Scrub1Id" placeholder="Scrub 1" required>
                 <mat-option [value]="null">--</mat-option>
-                <mat-option *ngFor="let s of rn" [value]="s.staffId">
+                <mat-option *ngFor="let s of sn" [value]="s.staffId">
                   {{ s.title + ' ' + s.firstName + ' ' + s.lastName }}
                 </mat-option>
               </mat-select>
@@ -2013,7 +2017,7 @@
             <mat-form-field style="width: 100%" fxFlex>
               <mat-select id="Scrub2Id" formControlName="Scrub2Id" placeholder="Scrub 2">
                 <mat-option [value]="null">--</mat-option>
-                <mat-option *ngFor="let s of rn" [value]="s.staffId">
+                <mat-option *ngFor="let s of sn" [value]="s.staffId">
                   {{ s.title + ' ' + s.firstName + ' ' + s.lastName }}
                 </mat-option>
               </mat-select>
@@ -2026,7 +2030,7 @@
             <mat-form-field style="width: 100%" fxFlex>
               <mat-select id="Scrub3Id" formControlName="Scrub3Id" placeholder="Scrub 3">
                 <mat-option [value]="null">--</mat-option>
-                <mat-option *ngFor="let s of rn" [value]="s.staffId">
+                <mat-option *ngFor="let s of sn" [value]="s.staffId">
                   {{ s.title + ' ' + s.firstName + ' ' + s.lastName }}
                 </mat-option>
               </mat-select>
@@ -2035,7 +2039,7 @@
             <mat-form-field style="width: 100%" fxFlex>
               <mat-select id="Scrub4Id" formControlName="Scrub4Id" placeholder="Scrub 4">
                 <mat-option [value]="null">--</mat-option>
-                <mat-option *ngFor="let s of rn" [value]="s.staffId">
+                <mat-option *ngFor="let s of sn" [value]="s.staffId">
                   {{ s.title + ' ' + s.firstName + ' ' + s.lastName }}
                 </mat-option>
               </mat-select>

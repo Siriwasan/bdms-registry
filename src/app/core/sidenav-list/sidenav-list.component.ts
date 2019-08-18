@@ -17,7 +17,7 @@ export class SidenavListComponent implements OnInit {
   @Output() closeSidenav = new EventEmitter<void>();
 
   user$: Observable<User>;
-  authMenu = Auth.menu;
+  authMenu = Auth.menus;
 
   constructor(private store: Store<fromRoot.State>) {}
 

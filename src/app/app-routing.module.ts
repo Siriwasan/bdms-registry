@@ -16,7 +16,7 @@ const routes: Routes = [
     loadChildren: () => import('./feature/registry/registry.module').then(m => m.RegistryModule),
     canActivate: [AuthGuard],
     data: {
-      roles: Auth.menu.registry
+      roles: Auth.menus.registry
     }
   },
   {
@@ -24,7 +24,7 @@ const routes: Routes = [
     component: MyPatientsComponent,
     canActivate: [AuthGuard],
     data: {
-      roles: Auth.menu.myPatients
+      roles: Auth.menus.myPatients
     }
   },
   {
@@ -32,7 +32,7 @@ const routes: Routes = [
     loadChildren: () => import('./feature/staff/staff.module').then(m => m.StaffModule),
     canActivate: [AuthGuard],
     data: {
-      roles: Auth.menu.staff
+      roles: Auth.menus.staff
     }
   },
   {
@@ -40,7 +40,7 @@ const routes: Routes = [
     loadChildren: () => import('./feature/tools/tools.module').then(m => m.ToolsModule),
     canActivate: [AuthGuard],
     data: {
-      roles: Auth.menu.tools
+      roles: Auth.menus.tools
     }
   },
   { path: 'home', component: HomeComponent },

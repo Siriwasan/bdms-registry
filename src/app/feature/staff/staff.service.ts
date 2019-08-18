@@ -4,7 +4,8 @@ import * as firebase from 'firebase/app';
 import * as CryptoJS from 'crypto-js';
 
 import { Staff } from './staff.model';
-import { Subscription, Observable } from 'rxjs';
+import { Subscription, Observable, combineLatest } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 const DB_COLLECTION = 'Staff';
 
@@ -23,8 +24,15 @@ export class StaffService implements OnDestroy {
     return firebase.firestore.FieldValue.serverTimestamp();
   }
 
-  public getStaffs(): Observable<Staff[]> {
-    return this.db.collection<Staff>(DB_COLLECTION).valueChanges();
+  public getStaffs(avHospitals: string[][]): Observable<Staff[]> {
+    const staffList: Observable<Staff[]>[] = [];
+    avHospitals.forEach(a => {
+      staffList.push(
+        this.db.collection<Staff>(DB_COLLECTION, ref => ref.where('primaryHospId', '==', a[1])).valueChanges()
+      );
+    });
+
+    return combineLatest(staffList).pipe(map(arr => arr.reduce((acc, cur) => acc.concat(cur))));
   }
 
   public async createStaff(staff: Staff) {

@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable, combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { Registry } from './registry.model';
@@ -19,14 +19,18 @@ export class RegistryService implements OnDestroy {
   }
 
   //#region Cloud firestore
-  loadRegistries(): Promise<Registry[]> {
-    // return this.db.collection<Registry>(DB_REGISTRY).valueChanges();
-
+  loadRegistries(avHospitals: string[][]): Promise<Registry[]> {
     return new Promise((resolve, reject) => {
+      const registryList: Observable<Registry[]>[] = [];
+      avHospitals.forEach(a => {
+        registryList.push(
+          this.db.collection<Registry>(DB_REGISTRY, ref => ref.where('hospitalId', '==', a[1])).valueChanges()
+        );
+      });
+
       this.subscriptions.push(
-        this.db
-          .collection<Registry>(DB_REGISTRY)
-          .valueChanges()
+        combineLatest(registryList)
+          .pipe(map(arr => arr.reduce((acc, cur) => acc.concat(cur))))
           .subscribe(
             data => {
               resolve(data);

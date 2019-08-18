@@ -7,7 +7,8 @@ import {
   OnChanges,
   SimpleChanges,
   ViewChild,
-  OnDestroy
+  OnDestroy,
+  AfterViewInit
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormGroupDirective } from '@angular/forms';
 
@@ -19,7 +20,6 @@ import { Staff } from '../staff.model';
 import { CustomValidators } from '../../../../app/shared/classes/custom-validators';
 import { Observable, Subscription } from 'rxjs';
 import { User } from '../../../../app/core/auth/user.model';
-import * as Data from '../../../shared/data/position.data';
 import * as Auth from '../../../core/auth/auth.data';
 
 @Component({
@@ -27,7 +27,7 @@ import * as Auth from '../../../core/auth/auth.data';
   templateUrl: './staff-profile.component.html',
   styleUrls: ['./staff-profile.component.scss']
 })
-export class StaffProfileComponent implements OnInit, OnChanges, OnDestroy {
+export class StaffProfileComponent implements OnInit, OnChanges, OnDestroy, AfterViewInit {
   @Input() staff: Staff;
   @Output() submitStaff: EventEmitter<Staff> = new EventEmitter();
   @Output() deleteStaff: EventEmitter<void> = new EventEmitter();
@@ -35,6 +35,11 @@ export class StaffProfileComponent implements OnInit, OnChanges, OnDestroy {
   user$: Observable<User>;
   user: User;
   private userSubscription: Subscription;
+
+  avPositions: string[];
+  avHospitals: any[];
+  avRoles: string[];
+  avPermissions: string[];
 
   staffForm: FormGroup;
   @ViewChild('staffFormDirective', { static: true }) staffFormDirective: FormGroupDirective;
@@ -72,6 +77,10 @@ export class StaffProfileComponent implements OnInit, OnChanges, OnDestroy {
     );
   }
 
+  ngAfterViewInit() {
+    this.resetDropdowns();
+  }
+
   ngOnDestroy() {
     this.userSubscription.unsubscribe();
   }
@@ -106,6 +115,7 @@ export class StaffProfileComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     this.selectedStaff = staff;
+    this.resetDropdowns();
   }
 
   isStaffFormValid(): boolean {
@@ -157,15 +167,47 @@ export class StaffProfileComponent implements OnInit, OnChanges, OnDestroy {
     this.selectedStaff = null;
     this.staffFormDirective.resetForm();
     this.staffForm.get('staffId').setValue('(new)');
-    console.log('clear');
+    this.resetDropdowns();
   }
 
-  getAvailablePositions(): string[] {
-    return Data.postions.map(data => data[1]);
+  private resetDropdowns() {
+    this.avPositions = this.getAvailablePositions();
+    this.avHospitals = this.getAvailableHospitals();
+    this.avRoles = this.getAvailableRoles();
+    this.avPermissions = this.getAvailablePermissions();
   }
 
-  getAvailableRoles(): string[] {
-    const roles = Auth.role;
+  private getAvailableHospitals(): any[] {
+    const userHosp = this.user.staff.primaryHospId;
+    const userHospGroup = Auth.hospitals.find(h => h[1] === userHosp)[0];
+    const userPermission = this.user.staff.permission;
+
+    let hospitals: string[][];
+
+    switch (userPermission) {
+      case 'BDMS':
+        hospitals = Auth.hospitals;
+        break;
+      case 'Group':
+        hospitals = Auth.hospitals.filter(h => h[0] === userHospGroup);
+        break;
+      case 'Hospital':
+        hospitals = Auth.hospitals.filter(h => h[1] === userHosp);
+        break;
+    }
+
+    const avHospitals = hospitals.map(hosp => {
+      return { hospGroup: hosp[0], hospId: hosp[1], hospName: `${hosp[2]} (${hosp[1]})` };
+    });
+    return avHospitals;
+  }
+
+  private getAvailablePositions(): string[] {
+    return Auth.postions.map(data => data[1]);
+  }
+
+  private getAvailableRoles(): string[] {
+    const roles = Auth.roles;
     const userIndex = roles.indexOf(this.user.staff.role);
 
     if (!this.selectedStaff || !this.selectedStaff.role) {
@@ -177,6 +219,22 @@ export class StaffProfileComponent implements OnInit, OnChanges, OnDestroy {
       return roles.slice(userIndex + 1);
     } else {
       return [this.selectedStaff.role];
+    }
+  }
+
+  private getAvailablePermissions(): string[] {
+    const permissions = Auth.permissions;
+    const userIndex = permissions.indexOf(this.user.staff.permission);
+
+    if (!this.selectedStaff || !this.selectedStaff.permission) {
+      return permissions.slice(userIndex);
+    }
+
+    const staffIndex = permissions.indexOf(this.selectedStaff.permission);
+    if (userIndex < staffIndex) {
+      return permissions.slice(userIndex);
+    } else {
+      return [this.selectedStaff.permission];
     }
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 import { Router } from '@angular/router';
 
@@ -21,7 +21,7 @@ import { FileService } from '../../../app/shared/services/file.service';
   styleUrls: ['./my-patients.component.scss'],
   providers: [MyPatientsService]
 })
-export class MyPatientsComponent implements OnInit {
+export class MyPatientsComponent implements OnInit, OnDestroy {
   user$: Observable<User>;
   user: User;
   private userSubscription: Subscription;
@@ -65,6 +65,10 @@ export class MyPatientsComponent implements OnInit {
     this.dataSource.sort = this.sort;
 
     this.store.dispatch(new UI.StopLoading());
+  }
+
+  ngOnDestroy() {
+    this.userSubscription.unsubscribe();
   }
 
   applyFilter(filterValue: string) {

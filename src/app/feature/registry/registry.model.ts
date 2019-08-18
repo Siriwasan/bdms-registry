@@ -47,6 +47,7 @@ export interface FormDetail {
 
 export interface Registry {
   registryId: string;
+  hospitalId: string;
   hn: string;
   an: string;
   firstName: string;

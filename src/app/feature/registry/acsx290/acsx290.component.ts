@@ -20,6 +20,8 @@ import * as acsx290Data from './acsx290.data';
 import { ACSx290Form, ACSx290FormCompletion } from './acsx290.model';
 import { Staff } from '../../staff/staff.model';
 import { SectionMember, FormDetail } from '../registry.model';
+import * as Auth from '../../../core/auth/auth.data';
+import { User } from '../../../../app/core/auth/user.model';
 
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../../../app.reducer';
@@ -32,6 +34,12 @@ import * as UI from '../../../shared/ui.actions';
   providers: [ACSx290Service]
 })
 export class ACSx290Component extends RegistryFormComponent implements OnInit, AfterViewInit, OnDestroy {
+  user$: Observable<User>;
+  user: User;
+  private userSubscription: Subscription;
+  avHospitals: string[];
+
+  // round bar progress
   public open = false;
   public spin = true;
   public direction = 'up'; // up, down, left, right
@@ -119,7 +127,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
 
   cvt: Staff[];
   anesth: Staff[];
-  rn: Staff[];
+  sn: Staff[];
   ctt: Staff[];
 
   toc = tableOfContent;
@@ -153,8 +161,12 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
 
     this.store.dispatch(new UI.ChangeTitle('STS 2.9'));
     this.store.dispatch(new UI.StopLoading());
+    this.user$ = this.store.select(fromRoot.getUser);
+    this.userSubscription = this.user$.subscribe(user => {
+      this.user = user;
+    });
+
     this.createForm();
-    this.loadStaffs();
   }
 
   async ngAfterViewInit() {
@@ -163,6 +175,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
     this.registryFormService.subscribeFormConditions();
 
     this.subscriptions.push(
+      this.subscribeHospNameChanged(),
       this.subscribeDOBChanged(),
       this.subscribeHeightCMChanged(),
       this.subscribeWeightKgChanged(),
@@ -182,6 +195,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
 
     await this.loadById();
 
+    this.avHospitals = this.getAvailableHospitals();
     this.completion = this.getFormCompletion();
     this.calculateCompletion();
   }
@@ -191,6 +205,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
 
     this.subscriptions.forEach(subs => subs.unsubscribe());
     // console.log('[ACSx290Component]: destroy');
+    this.userSubscription.unsubscribe();
   }
 
   private createForm() {
@@ -248,20 +263,75 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
     this.registryFormService.setDataDict(require('raw-loader!./acsx290.dict.md'));
   }
 
+  private getAvailableHospitals(): string[] {
+    const userHosp = this.user.staff.primaryHospId;
+    const userHospGroup = Auth.hospitals.find(h => h[1] === userHosp)[0];
+    const userPermission = this.user.staff.permission;
+
+    let hospitals: string[][];
+
+    switch (userPermission) {
+      case 'BDMS':
+        hospitals = Auth.hospitals;
+        break;
+      case 'Group':
+        hospitals = Auth.hospitals.filter(h => h[0] === userHospGroup);
+        break;
+      case 'Hospital':
+        hospitals = Auth.hospitals.filter(h => h[1] === userHosp);
+        break;
+    }
+
+    const avHospitals = hospitals.map(hosp => hosp[1]);
+    return avHospitals;
+  }
+
   private async loadStaffs() {
-    // this.subscriptions.push(
-    //   this.acsx290Service.getStaffs().subscribe(staffs => {
-    //     this.cvt = staffs.filter(e => e.position === 'Cardiothoracic Surgeon');
-    //     this.anesth = staffs.filter(e => e.position === 'Anesthesiologist');
-    //     this.rn = staffs.filter(e => e.position === 'Registered Nurse');
-    //     this.ctt = staffs.filter(e => e.position === 'Cardiothoracic Technician');
-    //   })
-    // );
+    this.formGroupI.get('SurgeonId').setValue(null);
+    this.formGroupI.get('Assist1Id').setValue(null);
+    this.formGroupI.get('Assist2Id').setValue(null);
+    this.formGroupI.get('Assist3Id').setValue(null);
+    this.formGroupI.get('Assist4Id').setValue(null);
+    this.formGroupI.get('Assist5Id').setValue(null);
+    this.formGroupI.get('Assist6Id').setValue(null);
+    this.formGroupI.get('Anesth1Id').setValue(null);
+    this.formGroupI.get('Anesth2Id').setValue(null);
+    this.formGroupI.get('Scrub1Id').setValue(null);
+    this.formGroupI.get('Scrub2Id').setValue(null);
+    this.formGroupI.get('Scrub3Id').setValue(null);
+    this.formGroupI.get('Scrub4Id').setValue(null);
+    this.formGroupI.get('CTT1Id').setValue(null);
+    this.formGroupI.get('CTT2Id').setValue(null);
+    this.formGroupI.get('CTT3Id').setValue(null);
+    this.formGroupI.get('CTT4Id').setValue(null);
+
+    const hospId = this.formGroupC.get('HospName').value;
+    if (!hospId) {
+      this.cvt = null;
+      this.anesth = null;
+      this.sn = null;
+      this.ctt = null;
+      return;
+    }
+
     const staffs = await this.acsx290Service.getStaffs();
-    this.cvt = staffs.filter(e => e.position === 'Cardiothoracic Surgeon');
-    this.anesth = staffs.filter(e => e.position === 'Anesthesiologist');
-    this.rn = staffs.filter(e => e.position === 'Registered Nurse');
-    this.ctt = staffs.filter(e => e.position === 'Cardiothoracic Technician');
+    this.cvt = staffs.filter(e => e.position === 'Cardiothoracic Surgeon' && e.primaryHospId === hospId);
+    this.anesth = staffs.filter(e => e.position === 'Anesthesiologist' && e.primaryHospId === hospId);
+    this.sn = staffs.filter(e => e.position === 'Registered Nurse' && e.primaryHospId === hospId);
+    this.ctt = staffs.filter(e => e.position === 'Cardiothoracic Technician' && e.primaryHospId === hospId);
+  }
+
+  private subscribeHospNameChanged(): Subscription {
+    return this.formGroupC.get('HospName').valueChanges.subscribe(value => {
+      this.loadStaffs();
+
+      const el = document.getElementById('beforeSelectStaff');
+      if (value) {
+        el.style.display = 'none';
+      } else {
+        el.style.display = '';
+      }
+    });
   }
 
   private subscribeDOBChanged(): Subscription {

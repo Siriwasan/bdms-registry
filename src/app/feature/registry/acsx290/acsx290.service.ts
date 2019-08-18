@@ -116,6 +116,7 @@ export class ACSx290Service implements OnDestroy {
     // tslint:disable: no-string-literal
     return {
       registryId: regisId,
+      hospitalId: data.sectionC['HospName'],
       hn: data.sectionA['HN'],
       an: data.sectionA['AN'],
       firstName: data.sectionB['PatFName'],
@@ -210,7 +211,8 @@ export class ACSx290Service implements OnDestroy {
             }
           )
       );
-    });  }
+    });
+  }
 
   public checkNeededDataCompletion(data: ACSx290Form): string {
     let alert = '';

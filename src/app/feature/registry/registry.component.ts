@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 
@@ -12,18 +12,26 @@ import * as UI from '../../shared/ui.actions';
 import { Registry } from './registry.model';
 import { RegistryService } from './registry.service';
 import { FileService } from '../../shared/services/file.service';
+import { Observable, Subscription } from 'rxjs';
+import { User } from '../../../app/core/auth/user.model';
+import * as Auth from '../../core/auth/auth.data';
 
 @Component({
   selector: 'app-registry',
   templateUrl: './registry.component.html',
   styleUrls: ['./registry.component.scss']
 })
-export class RegistryComponent implements OnInit {
+export class RegistryComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = ['registryId', 'hn', 'an', 'firstName', 'lastName', 'baseDb', 'completion'];
   dataSource: MatTableDataSource<Registry>;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
+
+  user$: Observable<User>;
+  user: User;
+  private userSubscription: Subscription;
+  avHospitals: string[][];
 
   constructor(
     private registryService: RegistryService,
@@ -33,10 +41,17 @@ export class RegistryComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.user$ = this.store.select(fromRoot.getUser);
+    this.userSubscription = this.user$.subscribe(user => {
+      this.user = user;
+    });
+
     setTimeout(async () => {
       this.store.dispatch(new UI.StartLoading());
 
-      const data = await this.registryService.loadRegistries();
+      this.avHospitals = this.getAvailableHospitals();
+
+      const data = await this.registryService.loadRegistries(this.avHospitals);
       const decryptData: Registry[] = [];
       data.forEach(d => {
         decryptData.push({
@@ -56,6 +71,10 @@ export class RegistryComponent implements OnInit {
 
       this.store.dispatch(new UI.StopLoading());
     });
+  }
+
+  ngOnDestroy() {
+    this.userSubscription.unsubscribe();
   }
 
   applyFilter(filterValue: string) {
@@ -93,5 +112,26 @@ export class RegistryComponent implements OnInit {
     const data = await this.registryService.loadACSx290sForExport();
     this.fileService.saveJSONtoCSV(data, 'acsx.csv');
     console.log('export acsx ' + data.length + ' records');
+  }
+
+  private getAvailableHospitals(): string[][] {
+    const userHosp = this.user.staff.primaryHospId;
+    const userHospGroup = Auth.hospitals.find(h => h[1] === userHosp)[0];
+    const userPermission = this.user.staff.permission;
+
+    let hospitals: string[][];
+
+    switch (userPermission) {
+      case 'BDMS':
+        hospitals = Auth.hospitals;
+        break;
+      case 'Group':
+        hospitals = Auth.hospitals.filter(h => h[0] === userHospGroup);
+        break;
+      case 'Hospital':
+        hospitals = Auth.hospitals.filter(h => h[1] === userHosp);
+        break;
+    }
+    return hospitals;
   }
 }

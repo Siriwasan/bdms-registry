@@ -102,6 +102,7 @@ export class ToolsService implements OnDestroy {
 
     await registries
       .map(registry => {
+        // registry.hospitalId = 'BHT';
         registry.modifiedAt = firebase.firestore.Timestamp.fromDate(new Date(registry.modifiedAt));
         return registry;
       })
