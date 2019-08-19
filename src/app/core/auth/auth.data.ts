@@ -5,7 +5,8 @@ export const postions = [
   ['CT', 'Cardiothoracic Technician'],
   ['HC', 'Heart Coordinator'],
   ['RS', 'Researcher'],
-  ['DS', 'Data scientist']
+  ['DS', 'Data scientist'],
+  ['OT', 'Other']
 ];
 
 export interface Hospital {

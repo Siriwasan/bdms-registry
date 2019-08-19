@@ -23,7 +23,7 @@ export class StaffComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = ['staffId', 'title', 'firstName', 'lastName', 'position', 'primaryHospId', 'status'];
   dataSource: MatTableDataSource<any>;
 
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  // @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   selectedStaff: Staff;
@@ -58,7 +58,7 @@ export class StaffComponent implements OnInit, OnDestroy {
 
     this.staffListSubscription = this.staffService.getStaffs(this.avHospitals).subscribe(data => {
       this.dataSource = new MatTableDataSource(data);
-      this.dataSource.paginator = this.paginator;
+      // this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
 
       this.store.dispatch(new UI.StopLoading());
