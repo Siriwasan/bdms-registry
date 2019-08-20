@@ -300,7 +300,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
     const staffs = await this.acsx290Service.getStaffs();
     this.cvt = staffs.filter(e => e.position === 'Cardiothoracic Surgeon' && e.primaryHospId === hospId);
     this.anesth = staffs.filter(e => e.position === 'Anesthesiologist' && e.primaryHospId === hospId);
-    this.sn = staffs.filter(e => e.position === 'Registered Nurse' && e.primaryHospId === hospId);
+    this.sn = staffs.filter(e => e.position === 'Scrub Nurse' && e.primaryHospId === hospId);
     this.ctt = staffs.filter(e => e.position === 'Cardiothoracic Technician' && e.primaryHospId === hospId);
   }
 
