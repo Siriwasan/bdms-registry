@@ -1,3 +1,5 @@
+*ngIf="visibles['XXX']"
+
 <!-- REG-INPUT -->
           <reg-input controlName="XXX" placeholder="YYY" [formGroup]="formGroupI" type="number">
           </reg-input>
@@ -40,4 +42,11 @@
             <fieldset style="border:1px solid #a1a1a1; border-radius:10px; padding: 20px 30px 20px 30px;">
               <legend style="color:#757575;">{{ cathresult[0] }}</legend>
 
-
+<!-- SECTION BODY -->
+      <div *ngIf="visibles['sectionJBody']; else sectionJ_other_content" id="sectionJBody" class="section-body">
+      </div>
+      <ng-template #sectionJ_other_content>
+        <div class="section-body">
+          You need to select CABG in section I.
+        </div>
+      </ng-template>

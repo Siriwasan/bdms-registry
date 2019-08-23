@@ -26,6 +26,8 @@ export class RegistryFormService implements OnDestroy {
   private conditions: FormConditions;
   private validations: FormValidations;
 
+  private visibles: { [id: string]: boolean } = {};
+
   constructor(private dialogService: DialogService) {}
 
   ngOnDestroy() {
@@ -33,10 +35,16 @@ export class RegistryFormService implements OnDestroy {
   }
 
   //#region Registry
-  public initializeForm(sectionMembers: SectionMember[], conditions: FormConditions, validations: FormValidations) {
+  public initializeForm(
+    sectionMembers: SectionMember[],
+    conditions: FormConditions,
+    validations: FormValidations,
+    visibles: { [id: string]: boolean }
+  ) {
     this.sectionMembers = sectionMembers;
     this.conditions = conditions;
     this.validations = validations;
+    this.visibles = visibles;
 
     // move to child form ngAfterViewInit
     // this.subscribeFormConditions();
@@ -50,6 +58,10 @@ export class RegistryFormService implements OnDestroy {
 
     // ! initial remove validator in hiding child control
     this.getFormGroups().forEach(formGroup => formGroup.setValue(formGroup.value));
+
+    // this.visibles['DiabCtrl'] = false;
+    // console.log(this.visibles);
+    // console.log(this.visibles['DiabCtrl']);
   }
 
   private subscribeValueChanges(formGroup: FormGroup, conditions: ControlCondition[]) {
@@ -66,6 +78,8 @@ export class RegistryFormService implements OnDestroy {
 
       this.subscriptions.push(
         parentControl.valueChanges.subscribe(value => {
+          // this.visibles[condition.control] = true;
+
           const cCon = condition.control.split(':');
 
           if (cCon.length > 1) {
@@ -108,12 +122,14 @@ export class RegistryFormService implements OnDestroy {
 
   private expandElement(element: string) {
     const el = document.getElementById(element);
-    el.style.display = '';
+    // el.style.display = '';
+    this.visibles[element] = true;
   }
 
   private collapseElement(element: string) {
     const el = document.getElementById(element);
-    el.style.display = 'none';
+    // el.style.display = 'none';
+    this.visibles[element] = false;
   }
 
   private displayControl(controlId: string, control: AbstractControl, condition: boolean) {
@@ -129,17 +145,20 @@ export class RegistryFormService implements OnDestroy {
     const el = document.getElementById(controlId);
 
     // tslint:disable-next-line: no-string-literal
-    control.setValidators(control['vals']);
-    control.updateValueAndValidity();
-    el.style.display = '';
+    // control.setValidators(control['vals']);
+    // control.updateValueAndValidity();
+    // el.style.display = '';
+
+    this.visibles[controlId] = true;
   }
 
   private collapseControl(controlId: string, control: AbstractControl) {
     const el = document.getElementById(controlId);
 
-    control.setValidators(null);
+    // control.setValidators(null);
     control.reset();
-    el.style.display = 'none';
+    // el.style.display = 'none';
+    this.visibles[controlId] = false;
   }
 
   private getSectonMember(section: string): SectionMember {
@@ -285,10 +304,15 @@ export class RegistryFormService implements OnDestroy {
       // if (this.isShowControl(key)) {
       //   total++;
       // }
-      const element = document.getElementById(key);
-      if (element && element.style.display === '') {
+
+      if (this.visibles[key] !== false) {
         total++;
       }
+
+      // const element = document.getElementById(key);
+      // if (element && element.style.display === '') {
+      //   total++;
+      // }
     });
 
     return `${total - error}/${total}`;
@@ -304,16 +328,19 @@ export class RegistryFormService implements OnDestroy {
     // ! need for further correction
     Object.keys(formGroup.controls).forEach(key => {
       const validationErrors: ValidationErrors = formGroup.get(key).errors;
-      if (validationErrors !== null) {
+      if (validationErrors !== null && this.visibles[key] !== false) {
         error++;
       }
 
-      const element = document.getElementById(key);
-      if (element && element.style.display === '') {
+      if (this.visibles[key] !== false) {
         totl++;
       }
-    });
 
+      // const element = document.getElementById(key);
+      // if (element && element.style.display === '') {
+      //   totl++;
+      // }
+    });
     return { valid: totl - error, total: totl };
   }
 

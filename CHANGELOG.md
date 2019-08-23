@@ -1,3 +1,13 @@
+# 0.8.0 (2019-08-23)
+
+### Bug Fixes
+
+- **Registry form:** fixed form completion calcuation bug
+
+### Performance Improvements
+
+- **Registry form:** decrease form loading time 50%
+
 # 0.7.1 (2019-08-19)
 
 ### Features

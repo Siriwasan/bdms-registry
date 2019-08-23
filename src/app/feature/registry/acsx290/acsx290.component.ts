@@ -133,6 +133,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
   ctt: Staff[];
 
   toc = tableOfContent;
+  public visibles: { [id: string]: boolean } = {};
 
   //#endregion
 
@@ -178,6 +179,15 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
     this.registryFormService.subscribeFormConditions();
 
     this.subscriptions.push(
+      // this.subscribeOpCABChanged(),
+      // this.subscribeOpValveChanged(),
+      // this.subscribeOpOCardChanged(),
+      // this.subscribeAFibProcChanged(),
+      // this.subscribeAortProcChanged(),
+      // this.subscribeOCarCongChanged(),
+      // this.subscribeOpONCardChanged(),
+      // this.subscribeDischMortStatChanged(),
+
       this.subscribeHospNameChanged(),
       this.subscribeDOBChanged(),
       this.subscribeHeightCMChanged(),
@@ -204,6 +214,17 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
 
     this.completion = this.getFormCompletion();
     this.calculateCompletion();
+
+    this.subscriptions.push(
+      this.subscribeOpCABChanged(),
+      this.subscribeOpValveChanged(),
+      this.subscribeOpOCardChanged(),
+      this.subscribeAFibProcChanged(),
+      this.subscribeAortProcChanged(),
+      this.subscribeOCarCongChanged(),
+      this.subscribeOpONCardChanged(),
+      this.subscribeDischMortStatChanged()
+    );
   }
 
   ngOnDestroy() {
@@ -265,7 +286,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
       ['S', this.formGroupS, this.formDirectiveS, conditions.sectionS]
     ];
 
-    this.registryFormService.initializeForm(this.sectionMembers, conditions, validations);
+    this.registryFormService.initializeForm(this.sectionMembers, conditions, validations, this.visibles);
     this.registryFormService.setDataDict(require('raw-loader!./acsx290.dict.md'));
   }
 
@@ -302,6 +323,70 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
     this.anesth = staffs.filter(e => e.position === 'Anesthesiologist' && e.primaryHospId === hospId);
     this.sn = staffs.filter(e => e.position === 'Scrub Nurse' && e.primaryHospId === hospId);
     this.ctt = staffs.filter(e => e.position === 'Cardiothoracic Technician' && e.primaryHospId === hospId);
+  }
+
+  private subscribeOpCABChanged(): Subscription {
+    return this.formGroupI.get('OpCAB').valueChanges.subscribe(value => {
+      const sectionCompletion = this.registryFormService.getSectionCompletion('J');
+      // tslint:disable-next-line: no-string-literal
+      this.completion['sectionJ'] = sectionCompletion;
+    });
+  }
+
+  private subscribeOpValveChanged(): Subscription {
+    return this.formGroupI.get('OpValve').valueChanges.subscribe(value => {
+      const sectionCompletion = this.registryFormService.getSectionCompletion('K');
+      // tslint:disable-next-line: no-string-literal
+      this.completion['sectionK'] = sectionCompletion;
+    });
+  }
+
+  private subscribeOpOCardChanged(): Subscription {
+    return this.formGroupI.get('OpOCard').valueChanges.subscribe(value => {
+      const sectionCompletion = this.registryFormService.getSectionCompletion('M');
+      // tslint:disable-next-line: no-string-literal
+      this.completion['sectionM'] = sectionCompletion;
+    });
+  }
+
+  private subscribeAFibProcChanged(): Subscription {
+    return this.formGroupI.get('AFibProc').valueChanges.subscribe(value => {
+      const sectionCompletion = this.registryFormService.getSectionCompletion('M1');
+      // tslint:disable-next-line: no-string-literal
+      this.completion['sectionM1'] = sectionCompletion;
+    });
+  }
+
+  private subscribeAortProcChanged(): Subscription {
+    return this.formGroupI.get('AortProc').valueChanges.subscribe(value => {
+      const sectionCompletion = this.registryFormService.getSectionCompletion('M2');
+      // tslint:disable-next-line: no-string-literal
+      this.completion['sectionM2'] = sectionCompletion;
+    });
+  }
+
+  private subscribeOCarCongChanged(): Subscription {
+    return this.formGroupM.get('OCarCong').valueChanges.subscribe(value => {
+      const sectionCompletion = this.registryFormService.getSectionCompletion('M3');
+      // tslint:disable-next-line: no-string-literal
+      this.completion['sectionM3'] = sectionCompletion;
+    });
+  }
+
+  private subscribeOpONCardChanged(): Subscription {
+    return this.formGroupI.get('OpONCard').valueChanges.subscribe(value => {
+      const sectionCompletion = this.registryFormService.getSectionCompletion('N');
+      // tslint:disable-next-line: no-string-literal
+      this.completion['sectionN'] = sectionCompletion;
+    });
+  }
+
+  private subscribeDischMortStatChanged(): Subscription {
+    return this.formGroupQ.get('DischMortStat').valueChanges.subscribe(value => {
+      const sectionCompletion = this.registryFormService.getSectionCompletion('R');
+      // tslint:disable-next-line: no-string-literal
+      this.completion['sectionR'] = sectionCompletion;
+    });
   }
 
   private subscribeHospNameChanged(): Subscription {

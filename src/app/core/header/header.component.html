@@ -8,14 +8,15 @@
     <!-- <a>{{ title$ | async }}</a> -->
     BDMS Registry
   </div>
-  <div fxFlex fxLayout fxLayoutAlign="flex-end" fxShow fxHide.lt-md>
+  <!-- <div fxFlex fxLayout fxLayoutAlign="flex-end" fxShow fxHide.lt-md> -->
+  <div fxFlex fxLayout fxLayoutAlign="flex-end" fxShow>
     <ul fxLayout fxLayoutGap="10px" class="navigation-items">
       <li>
         <a routerLink="/auth">{{ !(user$ | async) ? 'Login' : (user$ | async).staff.firstName }}</a>
       </li>
     </ul>
   </div>
-  <div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide fxShow.lt-md>
+  <!-- <div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide fxShow.lt-md>
     <button mat-icon-button [matMenuTriggerFor]="menu">
       <mat-icon>more_vert</mat-icon>
     </button>
@@ -33,5 +34,5 @@
         <span>Disable alerts</span>
       </button>
     </mat-menu>
-  </div>
+  </div> -->
 </mat-toolbar>

@@ -375,6 +375,7 @@ export const conditions: FormConditions = {
     { control: 'PPEF', parentControl: 'PPEFMeas', conditions: ['Yes'] }
   ],
   sectionJ: [
+    { control: 'J:sectionJBody', parentControl: 'I:OpCAB', conditions: ['!', 'No'] },
     { control: 'IMAUsed', parentControl: 'I:OpCAB', conditions: ['!', 'No'] },
     { control: 'NoIMARsn', parentControl: 'IMAUsed', conditions: ['No'] },
     { control: 'NumIMADA', parentControl: 'IMAUsed', conditions: ['Yes'] },
@@ -496,6 +497,7 @@ export const conditions: FormConditions = {
     { control: 'CABVeinPatAng10', parentControl: 'CAB10', conditions: ['Yes'] }
   ],
   sectionK: [
+    { control: 'K:sectionKBody', parentControl: 'I:OpValve', conditions: ['Yes'] },
     { control: 'ValExp', parentControl: 'I:OpValve', conditions: ['Yes'] },
     { control: 'ValExpPos', parentControl: 'ValExp', conditions: ['Yes'] },
     { control: 'ValExpTyp', parentControl: 'ValExp', conditions: ['Yes'] },
@@ -734,6 +736,7 @@ export const conditions: FormConditions = {
     { control: 'VExpDt3', parentControl: 'VExp3', conditions: ['Yes, not during this procedure'] }
   ],
   sectionM: [
+    { control: 'M:sectionMBody', parentControl: 'I:OpOCard', conditions: ['!', 'No'] },
     { control: 'OCarASDPFO', parentControl: 'I:OpOCard', conditions: ['!', 'No'] },
     { control: 'OCarASDSec', parentControl: 'I:OpOCard', conditions: ['!', 'No'] },
     { control: 'OCarAFibIntraLes', parentControl: 'I:OpOCard', conditions: ['!', 'No'] },
@@ -768,6 +771,7 @@ export const conditions: FormConditions = {
     { control: 'OCarOthr', parentControl: 'I:OpOCard', conditions: ['!', 'No'] }
   ],
   sectionM1: [
+    { control: 'M1:sectionM1Body', parentControl: 'I:AFibProc', conditions: ['Yes'] },
     { control: 'OCarAFibLesLoc', parentControl: 'I:AFibProc', conditions: ['Yes'] },
     { control: 'M1:methLesCrea', parentControl: 'I:AFibProc', conditions: ['Yes'] },
     { control: 'OCarAFibMethRad', parentControl: 'I:AFibProc', conditions: ['Yes'] },
@@ -797,6 +801,7 @@ export const conditions: FormConditions = {
     { control: 'AFitLesCSL', parentControl: 'OCarLesDoc', conditions: ['Yes'] }
   ],
   sectionM2: [
+    { control: 'M2:sectionM2Body', parentControl: 'I:AortProc', conditions: ['!', 'No'] },
     { control: 'FamHistAorta', parentControl: 'I:AortProc', conditions: ['!', 'No'] },
     { control: 'PatGenHist', parentControl: 'I:AortProc', conditions: ['!', 'No'] },
     { control: 'PriorAorta', parentControl: 'I:AortProc', conditions: ['!', 'No'] },
@@ -1524,6 +1529,7 @@ export const conditions: FormConditions = {
     }
   ],
   sectionM3: [
+    { control: 'M3:sectionM3Body', parentControl: 'M:OCarCong', conditions: ['Yes'] },
     { control: 'M3:congenDiag', parentControl: 'M:OCarCong', conditions: ['Yes'] },
     { control: 'OCarCongDiag1', parentControl: 'M:OCarCong', conditions: ['Yes'] },
     { control: 'OCarCongDiag2', parentControl: 'M:OCarCong', conditions: ['Yes'] },
@@ -1534,6 +1540,7 @@ export const conditions: FormConditions = {
     { control: 'OCarCongProc3', parentControl: 'M:OCarCong', conditions: ['Yes'] }
   ],
   sectionN: [
+    { control: 'N:sectionNBody', parentControl: 'I:OpONCard', conditions: ['Yes'] },
     { control: 'ONCCarEn', parentControl: 'I:OpONCard', conditions: ['Yes'] },
     { control: 'ONCOVasc', parentControl: 'I:OpONCard', conditions: ['Yes'] },
     { control: 'ONCOThor', parentControl: 'I:OpONCard', conditions: ['Yes'] },
@@ -1785,6 +1792,11 @@ export const conditions: FormConditions = {
   ],
   sectionR: [
     {
+      control: 'R:sectionRBody',
+      parentControl: 'Q:DischMortStat',
+      conditions: ['Discharged alive, last known status is alive', 'Discharged alive, died after discharge']
+    },
+    {
       control: 'Readmit',
       parentControl: 'Q:DischMortStat',
       conditions: ['Discharged alive, last known status is alive', 'Discharged alive, died after discharge']
@@ -1810,14 +1822,6 @@ export const conditions: FormConditions = {
     { control: 'VolAgentTimDur', parentControl: 'VolAgentUsed', conditions: ['Yes'] },
     { control: 'VolAgentTimPost', parentControl: 'VolAgentUsed', conditions: ['Yes'] },
     { control: 'VolAgentTimMaint', parentControl: 'VolAgentUsed', conditions: ['Yes'] },
-
-    { control: 'TotProt', parentControl: 'HepUse', conditions: ['Yes'] },
-    { control: 'TotProt', parentControl: 'HepUse', conditions: ['Yes'] },
-    { control: 'TotProt', parentControl: 'HepUse', conditions: ['Yes'] },
-    { control: 'TotProt', parentControl: 'HepUse', conditions: ['Yes'] },
-    { control: 'TotProt', parentControl: 'HepUse', conditions: ['Yes'] },
-    { control: 'TotProt', parentControl: 'HepUse', conditions: ['Yes'] },
-    { control: 'TotProt', parentControl: 'HepUse', conditions: ['Yes'] },
 
     { control: 'PreLVEFMeas', parentControl: 'IntraOpPreTEE', conditions: ['Yes'] },
     { control: 'PreLVEF', parentControl: 'PreLVEFMeas', conditions: ['Yes'] },
