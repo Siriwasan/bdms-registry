@@ -41,6 +41,7 @@ export class StaffProfileComponent implements OnInit, OnChanges, OnDestroy, Afte
 
   avPositions: string[];
   avHospitals: Auth.Hospital[];
+  avRegistries: string[];
   avRoles: string[];
   avPermissions: string[];
 
@@ -79,8 +80,9 @@ export class StaffProfileComponent implements OnInit, OnChanges, OnDestroy, Afte
         email: [null],
         position: [null, Validators.required],
         primaryHospId: [null, Validators.required],
-        role: [null],
-        permission: [null],
+        registries: [null, Validators.required],
+        role: [null, Validators.required],
+        permission: [null, Validators.required],
         status: [null, Validators.required]
       },
       {
@@ -120,6 +122,7 @@ export class StaffProfileComponent implements OnInit, OnChanges, OnDestroy, Afte
         email: staff.email,
         position: staff.position,
         primaryHospId: staff.primaryHospId,
+        registries: staff.registries,
         role: staff.role,
         permission: staff.permission,
         status: staff.status
@@ -150,6 +153,7 @@ export class StaffProfileComponent implements OnInit, OnChanges, OnDestroy, Afte
     this.staffForm.get('email').enable();
     this.staffForm.get('position').enable();
     this.staffForm.get('primaryHospId').enable();
+    this.staffForm.get('registries').enable();
     this.staffForm.get('role').enable();
     this.staffForm.get('permission').enable();
     this.staffForm.get('status').enable();
@@ -167,6 +171,7 @@ export class StaffProfileComponent implements OnInit, OnChanges, OnDestroy, Afte
     this.staffForm.get('email').disable();
     this.staffForm.get('position').disable();
     this.staffForm.get('primaryHospId').disable();
+    this.staffForm.get('registries').disable();
     this.staffForm.get('role').disable();
     this.staffForm.get('permission').disable();
     this.staffForm.get('status').disable();
@@ -175,6 +180,7 @@ export class StaffProfileComponent implements OnInit, OnChanges, OnDestroy, Afte
   private resetDropdowns() {
     this.avPositions = this.getAvailablePositions();
     this.avHospitals = this.getAvailableHospitals();
+    this.avRegistries = this.getAvailableRegistires();
     this.avRoles = this.getAvailableRoles();
     this.avPermissions = this.getAvailablePermissions();
   }
@@ -189,6 +195,10 @@ export class StaffProfileComponent implements OnInit, OnChanges, OnDestroy, Afte
       .map(hosp => {
         return { group: hosp.group, id: hosp.id, name: `${hosp.name} (${hosp.id})` };
       });
+  }
+
+  private getAvailableRegistires(): string[] {
+    return ['ACSx290', 'CathPCI50'];
   }
 
   private getAvailableRoles(): string[] {
@@ -243,7 +253,7 @@ export class StaffProfileComponent implements OnInit, OnChanges, OnDestroy, Afte
       position: this.staffForm.value.position,
       primaryHospId: this.staffForm.value.primaryHospId,
       secondHospIds: null,
-      registries: ['ACSx290'],
+      registries: this.staffForm.value.registries,
       role: this.staffForm.value.role,
       permission: this.staffForm.value.permission,
       status: this.staffForm.value.status,

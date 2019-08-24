@@ -102,7 +102,7 @@ export class ToolsService implements OnDestroy {
 
     await registries
       .map(registry => {
-        // registry.hospitalId = 'BHT';
+        // registry.baseDbId = 'ACSx290';
         registry.modifiedAt = firebase.firestore.Timestamp.fromDate(new Date(registry.modifiedAt));
         return registry;
       })
@@ -160,6 +160,7 @@ export class ToolsService implements OnDestroy {
         acsx.detail.modifiedAt = firebase.firestore.Timestamp.fromDate(new Date(acsx.detail.modifiedAt));
         acsx.detail.deletedAt = firebase.firestore.Timestamp.fromDate(new Date(acsx.detail.deletedAt));
 
+        // acsx.detail.baseDbId = 'ACSx290';
         // acsx.detail.createdBy = this.migrateStaffId(acsx.detail.createdBy);
         // acsx.detail.modifiedBy = this.migrateStaffId(acsx.detail.modifiedBy);
         // acsx.detail.deletedBy = this.migrateStaffId(acsx.detail.deletedBy);

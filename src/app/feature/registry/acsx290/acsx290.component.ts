@@ -494,6 +494,10 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
     const ExtubateDT = this.formGroupI.get('ExtubateDT').value as Moment;
     const VentHrsA = this.formGroupO.get('VentHrsA').value;
 
+    console.log(this.formGroupI.get('ExtubateDT').value);
+    console.log(ExtubateDT);
+    console.log(ORExitDT);
+
     if ((ORExitDT && ExtubateDT) || VentHrsA) {
       const VentHrsTot = (ExtubateDT.diff(ORExitDT, 'minutes', false) / 60 + VentHrsA).toFixed(2);
       this.formGroupO.get('VentHrsTot').setValue(VentHrsTot);
@@ -552,6 +556,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
 
     if (this.mode === 'new') {
       this.formDetail = {
+        baseDbId: 'ACSx290',
         baseDb: 'STS Adult Cardiac Surgery version 2.9',
         addendum: 'BDMS ACSx modefication version 0.1',
         createdAt: timestamp,

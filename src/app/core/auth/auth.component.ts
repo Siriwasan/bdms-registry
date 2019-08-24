@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import * as firebase from 'firebase/app';
+import { MatSnackBar } from '@angular/material';
 
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../../app.reducer';
@@ -39,7 +40,8 @@ export class AuthComponent implements OnInit, OnDestroy {
     private staffService: StaffService,
     private store: Store<fromRoot.State>,
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit() {
@@ -125,7 +127,7 @@ export class AuthComponent implements OnInit, OnDestroy {
     return this.profileFG.valid && this.profileFG.value.password === this.profileFG.value.confirmedPassword;
   }
 
-  update() {
+  public async update() {
     const staff: Staff = this.user.staff;
     if (this.profileFG.value.phone) {
       staff.phone = this.profileFG.value.phone;
@@ -138,7 +140,10 @@ export class AuthComponent implements OnInit, OnDestroy {
     }
     staff.modifiedAt = this.timestamp;
     staff.modifiedBy = this.user.staff.staffId;
-    this.staffService.updateStaff(staff);
+    await this.staffService.updateStaff(staff);
+    this.snackBar.open('Your profile has beed updated', null, { duration: 2000 });
+    this.profileFG.get('password').reset();
+    this.profileFG.get('confirmedPassword').reset();
   }
 
   logout() {

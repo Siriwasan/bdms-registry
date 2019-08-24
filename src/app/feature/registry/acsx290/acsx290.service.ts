@@ -122,6 +122,7 @@ export class ACSx290Service implements OnDestroy {
       firstName: data.sectionB['PatFName'],
       lastName: data.sectionB['PatLName'],
       age: data.sectionB['Age'],
+      baseDbId: data.detail.baseDbId,
       baseDb: data.detail.baseDb,
       addendum: data.detail.addendum,
       completion: complete,

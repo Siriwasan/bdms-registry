@@ -35,6 +35,7 @@ export interface TableOfCentent {
 }
 
 export interface FormDetail {
+  baseDbId: string;
   baseDb: string;
   addendum: string;
   createdAt: any;
@@ -53,6 +54,7 @@ export interface Registry {
   firstName: string;
   lastName: string;
   age: number;
+  baseDbId: string;
   baseDb: string;
   addendum: string;
   completion: number;
