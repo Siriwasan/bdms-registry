@@ -13,8 +13,8 @@ import { ScrollSpyComponent } from '../scroll-spy/scroll-spy.component';
 import { DialogService } from '../../services/dialog.service';
 import { ScrollSpyService } from '../scroll-spy/scroll-spy.service';
 
-import { ValidationMessage } from '../../../feature/registry/registry.model';
 import { RegistryFormService } from './registry-form.service';
+import { ValidationMessage } from './registry-form.model';
 
 export class RegistryFormComponent extends ScrollSpyComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(

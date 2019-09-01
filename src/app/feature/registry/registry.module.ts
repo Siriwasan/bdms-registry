@@ -10,9 +10,10 @@ import { LoremIpsumComponent } from './test-form/lorem-ipsum.component';
 import { TestFormComponent } from './test-form/test-form.component';
 import { RegistryService } from './registry.service';
 import { DecryptPipe } from './registry.pipe';
+import { CathPci50Component } from './cath-pci50/cath-pci50.component';
 
 @NgModule({
-  declarations: [RegistryComponent, ACSx290Component, LoremIpsumComponent, TestFormComponent, DecryptPipe],
+  declarations: [RegistryComponent, ACSx290Component, LoremIpsumComponent, TestFormComponent, DecryptPipe, CathPci50Component],
   imports: [SharedModule, RegistryRoutingModule, RoundProgressModule],
   providers: [RegistryService]
 })

@@ -1,4 +1,4 @@
-import { FormValidations } from '../registry.model';
+import { FormValidations } from '../../../shared/modules/registry-form/registry-form.model';
 
 export const validations: FormValidations = {
   sectionA: {

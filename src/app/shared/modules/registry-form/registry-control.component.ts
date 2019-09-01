@@ -1,5 +1,5 @@
-import { ValidationMessage } from '../../../feature/registry/registry.model';
 import { RegistryFormService } from './registry-form.service';
+import { ValidationMessage } from './registry-form.model';
 
 export class RegistryControlComponent {
   constructor(protected registryFormService: RegistryFormService) {}

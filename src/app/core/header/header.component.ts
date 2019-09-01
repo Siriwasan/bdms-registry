@@ -14,6 +14,9 @@ export class HeaderComponent implements OnInit {
   title$: Observable<string>;
   user$: Observable<User>;
 
+  color = 'primary';
+  title = 'BDMS Registry';
+
   @Output() sidenavToggle = new EventEmitter<void>();
 
   constructor(private store: Store<fromRoot.State>) {}
@@ -21,6 +24,12 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     this.title$ = this.store.select(fromRoot.getTitle);
     this.user$ = this.store.select(fromRoot.getUser);
+
+    const url = window.location.href;
+    if (url.indexOf('bdms-registry-dev') >= 0) {
+      this.color = 'accent';
+      this.title = 'BDMS Registry - Dev';
+    }
   }
 
   onToggleSidenav() {

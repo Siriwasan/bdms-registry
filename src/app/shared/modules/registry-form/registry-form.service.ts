@@ -80,12 +80,18 @@ export class RegistryFormService implements OnDestroy {
         parentControl.valueChanges.subscribe(value => {
           // this.visibles[condition.control] = true;
 
-          const cCon = condition.control.split(':');
+          const cCon = condition.control.split(':'); // section : id
 
           if (cCon.length > 1) {
             const element = cCon[1];
-            if (value !== null && condition.conditions[0] === '!') {
+            if (value === null) {
+              this.displayElement(element, false);
+            } else if (condition.conditions[0] === '!') {
+              // NOT condition
               this.displayElement(element, condition.conditions[1] !== value);
+            } else if (condition.conditions[0] === '@') {
+              // CONTAIN condition
+              this.displayElement(element, value.findIndex(o => o === condition.conditions[1]) >= 0);
             } else {
               this.displayElement(element, condition.conditions.findIndex(o => o === value) >= 0);
             }
@@ -94,15 +100,18 @@ export class RegistryFormService implements OnDestroy {
 
             // ? store original validator
             // tslint:disable-next-line: no-string-literal
-            if (control['vals'] === undefined) {
-              control = Object.assign(control, { vals: control.validator });
-            }
+            // if (control['vals'] === undefined) {
+            //   control = Object.assign(control, { vals: control.validator });
+            // }
 
-            const element = document.getElementById(condition.control);
-
-            // in case of NOT conditions
-            if (value !== null && condition.conditions[0] === '!') {
+            if (value === null) {
+              this.displayControl(condition.control, control, false);
+            } else if (condition.conditions[0] === '!') {
+              // NOT condition
               this.displayControl(condition.control, control, condition.conditions[1] !== value);
+            } else if (condition.conditions[0] === '@') {
+              // CONTAIN condition
+              this.displayControl(condition.control, control, value.findIndex(o => o === condition.conditions[1]) >= 0);
             } else {
               this.displayControl(condition.control, control, condition.conditions.findIndex(o => o === value) >= 0);
             }

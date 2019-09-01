@@ -8,13 +8,14 @@ import { ScrollSpyModule } from '../scroll-spy/scroll-spy.module';
 
 import { RegistryInputComponent } from './registry-input.component';
 import { RegistrySelectComponent } from './registry-select.component';
+import { RegistrySelectMultipleComponent } from './registry-select-multiple.component';
 import { RegistryDatePickerComponent } from './registry-date-picker.component';
 import { RegistryFormService } from './registry-form.service';
 
 @NgModule({
-  declarations: [RegistryInputComponent, RegistrySelectComponent, RegistryDatePickerComponent],
+  declarations: [RegistryInputComponent, RegistrySelectComponent, RegistrySelectMultipleComponent, RegistryDatePickerComponent],
   imports: [CommonModule, FormsModule, ReactiveFormsModule, MaterialModule, FlexLayoutModule, ScrollSpyModule],
-  exports: [RegistryInputComponent, RegistrySelectComponent, RegistryDatePickerComponent, ScrollSpyModule],
+  exports: [RegistryInputComponent, RegistrySelectComponent, RegistrySelectMultipleComponent, RegistryDatePickerComponent, ScrollSpyModule],
   providers: [RegistryFormService]
 })
 export class RegistryFormModule {}

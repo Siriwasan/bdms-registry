@@ -1,0 +1,87 @@
+@import '../registry.component.scss';
+
+reg-input,
+reg-select,
+reg-datepicker {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.subitem-horz {
+  margin-left: 30px;
+  flex: 1 1 0%;
+  box-sizing: border-box;
+  display: flex;
+}
+
+.subitem-horz2 {
+  margin-left: 60px;
+  flex: 1 1 0%;
+  box-sizing: border-box;
+  display: flex;
+}
+
+.subitem-horz3 {
+  margin-left: 90px;
+  flex: 1 1 0%;
+  box-sizing: border-box;
+  display: flex;
+}
+
+.subitem-horz4 {
+  margin-left: 120px;
+  flex: 1 1 0%;
+  box-sizing: border-box;
+  display: flex;
+}
+
+.button {
+  margin: 5px;
+}
+
+.speed-dial-container {
+  position: fixed;
+  bottom: 15px;
+  right: 325px;
+  z-index: 100;
+}
+
+.sidebar-right {
+  position: relative;
+}
+
+.completion-container {
+  width: 250px;
+  height: 250px;
+  background-color: #fafafa;
+  position: fixed;
+  bottom: 0px;
+}
+
+.progress-wrapper {
+  position: relative;
+  margin: 25px;
+  font-size: 35px;
+  width: 200px;
+  height: 200px;
+}
+
+.summary {
+  position: absolute;
+  color: #bbb;
+  // line-height: 1;
+  font-weight: 100;
+  text-align: center;
+
+  top: 50%;
+  bottom: auto;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+  -moz-transform: translateY(-50%) translateX(-50%);
+  -webkit-transform: translateY(-50%) translateX(-50%);
+  font-size: (125/3.5) px;
+
+  .completion {
+    font-size: 65%;
+  }
+}

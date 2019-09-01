@@ -9,7 +9,7 @@ import { RegistryFormComponent } from '../../../shared/modules/registry-form/reg
 import { DialogService } from '../../../shared/services/dialog.service';
 import { ScrollSpyService } from '../../../shared/modules/scroll-spy/scroll-spy.service';
 import { RegistryFormService } from '../../../shared/modules/registry-form/registry-form.service';
-import { FormCompletion } from '../../../shared/modules/registry-form/registry-form.model';
+import { FormCompletion, SectionMember } from '../../../shared/modules/registry-form/registry-form.model';
 
 import { ACSx290form } from './acsx290.form';
 import { conditions } from './acsx290.condition';
@@ -19,7 +19,7 @@ import { tableOfContent } from './acsx290.toc';
 import * as acsx290Data from './acsx290.data';
 import { ACSx290Form, ACSx290FormCompletion } from './acsx290.model';
 import { Staff } from '../../staff/staff.model';
-import { SectionMember, FormDetail } from '../registry.model';
+import { FormDetail } from '../registry.model';
 
 import * as Auth from '../../../core/auth/auth.data';
 import { User } from '../../../../app/core/auth/user.model';
@@ -493,10 +493,6 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
     const ORExitDT = this.formGroupI.get('ORExitDT').value as Moment;
     const ExtubateDT = this.formGroupI.get('ExtubateDT').value as Moment;
     const VentHrsA = this.formGroupO.get('VentHrsA').value;
-
-    console.log(this.formGroupI.get('ExtubateDT').value);
-    console.log(ExtubateDT);
-    console.log(ORExitDT);
 
     if ((ORExitDT && ExtubateDT) || VentHrsA) {
       const VentHrsTot = (ExtubateDT.diff(ORExitDT, 'minutes', false) / 60 + VentHrsA).toFixed(2);

@@ -1,4 +1,4 @@
-import { TableOfCentent } from '../registry.model';
+import { TableOfCentent } from '../../../shared/modules/registry-form/registry-form.model';
 
 export const tableOfContent: TableOfCentent[] = [
   { section: 'sectionA', title: 'A. Administrative' },
