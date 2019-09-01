@@ -133,6 +133,11 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     this.visibles['lesion1'] = true;
     this.visibles['HasLesion01'] = true;
     // tslint:enable: no-string-literal
+
+    // initialize value for complex conditions
+    this.formGroupE.get('PCIProc').setValue(null);
+    this.formGroupJ.get('HasLesion01').setValue(null);
+    this.formGroupL.get('DCStatus').setValue(null);
   }
 
   ngOnDestroy() {
@@ -330,6 +335,28 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     const DCLocation = this.formGroupL.get('DCLocation').value;
     const DCHospice = this.formGroupL.get('DCHospice').value;
 
+    const dcMedications = [
+      'DC_ACEI',
+      'DC_Warfarin',
+      'DC_Aspirin',
+      'DC_Vorapaxar',
+      'DC_ARB',
+      'DC_BetaBlocker',
+      'DC_Apixaban',
+      'DC_Dabigatran',
+      'DC_Edoxaban',
+      'DC_Rivaroxaban',
+      'DC_Clopidogrel',
+      'DC_Prasugrel',
+      'DC_Ticagrelor',
+      'DC_Ticlopidine',
+      'DC_Statin',
+      'DC_NonStatin',
+      'DC_Alirocumab',
+      'DC_Evolocumab',
+      'DC_MedReconCompleted'
+    ];
+
     // tslint:disable: no-string-literal
     if (
       DCStatus === 'Alive' &&
@@ -340,26 +367,36 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
       DCHospice === 'No'
     ) {
       this.visibles['DC_Medications'] = true;
+
+      dcMedications.forEach(med => {
+        this.visibles[med] = true;
+      });
     } else {
       this.visibles['DC_Medications'] = false;
-      this.formGroupL.get('DC_ACEI').setValue(null);
-      this.formGroupL.get('DC_Warfarin').setValue(null);
-      this.formGroupL.get('DC_Aspirin').setValue(null);
-      this.formGroupL.get('DC_Vorapaxar').setValue(null);
-      this.formGroupL.get('DC_ARB').setValue(null);
-      this.formGroupL.get('DC_BetaBlocker').setValue(null);
-      this.formGroupL.get('DC_Apixaban').setValue(null);
-      this.formGroupL.get('DC_Dabigatran').setValue(null);
-      this.formGroupL.get('DC_Edoxaban').setValue(null);
-      this.formGroupL.get('DC_Rivaroxaban').setValue(null);
-      this.formGroupL.get('DC_Clopidogrel').setValue(null);
-      this.formGroupL.get('DC_Prasugrel').setValue(null);
-      this.formGroupL.get('DC_Ticagrelor').setValue(null);
-      this.formGroupL.get('DC_Ticlopidine').setValue(null);
-      this.formGroupL.get('DC_Statin').setValue(null);
-      this.formGroupL.get('DC_NonStatin').setValue(null);
-      this.formGroupL.get('DC_Alirocumab').setValue(null);
-      this.formGroupL.get('DC_Evolocumab').setValue(null);
+
+      dcMedications.forEach(med => {
+        this.formGroupL.get(med).setValue(null);
+        this.visibles[med] = false;
+      });
+
+      // this.formGroupL.get('DC_ACEI').setValue(null);
+      // this.formGroupL.get('DC_Warfarin').setValue(null);
+      // this.formGroupL.get('DC_Aspirin').setValue(null);
+      // this.formGroupL.get('DC_Vorapaxar').setValue(null);
+      // this.formGroupL.get('DC_ARB').setValue(null);
+      // this.formGroupL.get('DC_BetaBlocker').setValue(null);
+      // this.formGroupL.get('DC_Apixaban').setValue(null);
+      // this.formGroupL.get('DC_Dabigatran').setValue(null);
+      // this.formGroupL.get('DC_Edoxaban').setValue(null);
+      // this.formGroupL.get('DC_Rivaroxaban').setValue(null);
+      // this.formGroupL.get('DC_Clopidogrel').setValue(null);
+      // this.formGroupL.get('DC_Prasugrel').setValue(null);
+      // this.formGroupL.get('DC_Ticagrelor').setValue(null);
+      // this.formGroupL.get('DC_Ticlopidine').setValue(null);
+      // this.formGroupL.get('DC_Statin').setValue(null);
+      // this.formGroupL.get('DC_NonStatin').setValue(null);
+      // this.formGroupL.get('DC_Alirocumab').setValue(null);
+      // this.formGroupL.get('DC_Evolocumab').setValue(null);
     }
     // tslint:enable: no-string-literal
   }

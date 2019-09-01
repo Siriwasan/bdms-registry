@@ -1602,7 +1602,7 @@
 
           </div>
 
-          <reg-select controlName="DC_MedReconCompleted" placeholder="Discharge Medication Reconciliation Completed" [formGroup]="formGroupL"
+          <reg-select *ngIf="visibles['DC_MedReconCompleted']" controlName="DC_MedReconCompleted" placeholder="Discharge Medication Reconciliation Completed" [formGroup]="formGroupL"
             [choices]="['Yes', 'No']"></reg-select>
 
           <reg-select-multiple *ngIf="visibles['DC_MedReconciled']" controlName="DC_MedReconciled" placeholder="Reconciled Medications" [formGroup]="formGroupL" [choices]="[
@@ -1675,7 +1675,7 @@
             <reg-select [controlName]="event[1]" [placeholder]="event[0]" [formGroup]="formGroupM"
               [choices]="['Yes', 'No']"></reg-select>
 
-            <reg-select-multiple *ngIf="event[2] !== null && visibles[event[2]]" [controlName]="event[2]" placeholder="Device(s) Event Occured In" [formGroup]="formGroupM"
+            <reg-select-multiple *ngIf="visibles[event[2]]" [controlName]="event[2]" placeholder="Device(s) Event Occured In" [formGroup]="formGroupM"
               [choices]="associatedLesions"></reg-select-multiple>
 
             <reg-datepicker *ngIf="visibles[event[3]]" [controlName]="event[3]" placeholder="Event Date/Time" [formGroup]="formGroupM" type="datetime">
