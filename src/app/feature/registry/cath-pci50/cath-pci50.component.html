@@ -156,110 +156,125 @@
       </div>
       <div class="section-body">
         <form [formGroup]="formGroupC" #formDirectiveC="ngForm">
-          <reg-select controlName="Hypertension" placeholder="Hypertension" [formGroup]="formGroupC"
-            [choices]="['Yes', 'No']">
-          </reg-select>
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-input controlName="Height" placeholder="Height (cm)" [formGroup]="formGroupC" type="number" fxFlex>
+            </reg-input>
 
-          <reg-select controlName="Dyslipidemia" placeholder="Dyslipidemia" [formGroup]="formGroupC"
-            [choices]="['Yes', 'No']">
-          </reg-select>
+            <reg-input controlName="Weight" placeholder="Weight (kg)" [formGroup]="formGroupC" type="number" fxFlex>
+            </reg-input>
+          </div>
 
-          <reg-select controlName="HxMI" placeholder="Prior MI" [formGroup]="formGroupC" [choices]="['Yes', 'No']">
-          </reg-select>
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-select controlName="Hypertension" placeholder="Hypertension" [formGroup]="formGroupC"
+              [choices]="['Yes', 'No']" fxFlex>
+            </reg-select>
 
-          <reg-datepicker *ngIf="visibles['HxMIDate']" controlName="HxMIDate" placeholder="Most Recent MI Date" [formGroup]="formGroupC">
-            dd/mm/yyyy</reg-datepicker>
+            <reg-select controlName="Dyslipidemia" placeholder="Dyslipidemia" [formGroup]="formGroupC"
+              [choices]="['Yes', 'No']" fxFlex>
+            </reg-select>
 
-          <reg-select controlName="PriorPCI" placeholder="Prior PCI" [formGroup]="formGroupC" [choices]="['Yes', 'No']">
-          </reg-select>
+            <reg-select controlName="HxMI" placeholder="Prior MI" [formGroup]="formGroupC" [choices]="['Yes', 'No']" fxFlex>
+            </reg-select>
 
-          <reg-datepicker *ngIf="visibles['HxPCIDate']" controlName="HxPCIDate" placeholder="Most Recent PCI Date" [formGroup]="formGroupC">
-            dd/mm/yyyy</reg-datepicker>
+            <reg-datepicker *ngIf="visibles['HxMIDate']" controlName="HxMIDate" placeholder="Most Recent MI Date" [formGroup]="formGroupC" fxFlex>
+              dd/mm/yyyy</reg-datepicker>
+          </div>
 
-          <reg-select *ngIf="visibles['LMPCI']" controlName="LMPCI" placeholder="Left Main PCI" [formGroup]="formGroupC"
-            [choices]="['Yes', 'No', 'Unknown']">
-          </reg-select>
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-select controlName="PriorPCI" placeholder="Prior PCI" [formGroup]="formGroupC" [choices]="['Yes', 'No']" fxFlex>
+            </reg-select>
 
-          <reg-input controlName="Height" placeholder="Height (cm)" [formGroup]="formGroupC" type="number">
-          </reg-input>
+            <reg-datepicker *ngIf="visibles['HxPCIDate']" controlName="HxPCIDate" placeholder="Most Recent PCI Date" [formGroup]="formGroupC" fxFlex>
+              dd/mm/yyyy</reg-datepicker>
 
-          <reg-input controlName="Weight" placeholder="Weight (kg)" [formGroup]="formGroupC" type="number">
-          </reg-input>
+            <reg-select *ngIf="visibles['LMPCI']" controlName="LMPCI" placeholder="Left Main PCI" [formGroup]="formGroupC"
+              [choices]="['Yes', 'No', 'Unknown']" fxFlex>
+            </reg-select>
+          </div>
 
-          <reg-select controlName="FamilyHxCAD" placeholder="Family Hx. of Premature CAD" [formGroup]="formGroupC"
-            [choices]="['Yes', 'No']"></reg-select>
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-select controlName="FamilyHxCAD" placeholder="Family Hx. of Premature CAD" [formGroup]="formGroupC"
+              [choices]="['Yes', 'No']" fxFlex></reg-select>
 
-          <reg-select controlName="HxCVD" placeholder="Hx. of Cerebrovascular Disease" [formGroup]="formGroupC"
-            [choices]="['Yes', 'No']"></reg-select>
+            <reg-select controlName="HxCVD" placeholder="Hx. of Cerebrovascular Disease" [formGroup]="formGroupC"
+              [choices]="['Yes', 'No']" fxFlex></reg-select>
 
-          <reg-select controlName="PriorPAD" placeholder="Hx. of Peripheral Arterial Disease" [formGroup]="formGroupC"
-            [choices]="['Yes', 'No']"></reg-select>
+            <reg-select controlName="PriorPAD" placeholder="Hx. of Peripheral Arterial Disease" [formGroup]="formGroupC"
+              [choices]="['Yes', 'No']" fxFlex></reg-select>
+          </div>
 
-          <reg-select controlName="HxChronicLungDisease" placeholder="Hx. of Chronic Lung Disease" [formGroup]="formGroupC"
-            [choices]="['Yes', 'No']"></reg-select>
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-select controlName="HxChronicLungDisease" placeholder="Hx. of Chronic Lung Disease" [formGroup]="formGroupC"
+              [choices]="['Yes', 'No']" fxFlex></reg-select>
 
-          <reg-select controlName="PriorCABG" placeholder="Prior CABG" [formGroup]="formGroupC"
-            [choices]="['Yes', 'No']"></reg-select>
+            <reg-select controlName="PriorCABG" placeholder="Prior CABG" [formGroup]="formGroupC"
+              [choices]="['Yes', 'No']" fxFlex></reg-select>
 
-          <reg-datepicker *ngIf="visibles['HxCABGDate']" controlName="HxCABGDate" placeholder="Most Recent CABG Date" [formGroup]="formGroupC">
-            dd/mm/yyyy</reg-datepicker>
+            <reg-datepicker *ngIf="visibles['HxCABGDate']" controlName="HxCABGDate" placeholder="Most Recent CABG Date" [formGroup]="formGroupC" fxFlex>
+              dd/mm/yyyy</reg-datepicker>
+          </div>
 
-          <reg-select controlName="TobaccoUse" placeholder="Tobacco Use" [formGroup]="formGroupC" [choices]="[
-              'Never',
-              'Former',
-              'Current - Every Day',
-              'Current - Some Days',
-              'Smoker, Current Status Unknown',
-              'Unknown if ever Smoked'
-            ]"></reg-select>
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-select controlName="TobaccoUse" placeholder="Tobacco Use" [formGroup]="formGroupC" [choices]="[
+                'Never',
+                'Former',
+                'Current - Every Day',
+                'Current - Some Days',
+                'Smoker, Current Status Unknown',
+                'Unknown if ever Smoked'
+              ]" fxFlex></reg-select>
 
-          <reg-select *ngIf="visibles['TobaccoType']" controlName="TobaccoType" placeholder="Tobacco Type" [formGroup]="formGroupC" [choices]="[
-              'Cigarettes',
-              'Cigars',
-              'Pipe',
-              'Smokeless'
-            ]"></reg-select>
+            <reg-select *ngIf="visibles['TobaccoType']" controlName="TobaccoType" placeholder="Tobacco Type" [formGroup]="formGroupC" [choices]="[
+                'Cigarettes',
+                'Cigars',
+                'Pipe',
+                'Smokeless'
+              ]" fxFlex></reg-select>
 
-          <reg-select *ngIf="visibles['SmokeAmount']" controlName="SmokeAmount" placeholder="Smoke Amount" [formGroup]="formGroupC" [choices]="[
-              'Light tobacco use (<10/day)',
-              'Heavy tobacco use (>=10/day)'
-            ]"></reg-select>
+            <reg-select *ngIf="visibles['SmokeAmount']" controlName="SmokeAmount" placeholder="Smoke Amount" [formGroup]="formGroupC" [choices]="[
+                'Light tobacco use (<10/day)',
+                'Heavy tobacco use (>=10/day)'
+              ]" fxFlex></reg-select>
+          </div>
 
           <reg-select controlName="CAOutHospital" placeholder="Cardiac Arrest Out of Healthcare Facility" [formGroup]="formGroupC"
             [choices]="['Yes', 'No']"></reg-select>
 
-          <reg-select *ngIf="visibles['CAWitness']" controlName="CAWitness" placeholder="Arrest Witnessed" [formGroup]="formGroupC"
-            [choices]="['Yes', 'No']"></reg-select>
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-select *ngIf="visibles['CAWitness']" controlName="CAWitness" placeholder="Arrest Witnessed" [formGroup]="formGroupC"
+              [choices]="['Yes', 'No']" fxFlex></reg-select>
 
-          <reg-select *ngIf="visibles['CAPostEMS']" controlName="CAPostEMS" placeholder="Arrest after Arrival of EMS" [formGroup]="formGroupC"
-            [choices]="['Yes', 'No']"></reg-select>
+            <reg-select *ngIf="visibles['CAPostEMS']" controlName="CAPostEMS" placeholder="Arrest after Arrival of EMS" [formGroup]="formGroupC"
+              [choices]="['Yes', 'No']" fxFlex></reg-select>
 
-          <reg-select *ngIf="visibles['InitCARhythm']" controlName="InitCARhythm" placeholder="First Cardiac Arrest Rhythm" [formGroup]="formGroupC"
-            [choices]="['Shockable', 'Not Shockable', 'Unknown']"></reg-select>
+            <reg-select *ngIf="visibles['InitCARhythm']" controlName="InitCARhythm" placeholder="First Cardiac Arrest Rhythm" [formGroup]="formGroupC"
+              [choices]="['Shockable', 'Not Shockable', 'Unknown']" fxFlex></reg-select>
+          </div>
 
           <reg-select controlName="CATransferFac" placeholder="Cardiac Arrest at Trasferring Healthcare Facility" [formGroup]="formGroupC"
             [choices]="['Yes', 'No']"></reg-select>
 
           <h3>(KNOWN OR DIAGNOSED PRIOR TO FIRST CATH LAB VISIT)</h3>
 
-          <reg-select controlName="Diabetes" placeholder="Diabetes Mellitus" [formGroup]="formGroupC"
-            [choices]="['Yes', 'No']"></reg-select>
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-select controlName="Diabetes" placeholder="Diabetes Mellitus" [formGroup]="formGroupC"
+              [choices]="['Yes', 'No']" fxFlex></reg-select>
 
-          <reg-select controlName="CurrentDialysis" placeholder="Currently on Dialysis" [formGroup]="formGroupC"
-            [choices]="['Yes', 'No']"></reg-select>
+            <reg-select controlName="CurrentDialysis" placeholder="Currently on Dialysis" [formGroup]="formGroupC"
+              [choices]="['Yes', 'No']" fxFlex></reg-select>
 
-          <reg-select controlName="CSHAScale" placeholder="CSHA Clinical Frailty Scale" [formGroup]="formGroupC" [choices]="[
-              '1: Very Fit',
-              '2: Well',
-              '3: Managing Well',
-              '4: Vulnerable',
-              '5: Mildly Frail',
-              '6: Moderately Frail',
-              '7: Severely Frail',
-              '8: Very Severely Frail',
-              '9: Terminally Ill'
-            ]"></reg-select>
-
+            <reg-select controlName="CSHAScale" placeholder="CSHA Clinical Frailty Scale" [formGroup]="formGroupC" [choices]="[
+                '1: Very Fit',
+                '2: Well',
+                '3: Managing Well',
+                '4: Vulnerable',
+                '5: Mildly Frail',
+                '6: Moderately Frail',
+                '7: Severely Frail',
+                '8: Very Severely Frail',
+                '9: Terminally Ill'
+              ]" fxFlex></reg-select>
+          </div>
 
       </form>
       </div>
@@ -275,170 +290,193 @@
           <reg-select controlName="HxHF" placeholder="Heart Failure" [formGroup]="formGroupD"
             [choices]="['Yes', 'No']"></reg-select>
 
-          <reg-select *ngIf="visibles['PriorNYHA']" controlName="PriorNYHA" placeholder="NYHA Class" [formGroup]="formGroupD" [choices]="[
-              'Class I',
-              'Class II',
-              'Class III',
-              'Class IV'
-            ]"></reg-select>
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-select *ngIf="visibles['PriorNYHA']" controlName="PriorNYHA" placeholder="NYHA Class" [formGroup]="formGroupD" [choices]="[
+                'Class I',
+                'Class II',
+                'Class III',
+                'Class IV'
+              ]" fxFlex></reg-select>
 
-          <reg-select *ngIf="visibles['HFNewDiag']" controlName="HFNewDiag" placeholder="Newly Diagnosed" [formGroup]="formGroupD"
-            [choices]="['Yes', 'No']"></reg-select>
+            <reg-select *ngIf="visibles['HFNewDiag']" controlName="HFNewDiag" placeholder="Newly Diagnosed" [formGroup]="formGroupD"
+              [choices]="['Yes', 'No']" fxFlex></reg-select>
 
-          <reg-select *ngIf="visibles['HFType']" controlName="HFType" placeholder="Heart Failure Type" [formGroup]="formGroupD" [choices]="[
-              'Diastolic',
-              'Systolic',
-              'Unknown'
-            ]"></reg-select>
+            <reg-select *ngIf="visibles['HFType']" controlName="HFType" placeholder="Heart Failure Type" [formGroup]="formGroupD" [choices]="[
+                'Diastolic',
+                'Systolic',
+                'Unknown'
+              ]" fxFlex></reg-select>
+          </div>
 
           <h3>(DIAGNOSTIC TEST)</h3>
 
-          <reg-select controlName="ECAssessMethod" placeholder="Electrocardiac Assessment Method" [formGroup]="formGroupD" [choices]="[
-              'ECG',
-              'Telemetry Monitor',
-              'Telemetry Monitor',
-              'Other',
-              'None'
-            ]"></reg-select>
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-select controlName="ECAssessMethod" placeholder="Electrocardiac Assessment Method" [formGroup]="formGroupD" [choices]="[
+                'ECG',
+                'Telemetry Monitor',
+                'Telemetry Monitor',
+                'Other',
+                'None'
+              ]" fxFlex></reg-select>
 
-          <reg-select *ngIf="visibles['ECGResults']" controlName="ECGResults" placeholder="Results" [formGroup]="formGroupD" [choices]="[
-              'Normal',
-              'Abnormal',
-              'Uninterpretable'
-            ]"></reg-select>
+            <reg-select *ngIf="visibles['ECGResults']" controlName="ECGResults" placeholder="Results" [formGroup]="formGroupD" [choices]="[
+                'Normal',
+                'Abnormal',
+                'Uninterpretable'
+              ]" fxFlex></reg-select>
+          </div>
 
-          <reg-select *ngIf="visibles['AntiArrhyTherapy']" controlName="AntiArrhyTherapy" placeholder="New Antiarrhythmic Therapy Initiated Prior to Cath Lab" [formGroup]="formGroupD"
-            [choices]="['Yes', 'No']"></reg-select>
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-select *ngIf="visibles['AntiArrhyTherapy']" controlName="AntiArrhyTherapy" placeholder="New Antiarrhythmic Therapy Initiated Prior to Cath Lab" [formGroup]="formGroupD"
+              [choices]="['Yes', 'No']" fxFlex></reg-select>
 
-          <reg-select-multiple *ngIf="visibles['ECGFindings']" controlName="ECGFindings" placeholder="Electrocardiac Abnormality Type" [formGroup]="formGroupD" [choices]="[
-            'Ventricular Fibrillation (VF)',
-            'Sustained VT',
-            'Non Sustained VT',
-            'Exercise Induced VT',
-            'T wave inversions',
-            'ST deviation >= 0.5 mm',
-            'New Left Bundle Branch Block',
-            'New Onset Atrial Fib',
-            'New Onset Atrial Flutter',
-            'PVC – Frequent',
-            'PVC – Infrequent',
-            '2nd Degree AV Heart Block Type 1',
-            '2nd Degree AV Heart Block Type 2',
-            '3rd Degree AV Heart Block',
-            'Symptomatic Bradyarrhythmia',
-            'Other Electrocardiac Abnormality'
-            ]"></reg-select-multiple>
+            <reg-select-multiple *ngIf="visibles['ECGFindings']" controlName="ECGFindings" placeholder="Electrocardiac Abnormality Type" [formGroup]="formGroupD" [choices]="[
+              'Ventricular Fibrillation (VF)',
+              'Sustained VT',
+              'Non Sustained VT',
+              'Exercise Induced VT',
+              'T wave inversions',
+              'ST deviation >= 0.5 mm',
+              'New Left Bundle Branch Block',
+              'New Onset Atrial Fib',
+              'New Onset Atrial Flutter',
+              'PVC – Frequent',
+              'PVC – Infrequent',
+              '2nd Degree AV Heart Block Type 1',
+              '2nd Degree AV Heart Block Type 2',
+              '3rd Degree AV Heart Block',
+              'Symptomatic Bradyarrhythmia',
+              'Other Electrocardiac Abnormality'
+              ]" fxFlex></reg-select-multiple>
+          </div>
 
-          <reg-input *ngIf="visibles['HR']" controlName="HR" placeholder="New Onset Atrial Fib, Heart Rate (bpm)" [formGroup]="formGroupD" type="number">
-          </reg-input>
+          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-input *ngIf="visibles['HR']" controlName="HR" placeholder="New Onset Atrial Fib, Heart Rate (bpm)" [formGroup]="formGroupD" type="number" fxFlex>
+            </reg-input>
 
-          <reg-select-multiple *ngIf="visibles['NSVTType']" controlName="NSVTType" placeholder="Non Sustained VT Type" [formGroup]="formGroupD" [choices]="[
-              'Symptomatic',
-              'Newly Diagnosed',
-              'Other'
-            ]"></reg-select-multiple>
+            <reg-select-multiple *ngIf="visibles['NSVTType']" controlName="NSVTType" placeholder="Non Sustained VT Type" [formGroup]="formGroupD" [choices]="[
+                'Symptomatic',
+                'Newly Diagnosed',
+                'Other'
+              ]" fxFlex></reg-select-multiple>
+          </div>
 
           <reg-select controlName="StressPerformed" placeholder="Stress Test Performed" [formGroup]="formGroupD"
             [choices]="['Yes', 'No']"></reg-select>
 
-          <reg-select *ngIf="visibles['StressTestType']" controlName="StressTestType" placeholder="Test Type Performed" [formGroup]="formGroupD" [choices]="[
-            'Stress Echocardiogram',
-            'Exercise Stress Test (w/o imaging)',
-            'Stress Nuclear',
-            'Stress Imaging w/CMR'
-            ]"></reg-select>
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-select *ngIf="visibles['StressTestType']" controlName="StressTestType" placeholder="Test Type Performed" [formGroup]="formGroupD" [choices]="[
+              'Stress Echocardiogram',
+              'Exercise Stress Test (w/o imaging)',
+              'Stress Nuclear',
+              'Stress Imaging w/CMR'
+              ]" fxFlex></reg-select>
 
-          <reg-datepicker *ngIf="visibles['StressTestDate']" controlName="StressTestDate" placeholder="Most Recent Date" [formGroup]="formGroupD">
-            dd/mm/yyyy</reg-datepicker>
+            <reg-datepicker *ngIf="visibles['StressTestDate']" controlName="StressTestDate" placeholder="Most Recent Date" [formGroup]="formGroupD" fxFlex>
+              dd/mm/yyyy</reg-datepicker>
 
-          <reg-select *ngIf="visibles['StressTestResult']" controlName="StressTestResult" placeholder="Test Result" [formGroup]="formGroupD" [choices]="[
-              'Negative',
-              'Positive',
-              'Indeterminate',
-              'Unavailable'
-            ]"></reg-select>
+            <reg-select *ngIf="visibles['StressTestResult']" controlName="StressTestResult" placeholder="Test Result" [formGroup]="formGroupD" [choices]="[
+                'Negative',
+                'Positive',
+                'Indeterminate',
+                'Unavailable'
+              ]" fxFlex></reg-select>
 
-          <reg-select *ngIf="visibles['StressTestRisk']" controlName="StressTestRisk" placeholder="YYY" [formGroup]="formGroupD" [choices]="[
-              'Low',
-              'Intermediate',
-              'High',
-              'Unavailable'
-            ]"></reg-select>
+            <reg-select *ngIf="visibles['StressTestRisk']" controlName="StressTestRisk" placeholder="Risk/Extent of Ischemia" [formGroup]="formGroupD" [choices]="[
+                'Low',
+                'Intermediate',
+                'High',
+                'Unavailable'
+              ]" fxFlex></reg-select>
+          </div>
 
-          <reg-select controlName="CardiacCTA" placeholder="Cardiac CTA Performed" [formGroup]="formGroupD"
-            [choices]="['Yes', 'No']"></reg-select>
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-select controlName="CardiacCTA" placeholder="Cardiac CTA Performed" [formGroup]="formGroupD"
+              [choices]="['Yes', 'No']" fxFlex></reg-select>
 
-          <reg-datepicker *ngIf="visibles['CardiacCTADate']" controlName="CardiacCTADate" placeholder="Most Recent Cardiac CTA Date" [formGroup]="formGroupD">
-            dd/mm/yyyy</reg-datepicker>
+            <reg-datepicker *ngIf="visibles['CardiacCTADate']" controlName="CardiacCTADate" placeholder="Most Recent Cardiac CTA Date" [formGroup]="formGroupD" fxFlex>
+              dd/mm/yyyy</reg-datepicker>
 
-          <reg-select *ngIf="visibles['CardiacCTAResults']" controlName="CardiacCTAResults" placeholder="Cardiac CT A Results" [formGroup]="formGroupD" [choices]="[
-              'Obstructive CAD',
-              'Non-Obstructive CAD',
-              'Unclear Severity',
-              'No CAD',
-              'Structural Disease',
-              'Unknown'
-            ]"></reg-select>
+            <reg-select *ngIf="visibles['CardiacCTAResults']" controlName="CardiacCTAResults" placeholder="Cardiac CT A Results" [formGroup]="formGroupD" [choices]="[
+                'Obstructive CAD',
+                'Non-Obstructive CAD',
+                'Unclear Severity',
+                'No CAD',
+                'Structural Disease',
+                'Unknown'
+              ]" fxFlex></reg-select>
+          </div>
 
-          <reg-select controlName="CalciumScoreAssessed" placeholder="Agatston Coronary Calcium Score Assessed" [formGroup]="formGroupD"
-            [choices]="['Yes', 'No']"></reg-select>
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-select controlName="CalciumScoreAssessed" placeholder="Agatston Coronary Calcium Score Assessed" [formGroup]="formGroupD"
+              [choices]="['Yes', 'No']" fxFlex></reg-select>
 
-          <reg-input *ngIf="visibles['CalciumScore']" controlName="CalciumScore" placeholder="Agatston Coronary Calcium Score" [formGroup]="formGroupD" type="number">
-          </reg-input>
+            <reg-input *ngIf="visibles['CalciumScore']" controlName="CalciumScore" placeholder="Agatston Coronary Calcium Score" [formGroup]="formGroupD" type="number" fxFlex>
+            </reg-input>
 
-          <reg-datepicker *ngIf="visibles['CalciumScoreDate']" controlName="CalciumScoreDate" placeholder="Most Recent Calcium Score Date" [formGroup]="formGroupD">
-            dd/mm/yyyy</reg-datepicker>
+            <reg-datepicker *ngIf="visibles['CalciumScoreDate']" controlName="CalciumScoreDate" placeholder="Most Recent Calcium Score Date" [formGroup]="formGroupD" fxFlex>
+              dd/mm/yyyy</reg-datepicker>
+          </div>
 
-          <reg-select controlName="PreProcLVEFAssessed" placeholder="LVEF Assessed" [formGroup]="formGroupD"
-            [choices]="['Yes', 'No']"></reg-select>
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-select controlName="PreProcLVEFAssessed" placeholder="LVEF Assessed" [formGroup]="formGroupD"
+              [choices]="['Yes', 'No']" fxFlex></reg-select>
 
-          <reg-input *ngIf="visibles['PreProcLVEF']" controlName="PreProcLVEF" placeholder="Most Recent LVEF" [formGroup]="formGroupD" type="number">
-          </reg-input>
+            <reg-input *ngIf="visibles['PreProcLVEF']" controlName="PreProcLVEF" placeholder="Most Recent LVEF" [formGroup]="formGroupD" type="number" fxFlex>
+            </reg-input>
+          </div>
 
-          <reg-select controlName="PriorDxAngioProc" placeholder="Prior Dx Coronary Angiography Procedure" [formGroup]="formGroupD"
-            [choices]="['Yes', 'No']"></reg-select>
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-select controlName="PriorDxAngioProc" placeholder="Prior Dx Coronary Angiography Procedure" [formGroup]="formGroupD"
+              [choices]="['Yes', 'No']" fxFlex></reg-select>
 
-          <reg-datepicker *ngIf="visibles['PriorDxAngioDate']" controlName="PriorDxAngioDate" placeholder="Most Recent Procedure Date" [formGroup]="formGroupD">
-            dd/mm/yyyy</reg-datepicker>
+            <reg-datepicker *ngIf="visibles['PriorDxAngioDate']" controlName="PriorDxAngioDate" placeholder="Most Recent Procedure Date" [formGroup]="formGroupD" fxFlex>
+              dd/mm/yyyy</reg-datepicker>
 
-          <reg-select *ngIf="visibles['PriorDxAngioResults']" controlName="PriorDxAngioResults" placeholder="Results" [formGroup]="formGroupD" [choices]="[
-              'Obstructive CAD',
-              'Non-Obstructive CAD',
-              'Unclear Severity',
-              'No CAD',
-              'Structural Disease',
-              'Unknown'
-            ]"></reg-select>
+            <reg-select *ngIf="visibles['PriorDxAngioResults']" controlName="PriorDxAngioResults" placeholder="Results" [formGroup]="formGroupD" [choices]="[
+                'Obstructive CAD',
+                'Non-Obstructive CAD',
+                'Unclear Severity',
+                'No CAD',
+                'Structural Disease',
+                'Unknown'
+              ]" fxFlex></reg-select>
+          </div>
 
           <h3>Pre-Procedure Medications</h3>
 
-          <reg-select controlName="PreProcMedASA" placeholder="Antiplatelet ASA" [formGroup]="formGroupD"
-            [choices]="['Yes', 'No', 'Contraindicated']"></reg-select>
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-select controlName="PreProcMedASA" placeholder="Antiplatelet ASA" [formGroup]="formGroupD"
+              [choices]="['Yes', 'No', 'Contraindicated']" fxFlex></reg-select>
 
-          <reg-select controlName="PreProcMedBetaBlocker" placeholder="Beta Blockers (Any)" [formGroup]="formGroupD"
-            [choices]="['Yes', 'No', 'Contraindicated']"></reg-select>
+            <reg-select controlName="PreProcMedBetaBlocker" placeholder="Beta Blockers (Any)" [formGroup]="formGroupD"
+              [choices]="['Yes', 'No', 'Contraindicated']" fxFlex></reg-select>
 
-          <reg-select controlName="PreProcMedCaBlocker" placeholder="Ca Channel Blockers (Any)" [formGroup]="formGroupD"
-            [choices]="['Yes', 'No', 'Contraindicated']"></reg-select>
+            <reg-select controlName="PreProcMedCaBlocker" placeholder="Ca Channel Blockers (Any)" [formGroup]="formGroupD"
+              [choices]="['Yes', 'No', 'Contraindicated']" fxFlex></reg-select>
+          </div>
 
-          <reg-select controlName="PreProcMedAntiArrhythmic" placeholder="Antiarrhythmic Agent Other" [formGroup]="formGroupD"
-            [choices]="['Yes', 'No', 'Contraindicated']"></reg-select>
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-select controlName="PreProcMedAntiArrhythmic" placeholder="Antiarrhythmic Agent Other" [formGroup]="formGroupD"
+              [choices]="['Yes', 'No', 'Contraindicated']" fxFlex></reg-select>
 
-          <reg-select controlName="PreProcMedLongActNitrate" placeholder="Long Acting Nitrates (Any)" [formGroup]="formGroupD"
-            [choices]="['Yes', 'No', 'Contraindicated']"></reg-select>
+            <reg-select controlName="PreProcMedLongActNitrate" placeholder="Long Acting Nitrates (Any)" [formGroup]="formGroupD"
+              [choices]="['Yes', 'No', 'Contraindicated']" fxFlex></reg-select>
 
-          <reg-select controlName="PreProcMedRanolazine" placeholder="Ranolazine" [formGroup]="formGroupD"
-            [choices]="['Yes', 'No', 'Contraindicated']"></reg-select>
+            <reg-select controlName="PreProcMedRanolazine" placeholder="Ranolazine" [formGroup]="formGroupD"
+              [choices]="['Yes', 'No', 'Contraindicated']" fxFlex></reg-select>
+          </div>
 
-          <reg-select controlName="PreProcMedStatin" placeholder="Statin (Any)" [formGroup]="formGroupD"
-            [choices]="['Yes', 'No', 'Contraindicated']"></reg-select>
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-select controlName="PreProcMedStatin" placeholder="Statin (Any)" [formGroup]="formGroupD"
+              [choices]="['Yes', 'No', 'Contraindicated']" fxFlex></reg-select>
 
-          <reg-select controlName="PreProcMedNonStatin" placeholder="Non-Statin (Any)" [formGroup]="formGroupD"
-            [choices]="['Yes', 'No', 'Contraindicated']"></reg-select>
+            <reg-select controlName="PreProcMedNonStatin" placeholder="Non-Statin (Any)" [formGroup]="formGroupD"
+              [choices]="['Yes', 'No', 'Contraindicated']" fxFlex></reg-select>
 
-          <reg-select controlName="PreProcMedPCSK9" placeholder="PCSK9 Inhibitors" [formGroup]="formGroupD"
-            [choices]="['Yes', 'No', 'Contraindicated']"></reg-select>
-
+            <reg-select controlName="PreProcMedPCSK9" placeholder="PCSK9 Inhibitors" [formGroup]="formGroupD"
+              [choices]="['Yes', 'No', 'Contraindicated']" fxFlex></reg-select>
+          </div>
 
         </form>
       </div>
@@ -451,109 +489,158 @@
       </div>
       <div class="section-body">
         <form [formGroup]="formGroupE" #formDirectiveE="ngForm">
-          <reg-datepicker controlName="ProcedureStartDateTime" placeholder="Procedure Start Date/Time" [formGroup]="formGroupE" type="datetime">
-            dd/mm/yyyy hh:mm - 24 hr clock</reg-datepicker>
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-datepicker controlName="ProcedureStartDateTime" placeholder="Procedure Start Date/Time" [formGroup]="formGroupE" type="datetime" fxFlex>
+              dd/mm/yyyy hh:mm - 24 hr clock</reg-datepicker>
 
-          <reg-datepicker controlName="ProcedureEndDateTime" placeholder="Procedure End Date/Time" [formGroup]="formGroupE" type="datetime">
-            dd/mm/yyyy hh:mm - 24 hr clock</reg-datepicker>
+            <reg-datepicker controlName="ProcedureEndDateTime" placeholder="Procedure End Date/Time" [formGroup]="formGroupE" type="datetime" fxFlex>
+              dd/mm/yyyy hh:mm - 24 hr clock</reg-datepicker>
+          </div>
 
-          <reg-select controlName="DiagCorAngio" placeholder="Diagnostic Coronary Angiography Procedure" [formGroup]="formGroupE"
-            [choices]="['Yes', 'No']"></reg-select>
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-select controlName="DiagCorAngio" placeholder="Diagnostic Coronary Angiography Procedure" [formGroup]="formGroupE"
+              [choices]="['Yes', 'No']" fxFlex></reg-select>
 
-          <reg-input *ngIf="visibles['DCathProvider']" controlName="DCathProvider" placeholder="Diagnostic Cath Operator" [formGroup]="formGroupE" type="number">
-          </reg-input>
+            <reg-input *ngIf="visibles['DCathProvider']" controlName="DCathProvider" placeholder="Diagnostic Cath Operator" [formGroup]="formGroupE" type="number" fxFlex>
+            </reg-input>
+          </div>
 
-          <reg-select controlName="PCIProc" placeholder="Percutaneous Coronary Intervention (PCI)" [formGroup]="formGroupE"
-            [choices]="['Yes', 'No']"></reg-select>
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-select controlName="PCIProc" placeholder="Percutaneous Coronary Intervention (PCI)" [formGroup]="formGroupE"
+              [choices]="['Yes', 'No']" fxFlex></reg-select>
 
-          <reg-input *ngIf="visibles['PCIProvider']" controlName="PCIProvider" placeholder="PCI Operator" [formGroup]="formGroupE" type="number">
-          </reg-input>
+            <reg-input *ngIf="visibles['PCIProvider']" controlName="PCIProvider" placeholder="PCI Operator" [formGroup]="formGroupE" type="number" fxFlex>
+            </reg-input>
+          </div>
 
-          <reg-select controlName="LeftHeartCath" placeholder="Diagnostic Left Heart Cath" [formGroup]="formGroupE"
-            [choices]="['Yes', 'No']"></reg-select>
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-select controlName="LeftHeartCath" placeholder="Diagnostic Left Heart Cath" [formGroup]="formGroupE"
+              [choices]="['Yes', 'No']" fxFlex></reg-select>
 
-          <reg-input *ngIf="visibles['PrePCILVEF']" controlName="PrePCILVEF" placeholder="LVEF (%)" [formGroup]="formGroupE" type="number">
-          </reg-input>
+            <reg-input *ngIf="visibles['PrePCILVEF']" controlName="PrePCILVEF" placeholder="LVEF (%)" [formGroup]="formGroupE" type="number" fxFlex>
+            </reg-input>
+          </div>
 
-          <reg-select controlName="ConcomProc" placeholder="Concomitant Procedures Performed" [formGroup]="formGroupE"
-            [choices]="['Yes', 'No']"></reg-select>
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-select controlName="ConcomProc" placeholder="Concomitant Procedures Performed" [formGroup]="formGroupE"
+              [choices]="['Yes', 'No']" fxFlex></reg-select>
 
-          <reg-select-multiple *ngIf="visibles['ConcomProcType']" controlName="ConcomProcType" placeholder="Procedure Type(s)" [formGroup]="formGroupE" [choices]="[
-              'Biopsy of heart',
-              'Structural Repair',
-              'Left Atrial Appendage Occlusion',
-              'Parachute Device Placement',
-              'Mitral Clip Procedure',
-              'Transcatheter Aortic Valve Replacement (TAVR)',
-              'Right Heart Cath',
-              'EP Study',
-              'Temporary Pacemaker Placement',
-              'Permanent Pacemaker Placement',
-              'LIMA (Native Position) Angiogram',
-              'Aortogram',
-              'Renal Angiogram',
-              'Peripheral Intervention',
-              'Peripheral Angiogram',
-              'Procedure Type Not Listed',
-              'Cardioversion'
-            ]"></reg-select-multiple>
+            <reg-select-multiple *ngIf="visibles['ConcomProcType']" controlName="ConcomProcType" placeholder="Procedure Type(s)" [formGroup]="formGroupE" [choices]="[
+                'Biopsy of heart',
+                'Structural Repair',
+                'Left Atrial Appendage Occlusion',
+                'Parachute Device Placement',
+                'Mitral Clip Procedure',
+                'Transcatheter Aortic Valve Replacement (TAVR)',
+                'Right Heart Cath',
+                'EP Study',
+                'Temporary Pacemaker Placement',
+                'Permanent Pacemaker Placement',
+                'LIMA (Native Position) Angiogram',
+                'Aortogram',
+                'Renal Angiogram',
+                'Peripheral Intervention',
+                'Peripheral Angiogram',
+                'Procedure Type Not Listed',
+                'Cardioversion'
+              ]" fxFlex></reg-select-multiple>
+          </div>
 
-          <reg-select controlName="AccessSite" placeholder="Arterial Access Site" [formGroup]="formGroupE" [choices]="[
-              'Right Femoral',
-              'Left Femoral',
-              'Right Brachial',
-              'Left Brachial',
-              'Right Radial',
-              'Left Radial',
-              'Other'
-            ]"></reg-select>
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-select controlName="AccessSite" placeholder="Arterial Access Site" [formGroup]="formGroupE" [choices]="[
+                'Right Femoral',
+                'Left Femoral',
+                'Right Brachial',
+                'Left Brachial',
+                'Right Radial',
+                'Left Radial',
+                'Other'
+              ]" fxFlex></reg-select>
 
-          <reg-select controlName="Crossover" placeholder="Arterial Cross Over" [formGroup]="formGroupE" [choices]="[
-              'No',
-              'Right Femoral',
-              'Left Femoral',
-              'Right Brachial',
-              'Left Brachial',
-              'Right Radial',
-              'Left Radial',
-              'Other'
-            ]"></reg-select>
+            <reg-select *ngIf="visibles['AccessSiteClosure']" controlName="AccessSiteClosure" placeholder="Access Site - Closure Method" [formGroup]="formGroupE" [choices]="[
+                'Manual Compression',
+                'Sealing technique',
+                'Compression Device',
+                'Suturing technique'
+              ]" fxFlex></reg-select>
+          </div>
 
-          <reg-select controlName="Simultaneous" placeholder="Arterial Simultaneous" [formGroup]="formGroupE" [choices]="[
-              'No',
-              'Right Femoral',
-              'Left Femoral',
-              'Right Brachial',
-              'Left Brachial',
-              'Right Radial',
-              'Left Radial',
-              'Other'
-            ]"></reg-select>
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-select controlName="Crossover" placeholder="Arterial Cross Over" [formGroup]="formGroupE" [choices]="[
+                'No',
+                'Right Femoral',
+                'Left Femoral',
+                'Right Brachial',
+                'Left Brachial',
+                'Right Radial',
+                'Left Radial',
+                'Other'
+              ]" fxFlex></reg-select>
 
-          <h4>Closure Methods</h4>
+            <reg-select *ngIf="visibles['CrossoverClosure']" controlName="CrossoverClosure" placeholder="Cross Over - Closure Method" [formGroup]="formGroupE" [choices]="[
+                'Manual Compression',
+                'Sealing technique',
+                'Compression Device',
+                'Suturing technique'
+              ]" fxFlex></reg-select>
+          </div>
 
-          <reg-select controlName="VenousAccess" placeholder="Venous Access" [formGroup]="formGroupE"
-            [choices]="['Yes', 'No']"></reg-select>
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-select controlName="Simultaneous" placeholder="Arterial Simultaneous" [formGroup]="formGroupE" [choices]="[
+                'No',
+                'Right Femoral',
+                'Left Femoral',
+                'Right Brachial',
+                'Left Brachial',
+                'Right Radial',
+                'Left Radial',
+                'Other'
+              ]" fxFlex></reg-select>
 
-          <reg-input controlName="ProcSystolicBP" placeholder="Systolic BP (mmHg)" [formGroup]="formGroupE" type="number">
-          </reg-input>
+            <reg-select *ngIf="visibles['SimultaneousClosure']" controlName="SimultaneousClosure" placeholder="Simultaneous - Closure Method" [formGroup]="formGroupE" [choices]="[
+                'Manual Compression',
+                'Sealing technique',
+                'Compression Device',
+                'Suturing technique'
+              ]" fxFlex></reg-select>
+          </div>
 
-          <reg-select controlName="CAInHosp" placeholder="Cardiac Arrest at this facility" [formGroup]="formGroupE"
-            [choices]="['Yes', 'No']"></reg-select>
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-select controlName="VenousAccess" placeholder="Venous Access" [formGroup]="formGroupE"
+              [choices]="['Yes', 'No']" fxFlex></reg-select>
+
+            <reg-select *ngIf="visibles['VenousAccessClosure']" controlName="VenousAccessClosure" placeholder="Venous - Closure Method" [formGroup]="formGroupE" [choices]="[
+                'Manual Compression',
+                'Sealing technique',
+                'Compression Device',
+                'Suturing technique'
+              ]" fxFlex></reg-select>
+          </div>
+
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+
+            <reg-input controlName="ProcSystolicBP" placeholder="Systolic BP (mmHg)" [formGroup]="formGroupE" type="number" fxFlex>
+            </reg-input>
+
+            <reg-select controlName="CAInHosp" placeholder="Cardiac Arrest at this facility" [formGroup]="formGroupE"
+              [choices]="['Yes', 'No']" fxFlex></reg-select>
+          </div>
 
           <h3>Radiation Exposure and Contrast</h3>
 
-          <reg-input controlName="FluoroTime" placeholder="Fluoro Time (min)" [formGroup]="formGroupE" type="number">
-          </reg-input>
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-input controlName="FluoroTime" placeholder="Fluoro Time (min)" [formGroup]="formGroupE" type="number" fxFlex>
+            </reg-input>
 
-          <reg-input controlName="ContrastVol" placeholder="Contrast Volume (mL)" [formGroup]="formGroupE" type="number">
-          </reg-input>
+            <reg-input controlName="ContrastVol" placeholder="Contrast Volume (mL)" [formGroup]="formGroupE" type="number" fxFlex>
+            </reg-input>
 
-          <reg-input controlName="FluoroDoseKerm" placeholder="Cumulative Air Kerma (mGy)" [formGroup]="formGroupE" type="number">
-          </reg-input>
+            <reg-input controlName="FluoroDoseKerm" placeholder="Cumulative Air Kerma (mGy)" [formGroup]="formGroupE" type="number" fxFlex>
+            </reg-input>
 
-          <reg-input controlName="FluoroDoseDAP" placeholder="Dose Area Product (dGy/cm2)" [formGroup]="formGroupE" type="number">
-          </reg-input>
+            <reg-input controlName="FluoroDoseDAP" placeholder="Dose Area Product (dGy/cm2)" [formGroup]="formGroupE" type="number" fxFlex>
+            </reg-input>
+          </div>
 
        </form>
       </div>
@@ -566,69 +653,75 @@
       </div>
       <div class="section-body">
         <form [formGroup]="formGroupF" #formDirectiveF="ngForm">
-          <h3>Pre-Procedure</h3>
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <div fxFlex>
+              <h3>Pre-Procedure</h3>
 
-          <reg-select controlName="PreProcTnILab" placeholder="Troponin I Lab" [formGroup]="formGroupF"
-            [choices]="['Drawn', 'Not Drawn']"></reg-select>
+              <reg-select controlName="PreProcTnILab" placeholder="Troponin I Lab" [formGroup]="formGroupF"
+                [choices]="['Drawn', 'Not Drawn']"></reg-select>
 
-          <reg-input *ngIf="visibles['PreProcTnI']" controlName="PreProcTnI" placeholder="Troponin I (ng/mL)" [formGroup]="formGroupF" type="number">
-          </reg-input>
+              <reg-input *ngIf="visibles['PreProcTnI']" controlName="PreProcTnI" placeholder="Troponin I (ng/mL)" [formGroup]="formGroupF" type="number">
+              </reg-input>
 
-          <reg-select controlName="PreProcTnTLab" placeholder="Troponin T Lab" [formGroup]="formGroupF"
-            [choices]="['Drawn', 'Not Drawn']"></reg-select>
+              <reg-select controlName="PreProcTnTLab" placeholder="Troponin T Lab" [formGroup]="formGroupF"
+                [choices]="['Drawn', 'Not Drawn']"></reg-select>
 
-          <reg-input *ngIf="visibles['PreProcTnT']" controlName="PreProcTnT" placeholder="Troponin T (ng/mL)" [formGroup]="formGroupF" type="number">
-          </reg-input>
+              <reg-input *ngIf="visibles['PreProcTnT']" controlName="PreProcTnT" placeholder="Troponin T (ng/mL)" [formGroup]="formGroupF" type="number">
+              </reg-input>
 
-          <reg-select controlName="PreProcCreatLab" placeholder="Creatinine Lab" [formGroup]="formGroupF"
-            [choices]="['Drawn', 'Not Drawn']"></reg-select>
+              <reg-select controlName="PreProcCreatLab" placeholder="Creatinine Lab" [formGroup]="formGroupF"
+                [choices]="['Drawn', 'Not Drawn']"></reg-select>
 
-          <reg-input *ngIf="visibles['PreProcCreat']" controlName="PreProcCreat" placeholder="Creatinine (mg/dL)" [formGroup]="formGroupF" type="number">
-          </reg-input>
+              <reg-input *ngIf="visibles['PreProcCreat']" controlName="PreProcCreat" placeholder="Creatinine (mg/dL)" [formGroup]="formGroupF" type="number">
+              </reg-input>
 
-          <reg-select controlName="HGBLab" placeholder="Hemoglobin Lab" [formGroup]="formGroupF"
-            [choices]="['Drawn', 'Not Drawn']"></reg-select>
+              <reg-select controlName="HGBLab" placeholder="Hemoglobin Lab" [formGroup]="formGroupF"
+                [choices]="['Drawn', 'Not Drawn']"></reg-select>
 
-          <reg-input *ngIf="visibles['HGB']" controlName="HGB" placeholder="Hemoglobin (g/dL)" [formGroup]="formGroupF" type="number">
-          </reg-input>
+              <reg-input *ngIf="visibles['HGB']" controlName="HGB" placeholder="Hemoglobin (g/dL)" [formGroup]="formGroupF" type="number">
+              </reg-input>
 
-          <reg-select controlName="LipidsTCLab" placeholder="Total Cholesterol Lab" [formGroup]="formGroupF"
-            [choices]="['Drawn', 'Not Drawn']"></reg-select>
+              <reg-select controlName="LipidsTCLab" placeholder="Total Cholesterol Lab" [formGroup]="formGroupF"
+                [choices]="['Drawn', 'Not Drawn']"></reg-select>
 
-          <reg-input *ngIf="visibles['LipidsTC']" controlName="LipidsTC" placeholder="Total Cholesterol (mg/dL)" [formGroup]="formGroupF" type="number">
-          </reg-input>
+              <reg-input *ngIf="visibles['LipidsTC']" controlName="LipidsTC" placeholder="Total Cholesterol (mg/dL)" [formGroup]="formGroupF" type="number">
+              </reg-input>
 
-          <reg-select controlName="LipidsHDLLab" placeholder="HDL Lab" [formGroup]="formGroupF"
-            [choices]="['Drawn', 'Not Drawn']"></reg-select>
+              <reg-select controlName="LipidsHDLLab" placeholder="HDL Lab" [formGroup]="formGroupF"
+                [choices]="['Drawn', 'Not Drawn']"></reg-select>
 
-          <reg-input *ngIf="visibles['LipidsHDL']" controlName="LipidsHDL" placeholder="HDL I (mg/dL)" [formGroup]="formGroupF" type="number">
-          </reg-input>
+              <reg-input *ngIf="visibles['LipidsHDL']" controlName="LipidsHDL" placeholder="HDL I (mg/dL)" [formGroup]="formGroupF" type="number">
+              </reg-input>
+            </div>
 
-          <h3>Post-Procedure</h3>
+            <div fxFlex>
+              <h3>Post-Procedure</h3>
 
-          <reg-select controlName="PostProcTnILab" placeholder="Troponin I Lab" [formGroup]="formGroupF"
-            [choices]="['Drawn', 'Not Drawn']"></reg-select>
+              <reg-select controlName="PostProcTnILab" placeholder="Troponin I Lab" [formGroup]="formGroupF"
+                [choices]="['Drawn', 'Not Drawn']"></reg-select>
 
-          <reg-input *ngIf="visibles['PostProcTnI']" controlName="PostProcTnI" placeholder="Troponin I (ng/mL)" [formGroup]="formGroupF" type="number">
-          </reg-input>
+              <reg-input *ngIf="visibles['PostProcTnI']" controlName="PostProcTnI" placeholder="Troponin I (ng/mL)" [formGroup]="formGroupF" type="number">
+              </reg-input>
 
-          <reg-select controlName="PostProcTnTLab" placeholder="Troponin T Lab" [formGroup]="formGroupF"
-            [choices]="['Drawn', 'Not Drawn']"></reg-select>
+              <reg-select controlName="PostProcTnTLab" placeholder="Troponin T Lab" [formGroup]="formGroupF"
+                [choices]="['Drawn', 'Not Drawn']"></reg-select>
 
-          <reg-input *ngIf="visibles['PostProcTnT']" controlName="PostProcTnT" placeholder="Troponin T (ng/mL)" [formGroup]="formGroupF" type="number">
-          </reg-input>
+              <reg-input *ngIf="visibles['PostProcTnT']" controlName="PostProcTnT" placeholder="Troponin T (ng/mL)" [formGroup]="formGroupF" type="number">
+              </reg-input>
 
-          <reg-select controlName="PostProcCreatLab" placeholder="Creatinine Lab (peak)" [formGroup]="formGroupF"
-            [choices]="['Drawn', 'Not Drawn']"></reg-select>
+              <reg-select controlName="PostProcCreatLab" placeholder="Creatinine Lab (peak)" [formGroup]="formGroupF"
+                [choices]="['Drawn', 'Not Drawn']"></reg-select>
 
-          <reg-input *ngIf="visibles['PostProcCreat']" controlName="PostProcCreat" placeholder="Creatinine (mg/dL)" [formGroup]="formGroupF" type="number">
-          </reg-input>
+              <reg-input *ngIf="visibles['PostProcCreat']" controlName="PostProcCreat" placeholder="Creatinine (mg/dL)" [formGroup]="formGroupF" type="number">
+              </reg-input>
 
-          <reg-select controlName="PostProcHgbLab" placeholder="Hemoglobin Lab (lowest within 72 hr)" [formGroup]="formGroupF"
-            [choices]="['Drawn', 'Not Drawn']"></reg-select>
+              <reg-select controlName="PostProcHgbLab" placeholder="Hemoglobin Lab (lowest within 72 hr)" [formGroup]="formGroupF"
+                [choices]="['Drawn', 'Not Drawn']"></reg-select>
 
-          <reg-input *ngIf="visibles['PostProcHgb']" controlName="PostProcHgb" placeholder="Hemoglobin (g/dL)" [formGroup]="formGroupF" type="number">
-          </reg-input>
+              <reg-input *ngIf="visibles['PostProcHgb']" controlName="PostProcHgb" placeholder="Hemoglobin (g/dL)" [formGroup]="formGroupF" type="number">
+              </reg-input>
+            </div>
+          </div>
 
         </form>
       </div>
@@ -668,110 +761,172 @@
               'Asymptomatic'
             ]"></reg-select>
 
-          <reg-select controlName="CVInstability" placeholder="Cardiovascular Instability" [formGroup]="formGroupG"
-            [choices]="['Yes', 'No']"></reg-select>
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-select controlName="CVInstability" placeholder="Cardiovascular Instability" [formGroup]="formGroupG"
+              [choices]="['Yes', 'No']" fxFlex></reg-select>
 
-          <reg-select-multiple *ngIf="visibles['CVInstabilityType']" controlName="CVInstabilityType" placeholder="Cardiovascular Instability Type" [formGroup]="formGroupG" [choices]="[
-              'Persistent Ischemic Symptoms (chest pain, STE)',
-              'Hemodynamic Instability (not cardiogenic shock)',
-              'Ventricular Arrhythmias',
-              'Cardiogenic Shock',
-              'Acute Heart Failure Symptoms',
-              'Refractory Cardiogenic Shock'
-            ]"></reg-select-multiple>
+            <reg-select-multiple *ngIf="visibles['CVInstabilityType']" controlName="CVInstabilityType" placeholder="Cardiovascular Instability Type" [formGroup]="formGroupG" [choices]="[
+                'Persistent Ischemic Symptoms (chest pain, STE)',
+                'Hemodynamic Instability (not cardiogenic shock)',
+                'Ventricular Arrhythmias',
+                'Cardiogenic Shock',
+                'Acute Heart Failure Symptoms',
+                'Refractory Cardiogenic Shock'
+              ]" fxFlex></reg-select-multiple>
+          </div>
 
           <reg-select controlName="VSupport" placeholder="Ventricular Support" [formGroup]="formGroupG"
             [choices]="['Yes', 'No']"></reg-select>
 
-          <reg-select *ngIf="visibles['PharmVasoSupp']" controlName="PharmVasoSupp" placeholder="Pharmacologic Vasopressor Support" [formGroup]="formGroupG"
-            [choices]="['Yes', 'No']"></reg-select>
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-select *ngIf="visibles['PharmVasoSupp']" controlName="PharmVasoSupp" placeholder="Pharmacologic Vasopressor Support" [formGroup]="formGroupG"
+              [choices]="['Yes', 'No']"></reg-select>
 
-          <reg-select *ngIf="visibles['MechVentSupp']" controlName="MechVentSupp" placeholder="Mechanical Ventricular Support" [formGroup]="formGroupG"
-            [choices]="['Yes', 'No']"></reg-select>
+            <reg-select *ngIf="visibles['MechVentSupp']" controlName="MechVentSupp" placeholder="Mechanical Ventricular Support" [formGroup]="formGroupG"
+              [choices]="['Yes', 'No']"></reg-select>
+          </div>
 
-          <reg-select *ngIf="visibles['MVSupportDevice']" controlName="MVSupportDevice" placeholder="Device" [formGroup]="formGroupG" [choices]="[
-              'Cardiopulmonary Support (CPS)',
-              'Extracorporeal membrane oxygenation (ECMO)',
-              'Impella: Left Ventricular Support',
-              'Impella: Right Ventricular Support',
-              'Intra-aortic balloon pump (IABP)',
-              'Left ventricular assist device (LVAD)',
-              'Right Ventricular Assist Device (RVAD)',
-              'Percutaneous Heart Pump (PHP)',
-              'TandemHeart'
-            ]"></reg-select>
+          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-select *ngIf="visibles['MVSupportDevice']" controlName="MVSupportDevice" placeholder="Device" [formGroup]="formGroupG" [choices]="[
+                'Cardiopulmonary Support (CPS)',
+                'Extracorporeal membrane oxygenation (ECMO)',
+                'Impella: Left Ventricular Support',
+                'Impella: Right Ventricular Support',
+                'Intra-aortic balloon pump (IABP)',
+                'Left ventricular assist device (LVAD)',
+                'Right Ventricular Assist Device (RVAD)',
+                'Percutaneous Heart Pump (PHP)',
+                'TandemHeart'
+              ]"></reg-select>
 
-          <reg-select *ngIf="visibles['MVSupportTiming']" controlName="MVSupportTiming" placeholder="Timing" [formGroup]="formGroupG" [choices]="[
-            'In place at start of procedure',
-            'Inserted during procedure and prior to intervention',
-            'Inserted after intervention has begun'
-            ]"></reg-select>
+            <reg-select *ngIf="visibles['MVSupportTiming']" controlName="MVSupportTiming" placeholder="Timing" [formGroup]="formGroupG" [choices]="[
+              'In place at start of procedure',
+              'Inserted during procedure and prior to intervention',
+              'Inserted after intervention has begun'
+              ]"></reg-select>
+          </div>
 
           <h3 *ngIf="visibles['indicationValve']" id="indicationValve">Indication(s) for Cath Lab Visit = Valvular Disease</h3>
 
-          <reg-select *ngIf="visibles['ValvularDzStenosisType']" controlName="ValvularDzStenosisType" placeholder="Valvular Disease Stenosis Type" [formGroup]="formGroupG" [choices]="[
-              'Aortic Stenosis',
-              'Mitral Stenosis',
-              'Pulmonic Stenosis',
-              'Tricuspid Stenosis'
-            ]"></reg-select>
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <div fxFlex>
+              <h4 *ngIf="visibles['indicationValve']">Valvular Disease Stenosis Type</h4>
+              <reg-select *ngIf="visibles['ASSeverity']" controlName="ASSeverity" placeholder="Aortic Stenosis Severity" [formGroup]="formGroupG" [choices]="[
+                  'No',
+                  'Trivial',
+                  'Mild',
+                  'Moderate',
+                  'Severe',
+                  'Unknown'
+                ]"></reg-select>
 
-          <reg-select *ngIf="visibles['ValvularDzStenosisSev']" controlName="ValvularDzStenosisSev" placeholder="Stenosis Severity" [formGroup]="formGroupG" [choices]="[
-              'Mild',
-              'Moderate',
-              'Severe'
-            ]"></reg-select>
+              <reg-select *ngIf="visibles['MSSeverity']" controlName="MSSeverity" placeholder="Mitral Stenosis Severity" [formGroup]="formGroupG" [choices]="[
+                  'No',
+                  'Trivial',
+                  'Mild',
+                  'Moderate',
+                  'Severe',
+                  'Unknown'
+                ]"></reg-select>
 
-          <reg-select *ngIf="visibles['ValvularDzRegurgType']" controlName="ValvularDzRegurgType" placeholder="Valvular Disease Regurgitation Type" [formGroup]="formGroupG" [choices]="[
-              'Aortic Regurgitation',
-              'Mitral Regurgitation',
-              'Pulmonic Regurgitation',
-              'Tricuspid Regurgitation'
-            ]"></reg-select>
+              <reg-select *ngIf="visibles['PSSeverity']" controlName="PSSeverity" placeholder="Pulmonic Stenosis Severity" [formGroup]="formGroupG" [choices]="[
+                  'No',
+                  'Trivial',
+                  'Mild',
+                  'Moderate',
+                  'Severe',
+                  'Unknown'
+                ]"></reg-select>
 
-          <reg-select *ngIf="visibles['RegurgSeverity']" controlName="RegurgSeverity" placeholder="Regurgitation Severity" [formGroup]="formGroupG" [choices]="[
-              'Mild (1+)',
-              'Moderate (2+)',
-              'Moderately Severe (3+)',
-              'Severe (4+)'
-            ]"></reg-select>
+              <reg-select *ngIf="visibles['TSSeverity']" controlName="TSSeverity" placeholder="Tricuspid Stenosis Severity" [formGroup]="formGroupG" [choices]="[
+                  'No',
+                  'Trivial',
+                  'Mild',
+                  'Moderate',
+                  'Severe',
+                  'Unknown'
+                ]"></reg-select>
+            </div>
+
+            <div fxFlex>
+              <h4 *ngIf="visibles['indicationValve']">Valvular Disease Regurgitation Type</h4>
+              <reg-select *ngIf="visibles['ARSeverity']" controlName="ARSeverity" placeholder="Aortic Regurgitation Severity" [formGroup]="formGroupG" [choices]="[
+                  'No (0)',
+                  'Mild (1+)',
+                  'Moderate (2+)',
+                  'Moderately Severe (3+)',
+                  'Severe (4+)',
+                  'Unknown'
+                ]"></reg-select>
+
+              <reg-select *ngIf="visibles['MRSeverity']" controlName="MRSeverity" placeholder="Mitral Regurgitation Severity" [formGroup]="formGroupG" [choices]="[
+                  'No (0)',
+                  'Mild (1+)',
+                  'Moderate (2+)',
+                  'Moderately Severe (3+)',
+                  'Severe (4+)',
+                  'Unknown'
+                ]"></reg-select>
+
+              <reg-select *ngIf="visibles['PRSeverity']" controlName="PRSeverity" placeholder="Pulmonic Regurgitation Severity" [formGroup]="formGroupG" [choices]="[
+                  'No (0)',
+                  'Mild (1+)',
+                  'Moderate (2+)',
+                  'Moderately Severe (3+)',
+                  'Severe (4+)',
+                  'Unknown'
+                ]"></reg-select>
+
+              <reg-select *ngIf="visibles['TRSeverity']" controlName="TRSeverity" placeholder="Tricuspid Regurgitation Severity" [formGroup]="formGroupG" [choices]="[
+                  'No (0)',
+                  'Mild (1+)',
+                  'Moderate (2+)',
+                  'Moderately Severe (3+)',
+                  'Severe (4+)',
+                  'Unknown'
+                ]"></reg-select>
+            </div>
+          </div>
 
           <h3 *ngIf="visibles['indicationPreopEva']" id="indicationPreopEva">Indication(s) for Cath Lab Visit = Pre-operative evaluation</h3>
 
-          <reg-select *ngIf="visibles['PreOPEval']" controlName="PreOPEval" placeholder="Evaluation for Surgery Type" [formGroup]="formGroupG" [choices]="[
-              'Cardiac Surgery',
-              'Non-Cardiac Surgery'
-            ]"></reg-select>
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-select *ngIf="visibles['PreOPEval']" controlName="PreOPEval" placeholder="Evaluation for Surgery Type" [formGroup]="formGroupG" [choices]="[
+                'Cardiac Surgery',
+                'Non-Cardiac Surgery'
+              ]" fxFlex></reg-select>
 
-          <reg-select *ngIf="visibles['FuncCapacity']" controlName="FuncCapacity" placeholder="Functional Capacity" [formGroup]="formGroupG" [choices]="[
-              '< 4 METS',
-              '>= 4 METS without Symptoms',
-              '>= 4 METS with Symptoms',
-              'Unknown'
-            ]"></reg-select>
+            <reg-select *ngIf="visibles['FuncCapacity']" controlName="FuncCapacity" placeholder="Functional Capacity" [formGroup]="formGroupG" [choices]="[
+                '< 4 METS',
+                '>= 4 METS without Symptoms',
+                '>= 4 METS with Symptoms',
+                'Unknown'
+              ]" fxFlex></reg-select>
 
-          <reg-select *ngIf="visibles['SurgRisk']" controlName="SurgRisk" placeholder="Surgical Risk" [formGroup]="formGroupG" [choices]="[
-              'Low',
-              'Intermediate',
-              'High Risk: Vascular',
-              'High Risk: Non-Vascular'
-            ]"></reg-select>
+            <reg-select *ngIf="visibles['SurgRisk']" controlName="SurgRisk" placeholder="Surgical Risk" [formGroup]="formGroupG" [choices]="[
+                'Low',
+                'Intermediate',
+                'High Risk: Vascular',
+                'High Risk: Non-Vascular'
+              ]" fxFlex></reg-select>
+          </div>
 
-          <reg-select *ngIf="visibles['OrganTransplantSurg']" controlName="OrganTransplantSurg" placeholder="Solid Organ Transplant Surgery" [formGroup]="formGroupG"
-            [choices]="['Yes', 'No']"></reg-select>
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-select *ngIf="visibles['OrganTransplantSurg']" controlName="OrganTransplantSurg" placeholder="Solid Organ Transplant Surgery" [formGroup]="formGroupG"
+              [choices]="['Yes', 'No']" fxFlex></reg-select>
 
-          <reg-select *ngIf="visibles['OrganTransplantDonor']" controlName="OrganTransplantDonor" placeholder="Transplant Donor" [formGroup]="formGroupG"
-            [choices]="['Yes', 'No']"></reg-select>
+            <reg-select *ngIf="visibles['OrganTransplantDonor']" controlName="OrganTransplantDonor" placeholder="Transplant Donor" [formGroup]="formGroupG"
+              [choices]="['Yes', 'No']" fxFlex></reg-select>
 
-          <reg-select-multiple *ngIf="visibles['OrganTransplantType']" controlName="OrganTransplantType" placeholder="Transplant Type" [formGroup]="formGroupG" [choices]="[
-              'Heart',
-              'Kidney',
-              'Liver',
-              'Lung',
-              'Pancreas',
-              'Other Organ'
-            ]"></reg-select-multiple>
-
+            <reg-select-multiple *ngIf="visibles['OrganTransplantType']" controlName="OrganTransplantType" placeholder="Transplant Type" [formGroup]="formGroupG" [choices]="[
+                'Heart',
+                'Kidney',
+                'Liver',
+                'Lung',
+                'Pancreas',
+                'Other Organ'
+              ]" fxFlex></reg-select-multiple>
+          </div>
 
         </form>
       </div>
@@ -790,59 +945,66 @@
           <reg-select controlName="NVStenosis" placeholder="Native Vessel with Stenosis >= 50%" [formGroup]="formGroupH"
             [choices]="['Yes', 'No']"></reg-select>
 
-          <reg-select *ngIf="visibles['NVSegmentID']" controlName="NVSegmentID" placeholder="Native Lesion Segment Number" [formGroup]="formGroupH"
-            [choices]="segmentNumbers"></reg-select>
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-select *ngIf="visibles['NVSegmentID']" controlName="NVSegmentID" placeholder="Native Lesion Segment Number" [formGroup]="formGroupH"
+              [choices]="segmentNumbers" fxFlex></reg-select>
 
-          <reg-input *ngIf="visibles['NVCoroVesselStenosis']" controlName="NVCoroVesselStenosis" placeholder="Native Stenosis (%)" [formGroup]="formGroupH" type="number">
-          </reg-input>
+            <reg-input *ngIf="visibles['NVCoroVesselStenosis']" controlName="NVCoroVesselStenosis" placeholder="Native Stenosis (%)" [formGroup]="formGroupH" type="number" fxFlex>
+            </reg-input>
 
-          <reg-select *ngIf="visibles['NVAdjuncMeasObtained']" controlName="NVAdjuncMeasObtained" placeholder="Adjunctive Measurements Obtained" [formGroup]="formGroupH"
-            [choices]="['Yes', 'No']"></reg-select>
+            <reg-select *ngIf="visibles['NVAdjuncMeasObtained']" controlName="NVAdjuncMeasObtained" placeholder="Adjunctive Measurements Obtained" [formGroup]="formGroupH"
+              [choices]="['Yes', 'No']" fxFlex></reg-select>
+          </div>
 
-          <reg-input *ngIf="visibles['NV_FFR']" controlName="NV_FFR" placeholder="FFR Ratio" [formGroup]="formGroupH" type="number">
-          </reg-input>
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-input *ngIf="visibles['NV_FFR']" controlName="NV_FFR" placeholder="FFR Ratio" [formGroup]="formGroupH" type="number" fxFlex>
+            </reg-input>
 
-          <reg-input *ngIf="visibles['NV_IFR']" controlName="NV_IFR" placeholder="iFR Ratio" [formGroup]="formGroupH" type="number">
-          </reg-input>
+            <reg-input *ngIf="visibles['NV_IFR']" controlName="NV_IFR" placeholder="iFR Ratio" [formGroup]="formGroupH" type="number" fxFlex>
+            </reg-input>
 
-          <reg-input *ngIf="visibles['NV_IVUS']" controlName="NV_IVUS" placeholder="IVUS MLA (mm2)" [formGroup]="formGroupH" type="number">
-          </reg-input>
+            <reg-input *ngIf="visibles['NV_IVUS']" controlName="NV_IVUS" placeholder="IVUS MLA (mm2)" [formGroup]="formGroupH" type="number" fxFlex>
+            </reg-input>
 
-          <reg-input *ngIf="visibles['NV_OCT']" controlName="NV_OCT" placeholder="OCT MLA (mm2)" [formGroup]="formGroupH" type="number">
-          </reg-input>
+            <reg-input *ngIf="visibles['NV_OCT']" controlName="NV_OCT" placeholder="OCT MLA (mm2)" [formGroup]="formGroupH" type="number" fxFlex>
+            </reg-input>
+          </div>
 
           <reg-select controlName="GraftStenosis" placeholder="Graft Vessel with Stenosis >= 50%" [formGroup]="formGroupH"
             [choices]="['Yes', 'No']"></reg-select>
 
-          <reg-select *ngIf="visibles['GraftSegmentID']" controlName="GraftSegmentID" placeholder="Graft Lesion Segment Number" [formGroup]="formGroupH"
-            [choices]="segmentNumbers"></reg-select>
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-select *ngIf="visibles['GraftSegmentID']" controlName="GraftSegmentID" placeholder="Graft Lesion Segment Number" [formGroup]="formGroupH"
+              [choices]="segmentNumbers" fxFlex></reg-select>
 
-          <reg-input *ngIf="visibles['GraftCoroVesselStenosis']" controlName="GraftCoroVesselStenosis" placeholder="GraftStenosis (%)" [formGroup]="formGroupH" type="number">
-          </reg-input>
+            <reg-input *ngIf="visibles['GraftCoroVesselStenosis']" controlName="GraftCoroVesselStenosis" placeholder="GraftStenosis (%)" [formGroup]="formGroupH" type="number" fxFlex>
+            </reg-input>
 
-          <reg-select *ngIf="visibles['CABGGraftVessel']" controlName="CABGGraftVessel" placeholder="Graft Vessel" [formGroup]="formGroupH" [choices]="[
-              'LIMA',
-              'RIMA',
-              'SVG',
-              'Radial',
-              'Unknown'
-            ]"></reg-select>
+            <reg-select *ngIf="visibles['CABGGraftVessel']" controlName="CABGGraftVessel" placeholder="Graft Vessel" [formGroup]="formGroupH" [choices]="[
+                'LIMA',
+                'RIMA',
+                'SVG',
+                'Radial',
+                'Unknown'
+              ]" fxFlex></reg-select>
 
-          <reg-select *ngIf="visibles['GraftAdjuncMeasObtained']" controlName="GraftAdjuncMeasObtained" placeholder="Adjunctive Measurements Obtained" [formGroup]="formGroupH"
-            [choices]="['Yes', 'No']"></reg-select>
+            <reg-select *ngIf="visibles['GraftAdjuncMeasObtained']" controlName="GraftAdjuncMeasObtained" placeholder="Adjunctive Measurements Obtained" [formGroup]="formGroupH"
+              [choices]="['Yes', 'No']" fxFlex></reg-select>
+          </div>
 
-          <reg-input *ngIf="visibles['Graft_FFR']" controlName="Graft_FFR" placeholder="FFR Ratio" [formGroup]="formGroupH" type="number">
-          </reg-input>
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-input *ngIf="visibles['Graft_FFR']" controlName="Graft_FFR" placeholder="FFR Ratio" [formGroup]="formGroupH" type="number" fxFlex>
+            </reg-input>
 
-          <reg-input *ngIf="visibles['Graft_IFR']" controlName="Graft_IFR" placeholder="iFR Ratio" [formGroup]="formGroupH" type="number">
-          </reg-input>
+            <reg-input *ngIf="visibles['Graft_IFR']" controlName="Graft_IFR" placeholder="iFR Ratio" [formGroup]="formGroupH" type="number" fxFlex>
+            </reg-input>
 
-          <reg-input *ngIf="visibles['Graft_IVUS']" controlName="Graft_IVUS" placeholder="IVUS MLA (mm2)" [formGroup]="formGroupH" type="number">
-          </reg-input>
+            <reg-input *ngIf="visibles['Graft_IVUS']" controlName="Graft_IVUS" placeholder="IVUS MLA (mm2)" [formGroup]="formGroupH" type="number" fxFlex>
+            </reg-input>
 
-          <reg-input *ngIf="visibles['Graft_OCT']" controlName="Graft_OCT" placeholder="OCT MLA (mm2)" [formGroup]="formGroupH" type="number">
-          </reg-input>
-
+            <reg-input *ngIf="visibles['Graft_OCT']" controlName="Graft_OCT" placeholder="OCT MLA (mm2)" [formGroup]="formGroupH" type="number" fxFlex>
+            </reg-input>
+          </div>
 
       </form>
       </div>
@@ -863,44 +1025,50 @@
               'Salvage'
             ]"></reg-select>
 
-          <reg-select *ngIf="visibles['HypothermiaInduced']" controlName="HypothermiaInduced" placeholder="Hypothermia Induced" [formGroup]="formGroupI"
-            [choices]="['Yes', 'No']"></reg-select>
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-select *ngIf="visibles['HypothermiaInduced']" controlName="HypothermiaInduced" placeholder="Hypothermia Induced" [formGroup]="formGroupI"
+              [choices]="['Yes', 'No']" fxFlex></reg-select>
 
-          <reg-select *ngIf="visibles['HypothermiaInducedTiming']" controlName="HypothermiaInducedTiming" placeholder="Timing of Hypothermia" [formGroup]="formGroupI" [choices]="[
-              'Initiated Pre-PCI, <= 6 hrs post cardiac arrest',
-              'Initiated Pre-PCI, > 6 hrs post cardiac arrest',
-              'Post PCI'
-            ]"></reg-select>
+            <reg-select *ngIf="visibles['HypothermiaInducedTiming']" controlName="HypothermiaInducedTiming" placeholder="Timing of Hypothermia" [formGroup]="formGroupI" [choices]="[
+                'Initiated Pre-PCI, <= 6 hrs post cardiac arrest',
+                'Initiated Pre-PCI, > 6 hrs post cardiac arrest',
+                'Post PCI'
+              ]" fxFlex></reg-select>
 
-          <reg-select *ngIf="visibles['LOCProc']" controlName="LOCProc" placeholder="Level of Consciousness" [formGroup]="formGroupI" [choices]="[
-              '(A) Alert',
-              '(V) Verbal',
-              '(P) Pain',
-              '(U) Unresponsive',
-              'Unable to Assess'
-            ]">(at start of PCI s/p cardiac arrest)</reg-select>
+            <reg-select *ngIf="visibles['LOCProc']" controlName="LOCProc" placeholder="Level of Consciousness" [formGroup]="formGroupI" [choices]="[
+                '(A) Alert',
+                '(V) Verbal',
+                '(P) Pain',
+                '(U) Unresponsive',
+                'Unable to Assess'
+              ]" fxFlex>(at start of PCI s/p cardiac arrest)</reg-select>
+          </div>
 
-          <reg-select controlName="PCIDecision" placeholder="Decision for PCI with Surgical Consult" [formGroup]="formGroupI"
-            [choices]="['Yes', 'No']"></reg-select>
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-select controlName="PCIDecision" placeholder="Decision for PCI with Surgical Consult" [formGroup]="formGroupI"
+              [choices]="['Yes', 'No']" fxFlex></reg-select>
 
-          <reg-select *ngIf="visibles['CVTxDecision']" controlName="CVTxDecision" placeholder="CV Treatment Decision" [formGroup]="formGroupI" [choices]="[
-              'Surgery Not Recommended',
-              'Surgery Recommended, Patient/Family Declined',
-              'Surgery Recommended, Patient/Family Accepted (Hybrid procedure)'
-            ]"></reg-select>
+            <reg-select *ngIf="visibles['CVTxDecision']" controlName="CVTxDecision" placeholder="CV Treatment Decision" [formGroup]="formGroupI" [choices]="[
+                'Surgery Not Recommended',
+                'Surgery Recommended, Patient/Family Declined',
+                'Surgery Recommended, Patient/Family Accepted (Hybrid procedure)'
+              ]" fxFlex></reg-select>
 
-          <reg-select *ngIf="visibles['CVSheetDecision']" controlName="CVSheetDecision" placeholder="CV Treatment Decision" [formGroup]="formGroupI" [choices]="[
-              'Surgical information sheet provided',
-              'Surgical information sheet NOT provided'
-            ]"></reg-select>
+            <reg-select *ngIf="visibles['CVSheetDecision']" controlName="CVSheetDecision" placeholder="CV Treatment Decision" [formGroup]="formGroupI" [choices]="[
+                'Surgical information sheet provided',
+                'Surgical information sheet NOT provided'
+              ]" fxFlex></reg-select>
+          </div>
 
-          <reg-select controlName="MultiVesselDz" placeholder="PCI for Multi-vessel Disease" [formGroup]="formGroupI"
-            [choices]="['Yes', 'No']"></reg-select>
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-select controlName="MultiVesselDz" placeholder="PCI for Multi-vessel Disease" [formGroup]="formGroupI"
+              [choices]="['Yes', 'No']" fxFlex></reg-select>
 
-          <reg-select *ngIf="visibles['MultiVessProcType']" controlName="MultiVessProcType" placeholder="Multi-vessel Procedure Type" [formGroup]="formGroupI" [choices]="[
-              'Initial PCI',
-              'Staged PCI'
-            ]">(in this lab visit)</reg-select>
+            <reg-select *ngIf="visibles['MultiVessProcType']" controlName="MultiVessProcType" placeholder="Multi-vessel Procedure Type" [formGroup]="formGroupI" [choices]="[
+                'Initial PCI',
+                'Staged PCI'
+              ]" fxFlex>(in this lab visit)</reg-select>
+          </div>
 
           <reg-select controlName="PCIIndication" placeholder="PCI Indication" [formGroup]="formGroupI" [choices]="[
             'STEMI - Immediate PCI for Acute STEMI',
@@ -917,130 +1085,146 @@
             'Other'
             ]"></reg-select>
 
-          <reg-datepicker *ngIf="visibles['SymptomDate']" controlName="SymptomDate" placeholder="Symptom Date" [formGroup]="formGroupI">
-            dd/mm/yyyy</reg-datepicker>
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-datepicker *ngIf="visibles['SymptomDate']" controlName="SymptomDate" placeholder="Symptom Date" [formGroup]="formGroupI" fxFlex>
+              dd/mm/yyyy</reg-datepicker>
 
-          <reg-datepicker *ngIf="visibles['SymptomTime']" controlName="SymptomTime" placeholder="Symptom Time" [formGroup]="formGroupI" type="time">
-            24 hr clock</reg-datepicker>
+            <reg-datepicker *ngIf="visibles['SymptomTime']" controlName="SymptomTime" placeholder="Symptom Time" [formGroup]="formGroupI" type="time" fxFlex>
+              24 hr clock</reg-datepicker>
 
-          <reg-select *ngIf="visibles['SymptomTimeUnk']" controlName="SymptomTimeUnk" placeholder="Symptom Time Unknown" [formGroup]="formGroupI"
-            [choices]="['Estimated', 'Unknown']"></reg-select>
+            <reg-select *ngIf="visibles['SymptomTimeUnk']" controlName="SymptomTimeUnk" placeholder="Symptom Time Unknown" [formGroup]="formGroupI"
+              [choices]="['Estimated', 'Unknown']" fxFlex></reg-select>
+          </div>
 
-          <reg-select *ngIf="visibles['ThromTherapy']" controlName="ThromTherapy" placeholder="Thrombolytics" [formGroup]="formGroupI"
-            [choices]="['Yes', 'No']"></reg-select>
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-select *ngIf="visibles['ThromTherapy']" controlName="ThromTherapy" placeholder="Thrombolytics" [formGroup]="formGroupI" [choices]="[
+                'No',
+                'Streptokinase (SK)',
+                'Tissue Plasminogen Activators (tPA)',
+                'Tenecteplase (TNK-tPA)'
+              ]" fxFlex></reg-select>
 
-          <reg-select *ngIf="visibles['ThromType']" controlName="ThromType" placeholder="Thrombolytic Type" [formGroup]="formGroupI" [choices]="[
-              'Streptokinase (SK)',
-              'Tissue Plasminogen Activators (tPA)',
-              'Tenecteplase (TNK-tPA)'
-            ]"></reg-select>
+            <reg-datepicker *ngIf="visibles['ThromDateTime']" controlName="ThromDateTime" placeholder="Start Date/Time" [formGroup]="formGroupI" type="datetime" fxFlex>
+              dd/mm/yyyy hh:mm - 24 hr clock</reg-datepicker>
+          </div>
 
-          <reg-datepicker *ngIf="visibles['ThromDateTime']" controlName="ThromDateTime" placeholder="Start Date/Time" [formGroup]="formGroupI" type="datetime">
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-select *ngIf="visibles['SyntaxScore']" controlName="SyntaxScore" placeholder="Syntax Score" [formGroup]="formGroupI" [choices]="[
+                'Low',
+                'Intermediate',
+                'High',
+                'Unknown'
+              ]" fxFlex></reg-select>
+
+            <reg-input *ngIf="visibles['SyntaxScoreValue']" controlName="SyntaxScoreValue" placeholder="Syntax Score Value" [formGroup]="formGroupI" type="number" fxFlex>
+            </reg-input>
+          </div>
+
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-select *ngIf="visibles['StemiFirstNoted']" controlName="StemiFirstNoted" placeholder="STEMI or STEMI Equivalent First Noted" [formGroup]="formGroupI"
+              [choices]="['First ECG', 'Subsequent ECG']" fxFlex></reg-select>
+
+            <reg-datepicker *ngIf="visibles['SubECGDateTime']" controlName="SubECGDateTime" placeholder="ECG with STEMI/ STEMI Equivalent Date & Time" [formGroup]="formGroupI" type="datetime" fxFlex>
+              dd/mm/yyyy hh:mm - 24 hr clock</reg-datepicker>
+
+            <reg-select *ngIf="visibles['SubECGED']" controlName="SubECGED" placeholder="ECG obtained in Emergency Department" [formGroup]="formGroupI"
+              [choices]="['Yes', 'No']" fxFlex></reg-select>
+          </div>
+
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-select *ngIf="visibles['PatientTransPCI']" controlName="PatientTransPCI" placeholder="Transferred In For Immediate PCI for STEMI" [formGroup]="formGroupI"
+              [choices]="['Yes', 'No']" fxFlex></reg-select>
+
+            <reg-datepicker *ngIf="visibles['EDPresentDateTime']" controlName="EDPresentDateTime" placeholder="Date & Time ED Presentation at Referring Facility" [formGroup]="formGroupI" type="datetime" fxFlex>
+              dd/mm/yyyy hh:mm - 24 hr clock</reg-datepicker>
+          </div>
+
+          <reg-datepicker class="subitem-horz" *ngIf="visibles['FirstDevActiDateTime']" controlName="FirstDevActiDateTime" placeholder="First Device Activation Date & Time" [formGroup]="formGroupI" type="datetime">
             dd/mm/yyyy hh:mm - 24 hr clock</reg-datepicker>
 
-          <reg-select *ngIf="visibles['SyntaxScore']" controlName="SyntaxScore" placeholder="Syntax Score" [formGroup]="formGroupI" [choices]="[
-              'Low',
-              'Intermediate',
-              'High',
-              'Unknown'
-            ]"></reg-select>
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-select *ngIf="visibles['PtPCIDelayReason']" controlName="PtPCIDelayReason" placeholder="Patient Centered Reason for Delay in PCI" [formGroup]="formGroupI"
+              [choices]="['Yes', 'No']" fxFlex></reg-select>
 
-          <reg-input *ngIf="visibles['SyntaxScoreValue']" controlName="SyntaxScoreValue" placeholder="Syntax Score Value" [formGroup]="formGroupI" type="number">
-          </reg-input>
-
-          <reg-select *ngIf="visibles['StemiFirstNoted']" controlName="StemiFirstNoted" placeholder="STEMI or STEMI Equivalent First Noted" [formGroup]="formGroupI"
-            [choices]="['First ECG', 'Subsequent ECG']"></reg-select>
-
-          <reg-datepicker *ngIf="visibles['SubECGDateTime']" controlName="SubECGDateTime" placeholder="ECG with STEMI/ STEMI Equivalent Date & Time" [formGroup]="formGroupI" type="datetime">
-            dd/mm/yyyy hh:mm - 24 hr clock</reg-datepicker>
-
-          <reg-select *ngIf="visibles['SubECGED']" controlName="SubECGED" placeholder="ECG obtained in Emergency Department" [formGroup]="formGroupI"
-            [choices]="['Yes', 'No']"></reg-select>
-
-          <reg-select *ngIf="visibles['PatientTransPCI']" controlName="PatientTransPCI" placeholder="Transferred In For Immediate PCI for STEMI" [formGroup]="formGroupI"
-            [choices]="['Yes', 'No']"></reg-select>
-
-          <reg-datepicker *ngIf="visibles['EDPresentDateTime']" controlName="EDPresentDateTime" placeholder="Date & Time ED Presentation at Referring Facility" [formGroup]="formGroupI" type="datetime">
-            dd/mm/yyyy hh:mm - 24 hr clock</reg-datepicker>
-
-          <reg-datepicker *ngIf="visibles['FirstDevActiDateTime']" controlName="FirstDevActiDateTime" placeholder="First Device Activation Date & Time" [formGroup]="formGroupI" type="datetime">
-            dd/mm/yyyy hh:mm - 24 hr clock</reg-datepicker>
-
-          <reg-select *ngIf="visibles['PtPCIDelayReason']" controlName="PtPCIDelayReason" placeholder="Patient Centered Reason for Delay in PCI" [formGroup]="formGroupI"
-            [choices]="['Yes', 'No']"></reg-select>
-
-          <reg-select *ngIf="visibles['PCIDelayReason']" controlName="PCIDelayReason" placeholder="Reason for Delay in PCI" [formGroup]="formGroupI" [choices]="[
-              'Difficult Vascular Access',
-              'Difficulty crossing the culprit lesion',
-              'Cardiac Arrest and/or need for intubation before PCI',
-              'Patient delays in providing consent for PCI',
-              'Emergent placement of LV support device before PCI',
-              'Other'
-            ]"></reg-select>
+            <reg-select *ngIf="visibles['PCIDelayReason']" controlName="PCIDelayReason" placeholder="Reason for Delay in PCI" [formGroup]="formGroupI" [choices]="[
+                'Difficult Vascular Access',
+                'Difficulty crossing the culprit lesion',
+                'Cardiac Arrest and/or need for intubation before PCI',
+                'Patient delays in providing consent for PCI',
+                'Emergent placement of LV support device before PCI',
+                'Other'
+              ]" fxFlex></reg-select>
+          </div>
 
           <h3>PCI Procedure Medications</h3>
           <h5>(ADMINISTERED WITHIN 24 HOURS PRIOR TO AND DURING THE PCI PROCEDURE)</h5>
 
-          <h4>Anticoagulant</h4>
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <div fxFlex>
+              <h4>Anticoagulant</h4>
 
-          <reg-select controlName="Argatroban" placeholder="Argatroban" [formGroup]="formGroupI"
-            [choices]="['Yes', 'No']"></reg-select>
+              <reg-select controlName="Argatroban" placeholder="Argatroban" [formGroup]="formGroupI"
+                [choices]="['Yes', 'No']"></reg-select>
 
-          <reg-select controlName="Bivalirudin" placeholder="Bivalirudin" [formGroup]="formGroupI"
-            [choices]="['Yes', 'No']"></reg-select>
+              <reg-select controlName="Bivalirudin" placeholder="Bivalirudin" [formGroup]="formGroupI"
+                [choices]="['Yes', 'No']"></reg-select>
 
-          <reg-select controlName="Fondaparinux" placeholder="Fondaparinux" [formGroup]="formGroupI"
-            [choices]="['Yes', 'No']"></reg-select>
+              <reg-select controlName="Fondaparinux" placeholder="Fondaparinux" [formGroup]="formGroupI"
+                [choices]="['Yes', 'No']"></reg-select>
 
-          <reg-select controlName="HeparinDerivative" placeholder="Heparin Derivative" [formGroup]="formGroupI"
-            [choices]="['Yes', 'No']"></reg-select>
+              <reg-select controlName="HeparinDerivative" placeholder="Heparin Derivative" [formGroup]="formGroupI"
+                [choices]="['Yes', 'No']"></reg-select>
 
-          <reg-select controlName="LMWH" placeholder="Low Molecular Weight Heparin" [formGroup]="formGroupI"
-            [choices]="['Yes', 'No']"></reg-select>
+              <reg-select controlName="LMWH" placeholder="Low Molecular Weight Heparin" [formGroup]="formGroupI"
+                [choices]="['Yes', 'No']"></reg-select>
 
-          <reg-select controlName="UFH" placeholder="Unfractionated Heparin" [formGroup]="formGroupI"
-            [choices]="['Yes', 'No']"></reg-select>
+              <reg-select controlName="UFH" placeholder="Unfractionated Heparin" [formGroup]="formGroupI"
+                [choices]="['Yes', 'No']"></reg-select>
 
-          <reg-select controlName="Warfarin" placeholder="Warfarin" [formGroup]="formGroupI"
-            [choices]="['Yes', 'No']"></reg-select>
+              <reg-select controlName="Warfarin" placeholder="Warfarin" [formGroup]="formGroupI"
+                [choices]="['Yes', 'No']"></reg-select>
 
-          <h4>Antiplatelet</h4>
+              <h4>Antiplatelet</h4>
 
-          <reg-select controlName="Vorapaxar" placeholder="Vorapaxar" [formGroup]="formGroupI"
-            [choices]="['Yes', 'No']"></reg-select>
+              <reg-select controlName="Vorapaxar" placeholder="Vorapaxar" [formGroup]="formGroupI"
+                [choices]="['Yes', 'No']"></reg-select>
+            </div>
 
-          <h4>Glycoprotein (GP) IIb/IIIa Inhibitors</h4>
+            <div fxFlex>
+              <h4>Glycoprotein (GP) IIb/IIIa Inhibitors</h4>
 
-          <reg-select controlName="GPIIbIIIa" placeholder="GP IIb/IIIa Inhibitors (Any)" [formGroup]="formGroupI"
-            [choices]="['Yes', 'No']"></reg-select>
+              <reg-select controlName="GPIIbIIIa" placeholder="GP IIb/IIIa Inhibitors (Any)" [formGroup]="formGroupI"
+                [choices]="['Yes', 'No']"></reg-select>
 
-          <h4>Non-Vitamin K Dependent Oral Anticoangulant</h4>
+              <h4>Non-Vitamin K Dependent Oral Anticoangulant</h4>
 
-          <reg-select controlName="Apixaban" placeholder="Apixaban" [formGroup]="formGroupI"
-            [choices]="['Yes', 'No']"></reg-select>
+              <reg-select controlName="Apixaban" placeholder="Apixaban" [formGroup]="formGroupI"
+                [choices]="['Yes', 'No']"></reg-select>
 
-          <reg-select controlName="Dabigatran" placeholder="Dabigatran" [formGroup]="formGroupI"
-            [choices]="['Yes', 'No']"></reg-select>
+              <reg-select controlName="Dabigatran" placeholder="Dabigatran" [formGroup]="formGroupI"
+                [choices]="['Yes', 'No']"></reg-select>
 
-          <reg-select controlName="Edoxaban" placeholder="Edoxaban" [formGroup]="formGroupI"
-            [choices]="['Yes', 'No']"></reg-select>
+              <reg-select controlName="Edoxaban" placeholder="Edoxaban" [formGroup]="formGroupI"
+                [choices]="['Yes', 'No']"></reg-select>
 
-          <reg-select controlName="Rivaroxaban" placeholder="Rivaroxaban" [formGroup]="formGroupI"
-            [choices]="['Yes', 'No']"></reg-select>
+              <reg-select controlName="Rivaroxaban" placeholder="Rivaroxaban" [formGroup]="formGroupI"
+                [choices]="['Yes', 'No']"></reg-select>
 
-          <h4>P2Y12 Inhibitors</h4>
+              <h4>P2Y12 Inhibitors</h4>
 
-          <reg-select controlName="Cangrelor" placeholder="Cangrelor" [formGroup]="formGroupI"
-            [choices]="['Yes', 'No']"></reg-select>
+              <reg-select controlName="Cangrelor" placeholder="Cangrelor" [formGroup]="formGroupI"
+                [choices]="['Yes', 'No']"></reg-select>
 
-          <reg-select controlName="Clopidogrel" placeholder="Clopidogrel" [formGroup]="formGroupI"
-            [choices]="['Yes', 'No']"></reg-select>
+              <reg-select controlName="Clopidogrel" placeholder="Clopidogrel" [formGroup]="formGroupI"
+                [choices]="['Yes', 'No']"></reg-select>
 
-          <reg-select controlName="Prasugrel" placeholder="Prasugrel" [formGroup]="formGroupI"
-            [choices]="['Yes', 'No']"></reg-select>
+              <reg-select controlName="Prasugrel" placeholder="Prasugrel" [formGroup]="formGroupI"
+                [choices]="['Yes', 'No']"></reg-select>
 
-          <reg-select controlName="Ticagrelor" placeholder="Ticagrelor" [formGroup]="formGroupI"
-            [choices]="['Yes', 'No']"></reg-select>
+              <reg-select controlName="Ticagrelor" placeholder="Ticagrelor" [formGroup]="formGroupI"
+                [choices]="['Yes', 'No']"></reg-select>
+            </div>
+          </div>
 
         </form>
       </div>
@@ -1064,94 +1248,112 @@
             <reg-select *ngIf="visibles[lesion[1]]" [controlName]="lesion[1]" placeholder="LESION" [formGroup]="formGroupJ"
               [choices]="['Yes', 'No']"></reg-select>
 
-            <reg-select-multiple *ngIf="visibles[lesion[2]]" [controlName]="lesion[2]" placeholder="Segment Number(s)" [formGroup]="formGroupJ"
-              [choices]="segmentNumbers"></reg-select-multiple>
+            <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+              <reg-select-multiple *ngIf="visibles[lesion[2]]" [controlName]="lesion[2]" placeholder="Segment Number(s)" [formGroup]="formGroupJ"
+                [choices]="segmentNumbers" fxFlex></reg-select-multiple>
 
-            <reg-select *ngIf="visibles[lesion[3]]" [controlName]="lesion[3]" placeholder="Culprit Stenosis" [formGroup]="formGroupJ"
-              [choices]="['Yes', 'No', 'Unknown']"></reg-select>
+              <reg-select *ngIf="visibles[lesion[3]]" [controlName]="lesion[3]" placeholder="Culprit Stenosis" [formGroup]="formGroupJ"
+                [choices]="['Yes', 'No', 'Unknown']" fxFlex="25"></reg-select>
+            </div>
 
-            <reg-input *ngIf="visibles[lesion[4]]" [controlName]="lesion[4]" placeholder="Stenosis Immediately Prior to Rx (%)" [formGroup]="formGroupJ" type="number">
-            </reg-input>
+            <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+              <reg-input *ngIf="visibles[lesion[4]]" [controlName]="lesion[4]" placeholder="Stenosis Immediately Prior to Rx (%)" [formGroup]="formGroupJ" type="number" fxFlex>
+              </reg-input>
 
-            <reg-select *ngIf="visibles[lesion[5]]" [controlName]="lesion[5]" placeholder="Chronic Total Occlusion" [formGroup]="formGroupJ"
-              [choices]="['Yes', 'No', 'Unknown']"></reg-select>
+              <reg-select *ngIf="visibles[lesion[5]]" [controlName]="lesion[5]" placeholder="Chronic Total Occlusion" [formGroup]="formGroupJ"
+                [choices]="['Yes', 'No', 'Unknown']" fxFlex></reg-select>
 
-            <reg-select *ngIf="visibles[lesion[6]]" [controlName]="lesion[6]" placeholder="TIMI Flow (Pre-Intervention)" [formGroup]="formGroupJ" [choices]="[
-                'TIMI-0',
-                'TIMI-1',
-                'TIMI-2',
-                'TIMI-3'
-              ]"></reg-select>
+              <reg-select *ngIf="visibles[lesion[6]]" [controlName]="lesion[6]" placeholder="TIMI Flow (Pre-Intervention)" [formGroup]="formGroupJ" [choices]="[
+                  'TIMI-0',
+                  'TIMI-1',
+                  'TIMI-2',
+                  'TIMI-3'
+                ]" fxFlex></reg-select>
+            </div>
 
-            <reg-select *ngIf="visibles[lesion[7]]" [controlName]="lesion[7]" placeholder="Previously Treated Lesion" [formGroup]="formGroupJ"
-              [choices]="['Yes', 'No']"></reg-select>
+            <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+              <reg-select *ngIf="visibles[lesion[7]]" [controlName]="lesion[7]" placeholder="Previously Treated Lesion" [formGroup]="formGroupJ"
+                [choices]="['Yes', 'No']" fxFlex></reg-select>
 
-            <reg-datepicker *ngIf="visibles[lesion[8]]" [controlName]="lesion[8]" placeholder="Date" [formGroup]="formGroupJ">
-              dd/mm/yyyy</reg-datepicker>
+              <reg-datepicker *ngIf="visibles[lesion[8]]" [controlName]="lesion[8]" placeholder="Date" [formGroup]="formGroupJ" fxFlex>
+                dd/mm/yyyy</reg-datepicker>
 
-            <reg-select *ngIf="visibles[lesion[9]]" [controlName]="lesion[9]" placeholder="Treated with Stent" [formGroup]="formGroupJ"
-              [choices]="['Yes', 'No']"></reg-select>
+              <reg-select *ngIf="visibles[lesion[9]]" [controlName]="lesion[9]" placeholder="Treated with Stent" [formGroup]="formGroupJ"
+                [choices]="['Yes', 'No']" fxFlex></reg-select>
+            </div>
 
-            <reg-select *ngIf="visibles[lesion[10]]" [controlName]="lesion[10]" placeholder="In-stent Restenosis" [formGroup]="formGroupJ"
-              [choices]="['Yes', 'No']"></reg-select>
+            <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+              <reg-select *ngIf="visibles[lesion[10]]" [controlName]="lesion[10]" placeholder="In-stent Restenosis" [formGroup]="formGroupJ"
+                [choices]="['Yes', 'No']" fxFlex></reg-select>
 
-            <reg-select *ngIf="visibles[lesion[11]]" [controlName]="lesion[11]" placeholder="In-stent Thrombosis" [formGroup]="formGroupJ"
-              [choices]="['Yes', 'No']"></reg-select>
+              <reg-select *ngIf="visibles[lesion[11]]" [controlName]="lesion[11]" placeholder="In-stent Thrombosis" [formGroup]="formGroupJ"
+                [choices]="['Yes', 'No']" fxFlex></reg-select>
 
-            <reg-select *ngIf="visibles[lesion[12]]" [controlName]="lesion[12]" placeholder="Stent Type" [formGroup]="formGroupJ" [choices]="[
-                'Bare Metal Stent (BMS)',
-                'Drug-Eluting Stent (DES)',
-                'Bioabsorbable Stent',
-                'Unknown'
-              ]"></reg-select>
+              <reg-select *ngIf="visibles[lesion[12]]" [controlName]="lesion[12]" placeholder="Stent Type" [formGroup]="formGroupJ" [choices]="[
+                  'Bare Metal Stent (BMS)',
+                  'Drug-Eluting Stent (DES)',
+                  'Bioabsorbable Stent',
+                  'Unknown'
+                ]" fxFlex></reg-select>
+            </div>
 
-            <reg-select *ngIf="visibles[lesion[13]]" [controlName]="lesion[13]" placeholder="Lesion in Graft" [formGroup]="formGroupJ"
-              [choices]="['Yes', 'No']"></reg-select>
+            <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+              <reg-select *ngIf="visibles[lesion[13]]" [controlName]="lesion[13]" placeholder="Lesion in Graft" [formGroup]="formGroupJ"
+                [choices]="['Yes', 'No']" fxFlex></reg-select>
 
-            <reg-select *ngIf="visibles[lesion[14]]" [controlName]="lesion[14]" placeholder="Type of CABG Graft" [formGroup]="formGroupJ" [choices]="[
-                'LIMA',
-                'Vein',
-                'Other Artery'
-              ]"></reg-select>
+              <reg-select *ngIf="visibles[lesion[14]]" [controlName]="lesion[14]" placeholder="Type of CABG Graft" [formGroup]="formGroupJ" [choices]="[
+                  'LIMA',
+                  'Vein',
+                  'Other Artery'
+                ]" fxFlex></reg-select>
 
-            <reg-select *ngIf="visibles[lesion[15]]" [controlName]="lesion[15]" placeholder="Location in Graft" [formGroup]="formGroupJ" [choices]="[
-                'Aortic',
-                'Body',
-                'Distal'
-              ]"></reg-select>
+              <reg-select *ngIf="visibles[lesion[15]]" [controlName]="lesion[15]" placeholder="Location in Graft" [formGroup]="formGroupJ" [choices]="[
+                  'Aortic',
+                  'Body',
+                  'Distal'
+                ]" fxFlex></reg-select>
+            </div>
 
-            <reg-select *ngIf="visibles[lesion[16]]" [controlName]="lesion[16]" placeholder="Navigate through Graft to Native Lesion" [formGroup]="formGroupJ"
-              [choices]="['Yes', 'No']"></reg-select>
+            <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+              <reg-select *ngIf="visibles[lesion[16]]" [controlName]="lesion[16]" placeholder="Navigate through Graft to Native Lesion" [formGroup]="formGroupJ"
+                [choices]="['Yes', 'No']" fxFlex></reg-select>
 
-            <reg-select *ngIf="visibles[lesion[17]]" [controlName]="lesion[17]" placeholder="Lesion Complexity" [formGroup]="formGroupJ" [choices]="[
-                'Non-High/Non-C',
-                'High/C'
-              ]"></reg-select>
+              <reg-select *ngIf="visibles[lesion[17]]" [controlName]="lesion[17]" placeholder="Lesion Complexity" [formGroup]="formGroupJ" [choices]="[
+                  'Non-High/Non-C',
+                  'High/C'
+                ]" fxFlex></reg-select>
 
-            <reg-input *ngIf="visibles[lesion[18]]" [controlName]="lesion[18]" placeholder="Lesion Length (mm)" [formGroup]="formGroupJ" type="number">
-            </reg-input>
+              <reg-input *ngIf="visibles[lesion[18]]" [controlName]="lesion[18]" placeholder="Lesion Length (mm)" [formGroup]="formGroupJ" type="number" fxFlex>
+              </reg-input>
+            </div>
 
-            <reg-select *ngIf="visibles[lesion[19]]" [controlName]="lesion[19]" placeholder="Severe Calcification" [formGroup]="formGroupJ"
-              [choices]="['Yes', 'No']"></reg-select>
+            <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+              <reg-select *ngIf="visibles[lesion[19]]" [controlName]="lesion[19]" placeholder="Severe Calcification" [formGroup]="formGroupJ"
+                [choices]="['Yes', 'No']" fxFlex></reg-select>
 
-            <reg-select *ngIf="visibles[lesion[20]]" [controlName]="lesion[20]" placeholder="Bifurcation Lesion" [formGroup]="formGroupJ"
-              [choices]="['Yes', 'No']"></reg-select>
+              <reg-select *ngIf="visibles[lesion[20]]" [controlName]="lesion[20]" placeholder="Bifurcation Lesion" [formGroup]="formGroupJ"
+                [choices]="['Yes', 'No']" fxFlex></reg-select>
+            </div>
 
-            <reg-select *ngIf="visibles[lesion[21]]" [controlName]="lesion[21]" placeholder="Guidewire Across Lesion" [formGroup]="formGroupJ"
-              [choices]="['Yes', 'No']"></reg-select>
+            <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+              <reg-select *ngIf="visibles[lesion[21]]" [controlName]="lesion[21]" placeholder="Guidewire Across Lesion" [formGroup]="formGroupJ"
+                [choices]="['Yes', 'No']" fxFlex></reg-select>
 
-            <reg-select *ngIf="visibles[lesion[22]]" [controlName]="lesion[22]" placeholder="Device(s) Deployed" [formGroup]="formGroupJ"
-              [choices]="['Yes', 'No']"></reg-select>
+              <reg-select *ngIf="visibles[lesion[22]]" [controlName]="lesion[22]" placeholder="Device(s) Deployed" [formGroup]="formGroupJ"
+                [choices]="['Yes', 'No']" fxFlex></reg-select>
+            </div>
 
-            <reg-input *ngIf="visibles[lesion[23]]" [controlName]="lesion[23]" placeholder="Stenosis (Post-Intervention) (%)" [formGroup]="formGroupJ" type="number">
-            </reg-input>
+            <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+              <reg-input *ngIf="visibles[lesion[23]]" [controlName]="lesion[23]" placeholder="Stenosis (Post-Intervention) (%)" [formGroup]="formGroupJ" type="number" fxFlex>
+              </reg-input>
 
-            <reg-select *ngIf="visibles[lesion[24]]" [controlName]="lesion[24]" placeholder="TIMI Flow (Post-Intervention)" [formGroup]="formGroupJ" [choices]="[
-                'TIMI-0',
-                'TIMI-1',
-                'TIMI-2',
-                'TIMI-3'
-              ]"></reg-select>
+              <reg-select *ngIf="visibles[lesion[24]]" [controlName]="lesion[24]" placeholder="TIMI Flow (Post-Intervention)" [formGroup]="formGroupJ" [choices]="[
+                  'TIMI-0',
+                  'TIMI-1',
+                  'TIMI-2',
+                  'TIMI-3'
+                ]" fxFlex></reg-select>
+            </div>
 
             </fieldset>
           </div>
@@ -1165,27 +1367,47 @@
             <reg-select *ngIf="visibles[device[1]]" [controlName]="device[1]" placeholder="DEVICE" [formGroup]="formGroupJ"
               [choices]="['Yes', 'No']"></reg-select>
 
-            <reg-select *ngIf="visibles[device[2]]" [controlName]="device[2]" placeholder="Intracoronary Device(s) Used" [formGroup]="formGroupJ" [choices]="[
-                'DEVICE1',
-                'DEVICE2',
-                'DEVICE3'
-              ]"></reg-select>
+            <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+              <reg-select *ngIf="visibles[device[2]]" [controlName]="device[2]" placeholder="Intracoronary Device(s) Used" [formGroup]="formGroupJ" [choices]="[
+                  'DEVICE1',
+                  'DEVICE2',
+                  'DEVICE3'
+                ]" fxFlex></reg-select>
 
-            <reg-input *ngIf="visibles[device[3]]" [controlName]="device[3]" placeholder="Unique Device Identifier (UDI)" [formGroup]="formGroupJ" type="number">
-            </reg-input>
+              <reg-input *ngIf="visibles[device[3]]" [controlName]="device[3]" placeholder="Unique Device Identifier (UDI)" [formGroup]="formGroupJ" type="number" fxFlex>
+              </reg-input>
+            </div>
 
-            <reg-select-multiple *ngIf="visibles[device[4]]" [controlName]="device[4]" placeholder="Associated Lesion(s)" [formGroup]="formGroupJ"
-              [choices]="associatedLesions"></reg-select-multiple>
+            <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+              <reg-select-multiple *ngIf="visibles[device[4]]" [controlName]="device[4]" placeholder="Associated Lesion(s)" [formGroup]="formGroupJ"
+                [choices]="associatedLesions" fxFlex="50"></reg-select-multiple>
 
-            <reg-input *ngIf="visibles[device[5]]" [controlName]="device[5]" placeholder="Diameter (mm)" [formGroup]="formGroupJ" type="number">
-            </reg-input>
+              <reg-input *ngIf="visibles[device[5]]" [controlName]="device[5]" placeholder="Diameter (mm)" [formGroup]="formGroupJ" type="number" fxFlex>
+              </reg-input>
 
-            <reg-input *ngIf="visibles[device[6]]" [controlName]="device[6]" placeholder="Length (mm)" [formGroup]="formGroupJ" type="number">
-            </reg-input>
-
+              <reg-input *ngIf="visibles[device[6]]" [controlName]="device[6]" placeholder="Length (mm)" [formGroup]="formGroupJ" type="number" fxFlex>
+              </reg-input>
+            </div>
 
             </fieldset>
           </div>
+
+          <reg-select *ngIf="visibles['StentTechnique']" controlName="StentTechnique" placeholder="Stent Technique Strategy" [formGroup]="formGroupJ" [choices]="[
+              'Provisional MB stenting (stent MB first)',
+              'Provisional SB stenting (stent SB first)',
+              'DK Crush (Double Kissing Crush)',
+              'Culotte'
+            ]"></reg-select>
+
+          <h4 *ngIf="visibles['ProxOptimize']">Final Adjuctive Balloon Angioplasty</h4>
+
+          <reg-select *ngIf="visibles['ProxOptimize']" controlName="ProxOptimize" placeholder="Proximal Optimization" [formGroup]="formGroupJ"
+            [choices]="['Yes', 'No']"></reg-select>
+
+          <reg-select *ngIf="visibles['FinalKissBalloon']" controlName="FinalKissBalloon" placeholder="Final Kissing Balloon Inflation" [formGroup]="formGroupJ"
+            [choices]="['Yes', 'No']"></reg-select>
+
+
 
         </form>
       </div>
@@ -1201,36 +1423,41 @@
 
           <h3 *ngIf="visibles['intraPCI']" id="intraPCI">Intra PCI only</h3>
 
-          <reg-select *ngIf="visibles['PerfSeg']" controlName="PerfSeg" placeholder="Coronary Artery Perforation" [formGroup]="formGroupK"
-            [choices]="['Yes', 'No']"></reg-select>
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-select *ngIf="visibles['PerfSeg']" controlName="PerfSeg" placeholder="Coronary Artery Perforation" [formGroup]="formGroupK"
+              [choices]="['Yes', 'No']" fxFlex></reg-select>
 
-          <reg-select *ngIf="visibles['DissectionSeg']" controlName="DissectionSeg" placeholder="Significant Coronary Artery Dissection" [formGroup]="formGroupK"
-            [choices]="['Yes', 'No']"></reg-select>
+            <reg-select *ngIf="visibles['DissectionSeg']" controlName="DissectionSeg" placeholder="Significant Coronary Artery Dissection" [formGroup]="formGroupK"
+              [choices]="['Yes', 'No']" fxFlex></reg-select>
+          </div>
 
           <h3>Intra and Post-Procedure Events</h3>
 
           <div *ngFor="let event of K_procedureEvents">
 
-            <reg-select [controlName]="event[1]" [placeholder]="event[0]" [formGroup]="formGroupK"
-              [choices]="['Yes', 'No']"></reg-select>
+            <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+              <reg-select [controlName]="event[1]" [placeholder]="event[0]" [formGroup]="formGroupK"
+                [choices]="['Yes', 'No']" fxFlex></reg-select>
 
-            <reg-datepicker *ngIf="visibles[event[2]]" [controlName]="event[2]" placeholder="Event Date/Time" [formGroup]="formGroupK" type="datetime">
-              dd/mm/yyyy hh:mm - 24 hr clock</reg-datepicker>
+              <reg-datepicker *ngIf="visibles[event[2]]" [controlName]="event[2]" placeholder="Event Date/Time" [formGroup]="formGroupK" type="datetime" fxFlex>
+                dd/mm/yyyy hh:mm - 24 hr clock</reg-datepicker>
+            </div>
 
           </div>
 
           <reg-select controlName="PostTransfusion" placeholder="RBC Transfusion" [formGroup]="formGroupK"
             [choices]="['Yes', 'No']"></reg-select>
 
-          <reg-input *ngIf="visibles['PRBCUnits']" controlName="PRBCUnits" placeholder="Number of Units Transfused" [formGroup]="formGroupK" type="number">
-          </reg-input>
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-input *ngIf="visibles['PRBCUnits']" controlName="PRBCUnits" placeholder="Number of Units Transfused" [formGroup]="formGroupK" type="number" fxFlex>
+            </reg-input>
 
-          <reg-select *ngIf="visibles['TransfusPostPCI']" controlName="TransfusPostPCI" placeholder="Transfusion PCI" [formGroup]="formGroupK"
-            [choices]="['Yes', 'No']"></reg-select>
+            <reg-select *ngIf="visibles['TransfusPostPCI']" controlName="TransfusPostPCI" placeholder="Transfusion PCI" [formGroup]="formGroupK"
+              [choices]="['Yes', 'No']" fxFlex></reg-select>
 
-          <reg-select *ngIf="visibles['TransfusionPostSurg']" controlName="TransfusionPostSurg" placeholder="Transfusion Surgical" [formGroup]="formGroupK"
-            [choices]="['Yes', 'No']"></reg-select>
-
+            <reg-select *ngIf="visibles['TransfusionPostSurg']" controlName="TransfusionPostSurg" placeholder="Transfusion Surgical" [formGroup]="formGroupK"
+              [choices]="['Yes', 'No']" fxFlex></reg-select>
+          </div>
 
         </form>
       </div>
@@ -1244,374 +1471,428 @@
       <div class="section-body">
         <form [formGroup]="formGroupL" #formDirectiveL="ngForm">
 
-          <reg-select controlName="HospIntervention" placeholder="Intervention(s) this Hospitalization" [formGroup]="formGroupL"
-            [choices]="['Yes', 'No']"></reg-select>
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-select controlName="HospIntervention" placeholder="Intervention(s) this Hospitalization" [formGroup]="formGroupL"
+              [choices]="['Yes', 'No']" fxFlex></reg-select>
 
-          <reg-select-multiple *ngIf="visibles['HospInterventionType']" controlName="HospInterventionType" placeholder="Intervention Type" [formGroup]="formGroupL" [choices]="[
-              'CABG',
-              'Valvular Intervention',
-              'Cardiac Surgery (non CABG)',
-              'Structural Heart Intervention (non-valvular)',
-              'Surgery (Non Cardiac)',
-              'EP Study',
-              'Other'
-            ]"></reg-select-multiple>
+            <reg-select-multiple *ngIf="visibles['HospInterventionType']" controlName="HospInterventionType" placeholder="Intervention Type" [formGroup]="formGroupL" [choices]="[
+                'CABG',
+                'Valvular Intervention',
+                'Cardiac Surgery (non CABG)',
+                'Structural Heart Intervention (non-valvular)',
+                'Surgery (Non Cardiac)',
+                'EP Study',
+                'Other'
+              ]" fxFlex="70"></reg-select-multiple>
+          </div>
 
-          <reg-select *ngIf="visibles['CABGStatus']" controlName="CABGStatus" placeholder="CABG Status" [formGroup]="formGroupL" [choices]="[
-              'Elective',
-              'Urgent',
-              'Emergency',
-              'Salvage'
-            ]"></reg-select>
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-select *ngIf="visibles['CABGStatus']" controlName="CABGStatus" placeholder="CABG Status" [formGroup]="formGroupL" [choices]="[
+                'Elective',
+                'Urgent',
+                'Emergency',
+                'Salvage'
+              ]" fxFlex></reg-select>
 
-          <reg-select *ngIf="visibles['CABGIndication']" controlName="CABGIndication" placeholder="CABG Indication" [formGroup]="formGroupL" [choices]="[
-              'PCI/CABG Hybrid Procedure',
-              'Recommendation from Dx Cath (instead of PCI)',
-              'PCI Failure',
-              'PCI Complication'
-            ]"></reg-select>
+            <reg-select *ngIf="visibles['CABGIndication']" controlName="CABGIndication" placeholder="CABG Indication" [formGroup]="formGroupL" [choices]="[
+                'PCI/CABG Hybrid Procedure',
+                'Recommendation from Dx Cath (instead of PCI)',
+                'PCI Failure',
+                'PCI Complication'
+              ]" fxFlex="50"></reg-select>
 
-          <reg-datepicker *ngIf="visibles['CABGDateTime']" controlName="CABGDateTime" placeholder="CABG Date/Time" [formGroup]="formGroupL" type="datetime">
-            dd/mm/yyyy hh:mm - 24 hr clock</reg-datepicker>
+            <reg-datepicker *ngIf="visibles['CABGDateTime']" controlName="CABGDateTime" placeholder="CABG Date/Time" [formGroup]="formGroupL" type="datetime" fxFlex>
+              dd/mm/yyyy hh:mm - 24 hr clock</reg-datepicker>
+          </div>
 
-          <reg-select controlName="DCCreatinineDrawn" placeholder="Creatinine Drawn" [formGroup]="formGroupL"
-            [choices]="['Yes', 'No']"></reg-select>
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-select controlName="DCCreatinineDrawn" placeholder="Creatinine Drawn" [formGroup]="formGroupL"
+              [choices]="['Yes', 'No']" fxFlex></reg-select>
 
-          <reg-input *ngIf="visibles['DCCreatinine']" controlName="DCCreatinine" placeholder="Creatinine Level (mg/dL)" [formGroup]="formGroupL" type="number">
-          </reg-input>
+            <reg-input *ngIf="visibles['DCCreatinine']" controlName="DCCreatinine" placeholder="Creatinine Level (mg/dL)" [formGroup]="formGroupL" type="number" fxFlex>
+            </reg-input>
+          </div>
 
-          <reg-select controlName="DCHgbDrawn" placeholder="Hemoglobin Drawn" [formGroup]="formGroupL"
-            [choices]="['Yes', 'No']"></reg-select>
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-select controlName="DCHgbDrawn" placeholder="Hemoglobin Drawn" [formGroup]="formGroupL"
+              [choices]="['Yes', 'No']" fxFlex></reg-select>
 
-          <reg-input *ngIf="visibles['DCHgb']" controlName="DCHgb" placeholder="Hemoglobin Level (g/dL)" [formGroup]="formGroupL" type="number">
-          </reg-input>
+            <reg-input *ngIf="visibles['DCHgb']" controlName="DCHgb" placeholder="Hemoglobin Level (g/dL)" [formGroup]="formGroupL" type="number" fxFlex>
+            </reg-input>
+          </div>
 
-          <reg-datepicker controlName="DCDateTime" placeholder="Discharge Date/Time" [formGroup]="formGroupL" type="datetime">
-            dd/mm/yyyy hh:mm - 24 hr clock</reg-datepicker>
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-datepicker controlName="DCDateTime" placeholder="Discharge Date/Time" [formGroup]="formGroupL" type="datetime" fxFlex>
+              dd/mm/yyyy hh:mm - 24 hr clock</reg-datepicker>
 
-          <reg-select controlName="DCProvider" placeholder="Discharge Provider" [formGroup]="formGroupL"
-            [choices]="['0001', '0002']"></reg-select>
+            <reg-select controlName="DCProvider" placeholder="Discharge Provider" [formGroup]="formGroupL"
+              [choices]="['0001', '0002']" fxFlex></reg-select>
 
-          <reg-select controlName="DC_Comfort" placeholder="Comfort Measures Only" [formGroup]="formGroupL"
-            [choices]="['Yes', 'No']"></reg-select>
+            <reg-select controlName="DC_Comfort" placeholder="Comfort Measures Only" [formGroup]="formGroupL"
+              [choices]="['Yes', 'No']" fxFlex></reg-select>
+          </div>
 
           <reg-select controlName="DCStatus" placeholder="Discharge Status" [formGroup]="formGroupL"
             [choices]="['Alive', 'Deceased']"></reg-select>
 
-          <reg-select *ngIf="visibles['DCLocation']" controlName="DCLocation" placeholder="Discharge Location" [formGroup]="formGroupL" [choices]="[
-              'Home',
-              'Extended care/TCU/rehab',
-              'Other acute care hospital',
-              'Skilled Nursing facility',
-              'Other',
-              'Left against medical advice (AMA)'
-            ]"></reg-select>
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-select *ngIf="visibles['DCLocation']" controlName="DCLocation" placeholder="Discharge Location" [formGroup]="formGroupL" [choices]="[
+                'Home',
+                'Extended care/TCU/rehab',
+                'Other acute care hospital',
+                'Skilled Nursing facility',
+                'Other',
+                'Left against medical advice (AMA)'
+              ]" fxFlex="30"></reg-select>
 
-          <reg-select *ngIf="visibles['CABGTransfer']" controlName="CABGTransfer" placeholder="Transferred for CABG" [formGroup]="formGroupL"
-            [choices]="['Yes', 'No']"></reg-select>
+            <reg-select *ngIf="visibles['DCHospice']" controlName="DCHospice" placeholder="Hospice Care" [formGroup]="formGroupL"
+              [choices]="['Yes', 'No']" fxFlex="20"></reg-select>
 
-          <reg-select *ngIf="visibles['CABGPlannedDC']" controlName="CABGPlannedDC" placeholder="CABG Planned after Discharge" [formGroup]="formGroupL"
-            [choices]="['Yes', 'No']"></reg-select>
+            <reg-select *ngIf="visibles['DC_CardRehab']" controlName="DC_CardRehab" placeholder="Cardiac Rehabilitation Referral" [formGroup]="formGroupL" [choices]="[
+                'Yes',
+                'No - Reason Not Documented',
+                'No - Medical Reason Documented',
+                'No - Health Care System Reason Documented'
+              ]" fxFlex></reg-select>
+          </div>
 
-          <reg-select *ngIf="visibles['DCHospice']" controlName="DCHospice" placeholder="Hospice Care" [formGroup]="formGroupL"
-            [choices]="['Yes', 'No']"></reg-select>
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-select *ngIf="visibles['CABGTransfer']" controlName="CABGTransfer" placeholder="Transferred for CABG" [formGroup]="formGroupL"
+              [choices]="['Yes', 'No']" fxFlex></reg-select>
 
-          <reg-select *ngIf="visibles['DC_CardRehab']" controlName="DC_CardRehab" placeholder="Cardiac Rehabilitation Referral" [formGroup]="formGroupL" [choices]="[
-              'Yes',
-              'No - Reason Not Documented',
-              'No - Medical Reason Documented',
-              'No - Health Care System Reason Documented'
-            ]"></reg-select>
+            <reg-select *ngIf="visibles['CABGPlannedDC']" controlName="CABGPlannedDC" placeholder="CABG Planned after Discharge" [formGroup]="formGroupL"
+              [choices]="['Yes', 'No']" fxFlex></reg-select>
+          </div>
 
-          <reg-select *ngIf="visibles['DC_LOC']" controlName="DC_LOC" placeholder="Level of Consciousness" [formGroup]="formGroupL" [choices]="[
-              '(A) Alert',
-              '(V) Verbal',
-              '(P) Pain',
-              '(U) Unresponsive',
-              'Unable to Assess'
-            ]"></reg-select>
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-select *ngIf="visibles['DC_LOC']" controlName="DC_LOC" placeholder="Level of Consciousness" [formGroup]="formGroupL" [choices]="[
+                '(A) Alert',
+                '(V) Verbal',
+                '(P) Pain',
+                '(U) Unresponsive',
+                'Unable to Assess'
+              ]" fxFlex></reg-select>
 
-          <reg-select *ngIf="visibles['DeathProcedure']" controlName="DeathProcedure" placeholder="Death During the Procedure" [formGroup]="formGroupL"
-            [choices]="['Yes', 'No']"></reg-select>
+            <reg-select *ngIf="visibles['DeathProcedure']" controlName="DeathProcedure" placeholder="Death During the Procedure" [formGroup]="formGroupL"
+              [choices]="['Yes', 'No']" fxFlex></reg-select>
 
-          <reg-select *ngIf="visibles['DeathCause']" controlName="DeathCause" placeholder="Cause of Death" [formGroup]="formGroupL"
-            [choices]="deathCauses"></reg-select>
+            <reg-select *ngIf="visibles['DeathCause']" controlName="DeathCause" placeholder="Cause of Death" [formGroup]="formGroupL"
+              [choices]="deathCauses" fxFlex="40"></reg-select>
+          </div>
 
           <div *ngIf="visibles['DC_Medications']" id="DC_Medications">
             <h3>Discharge Medications</h3>
 
             <h4>ACE Inhibitors</h4>
 
-            <reg-select controlName="DC_ACEI" placeholder="ACE Inhibitors (Any)" [formGroup]="formGroupL" [choices]="[
-                'Yes - Prescribed',
-                'No - No Reason',
-                'No - Medical Reason',
-                'No - Patient Reason'
-              ]"></reg-select>
+            <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+              <reg-select controlName="DC_ACEI" placeholder="ACE Inhibitors (Any)" [formGroup]="formGroupL" [choices]="[
+                  'Yes - Prescribed',
+                  'No - No Reason',
+                  'No - Medical Reason',
+                  'No - Patient Reason'
+                ]" fxFlex></reg-select>
 
-            <reg-select *ngIf="visibles['DC_ACEIRN']" controlName="DC_ACEIRN" placeholder="Patient Rationale" [formGroup]="formGroupL" [choices]="[
-                'Cost',
-                'Alternative Therapy Preferred',
-                'Negative Side Effect'
-              ]"></reg-select>
+              <reg-select *ngIf="visibles['DC_ACEIRN']" controlName="DC_ACEIRN" placeholder="Patient Rationale" [formGroup]="formGroupL" [choices]="[
+                  'Cost',
+                  'Alternative Therapy Preferred',
+                  'Negative Side Effect'
+                ]" fxFlex></reg-select>
+            </div>
 
             <h4>Anticoagulant</h4>
 
-            <reg-select controlName="DC_Warfarin" placeholder="Warfarin" [formGroup]="formGroupL" [choices]="[
-                'Yes - Prescribed',
-                'No - No Reason',
-                'No - Medical Reason',
-                'No - Patient Reason'
-              ]"></reg-select>
+            <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+              <reg-select controlName="DC_Warfarin" placeholder="Warfarin" [formGroup]="formGroupL" [choices]="[
+                  'Yes - Prescribed',
+                  'No - No Reason',
+                  'No - Medical Reason',
+                  'No - Patient Reason'
+                ]" fxFlex></reg-select>
 
-            <reg-select *ngIf="visibles['DC_WarfarinRN']" controlName="DC_WarfarinRN" placeholder="Patient Rationale" [formGroup]="formGroupL" [choices]="[
-                'Cost',
-                'Alternative Therapy Preferred',
-                'Negative Side Effect'
-              ]"></reg-select>
+              <reg-select *ngIf="visibles['DC_WarfarinRN']" controlName="DC_WarfarinRN" placeholder="Patient Rationale" [formGroup]="formGroupL" [choices]="[
+                  'Cost',
+                  'Alternative Therapy Preferred',
+                  'Negative Side Effect'
+                ]" fxFlex></reg-select>
+            </div>
 
             <h4>Antiplatelet</h4>
 
-            <reg-select controlName="DC_Aspirin" placeholder="Aspirin" [formGroup]="formGroupL" [choices]="[
-                'Yes - Prescribed',
-                'No - No Reason',
-                'No - Medical Reason',
-                'No - Patient Reason'
-              ]"></reg-select>
+            <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+              <reg-select controlName="DC_Aspirin" placeholder="Aspirin" [formGroup]="formGroupL" [choices]="[
+                  'Yes - Prescribed',
+                  'No - No Reason',
+                  'No - Medical Reason',
+                  'No - Patient Reason'
+                ]" fxFlex></reg-select>
 
-            <reg-select *ngIf="visibles['DC_AspirinRN']" controlName="DC_AspirinRN" placeholder="Patient Rationale" [formGroup]="formGroupL" [choices]="[
-                'Cost',
-                'Alternative Therapy Preferred',
-                'Negative Side Effect'
-              ]"></reg-select>
+              <reg-select *ngIf="visibles['DC_AspirinRN']" controlName="DC_AspirinRN" placeholder="Patient Rationale" [formGroup]="formGroupL" [choices]="[
+                  'Cost',
+                  'Alternative Therapy Preferred',
+                  'Negative Side Effect'
+                ]" fxFlex></reg-select>
+            </div>
 
-            <reg-select controlName="DC_Vorapaxar" placeholder="Vorapaxar" [formGroup]="formGroupL" [choices]="[
-                'Yes - Prescribed',
-                'No - No Reason',
-                'No - Medical Reason',
-                'No - Patient Reason'
-              ]"></reg-select>
+            <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+              <reg-select controlName="DC_Vorapaxar" placeholder="Vorapaxar" [formGroup]="formGroupL" [choices]="[
+                  'Yes - Prescribed',
+                  'No - No Reason',
+                  'No - Medical Reason',
+                  'No - Patient Reason'
+                ]" fxFlex></reg-select>
 
-            <reg-select *ngIf="visibles['DC_VorapaxarRN']" controlName="DC_VorapaxarRN" placeholder="Patient Rationale" [formGroup]="formGroupL" [choices]="[
-                'Cost',
-                'Alternative Therapy Preferred',
-                'Negative Side Effect'
-              ]"></reg-select>
+              <reg-select *ngIf="visibles['DC_VorapaxarRN']" controlName="DC_VorapaxarRN" placeholder="Patient Rationale" [formGroup]="formGroupL" [choices]="[
+                  'Cost',
+                  'Alternative Therapy Preferred',
+                  'Negative Side Effect'
+                ]" fxFlex></reg-select>
+            </div>
 
             <h4>ARB (Angiotension Receptors Blockers)</h4>
 
-            <reg-select controlName="DC_ARB" placeholder="ARB (Any)" [formGroup]="formGroupL" [choices]="[
-                'Yes - Prescribed',
-                'No - No Reason',
-                'No - Medical Reason',
-                'No - Patient Reason'
-              ]"></reg-select>
+            <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+              <reg-select controlName="DC_ARB" placeholder="ARB (Any)" [formGroup]="formGroupL" [choices]="[
+                  'Yes - Prescribed',
+                  'No - No Reason',
+                  'No - Medical Reason',
+                  'No - Patient Reason'
+                ]" fxFlex></reg-select>
 
-            <reg-select *ngIf="visibles['DC_ARBRN']" controlName="DC_ARBRN" placeholder="Patient Rationale" [formGroup]="formGroupL" [choices]="[
-                'Cost',
-                'Alternative Therapy Preferred',
-                'Negative Side Effect'
-              ]"></reg-select>
+              <reg-select *ngIf="visibles['DC_ARBRN']" controlName="DC_ARBRN" placeholder="Patient Rationale" [formGroup]="formGroupL" [choices]="[
+                  'Cost',
+                  'Alternative Therapy Preferred',
+                  'Negative Side Effect'
+                ]" fxFlex></reg-select>
+            </div>
 
             <h4>Beta Blockers</h4>
 
-            <reg-select controlName="DC_BetaBlocker" placeholder="Beta Blocker (Any)" [formGroup]="formGroupL" [choices]="[
-                'Yes - Prescribed',
-                'No - No Reason',
-                'No - Medical Reason',
-                'No - Patient Reason'
-              ]"></reg-select>
+            <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+              <reg-select controlName="DC_BetaBlocker" placeholder="Beta Blocker (Any)" [formGroup]="formGroupL" [choices]="[
+                  'Yes - Prescribed',
+                  'No - No Reason',
+                  'No - Medical Reason',
+                  'No - Patient Reason'
+                ]" fxFlex></reg-select>
 
-            <reg-select *ngIf="visibles['DC_BetaBlockerRN']" controlName="DC_BetaBlockerRN" placeholder="Patient Rationale" [formGroup]="formGroupL" [choices]="[
-                'Cost',
-                'Alternative Therapy Preferred',
-                'Negative Side Effect'
-              ]"></reg-select>
+              <reg-select *ngIf="visibles['DC_BetaBlockerRN']" controlName="DC_BetaBlockerRN" placeholder="Patient Rationale" [formGroup]="formGroupL" [choices]="[
+                  'Cost',
+                  'Alternative Therapy Preferred',
+                  'Negative Side Effect'
+                ]" fxFlex></reg-select>
+            </div>
 
             <h4>Non-Vitamin K Dependent Oral Anticoagulant</h4>
 
-            <reg-select controlName="DC_Apixaban" placeholder="Apixaban" [formGroup]="formGroupL" [choices]="[
-                'Yes - Prescribed',
-                'No - No Reason',
-                'No - Medical Reason',
-                'No - Patient Reason'
-              ]"></reg-select>
+            <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+              <reg-select controlName="DC_Apixaban" placeholder="Apixaban" [formGroup]="formGroupL" [choices]="[
+                  'Yes - Prescribed',
+                  'No - No Reason',
+                  'No - Medical Reason',
+                  'No - Patient Reason'
+                ]" fxFlex></reg-select>
 
-            <reg-select *ngIf="visibles['DC_ApixabanRN']" controlName="DC_ApixabanRN" placeholder="Patient Rationale" [formGroup]="formGroupL" [choices]="[
-                'Cost',
-                'Alternative Therapy Preferred',
-                'Negative Side Effect'
-              ]"></reg-select>
+              <reg-select *ngIf="visibles['DC_ApixabanRN']" controlName="DC_ApixabanRN" placeholder="Patient Rationale" [formGroup]="formGroupL" [choices]="[
+                  'Cost',
+                  'Alternative Therapy Preferred',
+                  'Negative Side Effect'
+                ]" fxFlex></reg-select>
+            </div>
 
-            <reg-select controlName="DC_Dabigatran" placeholder="Dabigatran" [formGroup]="formGroupL" [choices]="[
-                'Yes - Prescribed',
-                'No - No Reason',
-                'No - Medical Reason',
-                'No - Patient Reason'
-              ]"></reg-select>
+            <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+              <reg-select controlName="DC_Dabigatran" placeholder="Dabigatran" [formGroup]="formGroupL" [choices]="[
+                  'Yes - Prescribed',
+                  'No - No Reason',
+                  'No - Medical Reason',
+                  'No - Patient Reason'
+                ]" fxFlex></reg-select>
 
-            <reg-select *ngIf="visibles['DC_DabigatranRN']" controlName="DC_DabigatranRN" placeholder="Patient Rationale" [formGroup]="formGroupL" [choices]="[
-                'Cost',
-                'Alternative Therapy Preferred',
-                'Negative Side Effect'
-              ]"></reg-select>
+              <reg-select *ngIf="visibles['DC_DabigatranRN']" controlName="DC_DabigatranRN" placeholder="Patient Rationale" [formGroup]="formGroupL" [choices]="[
+                  'Cost',
+                  'Alternative Therapy Preferred',
+                  'Negative Side Effect'
+                ]" fxFlex></reg-select>
+            </div>
 
-            <reg-select controlName="DC_Edoxaban" placeholder="Edoxaban" [formGroup]="formGroupL" [choices]="[
-                'Yes - Prescribed',
-                'No - No Reason',
-                'No - Medical Reason',
-                'No - Patient Reason'
-              ]"></reg-select>
+            <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+              <reg-select controlName="DC_Edoxaban" placeholder="Edoxaban" [formGroup]="formGroupL" [choices]="[
+                  'Yes - Prescribed',
+                  'No - No Reason',
+                  'No - Medical Reason',
+                  'No - Patient Reason'
+                ]" fxFlex></reg-select>
 
-            <reg-select *ngIf="visibles['DC_EdoxabanRN']" controlName="DC_EdoxabanRN" placeholder="Patient Rationale" [formGroup]="formGroupL" [choices]="[
-                'Cost',
-                'Alternative Therapy Preferred',
-                'Negative Side Effect'
-              ]"></reg-select>
+              <reg-select *ngIf="visibles['DC_EdoxabanRN']" controlName="DC_EdoxabanRN" placeholder="Patient Rationale" [formGroup]="formGroupL" [choices]="[
+                  'Cost',
+                  'Alternative Therapy Preferred',
+                  'Negative Side Effect'
+                ]" fxFlex></reg-select>
+            </div>
 
-            <reg-select controlName="DC_Rivaroxaban" placeholder="Rivaroxaban" [formGroup]="formGroupL" [choices]="[
-                'Yes - Prescribed',
-                'No - No Reason',
-                'No - Medical Reason',
-                'No - Patient Reason'
-              ]"></reg-select>
+            <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+              <reg-select controlName="DC_Rivaroxaban" placeholder="Rivaroxaban" [formGroup]="formGroupL" [choices]="[
+                  'Yes - Prescribed',
+                  'No - No Reason',
+                  'No - Medical Reason',
+                  'No - Patient Reason'
+                ]" fxFlex></reg-select>
 
-            <reg-select *ngIf="visibles['DC_RivaroxabanRN']" controlName="DC_RivaroxabanRN" placeholder="Patient Rationale" [formGroup]="formGroupL" [choices]="[
-                'Cost',
-                'Alternative Therapy Preferred',
-                'Negative Side Effect'
-              ]"></reg-select>
+              <reg-select *ngIf="visibles['DC_RivaroxabanRN']" controlName="DC_RivaroxabanRN" placeholder="Patient Rationale" [formGroup]="formGroupL" [choices]="[
+                  'Cost',
+                  'Alternative Therapy Preferred',
+                  'Negative Side Effect'
+                ]" fxFlex></reg-select>
+            </div>
 
             <h4>P2Y12 Inhibitors</h4>
 
-            <reg-select controlName="DC_Clopidogrel" placeholder="Clopidogrel" [formGroup]="formGroupL" [choices]="[
-                'Yes - Prescribed',
-                'No - No Reason',
-                'No - Medical Reason',
-                'No - Patient Reason'
-              ]"></reg-select>
+            <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+              <reg-select controlName="DC_Clopidogrel" placeholder="Clopidogrel" [formGroup]="formGroupL" [choices]="[
+                  'Yes - Prescribed',
+                  'No - No Reason',
+                  'No - Medical Reason',
+                  'No - Patient Reason'
+                ]" fxFlex></reg-select>
 
-            <reg-select *ngIf="visibles['DC_ClopidogrelRN']" controlName="DC_ClopidogrelRN" placeholder="Patient Rationale" [formGroup]="formGroupL" [choices]="[
-                'Cost',
-                'Alternative Therapy Preferred',
-                'Negative Side Effect'
-              ]"></reg-select>
+              <reg-select *ngIf="visibles['DC_ClopidogrelRN']" controlName="DC_ClopidogrelRN" placeholder="Patient Rationale" [formGroup]="formGroupL" [choices]="[
+                  'Cost',
+                  'Alternative Therapy Preferred',
+                  'Negative Side Effect'
+                ]" fxFlex></reg-select>
+            </div>
 
-            <reg-select controlName="DC_Prasugrel" placeholder="Prasugrel" [formGroup]="formGroupL" [choices]="[
-                'Yes - Prescribed',
-                'No - No Reason',
-                'No - Medical Reason',
-                'No - Patient Reason'
-              ]"></reg-select>
+            <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+              <reg-select controlName="DC_Prasugrel" placeholder="Prasugrel" [formGroup]="formGroupL" [choices]="[
+                  'Yes - Prescribed',
+                  'No - No Reason',
+                  'No - Medical Reason',
+                  'No - Patient Reason'
+                ]" fxFlex></reg-select>
 
-            <reg-select *ngIf="visibles['DC_PrasugrelRN']" controlName="DC_PrasugrelRN" placeholder="Patient Rationale" [formGroup]="formGroupL" [choices]="[
-                'Cost',
-                'Alternative Therapy Preferred',
-                'Negative Side Effect'
-              ]"></reg-select>
+              <reg-select *ngIf="visibles['DC_PrasugrelRN']" controlName="DC_PrasugrelRN" placeholder="Patient Rationale" [formGroup]="formGroupL" [choices]="[
+                  'Cost',
+                  'Alternative Therapy Preferred',
+                  'Negative Side Effect'
+                ]" fxFlex></reg-select>
+            </div>
 
-            <reg-select controlName="DC_Ticagrelor" placeholder="Ticagrelor" [formGroup]="formGroupL" [choices]="[
-                'Yes - Prescribed',
-                'No - No Reason',
-                'No - Medical Reason',
-                'No - Patient Reason'
-              ]"></reg-select>
+            <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+              <reg-select controlName="DC_Ticagrelor" placeholder="Ticagrelor" [formGroup]="formGroupL" [choices]="[
+                  'Yes - Prescribed',
+                  'No - No Reason',
+                  'No - Medical Reason',
+                  'No - Patient Reason'
+                ]" fxFlex></reg-select>
 
-            <reg-select *ngIf="visibles['DC_TicagrelorRN']" controlName="DC_TicagrelorRN" placeholder="Patient Rationale" [formGroup]="formGroupL" [choices]="[
-                'Cost',
-                'Alternative Therapy Preferred',
-                'Negative Side Effect'
-              ]"></reg-select>
+              <reg-select *ngIf="visibles['DC_TicagrelorRN']" controlName="DC_TicagrelorRN" placeholder="Patient Rationale" [formGroup]="formGroupL" [choices]="[
+                  'Cost',
+                  'Alternative Therapy Preferred',
+                  'Negative Side Effect'
+                ]" fxFlex></reg-select>
+            </div>
 
-            <reg-select controlName="DC_Ticlopidine" placeholder="Ticlopidine" [formGroup]="formGroupL" [choices]="[
-                'Yes - Prescribed',
-                'No - No Reason',
-                'No - Medical Reason',
-                'No - Patient Reason'
-              ]"></reg-select>
+            <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+              <reg-select controlName="DC_Ticlopidine" placeholder="Ticlopidine" [formGroup]="formGroupL" [choices]="[
+                  'Yes - Prescribed',
+                  'No - No Reason',
+                  'No - Medical Reason',
+                  'No - Patient Reason'
+                ]" fxFlex></reg-select>
 
-            <reg-select *ngIf="visibles['DC_TiclopidineRN']" controlName="DC_TiclopidineRN" placeholder="Patient Rationale" [formGroup]="formGroupL" [choices]="[
-                'Cost',
-                'Alternative Therapy Preferred',
-                'Negative Side Effect'
-              ]"></reg-select>
+              <reg-select *ngIf="visibles['DC_TiclopidineRN']" controlName="DC_TiclopidineRN" placeholder="Patient Rationale" [formGroup]="formGroupL" [choices]="[
+                  'Cost',
+                  'Alternative Therapy Preferred',
+                  'Negative Side Effect'
+                ]" fxFlex></reg-select>
+            </div>
 
             <h4>Statin</h4>
 
-            <reg-select controlName="DC_Statin" placeholder="Statin (Any)" [formGroup]="formGroupL" [choices]="[
-                'Yes - Prescribed',
-                'No - No Reason',
-                'No - Medical Reason',
-                'No - Patient Reason'
-              ]"></reg-select>
+            <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+              <reg-select controlName="DC_Statin" placeholder="Statin (Any)" [formGroup]="formGroupL" [choices]="[
+                  'Yes - Prescribed',
+                  'No - No Reason',
+                  'No - Medical Reason',
+                  'No - Patient Reason'
+                ]" fxFlex></reg-select>
 
-            <reg-select *ngIf="visibles['DC_StatinDose']" controlName="DC_StatinDose" placeholder="Dose" [formGroup]="formGroupL" [choices]="[
-                'Low Intensity Dose',
-                'Moderate Intensity Dose',
-                'High Intensity Dose'
-              ]"></reg-select>
+              <reg-select *ngIf="visibles['DC_StatinDose']" controlName="DC_StatinDose" placeholder="Dose" [formGroup]="formGroupL" [choices]="[
+                  'Low Intensity Dose',
+                  'Moderate Intensity Dose',
+                  'High Intensity Dose'
+                ]" fxFlex></reg-select>
 
-            <reg-select *ngIf="visibles['DC_StatinRN']" controlName="DC_StatinRN" placeholder="Patient Rationale" [formGroup]="formGroupL" [choices]="[
-                'Cost',
-                'Alternative Therapy Preferred',
-                'Negative Side Effect'
-              ]"></reg-select>
+              <reg-select *ngIf="visibles['DC_StatinRN']" controlName="DC_StatinRN" placeholder="Patient Rationale" [formGroup]="formGroupL" [choices]="[
+                  'Cost',
+                  'Alternative Therapy Preferred',
+                  'Negative Side Effect'
+                ]" fxFlex></reg-select>
+            </div>
 
             <h4>Non-Statin</h4>
 
-            <reg-select controlName="DC_NonStatin" placeholder="Non-Statin (Any)" [formGroup]="formGroupL" [choices]="[
-                'Yes - Prescribed',
-                'No - No Reason',
-                'No - Medical Reason',
-                'No - Patient Reason'
-              ]"></reg-select>
+            <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+              <reg-select controlName="DC_NonStatin" placeholder="Non-Statin (Any)" [formGroup]="formGroupL" [choices]="[
+                  'Yes - Prescribed',
+                  'No - No Reason',
+                  'No - Medical Reason',
+                  'No - Patient Reason'
+                ]" fxFlex></reg-select>
 
-            <reg-select *ngIf="visibles['DC_NonStatinRN']" controlName="DC_NonStatinRN" placeholder="Patient Rationale" [formGroup]="formGroupL" [choices]="[
-                'Cost',
-                'Alternative Therapy Preferred',
-                'Negative Side Effect'
-              ]"></reg-select>
+              <reg-select *ngIf="visibles['DC_NonStatinRN']" controlName="DC_NonStatinRN" placeholder="Patient Rationale" [formGroup]="formGroupL" [choices]="[
+                  'Cost',
+                  'Alternative Therapy Preferred',
+                  'Negative Side Effect'
+                ]" fxFlex></reg-select>
+            </div>
 
             <h4>PCSK9 Inhibitors</h4>
 
-            <reg-select controlName="DC_Alirocumab" placeholder="Alirocumab" [formGroup]="formGroupL" [choices]="[
-                'Yes - Prescribed',
-                'No - No Reason',
-                'No - Medical Reason',
-                'No - Patient Reason'
-              ]"></reg-select>
+            <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+              <reg-select controlName="DC_Alirocumab" placeholder="Alirocumab" [formGroup]="formGroupL" [choices]="[
+                  'Yes - Prescribed',
+                  'No - No Reason',
+                  'No - Medical Reason',
+                  'No - Patient Reason'
+                ]" fxFlex></reg-select>
 
-            <reg-select *ngIf="visibles['DC_AlirocumabRN']" controlName="DC_AlirocumabRN" placeholder="Patient Rationale" [formGroup]="formGroupL" [choices]="[
-                'Cost',
-                'Alternative Therapy Preferred',
-                'Negative Side Effect'
-              ]"></reg-select>
+              <reg-select *ngIf="visibles['DC_AlirocumabRN']" controlName="DC_AlirocumabRN" placeholder="Patient Rationale" [formGroup]="formGroupL" [choices]="[
+                  'Cost',
+                  'Alternative Therapy Preferred',
+                  'Negative Side Effect'
+                ]" fxFlex></reg-select>
+            </div>
 
-            <reg-select controlName="DC_Evolocumab" placeholder="Evolocumab" [formGroup]="formGroupL" [choices]="[
-                'Yes - Prescribed',
-                'No - No Reason',
-                'No - Medical Reason',
-                'No - Patient Reason'
-              ]"></reg-select>
+            <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+              <reg-select controlName="DC_Evolocumab" placeholder="Evolocumab" [formGroup]="formGroupL" [choices]="[
+                  'Yes - Prescribed',
+                  'No - No Reason',
+                  'No - Medical Reason',
+                  'No - Patient Reason'
+                ]" fxFlex></reg-select>
 
-            <reg-select *ngIf="visibles['DC_EvolocumabRN']" controlName="DC_EvolocumabRN" placeholder="Patient Rationale" [formGroup]="formGroupL" [choices]="[
-                'Cost',
-                'Alternative Therapy Preferred',
-                'Negative Side Effect'
-              ]"></reg-select>
+              <reg-select *ngIf="visibles['DC_EvolocumabRN']" controlName="DC_EvolocumabRN" placeholder="Patient Rationale" [formGroup]="formGroupL" [choices]="[
+                  'Cost',
+                  'Alternative Therapy Preferred',
+                  'Negative Side Effect'
+                ]" fxFlex></reg-select>
+            </div>
 
           </div>
 
-          <reg-select *ngIf="visibles['DC_MedReconCompleted']" controlName="DC_MedReconCompleted" placeholder="Discharge Medication Reconciliation Completed" [formGroup]="formGroupL"
-            [choices]="['Yes', 'No']"></reg-select>
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-select *ngIf="visibles['DC_MedReconCompleted']" controlName="DC_MedReconCompleted" placeholder="Discharge Medication Reconciliation Completed" [formGroup]="formGroupL"
+              [choices]="['Yes', 'No']" fxFlex></reg-select>
 
-          <reg-select-multiple *ngIf="visibles['DC_MedReconciled']" controlName="DC_MedReconciled" placeholder="Reconciled Medications" [formGroup]="formGroupL" [choices]="[
-              'Prescriptions: Cardiac',
-              'Prescriptions: Non-Cardiac',
-              'Over the Counter (OTC) Medications',
-              'Vitamins/Minerals',
-              'Herbal Supplements'
-            ]"></reg-select-multiple>
+            <reg-select-multiple *ngIf="visibles['DC_MedReconciled']" controlName="DC_MedReconciled" placeholder="Reconciled Medications" [formGroup]="formGroupL" [choices]="[
+                'Prescriptions: Cardiac',
+                'Prescriptions: Non-Cardiac',
+                'Over the Counter (OTC) Medications',
+                'Vitamins/Minerals',
+                'Herbal Supplements'
+              ]" fxFlex></reg-select-multiple>
+          </div>
 
         </form>
       </div>
@@ -1627,17 +1908,21 @@
 
           <h4> 30 days post index PCI procedure: -7/+14 days AND 1 year post index PCI procedure: +/- 60 days</h4>
 
-          <reg-datepicker controlName="FU_AssessmentDate" placeholder="Assessment Date" [formGroup]="formGroupM">
-            dd/mm/yyyy</reg-datepicker>
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-datepicker controlName="FU_AssessmentDate" placeholder="Assessment Date" [formGroup]="formGroupM" fxFlex>
+              dd/mm/yyyy</reg-datepicker>
 
-          <reg-datepicker controlName="RefProcStartDateTime" placeholder="Reference Episode Arrival Date/Time" [formGroup]="formGroupM" type="datetime">
-            dd/mm/yyyy hh:mm - 24 hr clock</reg-datepicker>
+            <reg-datepicker controlName="RefProcStartDateTime" placeholder="Reference Episode Arrival Date/Time" [formGroup]="formGroupM" type="datetime" fxFlex>
+              dd/mm/yyyy hh:mm - 24 hr clock</reg-datepicker>
+          </div>
 
-          <reg-datepicker controlName="RefArrivalDateTime" placeholder="Reference Procedure Start Date/Time" [formGroup]="formGroupM" type="datetime">
-            dd/mm/yyyy hh:mm - 24 hr clock</reg-datepicker>
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-datepicker controlName="RefArrivalDateTime" placeholder="Reference Procedure Start Date/Time" [formGroup]="formGroupM" type="datetime" fxFlex>
+              dd/mm/yyyy hh:mm - 24 hr clock</reg-datepicker>
 
-          <reg-datepicker controlName="RefDCDateTime" placeholder="Reference Episode Discharge Date/Time" [formGroup]="formGroupM" type="datetime">
-            dd/mm/yyyy hh:mm - 24 hr clock</reg-datepicker>
+            <reg-datepicker controlName="RefDCDateTime" placeholder="Reference Episode Discharge Date/Time" [formGroup]="formGroupM" type="datetime" fxFlex>
+              dd/mm/yyyy hh:mm - 24 hr clock</reg-datepicker>
+          </div>
 
           <reg-select-multiple controlName="FU_Method" placeholder="Method(s) to Determine Status" [formGroup]="formGroupM" [choices]="[
               'Office Visit',
@@ -1655,186 +1940,194 @@
               'Lost to Follow-up'
             ]"></reg-select>
 
-          <reg-select *ngIf="visibles['FU_CPSxAssess']" controlName="FU_CPSxAssess" placeholder="Chest Pain Symptom Assessment" [formGroup]="formGroupM" [choices]="[
+          <reg-select class="subitem-horz" *ngIf="visibles['FU_CPSxAssess']" controlName="FU_CPSxAssess" placeholder="Chest Pain Symptom Assessment" [formGroup]="formGroupM" [choices]="[
               'Typical Angina',
               'Atypical angina',
               'Non-anginal Chest Pain',
               'Asymptomatic'
             ]"></reg-select>
 
-          <reg-datepicker *ngIf="visibles['FU_DeathDate']" controlName="FU_DeathDate" placeholder="Date of Death" [formGroup]="formGroupM">
-            dd/mm/yyyy</reg-datepicker>
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-datepicker *ngIf="visibles['FU_DeathDate']" controlName="FU_DeathDate" placeholder="Date of Death" [formGroup]="formGroupM" fxFlex>
+              dd/mm/yyyy</reg-datepicker>
 
-          <reg-select *ngIf="visibles['FU_DeathCause']" controlName="FU_DeathCause" placeholder="Primary Cause of Death" [formGroup]="formGroupM"
-            [choices]="deathCauses"></reg-select>
+            <reg-select *ngIf="visibles['FU_DeathCause']" controlName="FU_DeathCause" placeholder="Primary Cause of Death" [formGroup]="formGroupM"
+              [choices]="deathCauses" fxFlex></reg-select>
+          </div>
 
           <h3>Events, Interventions AND/OR Surgical Procedures</h3>
 
           <div *ngFor="let event of M_followUpEvents">
 
-            <reg-select [controlName]="event[1]" [placeholder]="event[0]" [formGroup]="formGroupM"
-              [choices]="['Yes', 'No']"></reg-select>
+            <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+              <reg-select [controlName]="event[1]" [placeholder]="event[0]" [formGroup]="formGroupM"
+                [choices]="['Yes', 'No']" fxFlex></reg-select>
 
-            <reg-select-multiple *ngIf="visibles[event[2]]" [controlName]="event[2]" placeholder="Device(s) Event Occured In" [formGroup]="formGroupM"
-              [choices]="associatedLesions"></reg-select-multiple>
+              <reg-select-multiple *ngIf="visibles[event[2]]" [controlName]="event[2]" placeholder="Device(s) Event Occured In" [formGroup]="formGroupM"
+                [choices]="associatedLesions" fxFlex></reg-select-multiple>
 
-            <reg-datepicker *ngIf="visibles[event[3]]" [controlName]="event[3]" placeholder="Event Date/Time" [formGroup]="formGroupM" type="datetime">
-              dd/mm/yyyy hh:mm - 24 hr clock</reg-datepicker>
+              <reg-datepicker *ngIf="visibles[event[3]]" [controlName]="event[3]" placeholder="Event Date/Time" [formGroup]="formGroupM" type="datetime" fxFlex>
+                dd/mm/yyyy hh:mm - 24 hr clock</reg-datepicker>
+            </div>
 
           </div>
 
           <h3>Follow-up Medications</h3>
 
-          <h4>ACE Inhibitors</h4>
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <div fxFlex>
+              <h4>ACE Inhibitors</h4>
 
-          <reg-select controlName="FU_ACEI" placeholder="ACE Inhibitors (Any)" [formGroup]="formGroupM" [choices]="[
-              'Yes - Prescribed',
-              'No - No Reason',
-              'No - Medical Reason',
-              'No - Patient Reason'
-            ]"></reg-select>
+              <reg-select controlName="FU_ACEI" placeholder="ACE Inhibitors (Any)" [formGroup]="formGroupM" [choices]="[
+                  'Yes - Prescribed',
+                  'No - No Reason',
+                  'No - Medical Reason',
+                  'No - Patient Reason'
+                ]"></reg-select>
 
-          <h4>Anticoagulant</h4>
+              <h4>Anticoagulant</h4>
 
-          <reg-select controlName="FU_Warfarin" placeholder="Warfarin" [formGroup]="formGroupM" [choices]="[
-              'Yes - Prescribed',
-              'No - No Reason',
-              'No - Medical Reason',
-              'No - Patient Reason'
-            ]"></reg-select>
+              <reg-select controlName="FU_Warfarin" placeholder="Warfarin" [formGroup]="formGroupM" [choices]="[
+                  'Yes - Prescribed',
+                  'No - No Reason',
+                  'No - Medical Reason',
+                  'No - Patient Reason'
+                ]"></reg-select>
 
-          <h4>Antiplatelet</h4>
+              <h4>Antiplatelet</h4>
 
-          <reg-select controlName="FU_Aspirin" placeholder="Aspirin" [formGroup]="formGroupM" [choices]="[
-              'Yes - Prescribed',
-              'No - No Reason',
-              'No - Medical Reason',
-              'No - Patient Reason'
-            ]"></reg-select>
+              <reg-select controlName="FU_Aspirin" placeholder="Aspirin" [formGroup]="formGroupM" [choices]="[
+                  'Yes - Prescribed',
+                  'No - No Reason',
+                  'No - Medical Reason',
+                  'No - Patient Reason'
+                ]"></reg-select>
 
-          <reg-select controlName="FU_Vorapaxar" placeholder="Vorapaxar" [formGroup]="formGroupM" [choices]="[
-              'Yes - Prescribed',
-              'No - No Reason',
-              'No - Medical Reason',
-              'No - Patient Reason'
-            ]"></reg-select>
+              <reg-select controlName="FU_Vorapaxar" placeholder="Vorapaxar" [formGroup]="formGroupM" [choices]="[
+                  'Yes - Prescribed',
+                  'No - No Reason',
+                  'No - Medical Reason',
+                  'No - Patient Reason'
+                ]"></reg-select>
 
-          <h4>ARB (Angiotensin Receptors Blockers)</h4>
+              <h4>ARB (Angiotensin Receptors Blockers)</h4>
 
-          <reg-select controlName="FU_ARB" placeholder="ARB (Any)" [formGroup]="formGroupM" [choices]="[
-              'Yes - Prescribed',
-              'No - No Reason',
-              'No - Medical Reason',
-              'No - Patient Reason'
-            ]"></reg-select>
+              <reg-select controlName="FU_ARB" placeholder="ARB (Any)" [formGroup]="formGroupM" [choices]="[
+                  'Yes - Prescribed',
+                  'No - No Reason',
+                  'No - Medical Reason',
+                  'No - Patient Reason'
+                ]"></reg-select>
 
-          <h4>Non-Vitamin K Dependent Oral Anticoagulant</h4>
+              <h4>Non-Vitamin K Dependent Oral Anticoagulant</h4>
 
-          <reg-select controlName="FU_Apixaban" placeholder="Apixaban" [formGroup]="formGroupM" [choices]="[
-              'Yes - Prescribed',
-              'No - No Reason',
-              'No - Medical Reason',
-              'No - Patient Reason'
-            ]"></reg-select>
+              <reg-select controlName="FU_Apixaban" placeholder="Apixaban" [formGroup]="formGroupM" [choices]="[
+                  'Yes - Prescribed',
+                  'No - No Reason',
+                  'No - Medical Reason',
+                  'No - Patient Reason'
+                ]"></reg-select>
 
-          <reg-select controlName="FU_Dabigatran" placeholder="Dabigatran" [formGroup]="formGroupM" [choices]="[
-              'Yes - Prescribed',
-              'No - No Reason',
-              'No - Medical Reason',
-              'No - Patient Reason'
-            ]"></reg-select>
+              <reg-select controlName="FU_Dabigatran" placeholder="Dabigatran" [formGroup]="formGroupM" [choices]="[
+                  'Yes - Prescribed',
+                  'No - No Reason',
+                  'No - Medical Reason',
+                  'No - Patient Reason'
+                ]"></reg-select>
 
-          <reg-select controlName="FU_Edoxaban" placeholder="Edoxaban" [formGroup]="formGroupM" [choices]="[
-              'Yes - Prescribed',
-              'No - No Reason',
-              'No - Medical Reason',
-              'No - Patient Reason'
-            ]"></reg-select>
+              <reg-select controlName="FU_Edoxaban" placeholder="Edoxaban" [formGroup]="formGroupM" [choices]="[
+                  'Yes - Prescribed',
+                  'No - No Reason',
+                  'No - Medical Reason',
+                  'No - Patient Reason'
+                ]"></reg-select>
 
-          <reg-select controlName="FU_Rivaroxaban" placeholder="Rivaroxaban" [formGroup]="formGroupM" [choices]="[
-              'Yes - Prescribed',
-              'No - No Reason',
-              'No - Medical Reason',
-              'No - Patient Reason'
-            ]"></reg-select>
+              <reg-select controlName="FU_Rivaroxaban" placeholder="Rivaroxaban" [formGroup]="formGroupM" [choices]="[
+                  'Yes - Prescribed',
+                  'No - No Reason',
+                  'No - Medical Reason',
+                  'No - Patient Reason'
+                ]"></reg-select>
+            </div>
 
-          <h4>P2Y12 Inhibitors</h4>
+            <div fxFlex>
+              <h4>P2Y12 Inhibitors</h4>
 
-          <reg-select controlName="FU_Clopidogrel" placeholder="Clopidogrel" [formGroup]="formGroupM" [choices]="[
-              'Yes - Prescribed',
-              'No - No Reason',
-              'No - Medical Reason',
-              'No - Patient Reason'
-            ]"></reg-select>
+              <reg-select controlName="FU_Clopidogrel" placeholder="Clopidogrel" [formGroup]="formGroupM" [choices]="[
+                  'Yes - Prescribed',
+                  'No - No Reason',
+                  'No - Medical Reason',
+                  'No - Patient Reason'
+                ]"></reg-select>
 
-          <reg-select controlName="FU_Prasugrel" placeholder="Prasugrel" [formGroup]="formGroupM" [choices]="[
-              'Yes - Prescribed',
-              'No - No Reason',
-              'No - Medical Reason',
-              'No - Patient Reason'
-            ]"></reg-select>
+              <reg-select controlName="FU_Prasugrel" placeholder="Prasugrel" [formGroup]="formGroupM" [choices]="[
+                  'Yes - Prescribed',
+                  'No - No Reason',
+                  'No - Medical Reason',
+                  'No - Patient Reason'
+                ]"></reg-select>
 
-          <reg-select controlName="FU_Ticagrelor" placeholder="Ticagrelor" [formGroup]="formGroupM" [choices]="[
-              'Yes - Prescribed',
-              'No - No Reason',
-              'No - Medical Reason',
-              'No - Patient Reason'
-            ]"></reg-select>
+              <reg-select controlName="FU_Ticagrelor" placeholder="Ticagrelor" [formGroup]="formGroupM" [choices]="[
+                  'Yes - Prescribed',
+                  'No - No Reason',
+                  'No - Medical Reason',
+                  'No - Patient Reason'
+                ]"></reg-select>
 
-          <reg-select controlName="FU_Ticlopidine" placeholder="Ticlopidine" [formGroup]="formGroupM" [choices]="[
-              'Yes - Prescribed',
-              'No - No Reason',
-              'No - Medical Reason',
-              'No - Patient Reason'
-            ]"></reg-select>
+              <reg-select controlName="FU_Ticlopidine" placeholder="Ticlopidine" [formGroup]="formGroupM" [choices]="[
+                  'Yes - Prescribed',
+                  'No - No Reason',
+                  'No - Medical Reason',
+                  'No - Patient Reason'
+                ]"></reg-select>
 
-          <h4>Statin</h4>
+              <h4>Statin</h4>
 
-          <reg-select controlName="FU_Statin" placeholder="Statin (Any)" [formGroup]="formGroupM" [choices]="[
-              'Yes - Prescribed',
-              'No - No Reason',
-              'No - Medical Reason',
-              'No - Patient Reason'
-            ]"></reg-select>
+              <reg-select controlName="FU_Statin" placeholder="Statin (Any)" [formGroup]="formGroupM" [choices]="[
+                  'Yes - Prescribed',
+                  'No - No Reason',
+                  'No - Medical Reason',
+                  'No - Patient Reason'
+                ]"></reg-select>
 
-          <reg-select *ngIf="visibles['FU_StatinDose']" controlName="FU_StatinDose" placeholder="Dose" [formGroup]="formGroupM" [choices]="[
-              'Low Intensity Dose',
-              'Moderate Intensity Dose',
-              'High Intensity Dose'
-            ]"></reg-select>
+              <reg-select class="subitem-horz" *ngIf="visibles['FU_StatinDose']" controlName="FU_StatinDose" placeholder="Dose" [formGroup]="formGroupM" [choices]="[
+                  'Low Intensity Dose',
+                  'Moderate Intensity Dose',
+                  'High Intensity Dose'
+                ]"></reg-select>
 
-          <h4>Non-Statin</h4>
+              <h4>Non-Statin</h4>
 
-          <reg-select controlName="FU_NonStatin" placeholder="Non-Statin (Any)" [formGroup]="formGroupM" [choices]="[
-              'Yes - Prescribed',
-              'No - No Reason',
-              'No - Medical Reason',
-              'No - Patient Reason'
-            ]"></reg-select>
+              <reg-select controlName="FU_NonStatin" placeholder="Non-Statin (Any)" [formGroup]="formGroupM" [choices]="[
+                  'Yes - Prescribed',
+                  'No - No Reason',
+                  'No - Medical Reason',
+                  'No - Patient Reason'
+                ]"></reg-select>
 
-          <h4>PCSK9 Inhibitors</h4>
+              <h4>PCSK9 Inhibitors</h4>
 
-          <reg-select controlName="FU_Alirocumab" placeholder="Alirocumab" [formGroup]="formGroupM" [choices]="[
-              'Yes - Prescribed',
-              'No - No Reason',
-              'No - Medical Reason',
-              'No - Patient Reason'
-            ]"></reg-select>
+              <reg-select controlName="FU_Alirocumab" placeholder="Alirocumab" [formGroup]="formGroupM" [choices]="[
+                  'Yes - Prescribed',
+                  'No - No Reason',
+                  'No - Medical Reason',
+                  'No - Patient Reason'
+                ]"></reg-select>
 
-          <reg-select controlName="FU_Evolocumab" placeholder="Evolocumab" [formGroup]="formGroupM" [choices]="[
-              'Yes - Prescribed',
-              'No - No Reason',
-              'No - Medical Reason',
-              'No - Patient Reason'
-            ]"></reg-select>
-
-
+              <reg-select controlName="FU_Evolocumab" placeholder="Evolocumab" [formGroup]="formGroupM" [choices]="[
+                  'Yes - Prescribed',
+                  'No - No Reason',
+                  'No - Medical Reason',
+                  'No - Patient Reason'
+                ]"></reg-select>
+            </div>
+          </div>
 
         </form>
       </div>
     </section>
 
-    FormGroupM: {{ formGroupM.value | json }}
+    <!-- FormGroupM: {{ formGroupM.value | json }} -->
 
     <br />
     <br />

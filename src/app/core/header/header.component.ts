@@ -28,7 +28,7 @@ export class HeaderComponent implements OnInit {
     const url = window.location.href;
     if (url.indexOf('bdms-registry-dev') >= 0) {
       this.color = 'accent';
-      this.title = 'BDMS Registry - Dev';
+      this.title = 'BDMS Registry - DEV';
     }
   }
 

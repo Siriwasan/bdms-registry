@@ -46,7 +46,11 @@ export const conditions: FormConditions = {
            { control: 'DCathProvider', parentControl: 'DiagCorAngio', conditions: ['Yes'] },
            { control: 'PCIProvider', parentControl: 'PCIProc', conditions: ['Yes'] },
            { control: 'PrePCILVEF', parentControl: 'LeftHeartCath', conditions: ['Yes'] },
-           { control: 'ConcomProcType', parentControl: 'ConcomProc', conditions: ['Yes'] }
+           { control: 'ConcomProcType', parentControl: 'ConcomProc', conditions: ['Yes'] },
+           { control: 'AccessSiteClosure', parentControl: 'AccessSite', conditions: ['!', null] },
+           { control: 'CrossoverClosure', parentControl: 'Crossover', conditions: ['!', 'No'] },
+           { control: 'SimultaneousClosure', parentControl: 'Simultaneous', conditions: ['!', 'No'] },
+           { control: 'VenousAccessClosure', parentControl: 'VenousAccess', conditions: ['!', 'No'] }
          ],
          sectionF: [
            { control: 'PreProcTnI', parentControl: 'PreProcTnILab', conditions: ['Drawn'] },
@@ -72,24 +76,44 @@ export const conditions: FormConditions = {
              conditions: ['@', 'Valvular Disease']
            },
            {
-             control: 'ValvularDzStenosisType',
+             control: 'ASSeverity',
              parentControl: 'CathLabVisitIndication',
              conditions: ['@', 'Valvular Disease']
            },
            {
-             control: 'ValvularDzStenosisSev',
-             parentControl: 'ValvularDzStenosisType',
-             conditions: ['!', null]
-           },
-           {
-             control: 'ValvularDzRegurgType',
+             control: 'MSSeverity',
              parentControl: 'CathLabVisitIndication',
              conditions: ['@', 'Valvular Disease']
            },
            {
-             control: 'RegurgSeverity',
-             parentControl: 'ValvularDzRegurgType',
-             conditions: ['!', null]
+             control: 'PSSeverity',
+             parentControl: 'CathLabVisitIndication',
+             conditions: ['@', 'Valvular Disease']
+           },
+           {
+             control: 'TSSeverity',
+             parentControl: 'CathLabVisitIndication',
+             conditions: ['@', 'Valvular Disease']
+           },
+           {
+             control: 'ARSeverity',
+             parentControl: 'CathLabVisitIndication',
+             conditions: ['@', 'Valvular Disease']
+           },
+           {
+             control: 'MRSeverity',
+             parentControl: 'CathLabVisitIndication',
+             conditions: ['@', 'Valvular Disease']
+           },
+           {
+             control: 'PRSeverity',
+             parentControl: 'CathLabVisitIndication',
+             conditions: ['@', 'Valvular Disease']
+           },
+           {
+             control: 'TRSeverity',
+             parentControl: 'CathLabVisitIndication',
+             conditions: ['@', 'Valvular Disease']
            },
            {
              control: 'G:indicationPreopEva',
@@ -170,8 +194,7 @@ export const conditions: FormConditions = {
                'STEMI - Rescue (After unsuccessful lytics)'
              ]
            },
-           { control: 'ThromType', parentControl: 'ThromTherapy', conditions: ['Yes'] },
-           { control: 'ThromDateTime', parentControl: 'ThromTherapy', conditions: ['Yes'] },
+           { control: 'ThromDateTime', parentControl: 'ThromTherapy', conditions: ['!', 'No'] },
            {
              control: 'SyntaxScore',
              parentControl: 'PCIIndication',
@@ -515,7 +538,11 @@ export const conditions: FormConditions = {
            { control: 'ICDevUDI10', parentControl: 'UseDevice10', conditions: ['Yes'] },
            { control: 'ICDevCounterAssn10', parentControl: 'UseDevice10', conditions: ['Yes'] },
            { control: 'DeviceDiameter10', parentControl: 'UseDevice10', conditions: ['Yes'] },
-           { control: 'DeviceLength10', parentControl: 'UseDevice10', conditions: ['Yes'] }
+           { control: 'DeviceLength10', parentControl: 'UseDevice10', conditions: ['Yes'] },
+
+           { control: 'StentTechnique', parentControl: 'UseDevice01', conditions: ['Yes'] },
+           { control: 'ProxOptimize', parentControl: 'UseDevice01', conditions: ['Yes'] },
+           { control: 'FinalKissBalloon', parentControl: 'UseDevice01', conditions: ['Yes'] },
          ],
          sectionK: [
            { control: 'K:intraPCI', parentControl: 'E:PCIProc', conditions: ['Yes'] },
