@@ -1,45 +1,53 @@
 <div class="content">
-  <!-- <h1>Prep ACS data from GLS</h1>
-  <br />
-  <button mat-raised-button color="primary" (click)="fileInput.click()">Choose File</button>
-  <input type="file" hidden (change)="onFileSelected($event.target.files)" #fileInput />
-  {{ file?.name }}
-  <br />
-  <br />
+  <mat-tab-group>
+    <mat-tab label="Export XLXS">
+      Export xlxs
+    </mat-tab>
 
-  <div>
-    Preview
-    <button mat-raised-button color="accent" (click)="download()" *ngIf="fileContent !== ''">Download</button>
-    <br />
-    <br />
-    <div [innerHTML]="html | noSanitize" style="overflow-x:auto;"></div>
-  </div> -->
+    <mat-tab label="Backup Database">
+      <h1>Export Database</h1>
+      <h2>1. Export Staff</h2>
+      <button mat-raised-button color="primary" (click)="exportStaff()">Export</button>
 
-  <h1>Export Database</h1>
-  <h2>1. Export Staff</h2>
-  <button mat-raised-button color="primary" (click)="exportStaff()">Export</button>
+      <h2>2. Export Registry</h2>
+      <button mat-raised-button color="primary" (click)="exportRegistry()">Export</button>
 
-  <h2>2. Export Registry</h2>
-  <button mat-raised-button color="primary" (click)="exportRegistry()">Export</button>
+      <h2>3. Export ACSx290</h2>
+      <button mat-raised-button color="primary" (click)="exportACSx290()">Export</button>
 
-  <h2>3. Export ACSx290</h2>
-  <button mat-raised-button color="primary" (click)="exportACSx290()">Export</button>
+      <br />
+      <br />
 
-  <br />
-  <br />
+      <p style="font-style: italic">Before import you need to delete database manaully!</p>
 
-  <p style="font-style: italic">Before import you need to delete database manaully!</p>
+      <h1>Import Database</h1>
+      <h2>1. Import Staff</h2>
+      <button mat-raised-button color="accent" (click)="staffFileInput.click()">Import</button>
+      <input type="file" hidden (change)="importStaff($event.target.files)" #staffFileInput />
 
-  <h1>Import Database</h1>
-  <h2>1. Import Staff</h2>
-  <button mat-raised-button color="accent" (click)="staffFileInput.click()">Import</button>
-  <input type="file" hidden (change)="importStaff($event.target.files)" #staffFileInput />
+      <h2>2. Import Registry</h2>
+      <button mat-raised-button color="accent" (click)="registryFileInput.click()">Import</button>
+      <input type="file" hidden (change)="importRegistry($event.target.files)" #registryFileInput />
 
-  <h2>2. Import Registry</h2>
-  <button mat-raised-button color="accent" (click)="registryFileInput.click()">Import</button>
-  <input type="file" hidden (change)="importRegistry($event.target.files)" #registryFileInput />
+      <h2>3. Import ACSx290</h2>
+      <button mat-raised-button color="accent" (click)="acsxFileInput.click()">Import</button>
+      <input type="file" hidden (change)="importACSx290($event.target.files)" #acsxFileInput />
+    </mat-tab>
 
-  <h2>3. Import ACSx290</h2>
-  <button mat-raised-button color="accent" (click)="acsxFileInput.click()">Import</button>
-  <input type="file" hidden (change)="importACSx290($event.target.files)" #acsxFileInput />
+    <mat-tab label="Prep ACS data from GLS">
+      <button mat-raised-button color="primary" (click)="fileInput.click()">Choose File</button>
+      <input type="file" hidden (change)="onFileSelected($event.target.files)" #fileInput />
+      {{ file?.name }}
+      <br />
+      <br />
+
+      <div>
+        Preview
+        <button mat-raised-button color="accent" (click)="download()" *ngIf="fileContent !== ''">Download</button>
+        <br />
+        <br />
+        <div [innerHTML]="html | noSanitize" style="overflow-x:auto;"></div>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
 </div>
