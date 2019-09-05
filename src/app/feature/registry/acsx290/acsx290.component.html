@@ -370,7 +370,7 @@
 
           <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
-            <reg-select *ngIf="visibles['ChrLungD']" controlName="ChrLungD" placeholder="Lung Disease" [formGroup]="formGroupD" [choices]="[
+            <reg-select controlName="ChrLungD" placeholder="Lung Disease" [formGroup]="formGroupD" [choices]="[
                 'No',
                 'Mild',
                 'Moderate',
@@ -379,7 +379,7 @@
                 'Unknown'
               ]" fxFlex></reg-select>
 
-            <reg-select controlName="ChrLungDType" placeholder="Type" [formGroup]="formGroupD" [choices]="[
+            <reg-select *ngIf="visibles['ChrLungDType']" controlName="ChrLungDType" placeholder="Type" [formGroup]="formGroupD" [choices]="[
                 'Obstructive',
                 'Reactive',
                 'Interstitial Fibrosis',
