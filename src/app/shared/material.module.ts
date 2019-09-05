@@ -21,7 +21,8 @@ import {
   MatPaginatorModule,
   MatSortModule,
   MatTooltipModule,
-  MatSnackBarModule
+  MatSnackBarModule,
+  MatTabsModule
 } from '@angular/material';
 import { MatDatepickerModule, MatMomentDateModule } from '@coachcare/datepicker';
 
@@ -49,7 +50,8 @@ import { MatDatepickerModule, MatMomentDateModule } from '@coachcare/datepicker'
     MatPaginatorModule,
     MatSortModule,
     MatTooltipModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatTabsModule
   ],
   exports: [
     MatButtonModule,
@@ -73,7 +75,8 @@ import { MatDatepickerModule, MatMomentDateModule } from '@coachcare/datepicker'
     MatPaginatorModule,
     MatSortModule,
     MatTooltipModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatTabsModule
   ]
 })
 export class MaterialModule {}
