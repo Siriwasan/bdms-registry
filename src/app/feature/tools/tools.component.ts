@@ -152,4 +152,25 @@ export class ToolsComponent implements OnInit {
       console.log('dump ACSx290 completed ' + acsxs.length + ' records');
     };
   }
+
+  exportAsXLSX(): void {
+    const data = [
+      {
+        eid: 'e101',
+        ename: 'ravi',
+        esal: 1000
+      },
+      {
+        eid: 'e102',
+        ename: 'ram',
+        esal: 2000
+      },
+      {
+        eid: 'e103',
+        ename: 'rajesh',
+        esal: 3000
+      }
+    ];
+    this.toolsService.exportAsExcelFile(data, 'sample');
+  }
 }
