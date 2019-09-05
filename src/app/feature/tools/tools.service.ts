@@ -10,6 +10,7 @@ import * as XLSX from 'xlsx';
 import { Staff } from '../staff/staff.model';
 import { Registry } from '../registry/registry.model';
 import { ACSx290Form } from '../registry/acsx290/acsx290.model';
+import { SampleModel } from './tools.model';
 
 const DB_COLLECTION = 'ACSx290';
 const DB_REGISTRY = 'Registry';
@@ -239,10 +240,19 @@ export class ToolsService implements OnDestroy {
     return (oldIdList.indexOf(oldId) + 1).toString().padStart(5, '0');
   }
 
-  public exportAsExcelFile(json: any[], excelFileName: string): void {
+  public exportAsExcelFile(json: SampleModel[], excelFileName: string): void {
+    const worksheet2data = [];
+    json.forEach(o => o.movies.forEach(i => worksheet2data.push({ id: o.id, movie: i })));
+    const worksheet3data = [];
+    json.forEach(o => o.cars.forEach(i => worksheet3data.push({ id: o.id, brand: i.brand, color: i.color })));
+
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
-    console.log('worksheet', worksheet);
-    const workbook: XLSX.WorkBook = { Sheets: { data: worksheet }, SheetNames: ['data'] };
+    const worksheet2: XLSX.WorkSheet = XLSX.utils.json_to_sheet(worksheet2data);
+    const worksheet3: XLSX.WorkSheet = XLSX.utils.json_to_sheet(worksheet3data);
+    const workbook: XLSX.WorkBook = {
+      Sheets: { data: worksheet, movies: worksheet2, cars: worksheet3 },
+      SheetNames: ['data', 'movies', 'cars']
+    };
     const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
     this.saveAsExcelFile(excelBuffer, excelFileName);
   }
