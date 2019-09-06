@@ -1,5 +1,6 @@
 import { Component, OnInit, AfterViewInit, OnDestroy, ChangeDetectorRef, ElementRef, ViewChild } from '@angular/core';
 import { FormGroup, FormGroupDirective, FormBuilder } from '@angular/forms';
+import { Location } from '@angular/common';
 import { Subscription } from 'rxjs';
 
 import { RegistryFormComponent } from '../../../shared/modules/registry-form/registry-form.component';
@@ -24,6 +25,13 @@ import * as cathPci50Data from './cath-pci50.data';
 })
 export class CathPci50Component extends RegistryFormComponent implements OnInit, AfterViewInit, OnDestroy {
   toc = tableOfContent;
+
+  // FAB
+  public open = false;
+  public spin = true;
+  public direction = 'up'; // up, down, left, right
+  public animationMode = 'fling'; // fling, scale
+
   public visibles: { [id: string]: boolean } = {};
   public completion: CathPCI50FormCompletion;
   private subscriptions: Subscription[] = [];
@@ -91,7 +99,8 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     protected scrollSpy: ScrollSpyService,
     protected hostElement: ElementRef,
     protected registryFormService: RegistryFormService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private location: Location
   ) {
     super(dialogService, changeDetector, scrollSpy, hostElement, registryFormService);
   }
@@ -492,5 +501,63 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
 
     const completion = Math.round((this.completion.summary.valid / this.completion.summary.total) * 100);
     return `(${completion}%)`;
+  }
+
+  public async submit() {
+    console.log('submit');
+
+    // this.registryFormService.submitAllSections();
+    // const data = this.archiveForm();
+
+    // const alert = this.acsx290Service.checkNeededDataCompletion(data);
+    // if (alert) {
+    //   this.dialogService.createModalDialog({
+    //     title: '!!Alert!!',
+    //     content: `These information must fill before submitting ${alert}`,
+    //     buttons: ['OK']
+    //   });
+    //   return;
+    // }
+
+    // this.acsx290Service.encryptSensitiveData(data);
+
+    // this.store.dispatch(new UI.StartLoading());
+    // if (this.mode === 'new') {
+    //   if (await this.acsx290Service.isExistedForm(data)) {
+    //     console.log('repeat form');
+    //     this.store.dispatch(new UI.StopLoading());
+    //     this.dialogService.createModalDialog({
+    //       title: '!!Alert!!',
+    //       content: `You can not create ACSx 2.9 registry more than one in same episode`,
+    //       buttons: ['OK']
+    //     });
+    //     return;
+    //   }
+
+    //   console.log('new');
+    //   this.registryId = await this.acsx290Service.createForm(data);
+    //   this.formGroupA.get('registryId').setValue(this.registryId);
+    //   this.location.go('/registry/acsx290/' + this.registryId);
+    //   this.mode = 'edit';
+    // } else {
+    //   console.log('edit');
+    //   await this.acsx290Service.updateForm(this.registryId, data);
+    // }
+    // this.store.dispatch(new UI.StopLoading());
+    // this.registryFormService.markAllFormsUntouched();
+  }
+
+  async submitAndExit() {
+    // await this.submit();
+    // this.router.navigate(['registry']);
+    this.location.back();
+  }
+
+  checkValidation() {
+    this.registryFormService.submitAllSections();
+  }
+
+  clearValidations() {
+    this.registryFormService.clearErrors();
   }
 }

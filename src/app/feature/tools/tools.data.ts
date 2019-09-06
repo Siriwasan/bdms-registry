@@ -513,7 +513,7 @@ export const xlsxSample: SampleModel[] = [
   {
     id: 41,
     first_name: 'Harold',
-    last_name: "O'Loughlin",
+    last_name: 'O\'Loughlin',
     email: 'holoughlin14@home.pl',
     gender: 'Male',
     ip_address: '93.67.91.179',
@@ -1437,7 +1437,7 @@ export const xlsxSample: SampleModel[] = [
   {
     id: 113,
     first_name: 'Bernhard',
-    last_name: "O'Lenechan",
+    last_name: 'O\'Lenechan',
     email: 'bolenechan34@networkadvertising.org',
     gender: 'Male',
     ip_address: '55.137.65.251',
@@ -3059,7 +3059,7 @@ export const xlsxSample: SampleModel[] = [
   {
     id: 243,
     first_name: 'Hally',
-    last_name: "O'Lennane",
+    last_name: 'O\'Lennane',
     email: 'holennane6q@spotify.com',
     gender: 'Female',
     ip_address: '161.101.183.255',
@@ -3894,7 +3894,7 @@ export const xlsxSample: SampleModel[] = [
   {
     id: 308,
     first_name: 'Garrott',
-    last_name: "O'Hingerty",
+    last_name: 'O\'Hingerty',
     email: 'gohingerty8j@mail.ru',
     gender: 'Male',
     ip_address: '229.37.196.137',
@@ -4675,7 +4675,7 @@ export const xlsxSample: SampleModel[] = [
   {
     id: 368,
     first_name: 'Hershel',
-    last_name: "O'Hagerty",
+    last_name: 'O\'Hagerty',
     email: 'hohagertya7@dyndns.org',
     gender: 'Male',
     ip_address: '81.243.83.51',
@@ -4778,7 +4778,7 @@ export const xlsxSample: SampleModel[] = [
   {
     id: 376,
     first_name: 'Flin',
-    last_name: "D'Onise",
+    last_name: 'D\'Onise',
     email: 'fdoniseaf@bing.com',
     gender: 'Male',
     ip_address: '30.68.77.164',
@@ -5301,7 +5301,7 @@ export const xlsxSample: SampleModel[] = [
   {
     id: 417,
     first_name: 'Donaugh',
-    last_name: "D'Antuoni",
+    last_name: 'D\'Antuoni',
     email: 'ddantuonibk@unicef.org',
     gender: 'Male',
     ip_address: '125.85.32.172',
@@ -6223,7 +6223,7 @@ export const xlsxSample: SampleModel[] = [
   {
     id: 488,
     first_name: 'Larisa',
-    last_name: "O'Docherty",
+    last_name: 'O\'Docherty',
     email: 'lodochertydj@theatlantic.com',
     gender: 'Female',
     ip_address: '63.107.60.9',
@@ -7236,7 +7236,7 @@ export const xlsxSample: SampleModel[] = [
   {
     id: 566,
     first_name: 'Rodrigo',
-    last_name: "O'Currane",
+    last_name: 'O\'Currane',
     email: 'rocurranefp@mashable.com',
     gender: 'Male',
     ip_address: '196.105.48.31',
@@ -8707,7 +8707,7 @@ export const xlsxSample: SampleModel[] = [
   {
     id: 683,
     first_name: 'Barny',
-    last_name: "O'Doherty",
+    last_name: 'O\'Doherty',
     email: 'bodohertyiy@aboutads.info',
     gender: 'Male',
     ip_address: '11.50.160.123',

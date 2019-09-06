@@ -41,7 +41,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
   private userSubscription: Subscription;
   avHospitals: string[];
 
-  // round bar progress
+  // FAB
   public open = false;
   public spin = true;
   public direction = 'up'; // up, down, left, right

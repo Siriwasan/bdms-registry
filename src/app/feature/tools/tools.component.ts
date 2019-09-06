@@ -8,7 +8,7 @@ import { Registry } from '../registry/registry.model';
 import { Staff } from '../staff/staff.model';
 import { ACSx290Form } from '../registry/acsx290/acsx290.model';
 
-import * as data from './tools.data';
+import * as toolData from './tools.data';
 
 interface Model {
   hn: number;
@@ -156,6 +156,6 @@ export class ToolsComponent implements OnInit {
   }
 
   exportAsXLSX(): void {
-    this.toolsService.exportAsExcelFile(data.xlsxSample, 'sample');
+    this.toolsService.exportAsExcelFile(toolData.xlsxSample, 'sample');
   }
 }
