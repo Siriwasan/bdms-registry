@@ -13,9 +13,20 @@ import { RegistryDatePickerComponent } from './registry-date-picker.component';
 import { RegistryFormService } from './registry-form.service';
 
 @NgModule({
-  declarations: [RegistryInputComponent, RegistrySelectComponent, RegistrySelectMultipleComponent, RegistryDatePickerComponent],
+  declarations: [
+    RegistryInputComponent,
+    RegistrySelectComponent,
+    RegistrySelectMultipleComponent,
+    RegistryDatePickerComponent,
+  ],
   imports: [CommonModule, FormsModule, ReactiveFormsModule, MaterialModule, FlexLayoutModule, ScrollSpyModule],
-  exports: [RegistryInputComponent, RegistrySelectComponent, RegistrySelectMultipleComponent, RegistryDatePickerComponent, ScrollSpyModule],
+  exports: [
+    RegistryInputComponent,
+    RegistrySelectComponent,
+    RegistrySelectMultipleComponent,
+    RegistryDatePickerComponent,
+    ScrollSpyModule
+  ],
   providers: [RegistryFormService]
 })
 export class RegistryFormModule {}

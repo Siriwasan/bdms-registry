@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, ElementRef } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { MAT_DATE_FORMATS, DateAdapter } from '@coachcare/datepicker';
 
 import { RegistryControlComponent } from './registry-control.component';
@@ -68,7 +69,7 @@ export class CustomDateAdapter extends MomentDateAdapter {
 })
 export class RegistryDatePickerComponent extends RegistryControlComponent implements OnInit {
   @Input() controlName: string;
-  @Input() formGroup: string;
+  @Input() formGroup: FormGroup;
   @Input() placeholder: string;
   @Input() require = true;
   @Input() type = 'date';

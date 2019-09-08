@@ -992,7 +992,7 @@
           <reg-select controlName="NVStenosis" placeholder="Native Vessel with Stenosis >= 50%" [formGroup]="formGroupH"
             [choices]="['Yes', 'No']"></reg-select>
 
-          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+          <!-- <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
             <reg-select *ngIf="visibles['NVSegmentID']" controlName="NVSegmentID" placeholder="Native Lesion Segment Number" [formGroup]="formGroupH"
               [choices]="segmentNumbers" fxFlex></reg-select>
 
@@ -1015,7 +1015,7 @@
 
             <reg-input *ngIf="visibles['NV_OCT']" controlName="NV_OCT" placeholder="OCT MLA (mm2)" [formGroup]="formGroupH" type="number" fxFlex>
             </reg-input>
-          </div>
+          </div> -->
 
           <reg-select controlName="GraftStenosis" placeholder="Graft Vessel with Stenosis >= 50%" [formGroup]="formGroupH"
             [choices]="['Yes', 'No']"></reg-select>
@@ -1052,6 +1052,93 @@
             <reg-input *ngIf="visibles['Graft_OCT']" controlName="Graft_OCT" placeholder="OCT MLA (mm2)" [formGroup]="formGroupH" type="number" fxFlex>
             </reg-input>
           </div>
+
+          <div *ngIf="visibles['NativeLesions']">
+            <button mat-raised-button color="primary" (click)="addNativeLestion()">Add Native Lesion</button>
+            <mat-tab-group style="width: 700px">
+              <mat-tab formArrayName="NativeLesions"
+              *ngFor="let item of formGroupH.controls['NativeLesions'].controls; let i = index;" [label]="i">
+
+                <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+                  <reg-select controlName="NVSegmentID" placeholder="Native Lesion Segment Number" [formGroup]="item"
+                    [choices]="segmentNumbers" fxFlex></reg-select>
+
+                  <reg-input controlName="NVCoroVesselStenosis" placeholder="Native Stenosis (%)" [formGroup]="item" type="number" fxFlex>
+                  </reg-input>
+
+                </div>
+
+                <reg-select controlName="NVAdjuncMeasObtained" placeholder="Adjunctive Measurements Obtained" [formGroup]="item"
+                  [choices]="['Yes', 'No']"></reg-select>
+
+                <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+                  <reg-input controlName="NV_FFR" placeholder="FFR Ratio" [formGroup]="item" type="number" fxFlex>
+                  </reg-input>
+
+                  <reg-input controlName="NV_IFR" placeholder="iFR Ratio" [formGroup]="item" type="number" fxFlex>
+                  </reg-input>
+                </div>
+
+                <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+                  <reg-input controlName="NV_IVUS" placeholder="IVUS MLA (mm2)" [formGroup]="item" type="number" fxFlex>
+                  </reg-input>
+
+                  <reg-input controlName="NV_OCT" placeholder="OCT MLA (mm2)" [formGroup]="item" type="number" fxFlex>
+                  </reg-input>
+                </div>
+
+                <button mat-raised-button color="warn" (click)="removeNativeLestion(i)">Remove</button>
+
+              </mat-tab>
+
+            </mat-tab-group>
+
+          </div>
+          <!-- <div style="width: 2%; float: right">
+            <button style="position: absolute; margin-top: -400px; margin-left: -300px" mat-icon-button (click)="addNativeLestion()">
+              <mat-icon aria-label="Example icon-button with a heart icon">add_circle_outline</mat-icon>
+            </button>
+          </div> -->
+          <!-- <div formArrayName="NativeLesions"
+            *ngFor="let item of formGroupH.controls['NativeLesions'].controls; let i = index;">
+
+            <fieldset style="border:1px solid #a1a1a1; border-radius:10px; padding: 20px 30px 20px 30px;">
+              <legend style="color:#757575; text-align: right">
+              <button mat-stroked-button color="warn" style="padding: 0px; min-width: 20px; height: 20px; line-height: 0px" (click)="removeNativeLestion(i)">X</button></legend>
+
+              <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+                <reg-select controlName="NVSegmentID" placeholder="Native Lesion Segment Number" [formGroup]="item"
+                  [choices]="segmentNumbers" fxFlex></reg-select>
+
+                <reg-input controlName="NVCoroVesselStenosis" placeholder="Native Stenosis (%)" [formGroup]="item" type="number" fxFlex>
+                </reg-input>
+
+              </div>
+
+              <reg-select controlName="NVAdjuncMeasObtained" placeholder="Adjunctive Measurements Obtained" [formGroup]="item"
+                [choices]="['Yes', 'No']"></reg-select>
+
+              <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+                <reg-input controlName="NV_FFR" placeholder="FFR Ratio" [formGroup]="item" type="number" fxFlex>
+                </reg-input>
+
+                <reg-input controlName="NV_IFR" placeholder="iFR Ratio" [formGroup]="item" type="number" fxFlex>
+                </reg-input>
+              </div>
+
+              <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+                <reg-input controlName="NV_IVUS" placeholder="IVUS MLA (mm2)" [formGroup]="item" type="number" fxFlex>
+                </reg-input>
+
+                <reg-input controlName="NV_OCT" placeholder="OCT MLA (mm2)" [formGroup]="item" type="number" fxFlex>
+                </reg-input>
+              </div>
+
+              <button mat-raised-button color="warn" (click)="removeNativeLestion(i)">Remove</button>
+
+            </fieldset>
+
+          </div> -->
 
       </form>
       </div>

@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit, OnDestroy, ChangeDetectorRef, ElementRef, ViewChild } from '@angular/core';
-import { FormGroup, FormGroupDirective, FormBuilder } from '@angular/forms';
+import { FormGroup, FormGroupDirective, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { Location } from '@angular/common';
 import { Subscription } from 'rxjs';
 
@@ -147,6 +147,8 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     this.formGroupE.get('PCIProc').setValue(null);
     this.formGroupJ.get('HasLesion01').setValue(null);
     this.formGroupL.get('DCStatus').setValue(null);
+    // this.visibles['NativeLesions'] = false;
+
   }
 
   ngOnDestroy() {
@@ -162,6 +164,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     this.formGroupE = this.formBuilder.group(CathPCI50Form.sectionE);
     this.formGroupF = this.formBuilder.group(CathPCI50Form.sectionF);
     this.formGroupG = this.formBuilder.group(CathPCI50Form.sectionG);
+    CathPCI50Form.sectionH['NativeLesions'] = this.formBuilder.array([]);
     this.formGroupH = this.formBuilder.group(CathPCI50Form.sectionH);
     this.formGroupI = this.formBuilder.group(CathPCI50Form.sectionI);
     this.formGroupJ = this.formBuilder.group(CathPCI50Form.sectionJ);
@@ -559,5 +562,22 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
 
   clearValidations() {
     this.registryFormService.clearErrors();
+  }
+
+  addNativeLestion() {
+    const control = this.formGroupH.get('NativeLesions') as FormArray;
+    const group = this.formBuilder.group(CathPCI50Form.nativeLesion);
+
+    group.get('NVAdjuncMeasObtained').valueChanges.subscribe(value => {
+      console.log('NVSegmentID changed ' + value);
+      group.get('NV_FFR').disable();
+    });
+
+    control.push(group);
+  }
+
+  removeNativeLestion(index: number) {
+    const control = this.formGroupH.get('NativeLesions') as FormArray;
+    control.removeAt(index);
   }
 }

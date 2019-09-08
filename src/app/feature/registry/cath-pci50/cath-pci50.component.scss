@@ -8,6 +8,12 @@ reg-datepicker {
   margin-bottom: 10px;
 }
 
+// ::ng-deep.mat-tab-label, ::ng-deep.mat-tab-label-active{
+//  min-width: 30px!important;
+//  padding: 3px!important;
+//  margin: 3px!important;
+// }
+
 .subitem-horz {
   margin-left: 30px;
   flex: 1 1 0%;

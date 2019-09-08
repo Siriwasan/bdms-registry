@@ -1,4 +1,5 @@
 import { Component, Input, EventEmitter, Output, OnInit, ElementRef } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { MatSelectChange } from '@angular/material';
 
 import { RegistryControlComponent } from './registry-control.component';
@@ -36,7 +37,7 @@ import { RegistryFormService } from './registry-form.service';
 })
 export class RegistrySelectComponent extends RegistryControlComponent implements OnInit {
   @Input() controlName: string;
-  @Input() formGroup: string;
+  @Input() formGroup: FormGroup;
   @Input() placeholder: string;
   @Input() require = true;
   @Input() choices = [];

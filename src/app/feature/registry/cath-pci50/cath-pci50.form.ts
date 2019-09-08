@@ -180,7 +180,16 @@ export const CathPCI50Form = {
     Graft_FFR: [null, Validators.required],
     Graft_IFR: [null, Validators.required],
     Graft_IVUS: [null, Validators.required],
-    Graft_OCT: [null, Validators.required]
+    Graft_OCT: [null, Validators.required],
+  },
+  nativeLesion: {
+    NVSegmentID: [null, Validators.required],
+    NVCoroVesselStenosis: [null, Validators.required],
+    NVAdjuncMeasObtained: [null, Validators.required],
+    NV_FFR: [null, Validators.required],
+    NV_IFR: [null, Validators.required],
+    NV_IVUS: [null, Validators.required],
+    NV_OCT: [null, Validators.required]
   },
   sectionI: {
     PCIStatus: [null, Validators.required],
