@@ -64,7 +64,7 @@ export class RegistryFormService implements OnDestroy {
     // console.log(this.visibles['DiabCtrl']);
   }
 
-  private subscribeValueChanges(formGroup: FormGroup, conditions: ControlCondition[]) {
+  public subscribeValueChanges(formGroup: FormGroup, conditions: ControlCondition[]) {
     conditions.forEach(condition => {
       let parentControl: AbstractControl;
 

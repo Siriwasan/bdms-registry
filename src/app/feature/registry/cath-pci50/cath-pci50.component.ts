@@ -84,6 +84,8 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
   private sectionMembers: SectionMember[];
   //#endregion
 
+  nativeLesionIndexes: string[] = [];
+
   gap = '20px';
   segmentNumbers = cathPci50Data.segmentNumbers;
   deathCauses = cathPci50Data.deathCauses;
@@ -148,7 +150,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     this.formGroupJ.get('HasLesion01').setValue(null);
     this.formGroupL.get('DCStatus').setValue(null);
     // this.visibles['NativeLesions'] = false;
-
+    this.addNativeLestion();
   }
 
   ngOnDestroy() {
@@ -173,8 +175,8 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     this.formGroupM = this.formBuilder.group(CathPCI50Form.sectionM);
 
     this.sectionMembers = [
-      ['A', this.formGroupA, this.formDirectiveA, conditions.sectionA],
       ['B', this.formGroupB, this.formDirectiveB, conditions.sectionB],
+      ['A', this.formGroupA, this.formDirectiveA, conditions.sectionA],
       ['C', this.formGroupC, this.formDirectiveC, conditions.sectionC],
       ['D', this.formGroupD, this.formDirectiveD, conditions.sectionD],
       ['E', this.formGroupE, this.formDirectiveE, conditions.sectionE],
@@ -567,17 +569,23 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
   addNativeLestion() {
     const control = this.formGroupH.get('NativeLesions') as FormArray;
     const group = this.formBuilder.group(CathPCI50Form.nativeLesion);
-
-    group.get('NVAdjuncMeasObtained').valueChanges.subscribe(value => {
-      console.log('NVSegmentID changed ' + value);
-      group.get('NV_FFR').disable();
-    });
-
     control.push(group);
+
+    const num = new Date().getTime().toString();
+    this.nativeLesionIndexes.push(num);
+
+    const eachCon = conditions.nativeLesion.map(o => {
+      return { control: o.control + '.' + num, parentControl: o.parentControl, conditions: o.conditions };
+    });
+    this.registryFormService.subscribeValueChanges(group, eachCon);
+
+    console.log(this.nativeLesionIndexes);
   }
 
   removeNativeLestion(index: number) {
     const control = this.formGroupH.get('NativeLesions') as FormArray;
     control.removeAt(index);
+    this.nativeLesionIndexes.splice(index, 1);
+    console.log(this.nativeLesionIndexes);
   }
 }

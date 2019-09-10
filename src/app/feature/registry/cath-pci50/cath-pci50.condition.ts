@@ -152,14 +152,14 @@ export const conditions: FormConditions = {
     }
   ],
   sectionH: [
-    // { control: 'NativeLesions', parentControl: 'NVStenosis', conditions: ['Yes'] },
-    { control: 'NVSegmentID', parentControl: 'NVStenosis', conditions: ['Yes'] },
-    { control: 'NVCoroVesselStenosis', parentControl: 'NVSegmentID', conditions: ['!', null] },
-    { control: 'NVAdjuncMeasObtained', parentControl: 'NVSegmentID', conditions: ['!', null] },
-    { control: 'NV_FFR', parentControl: 'NVAdjuncMeasObtained', conditions: ['Yes'] },
-    { control: 'NV_IFR', parentControl: 'NVAdjuncMeasObtained', conditions: ['Yes'] },
-    { control: 'NV_IVUS', parentControl: 'NVAdjuncMeasObtained', conditions: ['Yes'] },
-    { control: 'NV_OCT', parentControl: 'NVAdjuncMeasObtained', conditions: ['Yes'] },
+    { control: 'NativeLesions', parentControl: 'NVStenosis', conditions: ['Yes'] },
+    // { control: 'NVSegmentID', parentControl: 'NVStenosis', conditions: ['Yes'] },
+    // { control: 'NVCoroVesselStenosis', parentControl: 'NVSegmentID', conditions: ['!', null] },
+    // { control: 'NVAdjuncMeasObtained', parentControl: 'NVSegmentID', conditions: ['!', null] },
+    // { control: 'NV_FFR', parentControl: 'NVAdjuncMeasObtained', conditions: ['Yes'] },
+    // { control: 'NV_IFR', parentControl: 'NVAdjuncMeasObtained', conditions: ['Yes'] },
+    // { control: 'NV_IVUS', parentControl: 'NVAdjuncMeasObtained', conditions: ['Yes'] },
+    // { control: 'NV_OCT', parentControl: 'NVAdjuncMeasObtained', conditions: ['Yes'] },
     { control: 'GraftSegmentID', parentControl: 'GraftStenosis', conditions: ['Yes'] },
     { control: 'GraftCoroVesselStenosis', parentControl: 'GraftSegmentID', conditions: ['!', null] },
     { control: 'CABGGraftVessel', parentControl: 'GraftSegmentID', conditions: ['!', null] },
@@ -168,6 +168,15 @@ export const conditions: FormConditions = {
     { control: 'Graft_IFR', parentControl: 'GraftAdjuncMeasObtained', conditions: ['Yes'] },
     { control: 'Graft_IVUS', parentControl: 'GraftAdjuncMeasObtained', conditions: ['Yes'] },
     { control: 'Graft_OCT', parentControl: 'GraftAdjuncMeasObtained', conditions: ['Yes'] }
+  ],
+  nativeLesion: [
+    { control: 'NVSegmentID', parentControl: 'H:NVStenosis', conditions: ['Yes'] },
+    { control: 'NVCoroVesselStenosis', parentControl: 'NVSegmentID', conditions: ['!', null] },
+    { control: 'NVAdjuncMeasObtained', parentControl: 'NVSegmentID', conditions: ['!', null] },
+    { control: 'NV_FFR', parentControl: 'NVAdjuncMeasObtained', conditions: ['Yes'] },
+    { control: 'NV_IFR', parentControl: 'NVAdjuncMeasObtained', conditions: ['Yes'] },
+    { control: 'NV_IVUS', parentControl: 'NVAdjuncMeasObtained', conditions: ['Yes'] },
+    { control: 'NV_OCT', parentControl: 'NVAdjuncMeasObtained', conditions: ['Yes'] },
   ],
   sectionI: [
     { control: 'HypothermiaInducedTiming', parentControl: 'HypothermiaInduced', conditions: ['Yes'] },

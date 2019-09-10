@@ -241,10 +241,14 @@ export class ToolsService implements OnDestroy {
   }
 
   public exportAsExcelFile(json: SampleModel[], excelFileName: string): void {
+    let index = 1;
+
     const worksheet2data = [];
-    json.forEach(o => o.movies.forEach(i => worksheet2data.push({ id: o.id, movie: i })));
+    json.forEach(o => o.movies.forEach(i => worksheet2data.push({ uniqueId: index++, id: o.id, movie: i })));
+
+    index = 1;
     const worksheet3data = [];
-    json.forEach(o => o.cars.forEach(i => worksheet3data.push({ id: o.id, brand: i.brand, color: i.color })));
+    json.forEach(o => o.cars.forEach(i => worksheet3data.push({ uniqueId: index++, id: o.id, brand: i.brand, color: i.color })));
 
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
     const worksheet2: XLSX.WorkSheet = XLSX.utils.json_to_sheet(worksheet2data);
