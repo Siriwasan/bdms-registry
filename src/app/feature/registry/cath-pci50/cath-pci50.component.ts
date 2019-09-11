@@ -10,7 +10,7 @@ import { RegistryFormService } from '../../../shared/modules/registry-form/regis
 
 import { tableOfContent } from './cath-pci50.toc';
 import { FormDetail } from '../registry.model';
-import { SectionMember, FormCompletion } from '../../../shared/modules/registry-form/registry-form.model';
+import { SectionMember, FormCompletion, FormVisible } from '../../../shared/modules/registry-form/registry-form.model';
 
 import { CathPCI50Form } from './cath-pci50.form';
 import { conditions } from './cath-pci50.condition';
@@ -32,7 +32,9 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
   public direction = 'up'; // up, down, left, right
   public animationMode = 'fling'; // fling, scale
 
-  public visibles: { [id: string]: boolean } = {};
+  public visibles: FormVisible = {};
+  public arrayVisibles: FormVisible[] = [];
+
   public completion: CathPCI50FormCompletion;
   private subscriptions: Subscription[] = [];
 
@@ -83,8 +85,6 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
 
   private sectionMembers: SectionMember[];
   //#endregion
-
-  nativeLesionIndexes: string[] = [];
 
   gap = '20px';
   segmentNumbers = cathPci50Data.segmentNumbers;
@@ -567,25 +567,18 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
   }
 
   addNativeLestion() {
-    const control = this.formGroupH.get('NativeLesions') as FormArray;
+    const formArray = this.formGroupH.get('NativeLesions') as FormArray;
     const group = this.formBuilder.group(CathPCI50Form.nativeLesion);
-    control.push(group);
+    formArray.push(group);
 
-    const num = new Date().getTime().toString();
-    this.nativeLesionIndexes.push(num);
-
-    const eachCon = conditions.nativeLesion.map(o => {
-      return { control: o.control + '.' + num, parentControl: o.parentControl, conditions: o.conditions };
-    });
-    this.registryFormService.subscribeValueChanges(group, eachCon);
-
-    console.log(this.nativeLesionIndexes);
+    const visible: FormVisible = {};
+    this.registryFormService.subscribeValueChanges(group, conditions.nativeLesion, visible);
+    this.arrayVisibles.push(visible);
   }
 
   removeNativeLestion(index: number) {
-    const control = this.formGroupH.get('NativeLesions') as FormArray;
-    control.removeAt(index);
-    this.nativeLesionIndexes.splice(index, 1);
-    console.log(this.nativeLesionIndexes);
+    const formArray = this.formGroupH.get('NativeLesions') as FormArray;
+    formArray.removeAt(index);
+    this.arrayVisibles.splice(index, 1);
   }
 }

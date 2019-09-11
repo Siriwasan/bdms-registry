@@ -38,3 +38,7 @@ export interface FormCompletion {
   valid: number;
   total: number;
 }
+
+export interface FormVisible {
+  [id: string]: boolean;
+}

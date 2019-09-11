@@ -10,8 +10,10 @@ import {
   FormConditions,
   SectionMember,
   ControlCondition,
-  FormCompletion
+  FormCompletion,
+  FormVisible
 } from './registry-form.model';
+
 
 @Injectable()
 export class RegistryFormService implements OnDestroy {
@@ -26,7 +28,7 @@ export class RegistryFormService implements OnDestroy {
   private conditions: FormConditions;
   private validations: FormValidations;
 
-  private visibles: { [id: string]: boolean } = {};
+  private visibles: FormVisible = {};
 
   constructor(private dialogService: DialogService) {}
 
@@ -39,7 +41,7 @@ export class RegistryFormService implements OnDestroy {
     sectionMembers: SectionMember[],
     conditions: FormConditions,
     validations: FormValidations,
-    visibles: { [id: string]: boolean }
+    visibles: FormVisible
   ) {
     this.sectionMembers = sectionMembers;
     this.conditions = conditions;
@@ -53,7 +55,7 @@ export class RegistryFormService implements OnDestroy {
   // need to subscribe in ngAfterViewInit
   public subscribeFormConditions() {
     this.getSectionMembers().forEach(sectionMember => {
-      this.subscribeValueChanges(sectionMember[1], sectionMember[3]); // FormGroup, ControlCondition[]
+      this.subscribeValueChanges(sectionMember[1], sectionMember[3], this.visibles); // FormGroup, ControlCondition[]
     });
 
     // ! initial remove validator in hiding child control
@@ -64,7 +66,7 @@ export class RegistryFormService implements OnDestroy {
     // console.log(this.visibles['DiabCtrl']);
   }
 
-  public subscribeValueChanges(formGroup: FormGroup, conditions: ControlCondition[]) {
+  public subscribeValueChanges(formGroup: FormGroup, conditions: ControlCondition[], visible: FormVisible) {
     conditions.forEach(condition => {
       let parentControl: AbstractControl;
 
@@ -85,15 +87,15 @@ export class RegistryFormService implements OnDestroy {
           if (cCon.length > 1) {
             const element = cCon[1];
             if (value === null) {
-              this.displayElement(element, false);
+              this.displayElement(element, visible, false);
             } else if (condition.conditions[0] === '!') {
               // NOT condition
-              this.displayElement(element, condition.conditions[1] !== value);
+              this.displayElement(element, visible, condition.conditions[1] !== value);
             } else if (condition.conditions[0] === '@') {
               // CONTAIN condition
-              this.displayElement(element, value.findIndex(o => o === condition.conditions[1]) >= 0);
+              this.displayElement(element, visible, value.findIndex(o => o === condition.conditions[1]) >= 0);
             } else {
-              this.displayElement(element, condition.conditions.findIndex(o => o === value) >= 0);
+              this.displayElement(element, visible, condition.conditions.findIndex(o => o === value) >= 0);
             }
           } else {
             let control = formGroup.get(condition.control);
@@ -105,15 +107,25 @@ export class RegistryFormService implements OnDestroy {
             // }
 
             if (value === null) {
-              this.displayControl(condition.control, control, false);
+              this.displayControl(condition.control, control, visible, false);
             } else if (condition.conditions[0] === '!') {
               // NOT condition
-              this.displayControl(condition.control, control, condition.conditions[1] !== value);
+              this.displayControl(condition.control, control, visible, condition.conditions[1] !== value);
             } else if (condition.conditions[0] === '@') {
               // CONTAIN condition
-              this.displayControl(condition.control, control, value.findIndex(o => o === condition.conditions[1]) >= 0);
+              this.displayControl(
+                condition.control,
+                control,
+                visible,
+                value.findIndex(o => o === condition.conditions[1]) >= 0
+              );
             } else {
-              this.displayControl(condition.control, control, condition.conditions.findIndex(o => o === value) >= 0);
+              this.displayControl(
+                condition.control,
+                control,
+                visible,
+                condition.conditions.findIndex(o => o === value) >= 0
+              );
             }
           }
         })
@@ -121,36 +133,38 @@ export class RegistryFormService implements OnDestroy {
     });
   }
 
-  private displayElement(element: string, condition: boolean) {
+  private displayElement(element: string, visible: FormVisible, condition: boolean) {
     if (condition) {
-      this.expandElement(element);
+      this.expandElement(element, visible);
     } else {
-      this.collapseElement(element);
+      this.collapseElement(element, visible);
     }
   }
 
-  private expandElement(element: string) {
+  private expandElement(element: string, visible: FormVisible) {
     const el = document.getElementById(element);
     // el.style.display = '';
-    this.visibles[element] = true;
+    // this.visibles[element] = true;
+    visible[element] = true;
   }
 
-  private collapseElement(element: string) {
+  private collapseElement(element: string, visible: FormVisible) {
     const el = document.getElementById(element);
     // el.style.display = 'none';
-    this.visibles[element] = false;
+    // this.visibles[element] = false;
+    visible[element] = false;
   }
 
-  private displayControl(controlId: string, control: AbstractControl, condition: boolean) {
+  private displayControl(controlId: string, control: AbstractControl, visible: FormVisible, condition: boolean) {
     // ! disable will remove control from FormGroup structure
     if (condition) {
-      this.expandControl(controlId, control);
+      this.expandControl(controlId, control, visible);
     } else {
-      this.collapseControl(controlId, control);
+      this.collapseControl(controlId, control, visible);
     }
   }
 
-  private expandControl(controlId: string, control: AbstractControl) {
+  private expandControl(controlId: string, control: AbstractControl, visible: FormVisible) {
     const el = document.getElementById(controlId);
 
     // tslint:disable-next-line: no-string-literal
@@ -158,16 +172,18 @@ export class RegistryFormService implements OnDestroy {
     // control.updateValueAndValidity();
     // el.style.display = '';
 
-    this.visibles[controlId] = true;
+    // this.visibles[controlId] = true;
+    visible[controlId] = true;
   }
 
-  private collapseControl(controlId: string, control: AbstractControl) {
+  private collapseControl(controlId: string, control: AbstractControl, visible: FormVisible) {
     const el = document.getElementById(controlId);
 
     // control.setValidators(null);
     control.reset();
     // el.style.display = 'none';
-    this.visibles[controlId] = false;
+    // this.visibles[controlId] = false;
+    visible[controlId] = false;
   }
 
   private getSectonMember(section: string): SectionMember {

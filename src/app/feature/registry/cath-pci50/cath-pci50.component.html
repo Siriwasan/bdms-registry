@@ -989,9 +989,59 @@
           <reg-select controlName="Dominance" placeholder="Dominance" [formGroup]="formGroupH"
             [choices]="['Left', 'Right', 'Co-dominant']"></reg-select>
 
-          <reg-select controlName="NVStenosis" placeholder="Native Vessel with Stenosis >= 50%" [formGroup]="formGroupH"
-            [choices]="['Yes', 'No']"></reg-select>
+          <div fxLayout="row" fxLayoutAlign="center center" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-select controlName="NVStenosis" placeholder="Native Vessel with Stenosis >= 50%" [formGroup]="formGroupH"
+              [choices]="['Yes', 'No']" fxFlex></reg-select>
 
+            <button *ngIf="visibles['NativeLesions']" mat-raised-button color="primary" (click)="addNativeLestion()" style="height: 36px">Add Native Lesion</button>
+          </div>
+
+          <div *ngIf="visibles['NativeLesions']">
+            <fieldset style="border:1px solid #a1a1a1; border-radius:10px; margin: 15px; padding: 20px">
+              <mat-tab-group style="width: 700px">
+                <mat-tab formArrayName="NativeLesions"
+                *ngFor="let item of formGroupH.controls['NativeLesions'].controls; let i = index;" [label]="i">
+                <!-- *ngFor="let item of formGroupH.controls['NativeLesions'].controls; let i = index;" [label]="formGroupH.controls['NativeLesions'].controls[i].controls.NVSegmentID.value"> -->
+
+                  <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+                    <reg-select controlName="NVSegmentID" placeholder="Native Lesion Segment Number" [formGroup]="item"
+                      [choices]="segmentNumbers" fxFlex></reg-select>
+
+                    <reg-input *ngIf="arrayVisibles[i]['NVCoroVesselStenosis']" controlName="NVCoroVesselStenosis" placeholder="Native Stenosis (%)" [formGroup]="item" type="number" fxFlex>
+                    </reg-input>
+
+                  </div>
+
+                  <reg-select *ngIf="arrayVisibles[i]['NVAdjuncMeasObtained']" controlName="NVAdjuncMeasObtained" placeholder="Adjunctive Measurements Obtained" [formGroup]="item"
+                    [choices]="['Yes', 'No']"></reg-select>
+
+                  <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+                    <reg-input *ngIf="arrayVisibles[i]['NV_FFR']" controlName="NV_FFR" placeholder="FFR Ratio" [formGroup]="item" type="number" fxFlex>
+                    </reg-input>
+
+                    <reg-input *ngIf="arrayVisibles[i]['NV_IFR']" controlName="NV_IFR" placeholder="iFR Ratio" [formGroup]="item" type="number" fxFlex>
+                    </reg-input>
+                  </div>
+
+                  <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+                    <reg-input *ngIf="arrayVisibles[i]['NV_IVUS']" controlName="NV_IVUS" placeholder="IVUS MLA (mm2)" [formGroup]="item" type="number" fxFlex>
+                    </reg-input>
+
+                    <reg-input *ngIf="arrayVisibles[i]['NV_OCT']" controlName="NV_OCT" placeholder="OCT MLA (mm2)" [formGroup]="item" type="number" fxFlex>
+                    </reg-input>
+                  </div>
+
+                  <button mat-raised-button color="warn" (click)="removeNativeLestion(i)">Remove</button>
+
+                </mat-tab>
+              </mat-tab-group>
+            </fieldset>
+          </div>
+          <!-- <div style="width: 2%; float: right">
+            <button style="position: absolute; margin-top: -400px; margin-left: -300px" mat-icon-button (click)="addNativeLestion()">
+              <mat-icon aria-label="Example icon-button with a heart icon">add_circle_outline</mat-icon>
+            </button>
+          </div> -->
           <!-- <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
             <reg-select *ngIf="visibles['NVSegmentID']" controlName="NVSegmentID" placeholder="Native Lesion Segment Number" [formGroup]="formGroupH"
               [choices]="segmentNumbers" fxFlex></reg-select>
@@ -1053,53 +1103,6 @@
             </reg-input>
           </div>
 
-          <div *ngIf="visibles['NativeLesions']">
-            <button mat-raised-button color="primary" (click)="addNativeLestion()">Add Native Lesion</button>
-            <mat-tab-group style="width: 700px">
-              <mat-tab formArrayName="NativeLesions"
-              *ngFor="let item of formGroupH.controls['NativeLesions'].controls; let i = index;" [label]="i">
-              <!-- *ngFor="let item of formGroupH.controls['NativeLesions'].controls; let i = index;" [label]="formGroupH.controls['NativeLesions'].controls[i].controls.NVSegmentID.value"> -->
-
-                <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
-                  <reg-select controlName="NVSegmentID" placeholder="Native Lesion Segment Number" [formGroup]="item"
-                    [choices]="segmentNumbers" fxFlex></reg-select>
-
-                  <reg-input *ngIf="visibles['NVCoroVesselStenosis.' + nativeLesionIndexes[i]]" controlName="NVCoroVesselStenosis" placeholder="Native Stenosis (%)" [formGroup]="item" type="number" fxFlex>
-                  </reg-input>
-
-                </div>
-
-                <reg-select *ngIf="visibles['NVAdjuncMeasObtained.' + nativeLesionIndexes[i]]" controlName="NVAdjuncMeasObtained" placeholder="Adjunctive Measurements Obtained" [formGroup]="item"
-                  [choices]="['Yes', 'No']"></reg-select>
-
-                <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
-                  <reg-input *ngIf="visibles['NV_FFR.' + nativeLesionIndexes[i]]" controlName="NV_FFR" placeholder="FFR Ratio" [formGroup]="item" type="number" fxFlex>
-                  </reg-input>
-
-                  <reg-input *ngIf="visibles['NV_IFR.' + nativeLesionIndexes[i]]" controlName="NV_IFR" placeholder="iFR Ratio" [formGroup]="item" type="number" fxFlex>
-                  </reg-input>
-                </div>
-
-                <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
-                  <reg-input *ngIf="visibles['NV_IVUS.' + nativeLesionIndexes[i]]" controlName="NV_IVUS" placeholder="IVUS MLA (mm2)" [formGroup]="item" type="number" fxFlex>
-                  </reg-input>
-
-                  <reg-input *ngIf="visibles['NV_OCT.' + nativeLesionIndexes[i]]" controlName="NV_OCT" placeholder="OCT MLA (mm2)" [formGroup]="item" type="number" fxFlex>
-                  </reg-input>
-                </div>
-
-                <button mat-raised-button color="warn" (click)="removeNativeLestion(i)">Remove</button>
-
-              </mat-tab>
-
-            </mat-tab-group>
-
-          </div>
-          <!-- <div style="width: 2%; float: right">
-            <button style="position: absolute; margin-top: -400px; margin-left: -300px" mat-icon-button (click)="addNativeLestion()">
-              <mat-icon aria-label="Example icon-button with a heart icon">add_circle_outline</mat-icon>
-            </button>
-          </div> -->
           <!-- <div formArrayName="NativeLesions"
             *ngFor="let item of formGroupH.controls['NativeLesions'].controls; let i = index;">
 
