@@ -34,6 +34,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
 
   public visibles: FormVisible = {};
   // public arrayVisibles: FormVisible[] = [];
+  public nativeLesionsTabIndex = 0;
 
   public completion: CathPCI50FormCompletion;
   private subscriptions: Subscription[] = [];
@@ -578,6 +579,9 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     (this.visibles['NativeLesions'] as FormVisible[]).push(visible);
 
     formArray.push(group);
+
+    // this.reorderTabs();
+    this.nativeLesionsTabIndex = formArray.length - 1;
   }
 
   removeNativeLesion(index: number) {
@@ -596,5 +600,31 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     formArray.clear();
     // tslint:disable-next-line: no-string-literal
     (this.visibles['NativeLesions'] as FormVisible[]) = [];
+  }
+
+  public getNativeLesionsTabLabel(index: number): string {
+    // tslint:disable-next-line: no-string-literal
+    const label = ((this.formGroupH.controls['NativeLesions'] as FormArray).controls[index] as FormGroup).controls
+      .NVSegmentID.value;
+    return label !== null ? label : '(new)';
+  }
+
+  public reorderTabs() {
+    // tslint:disable: no-string-literal
+    const formArray = this.formGroupH.get('NativeLesions') as FormArray;
+    const extras = formArray.value as FormGroup[];
+
+    const selectedSegmentID = extras[this.nativeLesionsTabIndex]['NVSegmentID'];
+
+    extras.sort((a, b) => {
+      const valueA = a['NVSegmentID'] ? a['NVSegmentID'] : '(new)';
+      const valueB = b['NVSegmentID'] ? b['NVSegmentID'] : '(new)';
+
+      return valueA.localeCompare(valueB, 'en', { numeric: true, sensitivity: 'base' });
+    });
+    formArray.setValue(extras);
+
+    this.nativeLesionsTabIndex = extras.findIndex(a => a['NVSegmentID'] === selectedSegmentID);
+    // tslint:enable: no-string-literal
   }
 }
