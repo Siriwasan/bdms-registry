@@ -33,7 +33,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
   public animationMode = 'fling'; // fling, scale
 
   public visibles: FormVisible = {};
-  public arrayVisibles: FormVisible[] = [];
+  // public arrayVisibles: FormVisible[] = [];
 
   public completion: CathPCI50FormCompletion;
   private subscriptions: Subscription[] = [];
@@ -50,6 +50,11 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
       return 1;
     }
     return this.completion.summary.total;
+  }
+
+  get nativeLesions() {
+    // tslint:disable-next-line: no-string-literal
+    return this.visibles['NativeLesions'] && (this.visibles['NativeLesions'] as FormVisible[]).length > 0;
   }
 
   //#region FormGroup and FormDirective
@@ -134,7 +139,8 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
       this.subscribeHasLesionChanged('08'),
       this.subscribeDCStatusChanged(),
       this.subscribeDCLocationChanged(),
-      this.subscribeDCHospiceChanged()
+      this.subscribeDCHospiceChanged(),
+      this.subscribeNVStenosisChanged()
     );
 
     this.completion = this.getFormCompletion();
@@ -149,8 +155,10 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     this.formGroupE.get('PCIProc').setValue(null);
     this.formGroupJ.get('HasLesion01').setValue(null);
     this.formGroupL.get('DCStatus').setValue(null);
-    // this.visibles['NativeLesions'] = false;
-    this.addNativeLestion();
+
+    // tslint:disable-next-line: no-string-literal
+    this.visibles['NativeLesions'] = [];
+    // this.addNativeLesion();
   }
 
   ngOnDestroy() {
@@ -166,6 +174,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     this.formGroupE = this.formBuilder.group(CathPCI50Form.sectionE);
     this.formGroupF = this.formBuilder.group(CathPCI50Form.sectionF);
     this.formGroupG = this.formBuilder.group(CathPCI50Form.sectionG);
+    // tslint:disable-next-line: no-string-literal
     CathPCI50Form.sectionH['NativeLesions'] = this.formBuilder.array([]);
     this.formGroupH = this.formBuilder.group(CathPCI50Form.sectionH);
     this.formGroupI = this.formBuilder.group(CathPCI50Form.sectionI);
@@ -392,27 +401,18 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
         this.formGroupL.get(med).setValue(null);
         this.visibles[med] = false;
       });
-
-      // this.formGroupL.get('DC_ACEI').setValue(null);
-      // this.formGroupL.get('DC_Warfarin').setValue(null);
-      // this.formGroupL.get('DC_Aspirin').setValue(null);
-      // this.formGroupL.get('DC_Vorapaxar').setValue(null);
-      // this.formGroupL.get('DC_ARB').setValue(null);
-      // this.formGroupL.get('DC_BetaBlocker').setValue(null);
-      // this.formGroupL.get('DC_Apixaban').setValue(null);
-      // this.formGroupL.get('DC_Dabigatran').setValue(null);
-      // this.formGroupL.get('DC_Edoxaban').setValue(null);
-      // this.formGroupL.get('DC_Rivaroxaban').setValue(null);
-      // this.formGroupL.get('DC_Clopidogrel').setValue(null);
-      // this.formGroupL.get('DC_Prasugrel').setValue(null);
-      // this.formGroupL.get('DC_Ticagrelor').setValue(null);
-      // this.formGroupL.get('DC_Ticlopidine').setValue(null);
-      // this.formGroupL.get('DC_Statin').setValue(null);
-      // this.formGroupL.get('DC_NonStatin').setValue(null);
-      // this.formGroupL.get('DC_Alirocumab').setValue(null);
-      // this.formGroupL.get('DC_Evolocumab').setValue(null);
     }
     // tslint:enable: no-string-literal
+  }
+
+  private subscribeNVStenosisChanged(): Subscription {
+    return this.formGroupH.get('NVStenosis').valueChanges.subscribe(value => {
+      if (value === 'Yes') {
+        this.addNativeLesion();
+      } else {
+        this.removeAllNativeLesions();
+      }
+    });
   }
 
   public getTOCTitle(section: string): string {
@@ -566,19 +566,35 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     this.registryFormService.clearErrors();
   }
 
-  addNativeLestion() {
+  addNativeLesion() {
     const formArray = this.formGroupH.get('NativeLesions') as FormArray;
     const group = this.formBuilder.group(CathPCI50Form.nativeLesion);
-    formArray.push(group);
 
     const visible: FormVisible = {};
     this.registryFormService.subscribeValueChanges(group, conditions.nativeLesion, visible);
-    this.arrayVisibles.push(visible);
+    // ! initial remove validator in hiding child control
+    group.setValue(group.value);
+    // tslint:disable-next-line: no-string-literal
+    (this.visibles['NativeLesions'] as FormVisible[]).push(visible);
+
+    formArray.push(group);
   }
 
-  removeNativeLestion(index: number) {
+  removeNativeLesion(index: number) {
     const formArray = this.formGroupH.get('NativeLesions') as FormArray;
     formArray.removeAt(index);
-    this.arrayVisibles.splice(index, 1);
+    // tslint:disable-next-line: no-string-literal
+    (this.visibles['NativeLesions'] as FormVisible[]).splice(index, 1);
+
+    if (formArray.length === 0) {
+      this.formGroupH.get('NVStenosis').setValue('No');
+    }
+  }
+
+  removeAllNativeLesions() {
+    const formArray = this.formGroupH.get('NativeLesions') as FormArray;
+    formArray.clear();
+    // tslint:disable-next-line: no-string-literal
+    (this.visibles['NativeLesions'] as FormVisible[]) = [];
   }
 }

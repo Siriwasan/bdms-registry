@@ -1,5 +1,5 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { FormGroup, FormGroupDirective, ValidationErrors, AbstractControl } from '@angular/forms';
+import { FormGroup, FormGroupDirective, ValidationErrors, AbstractControl, FormArray } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import * as marked from 'marked';
 
@@ -13,7 +13,6 @@ import {
   FormCompletion,
   FormVisible
 } from './registry-form.model';
-
 
 @Injectable()
 export class RegistryFormService implements OnDestroy {
@@ -343,28 +342,62 @@ export class RegistryFormService implements OnDestroy {
     return `${total - error}/${total}`;
   }
 
+  // public getSectionCompletion(section: string): FormCompletion {
+  //   let error = 0;
+  //   let totl = 0;
+
+  //   const formGroup = this.getFormGroup(section);
+
+  //   // ! ExpressionChangedAfterItHasBeenCheckedError: Expression has changed after it was checked
+  //   // ! need for further correction
+  //   Object.keys(formGroup.controls).forEach(key => {
+  //     const control = formGroup.get(key);
+  //     if (control instanceof FormArray) {
+  //       // console.log(key);
+  //       // console.log(this.visibles[key]);
+  //       return;
+  //     }
+
+  //     const validationErrors: ValidationErrors = control.errors;
+  //     if (this.visibles[key] !== false) {
+  //       if (validationErrors !== null) {
+  //         error++;
+  //       }
+  //       totl++;
+  //     }
+  //   });
+  //   return { valid: totl - error, total: totl };
+  // }
+
   public getSectionCompletion(section: string): FormCompletion {
+    const formGroup = this.getFormGroup(section);
+    return this.checkCompletion(formGroup, this.visibles);
+  }
+
+  private checkCompletion(formGroup: FormGroup, visible: FormVisible): FormCompletion {
     let error = 0;
     let totl = 0;
-
-    const formGroup = this.getFormGroup(section);
 
     // ! ExpressionChangedAfterItHasBeenCheckedError: Expression has changed after it was checked
     // ! need for further correction
     Object.keys(formGroup.controls).forEach(key => {
-      const validationErrors: ValidationErrors = formGroup.get(key).errors;
-      if (validationErrors !== null && this.visibles[key] !== false) {
-        error++;
+      const control = formGroup.get(key);
+      if (control instanceof FormArray) {
+        (control as FormArray).controls.forEach((fg: FormGroup, index: number) => {
+          const completion = this.checkCompletion(fg, visible[key][index]);
+          error += completion.total - completion.valid;
+          totl += completion.total;
+        });
+        return;
       }
 
-      if (this.visibles[key] !== false) {
+      const validationErrors: ValidationErrors = control.errors;
+      if (visible[key] !== false) {
+        if (validationErrors !== null) {
+          error++;
+        }
         totl++;
       }
-
-      // const element = document.getElementById(key);
-      // if (element && element.style.display === '') {
-      //   totl++;
-      // }
     });
     return { valid: totl - error, total: totl };
   }

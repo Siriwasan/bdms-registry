@@ -40,5 +40,5 @@ export interface FormCompletion {
 }
 
 export interface FormVisible {
-  [id: string]: boolean;
+  [id: string]: boolean | FormVisible[];
 }

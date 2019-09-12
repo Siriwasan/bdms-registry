@@ -152,7 +152,7 @@ export const conditions: FormConditions = {
     }
   ],
   sectionH: [
-    { control: 'NativeLesions', parentControl: 'NVStenosis', conditions: ['Yes'] },
+    // { control: 'NativeLesions', parentControl: 'NVStenosis', conditions: ['Yes'] },
     // { control: 'NVSegmentID', parentControl: 'NVStenosis', conditions: ['Yes'] },
     // { control: 'NVCoroVesselStenosis', parentControl: 'NVSegmentID', conditions: ['!', null] },
     // { control: 'NVAdjuncMeasObtained', parentControl: 'NVSegmentID', conditions: ['!', null] },
