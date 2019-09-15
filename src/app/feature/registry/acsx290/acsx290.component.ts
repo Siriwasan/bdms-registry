@@ -3,7 +3,7 @@ import { FormGroup, FormGroupDirective, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { Subscription, Observable } from 'rxjs';
-import { Moment } from 'moment';
+import { Moment, utc, isMoment } from 'moment';
 
 import { RegistryFormComponent } from '../../../shared/modules/registry-form/registry-form.component';
 import { DialogService } from '../../../shared/services/dialog.service';
@@ -405,17 +405,26 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
   private subscribeDOBChanged(): Subscription {
     return this.formGroupB.get('DOB').valueChanges.subscribe(value => {
       // this.formGroupB.get('Age').markAsTouched();
-      const isoPattern = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/; // 2017-06-17T00:00:00.000Z
+      // const isoPattern = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/; // 2017-06-17T00:00:00.000Z
 
-      if (isoPattern.test(value)) {
-        return;
-      }
+      // if (isoPattern.test(value)) {
+      //   return;
+      // }
 
-      if (!value || !this.isMoment(value)) {
+      // if (!value || !this.isMoment(value)) {
+      //   this.formGroupB.get('Age').reset();
+      //   return;
+      // }
+      // const dob = value as Moment;
+      // const age = -dob.diff(new Date(), 'years', false);
+      // this.formGroupB.get('Age').setValue(age);
+
+      const dob = utc(value);
+      if (!dob.isValid()) {
         this.formGroupB.get('Age').reset();
         return;
       }
-      const dob = value as Moment;
+
       const age = -dob.diff(new Date(), 'years', false);
       this.formGroupB.get('Age').setValue(age);
     });
@@ -490,8 +499,8 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
   }
 
   private calculateVentHrsTot() {
-    const ORExitDT = this.formGroupI.get('ORExitDT').value as Moment;
-    const ExtubateDT = this.formGroupI.get('ExtubateDT').value as Moment;
+    const ORExitDT = utc(this.formGroupI.get('ORExitDT').value);
+    const ExtubateDT = utc(this.formGroupI.get('ExtubateDT').value);
     const VentHrsA = this.formGroupO.get('VentHrsA').value;
 
     if ((ORExitDT && ExtubateDT) || VentHrsA) {

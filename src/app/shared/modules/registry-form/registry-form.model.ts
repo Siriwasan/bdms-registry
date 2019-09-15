@@ -42,3 +42,9 @@ export interface FormCompletion {
 export interface FormVisible {
   [id: string]: boolean | FormVisible[];
 }
+
+export interface RegSelectChoice {
+  label: string | number;
+  value: string | number;
+  disable: boolean;
+}

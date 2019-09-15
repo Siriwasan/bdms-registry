@@ -11,8 +11,8 @@ import { RegistryFormService } from './registry-form.service';
 // https://momentjs.com/docs/#/displaying/format/
 const MY_DATE_FORMATS = {
   parse: {
-    datetime: 'DD/MM/YYYY H:mm',
-    date: 'DD/MM/YYYY',
+    datetime: ['DD/MM/YYYY H:mm', 'DD/M/YYYY H:mm'],
+    date: ['DD/MM/YYYY', 'DD/M/YYYY'],
     time: 'H:mm'
   },
   display: {

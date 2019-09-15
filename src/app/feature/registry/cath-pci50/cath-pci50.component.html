@@ -993,20 +993,23 @@
             <reg-select controlName="NVStenosis" placeholder="Native Vessel with Stenosis >= 50%" [formGroup]="formGroupH"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
 
-            <button *ngIf="nativeLesions" mat-raised-button color="primary" (click)="addNativeLesion()" style="height: 36px">Add Native Lesion</button>
+            <button *ngIf="nativeLesions" mat-raised-button color="primary" (click)="addNativeLesion()" [disabled]="canAddNativeLesion" style="height: 36px">Add Native Lesion</button>
             <button *ngIf="nativeLesions" mat-raised-button color="secondary" (click)="reorderTabs()" style="height: 36px">Reorder Tabs</button>
           </div>
 
           <div *ngIf="nativeLesions">
             <fieldset style="border:1px solid #a1a1a1; border-radius:10px; margin: 15px; padding: 20px">
               <legend style="color:#757575">Native Lesions</legend>
-              <mat-tab-group style="width: 700px" [(selectedIndex)]="nativeLesionsTabIndex">
+              <mat-tab-group style="width: 750px" [(selectedIndex)]="nativeLesionsTabIndex">
                 <mat-tab formArrayName="NativeLesions"
-                *ngFor="let item of formGroupH.controls['NativeLesions'].controls; let i = index;" [label]="getNativeLesionsTabLabel(i)">
+                *ngFor="let item of formGroupH.controls['NativeLesions'].controls; let i = index;">
+                  <ng-template mat-tab-label>
+                    <div>{{ getNativeLesionsTabLabel(i) }}</div>
+                  </ng-template>
 
                   <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
                     <reg-select controlName="NVSegmentID" placeholder="Native Lesion Segment Number" [formGroup]="item"
-                      [choices]="segmentNumbers" fxFlex></reg-select>
+                      [choices]="availableNVSegmentIDs" fxFlex (choiceChange)="NVSegmentIDChanged()"></reg-select>
 
                     <reg-input *ngIf="visibles['NativeLesions'][i]['NVCoroVesselStenosis']" controlName="NVCoroVesselStenosis" placeholder="Native Stenosis (%)" [formGroup]="item" type="number" fxFlex>
                     </reg-input>
