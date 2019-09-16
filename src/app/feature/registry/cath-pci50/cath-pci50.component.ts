@@ -22,6 +22,7 @@ import { conditions } from './cath-pci50.condition';
 import { validations } from './cath-pci50.validation';
 import { CathPCI50FormCompletion } from './cath-pci50.model';
 import * as cathPci50Data from './cath-pci50.data';
+import { MatSelectChange } from '@angular/material';
 
 @Component({
   selector: 'app-cath-pci50',
@@ -39,8 +40,8 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
 
   public visibles: FormVisible = {};
   public nativeLesionsTabIndex = 0;
-  public availableNVSegmentIDs: RegSelectChoice[] = [];
-  public canAddNativeLesion = true;
+  public availableNVSegmentIDs: RegSelectChoice[][] = [];
+  public disableAddNativeLesion = true;
 
   public completion: CathPCI50FormCompletion;
   private subscriptions: Subscription[] = [];
@@ -166,7 +167,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     // tslint:disable-next-line: no-string-literal
     this.visibles['NativeLesions'] = [];
     // this.addNativeLesion();
-    this.getSegmentNumbersForNV();
+    // this.getSegmentNumbersForNV();
   }
 
   ngOnDestroy() {
@@ -583,20 +584,22 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
       return;
     }
 
-    this.reorderTabs();
-
     const newGroup = this.formBuilder.group(CathPCI50Form.nativeLesion);
     const visible: FormVisible = {};
     this.registryFormService.subscribeValueChanges(newGroup, conditions.nativeLesion, visible);
+
     // ! initial remove validator in hiding child control
     newGroup.setValue(newGroup.value);
+
     // tslint:disable-next-line: no-string-literal
     (this.visibles['NativeLesions'] as FormVisible[]).push(visible);
-
     formArray.push(newGroup);
 
     this.nativeLesionsTabIndex = formArray.length - 1;
-    this.canAddNativeLesion = true;
+    this.disableAddNativeLesion = true;
+
+    this.getSegmentNumbersForNV();
+    this.reorderTabs();
   }
 
   removeNativeLesion(index: number) {
@@ -608,6 +611,9 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     if (formArray.length === 0) {
       this.formGroupH.get('NVStenosis').setValue('No');
     }
+
+    this.getSegmentNumbersForNV();
+    this.checkCanAddNativeLesion();
   }
 
   removeAllNativeLesions() {
@@ -637,9 +643,6 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     const selectedSegmentID = formGroups[this.nativeLesionsTabIndex]['NVSegmentID'];
 
     formGroups.sort((a, b) => {
-      // const valueA = a['NVSegmentID'] ? a['NVSegmentID'] : '(new)';
-      // const valueB = b['NVSegmentID'] ? b['NVSegmentID'] : '(new)';
-
       const valueA = a['NVSegmentID'];
       const valueB = b['NVSegmentID'];
       if (!a['NVSegmentID']) {
@@ -657,20 +660,32 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
   }
 
   public getSegmentNumbersForNV() {
-    const choices: RegSelectChoice[] = [];
+    // tslint:disable: no-string-literal
     const formArray = this.formGroupH.get('NativeLesions') as FormArray;
     const formGroups = formArray.value as FormGroup[];
-    // tslint:disable-next-line: no-string-literal
-    const usedSegmentID = formGroups.map(g => g['NVSegmentID']);
 
-    this.segmentNumbers.forEach(s => {
-      choices.push({ label: s, value: s, disable: usedSegmentID.indexOf(s) >= 0 });
+    const usedSegmentID = formGroups.map(g => g['NVSegmentID']);
+    const allChoices: RegSelectChoice[][] = [];
+
+    formGroups.forEach(group => {
+      const NVSegmentID = group['NVSegmentID'];
+
+      allChoices.push(
+        this.segmentNumbers.map(s => {
+          return {
+            label: s,
+            value: s,
+            disable: !(usedSegmentID.indexOf(s) < 0 || NVSegmentID === s)
+          };
+        })
+      );
     });
 
-    this.availableNVSegmentIDs = choices;
+    this.availableNVSegmentIDs = allChoices;
+    // tslint:enable: no-string-literal
   }
 
-  public NVSegmentIDChanged() {
+  public NVSegmentIDChanged(event: MatSelectChange, index: number) {
     this.getSegmentNumbersForNV();
     this.checkCanAddNativeLesion();
   }
@@ -680,6 +695,6 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     const formGroups = formArray.value as FormGroup[];
 
     // tslint:disable-next-line: no-string-literal
-    this.canAddNativeLesion = formGroups.findIndex((g: FormGroup) => g['NVSegmentID'] === null) >= 0;
+    this.disableAddNativeLesion = formGroups.findIndex((g: FormGroup) => g['NVSegmentID'] === null) >= 0;
   }
 }
