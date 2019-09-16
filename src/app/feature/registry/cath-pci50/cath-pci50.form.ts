@@ -173,14 +173,14 @@ export const CathPCI50Form = {
     // NV_IVUS: [null, Validators.required],
     // NV_OCT: [null, Validators.required],
     GraftStenosis: [null, Validators.required],
-    GraftSegmentID: [null, Validators.required],
-    GraftCoroVesselStenosis: [null, Validators.required],
-    CABGGraftVessel: [null, Validators.required],
-    GraftAdjuncMeasObtained: [null, Validators.required],
-    Graft_FFR: [null, Validators.required],
-    Graft_IFR: [null, Validators.required],
-    Graft_IVUS: [null, Validators.required],
-    Graft_OCT: [null, Validators.required],
+    // GraftSegmentID: [null, Validators.required],
+    // GraftCoroVesselStenosis: [null, Validators.required],
+    // CABGGraftVessel: [null, Validators.required],
+    // GraftAdjuncMeasObtained: [null, Validators.required],
+    // Graft_FFR: [null, Validators.required],
+    // Graft_IFR: [null, Validators.required],
+    // Graft_IVUS: [null, Validators.required],
+    // Graft_OCT: [null, Validators.required]
   },
   nativeLesion: {
     NVSegmentID: [null, Validators.required],
@@ -190,6 +190,16 @@ export const CathPCI50Form = {
     NV_IFR: [null, Validators.required],
     NV_IVUS: [null, Validators.required],
     NV_OCT: [null, Validators.required]
+  },
+  graftLesion: {
+    GraftSegmentID: [null, Validators.required],
+    GraftCoroVesselStenosis: [null, Validators.required],
+    CABGGraftVessel: [null, Validators.required],
+    GraftAdjuncMeasObtained: [null, Validators.required],
+    Graft_FFR: [null, Validators.required],
+    Graft_IFR: [null, Validators.required],
+    Graft_IVUS: [null, Validators.required],
+    Graft_OCT: [null, Validators.required]
   },
   sectionI: {
     PCIStatus: [null, Validators.required],

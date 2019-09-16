@@ -994,7 +994,7 @@
               [choices]="['Yes', 'No']" fxFlex></reg-select>
 
             <button *ngIf="nativeLesions" mat-raised-button color="primary" (click)="addNativeLesion()" [disabled]="disableAddNativeLesion" style="height: 36px">Add Native Lesion</button>
-            <button *ngIf="nativeLesions" mat-raised-button color="secondary" (click)="reorderTabs()" style="height: 36px">Reorder Tabs</button>
+            <button *ngIf="nativeLesions" mat-raised-button color="secondary" (click)="reorderNativeTabs()" style="height: 36px">Reorder Tabs</button>
           </div>
 
           <div *ngIf="nativeLesions">
@@ -1074,88 +1074,70 @@
             </reg-input>
           </div> -->
 
-          <reg-select controlName="GraftStenosis" placeholder="Graft Vessel with Stenosis >= 50%" [formGroup]="formGroupH"
-            [choices]="['Yes', 'No']"></reg-select>
-
-          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
-            <reg-select *ngIf="visibles['GraftSegmentID']" controlName="GraftSegmentID" placeholder="Graft Lesion Segment Number" [formGroup]="formGroupH"
-              [choices]="segmentNumbers" fxFlex></reg-select>
-
-            <reg-input *ngIf="visibles['GraftCoroVesselStenosis']" controlName="GraftCoroVesselStenosis" placeholder="GraftStenosis (%)" [formGroup]="formGroupH" type="number" fxFlex>
-            </reg-input>
-
-            <reg-select *ngIf="visibles['CABGGraftVessel']" controlName="CABGGraftVessel" placeholder="Graft Vessel" [formGroup]="formGroupH" [choices]="[
-                'LIMA',
-                'RIMA',
-                'SVG',
-                'Radial',
-                'Unknown'
-              ]" fxFlex></reg-select>
-
-            <reg-select *ngIf="visibles['GraftAdjuncMeasObtained']" controlName="GraftAdjuncMeasObtained" placeholder="Adjunctive Measurements Obtained" [formGroup]="formGroupH"
+          <div fxLayout="row" fxLayoutAlign="center center" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-select controlName="GraftStenosis" placeholder="Graft Vessel with Stenosis >= 50%" [formGroup]="formGroupH"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
+
+            <button *ngIf="graftLesions" mat-raised-button color="primary" (click)="addGraftLesion()" [disabled]="disableAddGraftLesion" style="height: 36px">Add Graft Lesion</button>
+            <button *ngIf="graftLesions" mat-raised-button color="secondary" (click)="reorderGraftTabs()" style="height: 36px">Reorder Tabs</button>
           </div>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
-            <reg-input *ngIf="visibles['Graft_FFR']" controlName="Graft_FFR" placeholder="FFR Ratio" [formGroup]="formGroupH" type="number" fxFlex>
-            </reg-input>
+          <div *ngIf="graftLesions">
+            <fieldset style="border:1px solid #a1a1a1; border-radius:10px; margin: 15px; padding: 20px">
+              <legend style="color:#757575">Graft Lesions</legend>
+              <mat-tab-group style="width: 750px" [(selectedIndex)]="graftLesionsTabIndex">
+                <mat-tab formArrayName="GraftLesions"
+                *ngFor="let item of formGroupH.controls['GraftLesions'].controls; let i = index;">
+                  <ng-template mat-tab-label>
+                    <div fxLayoutAlign="center center">
+                      <div>{{ getGraftLesionsTabLabel(i) }}</div>
+                      <mat-icon style="margin-left: 10px; font-size: medium; height: auto; color:#bb6666" (click)="removeGraftLesion(i)">close</mat-icon>
+                    </div>
+                  </ng-template>
 
-            <reg-input *ngIf="visibles['Graft_IFR']" controlName="Graft_IFR" placeholder="iFR Ratio" [formGroup]="formGroupH" type="number" fxFlex>
-            </reg-input>
+                  <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+                    <reg-select controlName="GraftSegmentID" placeholder="Graft Lesion Segment Number" [formGroup]="item"
+                      [choices]="availableGraftSegmentIDs[i]" [nullOption]="false" fxFlex (choiceChange)="GraftSegmentIDChanged($event, i)"></reg-select>
 
-            <reg-input *ngIf="visibles['Graft_IVUS']" controlName="Graft_IVUS" placeholder="IVUS MLA (mm2)" [formGroup]="formGroupH" type="number" fxFlex>
-            </reg-input>
+                    <reg-input *ngIf="visibles['GraftLesions'][i]['GraftCoroVesselStenosis']" controlName="GraftCoroVesselStenosis" placeholder="Graft Stenosis (%)" [formGroup]="item" type="number" fxFlex>
+                    </reg-input>
 
-            <reg-input *ngIf="visibles['Graft_OCT']" controlName="Graft_OCT" placeholder="OCT MLA (mm2)" [formGroup]="formGroupH" type="number" fxFlex>
-            </reg-input>
-          </div>
+                    <reg-select *ngIf="visibles['GraftLesions'][i]['CABGGraftVessel']" controlName="CABGGraftVessel" placeholder="Graft Vessel" [formGroup]="item" [choices]="[
+                        'LIMA',
+                        'RIMA',
+                        'SVG',
+                        'Radial',
+                        'Unknown'
+                      ]" fxFlex></reg-select>
+                  </div>
 
-          <!-- <div formArrayName="NativeLesions"
-            *ngFor="let item of formGroupH.controls['NativeLesions'].controls; let i = index;">
+                  <reg-select *ngIf="visibles['GraftLesions'][i]['GraftAdjuncMeasObtained']" controlName="GraftAdjuncMeasObtained" placeholder="Adjunctive Measurements Obtained" [formGroup]="item"
+                    [choices]="['Yes', 'No']"></reg-select>
 
-            <fieldset style="border:1px solid #a1a1a1; border-radius:10px; padding: 20px 30px 20px 30px;">
-              <legend style="color:#757575; text-align: right">
-              <button mat-stroked-button color="warn" style="padding: 0px; min-width: 20px; height: 20px; line-height: 0px" (click)="removeNativeLestion(i)">X</button></legend>
+                  <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+                    <reg-input *ngIf="visibles['GraftLesions'][i]['Graft_FFR']" controlName="Graft_FFR" placeholder="FFR Ratio" [formGroup]="item" type="number" fxFlex>
+                    </reg-input>
 
-              <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
-                <reg-select controlName="NVSegmentID" placeholder="Native Lesion Segment Number" [formGroup]="item"
-                  [choices]="segmentNumbers" fxFlex></reg-select>
+                    <reg-input *ngIf="visibles['GraftLesions'][i]['Graft_IFR']" controlName="Graft_IFR" placeholder="iFR Ratio" [formGroup]="item" type="number" fxFlex>
+                    </reg-input>
+                  </div>
 
-                <reg-input controlName="NVCoroVesselStenosis" placeholder="Native Stenosis (%)" [formGroup]="item" type="number" fxFlex>
-                </reg-input>
+                  <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+                    <reg-input *ngIf="visibles['GraftLesions'][i]['Graft_IVUS']" controlName="Graft_IVUS" placeholder="IVUS MLA (mm2)" [formGroup]="item" type="number" fxFlex>
+                    </reg-input>
 
-              </div>
+                    <reg-input *ngIf="visibles['GraftLesions'][i]['Graft_OCT']" controlName="Graft_OCT" placeholder="OCT MLA (mm2)" [formGroup]="item" type="number" fxFlex>
+                    </reg-input>
+                  </div>
 
-              <reg-select controlName="NVAdjuncMeasObtained" placeholder="Adjunctive Measurements Obtained" [formGroup]="item"
-                [choices]="['Yes', 'No']"></reg-select>
-
-              <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
-                <reg-input controlName="NV_FFR" placeholder="FFR Ratio" [formGroup]="item" type="number" fxFlex>
-                </reg-input>
-
-                <reg-input controlName="NV_IFR" placeholder="iFR Ratio" [formGroup]="item" type="number" fxFlex>
-                </reg-input>
-              </div>
-
-              <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
-                <reg-input controlName="NV_IVUS" placeholder="IVUS MLA (mm2)" [formGroup]="item" type="number" fxFlex>
-                </reg-input>
-
-                <reg-input controlName="NV_OCT" placeholder="OCT MLA (mm2)" [formGroup]="item" type="number" fxFlex>
-                </reg-input>
-              </div>
-
-              <button mat-raised-button color="warn" (click)="removeNativeLestion(i)">Remove</button>
-
+                </mat-tab>
+              </mat-tab-group>
             </fieldset>
+          </div>
 
-          </div> -->
-
-      </form>
+        </form>
       </div>
     </section>
-
-    FormGroupH: {{ formGroupH.value | json }}
 
     <section class="section-wrapper" scrollSpyElement id="sectionI">
       <div class="section-title">

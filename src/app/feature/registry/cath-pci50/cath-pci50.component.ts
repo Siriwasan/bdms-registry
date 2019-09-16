@@ -39,12 +39,16 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
   public animationMode = 'fling'; // fling, scale
 
   public visibles: FormVisible = {};
+  public completion: CathPCI50FormCompletion;
+  private subscriptions: Subscription[] = [];
+
   public nativeLesionsTabIndex = 0;
   public availableNVSegmentIDs: RegSelectChoice[][] = [];
   public disableAddNativeLesion = true;
 
-  public completion: CathPCI50FormCompletion;
-  private subscriptions: Subscription[] = [];
+  public graftLesionsTabIndex = 0;
+  public availableGraftSegmentIDs: RegSelectChoice[][] = [];
+  public disableAddGraftLesion = true;
 
   get current() {
     if (!this.completion) {
@@ -63,6 +67,11 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
   get nativeLesions() {
     // tslint:disable-next-line: no-string-literal
     return this.visibles['NativeLesions'] && (this.visibles['NativeLesions'] as FormVisible[]).length > 0;
+  }
+
+  get graftLesions() {
+    // tslint:disable-next-line: no-string-literal
+    return this.visibles['GraftLesions'] && (this.visibles['GraftLesions'] as FormVisible[]).length > 0;
   }
 
   //#region FormGroup and FormDirective
@@ -148,7 +157,8 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
       this.subscribeDCStatusChanged(),
       this.subscribeDCLocationChanged(),
       this.subscribeDCHospiceChanged(),
-      this.subscribeNVStenosisChanged()
+      this.subscribeNVStenosisChanged(),
+      this.subscribeGraftStenosisChanged()
     );
 
     this.completion = this.getFormCompletion();
@@ -157,15 +167,16 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     // tslint:disable: no-string-literal
     this.visibles['lesion1'] = true;
     this.visibles['HasLesion01'] = true;
-    // tslint:enable: no-string-literal
 
     // initialize value for complex conditions
     this.formGroupE.get('PCIProc').setValue(null);
     this.formGroupJ.get('HasLesion01').setValue(null);
     this.formGroupL.get('DCStatus').setValue(null);
 
-    // tslint:disable-next-line: no-string-literal
     this.visibles['NativeLesions'] = [];
+    this.visibles['GraftLesions'] = [];
+    // tslint:enable: no-string-literal
+
     // this.addNativeLesion();
     // this.getSegmentNumbersForNV();
   }
@@ -183,8 +194,10 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     this.formGroupE = this.formBuilder.group(CathPCI50Form.sectionE);
     this.formGroupF = this.formBuilder.group(CathPCI50Form.sectionF);
     this.formGroupG = this.formBuilder.group(CathPCI50Form.sectionG);
-    // tslint:disable-next-line: no-string-literal
+    // tslint:disable: no-string-literal
     CathPCI50Form.sectionH['NativeLesions'] = this.formBuilder.array([]);
+    CathPCI50Form.sectionH['GraftLesions'] = this.formBuilder.array([]);
+    // tslint:enable: no-string-literal
     this.formGroupH = this.formBuilder.group(CathPCI50Form.sectionH);
     this.formGroupI = this.formBuilder.group(CathPCI50Form.sectionI);
     this.formGroupJ = this.formBuilder.group(CathPCI50Form.sectionJ);
@@ -424,6 +437,16 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     });
   }
 
+  private subscribeGraftStenosisChanged(): Subscription {
+    return this.formGroupH.get('GraftStenosis').valueChanges.subscribe(value => {
+      if (value === 'Yes') {
+        this.addGraftLesion();
+      } else {
+        this.removeAllGraftLesions();
+      }
+    });
+  }
+
   public getTOCTitle(section: string): string {
     return this.toc.find(t => t.section === 'section' + section).title;
   }
@@ -575,55 +598,6 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     this.registryFormService.clearErrors();
   }
 
-  addNativeLesion() {
-    const formArray = this.formGroupH.get('NativeLesions') as FormArray;
-    const formGroups = formArray.value as FormGroup[];
-
-    if (formGroups.findIndex((g: FormGroup) => g['NVSegmentID'] === null) >= 0) {
-      console.log('still have new');
-      return;
-    }
-
-    const newGroup = this.formBuilder.group(CathPCI50Form.nativeLesion);
-    const visible: FormVisible = {};
-    this.registryFormService.subscribeValueChanges(newGroup, conditions.nativeLesion, visible);
-
-    // ! initial remove validator in hiding child control
-    newGroup.setValue(newGroup.value);
-
-    // tslint:disable-next-line: no-string-literal
-    (this.visibles['NativeLesions'] as FormVisible[]).push(visible);
-    formArray.push(newGroup);
-
-    this.nativeLesionsTabIndex = formArray.length - 1;
-    this.disableAddNativeLesion = true;
-
-    this.getSegmentNumbersForNV();
-    this.reorderTabs();
-  }
-
-  removeNativeLesion(index: number) {
-    const formArray = this.formGroupH.get('NativeLesions') as FormArray;
-    formArray.removeAt(index);
-    // tslint:disable-next-line: no-string-literal
-    (this.visibles['NativeLesions'] as FormVisible[]).splice(index, 1);
-
-    if (formArray.length === 0) {
-      this.formGroupH.get('NVStenosis').setValue('No');
-    }
-
-    this.getSegmentNumbersForNV();
-    this.checkCanAddNativeLesion();
-  }
-
-  removeAllNativeLesions() {
-    const formArray = this.formGroupH.get('NativeLesions') as FormArray;
-    formArray.clear();
-    // tslint:disable-next-line: no-string-literal
-    (this.visibles['NativeLesions'] as FormVisible[]) = [];
-    this.getSegmentNumbersForNV();
-  }
-
   public getNativeLesionsTabLabel(index: number): string {
     // tslint:disable-next-line: no-string-literal
     const label = ((this.formGroupH.controls['NativeLesions'] as FormArray).controls[index] as FormGroup).controls
@@ -631,58 +605,11 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     return label !== null ? label : '(new)';
   }
 
-  public reorderTabs() {
-    // tslint:disable: no-string-literal
-    const formArray = this.formGroupH.get('NativeLesions') as FormArray;
-    const formGroups = formArray.value as FormGroup[];
-
-    if (formArray.length === 0) {
-      return;
-    }
-
-    const selectedSegmentID = formGroups[this.nativeLesionsTabIndex]['NVSegmentID'];
-
-    formGroups.sort((a, b) => {
-      const valueA = a['NVSegmentID'];
-      const valueB = b['NVSegmentID'];
-      if (!a['NVSegmentID']) {
-        return 1;
-      }
-      if (!b['NVSegmentID']) {
-        return -1;
-      }
-      return valueA.localeCompare(valueB, 'en', { numeric: true, sensitivity: 'base' });
-    });
-    formArray.setValue(formGroups);
-
-    this.nativeLesionsTabIndex = formGroups.findIndex(a => a['NVSegmentID'] === selectedSegmentID);
-    // tslint:enable: no-string-literal
-  }
-
-  public getSegmentNumbersForNV() {
-    // tslint:disable: no-string-literal
-    const formArray = this.formGroupH.get('NativeLesions') as FormArray;
-    const formGroups = formArray.value as FormGroup[];
-
-    const usedSegmentID = formGroups.map(g => g['NVSegmentID']);
-    const allChoices: RegSelectChoice[][] = [];
-
-    formGroups.forEach(group => {
-      const NVSegmentID = group['NVSegmentID'];
-
-      allChoices.push(
-        this.segmentNumbers.map(s => {
-          return {
-            label: s,
-            value: s,
-            disable: !(usedSegmentID.indexOf(s) < 0 || NVSegmentID === s)
-          };
-        })
-      );
-    });
-
-    this.availableNVSegmentIDs = allChoices;
-    // tslint:enable: no-string-literal
+  public getGraftLesionsTabLabel(index: number): string {
+    // tslint:disable-next-line: no-string-literal
+    const label = ((this.formGroupH.controls['GraftLesions'] as FormArray).controls[index] as FormGroup).controls
+      .GraftSegmentID.value;
+    return label !== null ? label : '(new)';
   }
 
   public NVSegmentIDChanged(event: MatSelectChange, index: number) {
@@ -690,11 +617,170 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     this.checkCanAddNativeLesion();
   }
 
-  private checkCanAddNativeLesion() {
-    const formArray = this.formGroupH.get('NativeLesions') as FormArray;
+  public GraftSegmentIDChanged(event: MatSelectChange, index: number) {
+    this.getSegmentNumbersForNV();
+    this.checkCanAddGraftLesion();
+  }
+
+  addNativeLesion() {
+    const length = this.addLesion('NativeLesions', 'NVSegmentID', CathPCI50Form.nativeLesion, conditions.nativeLesion);
+
+    this.nativeLesionsTabIndex = length - 1;
+    this.disableAddNativeLesion = true;
+
+    this.reorderNativeTabs();
+    this.getSegmentNumbersForNV();
+  }
+
+  addGraftLesion() {
+    const length = this.addLesion('GraftLesions', 'GraftSegmentID', CathPCI50Form.graftLesion, conditions.graftLesion);
+
+    this.graftLesionsTabIndex = length - 1;
+    this.disableAddGraftLesion = true;
+
+    this.reorderGraftTabs();
+    this.getSegmentNumbersForGraft();
+  }
+
+  private addLesion(type: string, segmentID: string, form: any, conditns: any): number {
+    const formArray = this.formGroupH.get(type) as FormArray;
     const formGroups = formArray.value as FormGroup[];
 
-    // tslint:disable-next-line: no-string-literal
-    this.disableAddNativeLesion = formGroups.findIndex((g: FormGroup) => g['NVSegmentID'] === null) >= 0;
+    if (formGroups.findIndex((g: FormGroup) => g[segmentID] === null) >= 0) {
+      console.log('still have new');
+      return;
+    }
+
+    const newGroup = this.formBuilder.group(form);
+    const visible: FormVisible = {};
+    this.registryFormService.subscribeValueChanges(newGroup, conditns, visible);
+
+    // ! initial remove validator in hiding child control
+    newGroup.setValue(newGroup.value);
+
+    (this.visibles[type] as FormVisible[]).push(visible);
+    formArray.push(newGroup);
+
+    return formArray.length;
+  }
+
+  public removeNativeLesion(index: number) {
+    this.removeLesion(index, 'NativeLesions', 'NativeStenosis');
+
+    this.getSegmentNumbersForNV();
+    this.checkCanAddNativeLesion();
+  }
+
+  public removeGraftLesion(index: number) {
+    this.removeLesion(index, 'GraftLesions', 'GraftStenosis');
+
+    this.getSegmentNumbersForGraft();
+    this.checkCanAddGraftLesion();
+  }
+
+  private removeLesion(index: number, type: string, stenosis: string) {
+    const formArray = this.formGroupH.get(type) as FormArray;
+
+    formArray.removeAt(index);
+    (this.visibles[type] as FormVisible[]).splice(index, 1);
+
+    if (formArray.length === 0) {
+      this.formGroupH.get(stenosis).setValue('No');
+    }
+  }
+
+  public removeAllNativeLesions() {
+    this.removeAllLesions('NativeLesions');
+  }
+
+  public removeAllGraftLesions() {
+    this.removeAllLesions('GraftLesions');
+  }
+
+  private removeAllLesions(type: string) {
+    const formArray = this.formGroupH.get(type) as FormArray;
+    formArray.clear();
+    (this.visibles[type] as FormVisible[]) = [];
+  }
+
+  public reorderNativeTabs() {
+    this.nativeLesionsTabIndex = this.reorderTabs('NativeLesions', 'NVSegmentID', this.nativeLesionsTabIndex);
+  }
+
+  public reorderGraftTabs() {
+    this.graftLesionsTabIndex = this.reorderTabs('GraftLesions', 'GraftSegmentID', this.graftLesionsTabIndex);
+  }
+
+  private reorderTabs(type: string, segmentID: string, tabIndex: number): number {
+    const formArray = this.formGroupH.get(type) as FormArray;
+    const formGroups = formArray.value as FormGroup[];
+
+    if (formArray.length === 0) {
+      return;
+    }
+
+    const selectedSegmentID = formGroups[tabIndex][segmentID];
+
+    formGroups.sort((a, b) => {
+      const valueA = a[segmentID];
+      const valueB = b[segmentID];
+      if (!a[segmentID]) {
+        return 1;
+      }
+      if (!b[segmentID]) {
+        return -1;
+      }
+      return valueA.localeCompare(valueB, 'en', { numeric: true, sensitivity: 'base' });
+    });
+    formArray.setValue(formGroups);
+
+    return formGroups.findIndex(a => a[segmentID] === selectedSegmentID);
+  }
+
+  public getSegmentNumbersForNV() {
+    this.availableNVSegmentIDs = this.getSegmentNumbers('NativeLesions', 'NVSegmentID');
+  }
+
+  public getSegmentNumbersForGraft() {
+    this.availableGraftSegmentIDs = this.getSegmentNumbers('GraftLesions', 'GraftSegmentID');
+  }
+
+  private getSegmentNumbers(type: string, segmentID: string): RegSelectChoice[][] {
+    const formArray = this.formGroupH.get(type) as FormArray;
+    const formGroups = formArray.value as FormGroup[];
+
+    const usedSegmentID = formGroups.map(g => g[segmentID]);
+    const allChoices: RegSelectChoice[][] = [];
+
+    formGroups.forEach(group => {
+      const GraftSegmentID = group[segmentID];
+
+      allChoices.push(
+        this.segmentNumbers.map(s => {
+          return {
+            label: s,
+            value: s,
+            disable: !(usedSegmentID.indexOf(s) < 0 || GraftSegmentID === s)
+          };
+        })
+      );
+    });
+
+    return allChoices;
+  }
+
+  private checkCanAddNativeLesion() {
+    this.disableAddNativeLesion = this.checkCanAddLesion('NativeLesions', 'NVSegmentID');
+  }
+
+  private checkCanAddGraftLesion() {
+    this.disableAddGraftLesion = this.checkCanAddLesion('GraftLesions', 'GraftSegmentID');
+  }
+
+  private checkCanAddLesion(type: string, segmentID: string): boolean {
+    const formArray = this.formGroupH.get(type) as FormArray;
+    const formGroups = formArray.value as FormGroup[];
+
+    return formGroups.findIndex((g: FormGroup) => g[segmentID] === null) >= 0;
   }
 }
