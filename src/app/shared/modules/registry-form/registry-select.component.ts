@@ -18,7 +18,7 @@ import { RegSelectChoice } from './registry-form.model';
         [placeholder]="placeholder"
         (selectionChange)="selectionChange($event)"
       >
-        <mat-option [value]="null">--</mat-option>
+        <mat-option *ngIf="nullOption" [value]="null">--</mat-option>
         <mat-option *ngFor="let choice of regSelectChoices" [value]="choice.value" [disabled]="choice.disable">{{
           choice.label
         }}</mat-option>
@@ -43,6 +43,7 @@ export class RegistrySelectComponent extends RegistryControlComponent implements
   @Input() formGroup: FormGroup;
   @Input() placeholder: string;
   @Input() require = true;
+  @Input() nullOption = true;
   @Input() choices: string[] | number[] | RegSelectChoice[];
   @Output() choiceChange: EventEmitter<MatSelectChange> = new EventEmitter();
 

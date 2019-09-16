@@ -993,7 +993,7 @@
             <reg-select controlName="NVStenosis" placeholder="Native Vessel with Stenosis >= 50%" [formGroup]="formGroupH"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
 
-            <button *ngIf="nativeLesions" mat-raised-button color="primary" (click)="addNativeLesion()" [disabled]="canAddNativeLesion" style="height: 36px">Add Native Lesion</button>
+            <button *ngIf="nativeLesions" mat-raised-button color="primary" (click)="addNativeLesion()" [disabled]="disableAddNativeLesion" style="height: 36px">Add Native Lesion</button>
             <button *ngIf="nativeLesions" mat-raised-button color="secondary" (click)="reorderTabs()" style="height: 36px">Reorder Tabs</button>
           </div>
 
@@ -1004,12 +1004,15 @@
                 <mat-tab formArrayName="NativeLesions"
                 *ngFor="let item of formGroupH.controls['NativeLesions'].controls; let i = index;">
                   <ng-template mat-tab-label>
-                    <div>{{ getNativeLesionsTabLabel(i) }}</div>
+                    <div fxLayoutAlign="center center">
+                      <div>{{ getNativeLesionsTabLabel(i) }}</div>
+                      <mat-icon style="margin-left: 10px; font-size: medium; height: auto; color:#bb6666" (click)="removeNativeLesion(i)">close</mat-icon>
+                    </div>
                   </ng-template>
 
                   <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
                     <reg-select controlName="NVSegmentID" placeholder="Native Lesion Segment Number" [formGroup]="item"
-                      [choices]="availableNVSegmentIDs" fxFlex (choiceChange)="NVSegmentIDChanged()"></reg-select>
+                      [choices]="availableNVSegmentIDs[i]" [nullOption]="false" fxFlex (choiceChange)="NVSegmentIDChanged($event, i)"></reg-select>
 
                     <reg-input *ngIf="visibles['NativeLesions'][i]['NVCoroVesselStenosis']" controlName="NVCoroVesselStenosis" placeholder="Native Stenosis (%)" [formGroup]="item" type="number" fxFlex>
                     </reg-input>
@@ -1035,7 +1038,7 @@
                     </reg-input>
                   </div>
 
-                  <button mat-raised-button color="warn" (click)="removeNativeLesion(i)">Remove</button>
+                  <!-- <button mat-raised-button color="warn" (click)="removeNativeLesion(i)">Remove</button> -->
 
                 </mat-tab>
               </mat-tab-group>
