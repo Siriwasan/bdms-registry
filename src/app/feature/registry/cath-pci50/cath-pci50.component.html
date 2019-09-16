@@ -998,9 +998,9 @@
           </div>
 
           <div *ngIf="nativeLesions">
-            <fieldset style="border:1px solid #a1a1a1; border-radius:10px; margin: 15px; padding: 20px">
+            <fieldset style="border:1px solid #a1a1a1; border-radius:10px; margin: 15px; padding: 20px; min-width: 0;">
               <legend style="color:#757575">Native Lesions</legend>
-              <mat-tab-group style="width: 750px" [(selectedIndex)]="nativeLesionsTabIndex">
+              <mat-tab-group fxFlex [(selectedIndex)]="nativeLesionsTabIndex">
                 <mat-tab formArrayName="NativeLesions"
                 *ngFor="let item of formGroupH.controls['NativeLesions'].controls; let i = index;">
                   <ng-template mat-tab-label>
@@ -1049,30 +1049,6 @@
               <mat-icon aria-label="Example icon-button with a heart icon">add_circle_outline</mat-icon>
             </button>
           </div> -->
-          <!-- <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
-            <reg-select *ngIf="visibles['NVSegmentID']" controlName="NVSegmentID" placeholder="Native Lesion Segment Number" [formGroup]="formGroupH"
-              [choices]="segmentNumbers" fxFlex></reg-select>
-
-            <reg-input *ngIf="visibles['NVCoroVesselStenosis']" controlName="NVCoroVesselStenosis" placeholder="Native Stenosis (%)" [formGroup]="formGroupH" type="number" fxFlex>
-            </reg-input>
-
-            <reg-select *ngIf="visibles['NVAdjuncMeasObtained']" controlName="NVAdjuncMeasObtained" placeholder="Adjunctive Measurements Obtained" [formGroup]="formGroupH"
-              [choices]="['Yes', 'No']" fxFlex></reg-select>
-          </div>
-
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
-            <reg-input *ngIf="visibles['NV_FFR']" controlName="NV_FFR" placeholder="FFR Ratio" [formGroup]="formGroupH" type="number" fxFlex>
-            </reg-input>
-
-            <reg-input *ngIf="visibles['NV_IFR']" controlName="NV_IFR" placeholder="iFR Ratio" [formGroup]="formGroupH" type="number" fxFlex>
-            </reg-input>
-
-            <reg-input *ngIf="visibles['NV_IVUS']" controlName="NV_IVUS" placeholder="IVUS MLA (mm2)" [formGroup]="formGroupH" type="number" fxFlex>
-            </reg-input>
-
-            <reg-input *ngIf="visibles['NV_OCT']" controlName="NV_OCT" placeholder="OCT MLA (mm2)" [formGroup]="formGroupH" type="number" fxFlex>
-            </reg-input>
-          </div> -->
 
           <div fxLayout="row" fxLayoutAlign="center center" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
             <reg-select controlName="GraftStenosis" placeholder="Graft Vessel with Stenosis >= 50%" [formGroup]="formGroupH"
@@ -1083,9 +1059,9 @@
           </div>
 
           <div *ngIf="graftLesions">
-            <fieldset style="border:1px solid #a1a1a1; border-radius:10px; margin: 15px; padding: 20px">
+            <fieldset style="border:1px solid #a1a1a1; border-radius:10px; margin: 15px; padding: 20px; min-width: 0;">
               <legend style="color:#757575">Graft Lesions</legend>
-              <mat-tab-group style="width: 750px" [(selectedIndex)]="graftLesionsTabIndex">
+              <mat-tab-group fxFlex [(selectedIndex)]="graftLesionsTabIndex">
                 <mat-tab formArrayName="GraftLesions"
                 *ngFor="let item of formGroupH.controls['GraftLesions'].controls; let i = index;">
                   <ng-template mat-tab-label>
