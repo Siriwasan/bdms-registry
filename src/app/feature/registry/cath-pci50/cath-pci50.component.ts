@@ -600,16 +600,20 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
 
   public getNativeLesionsTabLabel(index: number): string {
     // tslint:disable-next-line: no-string-literal
-    const label = ((this.formGroupH.controls['NativeLesions'] as FormArray).controls[index] as FormGroup).controls
-      .NVSegmentID.value;
-    return label !== null ? label : '(new)';
+    const control = ((this.formGroupH.controls['NativeLesions'] as FormArray).controls[index] as FormGroup).controls;
+    const label = control.NVSegmentID.value;
+    const stenosis = control.NVCoroVesselStenosis.value;
+
+    return label !== null ? label + (stenosis ? ` (${stenosis}%)` : '') : '(new)';
   }
 
   public getGraftLesionsTabLabel(index: number): string {
     // tslint:disable-next-line: no-string-literal
-    const label = ((this.formGroupH.controls['GraftLesions'] as FormArray).controls[index] as FormGroup).controls
-      .GraftSegmentID.value;
-    return label !== null ? label : '(new)';
+    const control = ((this.formGroupH.controls['GraftLesions'] as FormArray).controls[index] as FormGroup).controls;
+    const label = control.GraftSegmentID.value;
+    const stenosis = control.GraftCoroVesselStenosis.value;
+
+    return label !== null ? label + (stenosis ? ` (${stenosis}%)` : '') : '(new)';
   }
 
   public NVSegmentIDChanged(event: MatSelectChange, index: number) {
