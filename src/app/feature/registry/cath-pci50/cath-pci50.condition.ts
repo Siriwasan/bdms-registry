@@ -176,7 +176,7 @@ export const conditions: FormConditions = {
     { control: 'NV_FFR', parentControl: 'NVAdjuncMeasObtained', conditions: ['Yes'] },
     { control: 'NV_IFR', parentControl: 'NVAdjuncMeasObtained', conditions: ['Yes'] },
     { control: 'NV_IVUS', parentControl: 'NVAdjuncMeasObtained', conditions: ['Yes'] },
-    { control: 'NV_OCT', parentControl: 'NVAdjuncMeasObtained', conditions: ['Yes'] },
+    { control: 'NV_OCT', parentControl: 'NVAdjuncMeasObtained', conditions: ['Yes'] }
   ],
   graftLesion: [
     { control: 'GraftSegmentID', parentControl: 'H:GraftStenosis', conditions: ['Yes'] },
@@ -564,6 +564,20 @@ export const conditions: FormConditions = {
     { control: 'ProxOptimize', parentControl: 'UseDevice01', conditions: ['Yes'] },
     { control: 'FinalKissBalloon', parentControl: 'UseDevice01', conditions: ['Yes'] }
   ],
+  pciLesion: [
+    { control: 'ChronicOcclusion', parentControl: 'StenosisPriorTreat', conditions: [100] },
+    { control: 'PrevTreatedLesionDate', parentControl: 'PrevTreatedLesion', conditions: ['Yes'] },
+    { control: 'PreviousStent', parentControl: 'PrevTreatedLesion', conditions: ['Yes'] },
+    { control: 'InRestenosis', parentControl: 'PreviousStent', conditions: ['Yes'] },
+    { control: 'InThrombosis', parentControl: 'PreviousStent', conditions: ['Yes'] },
+    { control: 'StentType', parentControl: 'PreviousStent', conditions: ['Yes'] },
+    { control: 'LesionGraftType', parentControl: 'LesionGraft', conditions: ['Yes'] },
+    { control: 'LocGraft', parentControl: 'LesionGraft', conditions: ['Yes'] },
+    { control: 'DeviceDeployed', parentControl: 'GuidewireLesion', conditions: ['Yes'] },
+    { control: 'StenosisPostProc', parentControl: 'DeviceDeployed', conditions: ['Yes'] },
+    { control: 'PostProcTIMI', parentControl: 'DeviceDeployed', conditions: ['Yes'] }
+  ],
+  pciDevice: [],
   sectionK: [
     { control: 'K:intraPCI', parentControl: 'E:PCIProc', conditions: ['Yes'] },
     { control: 'PerfSeg', parentControl: 'E:PCIProc', conditions: ['Yes'] },
