@@ -1,10 +1,11 @@
-import { Component, Input, EventEmitter, Output, OnInit, ElementRef } from '@angular/core';
+import { Component, Input, EventEmitter, Output, OnInit, ElementRef, OnChanges, SimpleChanges } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatSelectChange } from '@angular/material';
 
 import { RegistryControlComponent } from './registry-control.component';
 import { AbstractControl } from '@angular/forms';
 import { RegistryFormService } from './registry-form.service';
+import { RegSelectChoice } from './registry-form.model';
 
 @Component({
   // tslint:disable-next-line: component-selector
@@ -18,7 +19,9 @@ import { RegistryFormService } from './registry-form.service';
         (selectionChange)="selectionChange($event)"
         multiple
       >
-        <mat-option *ngFor="let choice of choices" [value]="choice">{{ choice }}</mat-option>
+        <mat-option *ngFor="let choice of regSelectChoices" [value]="choice.value" [disabled]="choice.disable">{{
+          choice.label
+        }}</mat-option>
       </mat-select>
       <mat-hint>
         <a><ng-content></ng-content></a>
@@ -35,16 +38,17 @@ import { RegistryFormService } from './registry-form.service';
     </mat-form-field>
   `
 })
-export class RegistrySelectMultipleComponent extends RegistryControlComponent implements OnInit {
+export class RegistrySelectMultipleComponent extends RegistryControlComponent implements OnInit, OnChanges {
   @Input() controlName: string;
   @Input() formGroup: FormGroup;
   @Input() placeholder: string;
   @Input() require = true;
-  @Input() choices = [];
+  @Input() choices: string[] | number[] | RegSelectChoice[];
   @Output() choiceChange: EventEmitter<MatSelectChange> = new EventEmitter();
 
   bInfo: boolean;
   self: AbstractControl;
+  regSelectChoices: RegSelectChoice[] = [];
 
   constructor(protected registryFormService: RegistryFormService, private elementRef: ElementRef) {
     super(registryFormService);
@@ -57,6 +61,26 @@ export class RegistrySelectMultipleComponent extends RegistryControlComponent im
     const section = this.registryFormService.getControlSection(this.controlName);
     if (section) {
       this.self = this.registryFormService.getFormGroup(section).get(this.controlName);
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.choices) {
+      this.regSelectChoices = [];
+      if (!this.choices) {
+        return;
+      }
+      switch (typeof this.choices[0]) {
+        case 'string':
+        case 'number':
+          this.choices.forEach(c => {
+            this.regSelectChoices.push({ label: c, value: c, disable: false });
+          });
+          break;
+        default:
+          this.regSelectChoices = this.choices as RegSelectChoice[];
+          break;
+      }
     }
   }
 
