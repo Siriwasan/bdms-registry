@@ -1343,186 +1343,16 @@
       <div class="section-body">
         <form [formGroup]="formGroupJ" #formDirectiveJ="ngForm">
 
-          <h3>LESIONS</h3>
-
-          <div [id]="'lesion' + (i+1)" style="margin-top: 5px; margin-bottom: 20px" *ngFor="let lesion of J_lesions; let i = index">
-            <fieldset *ngIf="visibles['lesion' + (i+1)]" style="border:1px solid #a1a1a1; border-radius:10px; padding: 20px 30px 20px 30px;">
-              <legend style="color:#757575;">{{ lesion[0] }}</legend>
-
-
-            <reg-select *ngIf="visibles[lesion[1]]" [controlName]="lesion[1]" placeholder="LESION" [formGroup]="formGroupJ"
-              [choices]="['Yes', 'No']"></reg-select>
-
-            <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
-              <reg-select-multiple *ngIf="visibles[lesion[2]]" [controlName]="lesion[2]" placeholder="Segment Number(s)" [formGroup]="formGroupJ"
-                [choices]="segmentNumbers" fxFlex></reg-select-multiple>
-
-              <reg-select *ngIf="visibles[lesion[3]]" [controlName]="lesion[3]" placeholder="Culprit Stenosis" [formGroup]="formGroupJ"
-                [choices]="['Yes', 'No', 'Unknown']" fxFlex="25"></reg-select>
-            </div>
-
-            <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
-              <reg-input *ngIf="visibles[lesion[4]]" [controlName]="lesion[4]" placeholder="Stenosis Immediately Prior to Rx (%)" [formGroup]="formGroupJ" type="number" fxFlex>
-              </reg-input>
-
-              <reg-select *ngIf="visibles[lesion[5]]" [controlName]="lesion[5]" placeholder="Chronic Total Occlusion" [formGroup]="formGroupJ"
-                [choices]="['Yes', 'No', 'Unknown']" fxFlex></reg-select>
-
-              <reg-select *ngIf="visibles[lesion[6]]" [controlName]="lesion[6]" placeholder="TIMI Flow (Pre-Intervention)" [formGroup]="formGroupJ" [choices]="[
-                  'TIMI-0',
-                  'TIMI-1',
-                  'TIMI-2',
-                  'TIMI-3'
-                ]" fxFlex></reg-select>
-            </div>
-
-            <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
-              <reg-select *ngIf="visibles[lesion[7]]" [controlName]="lesion[7]" placeholder="Previously Treated Lesion" [formGroup]="formGroupJ"
-                [choices]="['Yes', 'No']" fxFlex></reg-select>
-
-              <reg-datepicker *ngIf="visibles[lesion[8]]" [controlName]="lesion[8]" placeholder="Date" [formGroup]="formGroupJ" fxFlex>
-                dd/mm/yyyy</reg-datepicker>
-
-              <reg-select *ngIf="visibles[lesion[9]]" [controlName]="lesion[9]" placeholder="Treated with Stent" [formGroup]="formGroupJ"
-                [choices]="['Yes', 'No']" fxFlex></reg-select>
-            </div>
-
-            <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
-              <reg-select *ngIf="visibles[lesion[10]]" [controlName]="lesion[10]" placeholder="In-stent Restenosis" [formGroup]="formGroupJ"
-                [choices]="['Yes', 'No']" fxFlex></reg-select>
-
-              <reg-select *ngIf="visibles[lesion[11]]" [controlName]="lesion[11]" placeholder="In-stent Thrombosis" [formGroup]="formGroupJ"
-                [choices]="['Yes', 'No']" fxFlex></reg-select>
-
-              <reg-select *ngIf="visibles[lesion[12]]" [controlName]="lesion[12]" placeholder="Stent Type" [formGroup]="formGroupJ" [choices]="[
-                  'Bare Metal Stent (BMS)',
-                  'Drug-Eluting Stent (DES)',
-                  'Bioabsorbable Stent',
-                  'Unknown'
-                ]" fxFlex></reg-select>
-            </div>
-
-            <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
-              <reg-select *ngIf="visibles[lesion[13]]" [controlName]="lesion[13]" placeholder="Lesion in Graft" [formGroup]="formGroupJ"
-                [choices]="['Yes', 'No']" fxFlex></reg-select>
-
-              <reg-select *ngIf="visibles[lesion[14]]" [controlName]="lesion[14]" placeholder="Type of CABG Graft" [formGroup]="formGroupJ" [choices]="[
-                  'LIMA',
-                  'Vein',
-                  'Other Artery'
-                ]" fxFlex></reg-select>
-
-              <reg-select *ngIf="visibles[lesion[15]]" [controlName]="lesion[15]" placeholder="Location in Graft" [formGroup]="formGroupJ" [choices]="[
-                  'Aortic',
-                  'Body',
-                  'Distal'
-                ]" fxFlex></reg-select>
-            </div>
-
-            <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
-              <reg-select *ngIf="visibles[lesion[16]]" [controlName]="lesion[16]" placeholder="Navigate through Graft to Native Lesion" [formGroup]="formGroupJ"
-                [choices]="['Yes', 'No']" fxFlex></reg-select>
-
-              <reg-select *ngIf="visibles[lesion[17]]" [controlName]="lesion[17]" placeholder="Lesion Complexity" [formGroup]="formGroupJ" [choices]="[
-                  'Non-High/Non-C',
-                  'High/C'
-                ]" fxFlex></reg-select>
-
-              <reg-input *ngIf="visibles[lesion[18]]" [controlName]="lesion[18]" placeholder="Lesion Length (mm)" [formGroup]="formGroupJ" type="number" fxFlex>
-              </reg-input>
-            </div>
-
-            <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
-              <reg-select *ngIf="visibles[lesion[19]]" [controlName]="lesion[19]" placeholder="Severe Calcification" [formGroup]="formGroupJ"
-                [choices]="['Yes', 'No']" fxFlex></reg-select>
-
-              <reg-select *ngIf="visibles[lesion[20]]" [controlName]="lesion[20]" placeholder="Bifurcation Lesion" [formGroup]="formGroupJ"
-                [choices]="['Yes', 'No']" fxFlex></reg-select>
-            </div>
-
-            <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
-              <reg-select *ngIf="visibles[lesion[21]]" [controlName]="lesion[21]" placeholder="Guidewire Across Lesion" [formGroup]="formGroupJ"
-                [choices]="['Yes', 'No']" fxFlex></reg-select>
-
-              <reg-select *ngIf="visibles[lesion[22]]" [controlName]="lesion[22]" placeholder="Device(s) Deployed" [formGroup]="formGroupJ"
-                [choices]="['Yes', 'No']" fxFlex></reg-select>
-            </div>
-
-            <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
-              <reg-input *ngIf="visibles[lesion[23]]" [controlName]="lesion[23]" placeholder="Stenosis (Post-Intervention) (%)" [formGroup]="formGroupJ" type="number" fxFlex>
-              </reg-input>
-
-              <reg-select *ngIf="visibles[lesion[24]]" [controlName]="lesion[24]" placeholder="TIMI Flow (Post-Intervention)" [formGroup]="formGroupJ" [choices]="[
-                  'TIMI-0',
-                  'TIMI-1',
-                  'TIMI-2',
-                  'TIMI-3'
-                ]" fxFlex></reg-select>
-            </div>
-
-            </fieldset>
-          </div>
-
-          <h3 *ngIf="visibles['devicesLabel']" id="devicesLabel">DEVICES</h3>
-
-          <div [id]="'device' + (i+1)" style="margin-top: 5px; margin-bottom: 20px" *ngFor="let device of J_devices; let i = index">
-            <fieldset *ngIf="visibles['device' + (i+1)]" style="border:1px solid #a1a1a1; border-radius:10px; padding: 20px 30px 20px 30px;">
-              <legend style="color:#757575;">{{ device[0] }}</legend>
-
-            <reg-select *ngIf="visibles[device[1]]" [controlName]="device[1]" placeholder="DEVICE" [formGroup]="formGroupJ"
-              [choices]="['Yes', 'No']"></reg-select>
-
-            <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
-              <reg-select *ngIf="visibles[device[2]]" [controlName]="device[2]" placeholder="Intracoronary Device(s) Used" [formGroup]="formGroupJ" [choices]="[
-                  'DEVICE1',
-                  'DEVICE2',
-                  'DEVICE3'
-                ]" fxFlex></reg-select>
-
-              <reg-input *ngIf="visibles[device[3]]" [controlName]="device[3]" placeholder="Unique Device Identifier (UDI)" [formGroup]="formGroupJ" type="number" fxFlex>
-              </reg-input>
-            </div>
-
-            <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
-              <reg-select-multiple *ngIf="visibles[device[4]]" [controlName]="device[4]" placeholder="Associated Lesion(s)" [formGroup]="formGroupJ"
-                [choices]="associatedLesions" fxFlex="50"></reg-select-multiple>
-
-              <reg-input *ngIf="visibles[device[5]]" [controlName]="device[5]" placeholder="Diameter (mm)" [formGroup]="formGroupJ" type="number" fxFlex>
-              </reg-input>
-
-              <reg-input *ngIf="visibles[device[6]]" [controlName]="device[6]" placeholder="Length (mm)" [formGroup]="formGroupJ" type="number" fxFlex>
-              </reg-input>
-            </div>
-
-            </fieldset>
-          </div>
-
-          <reg-select *ngIf="visibles['StentTechnique']" controlName="StentTechnique" placeholder="Stent Technique Strategy" [formGroup]="formGroupJ" [choices]="[
-              'Provisional MB stenting (stent MB first)',
-              'Provisional SB stenting (stent SB first)',
-              'DK Crush (Double Kissing Crush)',
-              'Culotte'
-            ]"></reg-select>
-
-          <h4 *ngIf="visibles['ProxOptimize']">Final Adjuctive Balloon Angioplasty</h4>
-
-          <reg-select *ngIf="visibles['ProxOptimize']" controlName="ProxOptimize" placeholder="Proximal Optimization" [formGroup]="formGroupJ"
-            [choices]="['Yes', 'No']"></reg-select>
-
-          <reg-select *ngIf="visibles['FinalKissBalloon']" controlName="FinalKissBalloon" placeholder="Final Kissing Balloon Inflation" [formGroup]="formGroupJ"
-            [choices]="['Yes', 'No']"></reg-select>
-
-
           <div fxLayout="row" fxLayoutAlign="none center" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
             <h3 fxFlex>LESIONS</h3>
 
             <div fxLayoutAlign="end" fxFlex fxLayoutGap="20px">
-              <button mat-raised-button color="primary" (click)="addPciLesion()" [disabled]="disableAddPciLesion" style="height: 36px">Add Pci Lesion</button>
+              <button mat-raised-button color="primary" (click)="addPciLesion()" [disabled]="disableAddPciLesion" style="height: 36px">Add Lesion</button>
               <button mat-raised-button color="secondary" (click)="arrangePciTabs()" style="height: 36px">Arrange Tabs</button>
             </div>
           </div>
 
-          <div *ngIf="pciLesions">
+          <div>
             <fieldset style="border:1px solid #a1a1a1; border-radius:10px; padding: 20px 30px 20px 30px;">
               <legend style="color:#757575">PCI Lesions</legend>
               <mat-tab-group fxFlex [(selectedIndex)]="pciLesionsTabIndex">
@@ -1628,6 +1458,9 @@
                     <reg-select controlName="GuidewireLesion" placeholder="Guidewire Across Lesion" [formGroup]="item"
                       [choices]="['Yes', 'No']" fxFlex></reg-select>
 
+                    <reg-select-multiple *ngIf="visibles['PciLesions'][i]['GuidewireAcross']" controlName="GuidewireAcross" placeholder="Guidewire Across" [formGroup]="item"
+                      [choices]="['Main branch', 'Side branch']" fxFlex></reg-select-multiple>
+
                     <reg-select *ngIf="visibles['PciLesions'][i]['DeviceDeployed']" controlName="DeviceDeployed" placeholder="Device(s) Deployed" [formGroup]="item"
                       [choices]="['Yes', 'No']" fxFlex></reg-select>
                   </div>
@@ -1644,37 +1477,88 @@
                       ]" fxFlex></reg-select>
                   </div>
 
-                  <!-- <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
-                    <reg-select controlName="NVSegmentID" placeholder="PCI Lesion Segment Number" [formGroup]="item"
-                      [choices]="availableNVSegmentIDs[i]" [nullOption]="false" fxFlex (choiceChange)="NVSegmentIDChanged($event, i)"></reg-select>
-
-                    <reg-input *ngIf="visibles['NativeLesions'][i]['NVCoroVesselStenosis']" controlName="NVCoroVesselStenosis" placeholder="Native Stenosis (%)" [formGroup]="item" type="number" fxFlex>
-                    </reg-input>
-
-                  </div> -->
-
-                  <!-- <reg-select *ngIf="visibles['NativeLesions'][i]['NVAdjuncMeasObtained']" controlName="NVAdjuncMeasObtained" placeholder="Adjunctive Measurements Obtained" [formGroup]="item"
-                    [choices]="['Yes', 'No']"></reg-select>
-
-                  <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
-                    <reg-input *ngIf="visibles['NativeLesions'][i]['NV_FFR']" controlName="NV_FFR" placeholder="FFR Ratio" [formGroup]="item" type="number" fxFlex>
-                    </reg-input>
-
-                    <reg-input *ngIf="visibles['NativeLesions'][i]['NV_IFR']" controlName="NV_IFR" placeholder="iFR Ratio" [formGroup]="item" type="number" fxFlex>
-                    </reg-input>
+                  <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+                    <reg-select controlName="MechComplicationPCI" placeholder="Mechanical Complication During PCI" [formGroup]="item" [choices]="[
+                        'Abrupt Vessel Closure',
+                        'Coronary Artery Perforation',
+                        'Longitudinal Stent Deformation',
+                        'Burr Entrapment',
+                        'Device Embolization'
+                      ]" fxFlex></reg-select>
                   </div>
-
-                  <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
-                    <reg-input *ngIf="visibles['NativeLesions'][i]['NV_IVUS']" controlName="NV_IVUS" placeholder="IVUS MLA (mm2)" [formGroup]="item" type="number" fxFlex>
-                    </reg-input>
-
-                    <reg-input *ngIf="visibles['NativeLesions'][i]['NV_OCT']" controlName="NV_OCT" placeholder="OCT MLA (mm2)" [formGroup]="item" type="number" fxFlex>
-                    </reg-input>
-                  </div> -->
 
                 </mat-tab>
               </mat-tab-group>
             </fieldset>
+          </div>
+
+          <div fxLayout="row" fxLayoutAlign="none center" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <h3 fxFlex>DEVICES</h3>
+
+            <div fxLayoutAlign="end" fxFlex fxLayoutGap="20px">
+              <button mat-raised-button color="primary" (click)="addPciDevice()" [disabled]="disableAddPciDevice" style="height: 36px">Add Device</button>
+              <button mat-raised-button color="secondary" (click)="arrangePciDeviceTabs()" style="height: 36px">Arrange Tabs</button>
+            </div>
+          </div>
+
+          <div *ngIf="pciDevices">
+            <fieldset style="border:1px solid #a1a1a1; border-radius:10px; padding: 20px 30px 20px 30px;">
+              <legend style="color:#757575">PCI Devices</legend>
+              <mat-tab-group fxFlex [(selectedIndex)]="pciDevicesTabIndex">
+                <mat-tab formArrayName="PciDevices"
+                *ngFor="let item of formGroupJ.controls['PciDevices'].controls; let i = index;">
+                  <ng-template mat-tab-label>
+                    <div fxLayoutAlign="center center">
+                      <div>{{ getPciDevicesTabLabel(i) }}</div>
+                      <mat-icon style="margin-left: 10px; font-size: medium; height: auto; color:#bb6666" (click)="removePciDevice(i)">close</mat-icon>
+                    </div>
+                  </ng-template>
+
+                  <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+                    <reg-select controlName="ICDevID" placeholder="Intracoronary Device(s) Used" [formGroup]="item" [choices]="[
+                        'DEVICE1',
+                        'DEVICE2',
+                        'DEVICE3'
+                      ]" fxFlex (choiceChange)="ICDevIDChanged()"></reg-select>
+
+                    <reg-input controlName="ICDevUDI" placeholder="Unique Device Identifier (UDI)" [formGroup]="item" type="number" fxFlex>
+                    </reg-input>
+                  </div>
+
+                  <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+                    <reg-select-multiple controlName="ICDevCounterAssn" placeholder="Associated Lesion(s)" [formGroup]="item"
+                      [choices]="lesions" fxFlex="50"></reg-select-multiple>
+
+                    <reg-input controlName="DeviceDiameter" placeholder="Diameter (mm)" [formGroup]="item" type="number" fxFlex>
+                    </reg-input>
+
+                    <reg-input controlName="DeviceLength" placeholder="Length (mm)" [formGroup]="item" type="number" fxFlex>
+                    </reg-input>
+                  </div>
+
+
+                </mat-tab>
+              </mat-tab-group>
+            </fieldset>
+          </div>
+
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-select *ngIf="visibles['StentTechnique']" controlName="StentTechnique" placeholder="Stent Technique Strategy" [formGroup]="formGroupJ" [choices]="[
+                'Provisional MB stenting (stent MB first)',
+                'Provisional SB stenting (stent SB first)',
+                'DK Crush (Double Kissing Crush)',
+                'Culotte'
+              ]" fxFlex></reg-select>
+          </div>
+
+          <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="none center" [fxLayoutGap.gt-xs]="gap">
+            <h4 *ngIf="visibles['ProxOptimize']" fxFlex>Final Adjuctive Balloon Angioplasty</h4>
+
+            <reg-select *ngIf="visibles['ProxOptimize']" controlName="ProxOptimize" placeholder="Proximal Optimization" [formGroup]="formGroupJ"
+              [choices]="['Yes', 'No']" fxFlex></reg-select>
+
+            <reg-select *ngIf="visibles['FinalKissBalloon']" controlName="FinalKissBalloon" placeholder="Final Kissing Balloon Inflation" [formGroup]="formGroupJ"
+              [choices]="['Yes', 'No']" fxFlex></reg-select>
           </div>
 
         </form>
@@ -1714,6 +1598,29 @@
             </div>
 
           </div>
+
+            <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+              <reg-select controlName="K_MyocardialInfarction" placeholder="Myocardial Infarction" [formGroup]="formGroupK"
+                [choices]="['Yes', 'No']" fxFlex></reg-select>
+
+              <reg-datepicker *ngIf="visibles['K_MyocardialInfarctionDT']" controlName="K_MyocardialInfarctionDT" placeholder="Event Date/Time" [formGroup]="formGroupK" type="datetime" fxFlex>
+                dd/mm/yyyy hh:mm - 24 hr clock</reg-datepicker>
+            </div>
+
+            <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+              <reg-select *ngIf="visibles['K_MyocardialInfarctionCriteria']" controlName="K_MyocardialInfarctionCriteria" placeholder="Myocardial Infarction Criteria" [formGroup]="formGroupK" [choices]="[
+                  'Absolute rise in cTn (form baseline) >= 35x(URL)',
+                  'Absolute rise in cTn (form baseline) >= 70x(URL)'
+                ]" fxFlex></reg-select>
+
+              <reg-select-multiple *ngIf="visibles['K_MyocardialInfarctionFollowCriteria']" controlName="K_MyocardialInfarctionFollowCriteria" placeholder="Plus 1 (or more) of the following criteria" [formGroup]="formGroupK" [choices]="[
+                  'New significant Q wave or equivalent',
+                  'Flow-limiting angiographic complications',
+                  'New substantial loss of myocardium on imaging'
+                ]" fxFlex></reg-select-multiple>
+
+            </div>
+
 
           <reg-select controlName="PostTransfusion" placeholder="RBC Transfusion" [formGroup]="formGroupK"
             [choices]="['Yes', 'No']"></reg-select>

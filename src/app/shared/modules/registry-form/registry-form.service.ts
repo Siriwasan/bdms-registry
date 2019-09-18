@@ -89,6 +89,10 @@ export class RegistryFormService implements OnDestroy {
               this.displayElement(element, visible, false);
             } else if (condition.conditions[0] === '!') {
               // NOT condition
+              if (Array.isArray(value) && value.length === 0) {
+                value = null;
+              }
+
               this.displayElement(element, visible, condition.conditions[1] !== value);
             } else if (condition.conditions[0] === '@') {
               // CONTAIN condition
@@ -109,6 +113,10 @@ export class RegistryFormService implements OnDestroy {
               this.displayControl(condition.control, control, visible, false);
             } else if (condition.conditions[0] === '!') {
               // NOT condition
+              if (Array.isArray(value) && value.length === 0) {
+                value = null;
+              }
+
               this.displayControl(condition.control, control, visible, condition.conditions[1] !== value);
             } else if (condition.conditions[0] === '@') {
               // CONTAIN condition

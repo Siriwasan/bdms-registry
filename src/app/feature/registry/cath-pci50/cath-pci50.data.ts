@@ -388,7 +388,6 @@ export const K_procedureEvents = [
   ['Cardiac Tamponade', 'K_CardiacTamponade', 'K_CardiacTamponadeDT'],
   ['Cardiogenic Shock', 'K_CardiogenicShock', 'K_CardiogenicShockDT'],
   ['Heart Failure', 'K_HeartFailure', 'K_HeartFailureDT'],
-  ['Myocardial Infarction', 'K_MyocardialInfarction', 'K_MyocardialInfarctionDT'],
   ['New Requirement for Dialysis', 'K_NewDialysis', 'K_NewDialysisDT'],
   ['Other Vascular Complications Req Tx', 'K_OtherVascular', 'K_OtherVascularDT'],
   ['Stroke – Hemorrhagic', 'K_StrokeHemorrhage', 'K_StrokeHemorrhageDT'],
