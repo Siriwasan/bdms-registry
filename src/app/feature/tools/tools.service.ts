@@ -10,7 +10,6 @@ import * as XLSX from 'xlsx';
 import { Staff } from '../staff/staff.model';
 import { Registry } from '../registry/registry.model';
 import { ACSx290Form } from '../registry/acsx290/acsx290.model';
-import { SampleModel } from './tools.model';
 
 const DB_COLLECTION = 'ACSx290';
 const DB_REGISTRY = 'Registry';
@@ -243,19 +242,41 @@ export class ToolsService implements OnDestroy {
   public exportAsExcelFile(json: SampleModel[], excelFileName: string): void {
     let index = 1;
 
+    const worksheet1data = JSON.parse(JSON.stringify(json)) as SampleModel[];
+    worksheet1data.forEach(o => {
+      o.cities.forEach((v, i) => {
+        o['city' + (i + 1).toString().padStart(2, '0')] = v;
+      });
+      delete o.cities;
+
+      o.movies.forEach((v, i) => {
+        o['movie' + (i + 1).toString().padStart(2, '0')] = v;
+      });
+      delete o.movies;
+
+      delete o.cars;
+    });
+
     const worksheet2data = [];
-    json.forEach(o => o.movies.forEach(i => worksheet2data.push({ uniqueId: index++, id: o.id, movie: i })));
+    json.forEach(o => o.cities.forEach(i => worksheet2data.push({ uniqueId: index++, id: o.id, city: i })));
 
     index = 1;
     const worksheet3data = [];
-    json.forEach(o => o.cars.forEach(i => worksheet3data.push({ uniqueId: index++, id: o.id, brand: i.brand, color: i.color })));
+    json.forEach(o => o.movies.forEach(i => worksheet3data.push({ uniqueId: index++, id: o.id, movie: i })));
 
-    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
+    index = 1;
+    const worksheet4data = [];
+    json.forEach(o =>
+      o.cars.forEach(i => worksheet4data.push({ uniqueId: index++, id: o.id, brand: i.brand, color: i.color }))
+    );
+
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(worksheet1data);
     const worksheet2: XLSX.WorkSheet = XLSX.utils.json_to_sheet(worksheet2data);
     const worksheet3: XLSX.WorkSheet = XLSX.utils.json_to_sheet(worksheet3data);
+    const worksheet4: XLSX.WorkSheet = XLSX.utils.json_to_sheet(worksheet4data);
     const workbook: XLSX.WorkBook = {
-      Sheets: { data: worksheet, movies: worksheet2, cars: worksheet3 },
-      SheetNames: ['data', 'movies', 'cars']
+      Sheets: { data: worksheet, cities: worksheet2, movies: worksheet3, cars: worksheet4 },
+      SheetNames: ['data', 'cities', 'movies', 'cars']
     };
     const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
     this.saveAsExcelFile(excelBuffer, excelFileName);
