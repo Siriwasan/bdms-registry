@@ -5,7 +5,7 @@ export const conditions: FormConditions = {
     { control: 'RaceAsian', parentControl: 'Race', conditions: ['Asian'] },
     { control: 'HispEthnicityType', parentControl: 'HispOrig', conditions: ['Yes'] }
   ],
-  sectionB: [{ control: 'HIPS', parentControl: 'HealthIns', conditions: ['Yes'] }],
+  sectionB: [],
   sectionC: [
     { control: 'HxMIDate', parentControl: 'HxMI', conditions: ['Yes'] },
     { control: 'HxPCIDate', parentControl: 'PriorPCI', conditions: ['Yes'] },

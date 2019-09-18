@@ -10,19 +10,23 @@ export const CathPCI50Form = {
     MidName: [null, Validators.required],
     SSN: [null, Validators.required],
     DOB: [null, Validators.required],
+    Age: [null, [Validators.required, Validators.min(0), Validators.max(120)]],
     Sex: [null, Validators.required],
     ZipCode: [null, Validators.required],
     Race: [null, Validators.required],
     RaceAsian: [null, Validators.required],
     HispOrig: [null, Validators.required],
-    HispEthnicityType: [null, Validators.required]
+    HispEthnicityType: [null, Validators.required],
+    PatNation: [null, Validators.required],
+    PermAddr: [null, Validators.required]
   },
   sectionB: {
+    HospName: [null, Validators.required],
+    PayorPrim: [null, Validators.required],
+    PayorSecond: [null, Validators.required],
     ArrivalDateTime: [null, Validators.required],
     AdmProvider: [null, Validators.required],
-    AttProvider: [null, Validators.required],
-    HealthIns: [null, Validators.required],
-    HIPS: [null, Validators.required]
+    AttProvider: [null, Validators.required]
   },
   sectionC: {
     Hypertension: [null, Validators.required],
@@ -191,6 +195,7 @@ export const CathPCI50Form = {
     HypothermiaInduced: [null, Validators.required],
     HypothermiaInducedTiming: [null, Validators.required],
     LOCProc: [null, Validators.required],
+    PCIProcedureRisk: [null, Validators.required],
     PCIDecision: [null, Validators.required],
     CVTxDecision: [null, Validators.required],
     CVSheetDecision: [null, Validators.required],
@@ -233,7 +238,8 @@ export const CathPCI50Form = {
   sectionJ: {
     StentTechnique: [null, Validators.required],
     ProxOptimize: [null, Validators.required],
-    FinalKissBalloon: [null, Validators.required]
+    FinalKissBalloon: [null, Validators.required],
+    PCIResult: [null, Validators.required]
   },
   pciLesion: {
     LesionCounter: [null, Validators.required],
@@ -261,7 +267,7 @@ export const CathPCI50Form = {
     DeviceDeployed: [null, Validators.required],
     StenosisPostProc: [null, Validators.required],
     PostProcTIMI: [null, Validators.required],
-    MechComplicationPCI: [null, Validators.required],
+    ComplicationPCI: [null, Validators.required],
   },
   pciDevice: {
     ICDevCounter: [null, Validators.required],

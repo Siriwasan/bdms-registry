@@ -19,6 +19,12 @@ import { RegSelectChoice } from './registry-form.model';
         (selectionChange)="selectionChange($event)"
         multiple
       >
+        <mat-select-trigger *ngIf="limit">
+          {{ self.value ? self.value[0] : '' }}
+          <span *ngIf="self.value?.length > 1" class="mat-select-additional-selection">
+            (+{{ self.value.length - 1 }} {{ self.value?.length === 2 ? 'other' : 'others' }})
+          </span>
+        </mat-select-trigger>
         <mat-option *ngFor="let choice of regSelectChoices" [value]="choice.value" [disabled]="choice.disable">{{
           choice.label
         }}</mat-option>
@@ -27,7 +33,7 @@ import { RegSelectChoice } from './registry-form.model';
         <a><ng-content></ng-content></a>
         <mat-icon style="cursor: help;" (click)="openInfo(controlName)" *ngIf="bInfo">info_outline</mat-icon>
       </mat-hint>
-      <mat-error *ngIf="self?.invalid && (self?.dirty || self?.touched)">
+      <mat-error *ngIf="self.invalid && (self.dirty || self.touched)">
         <div *ngFor="let validation of getValidations(controlName)">
           <div *ngIf="isInvalid(controlName, validation.type)">
             <a>{{ validation.message }}</a>
@@ -36,13 +42,15 @@ import { RegSelectChoice } from './registry-form.model';
         </div>
       </mat-error>
     </mat-form-field>
-  `
+  `,
+  styleUrls: ['./registry-control.component.scss']
 })
 export class RegistrySelectMultipleComponent extends RegistryControlComponent implements OnInit, OnChanges {
   @Input() controlName: string;
   @Input() formGroup: FormGroup;
   @Input() placeholder: string;
   @Input() require = true;
+  @Input() limit = false;
   @Input() choices: string[] | number[] | RegSelectChoice[];
   @Output() choiceChange: EventEmitter<MatSelectChange> = new EventEmitter();
 
@@ -58,10 +66,7 @@ export class RegistrySelectMultipleComponent extends RegistryControlComponent im
     this.elementRef.nativeElement.setAttribute('id', this.controlName);
     this.bInfo = this.hasInfo(this.controlName);
 
-    const section = this.registryFormService.getControlSection(this.controlName);
-    if (section) {
-      this.self = this.registryFormService.getFormGroup(section).get(this.controlName);
-    }
+    this.self = this.formGroup.get(this.controlName);
   }
 
   ngOnChanges(changes: SimpleChanges) {

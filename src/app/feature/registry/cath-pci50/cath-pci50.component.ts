@@ -2,6 +2,7 @@ import { FormGroup, FormGroupDirective, FormBuilder, Validators, FormArray, Form
 import { Component, OnInit, AfterViewInit, OnDestroy, ChangeDetectorRef, ElementRef, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
 import { Subscription } from 'rxjs';
+import { utc } from 'moment';
 
 import { RegistryFormComponent } from '../../../shared/modules/registry-form/registry-form.component';
 import { DialogService } from '../../../shared/services/dialog.service';
@@ -95,14 +96,17 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
       this.visibles['StentTechnique'] = true;
       this.visibles['ProxOptimize'] = true;
       this.visibles['FinalKissBalloon'] = true;
+      this.visibles['PCIResult'] = true;
       this.formGroupJ.get('StentTechnique').setValue(null);
     } else {
       this.visibles['StentTechnique'] = false;
       this.visibles['ProxOptimize'] = false;
       this.visibles['FinalKissBalloon'] = false;
+      this.visibles['PCIResult'] = false;
       this.formGroupJ.get('StentTechnique').setValue(null);
       this.formGroupJ.get('ProxOptimize').setValue(null);
       this.formGroupJ.get('FinalKissBalloon').setValue(null);
+      this.formGroupJ.get('PCIResult').setValue(null);
     }
     // tslint:enable: no-string-literal
 
@@ -176,6 +180,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     this.registryFormService.subscribeFormConditions();
 
     this.subscriptions.push(
+      this.subscribeDOBChanged(),
       this.subscribeCAOutHospitalChanged(),
       this.subscribeCATransferFacChanged(),
       this.subscribeCAInHospChanged(),
@@ -247,6 +252,19 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
 
     this.registryFormService.initializeForm(this.sectionMembers, conditions, validations, this.visibles);
     this.registryFormService.setDataDict(require('raw-loader!./cath-pci50.dict.md'));
+  }
+
+  private subscribeDOBChanged(): Subscription {
+    return this.formGroupA.get('DOB').valueChanges.subscribe(value => {
+      const dob = utc(value);
+      if (!dob.isValid()) {
+        this.formGroupA.get('Age').reset();
+        return;
+      }
+
+      const age = -dob.diff(new Date(), 'years', false);
+      this.formGroupA.get('Age').setValue(age);
+    });
   }
 
   private subscribeCAOutHospitalChanged(): Subscription {

@@ -103,11 +103,11 @@
           </div>
 
           <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
-            <reg-input controlName="SSN" placeholder="SSN" [formGroup]="formGroupA" type="text" fxFlex>
-            </reg-input>
-
             <reg-datepicker controlName="DOB" placeholder="Birth Date" [formGroup]="formGroupA" fxFlex>dd/mm/yyyy
             </reg-datepicker>
+
+            <reg-input controlName="Age" placeholder="Patient Age" [formGroup]="formGroupA"
+              type="text" readonly="true" fxFlex>(auto calculated)</reg-input>
 
             <reg-select controlName="Sex" placeholder="Sex" [formGroup]="formGroupA" [choices]="['Male', 'Female']"
               fxFlex>
@@ -115,7 +115,7 @@
           </div>
 
           <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
-            <reg-input controlName="ZipCode" placeholder="Zip Code" [formGroup]="formGroupA" type="text" fxFlex="33">
+            <reg-input controlName="SSN" placeholder="SSN" [formGroup]="formGroupA" type="text" fxFlex="32">
             </reg-input>
 
             <reg-select controlName="Race" placeholder="Race" [formGroup]="formGroupA" [choices]="[
@@ -137,7 +137,8 @@
           </div>
 
           <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
-            <div fxFlex="33"></div>
+            <reg-input controlName="ZipCode" placeholder="Zip Code" [formGroup]="formGroupA" type="text" fxFlex="32">
+            </reg-input>
 
             <reg-select controlName="HispOrig" placeholder="Hispanic or Latino Ethnicity" [formGroup]="formGroupA"
               [choices]="[
@@ -153,6 +154,74 @@
               'Other Hispanic, Latino or Spanish Origin'
               ]" fxFlex></reg-select>
           </div>
+
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-select controlName="PatNation" placeholder="Nationality" [formGroup]="formGroupA" [choices]="[
+                'Afghan', 'Albanian', 'Algerian', 'American',
+                'Andorran', 'Angolan', 'Anguillan', 'Citizen of Antigua and Barbuda',
+                'Argentine', 'Armenian', 'Australian', 'Austrian', 'Azerbaijani',
+                'Bahamian', 'Bahraini', 'Bangladeshi', 'Barbadian',
+                'Belarusian', 'Belgian', 'Belizean', 'Beninese',
+                'Bermudian', 'Bhutanese', 'Bolivian', 'Citizen of Bosnia and Herzegovina',
+                'Botswanan', 'Brazilian', 'British', 'British Virgin Islander',
+                'Bruneian', 'Bulgarian', 'Burkinan', 'Burmese', 'Burundian',
+                'Cambodian', 'Cameroonian', 'Canadian', 'Cape Verdean',
+                'Cayman Islander', 'Central African', 'Chadian', 'Chilean',
+                'Chinese', 'Colombian', 'Comoran', 'Congolese (Congo)',
+                'Congolese (DRC)', 'Cook Islander', 'Costa Rican', 'Croatian',
+                'Cuban', 'Cymraes', 'Cymro', 'Cypriot', 'Czech',
+                'Danish', 'Djiboutian', 'Dominican', 'Citizen of the Dominican Republic', 'Dutch',
+                'East Timorese', 'Ecuadorean', 'Egyptian', 'Emirati',
+                'English', 'Equatorial Guinean', 'Eritrean', 'Estonian', 'Ethiopian',
+                'Faroese', 'Fijian', 'Filipino', 'Finnish', 'French',
+                'Gabonese', 'Gambian', 'Georgian', 'German',
+                'Ghanaian', 'Gibraltarian', 'Greek', 'Greenlandic',
+                'Grenadian', 'Guamanian', 'Guatemalan', 'Citizen of Guinea-Bissau',
+                'Guinean', 'Guyanese',
+                'Haitian', 'Honduran', 'Hong Konger', 'Hungarian',
+                'Icelandic', 'Indian', 'Indonesian', 'Iranian',
+                'Iraqi', 'Irish', 'Israeli', 'Italian', 'Ivorian',
+                'Jamaican', 'Japanese', 'Jordanian',
+                'Kazakh', 'Kenyan', 'Kittitian', 'Citizen of Kiribati',
+                'Kosovan', 'Kuwaiti', 'Kyrgyz',
+                'Lao', 'Latvian', 'Lebanese', 'Liberian',
+                'Libyan', 'Liechtenstein citizen', 'Lithuanian', 'Luxembourger',
+                'Macanese', 'Macedonian', 'Malagasy', 'Malawian',
+                'Malaysian', 'Maldivian', 'Malian', 'Maltese',
+                'Marshallese', 'Martiniquais', 'Mauritanian', 'Mauritian',
+                'Mexican', 'Micronesian', 'Moldovan', 'Monegasque',
+                'Mongolian', 'Montenegrin', 'Montserratian', 'Moroccan',
+                'Mosotho', 'Mozambican',
+                'Namibian', 'Nauruan', 'Nepalese', 'New Zealander',
+                'Nicaraguan', 'Nigerian', 'Nigerien', 'Niuean',
+                'North Korean', 'Northern Irish', 'Norwegian',
+                'Omani',
+                'Pakistani', 'Palauan', 'Palestinian', 'Panamanian',
+                'Papua New Guinean', 'Paraguayan', 'Peruvian', 'Pitcairn Islander',
+                'Polish', 'Portuguese', 'Prydeinig', 'Puerto Rican',
+                'Qatari',
+                'Romanian', 'Russian', 'Rwandan',
+                'Salvadorean', 'Sammarinese', 'Samoan', 'Sao Tomean',
+                'Saudi Arabian', 'Scottish', 'Senegalese', 'Serbian',
+                'Citizen of Seychelles', 'Sierra Leonean', 'Singaporean', 'Slovak',
+                'Slovenian', 'Solomon Islander', 'Somali', 'South African',
+                'South Korean', 'South Sudanese', 'Spanish', 'Sri Lankan',
+                'St Helenian', 'St Lucian', 'Stateless', 'Sudanese',
+                'Surinamese', 'Swazi', 'Swedish', 'Swiss', 'Syrian',
+                'Taiwanese', 'Tajik', 'Tanzanian', 'Thai',
+                'Togolese', 'Tongan', 'Trinidadian', 'Tristanian',
+                'Tunisian', 'Turkish', 'Turkmen', 'Turks and Caicos Islander', 'Tuvaluan',
+                'Ugandan', 'Ukrainian', 'Uruguayan', 'Uzbek',
+                'Vatican citizen', 'Citizen of Vanuatu', 'Venezuelan', 'Vietnamese', 'Vincentian',
+                'Wallisian', 'Welsh',
+                'Yemeni',
+                'Zambian', 'Zimbabwean'
+              ]" fxFlex="50"></reg-select>
+
+            <reg-select controlName="PermAddr" placeholder="Is This Patient’s Permanent Address" [formGroup]="formGroupA"
+              [choices]="['Yes', 'No', 'Unknown']" fxFlex="50"></reg-select>
+          </div>
+
         </form>
       </div>
     </section>
@@ -165,6 +234,37 @@
       <div class="section-body">
         <form [formGroup]="formGroupB" #formDirectiveB="ngForm">
           <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+
+            <reg-select controlName="HospName" placeholder="Hospital Name" [formGroup]="formGroupB"
+              [choices]="['BHT', 'BCM']" fxFlex="20"></reg-select>
+
+            <reg-select controlName="PayorPrim" placeholder="Primary Payor" [formGroup]="formGroupB" [choices]="[
+                'Self',
+                'Comptroller General\'s Department',
+                'NHSO (National Health Security Officer)',
+                'SSO (Social Security Officer)',
+                'Embassy',
+                'Corporate',
+                'Private Health Insurance',
+                'Charitable care/Foundation Funding',
+                'Other'
+              ]" fxFlex="40"></reg-select>
+
+            <reg-select controlName="PayorSecond" placeholder="Secondary Payor" [formGroup]="formGroupB" [choices]="[
+                'None',
+                'Comptroller General\'s Department',
+                'NHSO (National Health Security Officer)',
+                'SSO (Social Security Officer)',
+                'Embassy',
+                'Corporate',
+                'Private Health Insurance',
+                'Charitable care/Foundation Funding',
+                'Other'
+              ]" fxFlex="40"></reg-select>
+
+          </div>
+
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
             <reg-datepicker controlName="ArrivalDateTime" placeholder="Arrival Date/Time" [formGroup]="formGroupB"
               type="datetime" fxFlex>dd/mm/yyyy hh:mm - 24 hr clock
             </reg-datepicker>
@@ -176,20 +276,6 @@
             <reg-select controlName="AttProvider" placeholder="Attending Provider" [formGroup]="formGroupB"
               [choices]="['00001', '00002']" fxFlex>
             </reg-select>
-          </div>
-
-          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
-            <reg-select controlName="HealthIns" placeholder="Health Insurance" [formGroup]="formGroupB"
-              [choices]="['Yes', 'No']" fxFlex>
-            </reg-select>
-
-            <reg-select *ngIf="visibles['HIPS']" controlName="HIPS" placeholder="Payment Source"
-              [formGroup]="formGroupB" [choices]="[
-              'Private Health Insurance',
-              'National Health Security Office (NHSO)',
-              'CMBJ (?)',
-              'Social Security Fund (SSF)'
-              ]" fxFlex></reg-select>
           </div>
 
         </form>
@@ -1150,6 +1236,29 @@
           </div>
 
           <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-select controlName="PCIProcedureRisk" placeholder="Interventional Procedure Risk" [formGroup]="formGroupI" [choices]="[
+                'Complex High Risk Interventional Procedure (CHIP)',
+                'Simple Low Risk Interventional Procedure (SLIP)'
+              ]" fxFlex></reg-select>
+          </div>
+
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-select controlName="PCIDecision" placeholder="Decision for PCI with Surgical Consult" [formGroup]="formGroupI"
+              [choices]="['Yes', 'No']" fxFlex></reg-select>
+
+            <reg-select *ngIf="visibles['CVTxDecision']" controlName="CVTxDecision" placeholder="CV Treatment Decision" [formGroup]="formGroupI" [choices]="[
+                'Surgery Not Recommended',
+                'Surgery Recommended, Patient/Family Declined',
+                'Surgery Recommended, Patient/Family Accepted (Hybrid procedure)'
+              ]" fxFlex></reg-select>
+
+            <reg-select *ngIf="visibles['CVSheetDecision']" controlName="CVSheetDecision" placeholder="CV Treatment Decision" [formGroup]="formGroupI" [choices]="[
+                'Surgical information sheet provided',
+                'Surgical information sheet NOT provided'
+              ]" fxFlex></reg-select>
+          </div>
+
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
             <reg-select controlName="PCIDecision" placeholder="Decision for PCI with Surgical Consult" [formGroup]="formGroupI"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
 
@@ -1478,13 +1587,16 @@
                   </div>
 
                   <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
-                    <reg-select controlName="MechComplicationPCI" placeholder="Mechanical Complication During PCI" [formGroup]="item" [choices]="[
+                    <reg-select-multiple controlName="ComplicationPCI" placeholder="Mechanical Complication During PCI" [formGroup]="item" [choices]="[
                         'Abrupt Vessel Closure',
                         'Coronary Artery Perforation',
                         'Longitudinal Stent Deformation',
                         'Burr Entrapment',
-                        'Device Embolization'
-                      ]" fxFlex></reg-select>
+                        'Device Embolization',
+                        'Thrombus Embolization',
+                        'Disruption of Collateral flow',
+                        'Persistent Slow flow or No flow'
+                      ]" fxFlex></reg-select-multiple>
                   </div>
 
                 </mat-tab>
@@ -1561,11 +1673,17 @@
               [choices]="['Yes', 'No']" fxFlex></reg-select>
           </div>
 
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-select *ngIf="visibles['PCIResult']" controlName="PCIResult" placeholder="PCI Result" [formGroup]="formGroupJ" [choices]="[
+                'Procedure Success',
+                'Angiographic Success',
+                'Angiographic Failure'
+              ]" fxFlex></reg-select>
+          </div>
+
         </form>
       </div>
     </section>
-
-    FormGroupJ: {{ formGroupJ.value | json }}
 
     <section class="section-wrapper" scrollSpyElement id="sectionK">
       <div class="section-title">
@@ -1617,7 +1735,7 @@
                   'New significant Q wave or equivalent',
                   'Flow-limiting angiographic complications',
                   'New substantial loss of myocardium on imaging'
-                ]" fxFlex></reg-select-multiple>
+                ]" fxFlex limit="true"></reg-select-multiple>
 
             </div>
 

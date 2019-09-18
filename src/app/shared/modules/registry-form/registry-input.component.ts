@@ -32,7 +32,7 @@ import { RegistryFormService } from './registry-form.service';
         <a><ng-content></ng-content></a>
         <mat-icon style="cursor: help;" (click)="openInfo(controlName)" *ngIf="bInfo">info_outline</mat-icon>
       </mat-hint>
-      <mat-error *ngIf="self?.invalid && (self?.dirty || self?.touched)">
+      <mat-error *ngIf="self.invalid && (self.dirty || self.touched)">
         <div *ngFor="let validation of getValidations(controlName)">
           <div *ngIf="isInvalid(controlName, validation.type)">
             <a>{{ validation.message }}</a>
@@ -62,9 +62,6 @@ export class RegistryInputComponent extends RegistryControlComponent implements 
     this.elementRef.nativeElement.setAttribute('id', this.controlName);
     this.bInfo = this.hasInfo(this.controlName);
 
-    const section = this.registryFormService.getControlSection(this.controlName);
-    if (section) {
-      this.self = this.registryFormService.getFormGroup(section).get(this.controlName);
-    }
+    this.self = this.formGroup.get(this.controlName);
   }
 }
