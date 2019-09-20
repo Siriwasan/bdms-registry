@@ -606,8 +606,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
 
   //#region Section H
   public getNativeLesionsTabLabel(index: number): string {
-    // tslint:disable-next-line: no-string-literal
-    const control = ((this.formGroupH.controls['NativeLesions'] as FormArray).controls[index] as FormGroup).controls;
+    const control = ((this.formGroupH.get('NativeLesions') as FormArray).controls[index] as FormGroup).controls;
     const label = control.NVSegmentID.value;
     const stenosis = control.NVCoroVesselStenosis.value;
 
@@ -615,8 +614,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
   }
 
   public getGraftLesionsTabLabel(index: number): string {
-    // tslint:disable-next-line: no-string-literal
-    const control = ((this.formGroupH.controls['GraftLesions'] as FormArray).controls[index] as FormGroup).controls;
+    const control = ((this.formGroupH.get('GraftLesions') as FormArray).controls[index] as FormGroup).controls;
     const label = control.GraftSegmentID.value;
     const stenosis = control.GraftCoroVesselStenosis.value;
 
@@ -659,9 +657,9 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
 
   private addLesion(type: string, segmentID: string, form: any, conditns: any): number {
     const formArray = this.formGroupH.get(type) as FormArray;
-    const formGroups = formArray.value;
+    const formGroups = formArray.controls as FormGroup[];
 
-    if (formGroups.findIndex((g: FormGroup) => g[segmentID] === null) >= 0) {
+    if (formGroups.findIndex((g: FormGroup) => g.get(segmentID).value === null) >= 0) {
       console.log('still have new');
       return;
     }
@@ -789,6 +787,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
       return valueA.localeCompare(valueB, 'en', { numeric: true, sensitivity: 'base' });
     });
     formArray.setValue(formGroups);
+
     this.removeNewLesions(type, segmentID, stenosis);
 
     return formGroups.findIndex(a => a[segmentID] === selectedSegmentID);
@@ -804,26 +803,26 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
 
   private getSegmentNumbers(type: string, segmentID: string): RegSelectChoice[][] {
     const formArray = this.formGroupH.get(type) as FormArray;
-    const formGroups = formArray.value;
+    const formGroups = formArray.controls as FormGroup[];
 
-    const usedSegmentID = formGroups.map(g => g[segmentID]);
-    const allChoices: RegSelectChoice[][] = [];
+    const usedSegmentIDs = formGroups.map(fg => fg.get(segmentID).value);
+    const availableSegmentIDs: RegSelectChoice[][] = [];
 
-    formGroups.forEach(group => {
-      const GraftSegmentID = group[segmentID];
+    formGroups.forEach(fg => {
+      const selectedSegmentID = fg.get(segmentID).value;
 
-      allChoices.push(
+      availableSegmentIDs.push(
         this.segmentNumbers.map(s => {
           return {
             label: s,
             value: s,
-            disable: usedSegmentID.indexOf(s) >= 0 && GraftSegmentID !== s
+            disable: usedSegmentIDs.indexOf(s) >= 0 && selectedSegmentID !== s
           };
         })
       );
     });
 
-    return allChoices;
+    return availableSegmentIDs;
   }
 
   private checkCanAddNativeLesion() {
@@ -836,16 +835,15 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
 
   private checkCanAddLesion(type: string, segmentID: string): boolean {
     const formArray = this.formGroupH.get(type) as FormArray;
-    const formGroups = formArray.value;
+    const formGroups = formArray.controls as FormGroup[];
 
-    return formGroups.findIndex((g: FormGroup) => g[segmentID] === null) >= 0;
+    return formGroups.findIndex((g: FormGroup) => g.get(segmentID).value === null) >= 0;
   }
   //#endregion Section H
 
   //#region Section J
   public getPciLesionsTabLabel(index: number): string {
-    // tslint:disable-next-line: no-string-literal
-    const fg = ((this.formGroupJ.controls['PciLesions'] as FormArray).controls[index] as FormGroup).controls;
+    const fg = ((this.formGroupJ.get('PciLesions') as FormArray).controls[index] as FormGroup).controls;
     const counter = fg.LesionCounter.value;
     const SegmentID = fg.SegmentID.value;
     return SegmentID !== null && SegmentID.length > 0 ? `Lesion ${counter}` : `Lesion ${counter} *`;
@@ -854,21 +852,18 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
   public PciSegmentIDChanged() {
     this.getSegmentNumbersForPci();
     this.checkCanAddPciLesion();
+
     this.getLesions();
   }
 
   public addPciLesion() {
     const formArray = this.formGroupJ.get('PciLesions') as FormArray;
-    // const formGroups = formArray.controls as FormGroup[];
+    const formGroups = formArray.controls as FormGroup[];
 
-    // if (
-    //   formGroups.findIndex(
-    //     (fg: FormGroup) => fg.get('SegmentID').value === null || fg.get('SegmentID').value.length === 0
-    //   ) >= 0
-    // ) {
-    //   console.log('still have new');
-    //   return;
-    // }
+    if (formGroups.findIndex(fg => fg.get('SegmentID').value === null || fg.get('SegmentID').value.length === 0) >= 0) {
+      console.log('still have new');
+      return;
+    }
 
     const newGroup = this.formBuilder.group(CathPCI50Form.pciLesion);
     const visible: FormVisible = {};
@@ -878,8 +873,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     newGroup.setValue(newGroup.value);
     newGroup.get('LesionCounter').setValue(formArray.length + 1);
 
-    // tslint:disable-next-line: no-string-literal
-    (this.visibles['PciLesions'] as FormVisible[]).push(visible);
+    (this.visibles.PciLesions as FormVisible[]).push(visible);
     formArray.push(newGroup);
 
     this.pciLesionsTabIndex = formArray.length - 1;
@@ -896,8 +890,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     this.removeLesionFromDevices(formGroups[index].get('LesionCounter').value);
 
     formArray.removeAt(index);
-    // tslint:disable-next-line: no-string-literal
-    (this.visibles['PciLesions'] as FormVisible[]).splice(index, 1);
+    (this.visibles.PciLesions as FormVisible[]).splice(index, 1);
 
     for (let i = 0; i < formGroups.length; i++) {
       this.renameLesionFromDevices(formGroups[i].get('LesionCounter').value, i + 1);
@@ -938,14 +931,11 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     pciFormGroups.forEach(fg => {
       let SegmentID = fg.get('SegmentID').value as string[];
       if (SegmentID) {
-        // tslint:disable-next-line: prefer-for-of
-        for (let i = 0; i < SegmentID.length; i++) {
-          const seg = SegmentID[i];
-
+        SegmentID.forEach((seg, index) => {
           if (availableSegmentIDs.indexOf(seg) < 0) {
-            SegmentID.splice(i, 1);
+            SegmentID.splice(index, 1);
           }
-        }
+        });
         fg.get('SegmentID').setValue(SegmentID);
       } else {
         SegmentID = [];
@@ -995,23 +985,21 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
       }
     }
 
-    for (let i = 0; i < formGroups.length; i++) {
-      formGroups[i].get('LesionCounter').setValue(i + 1);
-    }
+    formGroups.forEach((fg, index) => {
+      fg.get('LesionCounter').setValue(index + 1);
+    });
 
     this.disableAddPciLesion = false;
   }
 
   public getPciDevicesTabLabel(index: number): string {
-    // tslint:disable-next-line: no-string-literal
-    const fg = ((this.formGroupJ.controls['PciDevices'] as FormArray).controls[index] as FormGroup).controls;
+    const fg = ((this.formGroupJ.get('PciDevices') as FormArray).controls[index] as FormGroup).controls;
     const counter = fg.ICDevCounter.value;
     const ICDevID = fg.ICDevID.value;
     return ICDevID !== null ? `Device ${counter}` : `Device ${counter} *`;
   }
 
   public ICDevIDChanged() {
-    // this.getSegmentNumbersForPci();
     this.checkCanAddPciDevice();
   }
 
@@ -1019,8 +1007,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     const formArray = this.formGroupJ.get('PciDevices') as FormArray;
     const formGroups = formArray.controls as FormGroup[];
 
-    // tslint:disable-next-line: no-string-literal
-    if (formGroups.findIndex((g: FormGroup) => g['ICDevID'] === null) >= 0) {
+    if (formGroups.findIndex(fg => fg.get('ICDevID').value === null) >= 0) {
       console.log('still have new');
       return;
     }
@@ -1033,14 +1020,11 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     newGroup.setValue(newGroup.value);
     newGroup.get('ICDevCounter').setValue(formArray.length + 1);
 
-    // tslint:disable-next-line: no-string-literal
-    (this.visibles['PciDevices'] as FormVisible[]).push(visible);
+    (this.visibles.PciDevices as FormVisible[]).push(visible);
     formArray.push(newGroup);
 
     this.pciDevicesTabIndex = formArray.length - 1;
     this.disableAddPciDevice = true;
-
-    // this.getSegmentNumbersForPci();
   }
 
   public removePciDevice(index: number) {
@@ -1048,14 +1032,12 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     const formGroups = formArray.controls as FormGroup[];
 
     formArray.removeAt(index);
-    // tslint:disable-next-line: no-string-literal
-    (this.visibles['PciDevices'] as FormVisible[]).splice(index, 1);
+    (this.visibles.PciDevices as FormVisible[]).splice(index, 1);
 
     for (let i = 0; i < formGroups.length; i++) {
       formGroups[i].get('ICDevCounter').setValue(i + 1);
     }
 
-    // this.getSegmentNumbersForPci();
     this.checkCanAddPciDevice();
   }
 
@@ -1064,10 +1046,10 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     const formGroups = formArray.controls as FormGroup[];
 
     this.lesions = formGroups.map(fg => {
-      const v = fg.get('LesionCounter').value;
+      const LesionCounter = fg.get('LesionCounter').value;
       return {
-        label: `Lesion ${v}`,
-        value: v,
+        label: `Lesion ${LesionCounter}`,
+        value: LesionCounter,
         disable: false
       };
     });
@@ -1077,7 +1059,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     const formArray = this.formGroupJ.get('PciDevices') as FormArray;
     const formGroups = formArray.controls as FormGroup[];
 
-    this.disableAddPciDevice = formGroups.findIndex((fg: FormGroup) => fg.get('ICDevID') === null) >= 0;
+    this.disableAddPciDevice = formGroups.findIndex(fg => fg.get('ICDevID').value === null) >= 0;
   }
 
   public arrangePciDeviceTabs() {
@@ -1093,8 +1075,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
 
       if (value === null) {
         formArray.removeAt(i);
-        // tslint:disable-next-line: no-string-literal
-        (this.visibles['PciDevices'] as FormVisible[]).splice(i, 1);
+        (this.visibles.PciDevices as FormVisible[]).splice(i, 1);
       }
     }
 
@@ -1112,12 +1093,11 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     formGroups.forEach(fg => {
       const ICDevCounterAssn = fg.get('ICDevCounterAssn').value as string[];
       if (ICDevCounterAssn) {
-        // tslint:disable-next-line: prefer-for-of
-        for (let i = 0; i < ICDevCounterAssn.length; i++) {
-          if (ICDevCounterAssn[i] === lesion) {
-            ICDevCounterAssn.splice(i, 1);
+        ICDevCounterAssn.forEach((assn, index) => {
+          if (assn === lesion) {
+            ICDevCounterAssn.splice(index, 1);
           }
-        }
+        });
         fg.get('ICDevCounterAssn').setValue(ICDevCounterAssn);
       }
     });
@@ -1130,12 +1110,11 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     formGroups.forEach(fg => {
       const ICDevCounterAssn = fg.get('ICDevCounterAssn').value as number[];
       if (ICDevCounterAssn) {
-        // tslint:disable-next-line: prefer-for-of
-        for (let i = 0; i < ICDevCounterAssn.length; i++) {
-          if (ICDevCounterAssn[i] === oldName) {
-            ICDevCounterAssn[i] = newName;
+        ICDevCounterAssn.forEach((assn, index) => {
+          if (assn === oldName) {
+            assn = newName;
           }
-        }
+        });
         fg.get('ICDevCounterAssn').setValue(ICDevCounterAssn);
       }
     });
