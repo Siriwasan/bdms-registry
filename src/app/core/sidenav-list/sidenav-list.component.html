@@ -12,7 +12,12 @@
     <mat-icon>list</mat-icon>
     <span class="nav-caption">Registry</span>
   </a>
-  <a mat-list-item routerLink="/registry/cath-pci50" (click)="onClose()">
+  <a
+    mat-list-item
+    routerLink="/registry/cath-pci50"
+    (click)="onClose()"
+    *ngIf="authMenu.tools.indexOf((user$ | async)?.staff.role) >= 0"
+  >
     <mat-icon>description</mat-icon>
     <span class="nav-caption">CathPCI</span>
   </a>

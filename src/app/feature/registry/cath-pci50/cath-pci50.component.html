@@ -1088,7 +1088,7 @@
               <legend style="color:#757575">Native Lesions</legend>
               <mat-tab-group fxFlex [(selectedIndex)]="nativeLesionsTabIndex">
                 <mat-tab formArrayName="NativeLesions"
-                *ngFor="let item of formGroupH.controls['NativeLesions'].controls; let i = index;">
+                *ngFor="let item of nativeLesionsControls; let i = index;">
                   <ng-template mat-tab-label>
                     <div fxLayoutAlign="center center">
                       <div>{{ getNativeLesionsTabLabel(i) }}</div>
@@ -1149,7 +1149,7 @@
               <legend style="color:#757575">Graft Lesions</legend>
               <mat-tab-group fxFlex [(selectedIndex)]="graftLesionsTabIndex">
                 <mat-tab formArrayName="GraftLesions"
-                *ngFor="let item of formGroupH.controls['GraftLesions'].controls; let i = index;">
+                *ngFor="let item of graftLesionsControls; let i = index;">
                   <ng-template mat-tab-label>
                     <div fxLayoutAlign="center center">
                       <div>{{ getGraftLesionsTabLabel(i) }}</div>
@@ -1236,9 +1236,9 @@
           </div>
 
           <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
-            <reg-select controlName="PCIProcedureRisk" placeholder="Interventional Procedure Risk" [formGroup]="formGroupI" [choices]="[
-                'Complex High Risk Interventional Procedure (CHIP)',
-                'Simple Low Risk Interventional Procedure (SLIP)'
+            <reg-select controlName="PCIProcedureRisk" placeholder="Indicated Procedure Risk" [formGroup]="formGroupI" [choices]="[
+                'Complex High Risk Indicated Procedure (CHIP)',
+                'Simple Low Risk Indicated Procedure (SLIP)'
               ]" fxFlex></reg-select>
           </div>
 
@@ -1466,7 +1466,7 @@
               <legend style="color:#757575">PCI Lesions</legend>
               <mat-tab-group fxFlex [(selectedIndex)]="pciLesionsTabIndex">
                 <mat-tab formArrayName="PciLesions"
-                *ngFor="let item of formGroupJ.controls['PciLesions'].controls; let i = index;">
+                *ngFor="let item of pciLesionsControls; let i = index;">
                   <ng-template mat-tab-label>
                     <div fxLayoutAlign="center center">
                       <div>{{ getPciLesionsTabLabel(i) }}</div>
@@ -1618,7 +1618,7 @@
               <legend style="color:#757575">PCI Devices</legend>
               <mat-tab-group fxFlex [(selectedIndex)]="pciDevicesTabIndex">
                 <mat-tab formArrayName="PciDevices"
-                *ngFor="let item of formGroupJ.controls['PciDevices'].controls; let i = index;">
+                *ngFor="let item of pciDevicesControls; let i = index;">
                   <ng-template mat-tab-label>
                     <div fxLayoutAlign="center center">
                       <div>{{ getPciDevicesTabLabel(i) }}</div>
