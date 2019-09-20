@@ -44,7 +44,8 @@ export interface FormVisible {
 }
 
 export interface RegSelectChoice {
-  label: string | number;
   value: string | number;
+  label: string | number;
+  altText?: string;
   disable: boolean;
 }

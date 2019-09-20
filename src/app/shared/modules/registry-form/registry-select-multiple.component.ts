@@ -19,14 +19,14 @@ import { RegSelectChoice } from './registry-form.model';
         (selectionChange)="selectionChange($event)"
         multiple
       >
-        <mat-select-trigger *ngIf="limit">
-          {{ self.value ? self.value[0] : '' }}
-          <span *ngIf="self.value?.length > 1" class="mat-select-additional-selection">
+        <mat-select-trigger>
+          {{ outputLabel }}
+          <span *ngIf="limit && self.value?.length > 1" class="mat-select-additional-selection">
             (+{{ self.value.length - 1 }} {{ self.value?.length === 2 ? 'other' : 'others' }})
           </span>
         </mat-select-trigger>
         <mat-option *ngFor="let choice of regSelectChoices" [value]="choice.value" [disabled]="choice.disable">{{
-          choice.label
+          choice.altText ? choice.altText : choice.label
         }}</mat-option>
       </mat-select>
       <mat-hint>
@@ -53,6 +53,29 @@ export class RegistrySelectMultipleComponent extends RegistryControlComponent im
   @Input() limit = false;
   @Input() choices: string[] | number[] | RegSelectChoice[];
   @Output() choiceChange: EventEmitter<MatSelectChange> = new EventEmitter();
+
+  get outputLabel() {
+    if (this.self.value === null || this.self.value.length <= 0) {
+      return '';
+    }
+
+    if (this.limit) {
+      return this.regSelectChoices.find(c => c.value === this.self.value[0]).label;
+    }
+
+    let output = '';
+    this.self.value.forEach(v => {
+      const choice = this.regSelectChoices.find(c => c.value === v);
+
+      if (choice === null) {
+        return;
+      }
+      output = output + choice.label + ', ';
+    });
+    output = output.substring(0, output.length - 2);
+
+    return output;
+  }
 
   bInfo: boolean;
   self: AbstractControl;

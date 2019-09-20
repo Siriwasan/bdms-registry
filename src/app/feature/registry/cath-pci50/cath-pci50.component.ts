@@ -1047,11 +1047,14 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
 
     this.lesions = formGroups.map(fg => {
       const LesionCounter = fg.get('LesionCounter').value;
+      const SegmentIDs = fg.get('SegmentID').value;
+
       return {
-        label: `Lesion ${LesionCounter}`,
         value: LesionCounter,
+        label: `Lesion ${LesionCounter}`,
+        altText: `Lesion ${LesionCounter} (${SegmentIDs})`,
         disable: false
-      };
+      } as RegSelectChoice;
     });
   }
 
@@ -1112,7 +1115,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
       if (ICDevCounterAssn) {
         ICDevCounterAssn.forEach((assn, index) => {
           if (assn === oldName) {
-            assn = newName;
+            ICDevCounterAssn[index] = newName;
           }
         });
         fg.get('ICDevCounterAssn').setValue(ICDevCounterAssn);
