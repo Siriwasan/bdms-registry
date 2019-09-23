@@ -20,15 +20,15 @@ export class ACSx290Service implements OnDestroy {
   currentForm: ACSx290Form;
   private subscriptions: Subscription[] = [];
 
+  /// Firebase Server Timestamp
+  get timestamp() {
+    return firebase.firestore.FieldValue.serverTimestamp();
+  }
+
   constructor(private db: AngularFirestore) {}
 
   ngOnDestroy() {
     this.subscriptions.forEach(subs => subs.unsubscribe());
-  }
-
-  /// Firebase Server Timestamp
-  get timestamp() {
-    return firebase.firestore.FieldValue.serverTimestamp();
   }
 
   public async isExistedForm(data: ACSx290Form): Promise<boolean> {

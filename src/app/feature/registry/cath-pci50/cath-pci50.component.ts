@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { Location } from '@angular/common';
 import { Subscription } from 'rxjs';
-import { utc, Moment } from 'moment';
+import { utc, Moment, isMoment } from 'moment';
 
 import { RegistryFormComponent } from '../../../shared/modules/registry-form/registry-form.component';
 import { DialogService } from '../../../shared/services/dialog.service';
@@ -27,10 +27,12 @@ import {
   RegSelectChoice
 } from '../../../shared/modules/registry-form/registry-form.model';
 
+import { CathPci50Service } from './cath-pci50.service';
 import { CathPCI50Form } from './cath-pci50.form';
+import { CathPCI50Model } from './cath-pci50.model';
 import { conditions } from './cath-pci50.condition';
 import { validations } from './cath-pci50.validation';
-import { CathPCI50FormCompletion } from './cath-pci50.model';
+import { CathPCI50Completion } from './cath-pci50.model';
 import * as cathPci50Data from './cath-pci50.data';
 import { MatSelectChange } from '@angular/material';
 
@@ -43,7 +45,7 @@ const followUp = {
   selector: 'app-cath-pci50',
   templateUrl: './cath-pci50.component.html',
   styleUrls: ['./cath-pci50.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  providers: [CathPci50Service]
 })
 export class CathPci50Component extends RegistryFormComponent implements OnInit, AfterViewInit, OnDestroy {
   toc = tableOfContent;
@@ -55,7 +57,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
   public animationMode = 'fling'; // fling, scale
 
   public visibles: FormVisible = {};
-  public completion: CathPCI50FormCompletion;
+  public completion: CathPCI50Completion;
   private subscriptions: Subscription[] = [];
 
   public nativeLesionsTabIndex = 0;
@@ -75,7 +77,6 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
   public disableAddPciDevice = false;
 
   public followUpsTabIndex = 0;
-  // public lesions: RegSelectChoice[] = [];
   public disableAddFollowUp = false;
 
   get current() {
@@ -199,12 +200,16 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
   M_followUpEvents = cathPci50Data.M_followUpEvents;
   associatedLesions: string[] = [];
 
+  private registryId: string;
+  result: CathPCI50Model;
+
   constructor(
     protected dialogService: DialogService,
     protected changeDetector: ChangeDetectorRef,
     protected scrollSpy: ScrollSpyService,
     protected hostElement: ElementRef,
     protected registryFormService: RegistryFormService,
+    private cathPci50Service: CathPci50Service,
     private formBuilder: FormBuilder,
     private location: Location
   ) {
@@ -492,8 +497,8 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     return this.toc.find(t => t.section === 'section' + section).title;
   }
 
-  private getFormCompletion(): CathPCI50FormCompletion {
-    const completion: CathPCI50FormCompletion = {
+  private getFormCompletion(): CathPCI50Completion {
+    const completion: CathPCI50Completion = {
       summary: null,
       sectionA: null,
       sectionB: null,
@@ -584,8 +589,10 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
   public async submit() {
     console.log('submit');
 
-    // this.registryFormService.submitAllSections();
-    // const data = this.archiveForm();
+    this.registryFormService.submitAllSections();
+    const data = this.archiveForm();
+
+    console.log(data);
 
     // const alert = this.acsx290Service.checkNeededDataCompletion(data);
     // if (alert) {
@@ -612,11 +619,11 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     //     return;
     //   }
 
-    //   console.log('new');
-    //   this.registryId = await this.acsx290Service.createForm(data);
+    console.log('new');
+    this.registryId = await this.cathPci50Service.createForm(data);
     //   this.formGroupA.get('registryId').setValue(this.registryId);
-    //   this.location.go('/registry/acsx290/' + this.registryId);
     //   this.mode = 'edit';
+    //   this.location.go('/registry/acsx290/' + this.registryId);
     // } else {
     //   console.log('edit');
     //   await this.acsx290Service.updateForm(this.registryId, data);
@@ -629,6 +636,160 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     // await this.submit();
     // this.router.navigate(['registry']);
     this.location.back();
+  }
+
+  private archiveForm(): CathPCI50Model {
+    const timestamp = this.cathPci50Service.timestamp;
+
+    this.arrangeNativeTabs();
+    this.arrangeGraftTabs();
+    this.arrangePciTabs();
+    this.arrangePciDeviceTabs();
+    this.arrangeFollowUpTabs();
+
+    // if (this.mode === 'new') {
+    this.formDetail = {
+      baseDbId: 'CathPCI50',
+      baseDb: 'NCDR CathPCI Registry v5.0',
+      addendum: 'BDMS CathPCI modefication v0.1',
+      createdAt: timestamp,
+      createdBy: null, // this.user.staff.staffId,
+      modifiedAt: timestamp,
+      modifiedBy: null, // this.user.staff.staffId,
+      deletedAt: null,
+      deletedBy: null
+    };
+    // } else {
+    //   this.formDetail.modifiedAt = timestamp;
+    //   this.formDetail.modifiedBy = this.user.staff.staffId;
+    // }
+
+    const cathPci50Model: CathPCI50Model = {
+      detail: this.formDetail,
+      completion: this.getFormCompletion(),
+      sectionA: {
+        ...this.formGroupA.value,
+        DOB: this.serializeDateTime(this.formGroupA.get('DOB').value)
+      },
+      sectionB: {
+        ...this.formGroupB.value,
+        ArrivalDateTime: this.serializeDateTime(this.formGroupB.get('ArrivalDateTime').value)
+      },
+      sectionC: {
+        ...this.formGroupC.value,
+        HxMIDate: this.serializeDateTime(this.formGroupC.get('HxMIDate').value),
+        HxPCIDate: this.serializeDateTime(this.formGroupC.get('HxPCIDate').value),
+        HxCABGDate: this.serializeDateTime(this.formGroupC.get('HxCABGDate').value)
+      },
+      sectionD: {
+        ...this.formGroupD.value,
+        StressTestDate: this.serializeDateTime(this.formGroupD.get('StressTestDate').value),
+        CardiacCTADate: this.serializeDateTime(this.formGroupD.get('CardiacCTADate').value),
+        CalciumScoreDate: this.serializeDateTime(this.formGroupD.get('CalciumScoreDate').value),
+        PriorDxAngioDate: this.serializeDateTime(this.formGroupD.get('PriorDxAngioDate').value)
+      },
+      sectionE: {
+        ...this.formGroupE.value,
+        ProcedureStartDateTime: this.serializeDateTime(this.formGroupE.get('ProcedureStartDateTime').value),
+        ProcedureEndDateTime: this.serializeDateTime(this.formGroupE.get('ProcedureEndDateTime').value)
+      },
+      sectionF: { ...this.formGroupF.value },
+      sectionG: { ...this.formGroupG.value },
+      sectionH: { ...this.formGroupH.value },
+      sectionI: {
+        ...this.formGroupI.value,
+        SymptomDate: this.serializeDateTime(this.formGroupI.get('SymptomDate').value),
+        SymptomTime: this.serializeDateTime(this.formGroupI.get('SymptomTime').value),
+        ThromDateTime: this.serializeDateTime(this.formGroupI.get('ThromDateTime').value),
+        SubECGDateTime: this.serializeDateTime(this.formGroupI.get('SubECGDateTime').value),
+        EDPresentDateTime: this.serializeDateTime(this.formGroupI.get('EDPresentDateTime').value),
+        FirstDevActiDateTime: this.serializeDateTime(this.formGroupI.get('FirstDevActiDateTime').value)
+      },
+      sectionJ: {
+        ...this.formGroupJ.value,
+        PciLesions: this.serializePciLesions(this.formGroupJ.value.PciLesions)
+      },
+      sectionK: {
+        ...this.formGroupK.value,
+        K_BleedingAccessSiteDT: this.serializeDateTime(this.formGroupK.get('K_BleedingAccessSiteDT').value),
+        K_BleedingGIDT: this.serializeDateTime(this.formGroupK.get('K_BleedingGIDT').value),
+        K_BleedingGUDT: this.serializeDateTime(this.formGroupK.get('K_BleedingGUDT').value),
+        K_BleedingHematomaDT: this.serializeDateTime(this.formGroupK.get('K_BleedingHematomaDT').value),
+        K_BleedingOtherDT: this.serializeDateTime(this.formGroupK.get('K_BleedingOtherDT').value),
+        K_BleedingRetroDT: this.serializeDateTime(this.formGroupK.get('K_BleedingRetroDT').value),
+        K_CardiacArrestDT: this.serializeDateTime(this.formGroupK.get('K_CardiacArrestDT').value),
+        K_CardiacTamponadeDT: this.serializeDateTime(this.formGroupK.get('K_CardiacTamponadeDT').value),
+        K_CardiogenicShockDT: this.serializeDateTime(this.formGroupK.get('K_CardiogenicShockDT').value),
+        K_HeartFailureDT: this.serializeDateTime(this.formGroupK.get('K_HeartFailureDT').value),
+        K_MyocardialInfarctionDT: this.serializeDateTime(this.formGroupK.get('K_MyocardialInfarctionDT').value),
+        K_NewDialysisDT: this.serializeDateTime(this.formGroupK.get('K_NewDialysisDT').value),
+        K_OtherVascularDT: this.serializeDateTime(this.formGroupK.get('K_OtherVascularDT').value),
+        K_StrokeHemorrhageDT: this.serializeDateTime(this.formGroupK.get('K_StrokeHemorrhageDT').value),
+        K_StrokeIschemicDT: this.serializeDateTime(this.formGroupK.get('K_StrokeIschemicDT').value),
+        K_StrokeUndeterminedDT: this.serializeDateTime(this.formGroupK.get('K_StrokeUndeterminedDT').value)
+      },
+      sectionL: {
+        ...this.formGroupL.value,
+        CABGDateTime: this.serializeDateTime(this.formGroupL.get('CABGDateTime').value),
+        DCDateTime: this.serializeDateTime(this.formGroupL.get('DCDateTime').value)
+      },
+      sectionM: {
+        ...this.formGroupM.value,
+        FollowUps: this.serializeFollowUps(this.formGroupM.value.FollowUps)
+      }
+    };
+
+    this.result = cathPci50Model;
+
+    return cathPci50Model;
+  }
+
+  private serializePciLesions(data: any[]): any[] {
+    // tslint:disable: no-string-literal
+    const result = [];
+
+    for (const d of data) {
+      result.push({
+        ...d,
+        PrevTreatedLesionDate: this.serializeDateTime(d['PrevTreatedLesionDate'])
+      });
+    }
+    return result;
+    // tslint:enable: no-string-literal
+  }
+
+  private serializeFollowUps(data: any[]): any[] {
+    // tslint:disable: no-string-literal
+    const result = [];
+
+    for (const d of data) {
+      result.push({
+        ...d,
+        FU_AssessmentDate: this.serializeDateTime(d['FU_AssessmentDate']),
+        FU_DeathDate: this.serializeDateTime(d['FU_DeathDate']),
+        M_BleedingEventDT: this.serializeDateTime(d['M_BleedingEventDT']),
+        M_CABGStentDT: this.serializeDateTime(d['M_CABGStentDT']),
+        M_CABGNonStentDT: this.serializeDateTime(d['M_CABGNonStentDT']),
+        M_NSTEMIDT: this.serializeDateTime(d['M_NSTEMIDT']),
+        M_QwaveDT: this.serializeDateTime(d['M_QwaveDT']),
+        M_STEMIDT: this.serializeDateTime(d['M_STEMIDT']),
+        M_MIUnknownDT: this.serializeDateTime(d['M_MIUnknownDT']),
+        M_PCINonStentDT: this.serializeDateTime(d['M_PCINonStentDT']),
+        M_PCIStentDT: this.serializeDateTime(d['M_PCIStentDT']),
+        M_ReadmissionDT: this.serializeDateTime(d['M_ReadmissionDT']),
+        M_StrokeHemorrhageDT: this.serializeDateTime(d['M_StrokeHemorrhageDT']),
+        M_StrokeIschemicDT: this.serializeDateTime(d['M_StrokeIschemicDT']),
+        M_StrokeUndeterminedDT: this.serializeDateTime(d['M_StrokeUndeterminedDT']),
+        M_ThrombosisStentDT: this.serializeDateTime(d['M_ThrombosisStentDT']),
+        M_ThrombosisNonStentDT: this.serializeDateTime(d['M_ThrombosisNonStentDT'])
+      });
+    }
+    return result;
+    // tslint:enable: no-string-literal
+  }
+
+  private serializeDateTime(dateTime: any): any {
+    return isMoment(dateTime) ? dateTime.toISOString() : dateTime;
   }
 
   checkValidation() {
@@ -1274,7 +1435,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
 
   public arrangeFollowUpTabs() {
     const formArray = this.formGroupM.get(followUp.name) as FormArray;
-    let formGroups = formArray.value;
+    const formGroups = formArray.value;
 
     if (formArray.length <= 1) {
       return;

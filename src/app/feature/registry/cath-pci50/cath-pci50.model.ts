@@ -1,9 +1,9 @@
 import { FormDetail } from '../registry.model';
 import { FormCompletion } from '../../../shared/modules/registry-form/registry-form.model';
 
-export interface CathPCI50Form {
+export interface CathPCI50Model {
   detail: FormDetail;
-  completion: CathPCI50FormCompletion;
+  completion: CathPCI50Completion;
   sectionA: object;
   sectionB: object;
   sectionC: object;
@@ -19,7 +19,7 @@ export interface CathPCI50Form {
   sectionM: object;
 }
 
-export interface CathPCI50FormCompletion {
+export interface CathPCI50Completion {
   summary: FormCompletion;
   sectionA: FormCompletion;
   sectionB: FormCompletion;
