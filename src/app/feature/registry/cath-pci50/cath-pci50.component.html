@@ -1685,7 +1685,7 @@
       </div>
     </section>
 
-    FormGroupJ: {{ formGroupJ.value | json }}
+    <!-- FormGroupJ: {{ formGroupJ.value | json }} -->
 
     <section class="section-wrapper" scrollSpyElement id="sectionK">
       <div class="section-title">
@@ -2203,228 +2203,256 @@
       <div class="section-body">
         <form [formGroup]="formGroupM" #formDirectiveM="ngForm">
 
-          <h4> 30 days post index PCI procedure: -7/+14 days AND 1 year post index PCI procedure: +/- 60 days</h4>
+          <div fxLayout="row" fxLayoutAlign="none center" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <h3 fxFlex>FOLLOW UP</h3>
 
-          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
-            <reg-datepicker controlName="FU_AssessmentDate" placeholder="Assessment Date" [formGroup]="formGroupM" fxFlex>
-              dd/mm/yyyy</reg-datepicker>
-
-            <reg-datepicker controlName="RefProcStartDateTime" placeholder="Reference Episode Arrival Date/Time" [formGroup]="formGroupM" type="datetime" fxFlex>
-              dd/mm/yyyy hh:mm - 24 hr clock</reg-datepicker>
+            <!-- <div fxLayoutAlign="end" fxFlex fxLayoutGap="20px">
+              <button mat-raised-button color="primary" (click)="addFollowUp()" [disabled]="disableAddFollowUp" style="height: 36px">Add Follow Up</button>
+              <button mat-raised-button color="secondary" (click)="arrangeFollowUpTabs()" style="height: 36px">Arrange Tabs</button>
+            </div> -->
           </div>
 
-          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
-            <reg-datepicker controlName="RefArrivalDateTime" placeholder="Reference Procedure Start Date/Time" [formGroup]="formGroupM" type="datetime" fxFlex>
-              dd/mm/yyyy hh:mm - 24 hr clock</reg-datepicker>
+          <div>
+            <fieldset style="border:1px solid #a1a1a1; border-radius:10px; padding: 20px 30px 20px 30px;">
+              <legend style="color:#757575">Follow Up</legend>
+              <mat-tab-group fxFlex [(selectedIndex)]="followUpsTabIndex">
+                <mat-tab formArrayName="FollowUps"
+                *ngFor="let item of followUpsControls; let i = index;">
+                  <ng-template mat-tab-label>
+                    <div fxLayoutAlign="center center">
+                      <div class="followUpTab" [innerHTML]="getFollowUpsTabLabel(i)" fxLayout="column" fxLayoutAlign="center center">
+                      </div>
+                      <mat-icon *ngIf="i < followUpsControls.length - 1" style="margin-left: 10px; font-size: medium; height: auto; color:#bb6666" (click)="removeFollowUp(i)">close</mat-icon>
+                    </div>
+                  </ng-template>
 
-            <reg-datepicker controlName="RefDCDateTime" placeholder="Reference Episode Discharge Date/Time" [formGroup]="formGroupM" type="datetime" fxFlex>
-              dd/mm/yyyy hh:mm - 24 hr clock</reg-datepicker>
-          </div>
+                  <h4> 30 days post index PCI procedure: -7/+14 days AND 1 year post index PCI procedure: +/- 60 days</h4>
 
-          <reg-select-multiple controlName="FU_Method" placeholder="Method(s) to Determine Status" [formGroup]="formGroupM" [choices]="[
-              'Office Visit',
-              'Medical Records',
-              'Letter from Medical Provider',
-              'Phone Call',
-              'Social Security Death Master File',
-              'Hospitalized',
-              'Other'
-            ]"></reg-select-multiple>
+                  <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+                    <reg-datepicker controlName="FU_AssessmentDate" placeholder="Assessment Date" [formGroup]="item" fxFlex>
+                      dd/mm/yyyy</reg-datepicker>
 
-          <reg-select controlName="FU_Status" placeholder="Follow-Up Status" [formGroup]="formGroupM" [choices]="[
-              'Alive',
-              'Deceased',
-              'Lost to Follow-up'
-            ]"></reg-select>
+                    <!-- <reg-datepicker controlName="RefProcStartDateTime" placeholder="Reference Episode Arrival Date/Time" [formGroup]="item" type="datetime" fxFlex>
+                      dd/mm/yyyy hh:mm - 24 hr clock</reg-datepicker> -->
+                  </div>
 
-          <reg-select class="subitem-horz" *ngIf="visibles['FU_CPSxAssess']" controlName="FU_CPSxAssess" placeholder="Chest Pain Symptom Assessment" [formGroup]="formGroupM" [choices]="[
-              'Typical Angina',
-              'Atypical angina',
-              'Non-anginal Chest Pain',
-              'Asymptomatic'
-            ]"></reg-select>
+                  <!-- <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+                    <reg-datepicker controlName="RefArrivalDateTime" placeholder="Reference Procedure Start Date/Time" [formGroup]="item" type="datetime" fxFlex>
+                      dd/mm/yyyy hh:mm - 24 hr clock</reg-datepicker>
 
-          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
-            <reg-datepicker *ngIf="visibles['FU_DeathDate']" controlName="FU_DeathDate" placeholder="Date of Death" [formGroup]="formGroupM" fxFlex>
-              dd/mm/yyyy</reg-datepicker>
+                    <reg-datepicker controlName="RefDCDateTime" placeholder="Reference Episode Discharge Date/Time" [formGroup]="item" type="datetime" fxFlex>
+                      dd/mm/yyyy hh:mm - 24 hr clock</reg-datepicker>
+                  </div> -->
 
-            <reg-select *ngIf="visibles['FU_DeathCause']" controlName="FU_DeathCause" placeholder="Primary Cause of Death" [formGroup]="formGroupM"
-              [choices]="deathCauses" fxFlex></reg-select>
-          </div>
+                  <reg-select-multiple controlName="FU_Method" placeholder="Method(s) to Determine Status" [formGroup]="item" [choices]="[
+                      'Office Visit',
+                      'Medical Records',
+                      'Letter from Medical Provider',
+                      'Phone Call',
+                      'Social Security Death Master File',
+                      'Hospitalized',
+                      'Other'
+                    ]"></reg-select-multiple>
 
-          <h3>Events, Interventions AND/OR Surgical Procedures</h3>
+                  <reg-select *ngIf="visibles['FollowUps'][i]['FU_Status']" controlName="FU_Status" placeholder="Follow-Up Status" [formGroup]="item" [choices]="[
+                      'Alive',
+                      'Deceased',
+                      'Lost to Follow-up'
+                    ]" (choiceChange)="FU_StatusChanged($event, i)"></reg-select>
 
-          <div *ngFor="let event of M_followUpEvents">
+                  <reg-select class="subitem-horz" *ngIf="visibles['FollowUps'][i]['FU_CPSxAssess']" controlName="FU_CPSxAssess" placeholder="Chest Pain Symptom Assessment" [formGroup]="item" [choices]="[
+                      'Typical Angina',
+                      'Atypical angina',
+                      'Non-anginal Chest Pain',
+                      'Asymptomatic'
+                    ]"></reg-select>
 
-            <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
-              <reg-select [controlName]="event[1]" [placeholder]="event[0]" [formGroup]="formGroupM"
-                [choices]="['Yes', 'No']" fxFlex></reg-select>
+                  <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+                    <reg-datepicker *ngIf="visibles['FollowUps'][i]['FU_DeathDate']" controlName="FU_DeathDate" placeholder="Date of Death" [formGroup]="item" fxFlex>
+                      dd/mm/yyyy</reg-datepicker>
 
-              <reg-select-multiple *ngIf="visibles[event[2]]" [controlName]="event[2]" placeholder="Device(s) Event Occured In" [formGroup]="formGroupM"
-                [choices]="associatedLesions" fxFlex></reg-select-multiple>
+                    <reg-select *ngIf="visibles['FollowUps'][i]['FU_DeathCause']" controlName="FU_DeathCause" placeholder="Primary Cause of Death" [formGroup]="item"
+                      [choices]="deathCauses" fxFlex></reg-select>
+                  </div>
 
-              <reg-datepicker *ngIf="visibles[event[3]]" [controlName]="event[3]" placeholder="Event Date/Time" [formGroup]="formGroupM" type="datetime" fxFlex>
-                dd/mm/yyyy hh:mm - 24 hr clock</reg-datepicker>
-            </div>
+                  <h3>Events, Interventions AND/OR Surgical Procedures</h3>
 
-          </div>
+                  <div *ngFor="let event of M_followUpEvents">
 
-          <h3>Follow-up Medications</h3>
+                    <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+                      <reg-select [controlName]="event[1]" [placeholder]="event[0]" [formGroup]="item"
+                        [choices]="['Yes', 'No']" fxFlex></reg-select>
 
-          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
-            <div fxFlex>
-              <h4>ACE Inhibitors</h4>
+                      <reg-select-multiple *ngIf="visibles['FollowUps'][i][event[2]]" [controlName]="event[2]" placeholder="Device(s) Event Occured In" [formGroup]="item"
+                        [choices]="associatedLesions" fxFlex></reg-select-multiple>
 
-              <reg-select controlName="FU_ACEI" placeholder="ACE Inhibitors (Any)" [formGroup]="formGroupM" [choices]="[
-                  'Yes - Prescribed',
-                  'No - No Reason',
-                  'No - Medical Reason',
-                  'No - Patient Reason'
-                ]"></reg-select>
+                      <reg-datepicker *ngIf="visibles['FollowUps'][i][event[3]]" [controlName]="event[3]" placeholder="Event Date" [formGroup]="item" fxFlex>
+                        dd/mm/yyyy</reg-datepicker>
+                    </div>
 
-              <h4>Anticoagulant</h4>
+                  </div>
 
-              <reg-select controlName="FU_Warfarin" placeholder="Warfarin" [formGroup]="formGroupM" [choices]="[
-                  'Yes - Prescribed',
-                  'No - No Reason',
-                  'No - Medical Reason',
-                  'No - Patient Reason'
-                ]"></reg-select>
+                  <h3>Follow-up Medications</h3>
 
-              <h4>Antiplatelet</h4>
+                  <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+                    <div fxFlex>
+                      <h4>ACE Inhibitors</h4>
 
-              <reg-select controlName="FU_Aspirin" placeholder="Aspirin" [formGroup]="formGroupM" [choices]="[
-                  'Yes - Prescribed',
-                  'No - No Reason',
-                  'No - Medical Reason',
-                  'No - Patient Reason'
-                ]"></reg-select>
+                      <reg-select controlName="FU_ACEI" placeholder="ACE Inhibitors (Any)" [formGroup]="item" [choices]="[
+                          'Yes - Prescribed',
+                          'No - No Reason',
+                          'No - Medical Reason',
+                          'No - Patient Reason'
+                        ]"></reg-select>
 
-              <reg-select controlName="FU_Vorapaxar" placeholder="Vorapaxar" [formGroup]="formGroupM" [choices]="[
-                  'Yes - Prescribed',
-                  'No - No Reason',
-                  'No - Medical Reason',
-                  'No - Patient Reason'
-                ]"></reg-select>
+                      <h4>Anticoagulant</h4>
 
-              <h4>ARB (Angiotensin Receptors Blockers)</h4>
+                      <reg-select controlName="FU_Warfarin" placeholder="Warfarin" [formGroup]="item" [choices]="[
+                          'Yes - Prescribed',
+                          'No - No Reason',
+                          'No - Medical Reason',
+                          'No - Patient Reason'
+                        ]"></reg-select>
 
-              <reg-select controlName="FU_ARB" placeholder="ARB (Any)" [formGroup]="formGroupM" [choices]="[
-                  'Yes - Prescribed',
-                  'No - No Reason',
-                  'No - Medical Reason',
-                  'No - Patient Reason'
-                ]"></reg-select>
+                      <h4>Antiplatelet</h4>
 
-              <h4>Non-Vitamin K Dependent Oral Anticoagulant</h4>
+                      <reg-select controlName="FU_Aspirin" placeholder="Aspirin" [formGroup]="item" [choices]="[
+                          'Yes - Prescribed',
+                          'No - No Reason',
+                          'No - Medical Reason',
+                          'No - Patient Reason'
+                        ]"></reg-select>
 
-              <reg-select controlName="FU_Apixaban" placeholder="Apixaban" [formGroup]="formGroupM" [choices]="[
-                  'Yes - Prescribed',
-                  'No - No Reason',
-                  'No - Medical Reason',
-                  'No - Patient Reason'
-                ]"></reg-select>
+                      <reg-select controlName="FU_Vorapaxar" placeholder="Vorapaxar" [formGroup]="item" [choices]="[
+                          'Yes - Prescribed',
+                          'No - No Reason',
+                          'No - Medical Reason',
+                          'No - Patient Reason'
+                        ]"></reg-select>
 
-              <reg-select controlName="FU_Dabigatran" placeholder="Dabigatran" [formGroup]="formGroupM" [choices]="[
-                  'Yes - Prescribed',
-                  'No - No Reason',
-                  'No - Medical Reason',
-                  'No - Patient Reason'
-                ]"></reg-select>
+                      <h4>ARB (Angiotensin Receptors Blockers)</h4>
 
-              <reg-select controlName="FU_Edoxaban" placeholder="Edoxaban" [formGroup]="formGroupM" [choices]="[
-                  'Yes - Prescribed',
-                  'No - No Reason',
-                  'No - Medical Reason',
-                  'No - Patient Reason'
-                ]"></reg-select>
+                      <reg-select controlName="FU_ARB" placeholder="ARB (Any)" [formGroup]="item" [choices]="[
+                          'Yes - Prescribed',
+                          'No - No Reason',
+                          'No - Medical Reason',
+                          'No - Patient Reason'
+                        ]"></reg-select>
 
-              <reg-select controlName="FU_Rivaroxaban" placeholder="Rivaroxaban" [formGroup]="formGroupM" [choices]="[
-                  'Yes - Prescribed',
-                  'No - No Reason',
-                  'No - Medical Reason',
-                  'No - Patient Reason'
-                ]"></reg-select>
-            </div>
+                      <h4>Non-Vitamin K Dependent Oral Anticoagulant</h4>
 
-            <div fxFlex>
-              <h4>P2Y12 Inhibitors</h4>
+                      <reg-select controlName="FU_Apixaban" placeholder="Apixaban" [formGroup]="item" [choices]="[
+                          'Yes - Prescribed',
+                          'No - No Reason',
+                          'No - Medical Reason',
+                          'No - Patient Reason'
+                        ]"></reg-select>
 
-              <reg-select controlName="FU_Clopidogrel" placeholder="Clopidogrel" [formGroup]="formGroupM" [choices]="[
-                  'Yes - Prescribed',
-                  'No - No Reason',
-                  'No - Medical Reason',
-                  'No - Patient Reason'
-                ]"></reg-select>
+                      <reg-select controlName="FU_Dabigatran" placeholder="Dabigatran" [formGroup]="item" [choices]="[
+                          'Yes - Prescribed',
+                          'No - No Reason',
+                          'No - Medical Reason',
+                          'No - Patient Reason'
+                        ]"></reg-select>
 
-              <reg-select controlName="FU_Prasugrel" placeholder="Prasugrel" [formGroup]="formGroupM" [choices]="[
-                  'Yes - Prescribed',
-                  'No - No Reason',
-                  'No - Medical Reason',
-                  'No - Patient Reason'
-                ]"></reg-select>
+                      <reg-select controlName="FU_Edoxaban" placeholder="Edoxaban" [formGroup]="item" [choices]="[
+                          'Yes - Prescribed',
+                          'No - No Reason',
+                          'No - Medical Reason',
+                          'No - Patient Reason'
+                        ]"></reg-select>
 
-              <reg-select controlName="FU_Ticagrelor" placeholder="Ticagrelor" [formGroup]="formGroupM" [choices]="[
-                  'Yes - Prescribed',
-                  'No - No Reason',
-                  'No - Medical Reason',
-                  'No - Patient Reason'
-                ]"></reg-select>
+                      <reg-select controlName="FU_Rivaroxaban" placeholder="Rivaroxaban" [formGroup]="item" [choices]="[
+                          'Yes - Prescribed',
+                          'No - No Reason',
+                          'No - Medical Reason',
+                          'No - Patient Reason'
+                        ]"></reg-select>
+                    </div>
 
-              <reg-select controlName="FU_Ticlopidine" placeholder="Ticlopidine" [formGroup]="formGroupM" [choices]="[
-                  'Yes - Prescribed',
-                  'No - No Reason',
-                  'No - Medical Reason',
-                  'No - Patient Reason'
-                ]"></reg-select>
+                    <div fxFlex>
+                      <h4>P2Y12 Inhibitors</h4>
 
-              <h4>Statin</h4>
+                      <reg-select controlName="FU_Clopidogrel" placeholder="Clopidogrel" [formGroup]="item" [choices]="[
+                          'Yes - Prescribed',
+                          'No - No Reason',
+                          'No - Medical Reason',
+                          'No - Patient Reason'
+                        ]"></reg-select>
 
-              <reg-select controlName="FU_Statin" placeholder="Statin (Any)" [formGroup]="formGroupM" [choices]="[
-                  'Yes - Prescribed',
-                  'No - No Reason',
-                  'No - Medical Reason',
-                  'No - Patient Reason'
-                ]"></reg-select>
+                      <reg-select controlName="FU_Prasugrel" placeholder="Prasugrel" [formGroup]="item" [choices]="[
+                          'Yes - Prescribed',
+                          'No - No Reason',
+                          'No - Medical Reason',
+                          'No - Patient Reason'
+                        ]"></reg-select>
 
-              <reg-select class="subitem-horz" *ngIf="visibles['FU_StatinDose']" controlName="FU_StatinDose" placeholder="Dose" [formGroup]="formGroupM" [choices]="[
-                  'Low Intensity Dose',
-                  'Moderate Intensity Dose',
-                  'High Intensity Dose'
-                ]"></reg-select>
+                      <reg-select controlName="FU_Ticagrelor" placeholder="Ticagrelor" [formGroup]="item" [choices]="[
+                          'Yes - Prescribed',
+                          'No - No Reason',
+                          'No - Medical Reason',
+                          'No - Patient Reason'
+                        ]"></reg-select>
 
-              <h4>Non-Statin</h4>
+                      <reg-select controlName="FU_Ticlopidine" placeholder="Ticlopidine" [formGroup]="item" [choices]="[
+                          'Yes - Prescribed',
+                          'No - No Reason',
+                          'No - Medical Reason',
+                          'No - Patient Reason'
+                        ]"></reg-select>
 
-              <reg-select controlName="FU_NonStatin" placeholder="Non-Statin (Any)" [formGroup]="formGroupM" [choices]="[
-                  'Yes - Prescribed',
-                  'No - No Reason',
-                  'No - Medical Reason',
-                  'No - Patient Reason'
-                ]"></reg-select>
+                      <h4>Statin</h4>
 
-              <h4>PCSK9 Inhibitors</h4>
+                      <reg-select controlName="FU_Statin" placeholder="Statin (Any)" [formGroup]="item" [choices]="[
+                          'Yes - Prescribed',
+                          'No - No Reason',
+                          'No - Medical Reason',
+                          'No - Patient Reason'
+                        ]"></reg-select>
 
-              <reg-select controlName="FU_Alirocumab" placeholder="Alirocumab" [formGroup]="formGroupM" [choices]="[
-                  'Yes - Prescribed',
-                  'No - No Reason',
-                  'No - Medical Reason',
-                  'No - Patient Reason'
-                ]"></reg-select>
+                      <reg-select class="subitem-horz" *ngIf="visibles['FollowUps'][i]['FU_StatinDose']" controlName="FU_StatinDose" placeholder="Dose" [formGroup]="item" [choices]="[
+                          'Low Intensity Dose',
+                          'Moderate Intensity Dose',
+                          'High Intensity Dose'
+                        ]"></reg-select>
 
-              <reg-select controlName="FU_Evolocumab" placeholder="Evolocumab" [formGroup]="formGroupM" [choices]="[
-                  'Yes - Prescribed',
-                  'No - No Reason',
-                  'No - Medical Reason',
-                  'No - Patient Reason'
-                ]"></reg-select>
-            </div>
+                      <h4>Non-Statin</h4>
+
+                      <reg-select controlName="FU_NonStatin" placeholder="Non-Statin (Any)" [formGroup]="item" [choices]="[
+                          'Yes - Prescribed',
+                          'No - No Reason',
+                          'No - Medical Reason',
+                          'No - Patient Reason'
+                        ]"></reg-select>
+
+                      <h4>PCSK9 Inhibitors</h4>
+
+                      <reg-select controlName="FU_Alirocumab" placeholder="Alirocumab" [formGroup]="item" [choices]="[
+                          'Yes - Prescribed',
+                          'No - No Reason',
+                          'No - Medical Reason',
+                          'No - Patient Reason'
+                        ]"></reg-select>
+
+                      <reg-select controlName="FU_Evolocumab" placeholder="Evolocumab" [formGroup]="item" [choices]="[
+                          'Yes - Prescribed',
+                          'No - No Reason',
+                          'No - Medical Reason',
+                          'No - Patient Reason'
+                        ]"></reg-select>
+                    </div>
+                  </div>
+
+                </mat-tab>
+              </mat-tab-group>
+            </fieldset>
           </div>
 
         </form>
       </div>
     </section>
 
-    FormGroupH: {{ formGroupH.value | json }}
+    <!-- FormGroupM: {{ formGroupM.value | json }} -->
 
     <br />
     <br />

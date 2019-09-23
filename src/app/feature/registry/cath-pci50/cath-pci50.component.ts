@@ -1,8 +1,17 @@
 import { FormGroup, FormGroupDirective, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
-import { Component, OnInit, AfterViewInit, OnDestroy, ChangeDetectorRef, ElementRef, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  AfterViewInit,
+  OnDestroy,
+  ChangeDetectorRef,
+  ElementRef,
+  ViewChild,
+  ViewEncapsulation
+} from '@angular/core';
 import { Location } from '@angular/common';
 import { Subscription } from 'rxjs';
-import { utc } from 'moment';
+import { utc, Moment } from 'moment';
 
 import { RegistryFormComponent } from '../../../shared/modules/registry-form/registry-form.component';
 import { DialogService } from '../../../shared/services/dialog.service';
@@ -25,10 +34,16 @@ import { CathPCI50FormCompletion } from './cath-pci50.model';
 import * as cathPci50Data from './cath-pci50.data';
 import { MatSelectChange } from '@angular/material';
 
+const followUp = {
+  name: 'FollowUps',
+  followUpDate: 'FU_AssessmentDate'
+};
+
 @Component({
   selector: 'app-cath-pci50',
   templateUrl: './cath-pci50.component.html',
-  styleUrls: ['./cath-pci50.component.scss']
+  styleUrls: ['./cath-pci50.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class CathPci50Component extends RegistryFormComponent implements OnInit, AfterViewInit, OnDestroy {
   toc = tableOfContent;
@@ -58,6 +73,10 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
   public pciDevicesTabIndex = 0;
   public lesions: RegSelectChoice[] = [];
   public disableAddPciDevice = false;
+
+  public followUpsTabIndex = 0;
+  // public lesions: RegSelectChoice[] = [];
+  public disableAddFollowUp = false;
 
   get current() {
     if (!this.completion) {
@@ -127,6 +146,14 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
 
   get pciDevicesControls() {
     return (this.formGroupJ.get('PciDevices') as FormArray).controls;
+  }
+
+  get followUps() {
+    return this.visibles.FollowUps && (this.visibles.FollowUps as FormVisible[]).length > 0;
+  }
+
+  get followUpsControls() {
+    return (this.formGroupM.get('FollowUps') as FormArray).controls;
   }
 
   //#region FormGroup and FormDirective
@@ -221,6 +248,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     this.visibles['GraftLesions'] = [];
     this.visibles['PciLesions'] = [];
     this.visibles['PciDevices'] = [];
+    this.visibles['FollowUps'] = [];
     // tslint:enable: no-string-literal
   }
 
@@ -247,6 +275,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     this.formGroupJ = this.formBuilder.group(CathPCI50Form.sectionJ);
     this.formGroupK = this.formBuilder.group(CathPCI50Form.sectionK);
     this.formGroupL = this.formBuilder.group(CathPCI50Form.sectionL);
+    CathPCI50Form.sectionM['FollowUps'] = this.formBuilder.array([]);
     this.formGroupM = this.formBuilder.group(CathPCI50Form.sectionM);
     // tslint:enable: no-string-literal
 
@@ -386,6 +415,12 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
   private subscribeDCStatusChanged(): Subscription {
     return this.formGroupL.get('DCStatus').valueChanges.subscribe(value => {
       this.dischargeMedications();
+
+      if (value === 'Alive') {
+        this.addFollowUp();
+      } else {
+        this.removeAllFollowUps();
+      }
     });
   }
 
@@ -610,7 +645,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     const label = control.NVSegmentID.value;
     const stenosis = control.NVCoroVesselStenosis.value;
 
-    return label !== null ? label + (stenosis ? ` (${stenosis}%)` : '') : '(new)';
+    return label !== null ? label + (stenosis ? ` (${stenosis}%)` : '') : '(new) *';
   }
 
   public getGraftLesionsTabLabel(index: number): string {
@@ -618,7 +653,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     const label = control.GraftSegmentID.value;
     const stenosis = control.GraftCoroVesselStenosis.value;
 
-    return label !== null ? label + (stenosis ? ` (${stenosis}%)` : '') : '(new)';
+    return label !== null ? label + (stenosis ? ` (${stenosis}%)` : '') : '(new) *';
   }
 
   public NVSegmentIDChanged(event: MatSelectChange, index: number) {
@@ -769,7 +804,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     const formArray = this.formGroupH.get(type) as FormArray;
     const formGroups = formArray.value;
 
-    if (formArray.length === 0) {
+    if (formArray.length <= 1) {
       return;
     }
 
@@ -970,7 +1005,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     const formArray = this.formGroupJ.get('PciLesions') as FormArray;
     const formGroups = formArray.controls as FormGroup[];
 
-    if (formArray.length === 0) {
+    if (formArray.length <= 1) {
       return;
     }
 
@@ -1069,7 +1104,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     const formArray = this.formGroupJ.get('PciDevices') as FormArray;
     const formGroups = formArray.controls as FormGroup[];
 
-    if (formArray.length === 0) {
+    if (formArray.length <= 1) {
       return;
     }
 
@@ -1123,4 +1158,142 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     });
   }
   //#endregion Section J
+
+  //#region Section M
+  public getFollowUpsTabLabel(index: number): string {
+    const fg = ((this.formGroupM.get(followUp.name) as FormArray).controls[index] as FormGroup).controls;
+    const fuDate = utc(fg.FU_AssessmentDate.value);
+    const procDate = utc(this.formGroupE.get('ProcedureStartDateTime').value);
+
+    if (!fuDate.isValid()) {
+      return '(Plan F/U) *';
+    }
+
+    const date = fuDate.utcOffset(7).format('DD/MM/YYYY');
+
+    if (!procDate.isValid()) {
+      return date;
+    }
+
+    const period = this.getFollowUpPeriod(procDate, fuDate);
+    return `${date}<span>(${period})</span>`;
+  }
+
+  public getFollowUpPeriod(procDate: Moment, fuDate: Moment): string {
+    let period = '';
+    const dateDiff = fuDate.diff(procDate, 'days', false);
+
+    if (dateDiff <= 34) {
+      period = '30 days';
+    } else {
+      const years = Math.ceil((dateDiff - 60) / 365);
+      period = `${years} years`;
+    }
+
+    return period;
+  }
+
+  public FollowUpDateChanged() {
+    // this.getSegmentNumbersForPci();
+    // this.checkCanAddPciLesion();
+    // this.getLesions();
+  }
+
+  public addFollowUp() {
+    const formArray = this.formGroupM.get(followUp.name) as FormArray;
+    const formGroups = formArray.controls as FormGroup[];
+
+    // if (formGroups.findIndex(fg => fg.get('SegmentID').value === null || fg.get('SegmentID').value.length === 0) >= 0) {
+    //   console.log('still have new');
+    //   return;
+    // }
+
+    this.removeInvalidFollowUps();
+    this.arrangeFollowUpTabs();
+
+    const newGroup = this.formBuilder.group(CathPCI50Form.followUp);
+    const visible: FormVisible = {};
+    this.registryFormService.subscribeValueChanges(newGroup, conditions.followUp, visible);
+
+    // ! initial remove validator in hiding child control
+    newGroup.setValue(newGroup.value);
+
+    (this.visibles.FollowUps as FormVisible[]).push(visible);
+    formArray.push(newGroup);
+
+    // this.followUpsTabIndex = formArray.length - 1;
+    // this.disableAddFollowUp = true;
+
+    // this.getSegmentNumbersForPci();
+    // this.getLesions();
+  }
+
+  public FU_StatusChanged(event: MatSelectChange, index: number) {
+    if (event.value === 'Alive') {
+      this.addFollowUp();
+    } else {
+      this.removeFollowUpsNextTo(index);
+    }
+  }
+
+  public removeFollowUp(index: number) {
+    const formArray = this.formGroupM.get(followUp.name) as FormArray;
+    const formGroups = formArray.controls as FormGroup[];
+
+    formArray.removeAt(index);
+    (this.visibles[followUp.name] as FormVisible[]).splice(index, 1);
+  }
+
+  private removeFollowUpsNextTo(index: number) {
+    const formArray = this.formGroupM.get(followUp.name) as FormArray;
+    const length = formArray.length;
+
+    for (let i = length - 1; i > index; i--) {
+      this.removeFollowUp(i);
+    }
+  }
+
+  private removeAllFollowUps() {
+    const formArray = this.formGroupM.get(followUp.name) as FormArray;
+    formArray.clear();
+    (this.visibles[followUp.name] as FormVisible[]) = [];
+  }
+
+  private removeInvalidFollowUps() {
+    const formArray = this.formGroupM.get(followUp.name) as FormArray;
+    const formGroups = formArray.controls as FormGroup[];
+
+    for (let i = formGroups.length - 1; i >= 0; i--) {
+      const fuDate = formGroups[i].get(followUp.followUpDate).value;
+
+      if (fuDate === null) {
+        this.removeFollowUp(i);
+      }
+    }
+  }
+
+  public arrangeFollowUpTabs() {
+    const formArray = this.formGroupM.get(followUp.name) as FormArray;
+    let formGroups = formArray.value;
+
+    if (formArray.length <= 1) {
+      return;
+    }
+
+    formGroups.sort((a, b) => {
+      const dateA = utc(a[followUp.followUpDate]);
+      const dateB = utc(b[followUp.followUpDate]);
+
+      if (!dateA.isValid()) {
+        return 1;
+      }
+      if (!dateB.isValid()) {
+        return -1;
+      }
+      return dateA.isBefore(dateB) ? -1 : 1;
+    });
+    formArray.setValue(formGroups);
+  }
+
+  //#endregion Section M
 }

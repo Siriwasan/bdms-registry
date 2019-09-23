@@ -294,7 +294,11 @@ export const conditions: FormConditions = {
     { control: 'K_HeartFailureDT', parentControl: 'K_HeartFailure', conditions: ['Yes'] },
     { control: 'K_MyocardialInfarctionDT', parentControl: 'K_MyocardialInfarction', conditions: ['Yes'] },
     { control: 'K_MyocardialInfarctionCriteria', parentControl: 'K_MyocardialInfarction', conditions: ['Yes'] },
-    { control: 'K_MyocardialInfarctionFollowCriteria', parentControl: 'K_MyocardialInfarctionCriteria', conditions: ['Absolute rise in cTn (form baseline) >= 35x(URL)'] },
+    {
+      control: 'K_MyocardialInfarctionFollowCriteria',
+      parentControl: 'K_MyocardialInfarctionCriteria',
+      conditions: ['Absolute rise in cTn (form baseline) >= 35x(URL)']
+    },
     { control: 'K_NewDialysisDT', parentControl: 'K_NewDialysis', conditions: ['Yes'] },
     { control: 'K_OtherVascularDT', parentControl: 'K_OtherVascular', conditions: ['Yes'] },
     { control: 'K_StrokeHemorrhageDT', parentControl: 'K_StrokeHemorrhage', conditions: ['Yes'] },
@@ -348,7 +352,9 @@ export const conditions: FormConditions = {
     { control: 'DC_EvolocumabRN', parentControl: 'DC_Evolocumab', conditions: ['No - Patient Reason'] },
     { control: 'DC_MedReconciled', parentControl: 'DC_MedReconCompleted', conditions: ['Yes'] }
   ],
-  sectionM: [
+  sectionM: [],
+  followUp: [
+    { control: 'FU_Status', parentControl: 'FU_AssessmentDate', conditions: ['!', null] },
     { control: 'FU_CPSxAssess', parentControl: 'FU_Status', conditions: ['Alive'] },
     { control: 'FU_DeathDate', parentControl: 'FU_Status', conditions: ['Deceased'] },
     { control: 'FU_DeathCause', parentControl: 'FU_Status', conditions: ['Deceased'] },

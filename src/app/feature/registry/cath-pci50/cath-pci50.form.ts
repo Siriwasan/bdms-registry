@@ -267,7 +267,7 @@ export const CathPCI50Form = {
     DeviceDeployed: [null, Validators.required],
     StenosisPostProc: [null, Validators.required],
     PostProcTIMI: [null, Validators.required],
-    ComplicationPCI: [null, Validators.required],
+    ComplicationPCI: [null, Validators.required]
   },
   pciDevice: {
     ICDevCounter: [null, Validators.required],
@@ -381,11 +381,12 @@ export const CathPCI50Form = {
     DC_MedReconCompleted: [null, Validators.required],
     DC_MedReconciled: [null, Validators.required]
   },
-  sectionM: {
+  sectionM: {},
+  followUp: {
     FU_AssessmentDate: [null, Validators.required],
-    RefProcStartDateTime: [null, Validators.required],
-    RefArrivalDateTime: [null, Validators.required],
-    RefDCDateTime: [null, Validators.required],
+    // RefProcStartDateTime: [null, Validators.required],
+    // RefArrivalDateTime: [null, Validators.required],
+    // RefDCDateTime: [null, Validators.required],
     FU_Method: [null, Validators.required],
     FU_Status: [null, Validators.required],
     FU_CPSxAssess: [null, Validators.required],
