@@ -126,6 +126,7 @@ export class ACSx290Service implements OnDestroy {
       baseDb: data.detail.baseDb,
       addendum: data.detail.addendum,
       completion: complete,
+      tags: [],
       modifiedAt: data.detail.modifiedAt
     };
     // tslint:enable: no-string-literal

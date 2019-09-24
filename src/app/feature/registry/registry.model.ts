@@ -58,5 +58,6 @@ export interface Registry {
   baseDb: string;
   addendum: string;
   completion: number;
+  tags: string[];
   modifiedAt: any;
 }

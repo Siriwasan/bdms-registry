@@ -10,15 +10,15 @@
     *ngIf="authMenu.registry.indexOf((user$ | async)?.staff.role) >= 0"
   >
     <mat-icon>list</mat-icon>
-    <span class="nav-caption">Registry</span>
+    <span class="nav-caption">STS</span>
   </a>
   <a
     mat-list-item
-    routerLink="/registry/cath-pci50"
+    routerLink="/registry/cath-pci50-list"
     (click)="onClose()"
     *ngIf="authMenu.tools.indexOf((user$ | async)?.staff.role) >= 0"
   >
-    <mat-icon>description</mat-icon>
+    <mat-icon>list_outline</mat-icon>
     <span class="nav-caption">CathPCI</span>
   </a>
   <a

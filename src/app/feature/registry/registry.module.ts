@@ -11,9 +11,18 @@ import { TestFormComponent } from './test-form/test-form.component';
 import { RegistryService } from './registry.service';
 import { DecryptPipe } from './registry.pipe';
 import { CathPci50Component } from './cath-pci50/cath-pci50.component';
+import { CathPci50ListComponent } from './cath-pci50-list/cath-pci50-list.component';
 
 @NgModule({
-  declarations: [RegistryComponent, ACSx290Component, LoremIpsumComponent, TestFormComponent, DecryptPipe, CathPci50Component],
+  declarations: [
+    RegistryComponent,
+    ACSx290Component,
+    LoremIpsumComponent,
+    TestFormComponent,
+    DecryptPipe,
+    CathPci50Component,
+    CathPci50ListComponent
+  ],
   imports: [SharedModule, RegistryRoutingModule, RoundProgressModule],
   providers: [RegistryService]
 })

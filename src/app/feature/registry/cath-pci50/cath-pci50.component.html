@@ -1077,7 +1077,7 @@
 
           <div fxLayout="row" fxLayoutAlign="center center" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
             <reg-select controlName="NVStenosis" placeholder="Native Vessel with Stenosis >= 50%" [formGroup]="formGroupH"
-              [choices]="['Yes', 'No']" fxFlex></reg-select>
+              [choices]="['Yes', 'No']" fxFlex (choiceChange)="NVStenosisChanged($event)"></reg-select>
 
             <button *ngIf="nativeLesions" mat-raised-button color="primary" (click)="addNativeLesion()" [disabled]="disableAddNativeLesion" style="height: 36px">Add Native Lesion</button>
             <button *ngIf="nativeLesions" mat-raised-button color="secondary" (click)="arrangeNativeTabs()" style="height: 36px">Arrange Tabs</button>
@@ -1138,7 +1138,7 @@
 
           <div fxLayout="row" fxLayoutAlign="center center" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
             <reg-select controlName="GraftStenosis" placeholder="Graft Vessel with Stenosis >= 50%" [formGroup]="formGroupH"
-              [choices]="['Yes', 'No']" fxFlex></reg-select>
+              [choices]="['Yes', 'No']" fxFlex (choiceChange)="GraftStenosisChanged($event)"></reg-select>
 
             <button *ngIf="graftLesions" mat-raised-button color="primary" (click)="addGraftLesion()" [disabled]="disableAddGraftLesion" style="height: 36px">Add Graft Lesion</button>
             <button *ngIf="graftLesions" mat-raised-button color="secondary" (click)="arrangeGraftTabs()" style="height: 36px">Arrange Tabs</button>
@@ -1200,6 +1200,8 @@
         </form>
       </div>
     </section>
+
+    FormGroupH: {{ formGroupH.value | json }}
 
     <section class="section-wrapper" scrollSpyElement id="sectionI">
       <div class="section-title">
@@ -1830,7 +1832,7 @@
           </div>
 
           <reg-select controlName="DCStatus" placeholder="Discharge Status" [formGroup]="formGroupL"
-            [choices]="['Alive', 'Deceased']"></reg-select>
+            [choices]="['Alive', 'Deceased']" (choiceChange)="DCStatusChanged($event)"></reg-select>
 
           <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
             <reg-select *ngIf="visibles['DCLocation']" controlName="DCLocation" placeholder="Discharge Location" [formGroup]="formGroupL" [choices]="[
@@ -2452,7 +2454,7 @@
       </div>
     </section>
 
-    <!-- FormGroupM: {{ formGroupM.value | json }} -->
+    FormGroupM: {{ formGroupM.value | json }}
     Result: {{ result | json }}
 
     <br />
