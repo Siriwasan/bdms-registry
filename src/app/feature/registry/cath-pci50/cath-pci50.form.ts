@@ -1,6 +1,6 @@
 import { Validators } from '@angular/forms';
 
-export const CathPCI50Form = {
+export const CathPci50Form = {
   sectionA: {
     registryId: [null, Validators.required],
     HN: [null, [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],

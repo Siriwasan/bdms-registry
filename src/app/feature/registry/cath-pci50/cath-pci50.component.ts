@@ -19,11 +19,11 @@ import {
 } from '../../../shared/modules/registry-form/registry-form.model';
 
 import { CathPci50Service } from './cath-pci50.service';
-import { CathPCI50Form } from './cath-pci50.form';
-import { CathPCI50Model } from './cath-pci50.model';
+import { CathPci50Form } from './cath-pci50.form';
+import { CathPci50Model } from './cath-pci50.model';
 import { conditions } from './cath-pci50.condition';
 import { validations } from './cath-pci50.validation';
-import { CathPCI50Completion } from './cath-pci50.model';
+import { CathPci50Completion } from './cath-pci50.model';
 import * as cathPci50Data from './cath-pci50.data';
 import { MatSelectChange } from '@angular/material';
 
@@ -50,7 +50,7 @@ const followUp = {
 export class CathPci50Component extends RegistryFormComponent implements OnInit, AfterViewInit, OnDestroy {
   private subscriptions: Subscription[] = [];
   gap = '20px';
-  result: CathPCI50Model;
+  result: CathPci50Model;
 
   // USER
   public user$: Observable<User>;
@@ -61,7 +61,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
   public mode = 'new'; // new, edit
   private registryId: string;
   public visibles: FormVisible = {};
-  public completion: CathPCI50Completion;
+  public completion: CathPci50Completion;
 
   public avHospitals: string[];
   public toc = tableOfContent;
@@ -290,24 +290,24 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
 
   private createForm() {
     // tslint:disable: no-string-literal
-    this.formGroupA = this.formBuilder.group(CathPCI50Form.sectionA);
-    this.formGroupB = this.formBuilder.group(CathPCI50Form.sectionB);
-    this.formGroupC = this.formBuilder.group(CathPCI50Form.sectionC);
-    this.formGroupD = this.formBuilder.group(CathPCI50Form.sectionD);
-    this.formGroupE = this.formBuilder.group(CathPCI50Form.sectionE);
-    this.formGroupF = this.formBuilder.group(CathPCI50Form.sectionF);
-    this.formGroupG = this.formBuilder.group(CathPCI50Form.sectionG);
-    CathPCI50Form.sectionH['NativeLesions'] = this.formBuilder.array([]);
-    CathPCI50Form.sectionH['GraftLesions'] = this.formBuilder.array([]);
-    this.formGroupH = this.formBuilder.group(CathPCI50Form.sectionH);
-    this.formGroupI = this.formBuilder.group(CathPCI50Form.sectionI);
-    CathPCI50Form.sectionJ['PciLesions'] = this.formBuilder.array([]);
-    CathPCI50Form.sectionJ['PciDevices'] = this.formBuilder.array([]);
-    this.formGroupJ = this.formBuilder.group(CathPCI50Form.sectionJ);
-    this.formGroupK = this.formBuilder.group(CathPCI50Form.sectionK);
-    this.formGroupL = this.formBuilder.group(CathPCI50Form.sectionL);
-    CathPCI50Form.sectionM['FollowUps'] = this.formBuilder.array([]);
-    this.formGroupM = this.formBuilder.group(CathPCI50Form.sectionM);
+    this.formGroupA = this.formBuilder.group(CathPci50Form.sectionA);
+    this.formGroupB = this.formBuilder.group(CathPci50Form.sectionB);
+    this.formGroupC = this.formBuilder.group(CathPci50Form.sectionC);
+    this.formGroupD = this.formBuilder.group(CathPci50Form.sectionD);
+    this.formGroupE = this.formBuilder.group(CathPci50Form.sectionE);
+    this.formGroupF = this.formBuilder.group(CathPci50Form.sectionF);
+    this.formGroupG = this.formBuilder.group(CathPci50Form.sectionG);
+    CathPci50Form.sectionH['NativeLesions'] = this.formBuilder.array([]);
+    CathPci50Form.sectionH['GraftLesions'] = this.formBuilder.array([]);
+    this.formGroupH = this.formBuilder.group(CathPci50Form.sectionH);
+    this.formGroupI = this.formBuilder.group(CathPci50Form.sectionI);
+    CathPci50Form.sectionJ['PciLesions'] = this.formBuilder.array([]);
+    CathPci50Form.sectionJ['PciDevices'] = this.formBuilder.array([]);
+    this.formGroupJ = this.formBuilder.group(CathPci50Form.sectionJ);
+    this.formGroupK = this.formBuilder.group(CathPci50Form.sectionK);
+    this.formGroupL = this.formBuilder.group(CathPci50Form.sectionL);
+    CathPci50Form.sectionM['FollowUps'] = this.formBuilder.array([]);
+    this.formGroupM = this.formBuilder.group(CathPci50Form.sectionM);
     // tslint:enable: no-string-literal
 
     this.sectionMembers = [
@@ -383,7 +383,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     }
   }
 
-  private setFormValue(data: CathPCI50Model) {
+  private setFormValue(data: CathPci50Model) {
     this.formDetail = data.detail;
     this.formGroupA.setValue(data.sectionA);
     this.formGroupB.setValue(data.sectionB);
@@ -394,10 +394,10 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     this.formGroupG.setValue(data.sectionG);
 
     data.sectionH['NativeLesions'].forEach(_ =>
-      this.addLesion('NativeLesions', 'NVSegmentID', CathPCI50Form.nativeLesion, conditions.nativeLesion)
+      this.addLesion('NativeLesions', 'NVSegmentID', CathPci50Form.nativeLesion, conditions.nativeLesion)
     );
     data.sectionH['GraftLesions'].forEach(_ =>
-      this.addLesion('GraftLesions', 'GraftSegmentID', CathPCI50Form.graftLesion, conditions.graftLesion)
+      this.addLesion('GraftLesions', 'GraftSegmentID', CathPci50Form.graftLesion, conditions.graftLesion)
     );
     this.formGroupH.setValue(data.sectionH);
 
@@ -628,8 +628,8 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     return this.toc.find(t => t.section === 'section' + section).title;
   }
 
-  private getFormCompletion(): CathPCI50Completion {
-    const completion: CathPCI50Completion = {
+  private getFormCompletion(): CathPci50Completion {
+    const completion: CathPci50Completion = {
       summary: null,
       sectionA: null,
       sectionB: null,
@@ -769,7 +769,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     this.location.back();
   }
 
-  private archiveForm(): CathPCI50Model {
+  private archiveForm(): CathPci50Model {
     const timestamp = this.cathPci50Service.timestamp;
 
     this.arrangeNativeTabs();
@@ -795,7 +795,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     //   this.formDetail.modifiedBy = this.user.staff.staffId;
     // }
 
-    const cathPci50Model: CathPCI50Model = {
+    const cathPci50Model: CathPci50Model = {
       detail: this.formDetail,
       completion: this.getFormCompletion(),
       sectionA: {
@@ -981,7 +981,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
   addNativeLesion() {
     this.arrangeNativeTabs();
 
-    const length = this.addLesion('NativeLesions', 'NVSegmentID', CathPCI50Form.nativeLesion, conditions.nativeLesion);
+    const length = this.addLesion('NativeLesions', 'NVSegmentID', CathPci50Form.nativeLesion, conditions.nativeLesion);
     this.nativeLesionsTabIndex = length - 1;
 
     this.disableAddNativeLesion = true;
@@ -991,7 +991,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
   addGraftLesion() {
     this.arrangeGraftTabs();
 
-    const length = this.addLesion('GraftLesions', 'GraftSegmentID', CathPCI50Form.graftLesion, conditions.graftLesion);
+    const length = this.addLesion('GraftLesions', 'GraftSegmentID', CathPci50Form.graftLesion, conditions.graftLesion);
     this.graftLesionsTabIndex = length - 1;
 
     this.disableAddGraftLesion = true;
@@ -1208,7 +1208,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     //   return;
     // }
 
-    const newGroup = this.formBuilder.group(CathPCI50Form.pciLesion);
+    const newGroup = this.formBuilder.group(CathPci50Form.pciLesion);
     const visible: FormVisible = {};
     this.registryFormService.subscribeValueChanges(newGroup, conditions.pciLesion, visible);
 
@@ -1355,7 +1355,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     //   return;
     // }
 
-    const newGroup = this.formBuilder.group(CathPCI50Form.pciDevice);
+    const newGroup = this.formBuilder.group(CathPci50Form.pciDevice);
     const visible: FormVisible = {};
     this.registryFormService.subscribeValueChanges(newGroup, conditions.pciDevice, visible);
 
@@ -1519,7 +1519,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     // this.removeInvalidFollowUps();
     this.arrangeFollowUpTabs();
 
-    const newGroup = this.formBuilder.group(CathPCI50Form.followUp);
+    const newGroup = this.formBuilder.group(CathPci50Form.followUp);
     const visible: FormVisible = {};
     this.registryFormService.subscribeValueChanges(newGroup, conditions.followUp, visible);
 

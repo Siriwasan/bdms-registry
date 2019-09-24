@@ -29,7 +29,7 @@ firebase deploy
 | Id        | Abbreviate | Registry                       | Published          |
 |-----------|------------|--------------------------------|--------------------|
 | ACSx290   | ACX        | STS Adult Cardiac Surgery v2.9 | February 13, 2017  |
-| CathPCI50 | PCI        | NCDR CathPCI Registry v5.0     | September 18, 2018 |
+| CathPci50 | PCI        | NCDR CathPCI Registry v5.0     | September 18, 2018 |
 
 ## Position
 

@@ -6,7 +6,7 @@ import * as CryptoJS from 'crypto-js';
 
 import { environment } from '../../../../environments/environment';
 
-import { CathPCI50Model } from './cath-pci50.model';
+import { CathPci50Model } from './cath-pci50.model';
 import { Registry } from '../registry.model';
 
 const DB_REGISTRY = 'Registry';
@@ -29,7 +29,7 @@ export class CathPci50Service implements OnDestroy {
     this.subscriptions.forEach(subs => subs.unsubscribe());
   }
 
-  public async createForm(data: CathPCI50Model): Promise<string> {
+  public async createForm(data: CathPci50Model): Promise<string> {
     // tslint:disable: no-string-literal
     const registryId = await this.generateRegistryId(data.sectionB['HospName']);
     data.sectionA['registryId'] = registryId;
@@ -49,7 +49,7 @@ export class CathPci50Service implements OnDestroy {
     return registryId; // Registry Id
   }
 
-  public async updateForm(registryId: string, data: CathPCI50Model) {
+  public async updateForm(registryId: string, data: CathPci50Model) {
     await this.db
       .collection(DB_COLLECTION)
       .doc(registryId)
@@ -69,7 +69,7 @@ export class CathPci50Service implements OnDestroy {
     return new Promise<string>((resolve, reject) => {
       this.subscriptions.push(
         this.db
-          .collection<CathPCI50Model>(DB_COLLECTION, ref =>
+          .collection<CathPci50Model>(DB_COLLECTION, ref =>
             ref
               .orderBy('sectionA.registryId', 'desc')
               .startAt(prefix + '\uf8ff')
@@ -78,7 +78,7 @@ export class CathPci50Service implements OnDestroy {
           )
           .valueChanges()
           .subscribe(
-            (data: CathPCI50Model[]) => {
+            (data: CathPci50Model[]) => {
               if (data.length === 0) {
                 resolve(prefix + '001');
               } else {
@@ -98,7 +98,7 @@ export class CathPci50Service implements OnDestroy {
     });
   }
 
-  private createRegistryModel(regisId: string, data: CathPCI50Model): Registry {
+  private createRegistryModel(regisId: string, data: CathPci50Model): Registry {
     const complete = Math.round((data.completion.summary.valid / data.completion.summary.total) * 100);
 
     // tslint:disable: no-string-literal
@@ -120,11 +120,11 @@ export class CathPci50Service implements OnDestroy {
     // tslint:enable: no-string-literal
   }
 
-  public getForm(registryId: string): Promise<CathPCI50Model> {
-    return new Promise<CathPCI50Model>((resolve, reject) => {
+  public getForm(registryId: string): Promise<CathPci50Model> {
+    return new Promise<CathPci50Model>((resolve, reject) => {
       this.subscriptions.push(
         this.db
-          .collection<CathPCI50Model>(DB_COLLECTION)
+          .collection<CathPci50Model>(DB_COLLECTION)
           .doc(registryId)
           .valueChanges()
           .subscribe(
@@ -139,7 +139,7 @@ export class CathPci50Service implements OnDestroy {
     });
   }
 
-  public checkNeededDataCompletion(data: CathPCI50Model): string {
+  public checkNeededDataCompletion(data: CathPci50Model): string {
     let alert = '';
     // tslint:disable: no-string-literal
     const neededData = [
@@ -164,7 +164,7 @@ export class CathPci50Service implements OnDestroy {
     return !data || data.trim() === '';
   }
 
-  public encryptSensitiveData(data: CathPCI50Model) {
+  public encryptSensitiveData(data: CathPci50Model) {
     // tslint:disable: no-string-literal
     data.sectionA['HN'] = this.encrypt(data.sectionA['HN']);
     data.sectionA['AN'] = this.encrypt(data.sectionA['AN']);
@@ -177,7 +177,7 @@ export class CathPci50Service implements OnDestroy {
     // tslint:enable: no-string-literal
   }
 
-  public decryptSenitiveData(data: CathPCI50Model) {
+  public decryptSenitiveData(data: CathPci50Model) {
     // tslint:disable: no-string-literal
     data.sectionA['HN'] = this.decrypt(data.sectionA['HN']);
     data.sectionA['AN'] = this.decrypt(data.sectionA['AN']);
