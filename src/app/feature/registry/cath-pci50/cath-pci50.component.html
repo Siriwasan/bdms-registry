@@ -15,8 +15,8 @@
     <div class="completion-container">
       <div class="progress-wrapper">
         <div class="summary">
-          <div class="current">{{ displaySummary() }}</div>
-          <div class="completion">{{ displayCompletion() }}</div>
+          <div class="current">{{ progressSummary }}</div>
+          <div class="completion">{{ progressCompletion }}</div>
         </div>
         <round-progress [current]="current" [max]="max" [color]="'#A133FF'" [background]="'#eaeaea'" [radius]="125"
           [stroke]="15" [rounded]="false" [responsive]="true"></round-progress>
@@ -28,8 +28,8 @@
 
     <fab-speed-dial class="speed-dial-container"
       [(open)]="open"
-      [direction]="direction"
-      [animationMode]="animationMode">
+      direction="up"
+      animationMode="fling">
       <fab-speed-dial-trigger spin="true">
         <button mat-fab>
           <mat-icon class="fab-spin90">more_horiz</mat-icon>
@@ -77,7 +77,7 @@
     <section class="section-wrapper" scrollSpyElement id="sectionA">
       <div class="section-title">
         <span>{{ getTOCTitle('A') }}</span>
-        <span>{{ calculateCurrent('A') }}</span>
+        <span>{{ displaySummary('A') }}</span>
       </div>
       <div class="section-body">
         <form [formGroup]="formGroupA" #formDirectiveA="ngForm">
@@ -229,7 +229,7 @@
     <section class="section-wrapper" scrollSpyElement id="sectionB">
       <div class="section-title">
         <span>{{ getTOCTitle('B') }}</span>
-        <span>{{ calculateCurrent('B') }}</span>
+        <span>{{ displaySummary('B') }}</span>
       </div>
       <div class="section-body">
         <form [formGroup]="formGroupB" #formDirectiveB="ngForm">
@@ -285,7 +285,7 @@
     <section class="section-wrapper" scrollSpyElement id="sectionC">
       <div class="section-title">
         <span>{{ getTOCTitle('C') }}</span>
-        <span>{{ calculateCurrent('C') }}</span>
+        <span>{{ displaySummary('C') }}</span>
       </div>
       <div class="section-body">
         <form [formGroup]="formGroupC" #formDirectiveC="ngForm">
@@ -416,7 +416,7 @@
     <section class="section-wrapper" scrollSpyElement id="sectionD">
       <div class="section-title">
         <span>{{ getTOCTitle('D') }}</span>
-        <span>{{ calculateCurrent('D') }}</span>
+        <span>{{ displaySummary('D') }}</span>
       </div>
       <div class="section-body">
         <form [formGroup]="formGroupD" #formDirectiveD="ngForm">
@@ -618,7 +618,7 @@
     <section class="section-wrapper" scrollSpyElement id="sectionE">
       <div class="section-title">
         <span>{{ getTOCTitle('E') }}</span>
-        <span>{{ calculateCurrent('E') }}</span>
+        <span>{{ displaySummary('E') }}</span>
       </div>
       <div class="section-body">
         <form [formGroup]="formGroupE" #formDirectiveE="ngForm">
@@ -782,7 +782,7 @@
     <section class="section-wrapper" scrollSpyElement id="sectionF">
       <div class="section-title">
         <span>{{ getTOCTitle('F') }}</span>
-        <span>{{ calculateCurrent('F') }}</span>
+        <span>{{ displaySummary('F') }}</span>
       </div>
       <div class="section-body">
         <form [formGroup]="formGroupF" #formDirectiveF="ngForm">
@@ -863,7 +863,7 @@
     <section class="section-wrapper" scrollSpyElement id="sectionG">
       <div class="section-title">
         <span>{{ getTOCTitle('G') }}</span>
-        <span>{{ calculateCurrent('G') }}</span>
+        <span>{{ displaySummary('G') }}</span>
       </div>
       <div class="section-body">
         <form [formGroup]="formGroupG" #formDirectiveG="ngForm">
@@ -1068,7 +1068,7 @@
     <section class="section-wrapper" scrollSpyElement id="sectionH">
       <div class="section-title">
         <span>{{ getTOCTitle('H') }}</span>
-        <span>{{ calculateCurrent('H') }}</span>
+        <span>{{ displaySummary('H') }}</span>
       </div>
       <div class="section-body">
         <form [formGroup]="formGroupH" #formDirectiveH="ngForm">
@@ -1206,7 +1206,7 @@
     <section class="section-wrapper" scrollSpyElement id="sectionI">
       <div class="section-title">
         <span>{{ getTOCTitle('I') }}</span>
-        <span>{{ calculateCurrent('I') }}</span>
+        <span>{{ displaySummary('I') }}</span>
       </div>
       <div class="section-body">
         <form [formGroup]="formGroupI" #formDirectiveI="ngForm">
@@ -1449,7 +1449,7 @@
     <section class="section-wrapper" scrollSpyElement id="sectionJ">
       <div class="section-title">
         <span>{{ getTOCTitle('J') }}</span>
-        <span>{{ calculateCurrent('J') }}</span>
+        <span>{{ displaySummary('J') }}</span>
       </div>
       <div class="section-body">
         <form [formGroup]="formGroupJ" #formDirectiveJ="ngForm">
@@ -1692,7 +1692,7 @@
     <section class="section-wrapper" scrollSpyElement id="sectionK">
       <div class="section-title">
         <span>{{ getTOCTitle('K') }}</span>
-        <span>{{ calculateCurrent('K') }}</span>
+        <span>{{ displaySummary('K') }}</span>
       </div>
       <div class="section-body">
         <form [formGroup]="formGroupK" #formDirectiveK="ngForm">
@@ -1765,7 +1765,7 @@
     <section class="section-wrapper" scrollSpyElement id="sectionL">
       <div class="section-title">
         <span>{{ getTOCTitle('L') }}</span>
-        <span>{{ calculateCurrent('L') }}</span>
+        <span>{{ displaySummary('L') }}</span>
       </div>
       <div class="section-body">
         <form [formGroup]="formGroupL" #formDirectiveL="ngForm">
@@ -2200,7 +2200,7 @@
     <section class="section-wrapper" scrollSpyElement id="sectionM">
       <div class="section-title">
         <span>{{ getTOCTitle('M') }}</span>
-        <span>{{ calculateCurrent('M') }}</span>
+        <span>{{ displaySummary('M') }}</span>
       </div>
       <div class="section-body">
         <form [formGroup]="formGroupM" #formDirectiveM="ngForm">
