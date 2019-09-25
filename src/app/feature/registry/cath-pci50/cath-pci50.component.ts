@@ -1,5 +1,6 @@
 import { FormGroup, FormGroupDirective, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { Component, OnInit, AfterViewInit, OnDestroy, ChangeDetectorRef, ElementRef, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { Subscription, Observable } from 'rxjs';
 import { utc, Moment, isMoment } from 'moment';
@@ -9,7 +10,6 @@ import { DialogService } from '../../../shared/services/dialog.service';
 import { ScrollSpyService } from '../../../shared/modules/scroll-spy/scroll-spy.service';
 import { RegistryFormService } from '../../../shared/modules/registry-form/registry-form.service';
 
-import { tableOfContent } from './cath-pci50.toc';
 import { FormDetail } from '../registry.model';
 import {
   SectionMember,
@@ -18,6 +18,7 @@ import {
   RegSelectChoice
 } from '../../../shared/modules/registry-form/registry-form.model';
 
+import { tableOfContent } from './cath-pci50.toc';
 import { CathPci50Service } from './cath-pci50.service';
 import { CathPci50Form } from './cath-pci50.form';
 import { CathPci50Model } from './cath-pci50.model';
@@ -34,7 +35,6 @@ import { AuthService } from 'src/app/core/auth/auth.service';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../../../app.reducer';
 import * as UI from '../../../shared/ui.actions';
-import { ActivatedRoute, Router } from '@angular/router';
 
 const followUp = {
   name: 'FollowUps',
@@ -216,12 +216,12 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     protected scrollSpy: ScrollSpyService,
     protected hostElement: ElementRef,
     protected registryFormService: RegistryFormService,
-    private cathPci50Service: CathPci50Service,
     private formBuilder: FormBuilder,
-    private location: Location,
+    private store: Store<fromRoot.State>,
     private route: ActivatedRoute,
     private router: Router,
-    private store: Store<fromRoot.State>,
+    private cathPci50Service: CathPci50Service,
+    private location: Location,
     private authService: AuthService
   ) {
     super(dialogService, changeDetector, scrollSpy, hostElement, registryFormService);
@@ -260,8 +260,8 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     );
 
     // initialize value for complex conditions
-    this.formGroupE.get('PCIProc').setValue(null);
-    this.formGroupL.get('DCStatus').setValue(null);
+    // this.formGroupE.get('PCIProc').setValue(null);
+    // this.formGroupL.get('DCStatus').setValue(null);
 
     // tslint:disable: no-string-literal
     this.visibles['NativeLesions'] = [];
@@ -778,22 +778,22 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     this.arrangePciDeviceTabs();
     this.arrangeFollowUpTabs();
 
-    // if (this.mode === 'new') {
-    this.formDetail = {
-      baseDbId: 'CathPci50',
-      baseDb: 'NCDR CathPCI Registry v5.0',
-      addendum: 'BDMS CathPCI modefication v0.1',
-      createdAt: timestamp,
-      createdBy: null, // this.user.staff.staffId,
-      modifiedAt: timestamp,
-      modifiedBy: null, // this.user.staff.staffId,
-      deletedAt: null,
-      deletedBy: null
-    };
-    // } else {
-    //   this.formDetail.modifiedAt = timestamp;
-    //   this.formDetail.modifiedBy = this.user.staff.staffId;
-    // }
+    if (this.mode === 'new') {
+      this.formDetail = {
+        baseDbId: 'CathPci50',
+        baseDb: 'NCDR CathPCI Registry v5.0',
+        addendum: 'BDMS CathPCI modefication v0.1',
+        createdAt: timestamp,
+        createdBy: this.user.staff.staffId,
+        modifiedAt: timestamp,
+        modifiedBy: this.user.staff.staffId,
+        deletedAt: null,
+        deletedBy: null
+      };
+    } else {
+      this.formDetail.modifiedAt = timestamp;
+      this.formDetail.modifiedBy = this.user.staff.staffId;
+    }
 
     const cathPci50Model: CathPci50Model = {
       detail: this.formDetail,

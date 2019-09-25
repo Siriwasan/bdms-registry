@@ -236,7 +236,7 @@
           <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="HospName" placeholder="Hospital Name" [formGroup]="formGroupB"
-              [choices]="['BHT', 'BCM']" fxFlex="20"></reg-select>
+              [choices]="avHospitals" fxFlex="20"></reg-select>
 
             <reg-select controlName="PayorPrim" placeholder="Primary Payor" [formGroup]="formGroupB" [choices]="[
                 'Self',
