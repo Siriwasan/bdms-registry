@@ -46,7 +46,7 @@ export interface FormDetail {
   deletedBy: string;
 }
 
-export interface Registry {
+export interface RegistryModel {
   registryId: string;
   hospitalId: string;
   hn: string;

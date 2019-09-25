@@ -76,11 +76,29 @@ export class AuthService implements OnDestroy {
   }
 
   public async getAvailableRegistries(staffId: string): Promise<string[]> {
-    const acsxs = await this.getACSx290s(staffId);
-    return acsxs;
+    return new Promise((resolve, reject) => {
+      this.subscriptions.push(
+        this.db
+          .collection<Staff>(DB_STAFF, ref => ref.where('staffId', '==', staffId))
+          .valueChanges()
+          .subscribe(
+            data => {
+              resolve(data[0].registries);
+            },
+            error => {
+              reject(error);
+            }
+          )
+      );
+    });
   }
 
-  private getACSx290s(staffId: string): Promise<string[]> {
+  // public async getAvailableACSx290s(staffId: string): Promise<string[]> {
+  //   const acsxs = await this.getACSx290s(staffId);
+  //   return acsxs;
+  // }
+
+  public getAvailableACSx290s(staffId: string): Promise<string[]> {
     return new Promise((resolve, reject) => {
       const inCaseList: Observable<ACSx290Form[]>[] = [];
       const availableStaffForm = [

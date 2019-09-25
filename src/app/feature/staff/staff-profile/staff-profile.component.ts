@@ -198,7 +198,7 @@ export class StaffProfileComponent implements OnInit, OnChanges, OnDestroy, Afte
   }
 
   private getAvailableRegistires(): string[] {
-    return ['ACSx290', 'CathPci50'];
+    return this.user.staff.registries;
   }
 
   private getAvailableRoles(): string[] {

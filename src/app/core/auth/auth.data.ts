@@ -29,6 +29,16 @@ export const hospitals: Hospital[] = [
   { group: 'Group6', id: 'BPK', name: 'Bangkok Hospital Phuket' }
 ];
 
+export interface Registry {
+  id: string;
+  name: string;
+}
+
+export const registries: Registry[] = [
+  { id: 'ACSx290', name: 'STS Adult Cardiac Surgery v2.9' },
+  { id: 'CathPci50', name: 'NCDR CathPCI Registry v5.0' }
+];
+
 export const roles = ['Director', 'Administrator', 'Editor', 'Staff'];
 
 export const permissions = ['BDMS', 'Group', 'Hospital'];
@@ -38,4 +48,9 @@ export const menus = {
   myPatients: ['Director', 'Administrator', 'Staff'],
   staff: ['Director', 'Administrator'],
   tools: ['Director']
+};
+
+export const pages = {
+  acsx290: 'ACSx290',
+  cathPci50: 'CathPci50'
 };

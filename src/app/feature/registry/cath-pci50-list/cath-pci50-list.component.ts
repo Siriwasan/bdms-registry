@@ -9,7 +9,7 @@ import { Store } from '@ngrx/store';
 import * as fromRoot from '../../../app.reducer';
 import * as UI from '../../../shared/ui.actions';
 
-import { Registry } from '../registry.model';
+import { RegistryModel } from '../registry.model';
 import { RegistryService } from '../registry.service';
 import { FileService } from '../../../shared/services/file.service';
 import { Observable, Subscription } from 'rxjs';
@@ -25,7 +25,7 @@ import { AuthService } from 'src/app/core/auth/auth.service';
 })
 export class CathPci50ListComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = ['registryId', 'hn', 'an', 'firstName', 'lastName', 'tags', 'completion'];
-  dataSource: MatTableDataSource<Registry>;
+  dataSource: MatTableDataSource<RegistryModel>;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -59,7 +59,7 @@ export class CathPci50ListComponent implements OnInit, OnDestroy {
 
       const data = await this.registryService.loadCathPci50s(this.avHospitals);
 
-      const decryptData: Registry[] = [];
+      const decryptData: RegistryModel[] = [];
       data.forEach(d => {
         decryptData.push({
           ...d,
@@ -92,7 +92,7 @@ export class CathPci50ListComponent implements OnInit, OnDestroy {
     }
   }
 
-  click(registry: Registry) {
+  click(registry: RegistryModel) {
     if (registry.baseDbId === 'CathPci50') {
       this.store.dispatch(new UI.StartLoading());
       setTimeout(() => {

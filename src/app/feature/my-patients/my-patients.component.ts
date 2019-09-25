@@ -10,7 +10,7 @@ import * as fromRoot from '../../app.reducer';
 import * as UI from '../../shared/ui.actions';
 
 import { MyPatientsService } from './my-patients.service';
-import { Registry } from '../registry/registry.model';
+import { RegistryModel } from '../registry/registry.model';
 import { Observable, Subscription } from 'rxjs';
 import { User } from '../../../app/core/auth/user.model';
 import { FileService } from '../../../app/shared/services/file.service';
@@ -27,7 +27,7 @@ export class MyPatientsComponent implements OnInit, OnDestroy {
   private userSubscription: Subscription;
 
   displayedColumns: string[] = ['registryId', 'hn', 'an', 'firstName', 'lastName', 'baseDb', 'completion'];
-  dataSource: MatTableDataSource<Registry>;
+  dataSource: MatTableDataSource<RegistryModel>;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -47,7 +47,7 @@ export class MyPatientsComponent implements OnInit, OnDestroy {
     });
 
     const data = await this.myPatientsService.loadMyPatients(this.user.staff.staffId);
-    const decryptData: Registry[] = [];
+    const decryptData: RegistryModel[] = [];
     data.forEach(d => {
       decryptData.push({
         ...d,
@@ -79,7 +79,7 @@ export class MyPatientsComponent implements OnInit, OnDestroy {
     }
   }
 
-  click(registry: Registry) {
+  click(registry: RegistryModel) {
     if (registry.baseDb === 'STS Adult Cardiac Surgery version 2.9') {
       this.store.dispatch(new UI.StartLoading());
       setTimeout(() => {

@@ -4,7 +4,7 @@ import { saveAs } from 'file-saver'; // save the file
 import * as converter from 'json-2-csv';
 import { ToolsService } from './tools.service';
 import { FileService } from 'src/app/shared/services/file.service';
-import { Registry } from '../registry/registry.model';
+import { RegistryModel } from '../registry/registry.model';
 import { Staff } from '../staff/staff.model';
 import { ACSx290Form } from '../registry/acsx290/acsx290.model';
 
@@ -135,7 +135,7 @@ export class ToolsComponent implements OnInit {
     fileReader.readAsText(this.file);
     fileReader.onloadend = async x => {
       console.log('load registry completed');
-      const registries = JSON.parse(fileReader.result as string) as Registry[];
+      const registries = JSON.parse(fileReader.result as string) as RegistryModel[];
       await this.toolsService.dumpRegistries(registries);
       console.log('dump registry completed ' + registries.length + ' records');
     };

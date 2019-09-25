@@ -7,7 +7,7 @@ import * as CryptoJS from 'crypto-js';
 import { environment } from '../../../../environments/environment';
 
 import { CathPci50Model } from './cath-pci50.model';
-import { Registry } from '../registry.model';
+import { RegistryModel } from '../registry.model';
 
 const DB_REGISTRY = 'Registry';
 const DB_STAFF = 'Staff';
@@ -98,7 +98,7 @@ export class CathPci50Service implements OnDestroy {
     });
   }
 
-  private createRegistryModel(regisId: string, data: CathPci50Model): Registry {
+  private createRegistryModel(regisId: string, data: CathPci50Model): RegistryModel {
     const complete = Math.round((data.completion.summary.valid / data.completion.summary.total) * 100);
 
     // tslint:disable: no-string-literal

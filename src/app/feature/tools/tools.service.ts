@@ -8,7 +8,7 @@ import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
 
 import { Staff } from '../staff/staff.model';
-import { Registry } from '../registry/registry.model';
+import { RegistryModel } from '../registry/registry.model';
 import { ACSx290Form } from '../registry/acsx290/acsx290.model';
 
 const DB_COLLECTION = 'ACSx290';
@@ -76,11 +76,11 @@ export class ToolsService implements OnDestroy {
       });
   }
 
-  loadRegistries(): Promise<Registry[]> {
+  loadRegistries(): Promise<RegistryModel[]> {
     return new Promise((resolve, reject) => {
       this.subscriptions.push(
         this.db
-          .collection<Registry>(DB_REGISTRY)
+          .collection<RegistryModel>(DB_REGISTRY)
           .valueChanges()
           .pipe(
             map(data =>
@@ -103,7 +103,7 @@ export class ToolsService implements OnDestroy {
     });
   }
 
-  async dumpRegistries(registries: Registry[]) {
+  async dumpRegistries(registries: RegistryModel[]) {
     console.log(registries);
 
     await registries
@@ -114,7 +114,7 @@ export class ToolsService implements OnDestroy {
       })
       .forEach(registry => {
         this.db
-          .collection<Registry>(DB_REGISTRY)
+          .collection<RegistryModel>(DB_REGISTRY)
           .doc(registry.registryId)
           .set(registry);
       });

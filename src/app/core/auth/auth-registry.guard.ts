@@ -9,7 +9,7 @@ import * as fromRoot from '../../app.reducer';
 import { AuthService } from './auth.service';
 
 @Injectable({ providedIn: 'root' })
-export class AuthGuard implements CanActivate {
+export class AuthRegistryGuard implements CanActivate {
   constructor(private store: Store<fromRoot.State>, private router: Router, private authService: AuthService) {}
 
   canActivate(
@@ -19,13 +19,14 @@ export class AuthGuard implements CanActivate {
     return this.store.select(fromRoot.getUser).pipe(
       flatMap(async user => {
         if (user) {
-          if (route.data.roles && route.data.roles.indexOf(user.staff.role) < 0) {
-            const targetUrl = router.url.split('/');
-            const availableRegistries = await this.authService.getAvailableRegistries(user.staff.staffId);
+          const userRegistries = await this.authService.getAvailableRegistries(user.staff.staffId);
+          if (route.data.registry && userRegistries.indexOf(route.data.registry) < 0) {
+            // const targetUrl = router.url.split('/');
+            // const availableRegistries = await this.authService.getAvailableACSx290s(user.staff.staffId);
 
-            if (targetUrl[1] === 'registry' && availableRegistries.indexOf(targetUrl[3]) >= 0) {
-              return true;
-            }
+            // if (targetUrl[1] === 'registry' && availableRegistries.indexOf(targetUrl[3]) >= 0) {
+            //   return true;
+            // }
             return this.router.createUrlTree(['/page-not-autherized']); // Authenticated but role is not permit
           }
           return true; // Authenticated

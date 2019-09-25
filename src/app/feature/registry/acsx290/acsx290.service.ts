@@ -8,7 +8,7 @@ import * as CryptoJS from 'crypto-js';
 import { environment } from '../../../../environments/environment';
 
 import { ACSx290Form } from './acsx290.model';
-import { Registry } from '../registry.model';
+import { RegistryModel } from '../registry.model';
 import { Staff } from '../../staff/staff.model';
 
 const DB_REGISTRY = 'Registry';
@@ -110,7 +110,7 @@ export class ACSx290Service implements OnDestroy {
     this.db.doc(DB_REGISTRY + `/${registryId}`).update(registry);
   }
 
-  private createRegistryModel(regisId: string, data: ACSx290Form): Registry {
+  private createRegistryModel(regisId: string, data: ACSx290Form): RegistryModel {
     const complete = Math.round((data.completion.summary.valid / data.completion.summary.total) * 100);
 
     // tslint:disable: no-string-literal

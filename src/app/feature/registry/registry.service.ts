@@ -3,7 +3,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Subscription, Observable, combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { Registry } from './registry.model';
+import { RegistryModel } from './registry.model';
 import { ACSx290Form } from './acsx290/acsx290.model';
 import * as Auth from '../../core/auth/auth.data';
 
@@ -22,12 +22,12 @@ export class RegistryService implements OnDestroy {
   }
 
   //#region Cloud firestore
-  public loadRegistries(avHospitals: Auth.Hospital[]): Promise<Registry[]> {
+  public loadRegistries(avHospitals: Auth.Hospital[]): Promise<RegistryModel[]> {
     return new Promise((resolve, reject) => {
-      const registryList: Observable<Registry[]>[] = [];
+      const registryList: Observable<RegistryModel[]>[] = [];
       avHospitals.forEach(hosp => {
         registryList.push(
-          this.db.collection<Registry>(DB_REGISTRY, ref => ref.where('hospitalId', '==', hosp.id)).valueChanges()
+          this.db.collection<RegistryModel>(DB_REGISTRY, ref => ref.where('hospitalId', '==', hosp.id)).valueChanges()
         );
       });
 
@@ -46,13 +46,13 @@ export class RegistryService implements OnDestroy {
     });
   }
 
-  public loadCathPci50s(avHospitals: Auth.Hospital[]): Promise<Registry[]> {
+  public loadCathPci50s(avHospitals: Auth.Hospital[]): Promise<RegistryModel[]> {
     return new Promise((resolve, reject) => {
-      const registryList: Observable<Registry[]>[] = [];
+      const registryList: Observable<RegistryModel[]>[] = [];
       avHospitals.forEach(hosp => {
         registryList.push(
           this.db
-            .collection<Registry>(DB_REGISTRY, ref =>
+            .collection<RegistryModel>(DB_REGISTRY, ref =>
               ref.where('hospitalId', '==', hosp.id).where('baseDbId', '==', 'CathPci50')
             )
             .valueChanges()
