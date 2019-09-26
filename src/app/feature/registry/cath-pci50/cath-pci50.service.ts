@@ -8,6 +8,7 @@ import { environment } from '../../../../environments/environment';
 
 import { CathPci50Model } from './cath-pci50.model';
 import { RegistryModel } from '../registry.model';
+import { Moment, utc } from 'moment';
 
 const DB_REGISTRY = 'Registry';
 const DB_STAFF = 'Staff';
@@ -114,10 +115,87 @@ export class CathPci50Service implements OnDestroy {
       baseDb: data.detail.baseDb,
       addendum: data.detail.addendum,
       completion: complete,
-      tags: ['CAG', 'PCI'],
+      tags: this.createTags(data),
       modifiedAt: data.detail.modifiedAt
     };
     // tslint:enable: no-string-literal
+  }
+
+  createTags(data: CathPci50Model): string[] {
+    const tags: string[] = [];
+
+    const conditions: {
+      section: string;
+      control: string;
+      value: any;
+      tag: string;
+    }[] = [
+      {
+        section: 'sectionB',
+        control: 'PayorPrim',
+        value: 'NHSO (National Health Security Officer)',
+        tag: 'NHSO'
+      },
+      {
+        section: 'sectionB',
+        control: 'PayorSecond',
+        value: 'NHSO (National Health Security Officer)',
+        tag: 'NHSO'
+      },
+      {
+        section: 'sectionE',
+        control: 'DiagCorAngio',
+        value: 'Yes',
+        tag: 'CAG'
+      },
+      { section: 'sectionE', control: 'PCIProc', value: 'Yes', tag: 'PCI' },
+      {
+        section: 'sectionL',
+        control: 'DCStatus',
+        value: 'Deceased',
+        tag: 'Dead'
+      }
+    ];
+
+    conditions.forEach(con => {
+      if (data[con.section][con.control] === con.value) {
+        tags.push(con.tag);
+      }
+    });
+
+    // tslint:disable: no-string-literal
+    const procDate = utc(data.sectionE['ProcedureStartDateTime']);
+
+    data.sectionM['FollowUps'].forEach(d => {
+      const fuDate = utc(d['FU_AssessmentDate']);
+      const period = this.getFollowUpPeriod(procDate, fuDate);
+      if (period !== '') {
+        tags.push(period);
+      }
+
+      if (d['FU_Status'] === 'Deceased') {
+        tags.push('Dead');
+      } else if (d['FU_Status'] === 'Lost to Follow-up') {
+        tags.push('Lost');
+      }
+    });
+    // tslint:enable: no-string-literal
+
+    return tags;
+  }
+
+  public getFollowUpPeriod(procDate: Moment, fuDate: Moment): string {
+    let period = '';
+    const dateDiff = fuDate.diff(procDate, 'days', false);
+
+    if (dateDiff <= 34) {
+      period = '30 d';
+    } else {
+      const years = Math.ceil((dateDiff - 60) / 365);
+      period = `${years} y`;
+    }
+
+    return period;
   }
 
   public getForm(registryId: string): Promise<CathPci50Model> {
