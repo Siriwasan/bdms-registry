@@ -1,12 +1,14 @@
 export const postions = [
-  ['CS', 'Cardiothoracic Surgeon'],
-  ['AN', 'Anesthesiologist'],
-  ['SN', 'Scrub Nurse'],
-  ['CT', 'Cardiothoracic Technician'],
-  ['HC', 'Heart Coordinator'],
-  ['RS', 'Researcher'],
-  ['DS', 'Data scientist'],
-  ['OT', 'Other']
+  'Cardiothoracic Surgeon',
+  'Anesthesiologist',
+  'Scrub Nurse',
+  'Cardiothoracic Technician',
+  'Heart Coordinator',
+  'Researcher',
+  'Data scientist',
+  'Cardiologist',
+  'Cardiac Interventionist',
+  'Other'
 ];
 
 export interface Hospital {

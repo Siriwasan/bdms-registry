@@ -53,3 +53,25 @@ table {
   padding: 5px 10px;
   border-radius: 16px;
 }
+
+.tag-low-priority {
+  margin: 4px;
+  background-color: #d0dbff;
+  padding: 5px 10px;
+  border-radius: 16px;
+}
+
+.tag-medium-priority {
+  margin: 4px;
+  background-color: #f1d27b;
+  padding: 5px 10px;
+  border-radius: 16px;
+}
+
+.tag-high-priority {
+  margin: 4px;
+  background-color: #f86666;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 16px;
+}

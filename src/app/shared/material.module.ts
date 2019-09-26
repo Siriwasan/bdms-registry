@@ -22,7 +22,8 @@ import {
   MatSortModule,
   MatTooltipModule,
   MatSnackBarModule,
-  MatTabsModule
+  MatTabsModule,
+  MatAutocompleteModule
 } from '@angular/material';
 import { MatDatepickerModule, MatMomentDateModule } from '@coachcare/datepicker';
 
@@ -51,7 +52,8 @@ import { MatDatepickerModule, MatMomentDateModule } from '@coachcare/datepicker'
     MatSortModule,
     MatTooltipModule,
     MatSnackBarModule,
-    MatTabsModule
+    MatTabsModule,
+    MatAutocompleteModule
   ],
   exports: [
     MatButtonModule,
@@ -76,7 +78,8 @@ import { MatDatepickerModule, MatMomentDateModule } from '@coachcare/datepicker'
     MatSortModule,
     MatTooltipModule,
     MatSnackBarModule,
-    MatTabsModule
+    MatTabsModule,
+    MatAutocompleteModule
   ]
 })
 export class MaterialModule {}

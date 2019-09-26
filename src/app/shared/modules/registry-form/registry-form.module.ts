@@ -10,6 +10,7 @@ import { RegistryInputComponent } from './registry-input.component';
 import { RegistrySelectComponent } from './registry-select.component';
 import { RegistrySelectMultipleComponent } from './registry-select-multiple.component';
 import { RegistryDatePickerComponent } from './registry-date-picker.component';
+import { RegistryAutocompleteComponent } from './registry-autocomplete.component';
 import { RegistryFormService } from './registry-form.service';
 
 @NgModule({
@@ -18,6 +19,7 @@ import { RegistryFormService } from './registry-form.service';
     RegistrySelectComponent,
     RegistrySelectMultipleComponent,
     RegistryDatePickerComponent,
+    RegistryAutocompleteComponent
   ],
   imports: [CommonModule, FormsModule, ReactiveFormsModule, MaterialModule, FlexLayoutModule, ScrollSpyModule],
   exports: [
@@ -25,6 +27,7 @@ import { RegistryFormService } from './registry-form.service';
     RegistrySelectComponent,
     RegistrySelectMultipleComponent,
     RegistryDatePickerComponent,
+    RegistryAutocompleteComponent,
     ScrollSpyModule
   ],
   providers: [RegistryFormService]

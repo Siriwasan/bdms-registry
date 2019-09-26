@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { Observable, Subscription } from 'rxjs';
 
 import { environment } from '../../../../environments/environment';
 import * as CryptoJS from 'crypto-js';
@@ -12,7 +13,7 @@ import * as UI from '../../../shared/ui.actions';
 import { RegistryModel } from '../registry.model';
 import { RegistryService } from '../registry.service';
 import { FileService } from '../../../shared/services/file.service';
-import { Observable, Subscription } from 'rxjs';
+import { tagPriorities } from '../cath-pci50/cath-pci50.tag';
 
 import { User } from '../../../../app/core/auth/user.model';
 import * as Auth from '../../../core/auth/auth.data';
@@ -25,7 +26,7 @@ import { AuthService } from 'src/app/core/auth/auth.service';
 })
 export class CathPci50ListComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = ['registryId', 'hn', 'an', 'firstName', 'lastName', 'tags', 'completion'];
-  dataSource: MatTableDataSource<RegistryModel>;
+  dataSource: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -59,15 +60,32 @@ export class CathPci50ListComponent implements OnInit, OnDestroy {
 
       const data = await this.registryService.loadCathPci50s(this.avHospitals);
 
-      const decryptData: RegistryModel[] = [];
-      data.forEach(d => {
-        decryptData.push({
+      // const decryptData: any[] = [];
+      // data.forEach(d => {
+      //   decryptData.push({
+      //     ...d,
+      //     hn: this.decrypt(d.hn),
+      //     an: this.decrypt(d.an),
+      //     firstName: this.decrypt(d.firstName),
+      //     lastName: this.decrypt(d.lastName),
+      //     tags: d.tags.map(t => {
+      //       return { tag: t, priority: tagPriorities[t] ? tagPriorities[t] : 'low' };
+      //     })
+      //   });
+      // });
+
+      // const decryptData: any[] = [];
+      const decryptData = data.map(d => {
+        return {
           ...d,
           hn: this.decrypt(d.hn),
           an: this.decrypt(d.an),
           firstName: this.decrypt(d.firstName),
-          lastName: this.decrypt(d.lastName)
-        });
+          lastName: this.decrypt(d.lastName),
+          tags: d.tags.map(t => {
+            return { tag: t, priority: tagPriorities[t] ? tagPriorities[t] : 'low' };
+          })
+        };
       });
 
       console.log('loadRegistry');
@@ -92,7 +110,7 @@ export class CathPci50ListComponent implements OnInit, OnDestroy {
     }
   }
 
-  click(registry: RegistryModel) {
+  click(registry: any) {
     if (registry.baseDbId === 'CathPci50') {
       this.store.dispatch(new UI.StartLoading());
       setTimeout(() => {

@@ -186,7 +186,7 @@ export class StaffProfileComponent implements OnInit, OnChanges, OnDestroy, Afte
   }
 
   private getAvailablePositions(): string[] {
-    return Auth.postions.map(position => position[1]);
+    return Auth.postions;
   }
 
   private getAvailableHospitals(): Auth.Hospital[] {

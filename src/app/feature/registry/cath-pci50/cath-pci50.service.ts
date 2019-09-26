@@ -7,6 +7,7 @@ import * as CryptoJS from 'crypto-js';
 import { environment } from '../../../../environments/environment';
 
 import { CathPci50Model } from './cath-pci50.model';
+import { tagConditions } from './cath-pci50.tag';
 import { RegistryModel } from '../registry.model';
 import { Moment, utc } from 'moment';
 
@@ -124,41 +125,8 @@ export class CathPci50Service implements OnDestroy {
   createTags(data: CathPci50Model): string[] {
     const tags: string[] = [];
 
-    const conditions: {
-      section: string;
-      control: string;
-      value: any;
-      tag: string;
-    }[] = [
-      {
-        section: 'sectionB',
-        control: 'PayorPrim',
-        value: 'NHSO (National Health Security Officer)',
-        tag: 'NHSO'
-      },
-      {
-        section: 'sectionB',
-        control: 'PayorSecond',
-        value: 'NHSO (National Health Security Officer)',
-        tag: 'NHSO'
-      },
-      {
-        section: 'sectionE',
-        control: 'DiagCorAngio',
-        value: 'Yes',
-        tag: 'CAG'
-      },
-      { section: 'sectionE', control: 'PCIProc', value: 'Yes', tag: 'PCI' },
-      {
-        section: 'sectionL',
-        control: 'DCStatus',
-        value: 'Deceased',
-        tag: 'Dead'
-      }
-    ];
-
-    conditions.forEach(con => {
-      if (data[con.section][con.control] === con.value) {
+    tagConditions.forEach(con => {
+      if (con.values.includes(data[con.section][con.control])) {
         tags.push(con.tag);
       }
     });
@@ -184,7 +152,7 @@ export class CathPci50Service implements OnDestroy {
     return tags;
   }
 
-  public getFollowUpPeriod(procDate: Moment, fuDate: Moment): string {
+  private getFollowUpPeriod(procDate: Moment, fuDate: Moment): string {
     let period = '';
     const dateDiff = fuDate.diff(procDate, 'days', false);
 

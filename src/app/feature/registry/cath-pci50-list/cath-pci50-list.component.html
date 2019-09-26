@@ -48,8 +48,12 @@
       <ng-container matColumnDef="tags">
         <mat-header-cell *matHeaderCellDef mat-sort-header fxHide.xs>Tags</mat-header-cell>
         <!-- <mat-cell *matCellDef="let row" fxHide.xs>{{ row.tags }}</mat-cell> -->
-        <mat-cell *matCellDef="let row" fxHide.xs>
-          <span class="tags" *ngFor="let item of row.tags" >{{ item }}</span>
+        <mat-cell *matCellDef="let row" fxLayout="row wrap" fxHide.xs>
+          <span *ngFor="let item of row.tags" [ngClass]="{
+            'tag-low-priority': item.priority === 'low',
+            'tag-medium-priority': item.priority === 'medium',
+            'tag-high-priority': item.priority === 'high'
+          }">{{ item.tag }}</span>
         </mat-cell>
       </ng-container>
 

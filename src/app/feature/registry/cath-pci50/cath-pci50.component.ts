@@ -27,6 +27,7 @@ import { conditions } from './cath-pci50.condition';
 import { validations } from './cath-pci50.validation';
 import { CathPci50Completion } from './cath-pci50.model';
 import * as cathPci50Data from './cath-pci50.data';
+import * as registryData from '../registry.data';
 
 import { User } from '../../../../app/core/auth/user.model';
 import { AuthService } from 'src/app/core/auth/auth.service';
@@ -76,6 +77,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
 
   public avHospitals: string[];
   public toc = tableOfContent;
+  public nationality = registryData.nationality;
   public segmentNumbers = cathPci50Data.segmentNumbers;
   public deathCauses = cathPci50Data.deathCauses;
   public J_lesions = cathPci50Data.J_lesions;
@@ -1507,7 +1509,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     return `${date}<span>(${period})</span>`;
   }
 
-  public getFollowUpPeriod(procDate: Moment, fuDate: Moment): string {
+  private getFollowUpPeriod(procDate: Moment, fuDate: Moment): string {
     let period = '';
     const dateDiff = fuDate.diff(procDate, 'days', false);
 
