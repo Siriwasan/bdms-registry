@@ -20,11 +20,12 @@ import * as Auth from '../../../core/auth/auth.data';
 import { AuthService } from 'src/app/core/auth/auth.service';
 
 @Component({
-  selector: 'app-cath-pci50-list',
-  templateUrl: './cath-pci50-list.component.html',
-  styleUrls: ['./cath-pci50-list.component.scss']
+  selector: 'app-acsx290-list',
+  templateUrl: './acsx290-list.component.html',
+  styleUrls: ['./acsx290-list.component.scss'],
+  providers: [AuthService]
 })
-export class CathPci50ListComponent implements OnInit, OnDestroy {
+export class ACSx290ListComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = ['registryId', 'hn', 'an', 'firstName', 'lastName', 'tags', 'completion'];
   dataSource: MatTableDataSource<any>;
 
@@ -58,23 +59,17 @@ export class CathPci50ListComponent implements OnInit, OnDestroy {
         this.user.staff.permission
       );
 
-      const data = await this.registryService.loadRegistries('CathPci50', this.avHospitals);
-
-      // const decryptData: any[] = [];
+      const data = await this.registryService.loadRegistries('ACSx290', this.avHospitals);
+      // const decryptData: RegistryModel[] = [];
       // data.forEach(d => {
       //   decryptData.push({
       //     ...d,
       //     hn: this.decrypt(d.hn),
       //     an: this.decrypt(d.an),
       //     firstName: this.decrypt(d.firstName),
-      //     lastName: this.decrypt(d.lastName),
-      //     tags: d.tags.map(t => {
-      //       return { tag: t, priority: tagPriorities[t] ? tagPriorities[t] : 'low' };
-      //     })
+      //     lastName: this.decrypt(d.lastName)
       //   });
       // });
-
-      // const decryptData: any[] = [];
       const decryptData = data.map(d => {
         return {
           ...d,
@@ -110,11 +105,11 @@ export class CathPci50ListComponent implements OnInit, OnDestroy {
     }
   }
 
-  click(registry: any) {
-    if (registry.baseDbId === 'CathPci50') {
+  click(registry: RegistryModel) {
+    if (registry.baseDbId === 'ACSx290') {
       this.store.dispatch(new UI.StartLoading());
       setTimeout(() => {
-        this.router.navigate(['registry/cath-pci50', registry.registryId]);
+        this.router.navigate(['registry/acsx290', registry.registryId]);
       }, 300);
     }
   }
@@ -129,13 +124,13 @@ export class CathPci50ListComponent implements OnInit, OnDestroy {
   create() {
     this.store.dispatch(new UI.StartLoading());
     setTimeout(() => {
-      this.router.navigate(['registry/cath-pci50']);
+      this.router.navigate(['registry/acsx290']);
     }, 300);
   }
 
   async export() {
-    // const data = await this.registryService.loadACSx290sForExport(this.avHospitals);
-    // this.fileService.saveJSONtoCSV(data, 'acsx.csv');
-    // console.log('export acsx ' + data.length + ' records');
+    const data = await this.registryService.loadACSx290sForExport(this.avHospitals);
+    this.fileService.saveJSONtoCSV(data, 'acsx.csv');
+    console.log('export acsx ' + data.length + ' records');
   }
 }

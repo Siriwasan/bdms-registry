@@ -8,6 +8,7 @@ import * as CryptoJS from 'crypto-js';
 import { environment } from '../../../../environments/environment';
 
 import { ACSx290Form } from './acsx290.model';
+import { tagConditions } from './acsx290.tag';
 import { RegistryModel } from '../registry.model';
 import { Staff } from '../../staff/staff.model';
 
@@ -126,10 +127,38 @@ export class ACSx290Service implements OnDestroy {
       baseDb: data.detail.baseDb,
       addendum: data.detail.addendum,
       completion: complete,
-      tags: [],
+      tags: this.createTags(data),
       modifiedAt: data.detail.modifiedAt
     };
     // tslint:enable: no-string-literal
+  }
+
+  private createTags(data: ACSx290Form): string[] {
+    const tags: string[] = [];
+
+    const yesAnswers = [
+      'Yes, planned',
+      'Yes, unplanned due to surgical complication',
+      'Yes, unplanned due to unsuspected disease or anatomy'
+    ];
+
+    // tslint:disable-next-line: no-string-literal
+    if (yesAnswers.includes(data.sectionI['OpCAB'])) {
+      // tslint:disable-next-line: no-string-literal
+      if (data.sectionI['CPBUtil'] === 'None') {
+        tags.push('OPCAB');
+      } else {
+        tags.push('CABG');
+      }
+    }
+
+    tagConditions.forEach(con => {
+      if (con.values.includes(data[con.section][con.control])) {
+        tags.push(con.tag);
+      }
+    });
+
+    return tags;
   }
 
   public deleteForm(registryId: string) {

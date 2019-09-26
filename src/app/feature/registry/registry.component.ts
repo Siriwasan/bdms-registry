@@ -58,7 +58,7 @@ export class RegistryComponent implements OnInit, OnDestroy {
         this.user.staff.permission
       );
 
-      const data = await this.registryService.loadRegistries(this.avHospitals);
+      const data = await this.registryService.loadRegistries('ACSx290', this.avHospitals);
       const decryptData: RegistryModel[] = [];
       data.forEach(d => {
         decryptData.push({

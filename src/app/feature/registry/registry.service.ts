@@ -22,38 +22,14 @@ export class RegistryService implements OnDestroy {
   }
 
   //#region Cloud firestore
-  public loadRegistries(avHospitals: Auth.Hospital[]): Promise<RegistryModel[]> {
-    return new Promise((resolve, reject) => {
-      const registryList: Observable<RegistryModel[]>[] = [];
-      avHospitals.forEach(hosp => {
-        registryList.push(
-          this.db.collection<RegistryModel>(DB_REGISTRY, ref => ref.where('hospitalId', '==', hosp.id)).valueChanges()
-        );
-      });
-
-      this.subscriptions.push(
-        combineLatest(registryList)
-          .pipe(map(arr => arr.reduce((acc, cur) => acc.concat(cur))))
-          .subscribe(
-            data => {
-              resolve(data);
-            },
-            error => {
-              reject(error);
-            }
-          )
-      );
-    });
-  }
-
-  public loadCathPci50s(avHospitals: Auth.Hospital[]): Promise<RegistryModel[]> {
+  public loadRegistries(registry: string, avHospitals: Auth.Hospital[]): Promise<RegistryModel[]> {
     return new Promise((resolve, reject) => {
       const registryList: Observable<RegistryModel[]>[] = [];
       avHospitals.forEach(hosp => {
         registryList.push(
           this.db
             .collection<RegistryModel>(DB_REGISTRY, ref =>
-              ref.where('hospitalId', '==', hosp.id).where('baseDbId', '==', 'CathPci50')
+              ref.where('hospitalId', '==', hosp.id).where('baseDbId', '==', registry)
             )
             .valueChanges()
         );

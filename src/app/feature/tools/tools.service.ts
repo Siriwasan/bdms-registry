@@ -108,8 +108,10 @@ export class ToolsService implements OnDestroy {
 
     await registries
       .map(registry => {
-        // registry.baseDbId = 'ACSx290';
         registry.modifiedAt = firebase.firestore.Timestamp.fromDate(new Date(registry.modifiedAt));
+
+        // registry.baseDbId = 'ACSx290';
+        registry.tags = [];
         return registry;
       })
       .forEach(registry => {
