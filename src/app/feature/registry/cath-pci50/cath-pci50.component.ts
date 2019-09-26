@@ -157,43 +157,6 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     return (this.formGroupJ.get(str.pciLesions) as FormArray).controls;
   }
 
-  get pciDevices() {
-    // tslint:disable: no-string-literal
-    const result = this.visibles[str.pciDevices] && (this.visibles[str.pciDevices] as FormVisible[]).length > 0;
-    const pciTechniques = ['StentTechnique', 'ProxOptimize', 'FinalKissBalloon', 'PCIResult'];
-
-    // if (result) {
-    //   this.visibles['StentTechnique'] = true;
-    //   this.visibles['ProxOptimize'] = true;
-    //   this.visibles['FinalKissBalloon'] = true;
-    //   this.visibles['PCIResult'] = true;
-    //   // this.formGroupJ.get('StentTechnique').setValue(null);
-    // } else {
-    //   this.visibles['StentTechnique'] = false;
-    //   this.visibles['ProxOptimize'] = false;
-    //   this.visibles['FinalKissBalloon'] = false;
-    //   this.visibles['PCIResult'] = false;
-    //   this.formGroupJ.get('StentTechnique').setValue(null);
-    //   this.formGroupJ.get('ProxOptimize').setValue(null);
-    //   this.formGroupJ.get('FinalKissBalloon').setValue(null);
-    //   this.formGroupJ.get('PCIResult').setValue(null);
-    // }
-    if (result) {
-      pciTechniques.forEach(t => {
-        this.visibles[t] = result;
-      });
-      this.formGroupJ.setValue(this.formGroupJ.value);
-    } else {
-      pciTechniques.forEach(t => {
-        this.visibles[t] = result;
-        this.formGroupJ.get(t).setValue(null);
-      });
-    }
-    // tslint:enable: no-string-literal
-
-    return true;
-  }
-
   get pciDevicesControls() {
     return (this.formGroupJ.get(str.pciDevices) as FormArray).controls;
   }
@@ -306,6 +269,8 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
 
     this.completion = this.getFormCompletion();
     this.subscribeCompletionCalculation();
+
+    this.checkPciTechnique();
   }
 
   ngOnDestroy() {
@@ -1390,6 +1355,8 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
 
     this.pciDevicesTabIndex = formArray.length - 1;
     this.disableAddPciDevice = true;
+
+    this.checkPciTechnique();
   }
 
   public removePciDevice(index: number) {
@@ -1404,6 +1371,25 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     }
 
     this.checkCanAddPciDevice();
+
+    this.checkPciTechnique();
+  }
+
+  public checkPciTechnique() {
+    const result = this.visibles[str.pciDevices] && (this.visibles[str.pciDevices] as FormVisible[]).length > 0;
+    const pciTechniques = ['StentTechnique', 'ProxOptimize', 'FinalKissBalloon', 'PCIResult'];
+
+    if (result) {
+      pciTechniques.forEach(t => {
+        this.visibles[t] = result;
+      });
+      this.formGroupJ.setValue(this.formGroupJ.value);
+    } else {
+      pciTechniques.forEach(t => {
+        this.visibles[t] = result;
+        this.formGroupJ.get(t).setValue(null);
+      });
+    }
   }
 
   private getLesionsForDevices() {
@@ -1452,6 +1438,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     }
 
     this.disableAddPciDevice = false;
+    this.checkPciTechnique();
   }
 
   removeLesionFromDevices(lesion: string) {
