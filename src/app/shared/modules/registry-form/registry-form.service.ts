@@ -444,7 +444,9 @@ export class RegistryFormService implements OnDestroy {
   }
 
   public clearErrors() {
-    this.getSectionMembers().forEach(sectionMember => sectionMember[2].resetForm(sectionMember[1].value));
+    this.getSectionMembers().forEach(sectionMember => {
+      console.log(sectionMember);
+      return sectionMember[2].resetForm(sectionMember[1].value); });
   }
   //#endregion Registry
 
@@ -455,6 +457,10 @@ export class RegistryFormService implements OnDestroy {
   }
 
   public hasInfo(control: string) {
+    if (!this.tokens) {
+      return;
+    }
+
     return (
       this.tokens.findIndex(token => {
         if (token.type === 'heading') {
@@ -469,6 +475,10 @@ export class RegistryFormService implements OnDestroy {
   }
 
   public openInfo(control: string) {
+    if (!this.tokens) {
+      return;
+    }
+
     this.dialogService.createModalDialog({
       title: null,
       content: this.searhDataDict(control),

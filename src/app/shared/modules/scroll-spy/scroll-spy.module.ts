@@ -7,6 +7,6 @@ import { ScrollSpyService } from './scroll-spy.service';
   declarations: [ScrollSpyElementDirective],
   imports: [CommonModule],
   exports: [ScrollSpyElementDirective],
-  providers: [ScrollSpyService]
+  providers: []
 })
 export class ScrollSpyModule {}

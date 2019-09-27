@@ -2789,8 +2789,8 @@
         <span>J. Coronary Bypass</span>
         <span>{{ calculateCurrent('J') }}</span>
       </div>
-      <div *ngIf="visibles['sectionJBody']; else sectionJ_other_content" id="sectionJBody" class="section-body">
-        <form [formGroup]="formGroupJ" #formDirectiveJ="ngForm">
+      <form [formGroup]="formGroupJ" #formDirectiveJ="ngForm">
+        <div *ngIf="visibles['sectionJBody']; else sectionJ_other_content" id="sectionJBody" class="section-body">
 
           <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
@@ -2982,8 +2982,8 @@
 
           </div>
 
-        </form>
-      </div>
+        </div>
+      </form>
       <ng-template #sectionJ_other_content>
         <div class="section-body">
           You need to select Coronary Artery Bypass in section I.
@@ -2996,8 +2996,8 @@
         <span>K. Valve Surgery</span>
         <span>{{ calculateCurrent('K') }}</span>
       </div>
-      <div *ngIf="visibles['sectionKBody']; else sectionK_other_content" id="sectionKBody" class="section-body">
-        <form [formGroup]="formGroupK" #formDirectiveK="ngForm">
+      <form [formGroup]="formGroupK" #formDirectiveK="ngForm">
+        <div *ngIf="visibles['sectionKBody']; else sectionK_other_content" id="sectionKBody" class="section-body">
 
           <reg-select *ngIf="visibles['ValExp']" controlName="ValExp" placeholder="Valve Prosthesis Explant" [formGroup]="formGroupK"
             [choices]="['Yes', 'No']"></reg-select>
@@ -3766,8 +3766,8 @@
 
           </div>
 
-        </form>
-      </div>
+        </div>
+      </form>
       <ng-template #sectionK_other_content>
         <div class="section-body">
           You need to select Valve Surgery in section I.
@@ -4020,8 +4020,8 @@
         <span>M. Other Cardiac Procedures</span>
         <span>{{ calculateCurrent('M') }}</span>
       </div>
-      <div *ngIf="visibles['sectionMBody']; else sectionM_other_content" id="sectionMBody" class="section-body">
-        <form [formGroup]="formGroupM" #formDirectiveM="ngForm">
+      <form [formGroup]="formGroupM" #formDirectiveM="ngForm">
+        <div *ngIf="visibles['sectionMBody']; else sectionM_other_content" id="sectionMBody" class="section-body">
 
           <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
@@ -4175,8 +4175,8 @@
 
           </div>
 
-        </form>
-      </div>
+        </div>
+      </form>
       <ng-template #sectionM_other_content>
         <div class="section-body">
           You need to select Other Cardiac Procedure in section I.
@@ -4189,8 +4189,8 @@
         <span>M.1. Atrial Fibrillation Procedures</span>
         <span>{{ calculateCurrent('M1') }}</span>
       </div>
-      <div *ngIf="visibles['sectionM1Body']; else sectionM1_other_content" id="sectionM1Body" class="section-body">
-        <form [formGroup]="formGroupM1" #formDirectiveM1="ngForm">
+      <form [formGroup]="formGroupM1" #formDirectiveM1="ngForm">
+        <div *ngIf="visibles['sectionM1Body']; else sectionM1_other_content" id="sectionM1Body" class="section-body">
 
           <reg-select *ngIf="visibles['OCarAFibLesLoc']" controlName="OCarAFibLesLoc" placeholder="Lesion location" [formGroup]="formGroupM1" [choices]="[
               'Primarily epicardial',
@@ -4277,8 +4277,8 @@
           <reg-select *ngIf="visibles['AFitLesCSL']" class="subitem-horz" controlName="AFitLesCSL" placeholder="#16 - Coronary Sinus Lesion" [formGroup]="formGroupM1"
             [choices]="['Yes', 'No']"></reg-select>
 
-        </form>
-      </div>
+        </div>
+      </form>
       <ng-template #sectionM1_other_content>
         <div class="section-body">
           You need to select Other Cardiac Procedure, AFib in section I.
@@ -4291,8 +4291,8 @@
         <span>M.2. Aorta And Aortic Root Procedures</span>
         <span>{{ calculateCurrent('M2') }}</span>
       </div>
-      <div *ngIf="visibles['sectionM2Body']; else sectionM2_other_content" id="sectionM2Body" class="section-body">
-        <form [formGroup]="formGroupM2" #formDirectiveM2="ngForm">
+      <form [formGroup]="formGroupM2" #formDirectiveM2="ngForm">
+        <div *ngIf="visibles['sectionM2Body']; else sectionM2_other_content" id="sectionM2Body" class="section-body">
 
           <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
@@ -5683,8 +5683,8 @@
 
           </div>
 
-        </form>
-      </div>
+        </div>
+      </form>
       <ng-template #sectionM2_other_content>
         <div class="section-body">
           You need to select Aorta procedure Performed in section I.
@@ -5697,8 +5697,8 @@
         <span>M.3. Congenital Defect Repair (other than ASD, VSD or Bicuspid valve)</span>
         <span>{{ calculateCurrent('M3') }}</span>
       </div>
-      <div *ngIf="visibles['sectionM3Body']; else sectionM3_other_content" id="sectionM3Body" class="section-body">
-        <form [formGroup]="formGroupM3" #formDirectiveM3="ngForm">
+      <form [formGroup]="formGroupM3" #formDirectiveM3="ngForm">
+        <div *ngIf="visibles['sectionM3Body']; else sectionM3_other_content" id="sectionM3Body" class="section-body">
 
           <h4 *ngIf="visibles['congenDiag']" id="congenDiag">Congenital Diagnoses: Select up to three most significant diagnoses</h4>
 
@@ -5722,8 +5722,8 @@
           <reg-input *ngIf="visibles['OCarCongProc3']" controlName="OCarCongProc3" placeholder="Procedure 3" [formGroup]="formGroupM3" type="number">
           </reg-input>
 
-        </form>
-      </div>
+        </div>
+      </form>
       <ng-template #sectionM3_other_content>
         <div class="section-body">
           You need to select Congenital Defect Repair in section M.
@@ -5736,8 +5736,8 @@
         <span>N. Other Non-Cardiac Procedures</span>
         <span>{{ calculateCurrent('N') }}</span>
       </div>
-      <div *ngIf="visibles['sectionNBody']; else sectionN_other_content" id="sectionNBody" class="section-body">
-        <form [formGroup]="formGroupN" #formDirectiveN="ngForm">
+      <form [formGroup]="formGroupN" #formDirectiveN="ngForm">
+        <div *ngIf="visibles['sectionNBody']; else sectionN_other_content" id="sectionNBody" class="section-body">
 
           <reg-select *ngIf="visibles['ONCCarEn']" controlName="ONCCarEn" placeholder="Carotid Endarterectomy" [formGroup]="formGroupN" [choices]="[
               'Yes, planned',
@@ -5767,8 +5767,8 @@
               'No'
             ]"></reg-select>
 
-        </form>
-      </div>
+        </div>
+      </form>
       <ng-template #sectionN_other_content>
         <div class="section-body">
           You need to select Other Non-Cardiac Procedure in section I.
@@ -6604,8 +6604,8 @@
         <span>R. Readmission</span>
         <span>{{ calculateCurrent('R') }}</span>
       </div>
-      <div *ngIf="visibles['sectionRBody']; else sectionR_other_content" id="sectionRBody" class="section-body">
-        <form [formGroup]="formGroupR" #formDirectiveR="ngForm">
+      <form [formGroup]="formGroupR" #formDirectiveR="ngForm">
+        <div *ngIf="visibles['sectionRBody']; else sectionR_other_content" id="sectionRBody" class="section-body">
 
           <reg-select *ngIf="visibles['Readmit']" controlName="Readmit" placeholder="Readmit" [formGroup]="formGroupR"
             [choices]="['Yes', 'No', 'Unknown']"></reg-select>
@@ -6695,8 +6695,8 @@
 
           </div>
 
-        </form>
-      </div>
+        </div>
+      </form>
       <ng-template #sectionR_other_content>
         <div class="section-body">
           You need to select Discharge/Mortality status in section Q.

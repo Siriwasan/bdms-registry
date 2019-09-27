@@ -33,7 +33,7 @@ import * as UI from '../../../shared/ui.actions';
   selector: 'app-acsx290',
   templateUrl: './acsx290.component.html',
   styleUrls: ['./acsx290.component.scss'],
-  providers: [ACSx290Service]
+  providers: [ACSx290Service, RegistryFormService, ScrollSpyService]
 })
 export class ACSx290Component extends RegistryFormComponent implements OnInit, AfterViewInit, OnDestroy {
   user$: Observable<User>;
@@ -225,6 +225,8 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
       this.subscribeOpONCardChanged(),
       this.subscribeDischMortStatChanged()
     );
+
+    // console.log(this.sectionMembers);
   }
 
   ngOnDestroy() {

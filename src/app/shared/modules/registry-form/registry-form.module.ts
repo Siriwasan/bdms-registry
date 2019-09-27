@@ -30,6 +30,6 @@ import { RegistryFormService } from './registry-form.service';
     RegistryAutocompleteComponent,
     ScrollSpyModule
   ],
-  providers: [RegistryFormService]
+  providers: []
 })
 export class RegistryFormModule {}
