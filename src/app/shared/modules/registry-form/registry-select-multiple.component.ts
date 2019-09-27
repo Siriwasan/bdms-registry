@@ -89,7 +89,9 @@ export class RegistrySelectMultipleComponent extends RegistryControlComponent im
     this.elementRef.nativeElement.setAttribute('id', this.controlName);
     this.bInfo = this.hasInfo(this.controlName);
 
+    console.log(this.controlName);
     this.self = this.formGroup.get(this.controlName);
+    console.log(this.self);
   }
 
   ngOnChanges(changes: SimpleChanges) {

@@ -13,7 +13,7 @@ import * as UI from '../../../shared/ui.actions';
 import { RegistryModel } from '../registry.model';
 import { RegistryService } from '../registry.service';
 import { FileService } from '../../../shared/services/file.service';
-import { tagPriorities } from '../cath-pci50/cath-pci50.tag';
+import { tagPriorities } from '../acsx290/acsx290.tag';
 
 import { User } from '../../../../app/core/auth/user.model';
 import * as Auth from '../../../core/auth/auth.data';
@@ -88,6 +88,9 @@ export class ACSx290ListComponent implements OnInit, OnDestroy {
       this.dataSource = new MatTableDataSource(decryptData);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
+      // this.dataSource.filterPredicate = (d: any, filter: string) => {
+      //   return d.tags.length > 0 && d.tags[0].tag.includes(filter);
+      // };
 
       this.store.dispatch(new UI.StopLoading());
     });

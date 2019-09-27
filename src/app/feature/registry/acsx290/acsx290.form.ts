@@ -6,7 +6,7 @@ export const ACSx290form = {
   sectionA: {
     registryId: [null, Validators.required],
     HN: [null, [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
-    AN: [null, [Validators.required, Validators.minLength(12), Validators.maxLength(12)]]
+    AN: [null, [Validators.required, Validators.minLength(11), Validators.maxLength(12)]]
   },
   sectionB: {
     PatLName: [null, Validators.required],

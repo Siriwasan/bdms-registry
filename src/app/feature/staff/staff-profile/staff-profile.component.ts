@@ -80,6 +80,7 @@ export class StaffProfileComponent implements OnInit, OnChanges, OnDestroy, Afte
         email: [null],
         position: [null, Validators.required],
         primaryHospId: [null, Validators.required],
+        secondHospIds: [null, Validators.required],
         registries: [null, Validators.required],
         role: [null, Validators.required],
         permission: [null, Validators.required],
@@ -122,6 +123,7 @@ export class StaffProfileComponent implements OnInit, OnChanges, OnDestroy, Afte
         email: staff.email,
         position: staff.position,
         primaryHospId: staff.primaryHospId,
+        secondHospIds: staff.secondHospIds,
         registries: staff.registries,
         role: staff.role,
         permission: staff.permission,
@@ -153,6 +155,7 @@ export class StaffProfileComponent implements OnInit, OnChanges, OnDestroy, Afte
     this.staffForm.get('email').enable();
     this.staffForm.get('position').enable();
     this.staffForm.get('primaryHospId').enable();
+    this.staffForm.get('secondHospIds').enable();
     this.staffForm.get('registries').enable();
     this.staffForm.get('role').enable();
     this.staffForm.get('permission').enable();
@@ -171,6 +174,7 @@ export class StaffProfileComponent implements OnInit, OnChanges, OnDestroy, Afte
     this.staffForm.get('email').disable();
     this.staffForm.get('position').disable();
     this.staffForm.get('primaryHospId').disable();
+    this.staffForm.get('secondHospIds').disable();
     this.staffForm.get('registries').disable();
     this.staffForm.get('role').disable();
     this.staffForm.get('permission').disable();
@@ -252,7 +256,7 @@ export class StaffProfileComponent implements OnInit, OnChanges, OnDestroy, Afte
       email: this.staffForm.value.email,
       position: this.staffForm.value.position,
       primaryHospId: this.staffForm.value.primaryHospId,
-      secondHospIds: null,
+      secondHospIds: this.staffForm.value.secondHospIds,
       registries: this.staffForm.value.registries,
       role: this.staffForm.value.role,
       permission: this.staffForm.value.permission,

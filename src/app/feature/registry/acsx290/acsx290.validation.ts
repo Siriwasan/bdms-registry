@@ -9,7 +9,7 @@ export const validations: FormValidations = {
     ],
     AN: [
       { type: 'required', message: 'AN is required' },
-      { type: 'minlength', message: 'AN must be at least 12' },
+      { type: 'minlength', message: 'AN must be at least 11' },
       { type: 'maxlength', message: 'AN cannot be more than 12' }
     ]
   },
