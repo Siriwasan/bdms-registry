@@ -3,6 +3,7 @@ import { FormGroup, FormGroupDirective, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { Subscription, Observable } from 'rxjs';
+import { map, filter } from 'rxjs/operators';
 import { Moment, utc, isMoment } from 'moment';
 
 import { RegistryFormComponent } from '../../../shared/modules/registry-form/registry-form.component';
@@ -171,8 +172,6 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
       this.user = user;
     });
 
-    // this.subscriptions.push(this.acsx290Service.getStaffs().subscribe(staffs => (this.staffs = staffs)));
-    // this.staffs = await this.acsx290Service.getStaffsPromise();
     this.createForm();
   }
 
@@ -209,9 +208,10 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
     //   await this.loadById();
     // });
 
-    // this.staffs = await this.acsx290Service.getStaffsPromise();
-    this.subscriptions.push(this.acsx290Service.getStaffs().subscribe(staffs => (this.staffs = staffs)));
-    await this.loadById();
+    this.acsx290Service.getStaffs().subscribe(staffs => {
+      this.staffs = staffs;
+      this.loadById();
+    });
 
     this.avHospitals = this.authService
       .getAvailableHospitals(this.user.staff.primaryHospId, this.user.staff.permission)

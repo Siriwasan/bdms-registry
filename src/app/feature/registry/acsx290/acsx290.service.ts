@@ -234,7 +234,7 @@ export class ACSx290Service implements OnDestroy {
           .collection<Staff>(DB_STAFF)
           .valueChanges()
           .subscribe(
-            dc => {
+            (dc: any) => {
               resolve(dc);
             },
             error => {
