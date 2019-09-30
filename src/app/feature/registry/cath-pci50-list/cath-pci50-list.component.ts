@@ -25,7 +25,7 @@ import { AuthService } from 'src/app/core/auth/auth.service';
   styleUrls: ['./cath-pci50-list.component.scss']
 })
 export class CathPci50ListComponent implements OnInit, OnDestroy {
-  displayedColumns: string[] = ['registryId', 'hn', 'an', 'firstName', 'lastName', 'tags', 'completion'];
+  displayedColumns: string[] = ['registryId', 'hn', 'firstName', 'lastName', 'age', 'tags', 'completion'];
   dataSource: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;

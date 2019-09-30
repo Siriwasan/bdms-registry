@@ -1,3 +1,11 @@
+# 1.0.0 (2019-10-01)
+
+### Features
+
+- **Registry:** add NCDR CathPCI v5.0 registry
+- **Authentication:** enable secondary hospital, improve authorization to support multi-registry
+- **UI:** rename Registry menu to STS, add tags to registries for summarization, improve table list columns appearance
+
 # 0.8.0 (2019-08-23)
 
 ### Bug Fixes

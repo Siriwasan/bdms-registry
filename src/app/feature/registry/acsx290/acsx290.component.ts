@@ -171,10 +171,9 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
       this.user = user;
     });
 
-    this.createForm();
+    // this.subscriptions.push(this.acsx290Service.getStaffs().subscribe(staffs => (this.staffs = staffs)));
     // this.staffs = await this.acsx290Service.getStaffsPromise();
-    this.subscriptions.push(this.acsx290Service.getStaffs().subscribe(staffs => (this.staffs = staffs)));
-    // console.log(this.staffs);
+    this.createForm();
   }
 
   async ngAfterViewInit() {
@@ -210,6 +209,8 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
     //   await this.loadById();
     // });
 
+    // this.staffs = await this.acsx290Service.getStaffsPromise();
+    this.subscriptions.push(this.acsx290Service.getStaffs().subscribe(staffs => (this.staffs = staffs)));
     await this.loadById();
 
     this.avHospitals = this.authService

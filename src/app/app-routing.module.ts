@@ -15,8 +15,8 @@ const routes: Routes = [
   {
     path: 'registry',
     loadChildren: () => import('./feature/registry/registry.module').then(m => m.RegistryModule),
-    canActivate: [AuthRoleGuard],
-    data: { roles: Auth.menus.registry }
+    // canActivate: [AuthRoleGuard],
+    // data: { roles: Auth.menus.registry }
   },
   {
     path: 'my-patients',

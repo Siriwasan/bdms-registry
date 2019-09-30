@@ -18,18 +18,26 @@ export class AuthRegistryGuard implements CanActivate {
   ): boolean | UrlTree | Promise<boolean | UrlTree> | Observable<boolean | UrlTree> {
     return this.store.select(fromRoot.getUser).pipe(
       flatMap(async user => {
-        if (user) {
-          const userRegistries = await this.authService.getAvailableRegistries(user.staff.staffId);
-          if (route.data.registry && userRegistries.indexOf(route.data.registry) < 0) {
-            // const targetUrl = router.url.split('/');
-            // const availableRegistries = await this.authService.getAvailableACSx290s(user.staff.staffId);
+        // if (user) {
+        //   console.log('registry ' +router.url);
 
-            // if (targetUrl[1] === 'registry' && availableRegistries.indexOf(targetUrl[3]) >= 0) {
-            //   return true;
-            // }
-            return this.router.createUrlTree(['/page-not-autherized']); // Authenticated but role is not permit
+        //   const userRegistries = await this.authService.getAvailableRegistries(user.staff.staffId);
+        //   if (route.data.registry && userRegistries.includes(route.data.registry)) {
+        //     return true; // Authenticated
+        //   }
+        //   return this.router.createUrlTree(['/page-not-autherized']); // Authenticated but role is not permit
+        // }
+        // return this.router.createUrlTree(['/auth']);
+
+        if (user) {
+          const targetUrl = router.url.split('/');
+          if (targetUrl[1] === 'registry' && targetUrl[2] === 'acsx290') {
+            const availableRegistries = await this.authService.getAvailableACSx290s(user.staff.staffId);
+            if (availableRegistries.includes(targetUrl[3])) {
+              return true; // Autherized
+            }
           }
-          return true; // Authenticated
+          return this.router.createUrlTree(['/page-not-autherized']); // Authenticated but role is not permit
         }
         return this.router.createUrlTree(['/auth']);
       })

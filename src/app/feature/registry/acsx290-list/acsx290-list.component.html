@@ -30,11 +30,6 @@
         <mat-cell *matCellDef="let row">{{ row.hn }}</mat-cell>
       </ng-container>
 
-      <ng-container matColumnDef="an">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>AN</mat-header-cell>
-        <mat-cell *matCellDef="let row">{{ row.an }}</mat-cell>
-      </ng-container>
-
       <ng-container matColumnDef="firstName">
         <mat-header-cell *matHeaderCellDef mat-sort-header>First Name</mat-header-cell>
         <mat-cell *matCellDef="let row">{{ row.firstName }}</mat-cell>
@@ -43,6 +38,11 @@
       <ng-container matColumnDef="lastName">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Last Name</mat-header-cell>
         <mat-cell *matCellDef="let row">{{ row.lastName }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="age">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Age</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.age }}</mat-cell>
       </ng-container>
 
       <!-- <ng-container matColumnDef="baseDb">

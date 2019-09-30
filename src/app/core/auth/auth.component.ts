@@ -91,6 +91,7 @@ export class AuthComponent implements OnInit, OnDestroy {
         email: [this.user.staff.email],
         position: [this.user.staff.position, Validators.required],
         primaryHospId: [this.user.staff.primaryHospId],
+        secondHospIds: [this.user.staff.secondHospIds],
         registries: [this.user.staff.registries],
         password: [null],
         confirmedPassword: [null]
