@@ -23,6 +23,7 @@ import { CustomValidators } from '../../../../app/shared/classes/custom-validato
 import { User } from '../../../../app/core/auth/user.model';
 import * as Auth from '../../../core/auth/auth.data';
 import { AuthService } from '../../../../app/core/auth/auth.service';
+import { RegSelectChoice } from 'src/app/shared/modules/registry-form/registry-form.model';
 
 @Component({
   selector: 'app-staff-profile',
@@ -40,7 +41,8 @@ export class StaffProfileComponent implements OnInit, OnChanges, OnDestroy, Afte
   private userSubscription: Subscription;
 
   avPositions: string[];
-  avHospitals: Auth.Hospital[];
+  avPrimaryHospitals: Auth.Hospital[];
+  avSecondHospitals: RegSelectChoice[];
   avRegistries: string[];
   avRoles: string[];
   avPermissions: string[];
@@ -80,7 +82,7 @@ export class StaffProfileComponent implements OnInit, OnChanges, OnDestroy, Afte
         email: [null],
         position: [null, Validators.required],
         primaryHospId: [null, Validators.required],
-        secondHospIds: [null, Validators.required],
+        secondHospIds: [null],
         registries: [null, Validators.required],
         role: [null, Validators.required],
         permission: [null, Validators.required],
@@ -90,6 +92,10 @@ export class StaffProfileComponent implements OnInit, OnChanges, OnDestroy, Afte
         validator: CustomValidators.passwordMatchValidator
       }
     );
+
+    this.staffForm.get('primaryHospId').valueChanges.subscribe(value => {
+      this.avSecondHospitals = this.getSecondHospitals();
+    });
   }
 
   ngAfterViewInit() {
@@ -183,7 +189,8 @@ export class StaffProfileComponent implements OnInit, OnChanges, OnDestroy, Afte
 
   private resetDropdowns() {
     this.avPositions = this.getAvailablePositions();
-    this.avHospitals = this.getAvailableHospitals();
+    this.avPrimaryHospitals = this.getAvailableHospitals();
+    this.avSecondHospitals = this.getSecondHospitals();
     this.avRegistries = this.getAvailableRegistires();
     this.avRoles = this.getAvailableRoles();
     this.avPermissions = this.getAvailablePermissions();
@@ -199,6 +206,39 @@ export class StaffProfileComponent implements OnInit, OnChanges, OnDestroy, Afte
       .map(hosp => {
         return { group: hosp.group, id: hosp.id, name: `${hosp.name} (${hosp.id})` };
       });
+  }
+
+  private getSecondHospitals(): RegSelectChoice[] {
+    const selectedPrimaryHosp = this.staffForm.get('primaryHospId').value;
+    const userHosps = this.selectedStaff ? this.selectedStaff.secondHospIds : [];
+
+    const avHosps = [...new Set([...userHosps, ...this.avPrimaryHospitals.map(h => h.id)])].sort((a, b) => {
+      return Auth.hospitals.findIndex(h => h.id === a) - Auth.hospitals.findIndex(h => h.id === b);
+    });
+
+    // if (this.selectedStaff) {
+    const secondHospIds = this.staffForm.get('secondHospIds');
+    const secondHospIdsValues = secondHospIds.value ? secondHospIds.value : [];
+    secondHospIds.setValue(secondHospIdsValues.filter(h => h !== selectedPrimaryHosp));
+    // }
+
+    const temp = hosp => {
+      if (userHosps.includes(hosp)) {
+        if (this.avPrimaryHospitals.map(h => h.id).includes(hosp)) {
+          return false;
+        }
+        return true;
+      }
+    };
+
+    return avHosps.map(h => {
+      const hosp = Auth.hospitals.find(hs => hs.id === h);
+      return {
+        value: hosp.id,
+        label: `${hosp.name} (${hosp.id})`,
+        disable: selectedPrimaryHosp === h || temp(h)
+      } as RegSelectChoice;
+    });
   }
 
   private getAvailableRegistires(): string[] {
@@ -256,7 +296,7 @@ export class StaffProfileComponent implements OnInit, OnChanges, OnDestroy, Afte
       email: this.staffForm.value.email,
       position: this.staffForm.value.position,
       primaryHospId: this.staffForm.value.primaryHospId,
-      secondHospIds: this.staffForm.value.secondHospIds,
+      secondHospIds: this.staffForm.value.secondHospIds ? this.staffForm.value.secondHospIds : [],
       registries: this.staffForm.value.registries,
       role: this.staffForm.value.role,
       permission: this.staffForm.value.permission,
@@ -267,10 +307,7 @@ export class StaffProfileComponent implements OnInit, OnChanges, OnDestroy, Afte
       modifiedBy: this.user.staff.staffId
     };
 
-    this.staffFormDirective.resetForm();
-
-    this.staffForm.get('staffId').setValue('(new)');
-
+    this.clear();
     this.submitStaff.emit(staff);
   }
 

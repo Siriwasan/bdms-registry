@@ -21,8 +21,8 @@ import { RegSelectChoice } from './registry-form.model';
       >
         <mat-select-trigger>
           {{ outputLabel }}
-          <span *ngIf="limit && self.value?.length > 1" class="mat-select-additional-selection">
-            (+{{ self.value.length - 1 }} {{ self.value?.length === 2 ? 'other' : 'others' }})
+          <span *ngIf="limit > 0 && self.value?.length > limit" class="mat-select-additional-selection">
+            (+{{ self.value.length - limit }} {{ self.value.length === +limit + 1 ? 'other' : 'others' }})
           </span>
         </mat-select-trigger>
         <mat-option *ngFor="let choice of regSelectChoices" [value]="choice.value" [disabled]="choice.disable">{{
@@ -50,7 +50,7 @@ export class RegistrySelectMultipleComponent extends RegistryControlComponent im
   @Input() formGroup: FormGroup;
   @Input() placeholder: string;
   @Input() require = true;
-  @Input() limit = false;
+  @Input() limit = 0;
   @Input() choices: string[] | number[] | RegSelectChoice[];
   @Output() choiceChange: EventEmitter<MatSelectChange> = new EventEmitter();
 
@@ -59,22 +59,25 @@ export class RegistrySelectMultipleComponent extends RegistryControlComponent im
       return '';
     }
 
-    if (this.limit) {
-      return this.regSelectChoices.find(c => c.value === this.self.value[0]).label;
+    const out = (arr: []) => {
+      let output = '';
+      arr.forEach(v => {
+        const choice = this.regSelectChoices.find(c => c.value === v);
+
+        if (!choice) {
+          return;
+        }
+        output = output + choice.label + ', ';
+      });
+      output = output.substring(0, output.length - 2);
+      return output;
+    };
+
+    if (this.limit > 0) {
+      return out(this.self.value.slice(0, this.limit));
     }
 
-    let output = '';
-    this.self.value.forEach(v => {
-      const choice = this.regSelectChoices.find(c => c.value === v);
-
-      if (choice === null) {
-        return;
-      }
-      output = output + choice.label + ', ';
-    });
-    output = output.substring(0, output.length - 2);
-
-    return output;
+    return out(this.self.value);
   }
 
   bInfo: boolean;

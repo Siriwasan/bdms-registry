@@ -1,7 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import * as firebase from 'firebase/app';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import * as CryptoJS from 'crypto-js';
 
@@ -226,7 +226,7 @@ export class ACSx290Service implements OnDestroy {
     });
   }
 
-  public getStaffs(): Promise<Staff[]> {
+  public getStaffsPromise(): Promise<Staff[]> {
     // return this.db.collection<Staff>(DB_STAFF).valueChanges();
     return new Promise<Staff[]>((resolve, reject) => {
       this.subscriptions.push(
@@ -234,7 +234,7 @@ export class ACSx290Service implements OnDestroy {
           .collection<Staff>(DB_STAFF)
           .valueChanges()
           .subscribe(
-            (dc: any) => {
+            dc => {
               resolve(dc);
             },
             error => {
@@ -243,6 +243,25 @@ export class ACSx290Service implements OnDestroy {
           )
       );
     });
+  }
+
+  public getStaffs(): Observable<Staff[]> {
+    return this.db.collection<Staff>(DB_STAFF).valueChanges();
+    // return new Promise<Staff[]>((resolve, reject) => {
+    //   this.subscriptions.push(
+    //     this.db
+    //       .collection<Staff>(DB_STAFF)
+    //       .valueChanges()
+    //       .subscribe(
+    //         dc => {
+    //           resolve(dc);
+    //         },
+    //         error => {
+    //           reject(error);
+    //         }
+    //       )
+    //   );
+    // });
   }
 
   public checkNeededDataCompletion(data: ACSx290Form): string {

@@ -154,6 +154,11 @@ export class CathPci50Service implements OnDestroy {
 
   private getFollowUpPeriod(procDate: Moment, fuDate: Moment): string {
     let period = '';
+
+    if (!procDate.isValid() || !fuDate.isValid()) {
+      return period;
+    }
+
     const dateDiff = fuDate.diff(procDate, 'days', false);
 
     if (dateDiff <= 34) {

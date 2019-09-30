@@ -57,7 +57,7 @@ const str = {
   selector: 'app-cath-pci50',
   templateUrl: './cath-pci50.component.html',
   styleUrls: ['./cath-pci50.component.scss'],
-  providers: [CathPci50Service, RegistryFormService, ScrollSpyService]
+  providers: [CathPci50Service]
 })
 export class CathPci50Component extends RegistryFormComponent implements OnInit, AfterViewInit, OnDestroy {
   private subscriptions: Subscription[] = [];

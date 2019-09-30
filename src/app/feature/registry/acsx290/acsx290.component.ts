@@ -33,7 +33,7 @@ import * as UI from '../../../shared/ui.actions';
   selector: 'app-acsx290',
   templateUrl: './acsx290.component.html',
   styleUrls: ['./acsx290.component.scss'],
-  providers: [ACSx290Service, RegistryFormService, ScrollSpyService]
+  providers: [ACSx290Service]
 })
 export class ACSx290Component extends RegistryFormComponent implements OnInit, AfterViewInit, OnDestroy {
   user$: Observable<User>;
@@ -127,6 +127,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
   M2_device = acsx290Data.M2_device;
   // tslint:enable: variable-name
 
+  staffs: Staff[];
   cvt: Staff[];
   anesth: Staff[];
   sn: Staff[];
@@ -160,7 +161,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
     super(dialogService, changeDetector, scrollSpy, hostElement, registryFormService);
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     super.ngOnInit();
 
     this.store.dispatch(new UI.ChangeTitle('STS 2.9'));
@@ -171,6 +172,9 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
     });
 
     this.createForm();
+    // this.staffs = await this.acsx290Service.getStaffsPromise();
+    this.subscriptions.push(this.acsx290Service.getStaffs().subscribe(staffs => (this.staffs = staffs)));
+    // console.log(this.staffs);
   }
 
   async ngAfterViewInit() {
@@ -320,11 +324,19 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
       return;
     }
 
-    const staffs = await this.acsx290Service.getStaffs();
-    this.cvt = staffs.filter(e => e.position === 'Cardiothoracic Surgeon' && e.primaryHospId === hospId);
-    this.anesth = staffs.filter(e => e.position === 'Anesthesiologist' && e.primaryHospId === hospId);
-    this.sn = staffs.filter(e => e.position === 'Scrub Nurse' && e.primaryHospId === hospId);
-    this.ctt = staffs.filter(e => e.position === 'Cardiothoracic Technician' && e.primaryHospId === hospId);
+    this.cvt = this.staffs.filter(
+      e => e.position === 'Cardiothoracic Surgeon' && (e.primaryHospId === hospId || e.secondHospIds.includes(hospId))
+    );
+    this.anesth = this.staffs.filter(
+      e => e.position === 'Anesthesiologist' && (e.primaryHospId === hospId || e.secondHospIds.includes(hospId))
+    );
+    this.sn = this.staffs.filter(
+      e => e.position === 'Scrub Nurse' && (e.primaryHospId === hospId || e.secondHospIds.includes(hospId))
+    );
+    this.ctt = this.staffs.filter(
+      e =>
+        e.position === 'Cardiothoracic Technician' && (e.primaryHospId === hospId || e.secondHospIds.includes(hospId))
+    );
   }
 
   private subscribeOpCABChanged(): Subscription {

@@ -12,6 +12,7 @@ import { RegistrySelectMultipleComponent } from './registry-select-multiple.comp
 import { RegistryDatePickerComponent } from './registry-date-picker.component';
 import { RegistryAutocompleteComponent } from './registry-autocomplete.component';
 import { RegistryFormService } from './registry-form.service';
+import { ScrollSpyService } from '../scroll-spy/scroll-spy.service';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,6 @@ import { RegistryFormService } from './registry-form.service';
     RegistryAutocompleteComponent,
     ScrollSpyModule
   ],
-  providers: []
+  providers: [RegistryFormService, ScrollSpyService]
 })
 export class RegistryFormModule {}

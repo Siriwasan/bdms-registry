@@ -276,6 +276,10 @@ export class RegistryFormService implements OnDestroy {
   public getValidations(control: string): ValidationMessage[] {
     let vals: ValidationMessage[];
 
+    if (!this.validations) {
+      return [];
+    }
+
     Object.entries(this.validations).find(([key, value]) => {
       const result = Object.entries(value).find(([key2, value2]) => key2 === control);
       if (result === undefined) {
@@ -444,9 +448,7 @@ export class RegistryFormService implements OnDestroy {
   }
 
   public clearErrors() {
-    this.getSectionMembers().forEach(sectionMember => {
-      console.log(sectionMember);
-      return sectionMember[2].resetForm(sectionMember[1].value); });
+    this.getSectionMembers().forEach(sectionMember => sectionMember[2].resetForm(sectionMember[1].value));
   }
   //#endregion Registry
 

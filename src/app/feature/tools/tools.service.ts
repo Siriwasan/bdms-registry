@@ -66,6 +66,7 @@ export class ToolsService implements OnDestroy {
         // staff.staffId = this.migrateStaffId(staff.staffId);
         // staff.createdBy = this.migrateStaffId(staff.createdBy);
         // staff.modifiedBy = this.migrateStaffId(staff.modifiedBy);
+        staff.secondHospIds = [];
         return staff;
       })
       .forEach(staff => {

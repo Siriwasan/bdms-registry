@@ -134,8 +134,9 @@ export class CathPci50ListComponent implements OnInit, OnDestroy {
   }
 
   async export() {
-    // const data = await this.registryService.loadACSx290sForExport(this.avHospitals);
-    // this.fileService.saveJSONtoCSV(data, 'acsx.csv');
-    // console.log('export acsx ' + data.length + ' records');
+    const data = await this.registryService.loadCathPci50sForExport(this.avHospitals);
+    // this.fileService.saveJSONtoCSV(data, 'cathpci.csv');
+    this.registryService.exportAsExcelFile(data, 'cathpci');
+    console.log('export cathpci ' + data.length + ' records');
   }
 }
