@@ -1,3 +1,9 @@
+# 1.0.1 (2019-10-02)
+
+### Bug Fixes
+
+- **Registry form:** fixed submit nagivation bug
+
 # 1.0.0 (2019-10-01)
 
 ### Features

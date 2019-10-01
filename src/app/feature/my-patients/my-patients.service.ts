@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 
 import { RegistryModel } from '../registry/registry.model';
 import { AuthService } from '../../../app/core/auth/auth.service';
-import { ACSx290Form } from '../registry/acsx290/acsx290.model';
+import { ACSx290Model } from '../registry/acsx290/acsx290.model';
 
 const DB_REGISTRY = 'Registry';
 
@@ -27,7 +27,7 @@ export class MyPatientsService implements OnDestroy {
         this.db
           .collection<RegistryModel>(DB_REGISTRY)
           .valueChanges()
-          .pipe(map(data => data.filter(a => acsxs.indexOf(a.registryId) >= 0)))
+          .pipe(map(data => data.filter(a => acsxs.includes(a.registryId))))
           .subscribe(
             data => {
               resolve(data);
@@ -40,17 +40,17 @@ export class MyPatientsService implements OnDestroy {
     });
   }
 
-  public async loadMyACSx290sForExport(staffId: string): Promise<ACSx290Form[]> {
+  public async loadMyACSx290sForExport(staffId: string): Promise<ACSx290Model[]> {
     const acsxs = await this.authService.getAvailableACSx290s(staffId);
 
-    return new Promise<ACSx290Form[]>((resolve, reject) => {
+    return new Promise<ACSx290Model[]>((resolve, reject) => {
       this.subscriptions.push(
         this.db
-          .collection<ACSx290Form>('ACSx290')
+          .collection<ACSx290Model>('ACSx290')
           .valueChanges()
           .pipe(
             // tslint:disable-next-line: no-string-literal
-            map(data => data.filter(a => acsxs.indexOf(a.sectionA['registryId']) >= 0)),
+            map(data => data.filter(a => acsxs.includes(a.sectionA['registryId']))),
             map(data =>
               data.map(d => {
                 // tslint:disable: no-string-literal

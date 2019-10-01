@@ -51,8 +51,6 @@ export class ScrollSpyComponent implements OnInit, AfterViewInit, OnDestroy {
       console.log('BaseFormComponent: ngOnInit() is not initialized');
     }
     this.currentSectionSubscription.unsubscribe();
-    // this.currentSection = '';
-    console.log(this.currentSection);
   }
 
   @HostListener('window:resize')

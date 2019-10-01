@@ -10,7 +10,7 @@ import * as Auth from './auth.actions';
 import { User } from './user.model';
 import { Staff } from '../../../app/feature/staff/staff.model';
 import { Subscription, combineLatest, Observable } from 'rxjs';
-import { ACSx290Form } from 'src/app/feature/registry/acsx290/acsx290.model';
+import { ACSx290Model } from 'src/app/feature/registry/acsx290/acsx290.model';
 import * as AuthData from './auth.data';
 
 const DB_COLLECTION = 'ACSx290';
@@ -100,7 +100,7 @@ export class AuthService implements OnDestroy {
 
   public getAvailableACSx290s(staffId: string): Promise<string[]> {
     return new Promise((resolve, reject) => {
-      const inCaseList: Observable<ACSx290Form[]>[] = [];
+      const inCaseList: Observable<ACSx290Model[]>[] = [];
       const availableStaffForm = [
         'sectionI.SurgeonId',
         'sectionI.Assist1Id',
@@ -123,7 +123,7 @@ export class AuthService implements OnDestroy {
 
       availableStaffForm.forEach(a => {
         inCaseList.push(
-          this.db.collection<ACSx290Form>(DB_COLLECTION, ref => ref.where(a, '==', staffId)).valueChanges()
+          this.db.collection<ACSx290Model>(DB_COLLECTION, ref => ref.where(a, '==', staffId)).valueChanges()
         );
       });
 

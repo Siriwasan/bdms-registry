@@ -7,7 +7,7 @@ import * as CryptoJS from 'crypto-js';
 
 import { environment } from '../../../../environments/environment';
 
-import { ACSx290Form } from './acsx290.model';
+import { ACSx290Model } from './acsx290.model';
 import { tagConditions } from './acsx290.tag';
 import { RegistryModel } from '../registry.model';
 import { Staff } from '../../staff/staff.model';
@@ -18,7 +18,7 @@ const DB_COLLECTION = 'ACSx290';
 
 @Injectable()
 export class ACSx290Service implements OnDestroy {
-  currentForm: ACSx290Form;
+  currentForm: ACSx290Model;
   private subscriptions: Subscription[] = [];
 
   /// Firebase Server Timestamp
@@ -32,7 +32,7 @@ export class ACSx290Service implements OnDestroy {
     this.subscriptions.forEach(subs => subs.unsubscribe());
   }
 
-  public async isExistedForm(data: ACSx290Form): Promise<boolean> {
+  public async isExistedForm(data: ACSx290Model): Promise<boolean> {
     // tslint:disable: no-string-literal
     const hn = data.sectionA['HN'] as string;
     const an = data.sectionA['AN'] as string;
@@ -52,7 +52,7 @@ export class ACSx290Service implements OnDestroy {
     return new Promise<string>((resolve, reject) => {
       this.subscriptions.push(
         this.db
-          .collection<ACSx290Form>(DB_COLLECTION, ref =>
+          .collection<ACSx290Model>(DB_COLLECTION, ref =>
             ref
               .orderBy('sectionA.registryId', 'desc')
               .startAt(prefix + '\uf8ff')
@@ -61,7 +61,7 @@ export class ACSx290Service implements OnDestroy {
           )
           .valueChanges()
           .subscribe(
-            (data: ACSx290Form[]) => {
+            (data: ACSx290Model[]) => {
               if (data.length === 0) {
                 resolve(prefix + '001');
               } else {
@@ -81,7 +81,7 @@ export class ACSx290Service implements OnDestroy {
     });
   }
 
-  public async createForm(data: ACSx290Form): Promise<string> {
+  public async createForm(data: ACSx290Model): Promise<string> {
     // tslint:disable: no-string-literal
     const registryId = await this.generateRegistryId(data.sectionC['HospName']);
     data.sectionA['registryId'] = registryId;
@@ -101,7 +101,7 @@ export class ACSx290Service implements OnDestroy {
     return registryId; // Registry Id
   }
 
-  public async updateForm(registryId: string, data: ACSx290Form) {
+  public async updateForm(registryId: string, data: ACSx290Model) {
     await this.db
       .collection(DB_COLLECTION)
       .doc(registryId)
@@ -111,7 +111,7 @@ export class ACSx290Service implements OnDestroy {
     this.db.doc(DB_REGISTRY + `/${registryId}`).update(registry);
   }
 
-  private createRegistryModel(regisId: string, data: ACSx290Form): RegistryModel {
+  private createRegistryModel(regisId: string, data: ACSx290Model): RegistryModel {
     const complete = Math.round((data.completion.summary.valid / data.completion.summary.total) * 100);
 
     // tslint:disable: no-string-literal
@@ -133,7 +133,7 @@ export class ACSx290Service implements OnDestroy {
     // tslint:enable: no-string-literal
   }
 
-  private createTags(data: ACSx290Form): string[] {
+  public createTags(data: ACSx290Model): string[] {
     const tags: string[] = [];
 
     const yesAnswers = [
@@ -141,6 +141,12 @@ export class ACSx290Service implements OnDestroy {
       'Yes, unplanned due to surgical complication',
       'Yes, unplanned due to unsuspected disease or anatomy'
     ];
+
+    tagConditions.slice(0, 5).forEach(con => {
+      if (con.values.includes(data[con.section][con.control])) {
+        tags.push(con.tag);
+      }
+    });
 
     // tslint:disable-next-line: no-string-literal
     if (yesAnswers.includes(data.sectionI['OpCAB'])) {
@@ -152,7 +158,7 @@ export class ACSx290Service implements OnDestroy {
       }
     }
 
-    tagConditions.forEach(con => {
+    tagConditions.slice(6).forEach(con => {
       if (con.values.includes(data[con.section][con.control])) {
         tags.push(con.tag);
       }
@@ -175,7 +181,7 @@ export class ACSx290Service implements OnDestroy {
     return new Promise<string>((resolve, reject) => {
       this.subscriptions.push(
         this.db
-          .collection<ACSx290Form>(DB_COLLECTION)
+          .collection<ACSx290Model>(DB_COLLECTION)
           .snapshotChanges()
           .pipe(
             map(actions =>
@@ -207,11 +213,11 @@ export class ACSx290Service implements OnDestroy {
     });
   }
 
-  public getForm(registryId: string): Promise<ACSx290Form> {
-    return new Promise<ACSx290Form>((resolve, reject) => {
+  public getForm(registryId: string): Promise<ACSx290Model> {
+    return new Promise<ACSx290Model>((resolve, reject) => {
       this.subscriptions.push(
         this.db
-          .collection<ACSx290Form>(DB_COLLECTION)
+          .collection<ACSx290Model>(DB_COLLECTION)
           .doc(registryId)
           .valueChanges()
           .subscribe(
@@ -264,7 +270,7 @@ export class ACSx290Service implements OnDestroy {
     // });
   }
 
-  public checkNeededDataCompletion(data: ACSx290Form): string {
+  public checkNeededDataCompletion(data: ACSx290Model): string {
     let alert = '';
     // tslint:disable: no-string-literal
     const neededData = [
@@ -289,7 +295,7 @@ export class ACSx290Service implements OnDestroy {
     return !data || data.trim() === '';
   }
 
-  public encryptSensitiveData(acsx290Model: ACSx290Form) {
+  public encryptSensitiveData(acsx290Model: ACSx290Model) {
     // tslint:disable: no-string-literal
     acsx290Model.sectionA['HN'] = this.encrypt(acsx290Model.sectionA['HN']);
     acsx290Model.sectionA['AN'] = this.encrypt(acsx290Model.sectionA['AN']);
@@ -302,7 +308,7 @@ export class ACSx290Service implements OnDestroy {
     // tslint:enable: no-string-literal
   }
 
-  public decryptSenitiveData(acsx290Model: ACSx290Form) {
+  public decryptSenitiveData(acsx290Model: ACSx290Model) {
     // tslint:disable: no-string-literal
     acsx290Model.sectionA['HN'] = this.decrypt(acsx290Model.sectionA['HN']);
     acsx290Model.sectionA['AN'] = this.decrypt(acsx290Model.sectionA['AN']);

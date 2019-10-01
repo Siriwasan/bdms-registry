@@ -1,9 +1,9 @@
 import { FormDetail } from '../registry.model';
 import { FormCompletion } from '../../../shared/modules/registry-form/registry-form.model';
 
-export interface ACSx290Form {
+export interface ACSx290Model {
   detail: FormDetail;
-  completion: ACSx290FormCompletion;
+  completion: ACSx290Completion;
   sectionA: object;
   sectionB: object;
   sectionC: object;
@@ -29,7 +29,7 @@ export interface ACSx290Form {
   sectionS: object;
 }
 
-export interface ACSx290FormCompletion {
+export interface ACSx290Completion {
   summary: FormCompletion;
   sectionA: FormCompletion;
   sectionB: FormCompletion;

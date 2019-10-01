@@ -7,7 +7,7 @@ import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
 
 import { RegistryModel } from './registry.model';
-import { ACSx290Form } from './acsx290/acsx290.model';
+import { ACSx290Model } from './acsx290/acsx290.model';
 import * as Auth from '../../core/auth/auth.data';
 import { CathPci50Model } from './cath-pci50/cath-pci50.model';
 
@@ -57,13 +57,13 @@ export class RegistryService implements OnDestroy {
     });
   }
 
-  public loadACSx290sForExport(avHospitals: Auth.Hospital[]): Promise<ACSx290Form[]> {
-    return new Promise<ACSx290Form[]>((resolve, reject) => {
-      const acsxList: Observable<ACSx290Form[]>[] = [];
+  public loadACSx290sForExport(avHospitals: Auth.Hospital[]): Promise<ACSx290Model[]> {
+    return new Promise<ACSx290Model[]>((resolve, reject) => {
+      const acsxList: Observable<ACSx290Model[]>[] = [];
       avHospitals.forEach(hosp => {
         acsxList.push(
           this.db
-            .collection<ACSx290Form>(DB_COLLECTION, ref => ref.where('sectionC.HospName', '==', hosp.id))
+            .collection<ACSx290Model>(DB_COLLECTION, ref => ref.where('sectionC.HospName', '==', hosp.id))
             .valueChanges()
         );
       });

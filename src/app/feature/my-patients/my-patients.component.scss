@@ -14,17 +14,17 @@ table {
 
 .mat-header-cell:first-child,
 .mat-cell:first-child {
-  flex: 15%;
+  flex: 13%;
 }
 
 .mat-header-cell:nth-child(2),
 .mat-cell:nth-child(2) {
-  flex: 10%;
+  flex: 13%;
 }
 
 .mat-header-cell:nth-child(3),
 .mat-cell:nth-child(3) {
-  flex: 10%;
+  flex: 13%;
 }
 
 .mat-header-cell:nth-child(4),
@@ -34,15 +34,37 @@ table {
 
 .mat-header-cell:nth-child(5),
 .mat-cell:nth-child(5) {
-  flex: 15%;
+  flex: 5%;
 }
 
 .mat-header-cell:nth-child(6),
 .mat-cell:nth-child(6) {
-  flex: 25%;
+  flex: 35%;
 }
 
 .mat-header-cell:last-child,
 .mat-cell:last-child {
   flex: 10%;
+}
+
+.tag-low-priority {
+  margin: 4px;
+  background-color: #d0dbff;
+  padding: 5px 10px;
+  border-radius: 16px;
+}
+
+.tag-medium-priority {
+  margin: 4px;
+  background-color: #f1d27b;
+  padding: 5px 10px;
+  border-radius: 16px;
+}
+
+.tag-high-priority {
+  margin: 4px;
+  background-color: #f86666;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 16px;
 }

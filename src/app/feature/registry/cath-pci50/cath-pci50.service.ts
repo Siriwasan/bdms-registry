@@ -122,7 +122,7 @@ export class CathPci50Service implements OnDestroy {
     // tslint:enable: no-string-literal
   }
 
-  private createTags(data: CathPci50Model): string[] {
+  public createTags(data: CathPci50Model): string[] {
     const tags: string[] = [];
 
     tagConditions.forEach(con => {

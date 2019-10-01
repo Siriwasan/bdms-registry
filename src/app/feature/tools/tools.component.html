@@ -1,38 +1,64 @@
 <div class="content">
   <mat-tab-group>
     <mat-tab label="Export XLSX">
-      <h1>Export xlsx</h1>
+      <h1>Sample Export xlsx</h1>
       <button mat-raised-button color="primary" (click)="exportAsXLSX()">Export</button>
     </mat-tab>
 
+    <mat-tab label="Rebuild Tags">
+      <h1>Rebuild Tags</h1>
+      <h2>1. ACSx290</h2>
+      <button mat-raised-button color="primary" (click)="rebuildACSx290Tags()">Rebuild</button>
+      <h2>2. CathPci50</h2>
+      <button mat-raised-button color="primary" (click)="rebuildCathPci50Tags()">Rebuild</button>
+    </mat-tab>
+
     <mat-tab label="Backup Database">
-      <h1>Export Database</h1>
-      <h2>1. Export Staff</h2>
-      <button mat-raised-button color="primary" (click)="exportStaff()">Export</button>
+      <h1>Database</h1>
+      <h2>1. Staff</h2>
+      <div fxLayout="row" fxLayoutGap="20px">
+        <button mat-raised-button color="primary" (click)="exportStaff()">Export</button>
 
-      <h2>2. Export Registry</h2>
-      <button mat-raised-button color="primary" (click)="exportRegistry()">Export</button>
+        <div>
+          <button mat-raised-button color="accent" (click)="staffFileInput.click()">Import</button>
+          <input type="file" hidden (change)="importStaff($event.target.files)" #staffFileInput />
+        </div>
+      </div>
 
-      <h2>3. Export ACSx290</h2>
-      <button mat-raised-button color="primary" (click)="exportACSx290()">Export</button>
+      <h2>2. Registry</h2>
+      <div fxLayout="row" fxLayoutGap="20px">
+        <button mat-raised-button color="primary" (click)="exportRegistry()">Export</button>
+
+        <div>
+          <button mat-raised-button color="accent" (click)="registryFileInput.click()">Import</button>
+          <input type="file" hidden (change)="importRegistry($event.target.files)" #registryFileInput />
+        </div>
+      </div>
+
+      <h2>3. ACSx290</h2>
+      <div fxLayout="row" fxLayoutGap="20px">
+        <button mat-raised-button color="primary" (click)="exportACSx290()">Export</button>
+
+        <div>
+          <button mat-raised-button color="accent" (click)="acsxFileInput.click()">Import</button>
+          <input type="file" hidden (change)="importACSx290($event.target.files)" #acsxFileInput />
+        </div>
+      </div>
+
+      <h2>3. CathPci50</h2>
+      <div fxLayout="row" fxLayoutGap="20px">
+        <button mat-raised-button color="primary" (click)="exportCathPci50()">Export</button>
+
+        <div>
+          <button mat-raised-button color="accent" (click)="pciFileInput.click()">Import</button>
+          <input type="file" hidden (change)="importCathPci50($event.target.files)" #pciFileInput />
+        </div>
+      </div>
 
       <br />
       <br />
 
       <p style="font-style: italic">Before import you need to delete database manaully!</p>
-
-      <h1>Import Database</h1>
-      <h2>1. Import Staff</h2>
-      <button mat-raised-button color="accent" (click)="staffFileInput.click()">Import</button>
-      <input type="file" hidden (change)="importStaff($event.target.files)" #staffFileInput />
-
-      <h2>2. Import Registry</h2>
-      <button mat-raised-button color="accent" (click)="registryFileInput.click()">Import</button>
-      <input type="file" hidden (change)="importRegistry($event.target.files)" #registryFileInput />
-
-      <h2>3. Import ACSx290</h2>
-      <button mat-raised-button color="accent" (click)="acsxFileInput.click()">Import</button>
-      <input type="file" hidden (change)="importACSx290($event.target.files)" #acsxFileInput />
     </mat-tab>
 
     <mat-tab label="Prep ACS data from GLS">

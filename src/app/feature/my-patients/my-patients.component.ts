@@ -14,6 +14,7 @@ import { RegistryModel } from '../registry/registry.model';
 import { Observable, Subscription } from 'rxjs';
 import { User } from '../../../app/core/auth/user.model';
 import { FileService } from '../../../app/shared/services/file.service';
+import { tagPriorities } from '../registry/acsx290/acsx290.tag';
 
 @Component({
   selector: 'app-my-patients',
@@ -26,8 +27,8 @@ export class MyPatientsComponent implements OnInit, OnDestroy {
   user: User;
   private userSubscription: Subscription;
 
-  displayedColumns: string[] = ['registryId', 'hn', 'an', 'firstName', 'lastName', 'baseDb', 'completion'];
-  dataSource: MatTableDataSource<RegistryModel>;
+  displayedColumns: string[] = ['registryId', 'hn', 'firstName', 'lastName', 'age', 'tags', 'completion'];
+  dataSource: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -47,15 +48,17 @@ export class MyPatientsComponent implements OnInit, OnDestroy {
     });
 
     const data = await this.myPatientsService.loadMyPatients(this.user.staff.staffId);
-    const decryptData: RegistryModel[] = [];
-    data.forEach(d => {
-      decryptData.push({
+    const decryptData = data.map(d => {
+      return {
         ...d,
         hn: this.decrypt(d.hn),
         an: this.decrypt(d.an),
         firstName: this.decrypt(d.firstName),
-        lastName: this.decrypt(d.lastName)
-      });
+        lastName: this.decrypt(d.lastName),
+        tags: d.tags.map(t => {
+          return { tag: t, priority: tagPriorities[t] ? tagPriorities[t] : 'low' };
+        })
+      };
     });
 
     console.log('load my patients');

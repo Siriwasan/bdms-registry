@@ -26,7 +26,7 @@ export class HeaderComponent implements OnInit {
     this.user$ = this.store.select(fromRoot.getUser);
 
     const url = window.location.href;
-    if (url.indexOf('bdms-registry-dev') >= 0) {
+    if (url.includes('bdms-registry-dev')) {
       this.color = 'accent';
       this.title = 'BDMS Registry - DEV';
     }

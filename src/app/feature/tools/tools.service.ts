@@ -9,9 +9,13 @@ import * as XLSX from 'xlsx';
 
 import { Staff } from '../staff/staff.model';
 import { RegistryModel } from '../registry/registry.model';
-import { ACSx290Form } from '../registry/acsx290/acsx290.model';
+import { ACSx290Model } from '../registry/acsx290/acsx290.model';
+import { CathPci50Model } from '../registry/cath-pci50/cath-pci50.model';
+import { ACSx290Service } from '../registry/acsx290/acsx290.service';
+import { CathPci50Service } from '../registry/cath-pci50/cath-pci50.service';
 
 const DB_COLLECTION = 'ACSx290';
+const DB_CATHPCI = 'CathPci50';
 const DB_REGISTRY = 'Registry';
 const DB_STAFF = 'Staff';
 
@@ -22,7 +26,7 @@ const EXCEL_EXTENSION = '.xlsx';
 export class ToolsService implements OnDestroy {
   private subscriptions: Subscription[] = [];
 
-  constructor(private db: AngularFirestore) {}
+  constructor(private db: AngularFirestore, private acsx290Service: ACSx290Service, private cathPci50Service: CathPci50Service) {}
 
   ngOnDestroy() {
     this.subscriptions.forEach(subs => subs.unsubscribe());
@@ -57,23 +61,23 @@ export class ToolsService implements OnDestroy {
     });
   }
 
-  async dumpStaffs(staffs: Staff[]) {
-    await staffs
-      .map(staff => {
-        staff.createdAt = firebase.firestore.Timestamp.fromDate(new Date(staff.createdAt));
-        staff.modifiedAt = firebase.firestore.Timestamp.fromDate(new Date(staff.modifiedAt));
+  async dumpStaffs(data: Staff[]) {
+    await data
+      .map(d => {
+        d.createdAt = firebase.firestore.Timestamp.fromDate(new Date(d.createdAt));
+        d.modifiedAt = firebase.firestore.Timestamp.fromDate(new Date(d.modifiedAt));
 
         // staff.staffId = this.migrateStaffId(staff.staffId);
         // staff.createdBy = this.migrateStaffId(staff.createdBy);
         // staff.modifiedBy = this.migrateStaffId(staff.modifiedBy);
-        staff.secondHospIds = [];
-        return staff;
+        // d.secondHospIds = [];
+        return d;
       })
-      .forEach(staff => {
+      .forEach(d => {
         this.db
           .collection<Staff>(DB_STAFF)
-          .doc(staff.staffId)
-          .set(staff);
+          .doc(d.staffId)
+          .set(d);
       });
   }
 
@@ -104,30 +108,30 @@ export class ToolsService implements OnDestroy {
     });
   }
 
-  async dumpRegistries(registries: RegistryModel[]) {
-    console.log(registries);
+  async dumpRegistries(data: RegistryModel[]) {
+    console.log(data);
 
-    await registries
-      .map(registry => {
-        registry.modifiedAt = firebase.firestore.Timestamp.fromDate(new Date(registry.modifiedAt));
+    await data
+      .map(d => {
+        d.modifiedAt = firebase.firestore.Timestamp.fromDate(new Date(d.modifiedAt));
 
         // registry.baseDbId = 'ACSx290';
-        registry.tags = [];
-        return registry;
+        // d.tags = [];
+        return d;
       })
-      .forEach(registry => {
+      .forEach(d => {
         this.db
           .collection<RegistryModel>(DB_REGISTRY)
-          .doc(registry.registryId)
-          .set(registry);
+          .doc(d.registryId)
+          .set(d);
       });
   }
 
-  loadACSx290s(): Promise<ACSx290Form[]> {
+  loadACSx290s(): Promise<ACSx290Model[]> {
     return new Promise((resolve, reject) => {
       this.subscriptions.push(
         this.db
-          .collection<ACSx290Form>(DB_COLLECTION)
+          .collection<ACSx290Model>(DB_COLLECTION)
           .valueChanges()
           .pipe(
             map(data =>
@@ -160,14 +164,14 @@ export class ToolsService implements OnDestroy {
     });
   }
 
-  async dumpACSx290s(acsxs: ACSx290Form[]) {
-    console.log(acsxs);
+  async dumpACSx290s(data: ACSx290Model[]) {
+    console.log(data);
 
-    await acsxs
-      .map(acsx => {
-        acsx.detail.createdAt = firebase.firestore.Timestamp.fromDate(new Date(acsx.detail.createdAt));
-        acsx.detail.modifiedAt = firebase.firestore.Timestamp.fromDate(new Date(acsx.detail.modifiedAt));
-        acsx.detail.deletedAt = firebase.firestore.Timestamp.fromDate(new Date(acsx.detail.deletedAt));
+    await data
+      .map(d => {
+        d.detail.createdAt = firebase.firestore.Timestamp.fromDate(new Date(d.detail.createdAt));
+        d.detail.modifiedAt = firebase.firestore.Timestamp.fromDate(new Date(d.detail.modifiedAt));
+        d.detail.deletedAt = firebase.firestore.Timestamp.fromDate(new Date(d.detail.deletedAt));
 
         // acsx.detail.baseDbId = 'ACSx290';
         // acsx.detail.createdBy = this.migrateStaffId(acsx.detail.createdBy);
@@ -193,14 +197,71 @@ export class ToolsService implements OnDestroy {
         // acsx.sectionI['CTT4Id'] = this.migrateStaffId(acsx.sectionI['CTT4Id']);
         // // tslint:enable: no-string-literal
 
-        return acsx;
+        return d;
       })
-      .forEach(acsx => {
+      .forEach(d => {
         this.db
-          .collection<ACSx290Form>(DB_COLLECTION)
+          .collection<ACSx290Model>(DB_COLLECTION)
           // tslint:disable-next-line: no-string-literal
-          .doc(acsx.sectionA['registryId'])
-          .set(acsx);
+          .doc(d.sectionA['registryId'])
+          .set(d);
+      });
+  }
+
+  loadCathPci50s(): Promise<CathPci50Model[]> {
+    return new Promise((resolve, reject) => {
+      this.subscriptions.push(
+        this.db
+          .collection<CathPci50Model>(DB_CATHPCI)
+          .valueChanges()
+          .pipe(
+            map(data =>
+              data.map(d => {
+                d.detail.createdAt =
+                  d.detail.createdAt !== null
+                    ? (d.detail.createdAt as firebase.firestore.Timestamp).toDate().toISOString()
+                    : null;
+                d.detail.modifiedAt =
+                  d.detail.modifiedAt !== null
+                    ? (d.detail.modifiedAt as firebase.firestore.Timestamp).toDate().toISOString()
+                    : null;
+                d.detail.deletedAt =
+                  d.detail.deletedAt !== null
+                    ? (d.detail.deletedAt as firebase.firestore.Timestamp).toDate().toISOString()
+                    : null;
+                return d;
+              })
+            )
+          )
+          .subscribe(
+            data => {
+              resolve(data);
+            },
+            error => {
+              reject(error);
+            }
+          )
+      );
+    });
+  }
+
+  async dumpCathPci50s(data: CathPci50Model[]) {
+    console.log(data);
+
+    await data
+      .map(d => {
+        d.detail.createdAt = firebase.firestore.Timestamp.fromDate(new Date(d.detail.createdAt));
+        d.detail.modifiedAt = firebase.firestore.Timestamp.fromDate(new Date(d.detail.modifiedAt));
+        d.detail.deletedAt = firebase.firestore.Timestamp.fromDate(new Date(d.detail.deletedAt));
+
+        return d;
+      })
+      .forEach(d => {
+        this.db
+          .collection<CathPci50Model>(DB_CATHPCI)
+          // tslint:disable-next-line: no-string-literal
+          .doc(d.sectionA['registryId'])
+          .set(d);
       });
   }
 
@@ -288,5 +349,37 @@ export class ToolsService implements OnDestroy {
   private saveAsExcelFile(buffer: any, fileName: string): void {
     const data: Blob = new Blob([buffer], { type: EXCEL_TYPE });
     FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
+  }
+
+  rebuildACSx290Tags() {
+    this.db
+      .collection<ACSx290Model>(DB_COLLECTION)
+      .valueChanges()
+      .subscribe(data => {
+        data.forEach(d => {
+          // tslint:disable-next-line: no-string-literal
+          const id = d.sectionA['registryId'];
+          const t = this.acsx290Service.createTags(d);
+
+          this.db.doc(DB_REGISTRY + `/${id}`).update({ tags: t });
+        });
+        console.log(`finished rebuild ${data.length} tags`);
+      });
+  }
+
+  rebuildCathPci50Tags() {
+    this.db
+      .collection<CathPci50Model>(DB_CATHPCI)
+      .valueChanges()
+      .subscribe(data => {
+        data.forEach(d => {
+          // tslint:disable-next-line: no-string-literal
+          const id = d.sectionA['registryId'];
+          const t = this.cathPci50Service.createTags(d);
+
+          this.db.doc(DB_REGISTRY + `/${id}`).update({ tags: t });
+        });
+        console.log(`finished rebuild ${data.length} tags`);
+      });
   }
 }

@@ -60,16 +60,6 @@ export class ACSx290ListComponent implements OnInit, OnDestroy {
       );
 
       const data = await this.registryService.loadRegistries('ACSx290', this.avHospitals);
-      // const decryptData: RegistryModel[] = [];
-      // data.forEach(d => {
-      //   decryptData.push({
-      //     ...d,
-      //     hn: this.decrypt(d.hn),
-      //     an: this.decrypt(d.an),
-      //     firstName: this.decrypt(d.firstName),
-      //     lastName: this.decrypt(d.lastName)
-      //   });
-      // });
       const decryptData = data.map(d => {
         return {
           ...d,
@@ -82,8 +72,6 @@ export class ACSx290ListComponent implements OnInit, OnDestroy {
           })
         };
       });
-
-      console.log('loadRegistry');
 
       this.dataSource = new MatTableDataSource(decryptData);
       this.dataSource.paginator = this.paginator;

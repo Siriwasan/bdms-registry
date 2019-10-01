@@ -45,14 +45,8 @@
         <mat-cell *matCellDef="let row">{{ row.age }}</mat-cell>
       </ng-container>
 
-      <!-- <ng-container matColumnDef="baseDb">
-        <mat-header-cell *matHeaderCellDef mat-sort-header fxHide.xs>BaseDB</mat-header-cell>
-        <mat-cell *matCellDef="let row" fxHide.xs>{{ row.baseDb }}</mat-cell>
-      </ng-container> -->
-
       <ng-container matColumnDef="tags">
         <mat-header-cell *matHeaderCellDef mat-sort-header fxHide.xs>Tags</mat-header-cell>
-        <!-- <mat-cell *matCellDef="let row" fxHide.xs>{{ row.tags }}</mat-cell> -->
         <mat-cell *matCellDef="let row" fxLayout="row wrap" fxHide.xs>
           <span
             *ngFor="let item of row.tags"

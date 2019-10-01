@@ -1198,22 +1198,6 @@
           </div>
 
           <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
-            <reg-select controlName="PCIDecision" placeholder="Decision for PCI with Surgical Consult" [formGroup]="formGroupI"
-              [choices]="['Yes', 'No']" fxFlex></reg-select>
-
-            <reg-select *ngIf="visibles['CVTxDecision']" controlName="CVTxDecision" placeholder="CV Treatment Decision" [formGroup]="formGroupI" [choices]="[
-                'Surgery Not Recommended',
-                'Surgery Recommended, Patient/Family Declined',
-                'Surgery Recommended, Patient/Family Accepted (Hybrid procedure)'
-              ]" fxFlex></reg-select>
-
-            <reg-select *ngIf="visibles['CVSheetDecision']" controlName="CVSheetDecision" placeholder="CV Treatment Decision" [formGroup]="formGroupI" [choices]="[
-                'Surgical information sheet provided',
-                'Surgical information sheet NOT provided'
-              ]" fxFlex></reg-select>
-          </div>
-
-          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
             <reg-select controlName="MultiVesselDz" placeholder="PCI for Multi-vessel Disease" [formGroup]="formGroupI"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
 

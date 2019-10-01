@@ -517,7 +517,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     ];
 
     const formArray = this.formGroupJ.get(str.pciLesions) as FormArray;
-    const isMI = MIs.indexOf(PCIIndication) >= 0;
+    const isMI = MIs.includes(PCIIndication);
 
     // tslint:disable: no-string-literal
     for (let i = 0; i < formArray.length; i++) {
@@ -693,13 +693,9 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     });
   }
 
-  public async submit() {
-    console.log('submit');
-
+  public async submit(exit = false) {
     this.registryFormService.submitAllSections();
     const data = this.archiveForm();
-
-    console.log(data);
 
     const alert = this.cathPci50Service.checkNeededDataCompletion(data);
     if (alert) {
@@ -729,15 +725,18 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
       this.registryId = await this.cathPci50Service.createForm(data);
       this.mode = 'edit';
       this.formGroupA.get('registryId').setValue(this.registryId);
-      this.location.go('/registry/cath-pci50/' + this.registryId);
+      if (!exit) {
+        this.location.go('/registry/cath-pci50/' + this.registryId);
+      }
     } else {
       await this.cathPci50Service.updateForm(this.registryId, data);
     }
     this.store.dispatch(new UI.StopLoading());
+    this.registryFormService.markAllFormsUntouched();
   }
 
   async submitAndExit() {
-    await this.submit();
+    await this.submit(true);
     this.location.back();
   }
 
@@ -1146,7 +1145,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
           return {
             label: s,
             value: s,
-            disable: usedSegmentIDs.indexOf(s) >= 0 && selectedSegmentID !== s
+            disable: usedSegmentIDs.includes(s) && selectedSegmentID !== s
           };
         })
       );
@@ -1262,7 +1261,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
       let SegmentID = fg.get(str.segmentID).value as string[];
       if (SegmentID) {
         SegmentID.forEach((seg, index) => {
-          if (availableSegmentIDs.indexOf(seg) < 0) {
+          if (!availableSegmentIDs.includes(seg)) {
             SegmentID.splice(index, 1);
           }
         });
@@ -1276,7 +1275,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
           return {
             label: s,
             value: s,
-            disable: usedSegmentIDs.indexOf(s) >= 0 && SegmentID.indexOf(s) < 0
+            disable: usedSegmentIDs.includes(s) && !SegmentID.includes(s)
           };
         })
       );

@@ -6,9 +6,10 @@ import { ToolsService } from './tools.service';
 import { FileService } from 'src/app/shared/services/file.service';
 import { RegistryModel } from '../registry/registry.model';
 import { Staff } from '../staff/staff.model';
-import { ACSx290Form } from '../registry/acsx290/acsx290.model';
+import { ACSx290Model } from '../registry/acsx290/acsx290.model';
 
 import * as toolData from './tools.data';
+import { CathPci50Model } from '../registry/cath-pci50/cath-pci50.model';
 
 interface Model {
   hn: number;
@@ -113,6 +114,12 @@ export class ToolsComponent implements OnInit {
     console.log('export ACSx290 ' + data.length + ' records');
   }
 
+  async exportCathPci50() {
+    const data = await this.toolsService.loadCathPci50s();
+    this.fileService.saveJSONtoFile(data, 'cathpci50.json');
+    console.log('export CathPci50 ' + data.length + ' records');
+  }
+
   importStaff(fileList: FileList) {
     const fileReader: FileReader = new FileReader();
     this.file = fileList[0];
@@ -149,13 +156,35 @@ export class ToolsComponent implements OnInit {
     fileReader.readAsText(this.file);
     fileReader.onloadend = async x => {
       console.log('load ACSx290 completed');
-      const acsxs = JSON.parse(fileReader.result as string) as ACSx290Form[];
+      const acsxs = JSON.parse(fileReader.result as string) as ACSx290Model[];
       await this.toolsService.dumpACSx290s(acsxs);
       console.log('dump ACSx290 completed ' + acsxs.length + ' records');
     };
   }
 
-  exportAsXLSX(): void {
+  importCathPci50(fileList: FileList) {
+    const fileReader: FileReader = new FileReader();
+    this.file = fileList[0];
+
+    console.log('import CathPci50');
+    fileReader.readAsText(this.file);
+    fileReader.onloadend = async x => {
+      console.log('load CathPci50 completed');
+      const cathPci = JSON.parse(fileReader.result as string) as CathPci50Model[];
+      await this.toolsService.dumpCathPci50s(cathPci);
+      console.log('dump CathPci50 completed ' + cathPci.length + ' records');
+    };
+  }
+
+  exportAsXLSX() {
     this.toolsService.exportAsExcelFile(toolData.xlsxSample, 'sample');
+  }
+
+  rebuildACSx290Tags() {
+    this.toolsService.rebuildACSx290Tags();
+  }
+
+  rebuildCathPci50Tags() {
+    this.toolsService.rebuildCathPci50Tags();
   }
 }

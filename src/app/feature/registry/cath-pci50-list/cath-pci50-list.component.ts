@@ -59,22 +59,6 @@ export class CathPci50ListComponent implements OnInit, OnDestroy {
       );
 
       const data = await this.registryService.loadRegistries('CathPci50', this.avHospitals);
-
-      // const decryptData: any[] = [];
-      // data.forEach(d => {
-      //   decryptData.push({
-      //     ...d,
-      //     hn: this.decrypt(d.hn),
-      //     an: this.decrypt(d.an),
-      //     firstName: this.decrypt(d.firstName),
-      //     lastName: this.decrypt(d.lastName),
-      //     tags: d.tags.map(t => {
-      //       return { tag: t, priority: tagPriorities[t] ? tagPriorities[t] : 'low' };
-      //     })
-      //   });
-      // });
-
-      // const decryptData: any[] = [];
       const decryptData = data.map(d => {
         return {
           ...d,
@@ -87,8 +71,6 @@ export class CathPci50ListComponent implements OnInit, OnDestroy {
           })
         };
       });
-
-      console.log('loadRegistry');
 
       this.dataSource = new MatTableDataSource(decryptData);
       this.dataSource.paginator = this.paginator;

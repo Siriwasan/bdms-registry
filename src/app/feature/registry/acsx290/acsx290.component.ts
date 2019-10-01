@@ -18,7 +18,7 @@ import { validations } from './acsx290.validation';
 import { ACSx290Service } from './acsx290.service';
 import { tableOfContent } from './acsx290.toc';
 import * as acsx290Data from './acsx290.data';
-import { ACSx290Form, ACSx290FormCompletion } from './acsx290.model';
+import { ACSx290Model, ACSx290Completion } from './acsx290.model';
 import { Staff } from '../../staff/staff.model';
 import { FormDetail } from '../registry.model';
 
@@ -48,7 +48,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
   public direction = 'up'; // up, down, left, right
   public animationMode = 'fling'; // fling, scale
 
-  public completion: ACSx290FormCompletion;
+  public completion: ACSx290Completion;
 
   get current() {
     if (!this.completion) {
@@ -143,7 +143,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
   public mode = 'new'; // new, edit
   private registryId: string;
   private subscriptions: Subscription[] = [];
-  result: ACSx290Form;
+  result: ACSx290Model;
 
   constructor(
     protected dialogService: DialogService,
@@ -527,7 +527,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
     // this.formGroupO.get('VentHrsTot').markAsTouched();
   }
 
-  public async submit() {
+  public async submit(exit = false) {
     console.log('submit');
 
     this.registryFormService.submitAllSections();
@@ -558,20 +558,20 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
         return;
       }
 
-      console.log('new');
       this.registryId = await this.acsx290Service.createForm(data);
-      this.formGroupA.get('registryId').setValue(this.registryId);
-      this.location.go('/registry/acsx290/' + this.registryId);
       this.mode = 'edit';
+      this.formGroupA.get('registryId').setValue(this.registryId);
+      if (!exit) {
+        this.location.go('/registry/acsx290/' + this.registryId);
+      }
     } else {
-      console.log('edit');
       await this.acsx290Service.updateForm(this.registryId, data);
     }
     this.store.dispatch(new UI.StopLoading());
     this.registryFormService.markAllFormsUntouched();
   }
 
-  private archiveForm(): ACSx290Form {
+  private archiveForm(): ACSx290Model {
     const timestamp = this.acsx290Service.timestamp;
 
     if (this.mode === 'new') {
@@ -591,7 +591,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
       this.formDetail.modifiedBy = this.user.staff.staffId;
     }
 
-    const acsx290Model: ACSx290Form = {
+    const acsx290Model: ACSx290Model = {
       detail: this.formDetail,
       completion: this.getFormCompletion(),
       sectionA: { ...this.formGroupA.value },
@@ -668,8 +668,8 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
     return acsx290Model;
   }
 
-  private getFormCompletion(): ACSx290FormCompletion {
-    const completion: ACSx290FormCompletion = {
+  private getFormCompletion(): ACSx290Completion {
+    const completion: ACSx290Completion = {
       summary: null,
       sectionA: null,
       sectionB: null,
@@ -744,7 +744,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
     }
   }
 
-  private setFormValue(acsx290Model: ACSx290Form) {
+  private setFormValue(acsx290Model: ACSx290Model) {
     this.formDetail = acsx290Model.detail;
     this.formGroupA.setValue(acsx290Model.sectionA);
     this.formGroupB.setValue(acsx290Model.sectionB);
@@ -772,8 +772,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
   }
 
   async submitAndExit() {
-    await this.submit();
-    // this.router.navigate(['registry']);
+    await this.submit(true);
     this.location.back();
   }
 
