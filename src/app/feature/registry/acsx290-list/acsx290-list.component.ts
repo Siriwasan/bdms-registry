@@ -37,6 +37,9 @@ export class ACSx290ListComponent implements OnInit, OnDestroy {
   private userSubscription: Subscription;
   avHospitals: Auth.Hospital[];
 
+  barClicked = false;
+  filterString: string = null;
+
   constructor(
     private registryService: RegistryService,
     private router: Router,
@@ -76,9 +79,25 @@ export class ACSx290ListComponent implements OnInit, OnDestroy {
       this.dataSource = new MatTableDataSource(decryptData);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-      // this.dataSource.filterPredicate = (d: any, filter: string) => {
-      //   return d.tags.length > 0 && d.tags[0].tag.includes(filter);
-      // };
+      this.dataSource.filterPredicate = (d: any, filter: string) => {
+        if (d.registryId.toLowerCase().includes(filter)) {
+          return true;
+        }
+        if (d.hn.toLowerCase().includes(filter)) {
+          return true;
+        }
+        if (d.firstName.toLowerCase().includes(filter)) {
+          return true;
+        }
+        if (d.lastName.toLowerCase().includes(filter)) {
+          return true;
+        }
+        if (d.tags.length > 0 && d.tags.map(t => t.tag.toLowerCase()).includes(filter)) {
+          return true;
+        }
+
+        return false;
+      };
 
       this.store.dispatch(new UI.StopLoading());
     });
@@ -97,6 +116,10 @@ export class ACSx290ListComponent implements OnInit, OnDestroy {
   }
 
   click(registry: RegistryModel) {
+    if (this.barClicked) {
+      this.barClicked = false;
+      return;
+    }
     if (registry.baseDbId === 'ACSx290') {
       this.store.dispatch(new UI.StartLoading());
       setTimeout(() => {
@@ -123,5 +146,11 @@ export class ACSx290ListComponent implements OnInit, OnDestroy {
     const data = await this.registryService.loadACSx290sForExport(this.avHospitals);
     this.fileService.saveJSONtoCSV(data, 'acsx.csv');
     console.log('export acsx ' + data.length + ' records');
+  }
+
+  clickTag(tag: string) {
+    this.barClicked = true;
+    this.filterString = tag;
+    this.applyFilter(this.filterString);
   }
 }

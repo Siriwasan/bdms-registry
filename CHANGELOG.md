@@ -1,8 +1,13 @@
-# 1.0.1 (2019-10-02)
+# 1.1.0 (2019-10-02)
 
 ### Bug Fixes
 
 - **Registry form:** fixed submit nagivation bug
+
+### Features
+
+- **UI:** click registry tag to apply filter
+- **Tools:** rebuild registry tags
 
 # 1.0.0 (2019-10-01)
 

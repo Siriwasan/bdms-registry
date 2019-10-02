@@ -4,7 +4,14 @@
     <mat-form-field floatLabel="never" style="width: 200px;">
       <!-- <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter" />
       <mat-icon matSuffix>search</mat-icon> -->
-      <input matInput type="text" placeholder="Filter" (keyup)="applyFilter($event.target.value)" #input />
+      <input
+        matInput
+        type="text"
+        placeholder="Filter"
+        (keyup)="applyFilter($event.target.value)"
+        #input
+        [value]="filterString"
+      />
       <button
         mat-button
         *ngIf="input.value.length > 0"
@@ -15,6 +22,7 @@
       >
         <mat-icon>close</mat-icon>
       </button>
+      <mat-hint><i>ID, HN, Name, Tag</i></mat-hint>
     </mat-form-field>
   </div>
 
@@ -55,6 +63,7 @@
               'tag-medium-priority': item.priority === 'medium',
               'tag-high-priority': item.priority === 'high'
             }"
+            (click)="clickTag(item.tag)"
             >{{ item.tag }}</span
           >
         </mat-cell>

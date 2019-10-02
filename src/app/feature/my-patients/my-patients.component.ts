@@ -23,15 +23,18 @@ import { tagPriorities } from '../registry/acsx290/acsx290.tag';
   providers: [MyPatientsService]
 })
 export class MyPatientsComponent implements OnInit, OnDestroy {
-  user$: Observable<User>;
-  user: User;
-  private userSubscription: Subscription;
-
   displayedColumns: string[] = ['registryId', 'hn', 'firstName', 'lastName', 'age', 'tags', 'completion'];
   dataSource: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
+
+  user$: Observable<User>;
+  user: User;
+  private userSubscription: Subscription;
+
+  barClicked = false;
+  filterString: string = null;
 
   constructor(
     private myPatientsService: MyPatientsService,
@@ -66,6 +69,25 @@ export class MyPatientsComponent implements OnInit, OnDestroy {
     this.dataSource = new MatTableDataSource(decryptData);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+    this.dataSource.filterPredicate = (d: any, filter: string) => {
+      if (d.registryId.toLowerCase().includes(filter)) {
+        return true;
+      }
+      if (d.hn.toLowerCase().includes(filter)) {
+        return true;
+      }
+      if (d.firstName.toLowerCase().includes(filter)) {
+        return true;
+      }
+      if (d.lastName.toLowerCase().includes(filter)) {
+        return true;
+      }
+      if (d.tags.length > 0 && d.tags.map(t => t.tag.toLowerCase()).includes(filter)) {
+        return true;
+      }
+
+      return false;
+    };
 
     this.store.dispatch(new UI.StopLoading());
   }
@@ -83,7 +105,11 @@ export class MyPatientsComponent implements OnInit, OnDestroy {
   }
 
   click(registry: RegistryModel) {
-    if (registry.baseDb === 'STS Adult Cardiac Surgery version 2.9') {
+    if (this.barClicked) {
+      this.barClicked = false;
+      return;
+    }
+    if (registry.baseDbId === 'ACSx290') {
       this.store.dispatch(new UI.StartLoading());
       setTimeout(() => {
         this.router.navigate(['registry/acsx290', registry.registryId]);
@@ -102,5 +128,11 @@ export class MyPatientsComponent implements OnInit, OnDestroy {
     const data = await this.myPatientsService.loadMyACSx290sForExport(this.user.staff.staffId);
     this.fileService.saveJSONtoCSV(data, 'my-registry.csv');
     console.log('export acsx ' + data.length + ' records');
+  }
+
+  clickTag(tag: string) {
+    this.barClicked = true;
+    this.filterString = tag;
+    this.applyFilter(this.filterString);
   }
 }
