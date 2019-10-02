@@ -42,6 +42,45 @@ export class ACSx290Service implements OnDestroy {
     return registryId !== undefined;
   }
 
+  // private generateRegistryId(hospitalId: string): Promise<string> {
+  //   const year = new Date()
+  //     .getFullYear()
+  //     .toString()
+  //     .substr(-2);
+  //   const prefix = 'ACX-' + hospitalId + '-' + year;
+
+  //   return new Promise<string>((resolve, reject) => {
+  //     this.subscriptions.push(
+  //       this.db
+  //         .collection<ACSx290Model>(DB_COLLECTION, ref =>
+  //           ref
+  //             .orderBy('sectionA.registryId', 'desc')
+  //             .startAt(prefix + '\uf8ff')
+  //             .endAt(prefix)
+  //             .limit(1)
+  //         )
+  //         .valueChanges()
+  //         .subscribe(
+  //           (data: ACSx290Model[]) => {
+  //             if (data.length === 0) {
+  //               resolve(prefix + '001');
+  //             } else {
+  //               // tslint:disable-next-line: no-string-literal
+  //               const lastId = data[0].sectionA['registryId'] as string;
+  //               let index = +lastId.split(prefix)[1];
+  //               const nextId = (++index).toString().padStart(3, '0');
+
+  //               resolve(prefix + nextId); // first result of query [0]
+  //             }
+  //           },
+  //           error => {
+  //             reject(error);
+  //           }
+  //         )
+  //     );
+  //   });
+  // }
+
   private generateRegistryId(hospitalId: string): Promise<string> {
     const year = new Date()
       .getFullYear()
@@ -49,36 +88,34 @@ export class ACSx290Service implements OnDestroy {
       .substr(-2);
     const prefix = 'ACX-' + hospitalId + '-' + year;
 
-    return new Promise<string>((resolve, reject) => {
-      this.subscriptions.push(
-        this.db
-          .collection<ACSx290Model>(DB_COLLECTION, ref =>
-            ref
-              .orderBy('sectionA.registryId', 'desc')
-              .startAt(prefix + '\uf8ff')
-              .endAt(prefix)
-              .limit(1)
-          )
-          .valueChanges()
-          .subscribe(
-            (data: ACSx290Model[]) => {
-              if (data.length === 0) {
-                resolve(prefix + '001');
-              } else {
-                // tslint:disable-next-line: no-string-literal
-                const lastId = data[0].sectionA['registryId'] as string;
-                let index = +lastId.split(prefix)[1];
-                const nextId = (++index).toString().padStart(3, '0');
+    return this.db
+      .collection<ACSx290Model>(DB_COLLECTION, ref =>
+        ref
+          .orderBy('sectionA.registryId', 'desc')
+          .startAt(prefix + '\uf8ff')
+          .endAt(prefix)
+          .limit(1)
+      )
+      .valueChanges()
+      .pipe(take(1))
+      .toPromise()
+      .then(
+        data => {
+          if (data.length === 0) {
+            return prefix + '001';
+          } else {
+            // tslint:disable-next-line: no-string-literal
+            const lastId = data[0].sectionA['registryId'] as string;
+            let index = +lastId.split(prefix)[1];
+            const nextId = (++index).toString().padStart(3, '0');
 
-                resolve(prefix + nextId); // first result of query [0]
-              }
-            },
-            error => {
-              reject(error);
-            }
-          )
+            return prefix + nextId; // first result of query [0]
+          }
+        },
+        error => {
+          return error;
+        }
       );
-    });
   }
 
   public async createForm(data: ACSx290Model): Promise<string> {
@@ -174,62 +211,87 @@ export class ACSx290Service implements OnDestroy {
       .delete();
   }
 
+  // private getRegistryIdByHnAn(hn: string, an: string): Promise<string> {
+  //   const decryptHN = this.decrypt(hn);
+  //   const decryptAN = this.decrypt(an);
+
+  //   return new Promise<string>((resolve, reject) => {
+  //     this.subscriptions.push(
+  //       this.db
+  //         .collection<ACSx290Model>(DB_COLLECTION)
+  //         .snapshotChanges()
+  //         .pipe(
+  //           map(actions =>
+  //             actions.map(({ payload: { doc } }) => {
+  //               const id = doc.id;
+  //               const data = doc.data();
+
+  //               // tslint:disable-next-line: no-string-literal
+  //               return { id, hn: this.decrypt(data.sectionA['HN']), an: this.decrypt(data.sectionA['AN']) };
+  //             })
+  //           ),
+  //           map(forms => forms.find(doc => doc.hn === decryptHN && doc.an === decryptAN))
+  //         )
+  //         .subscribe(
+  //           (data: any) => {
+  //             if (data) {
+  //               resolve(data.id); // Form Id
+  //             } else {
+  //               // reject('not found');
+  //               resolve(undefined);
+  //             }
+  //           },
+  //           error => {
+  //             console.log(error);
+  //             reject(error);
+  //           }
+  //         )
+  //     );
+  //   });
+  // }
+
   private getRegistryIdByHnAn(hn: string, an: string): Promise<string> {
     const decryptHN = this.decrypt(hn);
     const decryptAN = this.decrypt(an);
 
-    return new Promise<string>((resolve, reject) => {
-      this.subscriptions.push(
-        this.db
-          .collection<ACSx290Model>(DB_COLLECTION)
-          .snapshotChanges()
-          .pipe(
-            map(actions =>
-              actions.map(({ payload: { doc } }) => {
-                const id = doc.id;
-                const data = doc.data();
+    return this.db
+      .collection<ACSx290Model>(DB_COLLECTION)
+      .snapshotChanges()
+      .pipe(
+        map(actions =>
+          actions.map(({ payload: { doc } }) => {
+            const id = doc.id;
+            const data = doc.data();
 
-                // tslint:disable-next-line: no-string-literal
-                return { id, hn: this.decrypt(data.sectionA['HN']), an: this.decrypt(data.sectionA['AN']) };
-              })
-            ),
-            map(forms => forms.find(doc => doc.hn === decryptHN && doc.an === decryptAN))
-          )
-          .subscribe(
-            (data: any) => {
-              if (data) {
-                resolve(data.id); // Form Id
-              } else {
-                // reject('not found');
-                resolve(undefined);
-              }
-            },
-            error => {
-              console.log(error);
-              reject(error);
-            }
-          )
+            // tslint:disable-next-line: no-string-literal
+            return { id, hn: this.decrypt(data.sectionA['HN']), an: this.decrypt(data.sectionA['AN']) };
+          })
+        ),
+        map(forms => forms.find(doc => doc.hn === decryptHN && doc.an === decryptAN)),
+        take(1)
+      )
+      .toPromise()
+      .then(
+        data => {
+          if (data) {
+            return data.id; // Form Id
+          } else {
+            return undefined;
+          }
+        },
+        error => {
+          return error;
+        }
       );
-    });
   }
 
   public getForm(registryId: string): Promise<ACSx290Model> {
-    return new Promise<ACSx290Model>((resolve, reject) => {
-      this.subscriptions.push(
-        this.db
-          .collection<ACSx290Model>(DB_COLLECTION)
-          .doc(registryId)
-          .valueChanges()
-          .subscribe(
-            (dc: any) => {
-              resolve(dc);
-            },
-            error => {
-              reject(error);
-            }
-          )
-      );
-    });
+    return this.db
+      .collection<ACSx290Model>(DB_COLLECTION)
+      .doc<ACSx290Model>(registryId)
+      .valueChanges()
+      .pipe(take(1))
+      .toPromise();
   }
 
   public getStaffs(): Promise<Staff[]> {

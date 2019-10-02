@@ -1,5 +1,9 @@
 # 1.2.0 (2019-10-03)
 
+### Bug Fixes
+
+- **Database:** fixed load database bugs
+
 ### Features
 
 - **UI:** add RegSelectSearh component

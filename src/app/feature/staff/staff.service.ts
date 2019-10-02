@@ -3,7 +3,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import * as firebase from 'firebase/app';
 import * as CryptoJS from 'crypto-js';
 import { Subscription, Observable, combineLatest } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 
 import { Staff } from './staff.model';
 import * as Auth from '../../core/auth/auth.data';
@@ -100,50 +100,27 @@ export class StaffService implements OnDestroy {
   // }
 
   private generateStaffId(): Promise<string> {
-    return new Promise<string>((resolve, reject) => {
-      this.subscriptions.push(
-        this.db
-          .collection<Staff>(DB_COLLECTION, ref => ref.orderBy('staffId', 'desc').limit(1))
-          .valueChanges()
-          .subscribe(
-            (data: Staff[]) => {
-              if (data.length === 0) {
-                resolve('00001');
-              } else {
-                const lastId = data[0].staffId as string;
-                let index = +lastId;
-                const nextId = (++index).toString().padStart(5, '0');
+    return this.db
+      .collection<Staff>(DB_COLLECTION, ref => ref.orderBy('staffId', 'desc').limit(1))
+      .valueChanges()
+      .pipe(take(1))
+      .toPromise()
+      .then(
+        data => {
+          if (data.length === 0) {
+            return '00001';
+          } else {
+            const lastId = data[0].staffId as string;
+            let index = +lastId;
+            const nextId = (++index).toString().padStart(5, '0');
 
-                resolve(nextId); // first result of query [0]
-              }
-            },
-            error => {
-              reject(error);
-            }
-          )
+            return nextId; // first result of query [0]
+          }
+        },
+        error => {
+          return error;
+        }
       );
-    });
-  }
-
-  private getAbbreviation(position: string) {
-    switch (position) {
-      case 'Cardiothoracic Surgeon':
-        return 'CS';
-      case 'Anesthesiologist':
-        return 'AN';
-      case 'Registered Nurse':
-        return 'RN';
-      case 'Cardiothoracic Technician':
-        return 'CT';
-      case 'Scrub Nurse':
-        return 'SN';
-      case 'Heart Coordinator':
-        return 'HC';
-      case 'Researcher':
-        return 'RS';
-      case 'Register':
-        return 'RG';
-    }
   }
 
   private passwordHashing(password: string): string {

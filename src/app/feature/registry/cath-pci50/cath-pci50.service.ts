@@ -70,36 +70,34 @@ export class CathPci50Service implements OnDestroy {
       .substr(-2);
     const prefix = 'PCI-' + hospitalId + '-' + year;
 
-    return new Promise<string>((resolve, reject) => {
-      this.subscriptions.push(
-        this.db
-          .collection<CathPci50Model>(DB_COLLECTION, ref =>
-            ref
-              .orderBy('sectionA.registryId', 'desc')
-              .startAt(prefix + '\uf8ff')
-              .endAt(prefix)
-              .limit(1)
-          )
-          .valueChanges()
-          .subscribe(
-            (data: CathPci50Model[]) => {
-              if (data.length === 0) {
-                resolve(prefix + '001');
-              } else {
-                // tslint:disable-next-line: no-string-literal
-                const lastId = data[0].sectionA['registryId'] as string;
-                let index = +lastId.split(prefix)[1];
-                const nextId = (++index).toString().padStart(3, '0');
+    return this.db
+      .collection<CathPci50Model>(DB_COLLECTION, ref =>
+        ref
+          .orderBy('sectionA.registryId', 'desc')
+          .startAt(prefix + '\uf8ff')
+          .endAt(prefix)
+          .limit(1)
+      )
+      .valueChanges()
+      .pipe(take(1))
+      .toPromise()
+      .then(
+        data => {
+          if (data.length === 0) {
+            return prefix + '001';
+          } else {
+            // tslint:disable-next-line: no-string-literal
+            const lastId = data[0].sectionA['registryId'] as string;
+            let index = +lastId.split(prefix)[1];
+            const nextId = (++index).toString().padStart(3, '0');
 
-                resolve(prefix + nextId); // first result of query [0]
-              }
-            },
-            error => {
-              reject(error);
-            }
-          )
+            return prefix + nextId; // first result of query [0]
+          }
+        },
+        error => {
+          return error;
+        }
       );
-    });
   }
 
   private createRegistryModel(regisId: string, data: CathPci50Model): RegistryModel {
@@ -174,22 +172,12 @@ export class CathPci50Service implements OnDestroy {
   }
 
   public getForm(registryId: string): Promise<CathPci50Model> {
-    return new Promise<CathPci50Model>((resolve, reject) => {
-      this.subscriptions.push(
-        this.db
-          .collection<CathPci50Model>(DB_COLLECTION)
-          .doc(registryId)
-          .valueChanges()
-          .subscribe(
-            (dc: any) => {
-              resolve(dc);
-            },
-            error => {
-              reject(error);
-            }
-          )
-      );
-    });
+    return this.db
+      .collection<CathPci50Model>(DB_COLLECTION)
+      .doc<CathPci50Model>(registryId)
+      .valueChanges()
+      .pipe(take(1))
+      .toPromise();
   }
 
   public checkNeededDataCompletion(data: CathPci50Model): string {

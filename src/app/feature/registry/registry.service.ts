@@ -50,162 +50,142 @@ export class RegistryService implements OnDestroy {
   }
 
   public loadACSx290sForExport(avHospitals: Auth.Hospital[]): Promise<ACSx290Model[]> {
-    return new Promise<ACSx290Model[]>((resolve, reject) => {
-      const acsxList: Observable<ACSx290Model[]>[] = [];
-      avHospitals.forEach(hosp => {
-        acsxList.push(
-          this.db
-            .collection<ACSx290Model>(DB_COLLECTION, ref => ref.where('sectionC.HospName', '==', hosp.id))
-            .valueChanges()
-        );
-      });
-
-      this.subscriptions.push(
-        combineLatest(acsxList)
-          .pipe(
-            map(arr => arr.reduce((acc, cur) => acc.concat(cur))),
-            map(data =>
-              data.map(d => {
-                // tslint:disable: no-string-literal
-                delete d.sectionA['HN'];
-                delete d.sectionA['AN'];
-                delete d.sectionB['PatLName'];
-                delete d.sectionB['PatFName'];
-                delete d.sectionB['PatMName'];
-                delete d.sectionB['DOB'];
-                delete d.sectionB['SSN'];
-                delete d.sectionB['PatAddr'];
-                // tslint:enable: no-string-literal
-
-                d.detail.createdAt =
-                  d.detail.createdAt !== null
-                    ? (d.detail.createdAt as firebase.firestore.Timestamp).toDate().toISOString()
-                    : null;
-                d.detail.modifiedAt =
-                  d.detail.modifiedAt !== null
-                    ? (d.detail.modifiedAt as firebase.firestore.Timestamp).toDate().toISOString()
-                    : null;
-                d.detail.deletedAt =
-                  d.detail.deletedAt !== null
-                    ? (d.detail.deletedAt as firebase.firestore.Timestamp).toDate().toISOString()
-                    : null;
-
-                return d;
-              })
-            )
-          )
-          .subscribe(
-            data => {
-              resolve(data);
-            },
-            error => {
-              reject(error);
-            }
-          )
+    const acsxList: Observable<ACSx290Model[]>[] = [];
+    avHospitals.forEach(hosp => {
+      acsxList.push(
+        this.db
+          .collection<ACSx290Model>(DB_COLLECTION, ref => ref.where('sectionC.HospName', '==', hosp.id))
+          .valueChanges()
       );
-
-      //   this.subscriptions.push(
-      //     this.db
-      //       .collection<ACSx290Form>('ACSx290')
-      //       .valueChanges()
-      //       .pipe(
-      //         map(data =>
-      //           data.map(d => {
-      //             // tslint:disable: no-string-literal
-      //             delete d.sectionA['HN'];
-      //             delete d.sectionA['AN'];
-      //             delete d.sectionB['PatLName'];
-      //             delete d.sectionB['PatFName'];
-      //             delete d.sectionB['PatMName'];
-      //             delete d.sectionB['DOB'];
-      //             delete d.sectionB['SSN'];
-      //             delete d.sectionB['PatAddr'];
-      //             // tslint:enable: no-string-literal
-
-      //             d.detail.createdAt =
-      //               d.detail.createdAt !== null
-      //                 ? (d.detail.createdAt as firebase.firestore.Timestamp).toDate().toISOString()
-      //                 : null;
-      //             d.detail.modifiedAt =
-      //               d.detail.modifiedAt !== null
-      //                 ? (d.detail.modifiedAt as firebase.firestore.Timestamp).toDate().toISOString()
-      //                 : null;
-      //             d.detail.deletedAt =
-      //               d.detail.deletedAt !== null
-      //                 ? (d.detail.deletedAt as firebase.firestore.Timestamp).toDate().toISOString()
-      //                 : null;
-
-      //             return d;
-      //           })
-      //         )
-      //       )
-      //       .subscribe(
-      //         data => {
-      //           resolve(data);
-      //         },
-      //         error => {
-      //           reject(error);
-      //         }
-      //       )
-      //   );
     });
+
+    return combineLatest(acsxList)
+      .pipe(
+        map(arr => arr.reduce((acc, cur) => acc.concat(cur))),
+        map(data =>
+          data.map(d => {
+            // tslint:disable: no-string-literal
+            delete d.sectionA['HN'];
+            delete d.sectionA['AN'];
+            delete d.sectionB['PatLName'];
+            delete d.sectionB['PatFName'];
+            delete d.sectionB['PatMName'];
+            delete d.sectionB['DOB'];
+            delete d.sectionB['SSN'];
+            delete d.sectionB['PatAddr'];
+            // tslint:enable: no-string-literal
+
+            d.detail.createdAt =
+              d.detail.createdAt !== null
+                ? (d.detail.createdAt as firebase.firestore.Timestamp).toDate().toISOString()
+                : null;
+            d.detail.modifiedAt =
+              d.detail.modifiedAt !== null
+                ? (d.detail.modifiedAt as firebase.firestore.Timestamp).toDate().toISOString()
+                : null;
+            d.detail.deletedAt =
+              d.detail.deletedAt !== null
+                ? (d.detail.deletedAt as firebase.firestore.Timestamp).toDate().toISOString()
+                : null;
+
+            return d;
+          })
+        ),
+        take(1)
+      )
+      .toPromise();
+
+    //   this.subscriptions.push(
+    //     this.db
+    //       .collection<ACSx290Form>('ACSx290')
+    //       .valueChanges()
+    //       .pipe(
+    //         map(data =>
+    //           data.map(d => {
+    //             // tslint:disable: no-string-literal
+    //             delete d.sectionA['HN'];
+    //             delete d.sectionA['AN'];
+    //             delete d.sectionB['PatLName'];
+    //             delete d.sectionB['PatFName'];
+    //             delete d.sectionB['PatMName'];
+    //             delete d.sectionB['DOB'];
+    //             delete d.sectionB['SSN'];
+    //             delete d.sectionB['PatAddr'];
+    //             // tslint:enable: no-string-literal
+
+    //             d.detail.createdAt =
+    //               d.detail.createdAt !== null
+    //                 ? (d.detail.createdAt as firebase.firestore.Timestamp).toDate().toISOString()
+    //                 : null;
+    //             d.detail.modifiedAt =
+    //               d.detail.modifiedAt !== null
+    //                 ? (d.detail.modifiedAt as firebase.firestore.Timestamp).toDate().toISOString()
+    //                 : null;
+    //             d.detail.deletedAt =
+    //               d.detail.deletedAt !== null
+    //                 ? (d.detail.deletedAt as firebase.firestore.Timestamp).toDate().toISOString()
+    //                 : null;
+
+    //             return d;
+    //           })
+    //         )
+    //       )
+    //       .subscribe(
+    //         data => {
+    //           resolve(data);
+    //         },
+    //         error => {
+    //           reject(error);
+    //         }
+    //       )
+    //   );
   }
 
   public loadCathPci50sForExport(avHospitals: Auth.Hospital[]): Promise<CathPci50Model[]> {
-    return new Promise<CathPci50Model[]>((resolve, reject) => {
-      const dataList: Observable<CathPci50Model[]>[] = [];
-      avHospitals.forEach(hosp => {
-        dataList.push(
-          this.db
-            .collection<CathPci50Model>('CathPci50', ref => ref.where('sectionB.HospName', '==', hosp.id))
-            .valueChanges()
-        );
-      });
-
-      this.subscriptions.push(
-        combineLatest(dataList)
-          .pipe(
-            map(arr => arr.reduce((acc, cur) => acc.concat(cur))),
-            map(data =>
-              data.map(d => {
-                // tslint:disable: no-string-literal
-                delete d.sectionA['HN'];
-                delete d.sectionA['AN'];
-                delete d.sectionA['LastName'];
-                delete d.sectionA['FirstName'];
-                delete d.sectionA['MidName'];
-                delete d.sectionA['DOB'];
-                delete d.sectionA['SSN'];
-                delete d.sectionA['ZipCode'];
-                // tslint:enable: no-string-literal
-
-                d.detail.createdAt =
-                  d.detail.createdAt !== null
-                    ? (d.detail.createdAt as firebase.firestore.Timestamp).toDate().toISOString()
-                    : null;
-                d.detail.modifiedAt =
-                  d.detail.modifiedAt !== null
-                    ? (d.detail.modifiedAt as firebase.firestore.Timestamp).toDate().toISOString()
-                    : null;
-                d.detail.deletedAt =
-                  d.detail.deletedAt !== null
-                    ? (d.detail.deletedAt as firebase.firestore.Timestamp).toDate().toISOString()
-                    : null;
-
-                return d;
-              })
-            )
-          )
-          .subscribe(
-            data => {
-              resolve(data);
-            },
-            error => {
-              reject(error);
-            }
-          )
+    const dataList: Observable<CathPci50Model[]>[] = [];
+    avHospitals.forEach(hosp => {
+      dataList.push(
+        this.db
+          .collection<CathPci50Model>('CathPci50', ref => ref.where('sectionB.HospName', '==', hosp.id))
+          .valueChanges()
       );
     });
+
+    return combineLatest(dataList)
+      .pipe(
+        map(arr => arr.reduce((acc, cur) => acc.concat(cur))),
+        map(data =>
+          data.map(d => {
+            // tslint:disable: no-string-literal
+            delete d.sectionA['HN'];
+            delete d.sectionA['AN'];
+            delete d.sectionA['LastName'];
+            delete d.sectionA['FirstName'];
+            delete d.sectionA['MidName'];
+            delete d.sectionA['DOB'];
+            delete d.sectionA['SSN'];
+            delete d.sectionA['ZipCode'];
+            // tslint:enable: no-string-literal
+
+            d.detail.createdAt =
+              d.detail.createdAt !== null
+                ? (d.detail.createdAt as firebase.firestore.Timestamp).toDate().toISOString()
+                : null;
+            d.detail.modifiedAt =
+              d.detail.modifiedAt !== null
+                ? (d.detail.modifiedAt as firebase.firestore.Timestamp).toDate().toISOString()
+                : null;
+            d.detail.deletedAt =
+              d.detail.deletedAt !== null
+                ? (d.detail.deletedAt as firebase.firestore.Timestamp).toDate().toISOString()
+                : null;
+
+            return d;
+          })
+        ),
+        take(1)
+      )
+      .toPromise();
   }
   //#endregion Cloud firestore
 
