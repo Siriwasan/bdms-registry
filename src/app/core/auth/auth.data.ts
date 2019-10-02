@@ -8,6 +8,8 @@ export const postions = [
   'Data scientist',
   'Cardiologist',
   'Cardiac Interventionist',
+  'Emergency Physician',
+  'Interventionist',
   'Other'
 ];
 

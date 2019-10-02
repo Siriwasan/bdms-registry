@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { Staff } from './staff.model';
 import { StaffService } from './staff.service';
@@ -25,6 +25,7 @@ export class StaffComponent implements OnInit, OnDestroy {
 
   // @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild('input', { static: true }) filterInput: ElementRef;
 
   selectedStaff: Staff;
   staffListSubscription: Subscription;
@@ -93,5 +94,6 @@ export class StaffComponent implements OnInit, OnDestroy {
       this.staffService.updateStaff(staff);
       this.selectedStaff = null;
     }
+    this.filterInput.nativeElement.value = null;
   }
 }

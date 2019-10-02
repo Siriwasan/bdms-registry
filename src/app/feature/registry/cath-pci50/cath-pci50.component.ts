@@ -36,6 +36,8 @@ import { AuthService } from 'src/app/core/auth/auth.service';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../../../app.reducer';
 import * as UI from '../../../shared/ui.actions';
+import { Staff } from '../../staff/staff.model';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 const str = {
   nativeLesions: 'NativeLesions',
@@ -66,30 +68,35 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
   result: CathPci50Model;
 
   // USER
-  public user$: Observable<User>;
-  public user: User;
+  user$: Observable<User>;
+  user: User;
   private userSubscription: Subscription;
 
   // FORM DATA
-  public mode = 'new'; // new, edit
+  mode = 'new'; // new, edit
   private registryId: string;
-  public visibles: FormVisible = {};
-  public completion: CathPci50Completion;
+  visibles: FormVisible = {};
+  completion: CathPci50Completion;
+
+  staffs: Staff[];
+  epAndCardio: RegSelectChoice[];
+  cardioAndIntervention: RegSelectChoice[];
+  intervention: RegSelectChoice[];
 
   avCoroDevices: RegSelectChoice[];
-  public avHospitals: string[];
-  public toc = tableOfContent;
-  public nationality = registryData.nationality;
-  public segmentNumbers = cathPci50Data.segmentNumbers;
-  public deathCauses = cathPci50Data.deathCauses;
-  public J_lesions = cathPci50Data.J_lesions;
-  public J_devices = cathPci50Data.J_devices;
-  public K_procedureEvents = cathPci50Data.K_procedureEvents;
-  public M_followUpEvents = cathPci50Data.M_followUpEvents;
-  public associatedLesions: string[] = [];
+  avHospitals: string[];
+  toc = tableOfContent;
+  nationality = registryData.nationality;
+  segmentNumbers = cathPci50Data.segmentNumbers;
+  deathCauses = cathPci50Data.deathCauses;
+  J_lesions = cathPci50Data.J_lesions;
+  J_devices = cathPci50Data.J_devices;
+  K_procedureEvents = cathPci50Data.K_procedureEvents;
+  M_followUpEvents = cathPci50Data.M_followUpEvents;
+  associatedLesions: string[] = [];
 
   // FAB
-  public open = false;
+  open = false;
 
   get current() {
     return this.completion ? this.completion.summary.valid : 0;
@@ -116,24 +123,24 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
   }
 
   // SUBFORM
-  public disableAddNativeLesion = false;
-  public nativeLesionsTabIndex = 0;
-  public availableNVSegmentIDs: RegSelectChoice[][] = [];
+  disableAddNativeLesion = false;
+  nativeLesionsTabIndex = 0;
+  availableNVSegmentIDs: RegSelectChoice[][] = [];
 
-  public disableAddGraftLesion = false;
-  public graftLesionsTabIndex = 0;
-  public availableGraftSegmentIDs: RegSelectChoice[][] = [];
+  disableAddGraftLesion = false;
+  graftLesionsTabIndex = 0;
+  availableGraftSegmentIDs: RegSelectChoice[][] = [];
 
-  public disableAddPciLesion = false;
-  public pciLesionsTabIndex = 0;
-  public availablePciSegmentIDs: RegSelectChoice[][] = [];
+  disableAddPciLesion = false;
+  pciLesionsTabIndex = 0;
+  availablePciSegmentIDs: RegSelectChoice[][] = [];
 
-  public disableAddPciDevice = false;
-  public pciDevicesTabIndex = 0;
-  public lesions: RegSelectChoice[] = [];
+  disableAddPciDevice = false;
+  pciDevicesTabIndex = 0;
+  lesions: RegSelectChoice[] = [];
 
-  public disableAddFollowUp = false;
-  public followUpsTabIndex = 0;
+  disableAddFollowUp = false;
+  followUpsTabIndex = 0;
 
   get nativeLesions() {
     return this.visibles[str.nativeLesions] && (this.visibles[str.nativeLesions] as FormVisible[]).length > 0;
@@ -216,9 +223,11 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     private router: Router,
     private cathPci50Service: CathPci50Service,
     private location: Location,
-    private authService: AuthService
+    private authService: AuthService,
+    private db: AngularFirestore
   ) {
     super(dialogService, changeDetector, scrollSpy, hostElement, registryFormService);
+    this.db.collection<Staff>('Staff').valueChanges().subscribe(staffs => console.log(staffs));
   }
 
   ngOnInit() {
@@ -276,7 +285,16 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     });
 
     this.formGroupA.get('registryId').setValue('(new)');
+    this.cathPci50Service.getStaffs().subscribe(staffs => console.log(staffs));
     await this.loadById();
+
+    // this.subscriptions.push(
+    //   this.cathPci50Service.getStaffs().subscribe(staffs => {
+    //     this.staffs = staffs;
+    //     console.log(this.staffs);
+    //     this.loadById();
+    //   })
+    // );
 
     this.completion = this.getFormCompletion();
     this.subscribeCompletionCalculation();
@@ -290,7 +308,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     this.userSubscription.unsubscribe();
   }
 
-  public getTOCTitle(section: string): string {
+  getTOCTitle(section: string): string {
     return this.toc.find(t => t.section === 'section' + section).title;
   }
 
@@ -335,36 +353,38 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
   }
 
   private async loadStaffs() {
-    // this.formGroupI.get('SurgeonId').setValue(null);
-    // this.formGroupI.get('Assist1Id').setValue(null);
-    // this.formGroupI.get('Assist2Id').setValue(null);
-    // this.formGroupI.get('Assist3Id').setValue(null);
-    // this.formGroupI.get('Assist4Id').setValue(null);
-    // this.formGroupI.get('Assist5Id').setValue(null);
-    // this.formGroupI.get('Assist6Id').setValue(null);
-    // this.formGroupI.get('Anesth1Id').setValue(null);
-    // this.formGroupI.get('Anesth2Id').setValue(null);
-    // this.formGroupI.get('Scrub1Id').setValue(null);
-    // this.formGroupI.get('Scrub2Id').setValue(null);
-    // this.formGroupI.get('Scrub3Id').setValue(null);
-    // this.formGroupI.get('Scrub4Id').setValue(null);
-    // this.formGroupI.get('CTT1Id').setValue(null);
-    // this.formGroupI.get('CTT2Id').setValue(null);
-    // this.formGroupI.get('CTT3Id').setValue(null);
-    // this.formGroupI.get('CTT4Id').setValue(null);
-    // const hospId = this.formGroupC.get('HospName').value;
-    // if (!hospId) {
-    //   this.cvt = null;
-    //   this.anesth = null;
-    //   this.sn = null;
-    //   this.ctt = null;
-    //   return;
-    // }
-    // const staffs = await this.acsx290Service.getStaffs();
-    // this.cvt = staffs.filter(e => e.position === 'Cardiothoracic Surgeon' && e.primaryHospId === hospId);
-    // this.anesth = staffs.filter(e => e.position === 'Anesthesiologist' && e.primaryHospId === hospId);
-    // this.sn = staffs.filter(e => e.position === 'Scrub Nurse' && e.primaryHospId === hospId);
-    // this.ctt = staffs.filter(e => e.position === 'Cardiothoracic Technician' && e.primaryHospId === hospId);
+    this.formGroupB.get('AdmProvider').setValue(null);
+    this.formGroupB.get('AttProvider').setValue(null);
+    this.formGroupE.get('DCathProvider').setValue(null);
+    this.formGroupE.get('PCIProvider').setValue(null);
+    this.formGroupL.get('DCProvider').setValue(null);
+
+    const hospId = this.formGroupB.get('HospName').value;
+    if (!hospId) {
+      this.epAndCardio = null;
+      this.cardioAndIntervention = null;
+      this.intervention = null;
+      return;
+    }
+
+    const filterStaff = (staff: Staff, positions: string[]) =>
+      positions.includes(staff.position) && (staff.primaryHospId === hospId || staff.secondHospIds.includes(hospId));
+
+    const staffToChoice = (staff: Staff) => {
+      return {
+        value: staff.staffId,
+        label: staff.title + ' ' + staff.firstName + ' ' + staff.lastName,
+        disable: false
+      } as RegSelectChoice;
+    };
+
+    this.epAndCardio = this.staffs
+      .filter(staff => filterStaff(staff, ['Emergency Physician', 'Cardiologist']))
+      .map(staffToChoice);
+    this.cardioAndIntervention = this.staffs
+      .filter(staff => filterStaff(staff, ['Cardiologist', 'Cardiac Interventionist']))
+      .map(staffToChoice);
+    this.intervention = this.staffs.filter(staff => filterStaff(staff, ['Cardiac Interventionist'])).map(staffToChoice);
   }
 
   private async loadById() {
@@ -397,6 +417,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     this.formGroupF.setValue(data.sectionF);
     this.formGroupG.setValue(data.sectionG);
 
+    (this.formGroupH.get(str.nativeLesions) as FormArray).clear();
     data.sectionH[str.nativeLesions].forEach(_ =>
       this.addLesion(str.nativeLesions, str.nvSegmentID, CathPci50Form.nativeLesion, conditions.nativeLesion)
     );
@@ -556,7 +577,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     });
   }
 
-  public DCStatusChanged(event: MatSelectChange) {
+  DCStatusChanged(event: MatSelectChange) {
     if (event.value === 'Alive') {
       this.addFollowUp();
     } else {
@@ -665,7 +686,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     return completion;
   }
 
-  public displaySummary(section: string): string {
+  displaySummary(section: string): string {
     if (!this.completion) {
       return;
     }
@@ -704,7 +725,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     });
   }
 
-  public async submit(exit = false) {
+  async submit(exit = false) {
     this.registryFormService.submitAllSections();
     const data = this.archiveForm();
 
@@ -909,17 +930,17 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     return isMoment(dateTime) ? dateTime.toISOString() : dateTime;
   }
 
-  public checkValidation() {
+  checkValidation() {
     this.registryFormService.submitAllSections();
   }
 
-  public clearValidations() {
+  clearValidations() {
     this.clearSubforms();
     this.registryFormService.clearErrors();
   }
 
   //#region Section H
-  public getNativeLesionsTabLabel(index: number): string {
+  getNativeLesionsTabLabel(index: number): string {
     const control = ((this.formGroupH.get(str.nativeLesions) as FormArray).controls[index] as FormGroup).controls;
     const label = control.NVSegmentID.value;
     const stenosis = control.NVCoroVesselStenosis.value;
@@ -927,7 +948,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     return label !== null ? label + (stenosis ? ` (${stenosis}%)` : '') : '(new) *';
   }
 
-  public getGraftLesionsTabLabel(index: number): string {
+  getGraftLesionsTabLabel(index: number): string {
     const control = ((this.formGroupH.get(str.graftLesions) as FormArray).controls[index] as FormGroup).controls;
     const label = control.GraftSegmentID.value;
     const stenosis = control.GraftCoroVesselStenosis.value;
@@ -935,7 +956,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     return label !== null ? label + (stenosis ? ` (${stenosis}%)` : '') : '(new) *';
   }
 
-  public NVStenosisChanged(event: MatSelectChange) {
+  NVStenosisChanged(event: MatSelectChange) {
     if (event.value === 'Yes') {
       this.addNativeLesion();
     } else {
@@ -943,7 +964,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     }
   }
 
-  public GraftStenosisChanged(event: MatSelectChange) {
+  GraftStenosisChanged(event: MatSelectChange) {
     if (event.value === 'Yes') {
       this.addGraftLesion();
     } else {
@@ -951,14 +972,14 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     }
   }
 
-  public NVSegmentIDChanged(event: MatSelectChange, index: number) {
+  NVSegmentIDChanged(event: MatSelectChange, index: number) {
     this.getSegmentIDsForNV();
     this.checkCanAddNativeLesion();
 
     this.getSegmentIDsForPci();
   }
 
-  public GraftSegmentIDChanged(event: MatSelectChange, index: number) {
+  GraftSegmentIDChanged(event: MatSelectChange, index: number) {
     this.getSegmentIDsForGraft();
     this.checkCanAddGraftLesion();
 
@@ -1017,7 +1038,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     return formArray.length;
   }
 
-  public removeNativeLesion(index: number) {
+  removeNativeLesion(index: number) {
     this.removeLesion(index, str.nativeLesions, str.nvStenosis);
 
     this.getSegmentIDsForNV();
@@ -1026,7 +1047,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     this.getSegmentIDsForPci();
   }
 
-  public removeGraftLesion(index: number) {
+  removeGraftLesion(index: number) {
     this.removeLesion(index, str.graftLesions, str.graftStenosis);
 
     this.getSegmentIDsForGraft();
@@ -1046,13 +1067,13 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     }
   }
 
-  public removeAllNativeLesions() {
+  removeAllNativeLesions() {
     this.removeAllLesions(str.nativeLesions);
 
     this.getSegmentIDsForPci();
   }
 
-  public removeAllGraftLesions() {
+  removeAllGraftLesions() {
     this.removeAllLesions(str.graftLesions);
 
     this.getSegmentIDsForPci();
@@ -1087,7 +1108,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     this.disableAddNativeLesion = false;
   }
 
-  public arrangeNativeTabs() {
+  arrangeNativeTabs() {
     this.nativeLesionsTabIndex = this.arrangeTabs(
       str.nativeLesions,
       str.nvSegmentID,
@@ -1096,7 +1117,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     );
   }
 
-  public arrangeGraftTabs() {
+  arrangeGraftTabs() {
     this.graftLesionsTabIndex = this.arrangeTabs(
       str.graftLesions,
       str.graftSegmentID,
@@ -1133,11 +1154,11 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     return formGroups.findIndex(a => a[segmentID] === selectedSegmentID);
   }
 
-  public getSegmentIDsForNV() {
+  getSegmentIDsForNV() {
     this.availableNVSegmentIDs = this.getSegmentIDs(str.nativeLesions, str.nvSegmentID);
   }
 
-  public getSegmentIDsForGraft() {
+  getSegmentIDsForGraft() {
     this.availableGraftSegmentIDs = this.getSegmentIDs(str.graftLesions, str.graftSegmentID);
   }
 
@@ -1182,21 +1203,21 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
   //#endregion Section H
 
   //#region Section J
-  public getPciLesionsTabLabel(index: number): string {
+  getPciLesionsTabLabel(index: number): string {
     const fg = ((this.formGroupJ.get(str.pciLesions) as FormArray).controls[index] as FormGroup).controls;
     const counter = fg.LesionCounter.value;
     const SegmentID = fg.SegmentID.value;
     return SegmentID !== null && SegmentID.length > 0 ? `Lesion ${counter}` : `Lesion ${counter} *`;
   }
 
-  public PciSegmentIDChanged() {
+  PciSegmentIDChanged() {
     this.getSegmentIDsForPci();
     this.checkCanAddPciLesion();
 
     this.getLesionsForDevices();
   }
 
-  public addPciLesion() {
+  addPciLesion() {
     const formArray = this.formGroupJ.get(str.pciLesions) as FormArray;
     // const formGroups = formArray.controls as FormGroup[];
 
@@ -1223,7 +1244,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     this.getLesionsForDevices();
   }
 
-  public removePciLesion(index: number) {
+  removePciLesion(index: number) {
     const formArray = this.formGroupJ.get(str.pciLesions) as FormArray;
     const formGroups = formArray.controls as FormGroup[];
 
@@ -1306,7 +1327,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
       }) >= 0;
   }
 
-  public arrangePciTabs() {
+  arrangePciTabs() {
     const formArray = this.formGroupJ.get(str.pciLesions) as FormArray;
     const formGroups = formArray.controls as FormGroup[];
 
@@ -1332,18 +1353,18 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     this.disableAddPciLesion = false;
   }
 
-  public getPciDevicesTabLabel(index: number): string {
+  getPciDevicesTabLabel(index: number): string {
     const fg = ((this.formGroupJ.get(str.pciDevices) as FormArray).controls[index] as FormGroup).controls;
     const counter = fg.ICDevCounter.value;
     const ICDevID = fg.ICDevID.value;
     return ICDevID !== null ? `Device ${counter}` : `Device ${counter} *`;
   }
 
-  public ICDevIDChanged() {
+  ICDevIDChanged() {
     this.checkCanAddPciDevice();
   }
 
-  public addPciDevice() {
+  addPciDevice() {
     const formArray = this.formGroupJ.get(str.pciDevices) as FormArray;
     // const formGroups = formArray.controls as FormGroup[];
 
@@ -1369,7 +1390,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     this.checkPciTechnique();
   }
 
-  public removePciDevice(index: number) {
+  removePciDevice(index: number) {
     const formArray = this.formGroupJ.get(str.pciDevices) as FormArray;
     const formGroups = formArray.controls as FormGroup[];
 
@@ -1385,7 +1406,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     this.checkPciTechnique();
   }
 
-  public checkPciTechnique() {
+  checkPciTechnique() {
     const result = this.visibles[str.pciDevices] && (this.visibles[str.pciDevices] as FormVisible[]).length > 0;
     const pciTechniques = ['StentTechnique', 'ProxOptimize', 'FinalKissBalloon', 'PCIResult'];
 
@@ -1426,7 +1447,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     this.disableAddPciDevice = formGroups.findIndex(fg => fg.get('ICDevID').value === null) >= 0;
   }
 
-  public arrangePciDeviceTabs() {
+  arrangePciDeviceTabs() {
     const formArray = this.formGroupJ.get(str.pciDevices) as FormArray;
     const formGroups = formArray.controls as FormGroup[];
 
@@ -1487,7 +1508,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
   //#endregion Section J
 
   //#region Section M
-  public getFollowUpsTabLabel(index: number): string {
+  getFollowUpsTabLabel(index: number): string {
     const fg = ((this.formGroupM.get(str.followUps) as FormArray).controls[index] as FormGroup).controls;
     const fuDate = utc(fg.FU_AssessmentDate.value);
     const procDate = utc(this.formGroupE.get('ProcedureStartDateTime').value);
@@ -1520,13 +1541,13 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     return period;
   }
 
-  // public FollowUpDateChanged() {
+  // FollowUpDateChanged() {
   //   // this.getSegmentNumbersForPci();
   //   // this.checkCanAddPciLesion();
   //   // this.getLesions();
   // }
 
-  public addFollowUp() {
+  addFollowUp() {
     const formArray = this.formGroupM.get(str.followUps) as FormArray;
     // const formGroups = formArray.controls as FormGroup[];
 
@@ -1552,7 +1573,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     // this.disableAddFollowUp = true;
   }
 
-  public FU_StatusChanged(event: MatSelectChange, index: number) {
+  FU_StatusChanged(event: MatSelectChange, index: number) {
     if (event.value === 'Alive') {
       this.removeInvalidFollowUps();
       this.addFollowUp();
@@ -1561,7 +1582,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     }
   }
 
-  public removeFollowUp(index: number) {
+  removeFollowUp(index: number) {
     const formArray = this.formGroupM.get(str.followUps) as FormArray;
     // const formGroups = formArray.controls as FormGroup[];
 
@@ -1597,7 +1618,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     }
   }
 
-  public arrangeFollowUpTabs() {
+  arrangeFollowUpTabs() {
     const formArray = this.formGroupM.get(str.followUps) as FormArray;
     const formGroups = formArray.value;
 

@@ -25,8 +25,6 @@ import * as Auth from '../../../core/auth/auth.data';
 import { AuthService } from '../../../../app/core/auth/auth.service';
 import { RegSelectChoice } from 'src/app/shared/modules/registry-form/registry-form.model';
 
-import { intraCoronaryDevices } from '../../registry/cath-pci50/cath-pci50.device';
-
 @Component({
   selector: 'app-staff-profile',
   templateUrl: './staff-profile.component.html',
@@ -48,7 +46,6 @@ export class StaffProfileComponent implements OnInit, OnChanges, OnDestroy, Afte
   avRegistries: string[];
   avRoles: string[];
   avPermissions: string[];
-  avCoroDevices: RegSelectChoice[];
 
   staffForm: FormGroup;
   @ViewChild('staffFormDirective', { static: true }) staffFormDirective: FormGroupDirective;
@@ -197,15 +194,6 @@ export class StaffProfileComponent implements OnInit, OnChanges, OnDestroy, Afte
     this.avRegistries = this.getAvailableRegistires();
     this.avRoles = this.getAvailableRoles();
     this.avPermissions = this.getAvailablePermissions();
-    this.avCoroDevices = intraCoronaryDevices.map(m => {
-      return {
-        value: m.id,
-        label: m.deviceName,
-        // detailHtml: `<span>Type:<i>${m.deviceType}</i></span> <span>Brand:<i>${m.brand}</i></span>`,
-        detailHtml: `<span>Type:<i>${m.deviceType}</i>&emsp;Brand:<i>${m.brand}</i></span>`,
-        disable: false
-      } as RegSelectChoice;
-    });
   }
 
   private getAvailablePositions(): string[] {

@@ -1,7 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import * as firebase from 'firebase/app';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import * as CryptoJS from 'crypto-js';
 
 import { environment } from '../../../../environments/environment';
@@ -10,6 +10,7 @@ import { CathPci50Model } from './cath-pci50.model';
 import { tagConditions } from './cath-pci50.tag';
 import { RegistryModel } from '../registry.model';
 import { Moment, utc } from 'moment';
+import { Staff } from '../../staff/staff.model';
 
 const DB_REGISTRY = 'Registry';
 const DB_STAFF = 'Staff';
@@ -247,5 +248,9 @@ export class CathPci50Service implements OnDestroy {
 
   private decrypt(source: string): string {
     return CryptoJS.AES.decrypt(source, environment.appKey).toString(CryptoJS.enc.Utf8);
+  }
+
+  getStaffs(): Observable<Staff[]> {
+    return this.db.collection<Staff>(DB_STAFF).valueChanges();
   }
 }
