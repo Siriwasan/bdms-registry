@@ -10,7 +10,6 @@ import { Store } from '@ngrx/store';
 import * as fromRoot from '../../../app.reducer';
 import * as UI from '../../../shared/ui.actions';
 
-import { RegistryModel } from '../registry.model';
 import { RegistryService } from '../registry.service';
 import { FileService } from '../../../shared/services/file.service';
 import { tagPriorities } from '../cath-pci50/cath-pci50.tag';
@@ -22,7 +21,8 @@ import { AuthService } from 'src/app/core/auth/auth.service';
 @Component({
   selector: 'app-cath-pci50-list',
   templateUrl: './cath-pci50-list.component.html',
-  styleUrls: ['./cath-pci50-list.component.scss']
+  styleUrls: ['./cath-pci50-list.component.scss'],
+  providers: [RegistryService]
 })
 export class CathPci50ListComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = ['registryId', 'hn', 'firstName', 'lastName', 'age', 'tags', 'completion'];

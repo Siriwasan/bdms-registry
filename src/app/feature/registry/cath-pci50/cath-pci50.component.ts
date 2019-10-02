@@ -37,7 +37,6 @@ import { Store } from '@ngrx/store';
 import * as fromRoot from '../../../app.reducer';
 import * as UI from '../../../shared/ui.actions';
 import { Staff } from '../../staff/staff.model';
-import { AngularFirestore } from '@angular/fire/firestore';
 
 const str = {
   nativeLesions: 'NativeLesions',
@@ -223,11 +222,9 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     private router: Router,
     private cathPci50Service: CathPci50Service,
     private location: Location,
-    private authService: AuthService,
-    private db: AngularFirestore
+    private authService: AuthService
   ) {
     super(dialogService, changeDetector, scrollSpy, hostElement, registryFormService);
-    this.db.collection<Staff>('Staff').valueChanges().subscribe(staffs => console.log(staffs));
   }
 
   ngOnInit() {
@@ -249,6 +246,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     this.registryFormService.subscribeFormConditions();
     this.subscriptions.push(
       this.subscribeDOBChanged(),
+      this.subscribeHospNameChanged(),
       this.subscribeCAOutHospitalChanged(),
       this.subscribeCATransferFacChanged(),
       this.subscribeCAInHospChanged(),
@@ -285,16 +283,8 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     });
 
     this.formGroupA.get('registryId').setValue('(new)');
-    this.cathPci50Service.getStaffs().subscribe(staffs => console.log(staffs));
+    this.staffs = await this.cathPci50Service.getStaffs();
     await this.loadById();
-
-    // this.subscriptions.push(
-    //   this.cathPci50Service.getStaffs().subscribe(staffs => {
-    //     this.staffs = staffs;
-    //     console.log(this.staffs);
-    //     this.loadById();
-    //   })
-    // );
 
     this.completion = this.getFormCompletion();
     this.subscribeCompletionCalculation();
@@ -417,7 +407,6 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     this.formGroupF.setValue(data.sectionF);
     this.formGroupG.setValue(data.sectionG);
 
-    (this.formGroupH.get(str.nativeLesions) as FormArray).clear();
     data.sectionH[str.nativeLesions].forEach(_ =>
       this.addLesion(str.nativeLesions, str.nvSegmentID, CathPci50Form.nativeLesion, conditions.nativeLesion)
     );
@@ -461,6 +450,12 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
 
       const age = -dob.diff(new Date(), 'years', false);
       this.formGroupA.get('Age').setValue(age);
+    });
+  }
+
+  private subscribeHospNameChanged(): Subscription {
+    return this.formGroupB.get('HospName').valueChanges.subscribe(value => {
+      this.loadStaffs();
     });
   }
 

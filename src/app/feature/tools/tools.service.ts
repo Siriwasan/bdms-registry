@@ -2,7 +2,7 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import * as firebase from 'firebase/app';
 import { Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
@@ -26,39 +26,33 @@ const EXCEL_EXTENSION = '.xlsx';
 export class ToolsService implements OnDestroy {
   private subscriptions: Subscription[] = [];
 
-  constructor(private db: AngularFirestore, private acsx290Service: ACSx290Service, private cathPci50Service: CathPci50Service) {}
+  constructor(
+    private db: AngularFirestore,
+    private acsx290Service: ACSx290Service,
+    private cathPci50Service: CathPci50Service
+  ) {}
 
   ngOnDestroy() {
     this.subscriptions.forEach(subs => subs.unsubscribe());
   }
 
   loadStaffs(): Promise<Staff[]> {
-    return new Promise((resolve, reject) => {
-      this.subscriptions.push(
-        this.db
-          .collection<Staff>(DB_STAFF)
-          .valueChanges()
-          .pipe(
-            map(data =>
-              data.map(d => {
-                d.createdAt =
-                  d.createdAt !== null ? (d.createdAt as firebase.firestore.Timestamp).toDate().toISOString() : null;
-                d.modifiedAt =
-                  d.modifiedAt !== null ? (d.modifiedAt as firebase.firestore.Timestamp).toDate().toISOString() : null;
-                return d;
-              })
-            )
-          )
-          .subscribe(
-            data => {
-              resolve(data);
-            },
-            error => {
-              reject(error);
-            }
-          )
-      );
-    });
+    return this.db
+      .collection<Staff>(DB_STAFF)
+      .valueChanges()
+      .pipe(
+        map(data =>
+          data.map(d => {
+            d.createdAt =
+              d.createdAt !== null ? (d.createdAt as firebase.firestore.Timestamp).toDate().toISOString() : null;
+            d.modifiedAt =
+              d.modifiedAt !== null ? (d.modifiedAt as firebase.firestore.Timestamp).toDate().toISOString() : null;
+            return d;
+          })
+        ),
+        take(1)
+      )
+      .toPromise();
   }
 
   async dumpStaffs(data: Staff[]) {
@@ -82,30 +76,20 @@ export class ToolsService implements OnDestroy {
   }
 
   loadRegistries(): Promise<RegistryModel[]> {
-    return new Promise((resolve, reject) => {
-      this.subscriptions.push(
-        this.db
-          .collection<RegistryModel>(DB_REGISTRY)
-          .valueChanges()
-          .pipe(
-            map(data =>
-              data.map(d => {
-                d.modifiedAt =
-                  d.modifiedAt !== null ? (d.modifiedAt as firebase.firestore.Timestamp).toDate().toISOString() : null;
-                return d;
-              })
-            )
-          )
-          .subscribe(
-            data => {
-              resolve(data);
-            },
-            error => {
-              reject(error);
-            }
-          )
-      );
-    });
+    return this.db
+      .collection<RegistryModel>(DB_REGISTRY)
+      .valueChanges()
+      .pipe(
+        map(data =>
+          data.map(d => {
+            d.modifiedAt =
+              d.modifiedAt !== null ? (d.modifiedAt as firebase.firestore.Timestamp).toDate().toISOString() : null;
+            return d;
+          })
+        ),
+        take(1)
+      )
+      .toPromise();
   }
 
   async dumpRegistries(data: RegistryModel[]) {
@@ -128,40 +112,30 @@ export class ToolsService implements OnDestroy {
   }
 
   loadACSx290s(): Promise<ACSx290Model[]> {
-    return new Promise((resolve, reject) => {
-      this.subscriptions.push(
-        this.db
-          .collection<ACSx290Model>(DB_COLLECTION)
-          .valueChanges()
-          .pipe(
-            map(data =>
-              data.map(d => {
-                d.detail.createdAt =
-                  d.detail.createdAt !== null
-                    ? (d.detail.createdAt as firebase.firestore.Timestamp).toDate().toISOString()
-                    : null;
-                d.detail.modifiedAt =
-                  d.detail.modifiedAt !== null
-                    ? (d.detail.modifiedAt as firebase.firestore.Timestamp).toDate().toISOString()
-                    : null;
-                d.detail.deletedAt =
-                  d.detail.deletedAt !== null
-                    ? (d.detail.deletedAt as firebase.firestore.Timestamp).toDate().toISOString()
-                    : null;
-                return d;
-              })
-            )
-          )
-          .subscribe(
-            data => {
-              resolve(data);
-            },
-            error => {
-              reject(error);
-            }
-          )
-      );
-    });
+    return this.db
+      .collection<ACSx290Model>(DB_COLLECTION)
+      .valueChanges()
+      .pipe(
+        map(data =>
+          data.map(d => {
+            d.detail.createdAt =
+              d.detail.createdAt !== null
+                ? (d.detail.createdAt as firebase.firestore.Timestamp).toDate().toISOString()
+                : null;
+            d.detail.modifiedAt =
+              d.detail.modifiedAt !== null
+                ? (d.detail.modifiedAt as firebase.firestore.Timestamp).toDate().toISOString()
+                : null;
+            d.detail.deletedAt =
+              d.detail.deletedAt !== null
+                ? (d.detail.deletedAt as firebase.firestore.Timestamp).toDate().toISOString()
+                : null;
+            return d;
+          })
+        ),
+        take(1)
+      )
+      .toPromise();
   }
 
   async dumpACSx290s(data: ACSx290Model[]) {
@@ -209,40 +183,30 @@ export class ToolsService implements OnDestroy {
   }
 
   loadCathPci50s(): Promise<CathPci50Model[]> {
-    return new Promise((resolve, reject) => {
-      this.subscriptions.push(
-        this.db
-          .collection<CathPci50Model>(DB_CATHPCI)
-          .valueChanges()
-          .pipe(
-            map(data =>
-              data.map(d => {
-                d.detail.createdAt =
-                  d.detail.createdAt !== null
-                    ? (d.detail.createdAt as firebase.firestore.Timestamp).toDate().toISOString()
-                    : null;
-                d.detail.modifiedAt =
-                  d.detail.modifiedAt !== null
-                    ? (d.detail.modifiedAt as firebase.firestore.Timestamp).toDate().toISOString()
-                    : null;
-                d.detail.deletedAt =
-                  d.detail.deletedAt !== null
-                    ? (d.detail.deletedAt as firebase.firestore.Timestamp).toDate().toISOString()
-                    : null;
-                return d;
-              })
-            )
-          )
-          .subscribe(
-            data => {
-              resolve(data);
-            },
-            error => {
-              reject(error);
-            }
-          )
-      );
-    });
+    return this.db
+      .collection<CathPci50Model>(DB_CATHPCI)
+      .valueChanges()
+      .pipe(
+        map(data =>
+          data.map(d => {
+            d.detail.createdAt =
+              d.detail.createdAt !== null
+                ? (d.detail.createdAt as firebase.firestore.Timestamp).toDate().toISOString()
+                : null;
+            d.detail.modifiedAt =
+              d.detail.modifiedAt !== null
+                ? (d.detail.modifiedAt as firebase.firestore.Timestamp).toDate().toISOString()
+                : null;
+            d.detail.deletedAt =
+              d.detail.deletedAt !== null
+                ? (d.detail.deletedAt as firebase.firestore.Timestamp).toDate().toISOString()
+                : null;
+            return d;
+          })
+        ),
+        take(1)
+      )
+      .toPromise();
   }
 
   async dumpCathPci50s(data: CathPci50Model[]) {

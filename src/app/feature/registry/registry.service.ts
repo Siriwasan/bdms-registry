@@ -1,7 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Subscription, Observable, combineLatest } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
@@ -30,31 +30,23 @@ export class RegistryService implements OnDestroy {
 
   //#region Cloud firestore
   public loadRegistries(registry: string, avHospitals: Auth.Hospital[]): Promise<RegistryModel[]> {
-    return new Promise((resolve, reject) => {
-      const registryList: Observable<RegistryModel[]>[] = [];
-      avHospitals.forEach(hosp => {
-        registryList.push(
-          this.db
-            .collection<RegistryModel>(DB_REGISTRY, ref =>
-              ref.where('hospitalId', '==', hosp.id).where('baseDbId', '==', registry)
-            )
-            .valueChanges()
-        );
-      });
-
-      this.subscriptions.push(
-        combineLatest(registryList)
-          .pipe(map(arr => arr.reduce((acc, cur) => acc.concat(cur))))
-          .subscribe(
-            data => {
-              resolve(data);
-            },
-            error => {
-              reject(error);
-            }
+    const registryList: Observable<RegistryModel[]>[] = [];
+    avHospitals.forEach(hosp => {
+      registryList.push(
+        this.db
+          .collection<RegistryModel>(DB_REGISTRY, ref =>
+            ref.where('hospitalId', '==', hosp.id).where('baseDbId', '==', registry)
           )
+          .valueChanges()
       );
     });
+
+    return combineLatest(registryList)
+      .pipe(
+        map(arr => arr.reduce((acc, cur) => acc.concat(cur))),
+        take(1)
+      )
+      .toPromise();
   }
 
   public loadACSx290sForExport(avHospitals: Auth.Hospital[]): Promise<ACSx290Model[]> {
@@ -247,11 +239,7 @@ export class RegistryService implements OnDestroy {
     const ComplicationPCI = this.VerySimpleFieldToSheet('ComplicationPCI', PciLesions);
     const PciDevices = this.ComplexFieldToSheet('sectionJ', 'PciDevices', json);
     const ICDevCounterAssn = this.VerySimpleFieldToSheet('ICDevCounterAssn', PciDevices, 'ICDevCounter');
-    const K_MIFollowCriteria = this.SimpleFieldToSheet(
-      'sectionK',
-      'K_MyocardialInfarctionFollowCriteria',
-      json
-    );
+    const K_MIFollowCriteria = this.SimpleFieldToSheet('sectionK', 'K_MyocardialInfarctionFollowCriteria', json);
     const HospInterventionType = this.SimpleFieldToSheet('sectionL', 'HospInterventionType', json);
     const DC_MedReconciled = this.SimpleFieldToSheet('sectionL', 'DC_MedReconciled', json);
     const FollowUps = this.ComplexFieldToSheet('sectionM', 'FollowUps', json);

@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { first, map } from 'rxjs/operators';
+import { first, map, take } from 'rxjs/operators';
 import * as CryptoJS from 'crypto-js';
 
 import { Store } from '@ngrx/store';
@@ -19,14 +19,8 @@ const DB_STAFF = 'Staff';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService implements OnDestroy {
-  private subscriptions: Subscription[] = [];
-
+export class AuthService {
   constructor(private store: Store<fromRoot.State>, private db: AngularFirestore) {}
-
-  ngOnDestroy() {
-    this.subscriptions.forEach(subs => subs.unsubscribe());
-  }
 
   async login(userName: string, password: string): Promise<boolean> {
     const hashPassword = this.passwordHashing(password);
@@ -75,75 +69,69 @@ export class AuthService implements OnDestroy {
     return CryptoJS.SHA3(password).toString(CryptoJS.enc.Base64);
   }
 
-  public async getAvailableRegistries(staffId: string): Promise<string[]> {
-    return new Promise((resolve, reject) => {
-      this.subscriptions.push(
-        this.db
-          .collection<Staff>(DB_STAFF, ref => ref.where('staffId', '==', staffId))
-          .valueChanges()
-          .subscribe(
-            data => {
-              resolve(data[0].registries);
-            },
-            error => {
-              reject(error);
-            }
-          )
-      );
-    });
-  }
-
-  // public async getAvailableACSx290s(staffId: string): Promise<string[]> {
-  //   const acsxs = await this.getACSx290s(staffId);
-  //   return acsxs;
+  // public getAvailableRegistries(staffId: string): Promise<string[]> {
+  //   return new Promise((resolve, reject) => {
+  //     this.subscriptions.push(
+  //       this.db
+  //         .collection<Staff>(DB_STAFF, ref => ref.where('staffId', '==', staffId))
+  //         .valueChanges()
+  //         .subscribe(
+  //           data => {
+  //             resolve(data[0].registries);
+  //           },
+  //           error => {
+  //             reject(error);
+  //           }
+  //         )
+  //     );
+  //   });
   // }
 
+  public getAvailableRegistries(staffId: string): Promise<string[]> {
+    return this.db
+      .collection<Staff>(DB_STAFF, ref => ref.where('staffId', '==', staffId))
+      .valueChanges()
+      .pipe(take(1))
+      .toPromise()
+      .then(data => data[0].registries);
+  }
+
   public getAvailableACSx290s(staffId: string): Promise<string[]> {
-    return new Promise((resolve, reject) => {
-      const inCaseList: Observable<ACSx290Model[]>[] = [];
-      const availableStaffForm = [
-        'sectionI.SurgeonId',
-        'sectionI.Assist1Id',
-        'sectionI.Assist2Id',
-        'sectionI.Assist3Id',
-        'sectionI.Assist4Id',
-        'sectionI.Assist5Id',
-        'sectionI.Assist6Id',
-        'sectionI.Anesth1Id',
-        'sectionI.Anesth2Id',
-        'sectionI.Scrub1Id',
-        'sectionI.Scrub2Id',
-        'sectionI.Scrub3Id',
-        'sectionI.Scrub4Id',
-        'sectionI.CTT1Id',
-        'sectionI.CTT2Id',
-        'sectionI.CTT3Id',
-        'sectionI.CTT4Id'
-      ];
+    const inCaseList: Observable<ACSx290Model[]>[] = [];
+    const availableStaffForm = [
+      'sectionI.SurgeonId',
+      'sectionI.Assist1Id',
+      'sectionI.Assist2Id',
+      'sectionI.Assist3Id',
+      'sectionI.Assist4Id',
+      'sectionI.Assist5Id',
+      'sectionI.Assist6Id',
+      'sectionI.Anesth1Id',
+      'sectionI.Anesth2Id',
+      'sectionI.Scrub1Id',
+      'sectionI.Scrub2Id',
+      'sectionI.Scrub3Id',
+      'sectionI.Scrub4Id',
+      'sectionI.CTT1Id',
+      'sectionI.CTT2Id',
+      'sectionI.CTT3Id',
+      'sectionI.CTT4Id'
+    ];
 
-      availableStaffForm.forEach(a => {
-        inCaseList.push(
-          this.db.collection<ACSx290Model>(DB_COLLECTION, ref => ref.where(a, '==', staffId)).valueChanges()
-        );
-      });
-
-      this.subscriptions.push(
-        combineLatest(inCaseList)
-          .pipe(
-            map(arr => arr.reduce((acc, cur) => acc.concat(cur))),
-            // tslint:disable-next-line: no-string-literal
-            map(data => data.map(d => d.sectionA['registryId'] as string))
-          )
-          .subscribe(
-            data => {
-              resolve(data);
-            },
-            error => {
-              reject(error);
-            }
-          )
+    availableStaffForm.forEach(a => {
+      inCaseList.push(
+        this.db.collection<ACSx290Model>(DB_COLLECTION, ref => ref.where(a, '==', staffId)).valueChanges()
       );
     });
+
+    return combineLatest(inCaseList)
+      .pipe(
+        map(arr => arr.reduce((acc, cur) => acc.concat(cur))),
+        // tslint:disable-next-line: no-string-literal
+        map(data => data.map(d => d.sectionA['registryId'] as string)),
+        take(1)
+      )
+      .toPromise();
   }
 
   public getAvailableHospitals(userHosp: string, userPermission: string): AuthData.Hospital[] {

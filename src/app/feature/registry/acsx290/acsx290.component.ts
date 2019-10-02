@@ -10,7 +10,11 @@ import { RegistryFormComponent } from '../../../shared/modules/registry-form/reg
 import { DialogService } from '../../../shared/services/dialog.service';
 import { ScrollSpyService } from '../../../shared/modules/scroll-spy/scroll-spy.service';
 import { RegistryFormService } from '../../../shared/modules/registry-form/registry-form.service';
-import { FormCompletion, SectionMember } from '../../../shared/modules/registry-form/registry-form.model';
+import {
+  FormCompletion,
+  SectionMember,
+  RegSelectChoice
+} from '../../../shared/modules/registry-form/registry-form.model';
 
 import { ACSx290form } from './acsx290.form';
 import { conditions } from './acsx290.condition';
@@ -131,10 +135,10 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
   // tslint:enable: variable-name
 
   staffs: Staff[];
-  cvt: Staff[];
-  anesth: Staff[];
-  sn: Staff[];
-  ctt: Staff[];
+  cvt: RegSelectChoice[];
+  anesth: RegSelectChoice[];
+  sn: RegSelectChoice[];
+  ctt: RegSelectChoice[];
 
   toc = tableOfContent;
   public visibles: { [id: string]: boolean } = {};
@@ -210,10 +214,8 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
     //   await this.loadById();
     // });
 
-    this.acsx290Service.getStaffs().subscribe(staffs => {
-      this.staffs = staffs;
-      this.loadById();
-    });
+    this.staffs = await this.acsx290Service.getStaffs();
+    await this.loadById();
 
     this.avHospitals = this.authService
       .getAvailableHospitals(this.user.staff.primaryHospId, this.user.staff.permission)
@@ -327,19 +329,23 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
       return;
     }
 
-    this.cvt = this.staffs.filter(
-      e => e.position === 'Cardiothoracic Surgeon' && (e.primaryHospId === hospId || e.secondHospIds.includes(hospId))
-    );
-    this.anesth = this.staffs.filter(
-      e => e.position === 'Anesthesiologist' && (e.primaryHospId === hospId || e.secondHospIds.includes(hospId))
-    );
-    this.sn = this.staffs.filter(
-      e => e.position === 'Scrub Nurse' && (e.primaryHospId === hospId || e.secondHospIds.includes(hospId))
-    );
-    this.ctt = this.staffs.filter(
-      e =>
-        e.position === 'Cardiothoracic Technician' && (e.primaryHospId === hospId || e.secondHospIds.includes(hospId))
-    );
+    const filterStaff = (staff: Staff, positions: string[]) =>
+      positions.includes(staff.position) && (staff.primaryHospId === hospId || staff.secondHospIds.includes(hospId));
+
+    const staffToChoice = (staff: Staff) => {
+      return {
+        value: staff.staffId,
+        label: staff.title + ' ' + staff.firstName + ' ' + staff.lastName,
+        disable: false
+      } as RegSelectChoice;
+    };
+
+    this.cvt = this.staffs
+      .filter(staff => filterStaff(staff, ['Cardiothoracic Surgeon', 'Interventionist']))
+      .map(staffToChoice);
+    this.anesth = this.staffs.filter(staff => filterStaff(staff, ['Anesthesiologist'])).map(staffToChoice);
+    this.sn = this.staffs.filter(staff => filterStaff(staff, ['Scrub Nurse'])).map(staffToChoice);
+    this.ctt = this.staffs.filter(staff => filterStaff(staff, ['Cardiothoracic Technician'])).map(staffToChoice);
   }
 
   private subscribeOpCABChanged(): Subscription {
@@ -734,7 +740,6 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
       this.store.dispatch(new UI.StopLoading());
 
       if (data) {
-        console.log(data);
         this.acsx290Service.decryptSenitiveData(data);
         this.setFormValue(data);
 

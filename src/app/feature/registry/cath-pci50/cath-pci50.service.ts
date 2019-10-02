@@ -11,6 +11,7 @@ import { tagConditions } from './cath-pci50.tag';
 import { RegistryModel } from '../registry.model';
 import { Moment, utc } from 'moment';
 import { Staff } from '../../staff/staff.model';
+import { take } from 'rxjs/operators';
 
 const DB_REGISTRY = 'Registry';
 const DB_STAFF = 'Staff';
@@ -250,7 +251,11 @@ export class CathPci50Service implements OnDestroy {
     return CryptoJS.AES.decrypt(source, environment.appKey).toString(CryptoJS.enc.Utf8);
   }
 
-  getStaffs(): Observable<Staff[]> {
-    return this.db.collection<Staff>(DB_STAFF).valueChanges();
+  public getStaffs(): Promise<Staff[]> {
+    return this.db
+      .collection<Staff>(DB_STAFF)
+      .valueChanges()
+      .pipe(take(1))
+      .toPromise();
   }
 }
