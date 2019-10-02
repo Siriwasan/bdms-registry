@@ -26,6 +26,7 @@ import {
   MatAutocompleteModule
 } from '@angular/material';
 import { MatDatepickerModule, MatMomentDateModule } from '@coachcare/datepicker';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 @NgModule({
   imports: [
@@ -53,7 +54,8 @@ import { MatDatepickerModule, MatMomentDateModule } from '@coachcare/datepicker'
     MatTooltipModule,
     MatSnackBarModule,
     MatTabsModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    NgxMatSelectSearchModule
   ],
   exports: [
     MatButtonModule,
@@ -79,7 +81,8 @@ import { MatDatepickerModule, MatMomentDateModule } from '@coachcare/datepicker'
     MatTooltipModule,
     MatSnackBarModule,
     MatTabsModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    NgxMatSelectSearchModule
   ]
 })
 export class MaterialModule {}

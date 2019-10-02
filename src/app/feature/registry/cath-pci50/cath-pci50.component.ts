@@ -28,6 +28,7 @@ import { validations } from './cath-pci50.validation';
 import { CathPci50Completion } from './cath-pci50.model';
 import * as cathPci50Data from './cath-pci50.data';
 import * as registryData from '../registry.data';
+import { intraCoronaryDevices } from '../../registry/cath-pci50/cath-pci50.device';
 
 import { User } from '../../../../app/core/auth/user.model';
 import { AuthService } from 'src/app/core/auth/auth.service';
@@ -75,6 +76,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
   public visibles: FormVisible = {};
   public completion: CathPci50Completion;
 
+  avCoroDevices: RegSelectChoice[];
   public avHospitals: string[];
   public toc = tableOfContent;
   public nationality = registryData.nationality;
@@ -263,6 +265,15 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     this.avHospitals = this.authService
       .getAvailableHospitals(this.user.staff.primaryHospId, this.user.staff.permission)
       .map(hosp => hosp.id);
+    this.avCoroDevices = intraCoronaryDevices.map(m => {
+      return {
+        value: m.id,
+        label: m.deviceName,
+        // detailHtml: `<span>Type:<i>${m.deviceType}</i></span> <span>Brand:<i>${m.brand}</i></span>`,
+        detailHtml: `<span>Type:<i>${m.deviceType}</i>&emsp;Brand:<i>${m.brand}</i></span>`,
+        disable: false
+      } as RegSelectChoice;
+    });
 
     this.formGroupA.get('registryId').setValue('(new)');
     await this.loadById();
@@ -1402,7 +1413,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
       return {
         value: LesionCounter,
         label: `Lesion ${LesionCounter}`,
-        altText: `Lesion ${LesionCounter} (${SegmentIDs})`,
+        altLabel: `Lesion ${LesionCounter} (${SegmentIDs})`,
         disable: false
       } as RegSelectChoice;
     });

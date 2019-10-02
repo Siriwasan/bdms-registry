@@ -54,7 +54,10 @@
 
       <reg-select-multiple controlName="secondHospIds" placeholder="Secondary Hospital" [formGroup]="staffForm"
         [choices]="avSecondHospitals" fxFlex require="false" limit="2"></reg-select-multiple>
-    </div>
+
+      <reg-select-search controlName="position" placeholder="Coronary Device" [formGroup]="staffForm"
+        [choices]="avCoroDevices" fxFlex require="false"></reg-select-search>
+      </div>
 
     <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap.gt-xs="20px">
       <mat-form-field class="item" fxFlex>

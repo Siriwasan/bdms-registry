@@ -156,8 +156,8 @@
           </div>
 
           <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
-            <reg-select controlName="PatNation" placeholder="Nationality" [formGroup]="formGroupA"
-              [choices]="nationality" fxFlex="50"></reg-select>
+            <reg-select-search controlName="PatNation" placeholder="Nationality" [formGroup]="formGroupA"
+              [choices]="nationality" fxFlex="50"></reg-select-search>
 
             <reg-select controlName="PermAddr" placeholder="Is This Patient’s Permanent Address" [formGroup]="formGroupA"
               [choices]="['Yes', 'No', 'Unknown']" fxFlex="50"></reg-select>
@@ -1550,11 +1550,8 @@
                   </ng-template>
 
                   <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
-                    <reg-select controlName="ICDevID" placeholder="Intracoronary Device(s) Used" [formGroup]="item" [choices]="[
-                        'DEVICE1',
-                        'DEVICE2',
-                        'DEVICE3'
-                      ]" fxFlex [nullOption]="false" (choiceChange)="ICDevIDChanged()"></reg-select>
+                    <reg-select-search controlName="ICDevID" placeholder="Intracoronary Device(s) Used" [formGroup]="item"
+                      [choices]="avCoroDevices" fxFlex [nullOption]="false" (choiceChange)="ICDevIDChanged()"></reg-select-search>
 
                     <reg-input controlName="ICDevUDI" placeholder="Unique Device Identifier (UDI)" [formGroup]="item" type="number" fxFlex>
                     </reg-input>

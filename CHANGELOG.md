@@ -1,3 +1,9 @@
+# 1.2.0 (2019-10-03)
+
+### Features
+
+- **UI:** add RegSelectSearh component
+
 # 1.1.0 (2019-10-02)
 
 ### Bug Fixes

@@ -18,6 +18,7 @@ import { validations } from './acsx290.validation';
 import { ACSx290Service } from './acsx290.service';
 import { tableOfContent } from './acsx290.toc';
 import * as acsx290Data from './acsx290.data';
+import * as registryData from '../registry.data';
 import { ACSx290Model, ACSx290Completion } from './acsx290.model';
 import { Staff } from '../../staff/staff.model';
 import { FormDetail } from '../registry.model';
@@ -121,6 +122,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
   //#region form data
 
   // tslint:disable: variable-name
+  nationality = registryData.nationality;
   H_cathResults = acsx290Data.H_cathResults;
   J_cabg = acsx290Data.J_cabg;
   H_vad = acsx290Data.H_vad;

@@ -34,6 +34,7 @@
     "marked": "^0.6.3",
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.26",
+    "ngx-mat-select-search": "^1.8.0",
     "rxjs": "~6.5.2",
     "tslib": "^1.10.0",
     "xlsx": "^0.15.1",
