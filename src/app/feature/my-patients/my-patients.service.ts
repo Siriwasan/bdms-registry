@@ -13,7 +13,7 @@ const DB_REGISTRY = 'Registry';
 export class MyPatientsService {
   constructor(private db: AngularFirestore, private authService: AuthService) {}
 
-  public async loadMyPatients(staffId: string): Promise<RegistryModel[]> {
+  public async loadMyACSx290s(staffId: string): Promise<RegistryModel[]> {
     const acsxs = await this.authService.getAvailableACSx290s(staffId);
 
     return this.db
