@@ -37,7 +37,11 @@ import { takeUntil, take } from 'rxjs/operators';
           {{ outputLabel }}
         </mat-select-trigger>
         <mat-option>
-          <ngx-mat-select-search placeholderLabel="Choose..." noEntriesFoundLabel="No result" [formControl]="filterCtrl"></ngx-mat-select-search>
+          <ngx-mat-select-search
+            placeholderLabel="Choose..."
+            noEntriesFoundLabel="No result"
+            [formControl]="filterCtrl"
+          ></ngx-mat-select-search>
         </mat-option>
         <mat-option *ngIf="nullOption" [value]="null">--</mat-option>
         <mat-option *ngFor="let choice of filteredChoices | async" [value]="choice.value" [disabled]="choice.disable"
@@ -55,9 +59,9 @@ import { takeUntil, take } from 'rxjs/operators';
         <div *ngFor="let validation of getValidations(controlName)">
           <div *ngIf="isInvalid(controlName, validation.type)">
             <a>{{ validation.message }}</a>
-            <mat-icon style="cursor: help;" (click)="openInfo(controlName)" *ngIf="bInfo">info_outline</mat-icon>
           </div>
         </div>
+        <mat-icon style="cursor: help;" (click)="openInfo(controlName)" *ngIf="bInfo">info_outline</mat-icon>
       </mat-error>
     </mat-form-field>
   `,

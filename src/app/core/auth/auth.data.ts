@@ -10,6 +10,7 @@ export const postions = [
   'Cardiac Interventionist',
   'Emergency Physician',
   'Interventionist',
+  'Other Physician',
   'Other'
 ];
 

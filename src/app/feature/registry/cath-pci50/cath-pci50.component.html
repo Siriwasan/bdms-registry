@@ -98,7 +98,7 @@
             <reg-input controlName="FirstName" placeholder="First Name" [formGroup]="formGroupA" type="text" fxFlex>
             </reg-input>
 
-            <reg-input controlName="MidName" placeholder="Middle Name" [formGroup]="formGroupA" type="text" fxFlex>
+            <reg-input controlName="MidName" placeholder="Middle Name" [formGroup]="formGroupA" type="text" require="false" fxFlex>
             </reg-input>
           </div>
 
@@ -137,7 +137,7 @@
           </div>
 
           <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
-            <reg-input controlName="ZipCode" placeholder="Zip Code" [formGroup]="formGroupA" type="text" fxFlex="32">
+            <reg-input *ngIf="visibles['ZipCode']" controlName="ZipCode" placeholder="Zip Code" [formGroup]="formGroupA" type="text" fxFlex="32">
             </reg-input>
 
             <reg-select controlName="HispOrig" placeholder="Hispanic or Latino Ethnicity" [formGroup]="formGroupA"
@@ -211,7 +211,7 @@
             </reg-datepicker>
 
             <reg-select controlName="AdmProvider" placeholder="Admitting Provider" [formGroup]="formGroupB"
-              [choices]="epAndCardio" fxFlex></reg-select>
+              [choices]="admitPhysician" fxFlex></reg-select>
 
             <reg-select controlName="AttProvider" placeholder="Attending Provider" [formGroup]="formGroupB"
               [choices]="cardioAndIntervention" fxFlex></reg-select>
@@ -707,6 +707,9 @@
             <reg-input controlName="ContrastVol" placeholder="Contrast Volume (mL)" [formGroup]="formGroupE" type="number" fxFlex>
             </reg-input>
 
+          </div>
+
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
             <reg-input controlName="FluoroDoseKerm" placeholder="Cumulative Air Kerma (mGy)" [formGroup]="formGroupE" type="number" fxFlex>
             </reg-input>
 
@@ -729,69 +732,89 @@
             <div fxFlex>
               <h3>Pre-Procedure</h3>
 
-              <reg-select controlName="PreProcTnILab" placeholder="Troponin I Lab" [formGroup]="formGroupF"
-                [choices]="['Drawn', 'Not Drawn']"></reg-select>
+              <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+                <reg-select controlName="PreProcTnILab" placeholder="Troponin I Lab" [formGroup]="formGroupF"
+                  [choices]="['Drawn', 'Not Drawn']" fxFlex></reg-select>
 
-              <reg-input *ngIf="visibles['PreProcTnI']" controlName="PreProcTnI" placeholder="Troponin I (ng/mL)" [formGroup]="formGroupF" type="number">
-              </reg-input>
+                <reg-input *ngIf="visibles['PreProcTnI']" controlName="PreProcTnI" placeholder="Troponin I (ng/mL)" [formGroup]="formGroupF" type="number" fxFlex>
+                </reg-input>
+              </div>
 
-              <reg-select controlName="PreProcTnTLab" placeholder="Troponin T Lab" [formGroup]="formGroupF"
-                [choices]="['Drawn', 'Not Drawn']"></reg-select>
+              <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+                <reg-select controlName="PreProcTnTLab" placeholder="Troponin T Lab" [formGroup]="formGroupF"
+                  [choices]="['Drawn', 'Not Drawn']" fxFlex></reg-select>
 
-              <reg-input *ngIf="visibles['PreProcTnT']" controlName="PreProcTnT" placeholder="Troponin T (ng/mL)" [formGroup]="formGroupF" type="number">
-              </reg-input>
+                <reg-input *ngIf="visibles['PreProcTnT']" controlName="PreProcTnT" placeholder="Troponin T (ng/mL)" [formGroup]="formGroupF" type="number" fxFlex>
+                </reg-input>
+              </div>
 
-              <reg-select controlName="PreProcCreatLab" placeholder="Creatinine Lab" [formGroup]="formGroupF"
-                [choices]="['Drawn', 'Not Drawn']"></reg-select>
+              <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+                <reg-select controlName="PreProcCreatLab" placeholder="Creatinine Lab" [formGroup]="formGroupF"
+                  [choices]="['Drawn', 'Not Drawn']" fxFlex></reg-select>
 
-              <reg-input *ngIf="visibles['PreProcCreat']" controlName="PreProcCreat" placeholder="Creatinine (mg/dL)" [formGroup]="formGroupF" type="number">
-              </reg-input>
+                <reg-input *ngIf="visibles['PreProcCreat']" controlName="PreProcCreat" placeholder="Creatinine (mg/dL)" [formGroup]="formGroupF" type="number" fxFlex>
+                </reg-input>
+              </div>
 
-              <reg-select controlName="HGBLab" placeholder="Hemoglobin Lab" [formGroup]="formGroupF"
-                [choices]="['Drawn', 'Not Drawn']"></reg-select>
+              <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+                <reg-select controlName="HGBLab" placeholder="Hemoglobin Lab" [formGroup]="formGroupF"
+                  [choices]="['Drawn', 'Not Drawn']" fxFlex></reg-select>
 
-              <reg-input *ngIf="visibles['HGB']" controlName="HGB" placeholder="Hemoglobin (g/dL)" [formGroup]="formGroupF" type="number">
-              </reg-input>
+                <reg-input *ngIf="visibles['HGB']" controlName="HGB" placeholder="Hemoglobin (g/dL)" [formGroup]="formGroupF" type="number" fxFlex>
+                </reg-input>
+              </div>
 
-              <reg-select controlName="LipidsTCLab" placeholder="Total Cholesterol Lab" [formGroup]="formGroupF"
-                [choices]="['Drawn', 'Not Drawn']"></reg-select>
+              <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+                <reg-select controlName="LipidsTCLab" placeholder="Total Cholesterol Lab" [formGroup]="formGroupF"
+                  [choices]="['Drawn', 'Not Drawn']" fxFlex></reg-select>
 
-              <reg-input *ngIf="visibles['LipidsTC']" controlName="LipidsTC" placeholder="Total Cholesterol (mg/dL)" [formGroup]="formGroupF" type="number">
-              </reg-input>
+                <reg-input *ngIf="visibles['LipidsTC']" controlName="LipidsTC" placeholder="Total Cholesterol (mg/dL)" [formGroup]="formGroupF" type="number" fxFlex>
+                </reg-input>
+              </div>
 
-              <reg-select controlName="LipidsHDLLab" placeholder="HDL Lab" [formGroup]="formGroupF"
-                [choices]="['Drawn', 'Not Drawn']"></reg-select>
+              <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+                <reg-select controlName="LipidsHDLLab" placeholder="HDL Lab" [formGroup]="formGroupF"
+                  [choices]="['Drawn', 'Not Drawn']" fxFlex></reg-select>
 
-              <reg-input *ngIf="visibles['LipidsHDL']" controlName="LipidsHDL" placeholder="HDL I (mg/dL)" [formGroup]="formGroupF" type="number">
-              </reg-input>
+                <reg-input *ngIf="visibles['LipidsHDL']" controlName="LipidsHDL" placeholder="HDL I (mg/dL)" [formGroup]="formGroupF" type="number" fxFlex>
+                </reg-input>
+              </div>
             </div>
 
             <div fxFlex>
               <h3>Post-Procedure</h3>
 
-              <reg-select controlName="PostProcTnILab" placeholder="Troponin I Lab" [formGroup]="formGroupF"
-                [choices]="['Drawn', 'Not Drawn']"></reg-select>
+              <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+                <reg-select controlName="PostProcTnILab" placeholder="Troponin I Lab" [formGroup]="formGroupF"
+                  [choices]="['Drawn', 'Not Drawn']" fxFlex></reg-select>
 
-              <reg-input *ngIf="visibles['PostProcTnI']" controlName="PostProcTnI" placeholder="Troponin I (ng/mL)" [formGroup]="formGroupF" type="number">
-              </reg-input>
+                <reg-input *ngIf="visibles['PostProcTnI']" controlName="PostProcTnI" placeholder="Troponin I (ng/mL)" [formGroup]="formGroupF" type="number" fxFlex>
+                </reg-input>
+              </div>
 
-              <reg-select controlName="PostProcTnTLab" placeholder="Troponin T Lab" [formGroup]="formGroupF"
-                [choices]="['Drawn', 'Not Drawn']"></reg-select>
+              <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+                <reg-select controlName="PostProcTnTLab" placeholder="Troponin T Lab" [formGroup]="formGroupF"
+                  [choices]="['Drawn', 'Not Drawn']" fxFlex></reg-select>
 
-              <reg-input *ngIf="visibles['PostProcTnT']" controlName="PostProcTnT" placeholder="Troponin T (ng/mL)" [formGroup]="formGroupF" type="number">
-              </reg-input>
+                <reg-input *ngIf="visibles['PostProcTnT']" controlName="PostProcTnT" placeholder="Troponin T (ng/mL)" [formGroup]="formGroupF" type="number" fxFlex>
+                </reg-input>
+              </div>
 
-              <reg-select controlName="PostProcCreatLab" placeholder="Creatinine Lab (peak)" [formGroup]="formGroupF"
-                [choices]="['Drawn', 'Not Drawn']"></reg-select>
+              <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+                <reg-select controlName="PostProcCreatLab" placeholder="Creatinine Lab (peak)" [formGroup]="formGroupF"
+                  [choices]="['Drawn', 'Not Drawn']" fxFlex></reg-select>
 
-              <reg-input *ngIf="visibles['PostProcCreat']" controlName="PostProcCreat" placeholder="Creatinine (mg/dL)" [formGroup]="formGroupF" type="number">
-              </reg-input>
+                <reg-input *ngIf="visibles['PostProcCreat']" controlName="PostProcCreat" placeholder="Creatinine (mg/dL)" [formGroup]="formGroupF" type="number" fxFlex>
+                </reg-input>
+              </div>
 
-              <reg-select controlName="PostProcHgbLab" placeholder="Hemoglobin Lab (lowest within 72 hr)" [formGroup]="formGroupF"
-                [choices]="['Drawn', 'Not Drawn']"></reg-select>
+              <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+                <reg-select controlName="PostProcHgbLab" placeholder="Hemoglobin Lab (lowest within 72 hr)" [formGroup]="formGroupF"
+                  [choices]="['Drawn', 'Not Drawn']" fxFlex></reg-select>
 
-              <reg-input *ngIf="visibles['PostProcHgb']" controlName="PostProcHgb" placeholder="Hemoglobin (g/dL)" [formGroup]="formGroupF" type="number">
-              </reg-input>
+                <reg-input *ngIf="visibles['PostProcHgb']" controlName="PostProcHgb" placeholder="Hemoglobin (g/dL)" [formGroup]="formGroupF" type="number" fxFlex>
+                </reg-input>
+              </div>
             </div>
           </div>
 
@@ -1508,7 +1531,10 @@
                   </div>
 
                   <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
-                    <reg-select-multiple controlName="ComplicationPCI" placeholder="Mechanical Complication During PCI" [formGroup]="item" [choices]="[
+                    <reg-select controlName="ComplicationPCI" placeholder="Complication During PCI" [formGroup]="item"
+                      [choices]="['Yes', 'No']" fxFlex></reg-select>
+
+                    <reg-select-multiple *ngIf="visibles['PciLesions'][i]['ComplicationPCIDetail']" controlName="ComplicationPCIDetail" placeholder="Detail of Complication" [formGroup]="item" [choices]="[
                         'Abrupt Vessel Closure',
                         'Coronary Artery Perforation',
                         'Longitudinal Stent Deformation',
@@ -1517,7 +1543,7 @@
                         'Thrombus Embolization',
                         'Disruption of Collateral flow',
                         'Persistent Slow flow or No flow'
-                      ]" fxFlex></reg-select-multiple>
+                      ]" limit="2" fxFlex="66"></reg-select-multiple>
                   </div>
 
                 </mat-tab>
@@ -1549,7 +1575,7 @@
 
                   <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
                     <reg-select-search controlName="ICDevID" placeholder="Intracoronary Device(s) Used" [formGroup]="item"
-                      [choices]="avCoroDevices" fxFlex [nullOption]="false" (choiceChange)="ICDevIDChanged()"></reg-select-search>
+                      [choices]="avCoroDevices" fxFlex="66" [nullOption]="false" (choiceChange)="ICDevIDChanged()"></reg-select-search>
 
                     <reg-input controlName="ICDevUDI" placeholder="Unique Device Identifier (UDI)" [formGroup]="item" type="number" fxFlex>
                     </reg-input>
@@ -2104,6 +2130,22 @@
                 'Herbal Supplements'
               ]" fxFlex></reg-select-multiple>
           </div>
+
+          <!-- <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-select controlName="L_DeviceCompositeEP" placeholder="Device-oriented Composite End Point" [formGroup]="formGroupL" [choices]="[
+                'No',
+                'Cardiac death',
+                'MI (not clearly attribute to a non-target vessel)',
+                'TLR - Target Lesion Revascularization'
+              ]" fxFlex></reg-select>
+
+            <reg-select controlName="L_PatientCompositeEP" placeholder="Patient-oriented Composite End Point" [formGroup]="formGroupL" [choices]="[
+                'No',
+                'All-cause mortality',
+                'Any MI (included non-target vessel territory)',
+                'Any repeat revascularization (includes all target and non-target vessels)'
+              ]" fxFlex></reg-select>
+          </div> -->
 
         </form>
       </div>

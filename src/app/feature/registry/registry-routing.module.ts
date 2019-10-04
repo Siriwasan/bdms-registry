@@ -8,7 +8,6 @@ import { ACSx290ListComponent } from './acsx290-list/acsx290-list.component';
 import { TestFormComponent } from './test-form/test-form.component';
 import { CathPci50Component } from './cath-pci50/cath-pci50.component';
 import { CathPci50ListComponent } from './cath-pci50-list/cath-pci50-list.component';
-import { AuthRegistryGuard } from '../../core/auth/auth-registry.guard';
 import * as Auth from '../../core/auth/auth.data';
 import { AuthRoleGuard } from '../../core/auth/auth-role.guard';
 

@@ -19,7 +19,8 @@
       <div fxLayout="row" fxLayoutGap="20px">
         <button mat-raised-button color="primary" (click)="exportStaff()">Export</button>
 
-        <div>
+        <div *ngIf="!productionServe" fxLayoutGap="20px">
+          <button mat-raised-button color="warn" (click)="deleteStaff()">Delete</button>
           <button mat-raised-button color="accent" (click)="staffFileInput.click()">Import</button>
           <input type="file" hidden (change)="importStaff($event.target.files)" #staffFileInput />
         </div>
@@ -29,7 +30,8 @@
       <div fxLayout="row" fxLayoutGap="20px">
         <button mat-raised-button color="primary" (click)="exportRegistry()">Export</button>
 
-        <div>
+        <div *ngIf="!productionServe" fxLayoutGap="20px">
+          <button mat-raised-button color="warn" (click)="deleteRegistry()">Delete</button>
           <button mat-raised-button color="accent" (click)="registryFileInput.click()">Import</button>
           <input type="file" hidden (change)="importRegistry($event.target.files)" #registryFileInput />
         </div>
@@ -39,7 +41,8 @@
       <div fxLayout="row" fxLayoutGap="20px">
         <button mat-raised-button color="primary" (click)="exportACSx290()">Export</button>
 
-        <div>
+        <div *ngIf="!productionServe" fxLayoutGap="20px">
+          <button mat-raised-button color="warn" (click)="deleteACSx290()">Delete</button>
           <button mat-raised-button color="accent" (click)="acsxFileInput.click()">Import</button>
           <input type="file" hidden (change)="importACSx290($event.target.files)" #acsxFileInput />
         </div>
@@ -49,7 +52,8 @@
       <div fxLayout="row" fxLayoutGap="20px">
         <button mat-raised-button color="primary" (click)="exportCathPci50()">Export</button>
 
-        <div>
+        <div *ngIf="!productionServe" fxLayoutGap="20px">
+          <button mat-raised-button color="warn" (click)="deleteCathPci50()">Delete</button>
           <button mat-raised-button color="accent" (click)="pciFileInput.click()">Import</button>
           <input type="file" hidden (change)="importCathPci50($event.target.files)" #pciFileInput />
         </div>
@@ -59,6 +63,7 @@
       <br />
 
       <p style="font-style: italic">Before import you need to delete database manaully!</p>
+      <p style="font-style: italic; color: red">**ห้าม logout หลังจากลบฐานข้อมูลแล้วยังไม่ได้กู้คืนเด็ดขาด เพราะจะทำให้เข้าไม่ได้อีก**</p>
     </mat-tab>
 
     <mat-tab label="Prep ACS data from GLS">

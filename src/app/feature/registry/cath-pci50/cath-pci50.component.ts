@@ -78,7 +78,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
   completion: CathPci50Completion;
 
   staffs: Staff[];
-  epAndCardio: RegSelectChoice[];
+  admitPhysician: RegSelectChoice[];
   cardioAndIntervention: RegSelectChoice[];
   intervention: RegSelectChoice[];
 
@@ -351,7 +351,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
 
     const hospId = this.formGroupB.get('HospName').value;
     if (!hospId) {
-      this.epAndCardio = null;
+      this.admitPhysician = null;
       this.cardioAndIntervention = null;
       this.intervention = null;
       return;
@@ -368,8 +368,16 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
       } as RegSelectChoice;
     };
 
-    this.epAndCardio = this.staffs
-      .filter(staff => filterStaff(staff, ['Emergency Physician', 'Cardiologist']))
+    this.admitPhysician = this.staffs
+      .filter(staff =>
+        filterStaff(staff, [
+          'Emergency Physician',
+          'Cardiologist',
+          'Cardiac Interventionist',
+          'Cardiothoracic Surgeon',
+          'Other Physician'
+        ])
+      )
       .map(staffToChoice);
     this.cardioAndIntervention = this.staffs
       .filter(staff => filterStaff(staff, ['Cardiologist', 'Cardiac Interventionist']))

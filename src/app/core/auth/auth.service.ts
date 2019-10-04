@@ -93,7 +93,12 @@ export class AuthService {
       .valueChanges()
       .pipe(take(1))
       .toPromise()
-      .then(data => data[0].registries);
+      .then(data => {
+        if (data.length > 0) {
+          return data[0].registries;
+        }
+        return [];
+      });
   }
 
   public getAvailableACSx290s(staffId: string): Promise<string[]> {

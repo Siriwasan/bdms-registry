@@ -26,10 +26,16 @@ export class ToolsComponent implements OnInit {
   file: File;
   fileContent = '';
   html: string;
+  productionServe: boolean;
 
   constructor(private toolsService: ToolsService, private fileService: FileService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    const url = window.location.href;
+    if (url.includes('bdms-registry.firebaseapp.com')) {
+      this.productionServe = true;
+    }
+  }
 
   public onFileSelected(fileList: FileList): void {
     const fileReader: FileReader = new FileReader();
@@ -186,5 +192,21 @@ export class ToolsComponent implements OnInit {
 
   rebuildCathPci50Tags() {
     this.toolsService.rebuildCathPci50Tags();
+  }
+
+  deleteStaff() {
+    this.toolsService.deleteStaff();
+  }
+
+  deleteRegistry() {
+    this.toolsService.deleteRegistry();
+  }
+
+  deleteACSx290() {
+    this.toolsService.deleteACSx290();
+  }
+
+  deleteCathPci50() {
+    this.toolsService.deleteCathPci50();
   }
 }

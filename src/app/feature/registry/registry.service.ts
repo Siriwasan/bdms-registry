@@ -216,7 +216,7 @@ export class RegistryService implements OnDestroy {
     const PciLesions = this.ComplexFieldToSheet('sectionJ', 'PciLesions', json);
     const SegmentID = this.VerySimpleFieldToSheet('SegmentID', PciLesions, 'LesionCounter');
     const GuidewireAcross = this.VerySimpleFieldToSheet('GuidewireAcross', PciLesions);
-    const ComplicationPCI = this.VerySimpleFieldToSheet('ComplicationPCI', PciLesions);
+    const ComplicationPCIDetail = this.VerySimpleFieldToSheet('ComplicationPCIDetail', PciLesions);
     const PciDevices = this.ComplexFieldToSheet('sectionJ', 'PciDevices', json);
     const ICDevCounterAssn = this.VerySimpleFieldToSheet('ICDevCounterAssn', PciDevices, 'ICDevCounter');
     const K_MIFollowCriteria = this.SimpleFieldToSheet('sectionK', 'K_MyocardialInfarctionFollowCriteria', json);
@@ -244,7 +244,7 @@ export class RegistryService implements OnDestroy {
     const worksheet10: XLSX.WorkSheet = XLSX.utils.json_to_sheet(PciLesions);
     const worksheet11: XLSX.WorkSheet = XLSX.utils.json_to_sheet(SegmentID);
     const worksheet12: XLSX.WorkSheet = XLSX.utils.json_to_sheet(GuidewireAcross);
-    const worksheet13: XLSX.WorkSheet = XLSX.utils.json_to_sheet(ComplicationPCI);
+    const worksheet13: XLSX.WorkSheet = XLSX.utils.json_to_sheet(ComplicationPCIDetail);
     const worksheet14: XLSX.WorkSheet = XLSX.utils.json_to_sheet(PciDevices);
     const worksheet15: XLSX.WorkSheet = XLSX.utils.json_to_sheet(ICDevCounterAssn);
     const worksheet16: XLSX.WorkSheet = XLSX.utils.json_to_sheet(K_MIFollowCriteria);
@@ -270,7 +270,7 @@ export class RegistryService implements OnDestroy {
         PciLesions: worksheet10,
         SegmentID: worksheet11,
         GuidewireAcross: worksheet12,
-        ComplicationPCI: worksheet13,
+        ComplicationPCIDetail: worksheet13,
         PciDevices: worksheet14,
         ICDevCounterAssn: worksheet15,
         K_MIFollowCriteria: worksheet16,
@@ -295,7 +295,7 @@ export class RegistryService implements OnDestroy {
         'PciLesions',
         'SegmentID',
         'GuidewireAcross',
-        'ComplicationPCI',
+        'ComplicationPCIDetail',
         'PciDevices',
         'ICDevCounterAssn',
         'K_MIFollowCriteria',

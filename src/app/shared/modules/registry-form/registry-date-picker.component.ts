@@ -56,9 +56,9 @@ export class CustomDateAdapter extends MomentDateAdapter {
         <div *ngFor="let validation of getValidations(controlName)">
           <div *ngIf="isInvalid(controlName, validation.type)">
             <a>{{ validation.message }}</a>
-            <mat-icon style="cursor: help;" (click)="openInfo(controlName)" *ngIf="bInfo">info_outline</mat-icon>
           </div>
         </div>
+        <mat-icon style="cursor: help;" (click)="openInfo(controlName)" *ngIf="bInfo">info_outline</mat-icon>
       </mat-error>
     </mat-form-field>
   `,

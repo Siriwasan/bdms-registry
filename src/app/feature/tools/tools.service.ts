@@ -13,6 +13,7 @@ import { ACSx290Model } from '../registry/acsx290/acsx290.model';
 import { CathPci50Model } from '../registry/cath-pci50/cath-pci50.model';
 import { ACSx290Service } from '../registry/acsx290/acsx290.service';
 import { CathPci50Service } from '../registry/cath-pci50/cath-pci50.service';
+import { MatSnackBar } from '@angular/material';
 
 const DB_COLLECTION = 'ACSx290';
 const DB_CATHPCI = 'CathPci50';
@@ -29,7 +30,8 @@ export class ToolsService implements OnDestroy {
   constructor(
     private db: AngularFirestore,
     private acsx290Service: ACSx290Service,
-    private cathPci50Service: CathPci50Service
+    private cathPci50Service: CathPci50Service,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnDestroy() {
@@ -345,5 +347,37 @@ export class ToolsService implements OnDestroy {
         });
         console.log(`finished rebuild ${data.length} tags`);
       });
+  }
+
+  deleteStaff() {
+    this.deleteDocumentInCollection(DB_STAFF);
+  }
+
+  deleteRegistry() {
+    this.deleteDocumentInCollection(DB_REGISTRY);
+  }
+
+  deleteACSx290() {
+    this.deleteDocumentInCollection(DB_COLLECTION);
+  }
+
+  deleteCathPci50() {
+    this.deleteDocumentInCollection(DB_CATHPCI);
+  }
+
+  async deleteDocumentInCollection(collection: string) {
+    const batch = this.db.firestore.batch();
+
+    const qry = await this.db.collection(collection).ref.get();
+
+    qry.forEach(doc => {
+      console.log(`deleting ${collection} ${doc.id}`);
+      batch.delete(doc.ref);
+    });
+
+    batch
+      .commit()
+      .then(res => this.snackBar.open(`Delete ${collection} successful`, null, { duration: 2000 }))
+      .catch(err => this.snackBar.open(`Delete ${collection} failed: ${err}`, null, { duration: 2000 }));
   }
 }

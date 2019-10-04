@@ -30,7 +30,7 @@ export const tagConditions: TagCondition[] = [
 
 export const tagPriorities = {
   STEMI: 'high',
-  NSTEMI: 'high',
+  NSTEMI: 'medium',
   Dead: 'high',
   Lost: 'high',
   '30 d': 'medium',

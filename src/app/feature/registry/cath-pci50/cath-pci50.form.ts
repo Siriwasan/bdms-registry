@@ -7,7 +7,7 @@ export const CathPci50Form = {
     AN: [null, [Validators.required, Validators.minLength(12), Validators.maxLength(12)]],
     LastName: [null, Validators.required],
     FirstName: [null, Validators.required],
-    MidName: [null, Validators.required],
+    MidName: [null],
     SSN: [null, Validators.required],
     DOB: [null, Validators.required],
     Age: [null, [Validators.required, Validators.min(0), Validators.max(120)]],
@@ -267,7 +267,8 @@ export const CathPci50Form = {
     DeviceDeployed: [null, Validators.required],
     StenosisPostProc: [null, Validators.required],
     PostProcTIMI: [null, Validators.required],
-    ComplicationPCI: [null, Validators.required]
+    ComplicationPCI: [null, Validators.required],
+    ComplicationPCIDetail: [null, Validators.required]
   },
   pciDevice: {
     ICDevCounter: [null, Validators.required],
@@ -379,7 +380,9 @@ export const CathPci50Form = {
     DC_Evolocumab: [null, Validators.required],
     DC_EvolocumabRN: [null, Validators.required],
     DC_MedReconCompleted: [null, Validators.required],
-    DC_MedReconciled: [null, Validators.required]
+    DC_MedReconciled: [null, Validators.required],
+    // L_DeviceCompositeEP: [null, Validators.required],
+    // L_PatientCompositeEP: [null, Validators.required]
   },
   sectionM: {},
   followUp: {

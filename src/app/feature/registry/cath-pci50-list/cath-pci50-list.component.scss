@@ -52,6 +52,8 @@ table {
   background-color: #d0dbff;
   padding: 5px 10px;
   border-radius: 16px;
+  z-index: 9;
+  cursor: pointer;
 }
 
 .tag-medium-priority {
@@ -59,6 +61,8 @@ table {
   background-color: #f1d27b;
   padding: 5px 10px;
   border-radius: 16px;
+  z-index: 9;
+  cursor: pointer;
 }
 
 .tag-high-priority {
@@ -67,4 +71,6 @@ table {
   color: white;
   padding: 5px 10px;
   border-radius: 16px;
+  z-index: 9;
+  cursor: pointer;
 }
