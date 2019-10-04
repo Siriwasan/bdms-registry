@@ -23,10 +23,11 @@
         >
           <mat-icon>close</mat-icon>
         </button>
+        <mat-hint><i>ID, HN, Name, Tag</i></mat-hint>
       </mat-form-field>
     </div>
 
-    <div class="mat-elevation-z8">
+    <div class="mat-elevation-z8" style="margin-top: 10px">
       <mat-table [dataSource]="dataSource" matSort>
         <ng-container matColumnDef="registryId">
           <mat-header-cell *matHeaderCellDef mat-sort-header>Registry ID</mat-header-cell>
@@ -106,10 +107,11 @@
         >
           <mat-icon>close</mat-icon>
         </button>
+        <mat-hint><i>ID, HN, Name, Tag</i></mat-hint>
       </mat-form-field>
     </div>
 
-    <div class="mat-elevation-z8">
+    <div class="mat-elevation-z8" style="margin-top: 10px">
       <mat-table [dataSource]="cathPciDataSource" matSort>
         <ng-container matColumnDef="registryId">
           <mat-header-cell *matHeaderCellDef mat-sort-header>Registry ID</mat-header-cell>
@@ -165,9 +167,9 @@
   </div>
   <br />
 
-  <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="20px">
+  <!-- <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="20px">
     <button mat-raised-button class="button" color="accent" (click)="export()">Export</button>
-  </div>
+  </div> -->
 
   <br />
   <br />
