@@ -67,6 +67,12 @@ export class AuthRoleGuard implements CanActivate {
               return true;
             }
           }
+          if (targetUrl[1] === 'registry' && targetUrl[2] === 'cath-pci50') {
+            const availableRegistries = await this.authService.getAvailableCathPci50s(user.staff.staffId);
+            if (availableRegistries.includes(targetUrl[3])) {
+              return true;
+            }
+          }
           return this.router.createUrlTree(['/page-not-autherized']);
         }
         return this.router.createUrlTree(['/auth']);

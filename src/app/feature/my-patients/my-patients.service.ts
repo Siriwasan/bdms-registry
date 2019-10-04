@@ -26,6 +26,19 @@ export class MyPatientsService {
       .toPromise();
   }
 
+  public async loadMyCathPci50s(staffId: string): Promise<RegistryModel[]> {
+    const acsxs = await this.authService.getAvailableCathPci50s(staffId);
+
+    return this.db
+      .collection<RegistryModel>(DB_REGISTRY)
+      .valueChanges()
+      .pipe(
+        map(data => data.filter(a => acsxs.includes(a.registryId))),
+        take(1)
+      )
+      .toPromise();
+  }
+
   public async loadMyACSx290sForExport(staffId: string): Promise<ACSx290Model[]> {
     const acsxs = await this.authService.getAvailableACSx290s(staffId);
 

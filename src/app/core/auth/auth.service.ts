@@ -12,8 +12,10 @@ import { Staff } from '../../../app/feature/staff/staff.model';
 import { Subscription, combineLatest, Observable } from 'rxjs';
 import { ACSx290Model } from 'src/app/feature/registry/acsx290/acsx290.model';
 import * as AuthData from './auth.data';
+import { CathPci50Model } from 'src/app/feature/registry/cath-pci50/cath-pci50.model';
 
 const DB_COLLECTION = 'ACSx290';
+const DB_CATHPCI = 'CathPci50';
 const DB_STAFF = 'Staff';
 
 @Injectable({
@@ -126,6 +128,32 @@ export class AuthService {
     availableStaffForm.forEach(a => {
       inCaseList.push(
         this.db.collection<ACSx290Model>(DB_COLLECTION, ref => ref.where(a, '==', staffId)).valueChanges()
+      );
+    });
+
+    return combineLatest(inCaseList)
+      .pipe(
+        map(arr => arr.reduce((acc, cur) => acc.concat(cur))),
+        // tslint:disable-next-line: no-string-literal
+        map(data => data.map(d => d.sectionA['registryId'] as string)),
+        take(1)
+      )
+      .toPromise();
+  }
+
+  public getAvailableCathPci50s(staffId: string): Promise<string[]> {
+    const inCaseList: Observable<CathPci50Model[]>[] = [];
+    const availableStaffForm = [
+      'sectionB.AdmProvider',
+      'sectionB.AttProvider',
+      'sectionE.DCathProvider',
+      'sectionE.PCIProvider',
+      'sectionL.DCProvider',
+    ];
+
+    availableStaffForm.forEach(a => {
+      inCaseList.push(
+        this.db.collection<CathPci50Model>(DB_CATHPCI, ref => ref.where(a, '==', staffId)).valueChanges()
       );
     });
 

@@ -1,85 +1,174 @@
 <div style="top: 64px;position: relative;">
-  <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutAlign="space-between center" fxLayoutGap.gt-xs="20px">
-    <h1>My Patients</h1>
-    <mat-form-field floatLabel="never" style="width: 200px;">
-      <input
-        matInput
-        type="text"
-        placeholder="Filter"
-        (keyup)="applyFilter($event.target.value)"
-        #input
-        [value]="filterString"
-      />
-      <button
-        mat-button
-        *ngIf="input.value.length > 0"
-        matSuffix
-        mat-icon-button
-        aria-label="Clear"
-        (click)="input.value = ''; applyFilter(input.value)"
-      >
-        <mat-icon>close</mat-icon>
-      </button>
-    </mat-form-field>
+  <h1>My Patients</h1>
+
+  <div *ngIf="user?.staff.registries.includes('ACSx290')">
+    <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutAlign="space-between center" fxLayoutGap.gt-xs="20px">
+      <h2>STS ACSx v2.9</h2>
+      <mat-form-field floatLabel="never" style="width: 200px;">
+        <input
+          matInput
+          type="text"
+          placeholder="Filter"
+          (keyup)="applyFilter($event.target.value)"
+          #input
+          [value]="filterString"
+        />
+        <button
+          mat-button
+          *ngIf="input.value.length > 0"
+          matSuffix
+          mat-icon-button
+          aria-label="Clear"
+          (click)="input.value = ''; applyFilter(input.value)"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+
+    <div class="mat-elevation-z8">
+      <mat-table [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="registryId">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Registry ID</mat-header-cell>
+          <mat-cell *matCellDef="let row">{{ row.registryId }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="hn">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>HN</mat-header-cell>
+          <mat-cell *matCellDef="let row">{{ row.hn }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="firstName">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>First Name</mat-header-cell>
+          <mat-cell *matCellDef="let row">{{ row.firstName }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="lastName">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Last Name</mat-header-cell>
+          <mat-cell *matCellDef="let row">{{ row.lastName }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="age">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Age</mat-header-cell>
+          <mat-cell *matCellDef="let row">{{ row.age }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="tags">
+          <mat-header-cell *matHeaderCellDef mat-sort-header fxHide.xs>Tags</mat-header-cell>
+          <mat-cell *matCellDef="let row" fxLayout="row wrap" fxHide.xs>
+            <span
+              *ngFor="let item of row.tags"
+              [ngClass]="{
+                'tag-low-priority': item.priority === 'low',
+                'tag-medium-priority': item.priority === 'medium',
+                'tag-high-priority': item.priority === 'high'
+              }"
+              (click)="clickTag(item.tag)"
+              >{{ item.tag }}</span
+            >
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="completion">
+          <mat-header-cell *matHeaderCellDef mat-sort-header fxHide.xs>Completion</mat-header-cell>
+          <mat-cell *matCellDef="let row" fxHide.xs>{{ row.completion }}%</mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row class="element-row" *matRowDef="let row; columns: displayedColumns" (click)="click(row)"></mat-row>
+      </mat-table>
+
+      <mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 25, 50, 100]"></mat-paginator>
+    </div>
+
+    <br />
+    <br />
   </div>
 
-  <div class="mat-elevation-z8">
-    <mat-table [dataSource]="dataSource" matSort>
-      <ng-container matColumnDef="registryId">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Registry ID</mat-header-cell>
-        <mat-cell *matCellDef="let row">{{ row.registryId }}</mat-cell>
-      </ng-container>
+  <div *ngIf="user?.staff.registries.includes('CathPci50')">
+    <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutAlign="space-between center" fxLayoutGap.gt-xs="20px">
+      <h2>CathPCI v5.0</h2>
+      <mat-form-field floatLabel="never" style="width: 200px;">
+        <input
+          matInput
+          type="text"
+          placeholder="Filter"
+          (keyup)="applyFilter2($event.target.value)"
+          #input2
+          [value]="filterString2"
+        />
+        <button
+          mat-button
+          *ngIf="input2.value.length > 0"
+          matSuffix
+          mat-icon-button
+          aria-label="Clear"
+          (click)="input2.value = ''; applyFilter2(input2.value)"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
 
-      <ng-container matColumnDef="hn">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>HN</mat-header-cell>
-        <mat-cell *matCellDef="let row">{{ row.hn }}</mat-cell>
-      </ng-container>
+    <div class="mat-elevation-z8">
+      <mat-table [dataSource]="cathPciDataSource" matSort>
+        <ng-container matColumnDef="registryId">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Registry ID</mat-header-cell>
+          <mat-cell *matCellDef="let row">{{ row.registryId }}</mat-cell>
+        </ng-container>
 
-      <ng-container matColumnDef="firstName">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>First Name</mat-header-cell>
-        <mat-cell *matCellDef="let row">{{ row.firstName }}</mat-cell>
-      </ng-container>
+        <ng-container matColumnDef="hn">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>HN</mat-header-cell>
+          <mat-cell *matCellDef="let row">{{ row.hn }}</mat-cell>
+        </ng-container>
 
-      <ng-container matColumnDef="lastName">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Last Name</mat-header-cell>
-        <mat-cell *matCellDef="let row">{{ row.lastName }}</mat-cell>
-      </ng-container>
+        <ng-container matColumnDef="firstName">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>First Name</mat-header-cell>
+          <mat-cell *matCellDef="let row">{{ row.firstName }}</mat-cell>
+        </ng-container>
 
-      <ng-container matColumnDef="age">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Age</mat-header-cell>
-        <mat-cell *matCellDef="let row">{{ row.age }}</mat-cell>
-      </ng-container>
+        <ng-container matColumnDef="lastName">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Last Name</mat-header-cell>
+          <mat-cell *matCellDef="let row">{{ row.lastName }}</mat-cell>
+        </ng-container>
 
-      <ng-container matColumnDef="tags">
-        <mat-header-cell *matHeaderCellDef mat-sort-header fxHide.xs>Tags</mat-header-cell>
-        <mat-cell *matCellDef="let row" fxLayout="row wrap" fxHide.xs>
-          <span
-            *ngFor="let item of row.tags"
-            [ngClass]="{
-              'tag-low-priority': item.priority === 'low',
-              'tag-medium-priority': item.priority === 'medium',
-              'tag-high-priority': item.priority === 'high'
-            }"
-            (click)="clickTag(item.tag)"
-            >{{ item.tag }}</span
-          >
-        </mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="completion">
-        <mat-header-cell *matHeaderCellDef mat-sort-header fxHide.xs>Completion</mat-header-cell>
-        <mat-cell *matCellDef="let row" fxHide.xs>{{ row.completion }}%</mat-cell>
-      </ng-container>
+        <ng-container matColumnDef="age">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Age</mat-header-cell>
+          <mat-cell *matCellDef="let row">{{ row.age }}</mat-cell>
+        </ng-container>
 
-      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row class="element-row" *matRowDef="let row; columns: displayedColumns" (click)="click(row)"></mat-row>
-    </mat-table>
+        <ng-container matColumnDef="tags">
+          <mat-header-cell *matHeaderCellDef mat-sort-header fxHide.xs>Tags</mat-header-cell>
+          <mat-cell *matCellDef="let row" fxLayout="row wrap" fxHide.xs>
+            <span
+              *ngFor="let item of row.tags"
+              [ngClass]="{
+                'tag-low-priority': item.priority === 'low',
+                'tag-medium-priority': item.priority === 'medium',
+                'tag-high-priority': item.priority === 'high'
+              }"
+              (click)="clickTag2(item.tag)"
+              >{{ item.tag }}</span
+            >
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="completion">
+          <mat-header-cell *matHeaderCellDef mat-sort-header fxHide.xs>Completion</mat-header-cell>
+          <mat-cell *matCellDef="let row" fxHide.xs>{{ row.completion }}%</mat-cell>
+        </ng-container>
 
-    <mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 25, 50, 100]"></mat-paginator>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row class="element-row" *matRowDef="let row; columns: displayedColumns" (click)="click2(row)"></mat-row>
+      </mat-table>
+
+      <mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 25, 50, 100]"></mat-paginator>
+    </div>
   </div>
   <br />
+
   <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="20px">
     <button mat-raised-button class="button" color="accent" (click)="export()">Export</button>
   </div>
+
   <br />
   <br />
   <br />

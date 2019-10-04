@@ -269,6 +269,10 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     this.visibles[str.pciDevices] = [];
     this.visibles[str.followUps] = [];
 
+    this.formGroupA.get('registryId').setValue('(new)');
+    this.staffs = await this.cathPci50Service.getStaffs();
+    await this.loadById();
+
     this.avHospitals = this.authService
       .getAvailableHospitals(this.user.staff.primaryHospId, this.user.staff.permission)
       .map(hosp => hosp.id);
@@ -281,10 +285,6 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
         disable: false
       } as RegSelectChoice;
     });
-
-    this.formGroupA.get('registryId').setValue('(new)');
-    this.staffs = await this.cathPci50Service.getStaffs();
-    await this.loadById();
 
     this.completion = this.getFormCompletion();
     this.subscribeCompletionCalculation();
@@ -408,7 +408,16 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
   private setFormValue(data: CathPci50Model) {
     this.formDetail = data.detail;
     this.formGroupA.setValue(data.sectionA);
-    this.formGroupB.setValue(data.sectionB);
+
+    // * need to set HospName before load staff to prevent null default
+    // this.formGroupB.setValue(data.sectionB);
+    this.formGroupB.get('HospName').setValue(data.sectionB['HospName']);
+    this.formGroupB.get('PayorPrim').setValue(data.sectionB['PayorPrim']);
+    this.formGroupB.get('PayorSecond').setValue(data.sectionB['PayorSecond']);
+    this.formGroupB.get('ArrivalDateTime').setValue(data.sectionB['ArrivalDateTime']);
+    this.formGroupB.get('AdmProvider').setValue(data.sectionB['AdmProvider']);
+    this.formGroupB.get('AttProvider').setValue(data.sectionB['AttProvider']);
+
     this.formGroupC.setValue(data.sectionC);
     this.formGroupD.setValue(data.sectionD);
     this.formGroupE.setValue(data.sectionE);

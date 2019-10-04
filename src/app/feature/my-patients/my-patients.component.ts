@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy, ViewChildren, QueryList } from '@angular/core';
 import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 import { Router } from '@angular/router';
 
@@ -14,7 +14,9 @@ import { RegistryModel } from '../registry/registry.model';
 import { Observable, Subscription } from 'rxjs';
 import { User } from '../../../app/core/auth/user.model';
 import { FileService } from '../../../app/shared/services/file.service';
-import { tagPriorities } from '../registry/acsx290/acsx290.tag';
+import { tagPriorities as acsx290Tags } from '../registry/acsx290/acsx290.tag';
+import { tagPriorities as cathPci50Tags } from '../registry/cath-pci50/cath-pci50.tag';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-my-patients',
@@ -24,17 +26,43 @@ import { tagPriorities } from '../registry/acsx290/acsx290.tag';
 })
 export class MyPatientsComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = ['registryId', 'hn', 'firstName', 'lastName', 'age', 'tags', 'completion'];
-  dataSource: MatTableDataSource<any>;
 
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  dataSource: MatTableDataSource<any>;
+  cathPciDataSource: MatTableDataSource<any>;
+
+  // @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  // @ViewChild(MatSort, { static: true }) sort: MatSort;
+
+  @ViewChildren(MatPaginator) paginator = new QueryList<MatPaginator>();
+  @ViewChildren(MatSort) sort = new QueryList<MatSort>();
 
   user$: Observable<User>;
   user: User;
   private userSubscription: Subscription;
 
   barClicked = false;
+  barClicked2 = false;
   filterString: string = null;
+  filterString2: string = null;
+
+  private filterFunc = (d: any, filter: string) => {
+    if (d.registryId.substr(3).toLowerCase().includes(filter)) {
+      return true;
+    }
+    if (d.hn.toLowerCase().includes(filter)) {
+      return true;
+    }
+    if (d.firstName.toLowerCase().includes(filter)) {
+      return true;
+    }
+    if (d.lastName.toLowerCase().includes(filter)) {
+      return true;
+    }
+    if (d.tags.length > 0 && d.tags.map(t => t.tag.toLowerCase()).includes(filter)) {
+      return true;
+    }
+    return false;
+  }
 
   constructor(
     private myPatientsService: MyPatientsService,
@@ -46,12 +74,34 @@ export class MyPatientsComponent implements OnInit, OnDestroy {
   async ngOnInit() {
     this.store.dispatch(new UI.StartLoading());
     this.user$ = this.store.select(fromRoot.getUser);
-    this.userSubscription = this.user$.subscribe(user => {
-      this.user = user;
-    });
+    // this.userSubscription = this.user$.subscribe(user => {
+    //   this.user = user;
+    // });
+    this.user = await this.user$.pipe(first()).toPromise();
 
     const data = await this.myPatientsService.loadMyPatients(this.user.staff.staffId);
-    const decryptData = data.map(d => {
+    const decryptData = this.decryptRegistry(data, acsx290Tags);
+    this.dataSource = new MatTableDataSource(decryptData);
+    this.dataSource.paginator = this.paginator.toArray()[0];
+    this.dataSource.sort = this.sort.toArray()[0];
+    this.dataSource.filterPredicate = this.filterFunc;
+
+    const data2 = await this.myPatientsService.loadMyCathPci50s(this.user.staff.staffId);
+    const decryptData2 = this.decryptRegistry(data2, cathPci50Tags);
+    this.cathPciDataSource = new MatTableDataSource(decryptData2);
+    this.cathPciDataSource.paginator = this.paginator.toArray()[1];
+    this.cathPciDataSource.sort = this.sort.toArray()[1];
+    this.cathPciDataSource.filterPredicate = this.filterFunc;
+
+    this.store.dispatch(new UI.StopLoading());
+  }
+
+  ngOnDestroy() {
+    // this.userSubscription.unsubscribe();
+  }
+
+  private decryptRegistry(data: RegistryModel[], tagPriorities: any) {
+    return data.map(d => {
       return {
         ...d,
         hn: this.decrypt(d.hn),
@@ -63,35 +113,6 @@ export class MyPatientsComponent implements OnInit, OnDestroy {
         })
       };
     });
-
-    this.dataSource = new MatTableDataSource(decryptData);
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-    this.dataSource.filterPredicate = (d: any, filter: string) => {
-      if (d.registryId.toLowerCase().includes(filter)) {
-        return true;
-      }
-      if (d.hn.toLowerCase().includes(filter)) {
-        return true;
-      }
-      if (d.firstName.toLowerCase().includes(filter)) {
-        return true;
-      }
-      if (d.lastName.toLowerCase().includes(filter)) {
-        return true;
-      }
-      if (d.tags.length > 0 && d.tags.map(t => t.tag.toLowerCase()).includes(filter)) {
-        return true;
-      }
-
-      return false;
-    };
-
-    this.store.dispatch(new UI.StopLoading());
-  }
-
-  ngOnDestroy() {
-    this.userSubscription.unsubscribe();
   }
 
   applyFilter(filterValue: string) {
@@ -99,6 +120,14 @@ export class MyPatientsComponent implements OnInit, OnDestroy {
 
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
+    }
+  }
+
+  applyFilter2(filterValue: string) {
+    this.cathPciDataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.cathPciDataSource.paginator) {
+      this.cathPciDataSource.paginator.firstPage();
     }
   }
 
@@ -111,6 +140,19 @@ export class MyPatientsComponent implements OnInit, OnDestroy {
       this.store.dispatch(new UI.StartLoading());
       setTimeout(() => {
         this.router.navigate(['registry/acsx290', registry.registryId]);
+      }, 300);
+    }
+  }
+
+  click2(registry: RegistryModel) {
+    if (this.barClicked2) {
+      this.barClicked2 = false;
+      return;
+    }
+    if (registry.baseDbId === 'CathPci50') {
+      this.store.dispatch(new UI.StartLoading());
+      setTimeout(() => {
+        this.router.navigate(['registry/cath-pci50', registry.registryId]);
       }, 300);
     }
   }
@@ -132,5 +174,11 @@ export class MyPatientsComponent implements OnInit, OnDestroy {
     this.barClicked = true;
     this.filterString = tag;
     this.applyFilter(this.filterString);
+  }
+
+  clickTag2(tag: string) {
+    this.barClicked2 = true;
+    this.filterString2 = tag;
+    this.applyFilter2(this.filterString2);
   }
 }
