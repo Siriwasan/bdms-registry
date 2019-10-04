@@ -40,13 +40,18 @@ export class MyPatientsComponent implements OnInit, OnDestroy {
   user: User;
   private userSubscription: Subscription;
 
-  barClicked = false;
-  barClicked2 = false;
+  private barClicked = false;
+  private barClicked2 = false;
   filterString: string = null;
   filterString2: string = null;
 
   private filterFunc = (d: any, filter: string) => {
-    if (d.registryId.substr(3).toLowerCase().includes(filter)) {
+    if (
+      d.registryId
+        .substr(3)
+        .toLowerCase()
+        .includes(filter)
+    ) {
       return true;
     }
     if (d.hn.toLowerCase().includes(filter)) {
@@ -79,19 +84,23 @@ export class MyPatientsComponent implements OnInit, OnDestroy {
     // });
     this.user = await this.user$.pipe(first()).toPromise();
 
-    const data = await this.myPatientsService.loadMyPatients(this.user.staff.staffId);
-    const decryptData = this.decryptRegistry(data, acsx290Tags);
-    this.dataSource = new MatTableDataSource(decryptData);
-    this.dataSource.paginator = this.paginator.toArray()[0];
-    this.dataSource.sort = this.sort.toArray()[0];
-    this.dataSource.filterPredicate = this.filterFunc;
+    if (this.user && this.user.staff.registries.includes('ACSx290')) {
+      const data = await this.myPatientsService.loadMyACSx290s(this.user.staff.staffId);
+      const decryptData = this.decryptRegistry(data, acsx290Tags);
+      this.dataSource = new MatTableDataSource(decryptData);
+      this.dataSource.paginator = this.paginator.toArray()[0];
+      this.dataSource.sort = this.sort.toArray()[0];
+      this.dataSource.filterPredicate = this.filterFunc;
+    }
 
-    const data2 = await this.myPatientsService.loadMyCathPci50s(this.user.staff.staffId);
-    const decryptData2 = this.decryptRegistry(data2, cathPci50Tags);
-    this.cathPciDataSource = new MatTableDataSource(decryptData2);
-    this.cathPciDataSource.paginator = this.paginator.toArray()[1];
-    this.cathPciDataSource.sort = this.sort.toArray()[1];
-    this.cathPciDataSource.filterPredicate = this.filterFunc;
+    if (this.user && this.user.staff.registries.includes('CathPci50')) {
+      const data2 = await this.myPatientsService.loadMyCathPci50s(this.user.staff.staffId);
+      const decryptData2 = this.decryptRegistry(data2, cathPci50Tags);
+      this.cathPciDataSource = new MatTableDataSource(decryptData2);
+      this.cathPciDataSource.paginator = this.paginator.toArray()[1];
+      this.cathPciDataSource.sort = this.sort.toArray()[1];
+      this.cathPciDataSource.filterPredicate = this.filterFunc;
+    }
 
     this.store.dispatch(new UI.StopLoading());
   }
