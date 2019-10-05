@@ -38,7 +38,6 @@ export class AuthService {
       .pipe(take(1))
       .toPromise();
 
-    console.log(staffs);
     if (staffs.length < 1) {
       console.log('username or password not matched!!');
       return false;
