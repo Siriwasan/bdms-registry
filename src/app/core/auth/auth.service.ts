@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { first, map, take } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import * as CryptoJS from 'crypto-js';
 
 import { Store } from '@ngrx/store';
@@ -35,9 +35,10 @@ export class AuthService {
           .limit(1)
       )
       .valueChanges()
-      .pipe(first())
+      .pipe(take(1))
       .toPromise();
 
+    console.log(staffs);
     if (staffs.length < 1) {
       console.log('username or password not matched!!');
       return false;
@@ -148,7 +149,7 @@ export class AuthService {
       'sectionB.AttProvider',
       'sectionE.DCathProvider',
       'sectionE.PCIProvider',
-      'sectionL.DCProvider',
+      'sectionL.DCProvider'
     ];
 
     availableStaffForm.forEach(a => {

@@ -16,7 +16,7 @@ import { User } from '../../../app/core/auth/user.model';
 import { FileService } from '../../../app/shared/services/file.service';
 import { tagPriorities as acsx290Tags } from '../registry/acsx290/acsx290.tag';
 import { tagPriorities as cathPci50Tags } from '../registry/cath-pci50/cath-pci50.tag';
-import { first } from 'rxjs/operators';
+import { first, take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-my-patients',
@@ -82,7 +82,7 @@ export class MyPatientsComponent implements OnInit, OnDestroy {
     // this.userSubscription = this.user$.subscribe(user => {
     //   this.user = user;
     // });
-    this.user = await this.user$.pipe(first()).toPromise();
+    this.user = await this.user$.pipe(take(1)).toPromise();
 
     if (this.user && this.user.staff.registries.includes('ACSx290')) {
       const data = await this.myPatientsService.loadMyACSx290s(this.user.staff.staffId);

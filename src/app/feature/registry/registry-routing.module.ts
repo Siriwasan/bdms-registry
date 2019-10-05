@@ -32,26 +32,26 @@ const routes: Routes = [
     canActivate: [AuthRoleGuard],
     data: { roles: Auth.menus.registry, registry: Auth.pages.acsx290 }
   },
-  {
-    path: 'cath-pci50-list',
-    component: CathPci50ListComponent,
-    canActivate: [AuthRoleGuard],
-    data: { roles: Auth.menus.registry, registry: Auth.pages.cathPci50 }
-  },
-  {
-    path: 'cath-pci50/:id',
-    component: CathPci50Component,
-    canDeactivate: [DeactivateGuard],
-    canActivate: [AuthRoleGuard],
-    data: { roles: Auth.menus.registry, registry: Auth.pages.acsx290 }
-  },
-  {
-    path: 'cath-pci50',
-    component: CathPci50Component,
-    canDeactivate: [DeactivateGuard],
-    canActivate: [AuthRoleGuard],
-    data: { roles: Auth.menus.registry, registry: Auth.pages.cathPci50 }
-  },
+  // {
+  //   path: 'cath-pci50-list',
+  //   component: CathPci50ListComponent,
+  //   canActivate: [AuthRoleGuard],
+  //   data: { roles: Auth.menus.registry, registry: Auth.pages.cathPci50 }
+  // },
+  // {
+  //   path: 'cath-pci50/:id',
+  //   component: CathPci50Component,
+  //   canDeactivate: [DeactivateGuard],
+  //   canActivate: [AuthRoleGuard],
+  //   data: { roles: Auth.menus.registry, registry: Auth.pages.acsx290 }
+  // },
+  // {
+  //   path: 'cath-pci50',
+  //   component: CathPci50Component,
+  //   canDeactivate: [DeactivateGuard],
+  //   canActivate: [AuthRoleGuard],
+  //   data: { roles: Auth.menus.registry, registry: Auth.pages.cathPci50 }
+  // },
   { path: 'test-form', component: TestFormComponent },
   { path: '', component: RegistryComponent }
 ];

@@ -7,7 +7,7 @@ import {
   OnInit,
   OnDestroy
 } from '@angular/core';
-import { map, first } from 'rxjs/operators';
+import { map, first, take } from 'rxjs/operators';
 
 import { ScrollSpyComponent } from '../scroll-spy/scroll-spy.component';
 import { DialogService } from '../../services/dialog.service';
@@ -69,7 +69,7 @@ export class RegistryFormComponent extends ScrollSpyComponent implements OnInit,
           return false;
         }
       }),
-      first()
+      take(1)
     );
   }
 
