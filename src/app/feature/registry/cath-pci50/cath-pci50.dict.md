@@ -178,3 +178,87 @@ _**Source:** ACC/AHA Key Data Elements and Definitions for Measuring the Clinica
 Coronary artery bypass graft surgery is when the native vessels of the heart are bypassed with other vessels (internal mammary artery, radial artery or saphenous vein) to restore normal blood flow to the obstructed coronary arteries.
 
 _**Source:** Cannon CP, Brindis RG, Chaitman BR, et al. 2013 ACCF>AHA Key Date Elements and Definitions for Measuring the Clinical Management and Outcomes of Patients with Acute Coronary Syndromes and Coronary Artery Disease. Circulation. 2013;127;1052-1089._
+
+# TobaccoUse
+
+## Tobacco Use
+
+| Selection Text                  | Definition                                                                                                                                              |
+|---------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Never                           | An individual who has not smoked 100 or more cigarettes during his/her lifetime.                                                                        |
+| Former                          | An individual who has smoked at least 100 cigarettes during his/her lifetime but does not currently smoke.                                              |
+| Current - Every Day             | An individual who has smoked at least 100 cigarettes during his/her lifetime and still regularly smokes everyday.                                       |
+| Current - Some Days             | An individual who has smoked at least 100 cigarettes during his/her lifetime and still regularly smokes periodically (not every day), yet consistently. |
+| Smoker - Current status unknown | An individual known to have smoked at least 100 cigarettes in the past, but whether they currently still smoke is unknown.                              |
+| Unknown if ever smoked          | An individual whose current and prior smoking status is not known.                                                                                      |
+
+# CAOutHospital
+
+## Cardiac Arrest Out of Healthcare Facility
+
+"Sudden" Cardiac arrest is the sudden cessation of cardiac activity. The victim becomes unresponsive with no normal breathing and no signs of circulation. If corrective measures are not taken rapidly, this condition progresses to sudden death. Cardiac arrest should be used to signify an event as described above that is reversed, usually by CPR and/or defibrillation or cardioversion or cardiac pacing.
+
+_**Source:** 2013 ACCF/AHA key data elements and definitions for measuring the clinical management and outcomes of patients with acute coronary syndromes and coronary artery disease._
+
+# CAWitness
+
+## Cardiac Arrest Witnessed
+
+A witnessed arrest is one that is seen or heard by another person.
+
+_**Source:** Cardiac Arrest Registry to Enhand Survival - CARES Complete Data Set for EMS, Hospital and CAD participants and Instruction for Abstracting and Coding Data Elements_
+
+# CAPostEMS
+
+## Cardiac Arrest After Arrival of EMS
+
+Patients who experience a cardiac arrest after the arrival of EMS personnel are in the best circumstances to be resuscitated by trained personnel with the equipment to provide immediate defibrillation.
+
+_**Source:** Cardiac Arrest Registry to Enhand Survival - CARES Complete Data Set for EMS, Hospital and CAD participants and Instruction for Abstracting and Coding Data Elements_
+
+# CATransferFac
+
+## Cardiac Arrest at Transferring Healthcare Facility
+
+"Sudden" Cardiac arrest is the sudden cessation of cardiac activity. The victim becomes unresponsive with no normal breathing and no signs of circulation. If corrective measures are not taken rapidly, this condition progresses to sudden death. Cardiac arrest should be used to signify an event as described above that is reversed, usually by CPR and/or defibrillation or cardioversion or cardiac pacing.
+
+_**Source:** 2013 ACCF/AHA key data elements and definitions for measuring the clinical management and outcomes of patients with acute coronary syndromes and coronary artery disease._
+
+# Diabetes
+
+## Diabetes Mellitus
+
+The American Diabetes Association criteria include documentation of the following:
+
+1. A1c >=6.5%; or
+2. Fasting plasma glucose >=126 mg/dl (7.0 mmol/l); or
+3. Two-hour plasma glucose >=200 mg/dl (11.1 mmol/l) during an oral glucose tolerance test; or
+4. In a patient with classic symptoms of hyperglycemia or hyperglycemic crisis, a random plasma glucose >=200 mg/dl (11.1 mmol/l)
+
+This does not include gestational diabetes.
+
+_**Source:** American Diabetes Association Care. 2011;34 Suppl 1:S4-10._
+
+# CSHAScale
+
+## Canadian Study of Health and Aging (CSHA) Clinical Frailty Scale
+
+| Selection Text         | Definition                                                                                                                                                                                                                                                                                                |
+|------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 1: Very Fit            | CHSA Clinical Frailty Scale 1: Very Fit - People who are robust, active, energetic and motivated. These people commonly exercise regularly. They are among the fittest for their age.                                                                                                                     |
+| 2: Well                | CHSA Clinical Frailty Scale 2: Well - People who have no active disease symptoms but are less fit than category 1. Often, they exercise or are very active occasionally, e.g. seasonally.                                                                                                                 |
+| 3: Managing Well       | CHSA Clinical Frailty Scale 3: Managing Well - People whose medical problems are well controlled, but are not regularly active beyond routine walking.                                                                                                                                                    |
+| 4: Vulnerable          | CHSA Clinical Frailty Scale 4: Vulnerable - While not dependent on others for daily help, often symptoms limit activities. A common complaint is being "slowed up", and/or being tired during the day.                                                                                                    |
+| 5: Mildly Frail        | CHSA Clinical Frailty Scale 5: Mildly Frail - These people often have more evident slowing, and need help in high order IADLs (finances, transportation, heavy housework, medications). Typically, mild frailty progressively impairs shopping and walking outside alone, meal preparation and housework. |
+| 6: Moderately Frail    | CHSA Clinical Frailty Scale 6: Moderately Frail - People need help with all outside activities and with keeping house. Inside, they often have problems with stairs and need help with bathing and might need minimal assistance (cuing, standby) with dressing.                                          |
+| 7: Severely Frail      | CHSA Clinical Frailty Scale 7: Severely Frail - Completely dependent for personal care, from whatever cause (physical or cognitive). Even so, they seem stable and not at high risk of dying (within ~ 6 months).                                                                                         |
+| 8: Very Severely Frail | CHSA Clinical Frailty Scale 8: Very Severely Frail - Completely dependent, approaching the end of life. Typically, they could not recover even from a minor illness.                                                                                                                                      |
+| 9: Terminally Ill      | CHSA Clinical Frailty Scale 9: Terminally Ill - Approaching the end of life. This category applies to people with a life expectancy <6 months, who are not otherwise evidently frail.                                                                                                                     |
+
+# PrePCILVEF
+
+## Most Recent LVEF %
+
+The left ventricular ejection fraction is the percentage of blood emptied from the left ventricle at the end of contraction.
+
+_**Source:** ACC Clinical Data Standards, Society for Thoracic Surgeons Adult Cardiac Surgery Database (STS)_

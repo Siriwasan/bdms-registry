@@ -263,7 +263,7 @@ export const conditions: FormConditions = {
            },
            { control: 'PCIDelayReason', parentControl: 'PtPCIDelayReason', conditions: ['Yes'] }
          ],
-         sectionJ: [],
+         sectionJ: [{ control: 'J:sectionJBody', parentControl: 'E:PCIProc', conditions: ['Yes'] }],
          pciLesion: [
            { control: 'ChronicOcclusion', parentControl: 'StenosisPriorTreat', conditions: [100] },
            { control: 'PrevTreatedLesionDate', parentControl: 'PrevTreatedLesion', conditions: ['Yes'] },

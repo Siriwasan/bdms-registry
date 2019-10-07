@@ -211,10 +211,10 @@
             </reg-datepicker>
 
             <reg-select controlName="AdmProvider" placeholder="Admitting Provider" [formGroup]="formGroupB"
-              [choices]="admitPhysician" fxFlex></reg-select>
+              [choices]="admitPhysician" group="true" fxFlex></reg-select>
 
             <reg-select controlName="AttProvider" placeholder="Attending Provider" [formGroup]="formGroupB"
-              [choices]="cardioAndIntervention" fxFlex></reg-select>
+              [choices]="cardioAndIntervention" group="true" fxFlex></reg-select>
           </div>
 
         </form>
@@ -574,7 +574,7 @@
               [choices]="['Yes', 'No']" fxFlex></reg-select>
 
             <reg-select *ngIf="visibles['DCathProvider']" controlName="DCathProvider" placeholder="Diagnostic Cath Operator" [formGroup]="formGroupE"
-              [choices]="cardioAndIntervention" fxFlex></reg-select>
+              [choices]="cardioAndIntervention" group="true" fxFlex></reg-select>
           </div>
 
           <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
@@ -582,7 +582,7 @@
               [choices]="['Yes', 'No']" fxFlex></reg-select>
 
             <reg-select *ngIf="visibles['PCIProvider']" controlName="PCIProvider" placeholder="PCI Operator" [formGroup]="formGroupE"
-              [choices]="intervention" fxFlex></reg-select>
+              [choices]="intervention" group="true" fxFlex></reg-select>
           </div>
 
           <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
@@ -1393,9 +1393,8 @@
         <span>{{ getTOCTitle('J') }}</span>
         <span>{{ displaySummary('J') }}</span>
       </div>
-      <div class="section-body">
-        <form [formGroup]="formGroupJ" #formDirectiveJ="ngForm">
-
+      <form [formGroup]="formGroupJ" #formDirectiveJ="ngForm">
+        <div *ngIf="visibles['sectionJBody']; else sectionJ_other_content" id="sectionJBody" class="section-body">
           <div fxLayout="row" fxLayoutAlign="none center" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
             <h3 fxFlex>LESIONS</h3>
 
@@ -1623,9 +1622,13 @@
                 'Angiographic Failure'
               ]" fxFlex></reg-select>
           </div>
-
-        </form>
-      </div>
+        </div>
+        <ng-template #sectionJ_other_content>
+          <div class="section-body">
+            You need to select PCI procedure in section E.
+          </div>
+        </ng-template>
+      </form>
     </section>
 
     <section class="section-wrapper" scrollSpyElement id="sectionK">
@@ -1763,7 +1766,7 @@
               dd/mm/yyyy hh:mm - 24 hr clock</reg-datepicker>
 
             <reg-select controlName="DCProvider" placeholder="Discharge Provider" [formGroup]="formGroupL"
-              [choices]="cardioAndIntervention" fxFlex></reg-select>
+              [choices]="cardioAndIntervention" group="true" fxFlex></reg-select>
 
             <reg-select controlName="DC_Comfort" placeholder="Comfort Measures Only" [formGroup]="formGroupL"
               [choices]="['Yes', 'No']" fxFlex></reg-select>

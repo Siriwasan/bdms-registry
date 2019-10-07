@@ -48,5 +48,11 @@ export interface RegSelectChoice {
   label: string | number;
   altLabel?: string;
   detailHtml?: string;
+  group?: string;
   disable: boolean;
+}
+
+export interface RegSelectChoiceGroup {
+  name: string;
+  choices: RegSelectChoice[];
 }

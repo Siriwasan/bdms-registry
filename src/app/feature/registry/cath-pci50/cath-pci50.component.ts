@@ -364,6 +364,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
       return {
         value: staff.staffId,
         label: staff.title + ' ' + staff.firstName + ' ' + staff.lastName,
+        group: staff.position,
         disable: false
       } as RegSelectChoice;
     };
@@ -411,12 +412,14 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
 
     // * need to set HospName before load staff to prevent null default
     // this.formGroupB.setValue(data.sectionB);
+    // tslint:disable: no-string-literal
     this.formGroupB.get('HospName').setValue(data.sectionB['HospName']);
     this.formGroupB.get('PayorPrim').setValue(data.sectionB['PayorPrim']);
     this.formGroupB.get('PayorSecond').setValue(data.sectionB['PayorSecond']);
     this.formGroupB.get('ArrivalDateTime').setValue(data.sectionB['ArrivalDateTime']);
     this.formGroupB.get('AdmProvider').setValue(data.sectionB['AdmProvider']);
     this.formGroupB.get('AttProvider').setValue(data.sectionB['AttProvider']);
+    // tslint:enable: no-string-literal
 
     this.formGroupC.setValue(data.sectionC);
     this.formGroupD.setValue(data.sectionD);
@@ -1324,6 +1327,11 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
         })
       );
     });
+
+    console.log(allChoices);
+    if (allChoices.length <= 0) {
+      console.log('no segment lesion');
+    }
 
     this.availablePciSegmentIDs = allChoices;
   }
