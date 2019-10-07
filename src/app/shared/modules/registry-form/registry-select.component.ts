@@ -5,7 +5,7 @@ import { MatSelectChange } from '@angular/material';
 import { RegistryControlComponent } from './registry-control.component';
 import { AbstractControl } from '@angular/forms';
 import { RegistryFormService } from './registry-form.service';
-import { RegSelectChoice } from './registry-form.model';
+import { RegSelectChoice, RegSelectChoiceGroup } from './registry-form.model';
 
 @Component({
   // tslint:disable-next-line: component-selector
@@ -19,9 +19,18 @@ import { RegSelectChoice } from './registry-form.model';
         (selectionChange)="selectionChange($event)"
       >
         <mat-option *ngIf="nullOption" [value]="null">--</mat-option>
-        <mat-option *ngFor="let choice of regSelectChoices" [value]="choice.value" [disabled]="choice.disable">{{
-          choice.label
-        }}</mat-option>
+        <div *ngIf="group; else no_group">
+          <mat-optgroup *ngFor="let group of regSelectChoiceGroups" [label]="group.name">
+            <mat-option *ngFor="let choice of group.choices" [value]="choice.value" [disabled]="choice.disable">
+              {{ choice.label }}
+            </mat-option>
+          </mat-optgroup>
+        </div>
+        <ng-template #no_group>
+          <mat-option *ngFor="let choice of regSelectChoices" [value]="choice.value" [disabled]="choice.disable">
+            {{ choice.label }}
+          </mat-option>
+        </ng-template>
       </mat-select>
       <mat-hint>
         <a><ng-content></ng-content></a>
@@ -44,12 +53,14 @@ export class RegistrySelectComponent extends RegistryControlComponent implements
   @Input() placeholder: string;
   @Input() require = true;
   @Input() nullOption = true;
+  @Input() group = false;
   @Input() choices: string[] | number[] | RegSelectChoice[];
   @Output() choiceChange: EventEmitter<MatSelectChange> = new EventEmitter();
 
   bInfo: boolean;
   self: AbstractControl;
   regSelectChoices: RegSelectChoice[] = [];
+  regSelectChoiceGroups: RegSelectChoiceGroup[] = [];
 
   constructor(protected registryFormService: RegistryFormService, private elementRef: ElementRef) {
     super(registryFormService);
@@ -65,6 +76,8 @@ export class RegistrySelectComponent extends RegistryControlComponent implements
   ngOnChanges(changes: SimpleChanges) {
     if (changes.choices) {
       this.regSelectChoices = [];
+      this.regSelectChoiceGroups = [];
+
       if (!this.choices) {
         return;
       }
@@ -78,6 +91,23 @@ export class RegistrySelectComponent extends RegistryControlComponent implements
         default:
           this.regSelectChoices = this.choices as RegSelectChoice[];
           break;
+      }
+
+      if (this.group) {
+        console.log('need group');
+
+        this.regSelectChoices.forEach(
+          ((hash: RegSelectChoiceGroup) => {
+            return (a: RegSelectChoice) => {
+              if (!hash[a.group]) {
+                hash[a.group] = { name: a.group, choices: [] };
+                this.regSelectChoiceGroups.push(hash[a.group]);
+              }
+              hash[a.group].choices.push(a);
+            };
+          })(Object.create(null))
+        );
+        console.log(this.regSelectChoiceGroups);
       }
     }
   }

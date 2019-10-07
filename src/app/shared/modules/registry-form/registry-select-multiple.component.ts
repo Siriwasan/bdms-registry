@@ -26,7 +26,7 @@ import { RegSelectChoice } from './registry-form.model';
           </span>
         </mat-select-trigger>
         <mat-option *ngFor="let choice of regSelectChoices" [value]="choice.value" [disabled]="choice.disable">{{
-          choice.altText ? choice.altText : choice.label
+          choice.altLabel ? choice.altLabel : choice.label
         }}</mat-option>
       </mat-select>
       <mat-hint>
