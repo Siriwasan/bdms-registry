@@ -210,11 +210,11 @@
               type="datetime" fxFlex>dd/mm/yyyy hh:mm - 24 hr clock
             </reg-datepicker>
 
-            <reg-select controlName="AdmProvider" placeholder="Admitting Provider" [formGroup]="formGroupB"
-              [choices]="admitPhysician" group="true" fxFlex></reg-select>
+            <reg-select-search controlName="AdmProvider" placeholder="Admitting Provider" [formGroup]="formGroupB"
+              [choices]="admitPhysician" group="true" fxFlex></reg-select-search>
 
-            <reg-select controlName="AttProvider" placeholder="Attending Provider" [formGroup]="formGroupB"
-              [choices]="cardioAndIntervention" group="true" fxFlex></reg-select>
+            <reg-select-search controlName="AttProvider" placeholder="Attending Provider" [formGroup]="formGroupB"
+              [choices]="cardioAndIntervention" group="true" fxFlex></reg-select-search>
           </div>
 
         </form>
@@ -573,16 +573,16 @@
             <reg-select controlName="DiagCorAngio" placeholder="Diagnostic Coronary Angiography Procedure" [formGroup]="formGroupE"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
 
-            <reg-select *ngIf="visibles['DCathProvider']" controlName="DCathProvider" placeholder="Diagnostic Cath Operator" [formGroup]="formGroupE"
-              [choices]="cardioAndIntervention" group="true" fxFlex></reg-select>
+            <reg-select-search *ngIf="visibles['DCathProvider']" controlName="DCathProvider" placeholder="Diagnostic Cath Operator" [formGroup]="formGroupE"
+              [choices]="cardioAndIntervention" group="true" fxFlex></reg-select-search>
           </div>
 
           <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
             <reg-select controlName="PCIProc" placeholder="Percutaneous Coronary Intervention (PCI)" [formGroup]="formGroupE"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
 
-            <reg-select *ngIf="visibles['PCIProvider']" controlName="PCIProvider" placeholder="PCI Operator" [formGroup]="formGroupE"
-              [choices]="intervention" group="true" fxFlex></reg-select>
+            <reg-select-search *ngIf="visibles['PCIProvider']" controlName="PCIProvider" placeholder="PCI Operator" [formGroup]="formGroupE"
+              [choices]="intervention" group="true" fxFlex></reg-select-search>
           </div>
 
           <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
@@ -1765,8 +1765,8 @@
             <reg-datepicker controlName="DCDateTime" placeholder="Discharge Date/Time" [formGroup]="formGroupL" type="datetime" fxFlex>
               dd/mm/yyyy hh:mm - 24 hr clock</reg-datepicker>
 
-            <reg-select controlName="DCProvider" placeholder="Discharge Provider" [formGroup]="formGroupL"
-              [choices]="cardioAndIntervention" group="true" fxFlex></reg-select>
+            <reg-select-search controlName="DCProvider" placeholder="Discharge Provider" [formGroup]="formGroupL"
+              [choices]="cardioAndIntervention" group="true" fxFlex></reg-select-search>
 
             <reg-select controlName="DC_Comfort" placeholder="Comfort Measures Only" [formGroup]="formGroupL"
               [choices]="['Yes', 'No']" fxFlex></reg-select>

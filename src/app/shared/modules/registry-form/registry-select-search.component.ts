@@ -17,7 +17,7 @@ import { MatSelectChange, MatSelect } from '@angular/material';
 import { RegistryControlComponent } from './registry-control.component';
 import { AbstractControl } from '@angular/forms';
 import { RegistryFormService } from './registry-form.service';
-import { RegSelectChoice } from './registry-form.model';
+import { RegSelectChoice, RegSelectChoiceGroup } from './registry-form.model';
 import { ReplaySubject, Subject } from 'rxjs';
 import { takeUntil, take } from 'rxjs/operators';
 
@@ -44,12 +44,24 @@ import { takeUntil, take } from 'rxjs/operators';
           ></ngx-mat-select-search>
         </mat-option>
         <mat-option *ngIf="nullOption" [value]="null">--</mat-option>
-        <mat-option *ngFor="let choice of filteredChoices | async" [value]="choice.value" [disabled]="choice.disable"
-          >{{ choice.label }}
-          <div *ngIf="choice.detailHtml">
-            <span class="detail-html" [innerHTML]="choice.detailHtml"></span>
-          </div>
-        </mat-option>
+        <div *ngIf="group; else no_group">
+          <mat-optgroup *ngFor="let group of filteredChoiceGroups | async" [label]="group.name">
+            <mat-option *ngFor="let choice of group.choices" [value]="choice.value" [disabled]="choice.disable"
+              >{{ choice.label }}
+              <div *ngIf="choice.detailHtml">
+                <span class="detail-html" [innerHTML]="choice.detailHtml"></span>
+              </div>
+            </mat-option>
+          </mat-optgroup>
+        </div>
+        <ng-template #no_group>
+          <mat-option *ngFor="let choice of filteredChoices | async" [value]="choice.value" [disabled]="choice.disable"
+            >{{ choice.label }}
+            <div *ngIf="choice.detailHtml">
+              <span class="detail-html" [innerHTML]="choice.detailHtml"></span>
+            </div>
+          </mat-option>
+        </ng-template>
       </mat-select>
       <mat-hint>
         <a><ng-content></ng-content></a>
@@ -89,6 +101,7 @@ export class RegistrySelectSearchComponent extends RegistryControlComponent
   @Input() placeholder: string;
   @Input() require = true;
   @Input() nullOption = true;
+  @Input() group = false;
   @Input() choices: string[] | number[] | RegSelectChoice[];
   @Output() choiceChange: EventEmitter<MatSelectChange> = new EventEmitter();
 
@@ -99,21 +112,23 @@ export class RegistrySelectSearchComponent extends RegistryControlComponent
     return this.regSelectChoices.find(c => c.value === this.self.value).label;
   }
 
+  bInfo: boolean;
+  self: AbstractControl;
+  regSelectChoices: RegSelectChoice[] = [];
+  regSelectChoiceGroups: RegSelectChoiceGroup[] = [];
+  htm = '<strong>Test</strong>';
+
   /** control for the MatSelect filter keyword */
   public filterCtrl: FormControl = new FormControl();
 
   /** list of banks filtered by search keyword */
   public filteredChoices: ReplaySubject<RegSelectChoice[]> = new ReplaySubject<RegSelectChoice[]>(1);
+  public filteredChoiceGroups: ReplaySubject<RegSelectChoiceGroup[]> = new ReplaySubject<RegSelectChoiceGroup[]>(1);
 
   @ViewChild('singleSelect', { static: true }) singleSelect: MatSelect;
 
   /** Subject that emits when the component has been destroyed. */
   protected onDestroySubject = new Subject<void>();
-
-  bInfo: boolean;
-  self: AbstractControl;
-  regSelectChoices: RegSelectChoice[] = [];
-  htm = '<strong>Test</strong>';
 
   constructor(protected registryFormService: RegistryFormService, private elementRef: ElementRef) {
     super(registryFormService);
@@ -126,7 +141,11 @@ export class RegistrySelectSearchComponent extends RegistryControlComponent
 
     // listen for search field value changes
     this.filterCtrl.valueChanges.pipe(takeUntil(this.onDestroySubject)).subscribe(() => {
-      this.filterBanks();
+      if (this.group) {
+        this.filterChoiceGroups();
+      } else {
+        this.filterChoices();
+      }
     });
   }
 
@@ -137,6 +156,8 @@ export class RegistrySelectSearchComponent extends RegistryControlComponent
   ngOnChanges(changes: SimpleChanges) {
     if (changes.choices) {
       this.regSelectChoices = [];
+      this.regSelectChoiceGroups = [];
+
       if (!this.choices) {
         return;
       }
@@ -152,6 +173,21 @@ export class RegistrySelectSearchComponent extends RegistryControlComponent
           break;
       }
       this.filteredChoices.next(this.regSelectChoices.slice());
+
+      if (this.group) {
+        this.regSelectChoices.forEach(
+          ((hash: RegSelectChoiceGroup) => {
+            return (a: RegSelectChoice) => {
+              if (!hash[a.group]) {
+                hash[a.group] = { name: a.group, choices: [] };
+                this.regSelectChoiceGroups.push(hash[a.group]);
+              }
+              hash[a.group].choices.push(a);
+            };
+          })(Object.create(null))
+        );
+        this.filteredChoiceGroups.next(this.regSelectChoiceGroups.slice());
+      }
     }
   }
 
@@ -183,7 +219,7 @@ export class RegistrySelectSearchComponent extends RegistryControlComponent
       });
   }
 
-  protected filterBanks() {
+  private filterChoices() {
     if (!this.choices) {
       return;
     }
@@ -198,12 +234,54 @@ export class RegistrySelectSearchComponent extends RegistryControlComponent
     // filter the banks)
     this.filteredChoices.next(
       this.regSelectChoices.filter(
-        bank =>
-          bank.label
+        choice =>
+          choice.label
             .toString()
             .toLowerCase()
             .indexOf(search) > -1
       )
     );
+  }
+
+  private filterChoiceGroups() {
+    if (!this.choices) {
+      return;
+    }
+    // get the search keyword
+    let search = this.filterCtrl.value;
+    const regSelectChoiceGroupsCopy = this.copyRegSelectChoiceGroups(this.regSelectChoiceGroups);
+    if (!search) {
+      this.filteredChoiceGroups.next(this.regSelectChoiceGroups.slice());
+      return;
+    } else {
+      search = search.toLowerCase();
+    }
+    // filter the banks)
+    this.filteredChoiceGroups.next(
+      regSelectChoiceGroupsCopy.filter(group => {
+        const showGroup = group.name.toLowerCase().indexOf(search) > -1;
+        if (!showGroup) {
+          group.choices = group.choices.filter(
+            chocie =>
+              chocie.label
+                .toString()
+                .toLowerCase()
+                .indexOf(search) > -1
+          );
+        }
+        return group.choices.length > 0;
+      })
+    );
+  }
+
+  private copyRegSelectChoiceGroups(group: RegSelectChoiceGroup[]) {
+    const groupCopy = [];
+    group.forEach(g => {
+      groupCopy.push({
+        name: g.name,
+        choices: g.choices.slice()
+      });
+    });
+    return groupCopy;
   }
 }

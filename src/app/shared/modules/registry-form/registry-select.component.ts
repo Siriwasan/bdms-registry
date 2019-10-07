@@ -23,12 +23,18 @@ import { RegSelectChoice, RegSelectChoiceGroup } from './registry-form.model';
           <mat-optgroup *ngFor="let group of regSelectChoiceGroups" [label]="group.name">
             <mat-option *ngFor="let choice of group.choices" [value]="choice.value" [disabled]="choice.disable">
               {{ choice.label }}
+              <div *ngIf="choice.detailHtml">
+                <span class="detail-html" [innerHTML]="choice.detailHtml"></span>
+              </div>
             </mat-option>
           </mat-optgroup>
         </div>
         <ng-template #no_group>
           <mat-option *ngFor="let choice of regSelectChoices" [value]="choice.value" [disabled]="choice.disable">
             {{ choice.label }}
+            <div *ngIf="choice.detailHtml">
+              <span class="detail-html" [innerHTML]="choice.detailHtml"></span>
+            </div>
           </mat-option>
         </ng-template>
       </mat-select>
@@ -94,7 +100,7 @@ export class RegistrySelectComponent extends RegistryControlComponent implements
       }
 
       if (this.group) {
-        console.log('need group');
+        // console.log('need group');
 
         this.regSelectChoices.forEach(
           ((hash: RegSelectChoiceGroup) => {
@@ -107,7 +113,7 @@ export class RegistrySelectComponent extends RegistryControlComponent implements
             };
           })(Object.create(null))
         );
-        console.log(this.regSelectChoiceGroups);
+        // console.log(this.regSelectChoiceGroups);
       }
     }
   }
