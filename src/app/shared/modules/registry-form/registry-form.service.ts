@@ -307,14 +307,14 @@ export class RegistryFormService implements OnDestroy {
     return section;
   }
 
-  public isInvalid(control: string, validationType: string): boolean {
-    const section = this.getControlSection(control);
+  public isInvalid(formGroup: FormGroup, control: string, validationType: string): boolean {
+    // const section = this.getControlSection(control);
+    // return this.getFormGroup(section)
+    //   .get(control)
+    //   .hasError(validationType);
+    // // &&       (this.formGroup.get(control).dirty || this.formGroup.get(control).touched)
 
-    // console.log(control);
-
-    return this.getFormGroup(section)
-      .get(control)
-      .hasError(validationType);
+    return formGroup.get(control).hasError(validationType);
     // &&       (this.formGroup.get(control).dirty || this.formGroup.get(control).touched)
   }
 

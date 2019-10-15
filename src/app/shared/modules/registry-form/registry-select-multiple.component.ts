@@ -35,7 +35,7 @@ import { RegSelectChoice } from './registry-form.model';
       </mat-hint>
       <mat-error *ngIf="self.invalid && (self.dirty || self.touched)">
         <div *ngFor="let validation of getValidations(controlName)">
-          <div *ngIf="isInvalid(controlName, validation.type)">
+          <div *ngIf="isInvalid(formGroup, controlName, validation.type)">
             <a>{{ validation.message }}</a>
           </div>
         </div>

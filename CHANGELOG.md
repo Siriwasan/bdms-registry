@@ -1,3 +1,7 @@
+# 1.3.0 (2019-10-XX)
+
+- **Registry form:** implement group in dropdown
+
 # 1.2.0 (2019-10-03)
 
 ### Bug Fixes

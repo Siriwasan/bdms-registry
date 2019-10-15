@@ -11,8 +11,8 @@ import { RegistryFormService } from './registry-form.service';
 // https://momentjs.com/docs/#/displaying/format/
 const MY_DATE_FORMATS = {
   parse: {
-    datetime: ['DD/MM/YYYY H:mm', 'DD/M/YYYY H:mm'],
-    date: ['DD/MM/YYYY', 'DD/M/YYYY'],
+    datetime: ['DD/MM/YYYY H:mm', 'DD/M/YYYY H:mm', 'D/M/YYYY H:mm'],
+    date: ['DD/MM/YYYY', 'DD/M/YYYY', 'D/M/YYYY'],
     time: 'H:mm'
   },
   display: {
@@ -54,7 +54,7 @@ export class CustomDateAdapter extends MomentDateAdapter {
       </mat-hint>
       <mat-error *ngIf="self.invalid && (self.dirty || self.touched)">
         <div *ngFor="let validation of getValidations(controlName)">
-          <div *ngIf="isInvalid(controlName, validation.type)">
+          <div *ngIf="isInvalid(formGroup, controlName, validation.type)">
             <a>{{ validation.message }}</a>
           </div>
         </div>
