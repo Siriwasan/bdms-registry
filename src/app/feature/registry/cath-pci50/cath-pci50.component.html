@@ -167,6 +167,8 @@
       </div>
     </section>
 
+    <!-- FormA value: {{ formGroupA.value | json }} -->
+
     <section class="section-wrapper" scrollSpyElement id="sectionB">
       <div class="section-title">
         <span>{{ getTOCTitle('B') }}</span>
@@ -1617,6 +1619,7 @@
 
           <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
             <reg-select *ngIf="visibles['PCIResult']" controlName="PCIResult" placeholder="PCI Result" [formGroup]="formGroupJ" [choices]="[
+                'Clinical Success',
                 'Procedure Success',
                 'Angiographic Success',
                 'Angiographic Failure'

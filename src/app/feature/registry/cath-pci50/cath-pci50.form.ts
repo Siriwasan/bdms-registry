@@ -1,5 +1,5 @@
 import { Validators } from '@angular/forms';
-import { birthDateValidator } from '../cath-pci50/cath-pci50.validator';
+import { birthDateValidator, CathPci50Validator } from './cath-pci50.validator';
 
 export const CathPci50Form = {
   sectionA: {
@@ -10,8 +10,16 @@ export const CathPci50Form = {
     FirstName: [null, Validators.required],
     MidName: [null],
     SSN: [null, Validators.required],
-    DOB: [null, [Validators.required, birthDateValidator()]],
-    Age: [null, [Validators.required, Validators.min(0), Validators.max(120)]],
+    DOB: [
+      null,
+      [
+        Validators.required,
+        CathPci50Validator.DobStart,
+        CathPci50Validator.DobBeforeArrivalDT,
+        CathPci50Validator.HxMIDateAfterDOB
+      ]
+    ],
+    Age: [null, [Validators.required, Validators.min(18), Validators.max(120)]],
     Sex: [null, Validators.required],
     ZipCode: [null, Validators.required],
     Race: [null, Validators.required],
@@ -25,7 +33,16 @@ export const CathPci50Form = {
     HospName: [null, Validators.required],
     PayorPrim: [null, Validators.required],
     PayorSecond: [null, Validators.required],
-    ArrivalDateTime: [null, Validators.required],
+    ArrivalDateTime: [
+      null,
+      [
+        Validators.required,
+        CathPci50Validator.DobBeforeArrivalDT,
+        CathPci50Validator.ArrivalDTBeforeDischargeDT,
+        CathPci50Validator.ArrivalDTBeforeProcedureStartDT,
+        CathPci50Validator.HxMIDateBeforeArrivalDT
+      ]
+    ],
     AdmProvider: [null, Validators.required],
     AttProvider: [null, Validators.required]
   },
@@ -33,7 +50,10 @@ export const CathPci50Form = {
     Hypertension: [null, Validators.required],
     Dyslipidemia: [null, Validators.required],
     HxMI: [null, Validators.required],
-    HxMIDate: [null, Validators.required],
+    HxMIDate: [
+      null,
+      [Validators.required, CathPci50Validator.HxMIDateAfterDOB, CathPci50Validator.HxMIDateBeforeArrivalDT]
+    ],
     PriorPCI: [null, Validators.required],
     HxPCIDate: [null, Validators.required],
     LMPCI: [null, Validators.required],
@@ -95,7 +115,7 @@ export const CathPci50Form = {
     PreProcMedPCSK9: [null, Validators.required]
   },
   sectionE: {
-    ProcedureStartDateTime: [null, Validators.required],
+    ProcedureStartDateTime: [null, [Validators.required, CathPci50Validator.ArrivalDTBeforeProcedureStartDT]],
     ProcedureEndDateTime: [null, Validators.required],
     DiagCorAngio: [null, Validators.required],
     DCathProvider: [null, Validators.required],
@@ -331,7 +351,7 @@ export const CathPci50Form = {
     DCCreatinine: [null, [Validators.required, Validators.min(0.1), Validators.max(30.0)]],
     DCHgbDrawn: [null, Validators.required],
     DCHgb: [null, [Validators.required, Validators.min(1), Validators.max(50)]],
-    DCDateTime: [null, Validators.required],
+    DCDateTime: [null, [Validators.required, CathPci50Validator.ArrivalDTBeforeDischargeDT]],
     DCProvider: [null, Validators.required],
     DC_Comfort: [null, Validators.required],
     DCStatus: [null, Validators.required],

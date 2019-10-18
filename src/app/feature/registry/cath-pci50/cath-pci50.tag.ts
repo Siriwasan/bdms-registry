@@ -6,7 +6,12 @@ export interface TagCondition {
 }
 
 export const tagConditions: TagCondition[] = [
-  { section: 'sectionB', control: 'PayorPrim', values: ['NHSO (National Health Security Officer)'], tag: 'NHSO' },
+  {
+    section: 'sectionB',
+    control: 'PayorPrim',
+    values: ['NHSO (National Health Security Officer)'],
+    tag: 'NHSO'
+  },
   {
     section: 'sectionI',
     control: 'PCIIndication',
@@ -22,9 +27,30 @@ export const tagConditions: TagCondition[] = [
     tag: 'STEMI'
   },
   { section: 'sectionI', control: 'PCIIndication', values: ['NSTE-ACS'], tag: 'NSTEMI' },
-  { section: 'sectionB', control: 'PayorSecond', values: ['NHSO (National Health Security Officer)'], tag: 'NHSO' },
   { section: 'sectionE', control: 'DiagCorAngio', values: ['Yes'], tag: 'CAG' },
   { section: 'sectionE', control: 'PCIProc', values: ['Yes'], tag: 'PCI' },
+  {
+    section: 'sectionI',
+    control: 'PCIProcedureRisk',
+    values: ['Complex High Risk Indicated Procedure (CHIP)'],
+    tag: 'CHIP'
+  },
+  {
+    section: 'sectionI',
+    control: 'PCIProcedureRisk',
+    values: ['Simple Low Risk Indicated Procedure (SLIP)'],
+    tag: 'SLIP'
+  },
+  { section: 'sectionJ', control: 'PCIResult', values: ['Clinical Success'], tag: 'Clinical Success' },
+  { section: 'sectionJ', control: 'PCIResult', values: ['Procedure Success'], tag: 'Procedure Success' },
+  { section: 'sectionJ', control: 'PCIResult', values: ['Angiographic Success'], tag: 'Angiographic Success' },
+  { section: 'sectionJ', control: 'PCIResult', values: ['Angiographic Failure'], tag: 'Angiographic Failure' },
+  {
+    section: 'sectionB',
+    control: 'PayorSecond',
+    values: ['NHSO (National Health Security Officer)'],
+    tag: 'NHSO'
+  },
   { section: 'sectionL', control: 'DCStatus', values: ['Deceased'], tag: 'Dead' }
 ];
 
@@ -33,6 +59,8 @@ export const tagPriorities = {
   NSTEMI: 'medium',
   Dead: 'high',
   Lost: 'high',
+  CHIP: 'high',
+  SLIP: 'high',
   '30 d': 'medium',
   '1 y': 'medium',
   '2 y': 'medium',

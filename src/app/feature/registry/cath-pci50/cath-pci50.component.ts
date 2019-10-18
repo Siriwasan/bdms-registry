@@ -37,6 +37,7 @@ import { Store } from '@ngrx/store';
 import * as fromRoot from '../../../app.reducer';
 import * as UI from '../../../shared/ui.actions';
 import { Staff } from '../../staff/staff.model';
+import { CathPci50Validator, setServiceForValidators } from './cath-pci50.validator';
 
 const str = {
   nativeLesions: 'NativeLesions',
@@ -59,7 +60,7 @@ const str = {
   selector: 'app-cath-pci50',
   templateUrl: './cath-pci50.component.html',
   styleUrls: ['./cath-pci50.component.scss'],
-  providers: [CathPci50Service]
+  providers: [CathPci50Service, CathPci50Validator]
 })
 export class CathPci50Component extends RegistryFormComponent implements OnInit, AfterViewInit, OnDestroy {
   private subscriptions: Subscription[] = [];
@@ -222,7 +223,8 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     private router: Router,
     private cathPci50Service: CathPci50Service,
     private location: Location,
-    private authService: AuthService
+    private authService: AuthService,
+    private cathPci50Validator: CathPci50Validator
   ) {
     super(dialogService, changeDetector, scrollSpy, hostElement, registryFormService);
   }
@@ -290,6 +292,9 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     this.subscribeCompletionCalculation();
 
     this.checkPciTechnique();
+
+    // this.cathPci50Validator.setService(this.registryFormService);
+    setServiceForValidators(this.registryFormService);
   }
 
   ngOnDestroy() {
@@ -507,10 +512,9 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     const CAOutHospital = this.formGroupC.get('CAOutHospital').value;
     const CATransferFac = this.formGroupC.get('CATransferFac').value;
     const CAInHosp = this.formGroupE.get('CAInHosp').value;
-    const PCIProc = this.formGroupE.get('PCIProc').value;
 
     // tslint:disable: no-string-literal
-    if (CAOutHospital === 'Yes' || CATransferFac === 'Yes' || CAInHosp === 'Yes' || PCIProc === 'Yes') {
+    if (CAOutHospital === 'Yes' || CATransferFac === 'Yes' || CAInHosp === 'Yes') {
       this.visibles['HypothermiaInduced'] = true;
       this.visibles['LOCProc'] = true;
     } else {
