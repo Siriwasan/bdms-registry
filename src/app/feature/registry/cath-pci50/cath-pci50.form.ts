@@ -1,5 +1,5 @@
 import { Validators } from '@angular/forms';
-import { birthDateValidator, CathPci50Validator } from './cath-pci50.validator';
+import { CathPci50Validator } from './cath-pci50.validator';
 
 export const CathPci50Form = {
   sectionA: {
@@ -16,7 +16,13 @@ export const CathPci50Form = {
         Validators.required,
         CathPci50Validator.DobStart,
         CathPci50Validator.DobBeforeArrivalDT,
-        CathPci50Validator.HxMIDateAfterDOB
+        CathPci50Validator.HxMIDateAfterDob,
+        CathPci50Validator.HxPCIDateAfterDob,
+        CathPci50Validator.HxCABGDateAfterDob,
+        CathPci50Validator.StressTestDateAfterDob,
+        CathPci50Validator.CardiacCTADateAfterDob,
+        CathPci50Validator.CalciumScoreDateAfterDob,
+        CathPci50Validator.PriorDxAngioDateAfterDob
       ]
     ],
     Age: [null, [Validators.required, Validators.min(18), Validators.max(120)]],
@@ -40,7 +46,9 @@ export const CathPci50Form = {
         CathPci50Validator.DobBeforeArrivalDT,
         CathPci50Validator.ArrivalDTBeforeDischargeDT,
         CathPci50Validator.ArrivalDTBeforeProcedureStartDT,
-        CathPci50Validator.HxMIDateBeforeArrivalDT
+        CathPci50Validator.HxMIDateBeforeArrivalDT,
+        CathPci50Validator.HxPCIDateBeforeArrivalDT,
+        CathPci50Validator.HxCABGDateBeforeArrivalDT
       ]
     ],
     AdmProvider: [null, Validators.required],
@@ -52,10 +60,13 @@ export const CathPci50Form = {
     HxMI: [null, Validators.required],
     HxMIDate: [
       null,
-      [Validators.required, CathPci50Validator.HxMIDateAfterDOB, CathPci50Validator.HxMIDateBeforeArrivalDT]
+      [Validators.required, CathPci50Validator.HxMIDateAfterDob, CathPci50Validator.HxMIDateBeforeArrivalDT]
     ],
     PriorPCI: [null, Validators.required],
-    HxPCIDate: [null, Validators.required],
+    HxPCIDate: [
+      null,
+      [Validators.required, CathPci50Validator.HxPCIDateAfterDob, CathPci50Validator.HxPCIDateBeforeArrivalDT]
+    ],
     LMPCI: [null, Validators.required],
     Height: [null, [Validators.required, Validators.min(20), Validators.max(260)]],
     Weight: [null, [Validators.required, Validators.min(10), Validators.max(250)]],
@@ -64,7 +75,10 @@ export const CathPci50Form = {
     PriorPAD: [null, Validators.required],
     HxChronicLungDisease: [null, Validators.required],
     PriorCABG: [null, Validators.required],
-    HxCABGDate: [null, Validators.required],
+    HxCABGDate: [
+      null,
+      [Validators.required, CathPci50Validator.HxCABGDateAfterDob, CathPci50Validator.HxCABGDateBeforeArrivalDT]
+    ],
     TobaccoUse: [null, Validators.required],
     TobaccoType: [null, Validators.required],
     SmokeAmount: [null, Validators.required],
@@ -90,19 +104,47 @@ export const CathPci50Form = {
     NSVTType: [null, Validators.required],
     StressPerformed: [null, Validators.required],
     StressTestType: [null, Validators.required],
-    StressTestDate: [null, Validators.required],
+    StressTestDate: [
+      null,
+      [
+        Validators.required,
+        CathPci50Validator.StressTestDateAfterDob,
+        CathPci50Validator.StressTestDateBeforeProcedureStartDT
+      ]
+    ],
     StressTestResult: [null, Validators.required],
     StressTestRisk: [null, Validators.required],
     CardiacCTA: [null, Validators.required],
-    CardiacCTADate: [null, Validators.required],
+    CardiacCTADate: [
+      null,
+      [
+        Validators.required,
+        CathPci50Validator.CardiacCTADateAfterDob,
+        CathPci50Validator.CardiacCTADateBeforeProcedureStartDT
+      ]
+    ],
     CardiacCTAResults: [null, Validators.required],
     CalciumScoreAssessed: [null, Validators.required],
     CalciumScore: [null, [Validators.required, Validators.min(0), Validators.max(6000)]],
-    CalciumScoreDate: [null, Validators.required],
+    CalciumScoreDate: [
+      null,
+      [
+        Validators.required,
+        CathPci50Validator.CalciumScoreDateAfterDob,
+        CathPci50Validator.CalciumScoreDateBeforeProcedureStartDT
+      ]
+    ],
     PreProcLVEFAssessed: [null, Validators.required],
     PreProcLVEF: [null, [Validators.required, Validators.min(1), Validators.max(99)]],
     PriorDxAngioProc: [null, Validators.required],
-    PriorDxAngioDate: [null, Validators.required],
+    PriorDxAngioDate: [
+      null,
+      [
+        Validators.required,
+        CathPci50Validator.PriorDxAngioDateAfterDob,
+        CathPci50Validator.PriorDxAngioDateBeforeProcedureStartDT
+      ]
+    ],
     PriorDxAngioResults: [null, Validators.required],
     PreProcMedASA: [null, Validators.required],
     PreProcMedBetaBlocker: [null, Validators.required],
@@ -115,8 +157,28 @@ export const CathPci50Form = {
     PreProcMedPCSK9: [null, Validators.required]
   },
   sectionE: {
-    ProcedureStartDateTime: [null, [Validators.required, CathPci50Validator.ArrivalDTBeforeProcedureStartDT]],
-    ProcedureEndDateTime: [null, Validators.required],
+    ProcedureStartDateTime: [
+      null,
+      [
+        Validators.required,
+        CathPci50Validator.ArrivalDTBeforeProcedureStartDT,
+        CathPci50Validator.StressTestDateBeforeProcedureStartDT,
+        CathPci50Validator.CardiacCTADateBeforeProcedureStartDT,
+        CathPci50Validator.CalciumScoreDateBeforeProcedureStartDT,
+        CathPci50Validator.PriorDxAngioDateBeforeProcedureStartDT,
+        CathPci50Validator.ProcedureStartDTBeforeProcedureEndDT,
+        CathPci50Validator.ProcedureStartDTBeforeDCDateTime,
+        CathPci50Validator.SymptomDTBefore7ProcedureStartDT
+      ]
+    ],
+    ProcedureEndDateTime: [
+      null,
+      [
+        Validators.required,
+        CathPci50Validator.ProcedureStartDTBeforeProcedureEndDT,
+        CathPci50Validator.ProcedureEndDTBeforeDCDateTime
+      ]
+    ],
     DiagCorAngio: [null, Validators.required],
     DCathProvider: [null, Validators.required],
     PCIProc: [null, Validators.required],
@@ -223,9 +285,8 @@ export const CathPci50Form = {
     MultiVesselDz: [null, Validators.required],
     MultiVessProcType: [null, Validators.required],
     PCIIndication: [null, Validators.required],
-    SymptomDate: [null, Validators.required],
-    SymptomTime: [null, Validators.required],
-    SymptomTimeUnk: [null, Validators.required],
+    SymptomDateTime: [null, [Validators.required, CathPci50Validator.SymptomDTBefore7ProcedureStartDT]],
+    SymptomOnset: [null, Validators.required],
     ThromTherapy: [null, Validators.required],
     ThromDateTime: [null, Validators.required],
     SyntaxScore: [null, Validators.required],
@@ -351,7 +412,15 @@ export const CathPci50Form = {
     DCCreatinine: [null, [Validators.required, Validators.min(0.1), Validators.max(30.0)]],
     DCHgbDrawn: [null, Validators.required],
     DCHgb: [null, [Validators.required, Validators.min(1), Validators.max(50)]],
-    DCDateTime: [null, [Validators.required, CathPci50Validator.ArrivalDTBeforeDischargeDT]],
+    DCDateTime: [
+      null,
+      [
+        Validators.required,
+        CathPci50Validator.ArrivalDTBeforeDischargeDT,
+        CathPci50Validator.ProcedureStartDTBeforeDCDateTime,
+        CathPci50Validator.ProcedureEndDTBeforeDCDateTime
+      ]
+    ],
     DCProvider: [null, Validators.required],
     DC_Comfort: [null, Validators.required],
     DCStatus: [null, Validators.required],

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ElementRef } from '@angular/core';
+import { Component, Input, OnInit, ElementRef, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MAT_DATE_FORMATS, DateAdapter } from '@coachcare/datepicker';
 
@@ -6,6 +6,7 @@ import { RegistryControlComponent } from './registry-control.component';
 import { AbstractControl } from '@angular/forms';
 import { MomentDateAdapter } from '@coachcare/datepicker';
 import { RegistryFormService } from './registry-form.service';
+import * as moment from 'moment';
 
 // See the Moment.js docs for the meaning of these formats:
 // https://momentjs.com/docs/#/displaying/format/
@@ -45,6 +46,7 @@ export class CustomDateAdapter extends MomentDateAdapter {
         [placeholder]="placeholder"
         [formControlName]="controlName"
         [required]="require"
+        #artInput
       />
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker touchUi="false" [type]="type" [twelveHour]="false"></mat-datepicker>
@@ -67,12 +69,13 @@ export class CustomDateAdapter extends MomentDateAdapter {
     { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS }
   ]
 })
-export class RegistryDatePickerComponent extends RegistryControlComponent implements OnInit {
+export class RegistryDatePickerComponent extends RegistryControlComponent implements OnInit, OnChanges {
   @Input() controlName: string;
   @Input() formGroup: FormGroup;
   @Input() placeholder: string;
   @Input() require = true;
   @Input() type = 'date';
+  @ViewChild('artInput', { static: true }) artInput: ElementRef;
 
   bInfo: boolean;
   self: AbstractControl;
@@ -92,5 +95,29 @@ export class RegistryDatePickerComponent extends RegistryControlComponent implem
     this.bInfo = this.hasInfo(this.controlName);
 
     this.self = this.formGroup.get(this.controlName);
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.type) {
+      if (this.self && moment.isMoment(this.self.value)) {
+        console.log('reg-date-picker type changed');
+        let format: string;
+        switch (changes.type.currentValue) {
+          case 'datetime':
+            format = MY_DATE_FORMATS.display.datetime;
+            break;
+
+          case 'time':
+            format = MY_DATE_FORMATS.display.time;
+            break;
+
+          case 'date':
+          default:
+            format = MY_DATE_FORMATS.display.date;
+            break;
+        }
+        this.artInput.nativeElement.value = (this.self.value as moment.Moment).format(format);
+      }
+    }
   }
 }

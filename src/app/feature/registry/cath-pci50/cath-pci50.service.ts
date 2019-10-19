@@ -9,7 +9,7 @@ import { environment } from '../../../../environments/environment';
 import { CathPci50Model } from './cath-pci50.model';
 import { tagConditions } from './cath-pci50.tag';
 import { RegistryModel } from '../registry.model';
-import { Moment, utc } from 'moment';
+import * as moment from 'moment';
 import { Staff } from '../../staff/staff.model';
 import { take } from 'rxjs/operators';
 
@@ -132,10 +132,10 @@ export class CathPci50Service implements OnDestroy {
     });
 
     // tslint:disable: no-string-literal
-    const procDate = utc(data.sectionE['ProcedureStartDateTime']);
+    const procDate = moment(data.sectionE['ProcedureStartDateTime']);
 
     data.sectionM['FollowUps'].forEach(d => {
-      const fuDate = utc(d['FU_AssessmentDate']);
+      const fuDate = moment(d['FU_AssessmentDate']);
       const period = this.getFollowUpPeriod(procDate, fuDate);
       if (period !== '') {
         tags.push(period);
@@ -152,7 +152,7 @@ export class CathPci50Service implements OnDestroy {
     return tags;
   }
 
-  private getFollowUpPeriod(procDate: Moment, fuDate: Moment): string {
+  private getFollowUpPeriod(procDate: moment.Moment, fuDate: moment.Moment): string {
     let period = '';
 
     if (!procDate.isValid() || !fuDate.isValid()) {

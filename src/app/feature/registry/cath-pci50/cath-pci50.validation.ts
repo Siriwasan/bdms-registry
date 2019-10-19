@@ -16,13 +16,40 @@ export const validations: FormValidations = {
       { type: 'DobStart', message: 'Birthdate should be after 1/1/1850.' },
       { type: 'DobBeforeArrivalDT', message: 'Birthdate should be before Arrival DateTime.' },
       {
-        type: 'HxMIDateAfterDOB',
+        type: 'HxMIDateAfterDob',
         message: 'Most Recent MI Date should be after Birthdate.'
+      },
+      {
+        type: 'HxPCIDateAfterDob',
+        message: 'Most Recent PCI Date should be after BirthDate.'
+      },
+      {
+        type: 'HxCABGDateAfterDob',
+        message: 'Most Recent CABG Date should be after BirthDate.'
+      },
+      {
+        type: 'StressTestDateAfterDob',
+        message: 'Most Recent Stress Test Date should be after BirthDate.'
+      },
+      {
+        type: 'CardiacCTADateAfterDob',
+        message: 'Cardiac CTA Date should be after BirthDate.'
+      },
+      {
+        type: 'CalciumScoreDateAfterDob',
+        message: 'Agatston Calcium Score Date should be after BirthDate.'
+      },
+      {
+        type: 'PriorDxAngioDateAfterDob',
+        message: 'Pior Diagnostic CAG Date should be after BirthDate.'
       }
     ],
     LastName: [{ type: 'required', message: 'Last Name is required.' }],
     FirstName: [{ type: 'required', message: 'First Name is required.' }],
-    Age: [{ type: 'min', message: 'Age must be at least 18.' }, { type: 'max', message: 'Age cannot be more than 120.' }]
+    Age: [
+      { type: 'min', message: 'Age must be at least 18.' },
+      { type: 'max', message: 'Age cannot be more than 120.' }
+    ]
   },
   sectionB: {
     ArrivalDateTime: [
@@ -35,6 +62,14 @@ export const validations: FormValidations = {
       {
         type: 'HxMIDateBeforeArrivalDT',
         message: 'Most Recent MI Date should be before or equal to Arrival DateTime.'
+      },
+      {
+        type: 'HxPCIDateBeforeArrivalDT',
+        message: 'Most Recent PCI Date should be before or eqaul to Arrival DateTime.'
+      },
+      {
+        type: 'HxCABGDateBeforeArrivalDT',
+        message: 'Most Recent CABG Date should be before or equal to Arrival DateTime.'
       }
     ]
   },
@@ -49,12 +84,32 @@ export const validations: FormValidations = {
     ],
     HxMIDate: [
       {
-        type: 'HxMIDateAfterDOB',
+        type: 'HxMIDateAfterDob',
         message: 'Most Recent MI Date should be after Birthdate.'
       },
       {
         type: 'HxMIDateBeforeArrivalDT',
         message: 'Most Recent MI Date should be before or equal to Arrival DateTime.'
+      }
+    ],
+    HxPCIDate: [
+      {
+        type: 'HxPCIDateAfterDob',
+        message: 'Most Recent PCI Date should be after BirthDate.'
+      },
+      {
+        type: 'HxPCIDateBeforeArrivalDT',
+        message: 'Most Recent PCI Date should be before or equal to Arrival DateTime.'
+      }
+    ],
+    HxCABGDate: [
+      {
+        type: 'HxCABGDateAfterDob',
+        message: 'Most Recent CABG Date should be after BirthDate.'
+      },
+      {
+        type: 'HxCABGDateBeforeArrivalDT',
+        message: 'Most Recent CABG Date should be before or equal to Arrival DateTime.'
       }
     ]
   },
@@ -70,6 +125,46 @@ export const validations: FormValidations = {
     PreProcLVEF: [
       { type: 'min', message: 'LVEF must be at least 1%.' },
       { type: 'max', message: 'LVEF cannot be more than 99%.' }
+    ],
+    StressTestDate: [
+      {
+        type: 'StressTestDateAfterDob',
+        message: 'Most Recent Stress Test Date should be after BirthDate.'
+      },
+      {
+        type: 'StressTestDateBeforeProcedureStartDT',
+        message: 'Most Recent Stress Test Date should be before or equal to Procedure Start DateTime.'
+      }
+    ],
+    CardiacCTADate: [
+      {
+        type: 'CardiacCTADateAfterDob',
+        message: 'Cardiac CTA Date should be after BirthDate.'
+      },
+      {
+        type: 'CardiacCTADateBeforeProcedureStartDT',
+        message: 'Cardiac CTA Date should be before or equal to Procedure Start DateTime.'
+      }
+    ],
+    CalciumScoreDate: [
+      {
+        type: 'CalciumScoreDateAfterDob',
+        message: 'Agatston Calcium Score Date should be after BirthDate.'
+      },
+      {
+        type: 'CalciumScoreDateBeforeProcedureStartDT',
+        message: 'Agatston Calcium Score Date should be before or equal to Procedure Start DateTime.'
+      }
+    ],
+    PriorDxAngioDate: [
+      {
+        type: 'PriorDxAngioDateAfterDob',
+        message: 'Pior Diagnostic CAG Date should be after BirthDate.'
+      },
+      {
+        type: 'PriorDxAngioDateBeforeProcedureStartDT',
+        message: 'Pior Diagnostic CAG Date should be before or equal to Procedure Start DateTime.'
+      }
     ]
   },
   sectionE: {
@@ -101,6 +196,44 @@ export const validations: FormValidations = {
       {
         type: 'ArrivalDTBeforeProcedureStartDT',
         message: 'Arrival DateTime should be before Procedure Start DateTime.'
+      },
+      {
+        type: 'StressTestDateBeforeProcedureStartDT',
+        message: 'Most Recent Stress Test Date should be before or equal to Procedure Start DateTime.'
+      },
+      {
+        type: 'CardiacCTADateBeforeProcedureStartDT',
+        message: 'Cardiac CTA Date should be before or equal to Procedure Start DateTime.'
+      },
+      {
+        type: 'CalciumScoreDateBeforeProcedureStartDT',
+        message: 'Agatston Calcium Score Date should be before or equal to Procedure Start DateTime.'
+      },
+      {
+        type: 'PriorDxAngioDateBeforeProcedureStartDT',
+        message: 'Pior Diagnostic CAG Date should be before or equal to Procedure Start DateTime.'
+      },
+      {
+        type: 'ProcedureStartDTBeforeProcedureEndDT',
+        message: 'Procedure Start DateTime should be before Procedure End DateTime.'
+      },
+      {
+        type: 'ProcedureStartDTBeforeDCDateTime',
+        message: 'Procedure Start DateTime should be before Discharge DateTime.'
+      },
+      {
+        type: 'SymptomDTBefore7ProcedureStartDT',
+        message: 'Symptom Date should be 1 week before or equal to Procedure Start DateTime.'
+      }
+    ],
+    ProcedureEndDateTime: [
+      {
+        type: 'ProcedureStartDTBeforeProcedureEndDT',
+        message: 'Procedure Start DateTime should be before Procedure End DateTime.'
+      },
+      {
+        type: 'ProcedureEndDTBeforeDCDateTime',
+        message: 'Procedure End DateTime should be before Discharge DateTime.'
       }
     ]
   },
@@ -192,7 +325,14 @@ export const validations: FormValidations = {
       { type: 'max', message: 'OCT cannot be more than 10.00 mm2.' }
     ]
   },
-  sectionI: {},
+  sectionI: {
+    SymptomDateTime: [
+      {
+        type: 'SymptomDTBefore7ProcedureStartDT',
+        message: 'Symptom Date should be 1 week before or equal to Procedure Start DateTime.'
+      }
+    ]
+  },
   sectionJ: {},
   pciLesion: {
     StenosisPriorTreat: [
@@ -234,7 +374,15 @@ export const validations: FormValidations = {
       { type: 'max', message: 'Hemoglobin Length cannot be more than 50.00 g/dL.' }
     ],
     DCDateTime: [
-      { type: 'ArrivalDTBeforeDischargeDT', message: 'Arrival DateTime should be before Discharge DateTime.' }
+      { type: 'ArrivalDTBeforeDischargeDT', message: 'Arrival DateTime should be before Discharge DateTime.' },
+      {
+        type: 'ProcedureStartDTBeforeDCDateTime',
+        message: 'Procedure Start DateTime should be before Discharge DateTime.'
+      },
+      {
+        type: 'ProcedureEndDTBeforeDCDateTime',
+        message: 'Procedure End DateTime should be before Discharge DateTime.'
+      }
     ]
   },
   sectionM: {}

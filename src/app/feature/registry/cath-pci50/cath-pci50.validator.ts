@@ -1,47 +1,34 @@
 import { AbstractControl, ValidatorFn, FormControl, NG_VALIDATORS, FormGroup } from '@angular/forms';
-import { utc } from 'moment';
+import * as moment from 'moment';
 import { RegistryFormService } from 'src/app/shared/modules/registry-form/registry-form.service';
 import { Injectable } from '@angular/core';
-
-export function birthDateValidator(): ValidatorFn {
-  return (control: AbstractControl): { [key: string]: any } | null => {
-    return utc(control.value).isBefore(utc('1850-01-01')) ? { forbidden: true } : null;
-  };
-}
 
 interface DateControl {
   section: string;
   control: string;
 }
 
-let regSer: RegistryFormService;
-
-export function setServiceForValidators(reg: RegistryFormService) {
-  regSer = reg;
-}
-
-@Injectable()
 export class CathPci50Validator {
-  registryFormService: RegistryFormService;
+  static registryFormService: RegistryFormService;
 
   constructor() {}
 
   // static DobStart(): ValidatorFn {
   //   return (control: AbstractControl): { [key: string]: any } | null => {
   //     if (regSer) {
-  //       return utc(control.value).isBefore(utc('1850-01-01')) ? { forbidden: true } : null;
+  //       return moment(control.value).isBefore(moment('1850-01-01')) ? { forbidden: true } : null;
   //     }
   //     return null;
   //   };
   // }
 
   static DobStart(control: AbstractControl) {
-    if (regSer) {
+    if (CathPci50Validator.registryFormService) {
       let error: any;
       if (!control.value) {
         error = null;
       } else {
-        error = !utc(control.value).isAfter(utc('1850-01-01')) ? { DobStart: true } : null;
+        error = !moment(control.value).isAfter(moment('1850-01-01')) ? { DobStart: true } : null;
       }
       if (error === null) {
         CathPci50Validator.removeError(control, 'DobStart');
@@ -80,12 +67,12 @@ export class CathPci50Validator {
     );
   }
 
-  static HxMIDateAfterDOB(control: AbstractControl) {
+  static HxMIDateAfterDob(control: AbstractControl) {
     return CathPci50Validator.ADateCompareBDate(
       { section: 'C', control: 'HxMIDate' },
       { section: 'A', control: 'DOB' },
       '>',
-      'HxMIDateAfterDOB'
+      'HxMIDateAfterDob'
     );
   }
 
@@ -98,8 +85,153 @@ export class CathPci50Validator {
     );
   }
 
+  static HxPCIDateAfterDob(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      { section: 'C', control: 'HxPCIDate' },
+      { section: 'A', control: 'DOB' },
+      '>',
+      'HxPCIDateAfterDob'
+    );
+  }
+
+  static HxPCIDateBeforeArrivalDT(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      { section: 'C', control: 'HxPCIDate' },
+      { section: 'B', control: 'ArrivalDateTime' },
+      '<=',
+      'HxPCIDateBeforeArrivalDT'
+    );
+  }
+
+  static HxCABGDateAfterDob(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      { section: 'C', control: 'HxCABGDate' },
+      { section: 'A', control: 'DOB' },
+      '>',
+      'HxCABGDateAfterDob'
+    );
+  }
+
+  static HxCABGDateBeforeArrivalDT(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      { section: 'C', control: 'HxCABGDate' },
+      { section: 'B', control: 'ArrivalDateTime' },
+      '<=',
+      'HxCABGDateBeforeArrivalDT'
+    );
+  }
+
+  static StressTestDateAfterDob(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      { section: 'D', control: 'StressTestDate' },
+      { section: 'A', control: 'DOB' },
+      '>',
+      'StressTestDateAfterDob'
+    );
+  }
+
+  static StressTestDateBeforeProcedureStartDT(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      { section: 'D', control: 'StressTestDate' },
+      { section: 'E', control: 'ProcedureStartDateTime' },
+      '<=',
+      'StressTestDateBeforeProcedureStartDT'
+    );
+  }
+
+  static CardiacCTADateAfterDob(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      { section: 'D', control: 'CardiacCTADate' },
+      { section: 'A', control: 'DOB' },
+      '>',
+      'CardiacCTADateAfterDob'
+    );
+  }
+
+  static CardiacCTADateBeforeProcedureStartDT(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      { section: 'D', control: 'CardiacCTADate' },
+      { section: 'E', control: 'ProcedureStartDateTime' },
+      '<=',
+      'CardiacCTADateBeforeProcedureStartDT'
+    );
+  }
+
+  static CalciumScoreDateAfterDob(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      { section: 'D', control: 'CalciumScoreDate' },
+      { section: 'A', control: 'DOB' },
+      '>',
+      'CalciumScoreDateAfterDob'
+    );
+  }
+
+  static CalciumScoreDateBeforeProcedureStartDT(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      { section: 'D', control: 'CalciumScoreDate' },
+      { section: 'E', control: 'ProcedureStartDateTime' },
+      '<=',
+      'CalciumScoreDateBeforeProcedureStartDT'
+    );
+  }
+
+  static PriorDxAngioDateAfterDob(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      { section: 'D', control: 'PriorDxAngioDate' },
+      { section: 'A', control: 'DOB' },
+      '>',
+      'PriorDxAngioDateAfterDob'
+    );
+  }
+
+  static PriorDxAngioDateBeforeProcedureStartDT(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      { section: 'D', control: 'PriorDxAngioDate' },
+      { section: 'E', control: 'ProcedureStartDateTime' },
+      '<=',
+      'PriorDxAngioDateBeforeProcedureStartDT'
+    );
+  }
+
+  static ProcedureStartDTBeforeProcedureEndDT(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      { section: 'E', control: 'ProcedureStartDateTime' },
+      { section: 'E', control: 'ProcedureEndDateTime' },
+      '<',
+      'ProcedureStartDTBeforeProcedureEndDT'
+    );
+  }
+
+  static ProcedureStartDTBeforeDCDateTime(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      { section: 'E', control: 'ProcedureStartDateTime' },
+      { section: 'L', control: 'DCDateTime' },
+      '<',
+      'ProcedureStartDTBeforeDCDateTime'
+    );
+  }
+
+  static ProcedureEndDTBeforeDCDateTime(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      { section: 'E', control: 'ProcedureEndDateTime' },
+      { section: 'L', control: 'DCDateTime' },
+      '<',
+      'ProcedureEndDTBeforeDCDateTime'
+    );
+  }
+
+  static SymptomDTBefore7ProcedureStartDT(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      { section: 'I', control: 'SymptomDateTime' },
+      { section: 'E', control: 'ProcedureStartDateTime' },
+      '<=7',
+      'SymptomDTBefore7ProcedureStartDT'
+    );
+  }
+
+  // Utility
   static ADateCompareBDate(aDate: DateControl, bDate: DateControl, operator: string, validation: string) {
-    if (regSer) {
+    if (CathPci50Validator.registryFormService) {
       const aDateControl = CathPci50Validator.getControl(aDate);
       const bDateControl = CathPci50Validator.getControl(bDate);
       const aDateValue = aDateControl.value;
@@ -114,19 +246,23 @@ export class CathPci50Validator {
 
         switch (operator) {
           case '<':
-            error = !utc(aDateValue).isBefore(utc(bDateValue)) ? val : null;
+            error = !moment(aDateValue).isBefore(moment(bDateValue)) ? val : null;
             break;
 
           case '<=':
-            error = !utc(aDateValue).isSameOrBefore(utc(bDateValue)) ? val : null;
+            error = !moment(aDateValue).isSameOrBefore(moment(bDateValue)) ? val : null;
             break;
 
           case '>':
-            error = !utc(aDateValue).isAfter(utc(bDateValue)) ? val : null;
+            error = !moment(aDateValue).isAfter(moment(bDateValue)) ? val : null;
             break;
 
           case '>=':
-            error = !utc(aDateValue).isSameOrAfter(utc(bDateValue)) ? val : null;
+            error = !moment(aDateValue).isSameOrAfter(moment(bDateValue)) ? val : null;
+            break;
+
+          case '<=7':
+            error = !(moment(bDateValue).diff(moment(aDateValue), 'days') <= 7) ? val : null;
             break;
 
           default:
@@ -173,33 +309,16 @@ export class CathPci50Validator {
   }
 
   static getControl(dateControl: DateControl): AbstractControl {
-    return regSer.getFormGroup(dateControl.section).controls[dateControl.control];
+    return CathPci50Validator.registryFormService.getFormGroup(dateControl.section).controls[dateControl.control];
   }
 
   static updateFormValueAndValidity(section: string) {
-    regSer.getFormGroup(section).updateValueAndValidity({ onlySelf: false, emitEvent: true });
+    CathPci50Validator.registryFormService
+      .getFormGroup(section)
+      .updateValueAndValidity({ onlySelf: false, emitEvent: true });
   }
 
-  setService(reg: RegistryFormService) {
-    regSer = reg;
+  static setServiceForValidators(reg: RegistryFormService) {
+    CathPci50Validator.registryFormService = reg;
   }
-
-  // /* static */ checkEmail(control: FormControl): any {
-  //   // console.log(this.registryFormService);
-  //   control.get('DOB').setErrors({ forbidden: true });
-
-  //   return { forbidden: true };
-  // }
-
-  // checkEmail2(): ValidatorFn {
-  //   return (control: FormGroup): { [key: string]: any } | null => {
-  //     console.log(control.controls['DOB'].value);
-  //     if (utc(control.controls['DOB'].value).isBefore(utc('1850-01-01'))) {
-  //       control.controls['DOB'].setErrors({ forbidden: true });
-  //     } else {
-  //       control.controls['DOB'].setErrors(null);
-  //     }
-  //     return null;
-  //   };
-  // }
 }

@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { MatSelectChange } from '@angular/material';
 import { Subscription, Observable } from 'rxjs';
-import { utc, Moment, isMoment } from 'moment';
+import * as moment from 'moment';
 
 import { DialogService } from '../../../shared/services/dialog.service';
 import { ScrollSpyService } from '../../../shared/modules/scroll-spy/scroll-spy.service';
@@ -37,7 +37,7 @@ import { Store } from '@ngrx/store';
 import * as fromRoot from '../../../app.reducer';
 import * as UI from '../../../shared/ui.actions';
 import { Staff } from '../../staff/staff.model';
-import { CathPci50Validator, setServiceForValidators } from './cath-pci50.validator';
+import { CathPci50Validator } from './cath-pci50.validator';
 
 const str = {
   nativeLesions: 'NativeLesions',
@@ -94,6 +94,8 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
   K_procedureEvents = cathPci50Data.K_procedureEvents;
   M_followUpEvents = cathPci50Data.M_followUpEvents;
   associatedLesions: string[] = [];
+
+  symptomDTtype = 'date';
 
   // FAB
   open = false;
@@ -223,8 +225,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     private router: Router,
     private cathPci50Service: CathPci50Service,
     private location: Location,
-    private authService: AuthService,
-    private cathPci50Validator: CathPci50Validator
+    private authService: AuthService
   ) {
     super(dialogService, changeDetector, scrollSpy, hostElement, registryFormService);
   }
@@ -294,7 +295,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     this.checkPciTechnique();
 
     // this.cathPci50Validator.setService(this.registryFormService);
-    setServiceForValidators(this.registryFormService);
+    CathPci50Validator.setServiceForValidators(this.registryFormService);
   }
 
   ngOnDestroy() {
@@ -467,7 +468,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
 
   private subscribeDOBChanged(): Subscription {
     return this.formGroupA.get('DOB').valueChanges.subscribe(value => {
-      const dob = utc(value);
+      const dob = moment(value);
       if (!dob.isValid()) {
         this.formGroupA.get('Age').reset();
         return;
@@ -475,6 +476,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
 
       const age = -dob.diff(new Date(), 'years', false);
       this.formGroupA.get('Age').setValue(age);
+      this.formGroupA.get('Age').markAsTouched();
     });
   }
 
@@ -847,8 +849,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
       sectionH: { ...this.formGroupH.value },
       sectionI: {
         ...this.formGroupI.value,
-        SymptomDate: this.serializeDateTime(this.formGroupI.get('SymptomDate').value),
-        SymptomTime: this.serializeDateTime(this.formGroupI.get('SymptomTime').value),
+        SymptomDateTime: this.serializeDateTime(this.formGroupI.get('SymptomDateTime').value),
         ThromDateTime: this.serializeDateTime(this.formGroupI.get('ThromDateTime').value),
         SubECGDateTime: this.serializeDateTime(this.formGroupI.get('SubECGDateTime').value),
         EDPresentDateTime: this.serializeDateTime(this.formGroupI.get('EDPresentDateTime').value),
@@ -946,7 +947,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
   }
 
   private serializeDateTime(dateTime: any): any {
-    return isMoment(dateTime) ? dateTime.toISOString() : dateTime;
+    return moment.isMoment(dateTime) ? dateTime.toISOString() : dateTime;
   }
 
   checkValidation() {
@@ -1534,8 +1535,8 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
   //#region Section M
   getFollowUpsTabLabel(index: number): string {
     const fg = ((this.formGroupM.get(str.followUps) as FormArray).controls[index] as FormGroup).controls;
-    const fuDate = utc(fg.FU_AssessmentDate.value);
-    const procDate = utc(this.formGroupE.get('ProcedureStartDateTime').value);
+    const fuDate = moment(fg.FU_AssessmentDate.value);
+    const procDate = moment(this.formGroupE.get('ProcedureStartDateTime').value);
 
     if (!fuDate.isValid()) {
       return '(Plan F/U) *';
@@ -1551,7 +1552,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     return `${date}<span>(${period})</span>`;
   }
 
-  private getFollowUpPeriod(procDate: Moment, fuDate: Moment): string {
+  private getFollowUpPeriod(procDate: moment.Moment, fuDate: moment.Moment): string {
     let period = '';
     const dateDiff = fuDate.diff(procDate, 'days', false);
 
@@ -1651,8 +1652,8 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     }
 
     formGroups.sort((a, b) => {
-      const dateA = utc(a[str.followUpDate]);
-      const dateB = utc(b[str.followUpDate]);
+      const dateA = moment(a[str.followUpDate]);
+      const dateB = moment(b[str.followUpDate]);
 
       if (!dateA.isValid()) {
         return 1;
@@ -1666,4 +1667,9 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
   }
 
   //#endregion Section M
+
+  SymptomOnsetChanged(event: MatSelectChange) {
+    this.symptomDTtype = event.value === 'Unknown' ? 'date' : 'datetime';
+    const value = moment(this.formGroupI.get('SymptomDateTime').value);
+  }
 }

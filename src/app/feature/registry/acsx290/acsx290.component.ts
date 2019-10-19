@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { Subscription, Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
-import { Moment, utc, isMoment } from 'moment';
+import * as moment from 'moment';
 
 import { RegistryFormComponent } from '../../../shared/modules/registry-form/registry-form.component';
 import { DialogService } from '../../../shared/services/dialog.service';
@@ -442,7 +442,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
       // const age = -dob.diff(new Date(), 'years', false);
       // this.formGroupB.get('Age').setValue(age);
 
-      const dob = utc(value);
+      const dob = moment(value);
       if (!dob.isValid()) {
         this.formGroupB.get('Age').reset();
         return;
@@ -522,8 +522,8 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
   }
 
   private calculateVentHrsTot() {
-    const ORExitDT = utc(this.formGroupI.get('ORExitDT').value);
-    const ExtubateDT = utc(this.formGroupI.get('ExtubateDT').value);
+    const ORExitDT = moment(this.formGroupI.get('ORExitDT').value);
+    const ExtubateDT = moment(this.formGroupI.get('ExtubateDT').value);
     const VentHrsA = this.formGroupO.get('VentHrsA').value;
 
     if ((ORExitDT && ExtubateDT) || VentHrsA) {
@@ -723,8 +723,8 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
     return completion;
   }
 
-  private isMoment(dateTime: any): dateTime is Moment {
-    return dateTime !== null && (dateTime as Moment).toISOString !== undefined;
+  private isMoment(dateTime: any): dateTime is moment.Moment {
+    return dateTime !== null && (dateTime as moment.Moment).toISOString !== undefined;
   }
 
   private serializeDateTime(dateTime: any): any {

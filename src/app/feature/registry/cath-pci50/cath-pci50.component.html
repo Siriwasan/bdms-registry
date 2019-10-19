@@ -1246,14 +1246,11 @@
             ]"></reg-select>
 
           <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
-            <reg-datepicker *ngIf="visibles['SymptomDate']" controlName="SymptomDate" placeholder="Symptom Date" [formGroup]="formGroupI" fxFlex>
-              dd/mm/yyyy</reg-datepicker>
+            <reg-select *ngIf="visibles['SymptomOnset']" controlName="SymptomOnset" placeholder="Symptom Onset" [formGroup]="formGroupI"
+              [choices]="['Exacted', 'Estimated', 'Unknown']" (choiceChange)="SymptomOnsetChanged($event)" fxFlex></reg-select>
 
-            <reg-datepicker *ngIf="visibles['SymptomTime']" controlName="SymptomTime" placeholder="Symptom Time" [formGroup]="formGroupI" type="time" fxFlex>
-              24 hr clock</reg-datepicker>
-
-            <reg-select *ngIf="visibles['SymptomTimeUnk']" controlName="SymptomTimeUnk" placeholder="Symptom Time Unknown" [formGroup]="formGroupI"
-              [choices]="['Estimated', 'Unknown']" fxFlex></reg-select>
+            <reg-datepicker *ngIf="visibles['SymptomDateTime']" controlName="SymptomDateTime" placeholder="{{ symptomDTtype === 'date' ? 'Symptom Date' : 'Symptom Date/Time' }}" [formGroup]="formGroupI" [type]="symptomDTtype" fxFlex>
+              {{ symptomDTtype === 'date' ? 'dd/mm/yyyy' : 'dd/mm/yyyy hh:mm - 24 hr clock' }}</reg-datepicker>
           </div>
 
           <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
@@ -1389,6 +1386,8 @@
         </form>
       </div>
     </section>
+
+    FormGroupI: {{ formGroupI.value | json }}
 
     <section class="section-wrapper" scrollSpyElement id="sectionJ">
       <div class="section-title">
@@ -2414,8 +2413,8 @@
       </div>
     </section>
 
-    FormGroupM: {{ formGroupM.value | json }}
-    Result: {{ result | json }}
+    <!-- FormGroupM: {{ formGroupM.value | json }}
+    Result: {{ result | json }} -->
 
     <br />
     <br />
