@@ -1246,11 +1246,11 @@
             ]"></reg-select>
 
           <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
-            <reg-select *ngIf="visibles['SymptomOnset']" controlName="SymptomOnset" placeholder="Symptom Onset" [formGroup]="formGroupI"
-              [choices]="['Exacted', 'Estimated', 'Unknown']" (choiceChange)="SymptomOnsetChanged($event)" fxFlex></reg-select>
-
             <reg-datepicker *ngIf="visibles['SymptomDateTime']" controlName="SymptomDateTime" placeholder="{{ symptomDTtype === 'date' ? 'Symptom Date' : 'Symptom Date/Time' }}" [formGroup]="formGroupI" [type]="symptomDTtype" fxFlex>
               {{ symptomDTtype === 'date' ? 'dd/mm/yyyy' : 'dd/mm/yyyy hh:mm - 24 hr clock' }}</reg-datepicker>
+
+              <reg-select *ngIf="visibles['SymptomOnset']" controlName="SymptomOnset" placeholder="Symptom Onset" [formGroup]="formGroupI"
+              [choices]="['Exacted', 'Estimated', 'Unknown']" fxFlex></reg-select>
           </div>
 
           <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">

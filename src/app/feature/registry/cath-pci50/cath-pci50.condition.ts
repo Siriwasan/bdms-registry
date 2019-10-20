@@ -195,6 +195,16 @@ export const conditions: FormConditions = {
     { control: 'CVSheetDecision', parentControl: 'PCIDecision', conditions: ['No'] },
     { control: 'MultiVessProcType', parentControl: 'MultiVesselDz', conditions: ['Yes'] },
     {
+      control: 'SymptomDateTime',
+      parentControl: 'PCIIndication',
+      conditions: [
+        'STEMI - Immediate PCI for Acute STEMI',
+        'STEMI - Stable (<= 12 hrs from Sx)',
+        'STEMI - Stable (> 12 hrs from Sx)',
+        'STEMI - Unstable (> 12 hrs from Sx)'
+      ]
+    },
+    {
       control: 'SymptomOnset',
       parentControl: 'PCIIndication',
       conditions: [
@@ -204,7 +214,7 @@ export const conditions: FormConditions = {
         'STEMI - Unstable (> 12 hrs from Sx)'
       ]
     },
-    { control: 'SymptomDateTime', parentControl: 'SymptomOnset', conditions: ['!', null] },
+    // { control: 'SymptomDateTime', parentControl: 'SymptomOnset', conditions: ['!', null] },
     {
       control: 'ThromTherapy',
       parentControl: 'PCIIndication',

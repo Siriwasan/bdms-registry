@@ -95,7 +95,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
   M_followUpEvents = cathPci50Data.M_followUpEvents;
   associatedLesions: string[] = [];
 
-  symptomDTtype = 'date';
+  symptomDTtype = 'datetime';
 
   // FAB
   open = false;
@@ -255,6 +255,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
       this.subscribeCAInHospChanged(),
       this.subscribePCIProcChanged(),
       this.subscribePCIIndicationChanged(),
+      this.subscribeSymptomOnsetChanged(),
       this.subscribeDCStatusChanged(),
       this.subscribeDCLocationChanged(),
       this.subscribeDCHospiceChanged()
@@ -399,8 +400,6 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
       const registryId = this.route.snapshot.paramMap.get('id');
       const data = await this.cathPci50Service.getForm(registryId);
       this.store.dispatch(new UI.StopLoading());
-
-      this.symptomDTtype = data.sectionI['SymptomOnset'] === 'Unknown' ? 'date' : 'datetime';
 
       if (data) {
         this.cathPci50Service.decryptSenitiveData(data);
@@ -586,6 +585,12 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
       }
     }
     // tslint:enable: no-string-literal
+  }
+
+  private subscribeSymptomOnsetChanged(): Subscription {
+    return this.formGroupI.get('SymptomOnset').valueChanges.subscribe(value => {
+      this.symptomDTtype = value === 'Unknown' ? 'date' : 'datetime';
+    });
   }
 
   private subscribeDCStatusChanged(): Subscription {
@@ -1669,9 +1674,4 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
   }
 
   //#endregion Section M
-
-  SymptomOnsetChanged(event: MatSelectChange) {
-    this.symptomDTtype = event.value === 'Unknown' ? 'date' : 'datetime';
-    const value = moment(this.formGroupI.get('SymptomDateTime').value);
-  }
 }
