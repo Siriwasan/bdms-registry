@@ -14,6 +14,7 @@ import { CathPci50Model } from '../registry/cath-pci50/cath-pci50.model';
 import { ACSx290Service } from '../registry/acsx290/acsx290.service';
 import { CathPci50Service } from '../registry/cath-pci50/cath-pci50.service';
 import { MatSnackBar } from '@angular/material';
+import * as moment from 'moment';
 
 const DB_COLLECTION = 'ACSx290';
 const DB_CATHPCI = 'CathPci50';
@@ -300,13 +301,32 @@ export class ToolsService implements OnDestroy {
       o.cars.forEach(i => worksheet4data.push({ uniqueId: index++, id: o.id, brand: i.brand, color: i.color }))
     );
 
+    const worksheet5data = [];
+
+    let now = moment();
+    for (let i = 0; i < 20; i++) {
+      worksheet5data.push({
+        'toISOString()': now.toISOString(),
+        'toISOString(true)': now.toISOString(true),
+        'toString()': now.toString(),
+        'tocaleString()': now.toLocaleString(),
+        'format(YYYY-MM-DDTHH:mm:ssZ)': now.format('YYYY-MM-DDTHH:mm:ssZ'),
+        'format(YYYY-MM-DDTHH:mm:ss)': now.format('YYYY-MM-DDTHH:mm:ss'),
+        'format(YYYY-MM-DD)': now.format('YYYY-MM-DD'),
+        'format(HH:mm:ss)': now.format('HH:mm:ss')
+      });
+      now = now.add(1, 'day');
+    }
+
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(worksheet1data);
     const worksheet2: XLSX.WorkSheet = XLSX.utils.json_to_sheet(worksheet2data);
     const worksheet3: XLSX.WorkSheet = XLSX.utils.json_to_sheet(worksheet3data);
     const worksheet4: XLSX.WorkSheet = XLSX.utils.json_to_sheet(worksheet4data);
+    const worksheet5: XLSX.WorkSheet = XLSX.utils.json_to_sheet(worksheet5data);
+
     const workbook: XLSX.WorkBook = {
-      Sheets: { data: worksheet, cities: worksheet2, movies: worksheet3, cars: worksheet4 },
-      SheetNames: ['data', 'cities', 'movies', 'cars']
+      Sheets: { data: worksheet, cities: worksheet2, movies: worksheet3, cars: worksheet4, date: worksheet5 },
+      SheetNames: ['data', 'cities', 'movies', 'cars', 'date']
     };
     const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
     this.saveAsExcelFile(excelBuffer, excelFileName);
