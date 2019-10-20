@@ -14,7 +14,7 @@ const MY_DATE_FORMATS = {
   parse: {
     datetime: ['DD/MM/YYYY H:mm', 'DD/M/YYYY H:mm', 'D/M/YYYY H:mm'],
     date: ['DD/MM/YYYY', 'DD/M/YYYY', 'D/M/YYYY'],
-    time: 'H:mm'
+    time: ['H:mm']
   },
   display: {
     datetime: 'DD/MM/YYYY H:mm',
@@ -46,7 +46,7 @@ export class CustomDateAdapter extends MomentDateAdapter {
         [placeholder]="placeholder"
         [formControlName]="controlName"
         [required]="require"
-        #artInput
+        #dateInput
       />
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker touchUi="false" [type]="type" [twelveHour]="false"></mat-datepicker>
@@ -75,7 +75,7 @@ export class RegistryDatePickerComponent extends RegistryControlComponent implem
   @Input() placeholder: string;
   @Input() require = true;
   @Input() type = 'date';
-  @ViewChild('artInput', { static: true }) artInput: ElementRef;
+  @ViewChild('dateInput', { static: true }) dateInput: ElementRef;
 
   bInfo: boolean;
   self: AbstractControl;
@@ -99,24 +99,57 @@ export class RegistryDatePickerComponent extends RegistryControlComponent implem
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.type) {
-      if (this.self && moment.isMoment(this.self.value)) {
-        console.log('reg-date-picker type changed');
-        let format: string;
-        switch (changes.type.currentValue) {
-          case 'datetime':
-            format = MY_DATE_FORMATS.display.datetime;
-            break;
+      if (this.self) {
+        let dateControl = moment(this.self.value);
+        if (dateControl.isValid()) {
+          console.log('reg-date-picker type changed ', changes.type.currentValue);
 
-          case 'time':
-            format = MY_DATE_FORMATS.display.time;
-            break;
+          // let dateControl = moment(this.self.value);
+          let format: string;
+          switch (changes.type.currentValue) {
+            case 'datetime':
+              format = MY_DATE_FORMATS.display.datetime;
+              break;
 
-          case 'date':
-          default:
-            format = MY_DATE_FORMATS.display.date;
-            break;
+            case 'time':
+              format = MY_DATE_FORMATS.display.time;
+              break;
+
+            case 'date':
+            default:
+              dateControl = dateControl.startOf('day');
+              format = MY_DATE_FORMATS.display.date;
+              break;
+          }
+          this.self.setValue(dateControl);
+          this.dateInput.nativeElement.value = dateControl.format(format);
+        } else {
+          let parses: string[];
+          const input = (this.dateInput.nativeElement.value as string).trim();
+
+          switch (changes.type.currentValue) {
+            case 'datetime':
+              parses = MY_DATE_FORMATS.parse.datetime;
+              break;
+
+            case 'time':
+              parses = MY_DATE_FORMATS.parse.time;
+              break;
+
+            case 'date':
+            default:
+              parses = MY_DATE_FORMATS.parse.date;
+              break;
+          }
+          for (const parse of parses) {
+            const newDateControl = moment(input, parse, true);
+            if (newDateControl.isValid()) {
+              this.self.setValue(newDateControl);
+              this.dateInput.nativeElement.value = newDateControl.format(parse);
+              break;
+            }
+          }
         }
-        this.artInput.nativeElement.value = (this.self.value as moment.Moment).format(format);
       }
     }
   }

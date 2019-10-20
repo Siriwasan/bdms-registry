@@ -400,6 +400,8 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
       const data = await this.cathPci50Service.getForm(registryId);
       this.store.dispatch(new UI.StopLoading());
 
+      this.symptomDTtype = data.sectionI['SymptomOnset'] === 'Unknown' ? 'date' : 'datetime';
+
       if (data) {
         this.cathPci50Service.decryptSenitiveData(data);
         this.setFormValue(data);
