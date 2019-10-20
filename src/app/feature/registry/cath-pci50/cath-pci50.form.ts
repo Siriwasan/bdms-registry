@@ -48,7 +48,8 @@ export const CathPci50Form = {
         CathPci50Validator.ArrivalDTBeforeProcedureStartDT,
         CathPci50Validator.HxMIDateBeforeArrivalDT,
         CathPci50Validator.HxPCIDateBeforeArrivalDT,
-        CathPci50Validator.HxCABGDateBeforeArrivalDT
+        CathPci50Validator.HxCABGDateBeforeArrivalDT,
+        CathPci50Validator.EDPresentDTBeforeArrivalDT
       ]
     ],
     AdmProvider: [null, Validators.required],
@@ -168,7 +169,12 @@ export const CathPci50Form = {
         CathPci50Validator.PriorDxAngioDateBeforeProcedureStartDT,
         CathPci50Validator.ProcedureStartDTBeforeProcedureEndDT,
         CathPci50Validator.ProcedureStartDTBeforeDCDateTime,
-        CathPci50Validator.SymptomDTBefore7ProcedureStartDT
+        CathPci50Validator.SymptomDTBefore7ProcedureStartDT,
+        CathPci50Validator.SymptomDTBeforeProcedureStartDT,
+        CathPci50Validator.ThromDTBefore7ProcedureStartDT,
+        CathPci50Validator.SubECGDTBefore1ProcedureStartDT,
+        CathPci50Validator.EDPresentDTBeforeProcedureStartDT,
+        CathPci50Validator.FirstDevActiDTAfterProcedureStartDT
       ]
     ],
     ProcedureEndDateTime: [
@@ -285,18 +291,40 @@ export const CathPci50Form = {
     MultiVesselDz: [null, Validators.required],
     MultiVessProcType: [null, Validators.required],
     PCIIndication: [null, Validators.required],
-    SymptomDateTime: [null, [Validators.required, CathPci50Validator.SymptomDTBefore7ProcedureStartDT]],
+    SymptomDateTime: [
+      null,
+      [
+        Validators.required,
+        CathPci50Validator.SymptomDTBefore7ProcedureStartDT,
+        CathPci50Validator.SymptomDTBeforeProcedureStartDT
+      ]
+    ],
     SymptomOnset: [null, Validators.required],
     ThromTherapy: [null, Validators.required],
-    ThromDateTime: [null, Validators.required],
+    ThromDateTime: [null, [Validators.required, CathPci50Validator.ThromDTBefore7ProcedureStartDT]],
     SyntaxScore: [null, Validators.required],
     SyntaxScoreValue: [null, Validators.required],
     StemiFirstNoted: [null, Validators.required],
-    SubECGDateTime: [null, Validators.required],
+    SubECGDateTime: [
+      null,
+      [
+        Validators.required,
+        CathPci50Validator.SubECGDTBefore1ProcedureStartDT,
+        CathPci50Validator.EDPresentDTBeforeSubECGDT
+      ]
+    ],
     SubECGED: [null, Validators.required],
     PatientTransPCI: [null, Validators.required],
-    EDPresentDateTime: [null, Validators.required],
-    FirstDevActiDateTime: [null, Validators.required],
+    EDPresentDateTime: [
+      null,
+      [
+        Validators.required,
+        CathPci50Validator.EDPresentDTBeforeArrivalDT,
+        CathPci50Validator.EDPresentDTBeforeProcedureStartDT,
+        CathPci50Validator.EDPresentDTBeforeSubECGDT
+      ]
+    ],
+    FirstDevActiDateTime: [null, [Validators.required, CathPci50Validator.FirstDevActiDTAfterProcedureStartDT]],
     PtPCIDelayReason: [null, Validators.required],
     PCIDelayReason: [null, Validators.required],
     Argatroban: [null, Validators.required],

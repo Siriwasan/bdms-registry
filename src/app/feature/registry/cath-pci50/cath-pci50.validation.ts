@@ -70,6 +70,10 @@ export const validations: FormValidations = {
       {
         type: 'HxCABGDateBeforeArrivalDT',
         message: 'Most Recent CABG Date should be before or equal to Arrival DateTime.'
+      },
+      {
+        type: 'EDPresentDTBeforeArrivalDT',
+        message: 'ED Presentation at Referring Facility DateTime should be before Arrival DateTime.'
       }
     ]
   },
@@ -223,7 +227,28 @@ export const validations: FormValidations = {
       },
       {
         type: 'SymptomDTBefore7ProcedureStartDT',
-        message: 'Symptom Date should be 1 week before or equal to Procedure Start DateTime.'
+        message: 'Symptom DateTime should be 1 week before or equal to Procedure Start DateTime.'
+      },
+      {
+        type: 'SymptomDTBeforeProcedureStartDT',
+        message: 'Symptom DateTime should be before Procedure Start DateTime.'
+      },
+      {
+        type: 'ThromDTBefore7ProcedureStartDT',
+        message: 'Thrombolytic Therapy DateTime should be 1 week before or equal to Procedure Start DateTime.'
+      },
+      {
+        type: 'SubECGDTBefore1ProcedureStartDT',
+        message:
+          'Subsequent ECG with STEMI or STEMI Equivalent DateTime should be 1 day before or equal to Procedure Start DateTime.'
+      },
+      {
+        type: 'EDPresentDTBeforeProcedureStartDT',
+        message: 'ED Presentation at Referring Facility DateTime should be before Procedure Start DateTime.'
+      },
+      {
+        type: 'FirstDevActiDTAfterProcedureStartDT',
+        message: 'First Device Activation DateTime should be after Procedure Start DateTime.'
       }
     ],
     ProcedureEndDateTime: [
@@ -329,7 +354,50 @@ export const validations: FormValidations = {
     SymptomDateTime: [
       {
         type: 'SymptomDTBefore7ProcedureStartDT',
-        message: 'Symptom Date should be 1 week before or equal to Procedure Start DateTime.'
+        message: 'Symptom DateTime should be 1 week before or equal to Procedure Start DateTime.'
+      },
+      {
+        type: 'SymptomDTBeforeProcedureStartDT',
+        message: 'Symptom DateTime should be before Procedure Start DateTime.'
+      }
+    ],
+    ThromDateTime: [
+      {
+        type: 'ThromDTBefore7ProcedureStartDT',
+        message: 'Thrombolytic Therapy DateTime should be 1 week before or equal to Procedure Start DateTime.'
+      }
+    ],
+    SubECGDateTime: [
+      {
+        type: 'SubECGDTBefore1ProcedureStartDT',
+        message:
+          'Subsequent ECG with STEMI or STEMI Equivalent DateTime should be 1 day before or equal to Procedure Start DateTime.'
+      },
+      {
+        type: 'EDPresentDTBeforeSubECGDT',
+        message:
+          'ED Presentation at Referring Facility DateTime should be before Subsequent ECG with STEMI or STEMI Equivalent DateTime.'
+      }
+    ],
+    EDPresentDateTime: [
+      {
+        type: 'EDPresentDTBeforeArrivalDT',
+        message: 'ED Presentation at Referring Facility DateTime should be before Arrival DateTime.'
+      },
+      {
+        type: 'EDPresentDTBeforeProcedureStartDT',
+        message: 'ED Presentation at Referring Facility DateTime should be before Procedure Start DateTime.'
+      },
+      {
+        type: 'EDPresentDTBeforeSubECGDT',
+        message:
+          'ED Presentation at Referring Facility DateTime should be before Subsequent ECG with STEMI or STEMI Equivalent DateTime.'
+      }
+    ],
+    FirstDevActiDateTime: [
+      {
+        type: 'FirstDevActiDTAfterProcedureStartDT',
+        message: 'First Device Activation DateTime should be after Procedure Start DateTime.'
       }
     ]
   },

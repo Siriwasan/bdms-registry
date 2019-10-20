@@ -229,6 +229,69 @@ export class CathPci50Validator {
     );
   }
 
+  static SymptomDTBeforeProcedureStartDT(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      { section: 'I', control: 'SymptomDateTime' },
+      { section: 'E', control: 'ProcedureStartDateTime' },
+      '<',
+      'SymptomDTBeforeProcedureStartDT'
+    );
+  }
+
+  static ThromDTBefore7ProcedureStartDT(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      { section: 'I', control: 'ThromDateTime' },
+      { section: 'E', control: 'ProcedureStartDateTime' },
+      '<=7',
+      'ThromDTBefore7ProcedureStartDT'
+    );
+  }
+
+  static SubECGDTBefore1ProcedureStartDT(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      { section: 'I', control: 'SubECGDateTime' },
+      { section: 'E', control: 'ProcedureStartDateTime' },
+      '<=1',
+      'SubECGDTBefore1ProcedureStartDT'
+    );
+  }
+
+  static EDPresentDTBeforeArrivalDT(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      { section: 'I', control: 'EDPresentDateTime' },
+      { section: 'B', control: 'ArrivalDateTime' },
+      '<',
+      'EDPresentDTBeforeArrivalDT'
+    );
+  }
+
+  static EDPresentDTBeforeProcedureStartDT(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      { section: 'I', control: 'EDPresentDateTime' },
+      { section: 'E', control: 'ProcedureStartDateTime' },
+      '<',
+      'EDPresentDTBeforeProcedureStartDT'
+    );
+  }
+
+  static EDPresentDTBeforeSubECGDT(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      { section: 'I', control: 'EDPresentDateTime' },
+      { section: 'I', control: 'SubECGDateTime' },
+      '<',
+      'EDPresentDTBeforeSubECGDT'
+    );
+  }
+
+  static FirstDevActiDTAfterProcedureStartDT(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      { section: 'I', control: 'FirstDevActiDateTime' },
+      { section: 'E', control: 'ProcedureStartDateTime' },
+      '>',
+      'FirstDevActiDTAfterProcedureStartDT'
+    );
+  }
+
   // Utility
   static ADateCompareBDate(aDate: DateControl, bDate: DateControl, operator: string, validation: string) {
     if (CathPci50Validator.registryFormService) {
@@ -259,6 +322,10 @@ export class CathPci50Validator {
 
           case '>=':
             error = !moment(aDateValue).isSameOrAfter(moment(bDateValue)) ? val : null;
+            break;
+
+          case '<=1':
+            error = !(moment(bDateValue).diff(moment(aDateValue), 'days') <= 1) ? val : null;
             break;
 
           case '<=7':
