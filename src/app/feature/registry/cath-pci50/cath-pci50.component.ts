@@ -1440,7 +1440,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
 
   checkPciTechnique() {
     const result = this.visibles[str.pciDevices] && (this.visibles[str.pciDevices] as FormVisible[]).length > 0;
-    const pciTechniques = ['StentTechnique', 'ProxOptimize', 'FinalKissBalloon', 'PCIResult'];
+    const pciTechniques = ['ProxOptimize', 'FinalKissBalloon', 'PCIResult'];
 
     if (result) {
       pciTechniques.forEach(t => {

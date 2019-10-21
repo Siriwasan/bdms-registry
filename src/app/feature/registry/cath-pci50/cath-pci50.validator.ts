@@ -1,4 +1,4 @@
-import { AbstractControl, ValidatorFn, FormControl, NG_VALIDATORS, FormGroup } from '@angular/forms';
+import { AbstractControl, ValidatorFn, FormControl, NG_VALIDATORS, FormGroup, FormArray } from '@angular/forms';
 import * as moment from 'moment';
 import { RegistryFormService } from 'src/app/shared/modules/registry-form/registry-form.service';
 import { Injectable } from '@angular/core';
@@ -292,10 +292,36 @@ export class CathPci50Validator {
     );
   }
 
+  static PrevTreatedLesionDateAfterDob(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      { section: 'pciLesion', control: 'PrevTreatedLesionDate' },
+      { section: 'A', control: 'DOB' },
+      '>',
+      'PrevTreatedLesionDateAfterDob',
+      control
+    );
+  }
+
+  static PrevTreatedLesionDateBeforeProcedureStartDT(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      { section: 'pciLesion', control: 'PrevTreatedLesionDate' },
+      { section: 'E', control: 'ProcedureStartDateTime' },
+      '<=',
+      'PrevTreatedLesionDateBeforeProcedureStartDT',
+      control
+    );
+  }
+
   // Utility
-  static ADateCompareBDate(aDate: DateControl, bDate: DateControl, operator: string, validation: string) {
+  static ADateCompareBDate(
+    aDate: DateControl,
+    bDate: DateControl,
+    operator: string,
+    validation: string,
+    self: AbstractControl = null // only use in subform, can't use bi-directional validation
+  ) {
     if (CathPci50Validator.registryFormService) {
-      const aDateControl = CathPci50Validator.getControl(aDate);
+      const aDateControl = self === null ? CathPci50Validator.getControl(aDate) : self;
       const bDateControl = CathPci50Validator.getControl(bDate);
       const aDateValue = aDateControl.value;
       const bDateValue = bDateControl.value;
@@ -345,7 +371,9 @@ export class CathPci50Validator {
         CathPci50Validator.setError(aDateControl, validation);
         CathPci50Validator.setError(bDateControl, validation);
       }
-      CathPci50Validator.updateFormValueAndValidity(aDate.section);
+      if (aDate.section !== 'pciLesion') {
+        CathPci50Validator.updateFormValueAndValidity(aDate.section);
+      }
       CathPci50Validator.updateFormValueAndValidity(bDate.section);
       return error;
     }
@@ -376,7 +404,7 @@ export class CathPci50Validator {
   }
 
   static getControl(dateControl: DateControl): AbstractControl {
-    return CathPci50Validator.registryFormService.getFormGroup(dateControl.section).controls[dateControl.control];
+    return CathPci50Validator.registryFormService.getFormGroup(dateControl.section).get(dateControl.control);
   }
 
   static updateFormValueAndValidity(section: string) {

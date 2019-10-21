@@ -191,6 +191,7 @@ export const CathPci50Form = {
     PCIProvider: [null, Validators.required],
     LeftHeartCath: [null, Validators.required],
     PrePCILVEF: [null, [Validators.required, Validators.min(1), Validators.max(99)]],
+    PrePCILVEDP: [null, [Validators.required, Validators.min(0), Validators.max(100)]],
     ConcomProc: [null, Validators.required],
     ConcomProcType: [null, Validators.required],
     AccessSite: [null, Validators.required],
@@ -346,7 +347,6 @@ export const CathPci50Form = {
     Ticagrelor: [null, Validators.required]
   },
   sectionJ: {
-    StentTechnique: [null, Validators.required],
     ProxOptimize: [null, Validators.required],
     FinalKissBalloon: [null, Validators.required],
     PCIResult: [null, Validators.required]
@@ -359,7 +359,14 @@ export const CathPci50Form = {
     ChronicOcclusion: [null, Validators.required],
     PreProcTIMI: [null, Validators.required],
     PrevTreatedLesion: [null, Validators.required],
-    PrevTreatedLesionDate: [null, Validators.required],
+    PrevTreatedLesionDate: [
+      null,
+      [
+        Validators.required,
+        CathPci50Validator.PrevTreatedLesionDateAfterDob,
+        CathPci50Validator.PrevTreatedLesionDateBeforeProcedureStartDT
+      ]
+    ],
     PreviousStent: [null, Validators.required],
     InRestenosis: [null, Validators.required],
     InThrombosis: [null, Validators.required],
@@ -372,6 +379,9 @@ export const CathPci50Form = {
     LesionLength: [null, [Validators.required, Validators.min(1), Validators.max(100)]],
     SevereCalcification: [null, Validators.required],
     BifurcationLesion: [null, Validators.required],
+    BifurcationClassification: [null, Validators.required],
+    StentTechniqueStrategy: [null, Validators.required],
+    StentTechnique: [null, Validators.required],
     GuidewireLesion: [null, Validators.required],
     GuidewireAcross: [null, Validators.required],
     DeviceDeployed: [null, Validators.required],

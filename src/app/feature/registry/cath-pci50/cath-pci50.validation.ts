@@ -176,6 +176,10 @@ export const validations: FormValidations = {
       { type: 'min', message: 'LVEF must be at least 1%.' },
       { type: 'max', message: 'LVEF cannot be more than 99%.' }
     ],
+    PrePCILVEDP:[
+      { type: 'min', message: 'LVEDP must be at least 1 mmHg.' },
+      { type: 'max', message: 'LVEDP cannot be more than 100 mmHg.' }
+    ],
     ProcSystolicBP: [
       { type: 'min', message: 'SBP must be at least 1 mmHg.' },
       { type: 'max', message: 'SBP cannot be more than 300 mmHg.' }
@@ -414,6 +418,16 @@ export const validations: FormValidations = {
     StenosisPostProc: [
       { type: 'min', message: 'Stenosis must be at least 0%.' },
       { type: 'max', message: 'Stenosis cannot be more than 100%.' }
+    ],
+    PrevTreatedLesionDate: [
+      {
+        type: 'PrevTreatedLesionDateAfterDob',
+        message: 'Previously Treated Lesion Date should be after BirthDate.'
+      },
+      {
+        type: 'PrevTreatedLesionDateBeforeProcedureStartDT',
+        message: 'Previously Treated Lesion Date should be before Procedure Start DateTime.'
+      }
     ]
   },
   pciDevice: {
