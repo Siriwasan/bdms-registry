@@ -47,6 +47,7 @@ export const conditions: FormConditions = {
     { control: 'DCathProvider', parentControl: 'DiagCorAngio', conditions: ['Yes'] },
     { control: 'PCIProvider', parentControl: 'PCIProc', conditions: ['Yes'] },
     { control: 'PrePCILVEF', parentControl: 'LeftHeartCath', conditions: ['Yes'] },
+    { control: 'PrePCILVEDP', parentControl: 'LeftHeartCath', conditions: ['Yes'] },
     { control: 'ConcomProcType', parentControl: 'ConcomProc', conditions: ['Yes'] },
     { control: 'AccessSiteClosure', parentControl: 'AccessSite', conditions: ['!', null] },
     { control: 'CrossoverClosure', parentControl: 'Crossover', conditions: ['!', 'No'] },
@@ -289,15 +290,35 @@ export const conditions: FormConditions = {
     { control: 'StentTechnique', parentControl: 'BifurcationLesion', conditions: ['Yes'] },
     { control: 'GuidewireAcross', parentControl: 'GuidewireLesion', conditions: ['Yes'] },
     { control: 'DeviceDeployed', parentControl: 'GuidewireAcross', conditions: ['!', null] },
+    { control: 'DeviceDeployedStrategy', parentControl: 'DeviceDeployed', conditions: ['Yes'] },
     { control: 'StenosisPostProc', parentControl: 'DeviceDeployed', conditions: ['Yes'] },
     { control: 'PostProcTIMI', parentControl: 'DeviceDeployed', conditions: ['Yes'] },
-    { control: 'ComplicationPCIDetail', parentControl: 'ComplicationPCI', conditions: ['Yes'] }
+    { control: 'ComplicationPCIDetail', parentControl: 'ComplicationPCI', conditions: ['Yes'] },
+    {
+      control: 'AbruptVesselClosure',
+      parentControl: 'ComplicationPCIDetail',
+      conditions: ['@', 'Abrupt Vessel Closure']
+    },
+    {
+      control: 'CoronaryArteryDissection',
+      parentControl: 'ComplicationPCIDetail',
+      conditions: ['@', 'Coronary Artery Dissection']
+    },
+    {
+      control: 'CoronaryArteryPerforation',
+      parentControl: 'ComplicationPCIDetail',
+      conditions: ['@', 'Coronary Artery Perforation']
+    },
+    {
+      control: 'LongitudinalStentDeformation',
+      parentControl: 'ComplicationPCIDetail',
+      conditions: ['@', 'Longitudinal Stent Deformation']
+    },
+    { control: 'BurrEntrapment', parentControl: 'ComplicationPCIDetail', conditions: ['@', 'Burr Entrapment'] },
+    { control: 'DeviceEmbolization', parentControl: 'ComplicationPCIDetail', conditions: ['@', 'Device Embolization'] }
   ],
   pciDevice: [],
   sectionK: [
-    { control: 'K:intraPCI', parentControl: 'E:PCIProc', conditions: ['Yes'] },
-    { control: 'PerfSeg', parentControl: 'E:PCIProc', conditions: ['Yes'] },
-    { control: 'DissectionSeg', parentControl: 'E:PCIProc', conditions: ['Yes'] },
     { control: 'K_BleedingAccessSiteDT', parentControl: 'K_BleedingAccessSite', conditions: ['Yes'] },
     { control: 'K_BleedingGIDT', parentControl: 'K_BleedingGI', conditions: ['Yes'] },
     { control: 'K_BleedingGUDT', parentControl: 'K_BleedingGU', conditions: ['Yes'] },
@@ -333,8 +354,6 @@ export const conditions: FormConditions = {
       conditions: ['@', 'CABG']
     },
     { control: 'CABGDateTime', parentControl: 'HospInterventionType', conditions: ['@', 'CABG'] },
-    { control: 'DCCreatinine', parentControl: 'DCCreatinineDrawn', conditions: ['Yes'] },
-    { control: 'DCHgb', parentControl: 'DCHgbDrawn', conditions: ['Yes'] },
     { control: 'DCLocation', parentControl: 'DCStatus', conditions: ['Alive'] },
     { control: 'CABGTransfer', parentControl: 'DCLocation', conditions: ['Other acute care hospital'] },
     {
@@ -344,7 +363,7 @@ export const conditions: FormConditions = {
     },
     { control: 'DCHospice', parentControl: 'DCStatus', conditions: ['Alive'] },
     { control: 'DC_CardRehab', parentControl: 'DCStatus', conditions: ['Alive'] },
-    { control: 'DC_LOC', parentControl: 'DCStatus', conditions: ['Deceased'] },
+    { control: 'DC_LOC', parentControl: 'DCStatus', conditions: ['Alive'] },
     { control: 'DeathProcedure', parentControl: 'DCStatus', conditions: ['Deceased'] },
     { control: 'DeathCause', parentControl: 'DCStatus', conditions: ['Deceased'] },
     { control: 'DC_ACEIRN', parentControl: 'DC_ACEI', conditions: ['No - Patient Reason'] },

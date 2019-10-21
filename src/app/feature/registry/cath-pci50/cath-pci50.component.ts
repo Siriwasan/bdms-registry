@@ -273,9 +273,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     this.visibles[str.pciDevices] = [];
     this.visibles[str.followUps] = [];
 
-    this.formGroupA.get('registryId').setValue('(new)');
     this.staffs = await this.cathPci50Service.getStaffs();
-    await this.loadById();
 
     this.avHospitals = this.authService
       .getAvailableHospitals(this.user.staff.primaryHospId, this.user.staff.permission)
@@ -297,6 +295,9 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
 
     // this.cathPci50Validator.setService(this.registryFormService);
     CathPci50Validator.setServiceForValidators(this.registryFormService);
+
+    this.formGroupA.get('registryId').setValue('(new)');
+    await this.loadById();
   }
 
   ngOnDestroy() {

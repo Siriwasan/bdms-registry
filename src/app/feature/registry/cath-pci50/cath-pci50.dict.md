@@ -262,3 +262,15 @@ _**Source:** American Diabetes Association Care. 2011;34 Suppl 1:S4-10._
 The left ventricular ejection fraction is the percentage of blood emptied from the left ventricle at the end of contraction.
 
 _**Source:** ACC Clinical Data Standards, Society for Thoracic Surgeons Adult Cardiac Surgery Database (STS)_
+
+# BifurcationClassification
+
+## Bifurcation Classification
+
+### Medina Score
+
+<p align="center">
+  <img src="/assets/figures/bifucation_lesion_classification.jpg" />
+</p>
+
+_**Source:** <https://www.thecardiologyadvisor.com/home/decision-support-in-medicine/cardiology/bifurcation-lesions/>_

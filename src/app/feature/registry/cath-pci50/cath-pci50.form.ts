@@ -265,20 +265,20 @@ export const CathPci50Form = {
     NVSegmentID: [null, Validators.required],
     NVCoroVesselStenosis: [null, [Validators.required, Validators.min(0), Validators.max(100)]],
     NVAdjuncMeasObtained: [null, Validators.required],
-    NV_FFR: [null, [Validators.required, Validators.min(0), Validators.max(1)]],
-    NV_IFR: [null, [Validators.required, Validators.min(0), Validators.max(1)]],
-    NV_IVUS: [null, [Validators.required, Validators.min(0), Validators.max(10)]],
-    NV_OCT: [null, [Validators.required, Validators.min(0), Validators.max(10)]]
+    NV_FFR: [null, [Validators.min(0), Validators.max(1)]],
+    NV_IFR: [null, [Validators.min(0), Validators.max(1)]],
+    NV_IVUS: [null, [Validators.min(0), Validators.max(10)]],
+    NV_OCT: [null, [Validators.min(0), Validators.max(10)]]
   },
   graftLesion: {
     GraftSegmentID: [null, Validators.required],
     GraftCoroVesselStenosis: [null, [Validators.required, Validators.min(0), Validators.max(100)]],
     CABGGraftVessel: [null, Validators.required],
     GraftAdjuncMeasObtained: [null, Validators.required],
-    Graft_FFR: [null, [Validators.required, Validators.min(0), Validators.max(1)]],
-    Graft_IFR: [null, [Validators.required, Validators.min(0), Validators.max(1)]],
-    Graft_IVUS: [null, [Validators.required, Validators.min(0), Validators.max(10)]],
-    Graft_OCT: [null, [Validators.required, Validators.min(0), Validators.max(10)]]
+    Graft_FFR: [null, [Validators.min(0), Validators.max(1)]],
+    Graft_IFR: [null, [Validators.min(0), Validators.max(1)]],
+    Graft_IVUS: [null, [Validators.min(0), Validators.max(10)]],
+    Graft_OCT: [null, [Validators.min(0), Validators.max(10)]]
   },
   sectionI: {
     PCIStatus: [null, Validators.required],
@@ -385,10 +385,18 @@ export const CathPci50Form = {
     GuidewireLesion: [null, Validators.required],
     GuidewireAcross: [null, Validators.required],
     DeviceDeployed: [null, Validators.required],
+    DeviceDeployedStrategy: [null, Validators.required],
     StenosisPostProc: [null, [Validators.required, Validators.min(0), Validators.max(100)]],
     PostProcTIMI: [null, Validators.required],
     ComplicationPCI: [null, Validators.required],
-    ComplicationPCIDetail: [null, Validators.required]
+    ComplicationPCIDetail: [null, Validators.required],
+    AbruptVesselClosure: [null, Validators.required],
+    CoronaryArteryDissection: [null, Validators.required],
+    CoronaryArteryPerforation: [null, Validators.required],
+    LongitudinalStentDeformation: [null, Validators.required],
+    BurrEntrapment: [null, Validators.required],
+    DeviceEmbolization: [null, Validators.required],
+    NumberStentUsed: [null, Validators.required]
   },
   pciDevice: {
     ICDevCounter: [null, Validators.required],
@@ -399,8 +407,6 @@ export const CathPci50Form = {
     DeviceLength: [null, [Validators.required, Validators.min(1), Validators.max(100)]]
   },
   sectionK: {
-    PerfSeg: [null, Validators.required],
-    DissectionSeg: [null, Validators.required],
     K_BleedingAccessSite: [null, Validators.required],
     K_BleedingAccessSiteDT: [null, Validators.required],
     K_BleedingGI: [null, Validators.required],
@@ -446,10 +452,6 @@ export const CathPci50Form = {
     CABGStatus: [null, Validators.required],
     CABGIndication: [null, Validators.required],
     CABGDateTime: [null, Validators.required],
-    DCCreatinineDrawn: [null, Validators.required],
-    DCCreatinine: [null, [Validators.required, Validators.min(0.1), Validators.max(30.0)]],
-    DCHgbDrawn: [null, Validators.required],
-    DCHgb: [null, [Validators.required, Validators.min(1), Validators.max(50)]],
     DCDateTime: [
       null,
       [
@@ -508,9 +510,9 @@ export const CathPci50Form = {
     DC_Evolocumab: [null, Validators.required],
     DC_EvolocumabRN: [null, Validators.required],
     DC_MedReconCompleted: [null, Validators.required],
-    DC_MedReconciled: [null, Validators.required]
-    // L_DeviceCompositeEP: [null, Validators.required],
-    // L_PatientCompositeEP: [null, Validators.required]
+    DC_MedReconciled: [null, Validators.required],
+    L_DeviceCompositeEP: [null, Validators.required],
+    L_PatientCompositeEP: [null, Validators.required]
   },
   sectionM: {},
   followUp: {
@@ -558,6 +560,9 @@ export const CathPci50Form = {
     M_ThrombosisStentDT: [null, Validators.required],
     M_ThrombosisNonStent: [null, Validators.required],
     M_ThrombosisNonStentDT: [null, Validators.required],
+
+    M_DeviceCompositeEP: [null, Validators.required],
+    M_PatientCompositeEP: [null, Validators.required],
 
     FU_ACEI: [null, Validators.required],
     FU_Warfarin: [null, Validators.required],
