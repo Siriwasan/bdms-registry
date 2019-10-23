@@ -581,7 +581,7 @@
 
           <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
             <reg-select controlName="PCIProc" placeholder="Percutaneous Coronary Intervention (PCI)" [formGroup]="formGroupE"
-              [choices]="['Yes', 'No']" fxFlex></reg-select>
+              [choices]="['Yes', 'No']" fxFlex (choiceChange)="PCIProcChanged($event)"></reg-select>
 
             <reg-select-search *ngIf="visibles['PCIProvider']" controlName="PCIProvider" placeholder="PCI Operator" [formGroup]="formGroupE"
               [choices]="intervention" group="true" fxFlex></reg-select-search>
@@ -1171,9 +1171,8 @@
         <span>{{ getTOCTitle('I') }}</span>
         <span>{{ displaySummary('I') }}</span>
       </div>
-      <div class="section-body">
-        <form [formGroup]="formGroupI" #formDirectiveI="ngForm">
-
+      <form [formGroup]="formGroupI" #formDirectiveI="ngForm">
+        <div *ngIf="visibles['sectionIBody']; else sectionI_other_content" id="sectionIBody" class="section-body">
           <reg-select controlName="PCIStatus" placeholder="PCI Status" [formGroup]="formGroupI" [choices]="[
               'Elective',
               'Urgent',
@@ -1386,8 +1385,13 @@
             </div>
           </div>
 
-        </form>
-      </div>
+        </div>
+        <ng-template #sectionI_other_content>
+          <div class="section-body">
+            You need to select PCI procedure in section E.
+          </div>
+        </ng-template>
+      </form>
     </section>
 
     <section class="section-wrapper" scrollSpyElement id="sectionJ">
@@ -1708,8 +1712,6 @@
       <div class="section-body">
         <form [formGroup]="formGroupK" #formDirectiveK="ngForm">
 
-          <h3>Intra and Post-Procedure Events</h3>
-
           <div *ngFor="let event of K_procedureEvents">
 
             <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
@@ -1848,14 +1850,16 @@
           </div>
 
           <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
-            <reg-select *ngIf="visibles['DC_LOC']" controlName="DC_LOC" placeholder="Level of Consciousness" [formGroup]="formGroupL" [choices]="[
+            <reg-select *ngIf="visibles['DC_LOC']" controlName="DC_LOC" placeholder="Highest Level of Consciousness After Cardiac Arrest" [formGroup]="formGroupL" [choices]="[
                 '(A) Alert',
                 '(V) Verbal',
                 '(P) Pain',
                 '(U) Unresponsive',
                 'Unable to Assess'
               ]" fxFlex></reg-select>
+          </div>
 
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
             <reg-select *ngIf="visibles['DeathProcedure']" controlName="DeathProcedure" placeholder="Death During the Procedure" [formGroup]="formGroupL"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
 

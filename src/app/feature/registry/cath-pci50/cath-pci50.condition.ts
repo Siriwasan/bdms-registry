@@ -191,6 +191,7 @@ export const conditions: FormConditions = {
     { control: 'Graft_OCT', parentControl: 'GraftAdjuncMeasObtained', conditions: ['Yes'] }
   ],
   sectionI: [
+    { control: 'I:sectionIBody', parentControl: 'E:PCIProc', conditions: ['Yes'] },
     { control: 'HypothermiaInducedTiming', parentControl: 'HypothermiaInduced', conditions: ['Yes'] },
     { control: 'CVTxDecision', parentControl: 'PCIDecision', conditions: ['Yes'] },
     { control: 'CVSheetDecision', parentControl: 'PCIDecision', conditions: ['No'] },
@@ -363,7 +364,7 @@ export const conditions: FormConditions = {
     },
     { control: 'DCHospice', parentControl: 'DCStatus', conditions: ['Alive'] },
     { control: 'DC_CardRehab', parentControl: 'DCStatus', conditions: ['Alive'] },
-    { control: 'DC_LOC', parentControl: 'DCStatus', conditions: ['Alive'] },
+    // { control: 'DC_LOC', parentControl: 'DCStatus', conditions: ['Alive'] },
     { control: 'DeathProcedure', parentControl: 'DCStatus', conditions: ['Deceased'] },
     { control: 'DeathCause', parentControl: 'DCStatus', conditions: ['Deceased'] },
     { control: 'DC_ACEIRN', parentControl: 'DC_ACEI', conditions: ['No - Patient Reason'] },

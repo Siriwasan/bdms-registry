@@ -491,18 +491,21 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
   private subscribeCAOutHospitalChanged(): Subscription {
     return this.formGroupC.get('CAOutHospital').valueChanges.subscribe(value => {
       this.postCardiacArrestCare();
+      this.dischargeLevelOfConsciousness();
     });
   }
 
   private subscribeCATransferFacChanged(): Subscription {
     return this.formGroupC.get('CATransferFac').valueChanges.subscribe(value => {
       this.postCardiacArrestCare();
+      this.dischargeLevelOfConsciousness();
     });
   }
 
   private subscribeCAInHospChanged(): Subscription {
     return this.formGroupE.get('CAInHosp').valueChanges.subscribe(value => {
       this.postCardiacArrestCare();
+      this.dischargeLevelOfConsciousness();
     });
   }
 
@@ -516,9 +519,10 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     const CAOutHospital = this.formGroupC.get('CAOutHospital').value;
     const CATransferFac = this.formGroupC.get('CATransferFac').value;
     const CAInHosp = this.formGroupE.get('CAInHosp').value;
+    const PCIProc = this.formGroupE.get('PCIProc').value;
 
     // tslint:disable: no-string-literal
-    if (CAOutHospital === 'Yes' || CATransferFac === 'Yes' || CAInHosp === 'Yes') {
+    if ((CAOutHospital === 'Yes' || CATransferFac === 'Yes' || CAInHosp === 'Yes') && PCIProc === 'Yes') {
       this.visibles['HypothermiaInduced'] = true;
       this.visibles['LOCProc'] = true;
     } else {
@@ -526,6 +530,22 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
       this.formGroupI.get('HypothermiaInduced').setValue(null);
       this.visibles['LOCProc'] = false;
       this.formGroupI.get('LOCProc').setValue(null);
+    }
+    // tslint:enable: no-string-literal
+  }
+
+  private dischargeLevelOfConsciousness() {
+    const CAOutHospital = this.formGroupC.get('CAOutHospital').value;
+    const CATransferFac = this.formGroupC.get('CATransferFac').value;
+    const CAInHosp = this.formGroupE.get('CAInHosp').value;
+    const DCStatus = this.formGroupL.get('DCStatus').value;
+
+    // tslint:disable: no-string-literal
+    if ((CAOutHospital === 'Yes' || CATransferFac === 'Yes' || CAInHosp === 'Yes') && DCStatus === 'Deceased') {
+      this.visibles['DC_LOC'] = true;
+    } else {
+      this.visibles['DC_LOC'] = false;
+      this.formGroupL.get('DC_LOC').setValue(null);
     }
     // tslint:enable: no-string-literal
   }
@@ -597,6 +617,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
   private subscribeDCStatusChanged(): Subscription {
     return this.formGroupL.get('DCStatus').valueChanges.subscribe(value => {
       this.dischargeMedications();
+      this.dischargeLevelOfConsciousness();
 
       // if (value === 'Alive') {
       //   this.addFollowUp();
@@ -606,8 +627,18 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     });
   }
 
+  PCIProcChanged(event: MatSelectChange) {
+    this.followUp();
+  }
+
   DCStatusChanged(event: MatSelectChange) {
-    if (event.value === 'Alive') {
+    this.followUp();
+  }
+
+  private followUp() {
+    const PCIProc = this.formGroupE.get('PCIProc').value;
+    const DCStatus = this.formGroupL.get('DCStatus').value;
+    if (DCStatus === 'Alive' && PCIProc === 'Yes') {
       this.addFollowUp();
     } else {
       this.removeAllFollowUps();
@@ -655,10 +686,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
 
     if (
       DCStatus === 'Alive' &&
-      (DCLocation === 'Home' ||
-        DCLocation === 'Extended care/TCU/rehab' ||
-        DCLocation === 'Skilled Nursing facility' ||
-        DCLocation === 'Other') &&
+      ['Home', 'Extended care/TCU/rehab', 'Skilled Nursing facility', 'Other'].includes(DCLocation) &&
       DCHospice === 'No'
     ) {
       // tslint:disable-next-line: no-string-literal

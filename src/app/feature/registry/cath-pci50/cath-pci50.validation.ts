@@ -74,6 +74,14 @@ export const validations: FormValidations = {
       {
         type: 'EDPresentDTBeforeArrivalDT',
         message: 'ED Presentation at Referring Facility DateTime should be before Arrival DateTime.'
+      },
+      {
+        type: 'CABGDateTimeAfterArrivalDT',
+        message: 'CABG DateTime should be after Arrival DateTime.'
+      },
+      {
+        type: 'CABGDateTimeBeforeDCDateTime',
+        message: 'CABG DateTime should be before Discharge DateTime.'
       }
     ]
   },
@@ -176,7 +184,7 @@ export const validations: FormValidations = {
       { type: 'min', message: 'LVEF must be at least 1%.' },
       { type: 'max', message: 'LVEF cannot be more than 99%.' }
     ],
-    PrePCILVEDP:[
+    PrePCILVEDP: [
       { type: 'min', message: 'LVEDP must be at least 1 mmHg.' },
       { type: 'max', message: 'LVEDP cannot be more than 100 mmHg.' }
     ],
@@ -253,6 +261,70 @@ export const validations: FormValidations = {
       {
         type: 'FirstDevActiDTAfterProcedureStartDT',
         message: 'First Device Activation DateTime should be after Procedure Start DateTime.'
+      },
+      {
+        type: 'K_BleedingAccessSiteDTAfterProcedureStartDT',
+        message: 'Bleeding Access Site DateTime should be after Procedure Start DateTime.'
+      },
+      {
+        type: 'K_BleedingGIDTAfterProcedureStartDT',
+        message: 'Bleeding GI DateTime should be after Procedure Start DateTime.'
+      },
+      {
+        type: 'K_BleedingGUDTAfterProcedureStartDT',
+        message: 'Bleeding GU DateTime should be after Procedure Start DateTime.'
+      },
+      {
+        type: 'K_BleedingHematomaDTAfterProcedureStartDT',
+        message: 'Bleeding Hematoma DateTime should be after Procedure Start DateTime.'
+      },
+      {
+        type: 'K_BleedingOtherDTAfterProcedureStartDT',
+        message: 'Bleeding Other DateTime should be after Procedure Start DateTime.'
+      },
+      {
+        type: 'K_BleedingRetroDTAfterProcedureStartDT',
+        message: 'Bleeding Retroperitonal DateTime should be after Procedure Start DateTime.'
+      },
+      {
+        type: 'K_CardiacArrestDTAfterProcedureStartDT',
+        message: 'Cardiac Arrest DateTime should be after Procedure Start DateTime.'
+      },
+      {
+        type: 'K_CardiacTamponadeDTAfterProcedureStartDT',
+        message: 'Cardiac Tamponade DateTime should be after Procedure Start DateTime.'
+      },
+      {
+        type: 'K_CardiogenicShockDTAfterProcedureStartDT',
+        message: 'Cardiogenic Shock DateTime should be after Procedure Start DateTime.'
+      },
+      {
+        type: 'K_HeartFailureDTAfterProcedureStartDT',
+        message: 'Heart Failure DateTime should be after Procedure Start DateTime.'
+      },
+      {
+        type: 'K_MyocardialInfarctionDTAfterProcedureStartDT',
+        message: 'MI DateTime should be after Procedure Start DateTime.'
+      },
+      {
+        type: 'K_NewDialysisDTAfterProcedureStartDT',
+        message: 'New Dialysis DateTime should be after Procedure Start DateTime.'
+      },
+      {
+        type: 'K_OtherVascularDTAfterProcedureStartDT',
+        message: 'Other Vascular Complication DateTime should be after Procedure Start DateTime.'
+      },
+      {
+        type: 'K_StrokeHemorrhageDTAfterProcedureStartDT',
+        message: 'Hemorrhage Stroke Complication DateTime should be after Procedure Start DateTime.'
+      },
+      {
+        type: 'K_StrokeIschemicDTAfterProcedureStartDT',
+        message: 'Ischemic Stroke Complication DateTime should be after Procedure Start DateTime.'
+      },
+      {
+        type: 'K_StrokeUndeterminedDTAfterProcedureStartDT',
+        message: 'Undetermined Stroke Complication DateTime should be after Procedure Start DateTime.'
       }
     ],
     ProcedureEndDateTime: [
@@ -444,6 +516,166 @@ export const validations: FormValidations = {
     PRBCUnits: [
       { type: 'min', message: 'PRBC must be at least 0 unit.' },
       { type: 'max', message: 'PRBC cannot be more than 100 unit.' }
+    ],
+    K_BleedingAccessSiteDT: [
+      {
+        type: 'K_BleedingAccessSiteDTAfterProcedureStartDT',
+        message: 'Bleeding Access Site DateTime should be after Procedure Start DateTime.'
+      },
+      {
+        type: 'K_BleedingAccessSiteDTBeforeDCDateTime',
+        message: 'Bleeding Access Site DateTime should be before Discharge DateTime.'
+      }
+    ],
+    K_BleedingGIDT: [
+      {
+        type: 'K_BleedingGIDTAfterProcedureStartDT',
+        message: 'Bleeding GI DateTime should be after Procedure Start DateTime.'
+      },
+      {
+        type: 'K_BleedingGIDTBeforeDCDateTime',
+        message: 'Bleeding GI DateTime should be before Discharge DateTime.'
+      }
+    ],
+    K_BleedingGUDT: [
+      {
+        type: 'K_BleedingGUDTAfterProcedureStartDT',
+        message: 'Bleeding GU DateTime should be after Procedure Start DateTime.'
+      },
+      {
+        type: 'K_BleedingGUDTBeforeDCDateTime',
+        message: 'Bleeding GU DateTime should be before Discharge DateTime.'
+      }
+    ],
+    K_BleedingHematomaDT: [
+      {
+        type: 'K_BleedingHematomaDTAfterProcedureStartDT',
+        message: 'Bleeding Hematoma DateTime should be after Procedure Start DateTime.'
+      },
+      {
+        type: 'K_BleedingHematomaDTBeforeDCDateTime',
+        message: 'Bleeding Hematoma DateTime should be before Discharge DateTime.'
+      }
+    ],
+    K_BleedingOtherDT: [
+      {
+        type: 'K_BleedingOtherDTAfterProcedureStartDT',
+        message: 'Bleeding Other DateTime should be after Procedure Start DateTime.'
+      },
+      {
+        type: 'K_BleedingOtherDTBeforeDCDateTime',
+        message: 'Bleeding Other DateTime should be before Discharge DateTime.'
+      }
+    ],
+    K_BleedingRetroDT: [
+      {
+        type: 'K_BleedingRetroDTAfterProcedureStartDT',
+        message: 'Bleeding Retroperitonal DateTime should be after Procedure Start DateTime.'
+      },
+      {
+        type: 'K_BleedingRetroDTBeforeDCDateTime',
+        message: 'Bleeding Retroperitonal DateTime should be before Discharge DateTime.'
+      }
+    ],
+    K_CardiacArrestDT: [
+      {
+        type: 'K_CardiacArrestDTAfterProcedureStartDT',
+        message: 'Cardiac Arrest DateTime should be after Procedure Start DateTime.'
+      },
+      {
+        type: 'K_CardiacArrestDTBeforeDCDateTime',
+        message: 'Cardiac Arrest DateTime should be before Discharge DateTime.'
+      }
+    ],
+    K_CardiacTamponadeDT: [
+      {
+        type: 'K_CardiacTamponadeDTAfterProcedureStartDT',
+        message: 'Cardiac Tamponade DateTime should be after Procedure Start DateTime.'
+      },
+      {
+        type: 'K_CardiacTamponadeDTBeforeDCDateTime',
+        message: 'Cardiac Tamponade DateTime should be before Discharge DateTime.'
+      }
+    ],
+    K_CardiogenicShockDT: [
+      {
+        type: 'K_CardiogenicShockDTAfterProcedureStartDT',
+        message: 'Cardiogenic Shock DateTime should be after Procedure Start DateTime.'
+      },
+      {
+        type: 'K_CardiogenicShockDTBeforeDCDateTime',
+        message: 'Cardiogenic Shock DateTime should be before Discharge DateTime.'
+      }
+    ],
+    K_HeartFailureDT: [
+      {
+        type: 'K_HeartFailureDTAfterProcedureStartDT',
+        message: 'Heart Failure DateTime should be after Procedure Start DateTime.'
+      },
+      {
+        type: 'K_HeartFailureDTBeforeDCDateTime',
+        message: 'Heart Failure DateTime should be before Discharge DateTime.'
+      }
+    ],
+    K_MyocardialInfarctionDT: [
+      {
+        type: 'K_MyocardialInfarctionDTAfterProcedureStartDT',
+        message: 'MI DateTime should be after Procedure Start DateTime.'
+      },
+      {
+        type: 'K_MyocardialInfarctionDTBeforeDCDateTime',
+        message: 'MI DateTime should be before Discharge DateTime.'
+      }
+    ],
+    K_NewDialysisDT: [
+      {
+        type: 'K_NewDialysisDTAfterProcedureStartDT',
+        message: 'New Dialysis DateTime should be after Procedure Start DateTime.'
+      },
+      {
+        type: 'K_NewDialysisDTBeforeDCDateTime',
+        message: 'New Dialysis DateTime should be before Discharge DateTime.'
+      }
+    ],
+    K_OtherVascularDT: [
+      {
+        type: 'K_OtherVascularDTAfterProcedureStartDT',
+        message: 'Other Vascular Complication DateTime should be after Procedure Start DateTime.'
+      },
+      {
+        type: 'K_OtherVascularDTBeforeDCDateTime',
+        message: 'Other Vascular Complication DateTime should be before Discharge DateTime.'
+      }
+    ],
+    K_StrokeHemorrhageDT: [
+      {
+        type: 'K_StrokeHemorrhageDTAfterProcedureStartDT',
+        message: 'Hemorrhage Stroke Complication DateTime should be after Procedure Start DateTime.'
+      },
+      {
+        type: 'K_StrokeHemorrhageDTBeforeDCDateTime',
+        message: 'Hemorrhage Stroke Complication DateTime should be before Discharge DateTime.'
+      }
+    ],
+    K_StrokeIschemicDT: [
+      {
+        type: 'K_StrokeIschemicDTAfterProcedureStartDT',
+        message: 'Ischemic Stroke Complication DateTime should be after Procedure Start DateTime.'
+      },
+      {
+        type: 'K_StrokeIschemicDTBeforeDCDateTime',
+        message: 'Ischemic Stroke Complication DateTime should be before Discharge DateTime.'
+      }
+    ],
+    K_StrokeUndeterminedDT: [
+      {
+        type: 'K_StrokeUndeterminedDTAfterProcedureStartDT',
+        message: 'Undetermined Stroke Complication DateTime should be after Procedure Start DateTime.'
+      },
+      {
+        type: 'K_StrokeUndeterminedDTBeforeDCDateTime',
+        message: 'Undetermined Stroke Complication DateTime should be before Discharge DateTime.'
+      }
     ]
   },
   sectionL: {
@@ -464,6 +696,80 @@ export const validations: FormValidations = {
       {
         type: 'ProcedureEndDTBeforeDCDateTime',
         message: 'Procedure End DateTime should be before Discharge DateTime.'
+      },
+      {
+        type: 'K_BleedingAccessSiteDTBeforeDCDateTime',
+        message: 'Bleeding Access Site DateTime should be before Discharge DateTime.'
+      },
+      {
+        type: 'K_BleedingGIDTBeforeDCDateTime',
+        message: 'Bleeding GI DateTime should be before Discharge DateTime.'
+      },
+      {
+        type: 'K_BleedingGUDTBeforeDCDateTime',
+        message: 'Bleeding GU DateTime should be before Discharge DateTime.'
+      },
+      {
+        type: 'K_BleedingHematomaDTBeforeDCDateTime',
+        message: 'Bleeding Hematoma DateTime should be before Discharge DateTime.'
+      },
+      {
+        type: 'K_BleedingOtherDTBeforeDCDateTime',
+        message: 'Bleeding Other DateTime should be before Discharge DateTime.'
+      },
+      {
+        type: 'K_BleedingRetroDTBeforeDCDateTime',
+        message: 'Bleeding Retroperitonal DateTime should be before Discharge DateTime.'
+      },
+      {
+        type: 'K_CardiacArrestDTBeforeDCDateTime',
+        message: 'Cardiac Arrest DateTime should be before Discharge DateTime.'
+      },
+      {
+        type: 'K_CardiacTamponadeDTBeforeDCDateTime',
+        message: 'Cardiac Tamponade DateTime should be before Discharge DateTime.'
+      },
+      {
+        type: 'K_CardiogenicShockDTBeforeDCDateTime',
+        message: 'Cardiogenic Shock DateTime should be before Discharge DateTime.'
+      },
+      {
+        type: 'K_HeartFailureDTBeforeDCDateTime',
+        message: 'Heart Failure DateTime should be before Discharge DateTime.'
+      },
+      {
+        type: 'K_MyocardialInfarctionDTBeforeDCDateTime',
+        message: 'MI DateTime should be before Discharge DateTime.'
+      },
+      {
+        type: 'K_NewDialysisDTBeforeDCDateTime',
+        message: 'New Dialysis DateTime should be before Discharge DateTime.'
+      },
+      {
+        type: 'K_OtherVascularDTBeforeDCDateTime',
+        message: 'Other Vascular Complication DateTime should be before Discharge DateTime.'
+      },
+      {
+        type: 'K_StrokeHemorrhageDTBeforeDCDateTime',
+        message: 'Hemorrhage Stroke Complication DateTime should be before Discharge DateTime.'
+      },
+      {
+        type: 'K_StrokeIschemicDTBeforeDCDateTime',
+        message: 'Ischemic Stroke Complication DateTime should be before Discharge DateTime.'
+      },
+      {
+        type: 'K_StrokeUndeterminedDTBeforeDCDateTime',
+        message: 'Undetermined Stroke Complication DateTime should be before Discharge DateTime.'
+      },
+      {
+        type: 'CABGDateTimeBeforeDCDateTime',
+        message: 'CABG DateTime should be before Discharge DateTime.'
+      }
+    ],
+    CABGDateTime: [
+      {
+        type: 'CABGDateTimeAfterArrivalDT',
+        message: 'CABG DateTime should be after Arrival DateTime.'
       }
     ]
   },

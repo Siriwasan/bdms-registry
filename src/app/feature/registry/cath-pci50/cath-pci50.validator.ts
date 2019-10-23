@@ -312,6 +312,316 @@ export class CathPci50Validator {
     );
   }
 
+  //#region Intra/Post-Procedure Event Date and Time(9003) is greater than Procedure Start Date and Time
+  static K_BleedingAccessSiteDTAfterProcedureStartDT(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      { section: 'K', control: 'K_BleedingAccessSiteDT' },
+      { section: 'E', control: 'ProcedureStartDateTime' },
+      '<',
+      'K_BleedingAccessSiteDTAfterProcedureStartDT',
+    );
+  }
+
+  static K_BleedingGIDTAfterProcedureStartDT(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      { section: 'K', control: 'K_BleedingGIDT' },
+      { section: 'E', control: 'ProcedureStartDateTime' },
+      '<',
+      'K_BleedingGIDTAfterProcedureStartDT',
+    );
+  }
+
+  static K_BleedingGUDTAfterProcedureStartDT(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      { section: 'K', control: 'K_BleedingGUDT' },
+      { section: 'E', control: 'ProcedureStartDateTime' },
+      '<',
+      'K_BleedingGUDTAfterProcedureStartDT',
+    );
+  }
+
+  static K_BleedingHematomaDTAfterProcedureStartDT(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      { section: 'K', control: 'K_BleedingHematomaDT' },
+      { section: 'E', control: 'ProcedureStartDateTime' },
+      '<',
+      'K_BleedingHematomaDTAfterProcedureStartDT',
+    );
+  }
+
+  static K_BleedingOtherDTAfterProcedureStartDT(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      { section: 'K', control: 'K_BleedingOtherDT' },
+      { section: 'E', control: 'ProcedureStartDateTime' },
+      '<',
+      'K_BleedingOtherDTAfterProcedureStartDT',
+    );
+  }
+
+  static K_BleedingRetroDTAfterProcedureStartDT(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      { section: 'K', control: 'K_BleedingRetroDT' },
+      { section: 'E', control: 'ProcedureStartDateTime' },
+      '<',
+      'K_BleedingRetroDTAfterProcedureStartDT',
+    );
+  }
+
+  static K_CardiacArrestDTAfterProcedureStartDT(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      { section: 'K', control: 'K_CardiacArrestDT' },
+      { section: 'E', control: 'ProcedureStartDateTime' },
+      '<',
+      'K_CardiacArrestDTAfterProcedureStartDT',
+    );
+  }
+
+  static K_CardiacTamponadeDTAfterProcedureStartDT(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      { section: 'K', control: 'K_CardiacTamponadeDT' },
+      { section: 'E', control: 'ProcedureStartDateTime' },
+      '<',
+      'K_CardiacTamponadeDTAfterProcedureStartDT',
+    );
+  }
+
+  static K_CardiogenicShockDTAfterProcedureStartDT(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      { section: 'K', control: 'K_CardiogenicShockDT' },
+      { section: 'E', control: 'ProcedureStartDateTime' },
+      '<',
+      'K_CardiogenicShockDTAfterProcedureStartDT',
+    );
+  }
+
+  static K_HeartFailureDTAfterProcedureStartDT(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      { section: 'K', control: 'K_HeartFailureDT' },
+      { section: 'E', control: 'ProcedureStartDateTime' },
+      '<',
+      'K_HeartFailureDTAfterProcedureStartDT',
+    );
+  }
+
+  static K_MyocardialInfarctionDTAfterProcedureStartDT(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      { section: 'K', control: 'K_MyocardialInfarctionDT' },
+      { section: 'E', control: 'ProcedureStartDateTime' },
+      '<',
+      'K_MyocardialInfarctionDTAfterProcedureStartDT',
+    );
+  }
+
+  static K_NewDialysisDTAfterProcedureStartDT(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      { section: 'K', control: 'K_NewDialysisDT' },
+      { section: 'E', control: 'ProcedureStartDateTime' },
+      '<',
+      'K_NewDialysisDTAfterProcedureStartDT',
+    );
+  }
+
+  static K_OtherVascularDTAfterProcedureStartDT(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      { section: 'K', control: 'K_OtherVascularDT' },
+      { section: 'E', control: 'ProcedureStartDateTime' },
+      '<',
+      'K_OtherVascularDTAfterProcedureStartDT',
+    );
+  }
+
+  static K_StrokeHemorrhageDTAfterProcedureStartDT(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      { section: 'K', control: 'K_StrokeHemorrhageDT' },
+      { section: 'E', control: 'ProcedureStartDateTime' },
+      '<',
+      'K_StrokeHemorrhageDTAfterProcedureStartDT',
+    );
+  }
+
+  static K_StrokeIschemicDTAfterProcedureStartDT(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      { section: 'K', control: 'K_StrokeIschemicDT' },
+      { section: 'E', control: 'ProcedureStartDateTime' },
+      '<',
+      'K_StrokeIschemicDTAfterProcedureStartDT',
+    );
+  }
+
+  static K_StrokeUndeterminedDTAfterProcedureStartDT(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      { section: 'K', control: 'K_StrokeUndeterminedDT' },
+      { section: 'E', control: 'ProcedureStartDateTime' },
+      '<',
+      'K_StrokeUndeterminedDTAfterProcedureStartDT',
+    );
+  }
+  //#endregion
+
+  //#region Intra/Post-Procedure Event Date and Time(9003) is less than Discharge Date and Time
+  static K_BleedingAccessSiteDTBeforeDCDateTime(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      { section: 'K', control: 'K_BleedingAccessSiteDT' },
+      { section: 'L', control: 'DCDateTime' },
+      '<',
+      'K_BleedingAccessSiteDTBeforeDCDateTime',
+    );
+  }
+
+  static K_BleedingGIDTBeforeDCDateTime(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      { section: 'K', control: 'K_BleedingGIDT' },
+      { section: 'L', control: 'DCDateTime' },
+      '<',
+      'K_BleedingGIDTBeforeDCDateTime',
+    );
+  }
+
+  static K_BleedingGUDTBeforeDCDateTime(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      { section: 'K', control: 'K_BleedingGUDT' },
+      { section: 'L', control: 'DCDateTime' },
+      '<',
+      'K_BleedingGUDTBeforeDCDateTime',
+    );
+  }
+
+  static K_BleedingHematomaDTBeforeDCDateTime(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      { section: 'K', control: 'K_BleedingHematomaDT' },
+      { section: 'L', control: 'DCDateTime' },
+      '<',
+      'K_BleedingHematomaDTBeforeDCDateTime',
+    );
+  }
+
+  static K_BleedingOtherDTBeforeDCDateTime(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      { section: 'K', control: 'K_BleedingOtherDT' },
+      { section: 'L', control: 'DCDateTime' },
+      '<',
+      'K_BleedingOtherDTBeforeDCDateTime',
+    );
+  }
+
+  static K_BleedingRetroDTBeforeDCDateTime(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      { section: 'K', control: 'K_BleedingRetroDT' },
+      { section: 'L', control: 'DCDateTime' },
+      '<',
+      'K_BleedingRetroDTBeforeDCDateTime',
+    );
+  }
+
+  static K_CardiacArrestDTBeforeDCDateTime(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      { section: 'K', control: 'K_CardiacArrestDT' },
+      { section: 'L', control: 'DCDateTime' },
+      '<',
+      'K_CardiacArrestDTBeforeDCDateTime',
+    );
+  }
+
+  static K_CardiacTamponadeDTBeforeDCDateTime(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      { section: 'K', control: 'K_CardiacTamponadeDT' },
+      { section: 'L', control: 'DCDateTime' },
+      '<',
+      'K_CardiacTamponadeDTBeforeDCDateTime',
+    );
+  }
+
+  static K_CardiogenicShockDTBeforeDCDateTime(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      { section: 'K', control: 'K_CardiogenicShockDT' },
+      { section: 'L', control: 'DCDateTime' },
+      '<',
+      'K_CardiogenicShockDTBeforeDCDateTime',
+    );
+  }
+
+  static K_HeartFailureDTBeforeDCDateTime(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      { section: 'K', control: 'K_HeartFailureDT' },
+      { section: 'L', control: 'DCDateTime' },
+      '<',
+      'K_HeartFailureDTBeforeDCDateTime',
+    );
+  }
+
+  static K_MyocardialInfarctionDTBeforeDCDateTime(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      { section: 'K', control: 'K_MyocardialInfarctionDT' },
+      { section: 'L', control: 'DCDateTime' },
+      '<',
+      'K_MyocardialInfarctionDTBeforeDCDateTime',
+    );
+  }
+
+  static K_NewDialysisDTBeforeDCDateTime(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      { section: 'K', control: 'K_NewDialysisDT' },
+      { section: 'L', control: 'DCDateTime' },
+      '<',
+      'K_NewDialysisDTBeforeDCDateTime',
+    );
+  }
+
+  static K_OtherVascularDTBeforeDCDateTime(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      { section: 'K', control: 'K_OtherVascularDT' },
+      { section: 'L', control: 'DCDateTime' },
+      '<',
+      'K_OtherVascularDTBeforeDCDateTime',
+    );
+  }
+
+  static K_StrokeHemorrhageDTBeforeDCDateTime(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      { section: 'K', control: 'K_StrokeHemorrhageDT' },
+      { section: 'L', control: 'DCDateTime' },
+      '<',
+      'K_StrokeHemorrhageDTBeforeDCDateTime',
+    );
+  }
+
+  static K_StrokeIschemicDTBeforeDCDateTime(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      { section: 'K', control: 'K_StrokeIschemicDT' },
+      { section: 'L', control: 'DCDateTime' },
+      '<',
+      'K_StrokeIschemicDTBeforeDCDateTime',
+    );
+  }
+
+  static K_StrokeUndeterminedDTBeforeDCDateTime(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      { section: 'K', control: 'K_StrokeUndeterminedDT' },
+      { section: 'L', control: 'DCDateTime' },
+      '<',
+      'K_StrokeUndeterminedDTAfterDCDateTime',
+    );
+  }
+  //#endregion
+
+  static CABGDateTimeAfterArrivalDT(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      { section: 'L', control: 'CABGDateTime' },
+      { section: 'B', control: 'ArrivalDateTime' },
+      '>',
+      'CABGDateTimeAfterArrivalDT'
+    );
+  }
+
+  static CABGDateTimeBeforeDCDateTime(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      { section: 'L', control: 'CABGDateTime' },
+      { section: 'L', control: 'DCDateTime' },
+      '<',
+      'CABGDateTimeBeforeDCDateTime'
+    );
+  }
+
   // Utility
   static ADateCompareBDate(
     aDate: DateControl,

@@ -49,7 +49,8 @@ export const CathPci50Form = {
         CathPci50Validator.HxMIDateBeforeArrivalDT,
         CathPci50Validator.HxPCIDateBeforeArrivalDT,
         CathPci50Validator.HxCABGDateBeforeArrivalDT,
-        CathPci50Validator.EDPresentDTBeforeArrivalDT
+        CathPci50Validator.EDPresentDTBeforeArrivalDT,
+        CathPci50Validator.CABGDateTimeAfterArrivalDT
       ]
     ],
     AdmProvider: [null, Validators.required],
@@ -174,7 +175,23 @@ export const CathPci50Form = {
         CathPci50Validator.ThromDTBefore7ProcedureStartDT,
         CathPci50Validator.SubECGDTBefore1ProcedureStartDT,
         CathPci50Validator.EDPresentDTBeforeProcedureStartDT,
-        CathPci50Validator.FirstDevActiDTAfterProcedureStartDT
+        CathPci50Validator.FirstDevActiDTAfterProcedureStartDT,
+        CathPci50Validator.K_BleedingAccessSiteDTAfterProcedureStartDT,
+        CathPci50Validator.K_BleedingGIDTAfterProcedureStartDT,
+        CathPci50Validator.K_BleedingGUDTAfterProcedureStartDT,
+        CathPci50Validator.K_BleedingHematomaDTAfterProcedureStartDT,
+        CathPci50Validator.K_BleedingOtherDTAfterProcedureStartDT,
+        CathPci50Validator.K_BleedingRetroDTAfterProcedureStartDT,
+        CathPci50Validator.K_CardiacArrestDTAfterProcedureStartDT,
+        CathPci50Validator.K_CardiacTamponadeDTAfterProcedureStartDT,
+        CathPci50Validator.K_CardiogenicShockDTAfterProcedureStartDT,
+        CathPci50Validator.K_HeartFailureDTAfterProcedureStartDT,
+        CathPci50Validator.K_MyocardialInfarctionDTAfterProcedureStartDT,
+        CathPci50Validator.K_NewDialysisDTAfterProcedureStartDT,
+        CathPci50Validator.K_OtherVascularDTAfterProcedureStartDT,
+        CathPci50Validator.K_StrokeHemorrhageDTAfterProcedureStartDT,
+        CathPci50Validator.K_StrokeIschemicDTAfterProcedureStartDT,
+        CathPci50Validator.K_StrokeUndeterminedDTAfterProcedureStartDT
       ]
     ],
     ProcedureEndDateTime: [
@@ -408,39 +425,151 @@ export const CathPci50Form = {
   },
   sectionK: {
     K_BleedingAccessSite: [null, Validators.required],
-    K_BleedingAccessSiteDT: [null, Validators.required],
+    K_BleedingAccessSiteDT: [
+      null,
+      [
+        Validators.required,
+        CathPci50Validator.K_BleedingAccessSiteDTAfterProcedureStartDT,
+        CathPci50Validator.K_BleedingAccessSiteDTBeforeDCDateTime
+      ]
+    ],
     K_BleedingGI: [null, Validators.required],
-    K_BleedingGIDT: [null, Validators.required],
+    K_BleedingGIDT: [
+      null,
+      [
+        Validators.required,
+        CathPci50Validator.K_BleedingGIDTAfterProcedureStartDT,
+        CathPci50Validator.K_BleedingGIDTBeforeDCDateTime
+      ]
+    ],
     K_BleedingGU: [null, Validators.required],
-    K_BleedingGUDT: [null, Validators.required],
+    K_BleedingGUDT: [
+      null,
+      [
+        Validators.required,
+        CathPci50Validator.K_BleedingGUDTAfterProcedureStartDT,
+        CathPci50Validator.K_BleedingGUDTBeforeDCDateTime
+      ]
+    ],
     K_BleedingHematoma: [null, Validators.required],
-    K_BleedingHematomaDT: [null, Validators.required],
+    K_BleedingHematomaDT: [
+      null,
+      [
+        Validators.required,
+        CathPci50Validator.K_BleedingHematomaDTAfterProcedureStartDT,
+        CathPci50Validator.K_BleedingHematomaDTBeforeDCDateTime
+      ]
+    ],
     K_BleedingOther: [null, Validators.required],
-    K_BleedingOtherDT: [null, Validators.required],
+    K_BleedingOtherDT: [
+      null,
+      [
+        Validators.required,
+        CathPci50Validator.K_BleedingOtherDTAfterProcedureStartDT,
+        CathPci50Validator.K_BleedingOtherDTBeforeDCDateTime
+      ]
+    ],
     K_BleedingRetro: [null, Validators.required],
-    K_BleedingRetroDT: [null, Validators.required],
+    K_BleedingRetroDT: [
+      null,
+      [
+        Validators.required,
+        CathPci50Validator.K_BleedingRetroDTAfterProcedureStartDT,
+        CathPci50Validator.K_BleedingRetroDTBeforeDCDateTime
+      ]
+    ],
     K_CardiacArrest: [null, Validators.required],
-    K_CardiacArrestDT: [null, Validators.required],
+    K_CardiacArrestDT: [
+      null,
+      [
+        Validators.required,
+        CathPci50Validator.K_CardiacArrestDTAfterProcedureStartDT,
+        CathPci50Validator.K_CardiacArrestDTBeforeDCDateTime
+      ]
+    ],
     K_CardiacTamponade: [null, Validators.required],
-    K_CardiacTamponadeDT: [null, Validators.required],
+    K_CardiacTamponadeDT: [
+      null,
+      [
+        Validators.required,
+        CathPci50Validator.K_CardiacTamponadeDTAfterProcedureStartDT,
+        CathPci50Validator.K_CardiacTamponadeDTBeforeDCDateTime
+      ]
+    ],
     K_CardiogenicShock: [null, Validators.required],
-    K_CardiogenicShockDT: [null, Validators.required],
+    K_CardiogenicShockDT: [
+      null,
+      [
+        Validators.required,
+        CathPci50Validator.K_CardiogenicShockDTAfterProcedureStartDT,
+        CathPci50Validator.K_CardiogenicShockDTBeforeDCDateTime
+      ]
+    ],
     K_HeartFailure: [null, Validators.required],
-    K_HeartFailureDT: [null, Validators.required],
+    K_HeartFailureDT: [
+      null,
+      [
+        Validators.required,
+        CathPci50Validator.K_HeartFailureDTAfterProcedureStartDT,
+        CathPci50Validator.K_HeartFailureDTBeforeDCDateTime
+      ]
+    ],
     K_MyocardialInfarction: [null, Validators.required],
-    K_MyocardialInfarctionDT: [null, Validators.required],
+    K_MyocardialInfarctionDT: [
+      null,
+      [
+        Validators.required,
+        CathPci50Validator.K_MyocardialInfarctionDTAfterProcedureStartDT,
+        CathPci50Validator.K_MyocardialInfarctionDTBeforeDCDateTime
+      ]
+    ],
     K_MyocardialInfarctionCriteria: [null, Validators.required],
     K_MyocardialInfarctionFollowCriteria: [null, Validators.required],
     K_NewDialysis: [null, Validators.required],
-    K_NewDialysisDT: [null, Validators.required],
+    K_NewDialysisDT: [
+      null,
+      [
+        Validators.required,
+        CathPci50Validator.K_NewDialysisDTAfterProcedureStartDT,
+        CathPci50Validator.K_NewDialysisDTBeforeDCDateTime
+      ]
+    ],
     K_OtherVascular: [null, Validators.required],
-    K_OtherVascularDT: [null, Validators.required],
+    K_OtherVascularDT: [
+      null,
+      [
+        Validators.required,
+        CathPci50Validator.K_OtherVascularDTAfterProcedureStartDT,
+        CathPci50Validator.K_OtherVascularDTBeforeDCDateTime
+      ]
+    ],
     K_StrokeHemorrhage: [null, Validators.required],
-    K_StrokeHemorrhageDT: [null, Validators.required],
+    K_StrokeHemorrhageDT: [
+      null,
+      [
+        Validators.required,
+        CathPci50Validator.K_StrokeHemorrhageDTAfterProcedureStartDT,
+        CathPci50Validator.K_StrokeHemorrhageDTBeforeDCDateTime
+      ]
+    ],
     K_StrokeIschemic: [null, Validators.required],
-    K_StrokeIschemicDT: [null, Validators.required],
+    K_StrokeIschemicDT: [
+      null,
+      [
+        Validators.required,
+        CathPci50Validator.K_StrokeIschemicDTAfterProcedureStartDT,
+        CathPci50Validator.K_StrokeIschemicDTBeforeDCDateTime
+      ]
+    ],
     K_StrokeUndetermined: [null, Validators.required],
-    K_StrokeUndeterminedDT: [null, Validators.required],
+    K_StrokeUndeterminedDT: [
+      null,
+      [
+        Validators.required,
+        CathPci50Validator.K_StrokeUndeterminedDTAfterProcedureStartDT,
+        CathPci50Validator.K_StrokeUndeterminedDTBeforeDCDateTime
+      ]
+    ],
     PostTransfusion: [null, Validators.required],
     PRBCUnits: [null, [Validators.required, Validators.min(0), Validators.max(100)]],
     TransfusPostPCI: [null, Validators.required],
@@ -451,14 +580,38 @@ export const CathPci50Form = {
     HospInterventionType: [null, Validators.required],
     CABGStatus: [null, Validators.required],
     CABGIndication: [null, Validators.required],
-    CABGDateTime: [null, Validators.required],
+    CABGDateTime: [
+      null,
+      [
+        Validators.required,
+        CathPci50Validator.CABGDateTimeAfterArrivalDT,
+        CathPci50Validator.CABGDateTimeBeforeDCDateTime
+      ]
+    ],
     DCDateTime: [
       null,
       [
         Validators.required,
         CathPci50Validator.ArrivalDTBeforeDischargeDT,
         CathPci50Validator.ProcedureStartDTBeforeDCDateTime,
-        CathPci50Validator.ProcedureEndDTBeforeDCDateTime
+        CathPci50Validator.ProcedureEndDTBeforeDCDateTime,
+        CathPci50Validator.K_BleedingAccessSiteDTBeforeDCDateTime,
+        CathPci50Validator.K_BleedingGIDTBeforeDCDateTime,
+        CathPci50Validator.K_BleedingGUDTBeforeDCDateTime,
+        CathPci50Validator.K_BleedingHematomaDTBeforeDCDateTime,
+        CathPci50Validator.K_BleedingOtherDTBeforeDCDateTime,
+        CathPci50Validator.K_BleedingRetroDTBeforeDCDateTime,
+        CathPci50Validator.K_CardiacArrestDTBeforeDCDateTime,
+        CathPci50Validator.K_CardiacTamponadeDTBeforeDCDateTime,
+        CathPci50Validator.K_CardiogenicShockDTBeforeDCDateTime,
+        CathPci50Validator.K_HeartFailureDTBeforeDCDateTime,
+        CathPci50Validator.K_MyocardialInfarctionDTBeforeDCDateTime,
+        CathPci50Validator.K_NewDialysisDTBeforeDCDateTime,
+        CathPci50Validator.K_OtherVascularDTBeforeDCDateTime,
+        CathPci50Validator.K_StrokeHemorrhageDTBeforeDCDateTime,
+        CathPci50Validator.K_StrokeIschemicDTBeforeDCDateTime,
+        CathPci50Validator.K_StrokeUndeterminedDTBeforeDCDateTime,
+        CathPci50Validator.CABGDateTimeBeforeDCDateTime
       ]
     ],
     DCProvider: [null, Validators.required],
