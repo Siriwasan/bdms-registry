@@ -765,6 +765,67 @@ export const validations: FormValidations = {
         type: 'CABGDateTimeBeforeDCDateTime',
         message: 'CABG DateTime should be before Discharge DateTime.'
       }
+
+      // {
+      //   type: 'M_BleedingEventDTAfterDCDateTime',
+      //   message: 'Bleeding Event DateTime should be after or eqult to Discharge DateTime.'
+      // },
+      // {
+      //   type: 'M_CABGStentDTAfterDCDateTime',
+      //   message: 'CABG Stent DateTime should be after or eqult to Discharge DateTime.'
+      // },
+      // {
+      //   type: 'M_CABGNonStentDTAfterDCDateTime',
+      //   message: 'CABG Non Stent DateTime should be after or eqult to Discharge DateTime.'
+      // },
+      // {
+      //   type: 'M_NSTEMIDTAfterDCDateTime',
+      //   message: 'NSTEMI DateTime should be after or eqult to Discharge DateTime.'
+      // },
+      // {
+      //   type: 'M_QwaveDTAfterDCDateTime',
+      //   message: 'Q-wave DateTime should be after or eqult to Discharge DateTime.'
+      // },
+      // {
+      //   type: 'M_STEMIDTAfterDCDateTime',
+      //   message: 'STEMI DateTime should be after or eqult to Discharge DateTime.'
+      // },
+      // {
+      //   type: 'M_MIUnknownDTAfterDCDateTime',
+      //   message: 'MI Unknown DateTime should be after or eqult to Discharge DateTime.'
+      // },
+      // {
+      //   type: 'M_PCINonStentDTAfterDCDateTime',
+      //   message: 'PCI Non Stent DateTime should be after or eqult to Discharge DateTime.'
+      // },
+      // {
+      //   type: 'M_PCIStentDTAfterDCDateTime',
+      //   message: 'PCI Stent DateTime should be after or eqult to Discharge DateTime.'
+      // },
+      // {
+      //   type: 'M_ReadmissionDTAfterDCDateTime',
+      //   message: 'Readmission DateTime should be after or eqult to Discharge DateTime.'
+      // },
+      // {
+      //   type: 'M_StrokeHemorrhageDTAfterDCDateTime',
+      //   message: 'Stroke Hemorrhage DateTime should be after or eqult to Discharge DateTime.'
+      // },
+      // {
+      //   type: 'M_StrokeIschemicDTAfterDCDateTime',
+      //   message: 'Stroke Ischemic DateTime should be after or eqult to Discharge DateTime.'
+      // },
+      // {
+      //   type: 'M_StrokeUndeterminedDTAfterDCDateTime',
+      //   message: 'Stroke Undetermined DateTime should be after or eqult to Discharge DateTime.'
+      // },
+      // {
+      //   type: 'M_ThrombosisStentDTAfterDCDateTime',
+      //   message: 'Thrombosis Stent DateTime should be after or eqult to Discharge DateTime.'
+      // },
+      // {
+      //   type: 'M_ThrombosisNonStentDTAfterDCDateTime',
+      //   message: 'Thrombosis Non Stent DateTime should be after or eqult to Discharge DateTime.'
+      // }
     ],
     CABGDateTime: [
       {
@@ -773,5 +834,102 @@ export const validations: FormValidations = {
       }
     ]
   },
-  sectionM: {}
+  sectionM: {
+    FU_DeathDate: [
+      {
+        type: 'FU_DeathDateAfterDCDateTime',
+        message: 'Follow-Up Date of Death should be after or eqult to Discharge DateTime.'
+      }
+    ],
+    M_BleedingEventDT: [
+      {
+        type: 'M_BleedingEventDTAfterDCDateTime',
+        message: 'Bleeding Event DateTime should be after or eqult to Discharge DateTime.'
+      }
+    ],
+    M_CABGStentDT: [
+      {
+        type: 'M_CABGStentDTAfterDCDateTime',
+        message: 'CABG Stent DateTime should be after or eqult to Discharge DateTime.'
+      }
+    ],
+    M_CABGNonStentDT: [
+      {
+        type: 'M_CABGNonStentDTAfterDCDateTime',
+        message: 'CABG Non Stent DateTime should be after or eqult to Discharge DateTime.'
+      }
+    ],
+    M_NSTEMIDT: [
+      {
+        type: 'M_NSTEMIDTAfterDCDateTime',
+        message: 'NSTEMI DateTime should be after or eqult to Discharge DateTime.'
+      }
+    ],
+    M_QwaveDT: [
+      {
+        type: 'M_QwaveDTAfterDCDateTime',
+        message: 'Q-wave DateTime should be after or eqult to Discharge DateTime.'
+      }
+    ],
+    M_STEMIDT: [
+      {
+        type: 'M_STEMIDTAfterDCDateTime',
+        message: 'STEMI DateTime should be after or eqult to Discharge DateTime.'
+      }
+    ],
+    M_MIUnknownDT: [
+      {
+        type: 'M_MIUnknownDTAfterDCDateTime',
+        message: 'MI Unknown DateTime should be after or eqult to Discharge DateTime.'
+      }
+    ],
+    M_PCINonStentDT: [
+      {
+        type: 'M_PCINonStentDTAfterDCDateTime',
+        message: 'PCI Non Stent DateTime should be after or eqult to Discharge DateTime.'
+      }
+    ],
+    M_PCIStentDT: [
+      {
+        type: 'M_PCIStentDTAfterDCDateTime',
+        message: 'PCI Stent DateTime should be after or eqult to Discharge DateTime.'
+      }
+    ],
+    M_ReadmissionDT: [
+      {
+        type: 'M_ReadmissionDTAfterDCDateTime',
+        message: 'Readmission DateTime should be after or eqult to Discharge DateTime.'
+      }
+    ],
+    M_StrokeHemorrhageDT: [
+      {
+        type: 'M_StrokeHemorrhageDTAfterDCDateTime',
+        message: 'Stroke Hemorrhage DateTime should be after or eqult to Discharge DateTime.'
+      }
+    ],
+    M_StrokeIschemicDT: [
+      {
+        type: 'M_StrokeIschemicDTAfterDCDateTime',
+        message: 'Stroke Ischemic DateTime should be after or eqult to Discharge DateTime.'
+      }
+    ],
+    M_StrokeUndeterminedDT: [
+      {
+        type: 'M_StrokeUndeterminedDTAfterDCDateTime',
+        message: 'Stroke Undetermined DateTime should be after or eqult to Discharge DateTime.'
+      }
+    ],
+    M_ThrombosisStentDT: [
+      {
+        type: 'M_ThrombosisStentDTAfterDCDateTime',
+        message: 'Thrombosis Stent DateTime should be after or eqult to Discharge DateTime.'
+      }
+    ],
+    M_ThrombosisNonStentDT: [
+      {
+        type: 'M_ThrombosisNonStentDTAfterDCDateTime',
+        message: 'Thrombosis Non Stent DateTime should be after or eqult to Discharge DateTime.'
+      }
+    ]
+  }
 };

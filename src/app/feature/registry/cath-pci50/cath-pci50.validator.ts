@@ -294,21 +294,19 @@ export class CathPci50Validator {
 
   static PrevTreatedLesionDateAfterDob(control: AbstractControl) {
     return CathPci50Validator.ADateCompareBDate(
-      { section: 'pciLesion', control: 'PrevTreatedLesionDate' },
+      control,
       { section: 'A', control: 'DOB' },
       '>',
-      'PrevTreatedLesionDateAfterDob',
-      control
+      'PrevTreatedLesionDateAfterDob'
     );
   }
 
   static PrevTreatedLesionDateBeforeProcedureStartDT(control: AbstractControl) {
     return CathPci50Validator.ADateCompareBDate(
-      { section: 'pciLesion', control: 'PrevTreatedLesionDate' },
+      control,
       { section: 'E', control: 'ProcedureStartDateTime' },
       '<=',
-      'PrevTreatedLesionDateBeforeProcedureStartDT',
-      control
+      'PrevTreatedLesionDateBeforeProcedureStartDT'
     );
   }
 
@@ -622,16 +620,176 @@ export class CathPci50Validator {
     );
   }
 
+  static FU_DeathDateAfterDCDateTime(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      control,
+      { section: 'L', control: 'DCDateTime' },
+      '>=',
+      'FU_DeathDateAfterDCDateTime'
+    );
+  }
+
+  //#region Intra/Post-Procedure Event Date and Time(9003) is less than Discharge Date and Time
+  static M_BleedingEventDTAfterDCDateTime(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      // { section: 'M', control: 'M_BleedingEventDT' },
+      control,
+      { section: 'L', control: 'DCDateTime' },
+      '>=',
+      'M_BleedingEventDTAfterDCDateTime',
+    );
+  }
+
+  static M_CABGStentDTAfterDCDateTime(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      // { section: 'M', control: 'M_CABGStentDT' },
+      control,
+      { section: 'L', control: 'DCDateTime' },
+      '>=',
+      'M_CABGStentDTAfterDCDateTime',
+    );
+  }
+
+  static M_CABGNonStentDTAfterDCDateTime(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      // { section: 'M', control: 'M_CABGNonStentDT' },
+      control,
+      { section: 'L', control: 'DCDateTime' },
+      '>=',
+      'M_CABGNonStentDTAfterDCDateTime',
+    );
+  }
+
+  static M_NSTEMIDTAfterDCDateTime(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      // { section: 'M', control: 'M_NSTEMIDT' },
+      control,
+      { section: 'L', control: 'DCDateTime' },
+      '>=',
+      'M_NSTEMIDTAfterDCDateTime',
+    );
+  }
+
+  static M_QwaveDTAfterDCDateTime(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      // { section: 'M', control: 'M_QwaveDT' },
+      control,
+      { section: 'L', control: 'DCDateTime' },
+      '>=',
+      'M_QwaveDTAfterDCDateTime',
+    );
+  }
+
+  static M_STEMIDTAfterDCDateTime(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      // { section: 'M', control: 'M_STEMIDT' },
+      control,
+      { section: 'L', control: 'DCDateTime' },
+      '>=',
+      'M_STEMIDTAfterDCDateTime',
+    );
+  }
+
+  static M_MIUnknownDTAfterDCDateTime(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      // { section: 'M', control: 'M_MIUnknownDT' },
+      control,
+      { section: 'L', control: 'DCDateTime' },
+      '>=',
+      'M_MIUnknownDTAfterDCDateTime',
+    );
+  }
+
+  static M_PCINonStentDTAfterDCDateTime(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      // { section: 'M', control: 'M_PCINonStentDT' },
+      control,
+      { section: 'L', control: 'DCDateTime' },
+      '>=',
+      'M_PCINonStentDTAfterDCDateTime',
+    );
+  }
+
+  static M_PCIStentDTAfterDCDateTime(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      // { section: 'M', control: 'M_PCIStentDT' },
+      control,
+      { section: 'L', control: 'DCDateTime' },
+      '>=',
+      'M_PCIStentDTAfterDCDateTime',
+    );
+  }
+
+  static M_ReadmissionDTAfterDCDateTime(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      // { section: 'M', control: 'M_ReadmissionDT' },
+      control,
+      { section: 'L', control: 'DCDateTime' },
+      '>=',
+      'M_ReadmissionDTAfterDCDateTime',
+    );
+  }
+
+  static M_StrokeHemorrhageDTAfterDCDateTime(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      // { section: 'M', control: 'M_StrokeHemorrhageDT' },
+      control,
+      { section: 'L', control: 'DCDateTime' },
+      '>=',
+      'M_StrokeHemorrhageDTAfterDCDateTime',
+    );
+  }
+
+  static M_StrokeIschemicDTAfterDCDateTime(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      // { section: 'M', control: 'M_StrokeIschemicDT' },
+      control,
+      { section: 'L', control: 'DCDateTime' },
+      '>=',
+      'M_StrokeIschemicDTAfterDCDateTime',
+    );
+  }
+
+  static M_StrokeUndeterminedDTAfterDCDateTime(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      // { section: 'M', control: 'M_StrokeUndeterminedDT' },
+      control,
+      { section: 'L', control: 'DCDateTime' },
+      '>=',
+      'M_StrokeUndeterminedDTAfterDCDateTime',
+    );
+  }
+
+  static M_ThrombosisStentDTAfterDCDateTime(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      // { section: 'M', control: 'M_ThrombosisStentDT' },
+      control,
+      { section: 'L', control: 'DCDateTime' },
+      '>=',
+      'M_ThrombosisStentDTAfterDCDateTime',
+    );
+  }
+
+  static M_ThrombosisNonStentDTAfterDCDateTime(control: AbstractControl) {
+    return CathPci50Validator.ADateCompareBDate(
+      // { section: 'M', control: 'M_ThrombosisNonStentDT' },
+      control,
+      { section: 'L', control: 'DCDateTime' },
+      '>=',
+      'M_ThrombosisNonStentDTAfterDCDateTime',
+    );
+  }
+  //#endregion
+
   // Utility
   static ADateCompareBDate(
-    aDate: DateControl,
+    aDate: DateControl | AbstractControl, // only use in subform, can't use bi-directional validation
     bDate: DateControl,
     operator: string,
-    validation: string,
-    self: AbstractControl = null // only use in subform, can't use bi-directional validation
+    validation: string
   ) {
     if (CathPci50Validator.registryFormService) {
-      const aDateControl = self === null ? CathPci50Validator.getControl(aDate) : self;
+      const aDateControl = aDate instanceof AbstractControl ? aDate : CathPci50Validator.getControl(aDate);
       const bDateControl = CathPci50Validator.getControl(bDate);
       const aDateValue = aDateControl.value;
       const bDateValue = bDateControl.value;
@@ -681,7 +839,7 @@ export class CathPci50Validator {
         CathPci50Validator.setError(aDateControl, validation);
         CathPci50Validator.setError(bDateControl, validation);
       }
-      if (aDate.section !== 'pciLesion') {
+      if (!(aDate instanceof AbstractControl)) {
         CathPci50Validator.updateFormValueAndValidity(aDate.section);
       }
       CathPci50Validator.updateFormValueAndValidity(bDate.section);
