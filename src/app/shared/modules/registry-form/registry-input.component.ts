@@ -18,6 +18,7 @@ import { RegistryFormService } from './registry-form.service';
         [formControlName]="controlName"
         [required]="require"
         [readonly]="readonly"
+        name="controlName"
       />
       <input
         *ngIf="type !== 'number'"
@@ -27,6 +28,7 @@ import { RegistryFormService } from './registry-form.service';
         [formControlName]="controlName"
         [required]="require"
         [readonly]="readonly"
+        name="controlName"
       />
       <mat-hint>
         <a><ng-content></ng-content></a>

@@ -30,9 +30,20 @@ const MY_DATE_FORMATS = {
 };
 
 export class CustomDateAdapter extends MomentDateAdapter {
+  private type: string;
+
+  // setType(type: string) {
+  //   this.type = type;
+  // }
+
   getFirstDayOfWeek(): number {
     return 1;
   }
+  // deserialize(value: any): moment.Moment | null {
+  //   console.log(value);
+  //   const result = super.deserialize(value);
+  //   return result ? result.startOf('day').add(7, 'hour') : null;
+  // }
 }
 
 @Component({
@@ -88,6 +99,7 @@ export class RegistryDatePickerComponent extends RegistryControlComponent implem
     super(registryFormService);
 
     dateAdapter.setLocale('th');
+    // (dateAdapter as CustomDateAdapter).setType('date');
   }
 
   ngOnInit() {

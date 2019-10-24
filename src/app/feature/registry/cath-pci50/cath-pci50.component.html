@@ -718,7 +718,7 @@
             <reg-input controlName="FluoroDoseKerm" placeholder="Cumulative Air Kerma (mGy)" [formGroup]="formGroupE" type="number" fxFlex>
             </reg-input>
 
-            <reg-input controlName="FluoroDoseDAP" placeholder="Dose Area Product (dGy/cm2)" [formGroup]="formGroupE" type="number" fxFlex>
+            <reg-input controlName="FluoroDoseDAP" placeholder="Dose Area Product (mGy/cm2)" [formGroup]="formGroupE" type="number" fxFlex>
             </reg-input>
           </div>
 
@@ -1232,19 +1232,24 @@
               ]" fxFlex>(in this lab visit)</reg-select>
           </div>
 
+          <reg-select controlName="StagePCIPlanned" placeholder="Stage PCI Planned" [formGroup]="formGroupI" [choices]="[
+              'Yes',
+              'No'
+            ]"></reg-select>
+
           <reg-select controlName="PCIIndication" placeholder="PCI Indication" [formGroup]="formGroupI" [choices]="[
-            'STEMI - Immediate PCI for Acute STEMI',
-            'STEMI - Stable (<= 12 hrs from Sx)',
-            'STEMI - Stable (> 12 hrs from Sx)',
-            'STEMI - Unstable (> 12 hrs from Sx)',
-            'STEMI (after successful lytics) <= 24 hrs',
-            'STEMI (after successful lytics) > 24 hrs - 7 days',
-            'STEMI - Rescue (After unsuccessful lytics)',
-            'New Onset Angina <= 2 months',
-            'NSTE-ACS',
-            'Stable angina',
-            'CAD (without ischemic Sx)',
-            'Other'
+              'STEMI - Immediate PCI for Acute STEMI',
+              'STEMI - Stable (<= 12 hrs from Sx)',
+              'STEMI - Stable (> 12 hrs from Sx)',
+              'STEMI - Unstable (> 12 hrs from Sx)',
+              'STEMI (after successful lytics) <= 24 hrs',
+              'STEMI (after successful lytics) > 24 hrs - 7 days',
+              'STEMI - Rescue (After unsuccessful lytics)',
+              'New Onset Angina <= 2 months',
+              'NSTE-ACS',
+              'Stable angina',
+              'CAD (without ischemic Sx)',
+              'Other'
             ]"></reg-select>
 
           <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">

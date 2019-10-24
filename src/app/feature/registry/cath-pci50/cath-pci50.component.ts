@@ -512,6 +512,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
   private subscribePCIProcChanged(): Subscription {
     return this.formGroupE.get('PCIProc').valueChanges.subscribe(value => {
       this.postCardiacArrestCare();
+      this.checkCauseOfDeath();
     });
   }
 
@@ -530,6 +531,20 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
       this.formGroupI.get('HypothermiaInduced').setValue(null);
       this.visibles['LOCProc'] = false;
       this.formGroupI.get('LOCProc').setValue(null);
+    }
+    // tslint:enable: no-string-literal
+  }
+
+  private checkCauseOfDeath() {
+    const PCIProc = this.formGroupE.get('PCIProc').value;
+    const DCStatus = this.formGroupL.get('DCStatus').value;
+
+    // tslint:disable: no-string-literal
+    if (PCIProc === 'Yes' && DCStatus === 'Deceased') {
+      this.visibles['DeathCause'] = true;
+    } else {
+      this.visibles['DeathCause'] = false;
+      this.formGroupL.get('DeathCause').setValue(null);
     }
     // tslint:enable: no-string-literal
   }
@@ -618,6 +633,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     return this.formGroupL.get('DCStatus').valueChanges.subscribe(value => {
       this.dischargeMedications();
       this.dischargeLevelOfConsciousness();
+      this.checkCauseOfDeath();
 
       // if (value === 'Alive') {
       //   this.addFollowUp();

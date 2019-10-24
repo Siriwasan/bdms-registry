@@ -308,6 +308,7 @@ export const CathPci50Form = {
     CVSheetDecision: [null, Validators.required],
     MultiVesselDz: [null, Validators.required],
     MultiVessProcType: [null, Validators.required],
+    StagePCIPlanned: [null, Validators.required],
     PCIIndication: [null, Validators.required],
     SymptomDateTime: [
       null,

@@ -366,7 +366,7 @@ export const conditions: FormConditions = {
     { control: 'DC_CardRehab', parentControl: 'DCStatus', conditions: ['Alive'] },
     // { control: 'DC_LOC', parentControl: 'DCStatus', conditions: ['Alive'] },
     { control: 'DeathProcedure', parentControl: 'DCStatus', conditions: ['Deceased'] },
-    { control: 'DeathCause', parentControl: 'DCStatus', conditions: ['Deceased'] },
+    // { control: 'DeathCause', parentControl: 'DCStatus', conditions: ['Deceased'] },
     { control: 'DC_ACEIRN', parentControl: 'DC_ACEI', conditions: ['No - Patient Reason'] },
     { control: 'DC_WarfarinRN', parentControl: 'DC_Warfarin', conditions: ['No - Patient Reason'] },
     { control: 'DC_AspirinRN', parentControl: 'DC_Aspirin', conditions: ['No - Patient Reason'] },
