@@ -2,6 +2,7 @@ import { AbstractControl, ValidatorFn, FormControl, NG_VALIDATORS, FormGroup, Fo
 import * as moment from 'moment';
 import { RegistryFormService } from 'src/app/shared/modules/registry-form/registry-form.service';
 import { Injectable } from '@angular/core';
+import { CathPci50ListComponent } from '../cath-pci50-list/cath-pci50-list.component';
 
 interface DateControl {
   section: string;
@@ -293,21 +294,81 @@ export class CathPci50Validator {
   }
 
   static PrevTreatedLesionDateAfterDob(control: AbstractControl) {
-    return CathPci50Validator.ADateCompareBDate(
+    const result = CathPci50Validator.ADateCompareBDate(
       control,
       { section: 'A', control: 'DOB' },
       '>',
       'PrevTreatedLesionDateAfterDob'
     );
+
+    CathPci50Validator.checkMainDateTimeValidity(
+      'J',
+      'PciLesions',
+      'PrevTreatedLesionDate',
+      'A',
+      'DOB',
+      'PrevTreatedLesionDateAfterDob'
+    );
+
+    return result;
+  }
+
+  static DobBeforePrevTreatedLesionDate(control: AbstractControl) {
+    if (CathPci50Validator.registryFormService) {
+      let allResult = null;
+      const formArray = CathPci50Validator.registryFormService.getFormGroup('J').get('PciLesions') as FormArray;
+      formArray.controls.forEach((formGroup: FormGroup) => {
+        const result = CathPci50Validator.ADateCompareBDate(
+          // tslint:disable-next-line: no-string-literal
+          formGroup.controls['PrevTreatedLesionDate'],
+          { section: 'A', control: 'DOB' },
+          '>',
+          'PrevTreatedLesionDateAfterDob'
+        );
+        allResult = { ...allResult, ...result };
+        formGroup.updateValueAndValidity({ onlySelf: false, emitEvent: true });
+      });
+      return allResult;
+    }
   }
 
   static PrevTreatedLesionDateBeforeProcedureStartDT(control: AbstractControl) {
-    return CathPci50Validator.ADateCompareBDate(
+    const result = CathPci50Validator.ADateCompareBDate(
       control,
       { section: 'E', control: 'ProcedureStartDateTime' },
       '<=',
       'PrevTreatedLesionDateBeforeProcedureStartDT'
     );
+
+    CathPci50Validator.checkMainDateTimeValidity(
+      'J',
+      'PciLesions',
+      'PrevTreatedLesionDate',
+      'E',
+      'ProcedureStartDateTime',
+      'PrevTreatedLesionDateBeforeProcedureStartDT'
+    );
+
+    return result;
+  }
+
+  static ProcedureStartDTBeforePrevTreatedLesionDate(control: AbstractControl) {
+    if (CathPci50Validator.registryFormService) {
+      let allResult = null;
+      const formArray = CathPci50Validator.registryFormService.getFormGroup('J').get('PciLesions') as FormArray;
+      formArray.controls.forEach((formGroup: FormGroup) => {
+        const result = CathPci50Validator.ADateCompareBDate(
+          // tslint:disable-next-line: no-string-literal
+          formGroup.controls['PrevTreatedLesionDate'],
+          { section: 'E', control: 'ProcedureStartDateTime' },
+          '<=',
+          'PrevTreatedLesionDateBeforeProcedureStartDT'
+        );
+        allResult = { ...allResult, ...result };
+        formGroup.updateValueAndValidity({ onlySelf: false, emitEvent: true });
+      });
+      return allResult;
+    }
   }
 
   //#region Intra/Post-Procedure Event Date and Time(9003) is greater than Procedure Start Date and Time
@@ -316,7 +377,7 @@ export class CathPci50Validator {
       { section: 'K', control: 'K_BleedingAccessSiteDT' },
       { section: 'E', control: 'ProcedureStartDateTime' },
       '<',
-      'K_BleedingAccessSiteDTAfterProcedureStartDT',
+      'K_BleedingAccessSiteDTAfterProcedureStartDT'
     );
   }
 
@@ -325,7 +386,7 @@ export class CathPci50Validator {
       { section: 'K', control: 'K_BleedingGIDT' },
       { section: 'E', control: 'ProcedureStartDateTime' },
       '<',
-      'K_BleedingGIDTAfterProcedureStartDT',
+      'K_BleedingGIDTAfterProcedureStartDT'
     );
   }
 
@@ -334,7 +395,7 @@ export class CathPci50Validator {
       { section: 'K', control: 'K_BleedingGUDT' },
       { section: 'E', control: 'ProcedureStartDateTime' },
       '<',
-      'K_BleedingGUDTAfterProcedureStartDT',
+      'K_BleedingGUDTAfterProcedureStartDT'
     );
   }
 
@@ -343,7 +404,7 @@ export class CathPci50Validator {
       { section: 'K', control: 'K_BleedingHematomaDT' },
       { section: 'E', control: 'ProcedureStartDateTime' },
       '<',
-      'K_BleedingHematomaDTAfterProcedureStartDT',
+      'K_BleedingHematomaDTAfterProcedureStartDT'
     );
   }
 
@@ -352,7 +413,7 @@ export class CathPci50Validator {
       { section: 'K', control: 'K_BleedingOtherDT' },
       { section: 'E', control: 'ProcedureStartDateTime' },
       '<',
-      'K_BleedingOtherDTAfterProcedureStartDT',
+      'K_BleedingOtherDTAfterProcedureStartDT'
     );
   }
 
@@ -361,7 +422,7 @@ export class CathPci50Validator {
       { section: 'K', control: 'K_BleedingRetroDT' },
       { section: 'E', control: 'ProcedureStartDateTime' },
       '<',
-      'K_BleedingRetroDTAfterProcedureStartDT',
+      'K_BleedingRetroDTAfterProcedureStartDT'
     );
   }
 
@@ -370,7 +431,7 @@ export class CathPci50Validator {
       { section: 'K', control: 'K_CardiacArrestDT' },
       { section: 'E', control: 'ProcedureStartDateTime' },
       '<',
-      'K_CardiacArrestDTAfterProcedureStartDT',
+      'K_CardiacArrestDTAfterProcedureStartDT'
     );
   }
 
@@ -379,7 +440,7 @@ export class CathPci50Validator {
       { section: 'K', control: 'K_CardiacTamponadeDT' },
       { section: 'E', control: 'ProcedureStartDateTime' },
       '<',
-      'K_CardiacTamponadeDTAfterProcedureStartDT',
+      'K_CardiacTamponadeDTAfterProcedureStartDT'
     );
   }
 
@@ -388,7 +449,7 @@ export class CathPci50Validator {
       { section: 'K', control: 'K_CardiogenicShockDT' },
       { section: 'E', control: 'ProcedureStartDateTime' },
       '<',
-      'K_CardiogenicShockDTAfterProcedureStartDT',
+      'K_CardiogenicShockDTAfterProcedureStartDT'
     );
   }
 
@@ -397,7 +458,7 @@ export class CathPci50Validator {
       { section: 'K', control: 'K_HeartFailureDT' },
       { section: 'E', control: 'ProcedureStartDateTime' },
       '<',
-      'K_HeartFailureDTAfterProcedureStartDT',
+      'K_HeartFailureDTAfterProcedureStartDT'
     );
   }
 
@@ -406,7 +467,7 @@ export class CathPci50Validator {
       { section: 'K', control: 'K_MyocardialInfarctionDT' },
       { section: 'E', control: 'ProcedureStartDateTime' },
       '<',
-      'K_MyocardialInfarctionDTAfterProcedureStartDT',
+      'K_MyocardialInfarctionDTAfterProcedureStartDT'
     );
   }
 
@@ -415,7 +476,7 @@ export class CathPci50Validator {
       { section: 'K', control: 'K_NewDialysisDT' },
       { section: 'E', control: 'ProcedureStartDateTime' },
       '<',
-      'K_NewDialysisDTAfterProcedureStartDT',
+      'K_NewDialysisDTAfterProcedureStartDT'
     );
   }
 
@@ -424,7 +485,7 @@ export class CathPci50Validator {
       { section: 'K', control: 'K_OtherVascularDT' },
       { section: 'E', control: 'ProcedureStartDateTime' },
       '<',
-      'K_OtherVascularDTAfterProcedureStartDT',
+      'K_OtherVascularDTAfterProcedureStartDT'
     );
   }
 
@@ -433,7 +494,7 @@ export class CathPci50Validator {
       { section: 'K', control: 'K_StrokeHemorrhageDT' },
       { section: 'E', control: 'ProcedureStartDateTime' },
       '<',
-      'K_StrokeHemorrhageDTAfterProcedureStartDT',
+      'K_StrokeHemorrhageDTAfterProcedureStartDT'
     );
   }
 
@@ -442,7 +503,7 @@ export class CathPci50Validator {
       { section: 'K', control: 'K_StrokeIschemicDT' },
       { section: 'E', control: 'ProcedureStartDateTime' },
       '<',
-      'K_StrokeIschemicDTAfterProcedureStartDT',
+      'K_StrokeIschemicDTAfterProcedureStartDT'
     );
   }
 
@@ -451,7 +512,7 @@ export class CathPci50Validator {
       { section: 'K', control: 'K_StrokeUndeterminedDT' },
       { section: 'E', control: 'ProcedureStartDateTime' },
       '<',
-      'K_StrokeUndeterminedDTAfterProcedureStartDT',
+      'K_StrokeUndeterminedDTAfterProcedureStartDT'
     );
   }
   //#endregion
@@ -462,7 +523,7 @@ export class CathPci50Validator {
       { section: 'K', control: 'K_BleedingAccessSiteDT' },
       { section: 'L', control: 'DCDateTime' },
       '<',
-      'K_BleedingAccessSiteDTBeforeDCDateTime',
+      'K_BleedingAccessSiteDTBeforeDCDateTime'
     );
   }
 
@@ -471,7 +532,7 @@ export class CathPci50Validator {
       { section: 'K', control: 'K_BleedingGIDT' },
       { section: 'L', control: 'DCDateTime' },
       '<',
-      'K_BleedingGIDTBeforeDCDateTime',
+      'K_BleedingGIDTBeforeDCDateTime'
     );
   }
 
@@ -480,7 +541,7 @@ export class CathPci50Validator {
       { section: 'K', control: 'K_BleedingGUDT' },
       { section: 'L', control: 'DCDateTime' },
       '<',
-      'K_BleedingGUDTBeforeDCDateTime',
+      'K_BleedingGUDTBeforeDCDateTime'
     );
   }
 
@@ -489,7 +550,7 @@ export class CathPci50Validator {
       { section: 'K', control: 'K_BleedingHematomaDT' },
       { section: 'L', control: 'DCDateTime' },
       '<',
-      'K_BleedingHematomaDTBeforeDCDateTime',
+      'K_BleedingHematomaDTBeforeDCDateTime'
     );
   }
 
@@ -498,7 +559,7 @@ export class CathPci50Validator {
       { section: 'K', control: 'K_BleedingOtherDT' },
       { section: 'L', control: 'DCDateTime' },
       '<',
-      'K_BleedingOtherDTBeforeDCDateTime',
+      'K_BleedingOtherDTBeforeDCDateTime'
     );
   }
 
@@ -507,7 +568,7 @@ export class CathPci50Validator {
       { section: 'K', control: 'K_BleedingRetroDT' },
       { section: 'L', control: 'DCDateTime' },
       '<',
-      'K_BleedingRetroDTBeforeDCDateTime',
+      'K_BleedingRetroDTBeforeDCDateTime'
     );
   }
 
@@ -516,7 +577,7 @@ export class CathPci50Validator {
       { section: 'K', control: 'K_CardiacArrestDT' },
       { section: 'L', control: 'DCDateTime' },
       '<',
-      'K_CardiacArrestDTBeforeDCDateTime',
+      'K_CardiacArrestDTBeforeDCDateTime'
     );
   }
 
@@ -525,7 +586,7 @@ export class CathPci50Validator {
       { section: 'K', control: 'K_CardiacTamponadeDT' },
       { section: 'L', control: 'DCDateTime' },
       '<',
-      'K_CardiacTamponadeDTBeforeDCDateTime',
+      'K_CardiacTamponadeDTBeforeDCDateTime'
     );
   }
 
@@ -534,7 +595,7 @@ export class CathPci50Validator {
       { section: 'K', control: 'K_CardiogenicShockDT' },
       { section: 'L', control: 'DCDateTime' },
       '<',
-      'K_CardiogenicShockDTBeforeDCDateTime',
+      'K_CardiogenicShockDTBeforeDCDateTime'
     );
   }
 
@@ -543,7 +604,7 @@ export class CathPci50Validator {
       { section: 'K', control: 'K_HeartFailureDT' },
       { section: 'L', control: 'DCDateTime' },
       '<',
-      'K_HeartFailureDTBeforeDCDateTime',
+      'K_HeartFailureDTBeforeDCDateTime'
     );
   }
 
@@ -552,7 +613,7 @@ export class CathPci50Validator {
       { section: 'K', control: 'K_MyocardialInfarctionDT' },
       { section: 'L', control: 'DCDateTime' },
       '<',
-      'K_MyocardialInfarctionDTBeforeDCDateTime',
+      'K_MyocardialInfarctionDTBeforeDCDateTime'
     );
   }
 
@@ -561,7 +622,7 @@ export class CathPci50Validator {
       { section: 'K', control: 'K_NewDialysisDT' },
       { section: 'L', control: 'DCDateTime' },
       '<',
-      'K_NewDialysisDTBeforeDCDateTime',
+      'K_NewDialysisDTBeforeDCDateTime'
     );
   }
 
@@ -570,7 +631,7 @@ export class CathPci50Validator {
       { section: 'K', control: 'K_OtherVascularDT' },
       { section: 'L', control: 'DCDateTime' },
       '<',
-      'K_OtherVascularDTBeforeDCDateTime',
+      'K_OtherVascularDTBeforeDCDateTime'
     );
   }
 
@@ -579,7 +640,7 @@ export class CathPci50Validator {
       { section: 'K', control: 'K_StrokeHemorrhageDT' },
       { section: 'L', control: 'DCDateTime' },
       '<',
-      'K_StrokeHemorrhageDTBeforeDCDateTime',
+      'K_StrokeHemorrhageDTBeforeDCDateTime'
     );
   }
 
@@ -588,7 +649,7 @@ export class CathPci50Validator {
       { section: 'K', control: 'K_StrokeIschemicDT' },
       { section: 'L', control: 'DCDateTime' },
       '<',
-      'K_StrokeIschemicDTBeforeDCDateTime',
+      'K_StrokeIschemicDTBeforeDCDateTime'
     );
   }
 
@@ -597,7 +658,7 @@ export class CathPci50Validator {
       { section: 'K', control: 'K_StrokeUndeterminedDT' },
       { section: 'L', control: 'DCDateTime' },
       '<',
-      'K_StrokeUndeterminedDTAfterDCDateTime',
+      'K_StrokeUndeterminedDTAfterDCDateTime'
     );
   }
   //#endregion
@@ -621,165 +682,365 @@ export class CathPci50Validator {
   }
 
   static FU_DeathDateAfterDCDateTime(control: AbstractControl) {
-    return CathPci50Validator.ADateCompareBDate(
+    const result = CathPci50Validator.ADateCompareBDate(
       control,
       { section: 'L', control: 'DCDateTime' },
       '>=',
       'FU_DeathDateAfterDCDateTime'
     );
+
+    CathPci50Validator.checkMainDateTimeValidity(
+      'M',
+      'FollowUps',
+      'FU_DeathDate',
+      'L',
+      'DCDateTime',
+      'FU_DeathDateAfterDCDateTime'
+    );
+
+    return result;
   }
 
   //#region Intra/Post-Procedure Event Date and Time(9003) is less than Discharge Date and Time
   static M_BleedingEventDTAfterDCDateTime(control: AbstractControl) {
-    return CathPci50Validator.ADateCompareBDate(
-      // { section: 'M', control: 'M_BleedingEventDT' },
+    const result = CathPci50Validator.ADateCompareBDate(
       control,
       { section: 'L', control: 'DCDateTime' },
       '>=',
-      'M_BleedingEventDTAfterDCDateTime',
+      'M_BleedingEventDTAfterDCDateTime'
     );
+
+    CathPci50Validator.checkMainDateTimeValidity(
+      'M',
+      'FollowUps',
+      'M_BleedingEventDT',
+      'L',
+      'DCDateTime',
+      'M_BleedingEventDTAfterDCDateTime'
+    );
+
+    return result;
   }
 
   static M_CABGStentDTAfterDCDateTime(control: AbstractControl) {
-    return CathPci50Validator.ADateCompareBDate(
-      // { section: 'M', control: 'M_CABGStentDT' },
+    const result = CathPci50Validator.ADateCompareBDate(
       control,
       { section: 'L', control: 'DCDateTime' },
       '>=',
-      'M_CABGStentDTAfterDCDateTime',
+      'M_CABGStentDTAfterDCDateTime'
     );
+
+    CathPci50Validator.checkMainDateTimeValidity(
+      'M',
+      'FollowUps',
+      'M_CABGStentDT',
+      'L',
+      'DCDateTime',
+      'M_CABGStentDTAfterDCDateTime'
+    );
+
+    return result;
   }
 
   static M_CABGNonStentDTAfterDCDateTime(control: AbstractControl) {
-    return CathPci50Validator.ADateCompareBDate(
-      // { section: 'M', control: 'M_CABGNonStentDT' },
+    const result = CathPci50Validator.ADateCompareBDate(
       control,
       { section: 'L', control: 'DCDateTime' },
       '>=',
-      'M_CABGNonStentDTAfterDCDateTime',
+      'M_CABGNonStentDTAfterDCDateTime'
     );
+
+    CathPci50Validator.checkMainDateTimeValidity(
+      'M',
+      'FollowUps',
+      'M_CABGNonStentDT',
+      'L',
+      'DCDateTime',
+      'M_CABGNonStentDTAfterDCDateTime'
+    );
+
+    return result;
   }
 
   static M_NSTEMIDTAfterDCDateTime(control: AbstractControl) {
-    return CathPci50Validator.ADateCompareBDate(
-      // { section: 'M', control: 'M_NSTEMIDT' },
+    const result = CathPci50Validator.ADateCompareBDate(
       control,
       { section: 'L', control: 'DCDateTime' },
       '>=',
-      'M_NSTEMIDTAfterDCDateTime',
+      'M_NSTEMIDTAfterDCDateTime'
     );
+
+    CathPci50Validator.checkMainDateTimeValidity(
+      'M',
+      'FollowUps',
+      'M_NSTEMIDT',
+      'L',
+      'DCDateTime',
+      'M_NSTEMIDTAfterDCDateTime'
+    );
+
+    return result;
   }
 
   static M_QwaveDTAfterDCDateTime(control: AbstractControl) {
-    return CathPci50Validator.ADateCompareBDate(
-      // { section: 'M', control: 'M_QwaveDT' },
+    const result = CathPci50Validator.ADateCompareBDate(
       control,
       { section: 'L', control: 'DCDateTime' },
       '>=',
-      'M_QwaveDTAfterDCDateTime',
+      'M_QwaveDTAfterDCDateTime'
     );
+
+    CathPci50Validator.checkMainDateTimeValidity(
+      'M',
+      'FollowUps',
+      'M_QwaveDT',
+      'L',
+      'DCDateTime',
+      'M_QwaveDTAfterDCDateTime'
+    );
+
+    return result;
   }
 
   static M_STEMIDTAfterDCDateTime(control: AbstractControl) {
-    return CathPci50Validator.ADateCompareBDate(
-      // { section: 'M', control: 'M_STEMIDT' },
+    const result = CathPci50Validator.ADateCompareBDate(
       control,
       { section: 'L', control: 'DCDateTime' },
       '>=',
-      'M_STEMIDTAfterDCDateTime',
+      'M_STEMIDTAfterDCDateTime'
     );
+
+    CathPci50Validator.checkMainDateTimeValidity(
+      'M',
+      'FollowUps',
+      'M_STEMIDT',
+      'L',
+      'DCDateTime',
+      'M_STEMIDTAfterDCDateTime'
+    );
+
+    return result;
   }
 
   static M_MIUnknownDTAfterDCDateTime(control: AbstractControl) {
-    return CathPci50Validator.ADateCompareBDate(
-      // { section: 'M', control: 'M_MIUnknownDT' },
+    const result = CathPci50Validator.ADateCompareBDate(
       control,
       { section: 'L', control: 'DCDateTime' },
       '>=',
-      'M_MIUnknownDTAfterDCDateTime',
+      'M_MIUnknownDTAfterDCDateTime'
     );
+
+    CathPci50Validator.checkMainDateTimeValidity(
+      'M',
+      'FollowUps',
+      'M_MIUnknownDT',
+      'L',
+      'DCDateTime',
+      'M_MIUnknownDTAfterDCDateTime'
+    );
+
+    return result;
   }
 
   static M_PCINonStentDTAfterDCDateTime(control: AbstractControl) {
-    return CathPci50Validator.ADateCompareBDate(
-      // { section: 'M', control: 'M_PCINonStentDT' },
+    const result = CathPci50Validator.ADateCompareBDate(
       control,
       { section: 'L', control: 'DCDateTime' },
       '>=',
-      'M_PCINonStentDTAfterDCDateTime',
+      'M_PCINonStentDTAfterDCDateTime'
     );
+
+    CathPci50Validator.checkMainDateTimeValidity(
+      'M',
+      'FollowUps',
+      'M_PCINonStentDT',
+      'L',
+      'DCDateTime',
+      'M_PCINonStentDTAfterDCDateTime'
+    );
+
+    return result;
   }
 
   static M_PCIStentDTAfterDCDateTime(control: AbstractControl) {
-    return CathPci50Validator.ADateCompareBDate(
-      // { section: 'M', control: 'M_PCIStentDT' },
+    const result = CathPci50Validator.ADateCompareBDate(
       control,
       { section: 'L', control: 'DCDateTime' },
       '>=',
-      'M_PCIStentDTAfterDCDateTime',
+      'M_PCIStentDTAfterDCDateTime'
     );
+
+    CathPci50Validator.checkMainDateTimeValidity(
+      'M',
+      'FollowUps',
+      'M_PCIStentDT',
+      'L',
+      'DCDateTime',
+      'M_PCIStentDTAfterDCDateTime'
+    );
+
+    return result;
   }
 
   static M_ReadmissionDTAfterDCDateTime(control: AbstractControl) {
-    return CathPci50Validator.ADateCompareBDate(
-      // { section: 'M', control: 'M_ReadmissionDT' },
+    const result = CathPci50Validator.ADateCompareBDate(
       control,
       { section: 'L', control: 'DCDateTime' },
       '>=',
-      'M_ReadmissionDTAfterDCDateTime',
+      'M_ReadmissionDTAfterDCDateTime'
     );
+
+    CathPci50Validator.checkMainDateTimeValidity(
+      'M',
+      'FollowUps',
+      'M_ReadmissionDT',
+      'L',
+      'DCDateTime',
+      'M_ReadmissionDTAfterDCDateTime'
+    );
+
+    return result;
   }
 
   static M_StrokeHemorrhageDTAfterDCDateTime(control: AbstractControl) {
-    return CathPci50Validator.ADateCompareBDate(
-      // { section: 'M', control: 'M_StrokeHemorrhageDT' },
+    const result = CathPci50Validator.ADateCompareBDate(
       control,
       { section: 'L', control: 'DCDateTime' },
       '>=',
-      'M_StrokeHemorrhageDTAfterDCDateTime',
+      'M_StrokeHemorrhageDTAfterDCDateTime'
     );
+
+    CathPci50Validator.checkMainDateTimeValidity(
+      'M',
+      'FollowUps',
+      'M_StrokeHemorrhageDT',
+      'L',
+      'DCDateTime',
+      'M_StrokeHemorrhageDTAfterDCDateTime'
+    );
+
+    return result;
   }
 
   static M_StrokeIschemicDTAfterDCDateTime(control: AbstractControl) {
-    return CathPci50Validator.ADateCompareBDate(
-      // { section: 'M', control: 'M_StrokeIschemicDT' },
+    const result = CathPci50Validator.ADateCompareBDate(
       control,
       { section: 'L', control: 'DCDateTime' },
       '>=',
-      'M_StrokeIschemicDTAfterDCDateTime',
+      'M_StrokeIschemicDTAfterDCDateTime'
     );
+
+    CathPci50Validator.checkMainDateTimeValidity(
+      'M',
+      'FollowUps',
+      'M_StrokeIschemicDT',
+      'L',
+      'DCDateTime',
+      'M_StrokeIschemicDTAfterDCDateTime'
+    );
+
+    return result;
   }
 
   static M_StrokeUndeterminedDTAfterDCDateTime(control: AbstractControl) {
-    return CathPci50Validator.ADateCompareBDate(
-      // { section: 'M', control: 'M_StrokeUndeterminedDT' },
+    const result = CathPci50Validator.ADateCompareBDate(
       control,
       { section: 'L', control: 'DCDateTime' },
       '>=',
-      'M_StrokeUndeterminedDTAfterDCDateTime',
+      'M_StrokeUndeterminedDTAfterDCDateTime'
     );
+
+    CathPci50Validator.checkMainDateTimeValidity(
+      'M',
+      'FollowUps',
+      'M_StrokeUndeterminedDT',
+      'L',
+      'DCDateTime',
+      'M_StrokeUndeterminedDTAfterDCDateTime'
+    );
+
+    return result;
   }
 
   static M_ThrombosisStentDTAfterDCDateTime(control: AbstractControl) {
-    return CathPci50Validator.ADateCompareBDate(
-      // { section: 'M', control: 'M_ThrombosisStentDT' },
+    const result = CathPci50Validator.ADateCompareBDate(
       control,
       { section: 'L', control: 'DCDateTime' },
       '>=',
-      'M_ThrombosisStentDTAfterDCDateTime',
+      'M_ThrombosisStentDTAfterDCDateTime'
     );
+
+    CathPci50Validator.checkMainDateTimeValidity(
+      'M',
+      'FollowUps',
+      'M_ThrombosisStentDT',
+      'L',
+      'DCDateTime',
+      'M_ThrombosisStentDTAfterDCDateTime'
+    );
+
+    return result;
   }
 
   static M_ThrombosisNonStentDTAfterDCDateTime(control: AbstractControl) {
-    return CathPci50Validator.ADateCompareBDate(
-      // { section: 'M', control: 'M_ThrombosisNonStentDT' },
+    const result = CathPci50Validator.ADateCompareBDate(
       control,
       { section: 'L', control: 'DCDateTime' },
       '>=',
-      'M_ThrombosisNonStentDTAfterDCDateTime',
+      'M_ThrombosisNonStentDTAfterDCDateTime'
     );
+
+    CathPci50Validator.checkMainDateTimeValidity(
+      'M',
+      'FollowUps',
+      'M_ThrombosisNonStentDT',
+      'L',
+      'DCDateTime',
+      'M_ThrombosisNonStentDTAfterDCDateTime'
+    );
+
+    return result;
   }
   //#endregion
+
+  static DCDateTimeBeforeIntraPostProcedureEventDT(control: AbstractControl) {
+    const fuControls = [
+      { control: 'FU_DeathDate', validation: 'FU_DeathDateAfterDCDateTime' },
+      { control: 'M_BleedingEventDT', validation: 'M_BleedingEventDTAfterDCDateTime' },
+      { control: 'M_CABGStentDT', validation: 'M_CABGStentDTAfterDCDateTime' },
+      { control: 'M_CABGNonStentDT', validation: 'M_CABGNonStentDTAfterDCDateTime' },
+      { control: 'M_NSTEMIDT', validation: 'M_NSTEMIDTAfterDCDateTime' },
+      { control: 'M_QwaveDT', validation: 'M_QwaveDTAfterDCDateTime' },
+      { control: 'M_STEMIDT', validation: 'M_STEMIDTAfterDCDateTime' },
+      { control: 'M_MIUnknownDT', validation: 'M_MIUnknownDTAfterDCDateTime' },
+      { control: 'M_PCINonStentDT', validation: 'M_PCINonStentDTAfterDCDateTime' },
+      { control: 'M_PCIStentDT', validation: 'M_PCIStentDTAfterDCDateTime' },
+      { control: 'M_ReadmissionDT', validation: 'M_ReadmissionDTAfterDCDateTime' },
+      { control: 'M_StrokeHemorrhageDT', validation: 'M_StrokeHemorrhageDTAfterDCDateTime' },
+      { control: 'M_StrokeIschemicDT', validation: 'M_StrokeIschemicDTAfterDCDateTime' },
+      { control: 'M_StrokeUndeterminedDT', validation: 'M_StrokeUndeterminedDTAfterDCDateTime' },
+      { control: 'M_ThrombosisStentDT', validation: 'M_ThrombosisStentDTAfterDCDateTime' },
+      { control: 'M_ThrombosisNonStentDT', validation: 'M_ThrombosisNonStentDTAfterDCDateTime' }
+    ];
+
+    if (CathPci50Validator.registryFormService) {
+      let allResult = null;
+      const formArray = CathPci50Validator.registryFormService.getFormGroup('M').get('FollowUps') as FormArray;
+      formArray.controls.forEach((formGroup: FormGroup) => {
+        fuControls.forEach(c => {
+          const result = CathPci50Validator.ADateCompareBDate(
+            formGroup.controls[c.control],
+            { section: 'L', control: 'DCDateTime' },
+            '>=',
+            c.validation
+          );
+          allResult = { ...allResult, ...result };
+        });
+        formGroup.updateValueAndValidity({ onlySelf: false, emitEvent: true });
+      });
+      return allResult;
+    }
+  }
 
   // Utility
   static ADateCompareBDate(
@@ -844,6 +1105,36 @@ export class CathPci50Validator {
       }
       CathPci50Validator.updateFormValueAndValidity(bDate.section);
       return error;
+    }
+  }
+
+  static checkMainDateTimeValidity(
+    fg: string,
+    subForm: string,
+    subControl: string,
+    mainControlFG: string,
+    mainControl: string,
+    validation: string
+  ) {
+    if (CathPci50Validator.registryFormService) {
+      const formArray = CathPci50Validator.registryFormService.getFormGroup(fg).get(subForm) as FormArray;
+      let invalid = false;
+      formArray.controls.forEach((formGroup: FormGroup) => {
+        const errors = formGroup.controls[subControl].errors;
+        invalid = invalid || (errors && errors[validation]);
+      });
+
+      const ProcedureStartDateTime = CathPci50Validator.registryFormService
+        .getFormGroup(mainControlFG)
+        .get(mainControl);
+      if (invalid) {
+        CathPci50Validator.setError(ProcedureStartDateTime, validation);
+      } else {
+        CathPci50Validator.removeError(ProcedureStartDateTime, validation);
+      }
+      CathPci50Validator.registryFormService
+        .getFormGroup(mainControlFG)
+        .updateValueAndValidity({ onlySelf: false, emitEvent: true });
     }
   }
 

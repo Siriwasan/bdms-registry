@@ -22,7 +22,8 @@ export const CathPci50Form = {
         CathPci50Validator.StressTestDateAfterDob,
         CathPci50Validator.CardiacCTADateAfterDob,
         CathPci50Validator.CalciumScoreDateAfterDob,
-        CathPci50Validator.PriorDxAngioDateAfterDob
+        CathPci50Validator.PriorDxAngioDateAfterDob,
+        CathPci50Validator.DobBeforePrevTreatedLesionDate
       ]
     ],
     Age: [null, [Validators.required, Validators.min(18), Validators.max(120)]],
@@ -176,6 +177,8 @@ export const CathPci50Form = {
         CathPci50Validator.SubECGDTBefore1ProcedureStartDT,
         CathPci50Validator.EDPresentDTBeforeProcedureStartDT,
         CathPci50Validator.FirstDevActiDTAfterProcedureStartDT,
+        CathPci50Validator.PrevTreatedLesionDateBeforeProcedureStartDT,
+        CathPci50Validator.ProcedureStartDTBeforePrevTreatedLesionDate,
         CathPci50Validator.K_BleedingAccessSiteDTAfterProcedureStartDT,
         CathPci50Validator.K_BleedingGIDTAfterProcedureStartDT,
         CathPci50Validator.K_BleedingGUDTAfterProcedureStartDT,
@@ -614,6 +617,7 @@ export const CathPci50Form = {
         CathPci50Validator.K_StrokeUndeterminedDTBeforeDCDateTime,
         CathPci50Validator.CABGDateTimeBeforeDCDateTime,
 
+        CathPci50Validator.DCDateTimeBeforeIntraPostProcedureEventDT
         // CathPci50Validator.M_BleedingEventDTAfterDCDateTime,
         // CathPci50Validator.M_CABGStentDTAfterDCDateTime,
         // CathPci50Validator.M_CABGNonStentDTAfterDCDateTime,
