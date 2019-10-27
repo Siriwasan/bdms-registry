@@ -1,6 +1,10 @@
 # 1.3.0 (2019-10-XX)
 
+### Features
+
 - **Registry form:** implement group in dropdown
+- **CathPci50:** add DateTime validation
+- **UI:** improve form layout
 
 # 1.2.0 (2019-10-03)
 

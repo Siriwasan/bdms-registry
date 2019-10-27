@@ -1,5 +1,5 @@
 <div class="content" fxLayout="row" fxLayoutGap="20px">
-  <div class="sidebar-right" fxFlexOrder="1" fxFlex="250px" fxHide.lt-lg>
+  <div class="sidebar-right" fxFlexOrder="1" fxFlex="250px" fxHide.lt-md>
     <div class="table-of-contents" [style.max-height.px]="tocMaxHeight" fxHide.lt-md>
       <ul>
         <li id="titleTOC" (click)="scrollTo('title')" [class.active]="isActive('title')" class="menu-title">
@@ -24,53 +24,57 @@
     </div>
   </div>
 
-  <div scrollSpyElement id="title" fxFlexOrder="0" fxFlex>
+  <div class="registry-content" scrollSpyElement id="title" fxFlexOrder="0" fxFlex>
 
-    <fab-speed-dial class="speed-dial-container"
-      [(open)]="open"
-      direction="up"
-      animationMode="fling">
-      <fab-speed-dial-trigger spin="true">
-        <button mat-fab>
-          <mat-icon class="fab-spin90">more_horiz</mat-icon>
-        </button>
-      </fab-speed-dial-trigger>
+    <div class="speed-dial-container">
+      <fab-speed-dial
+        [(open)]="open"
+        direction="up"
+        animationMode="fling">
+        <fab-speed-dial-trigger spin="true">
+          <button mat-fab>
+            <mat-icon class="fab-spin90">more_horiz</mat-icon>
+          </button>
+        </fab-speed-dial-trigger>
 
-      <fab-speed-dial-actions>
-        <button
-          mat-mini-fab
-          matTooltip="Save"
-          matTooltipPosition="before"
-          color="secondary"
-          (click)="submit()">
-          <mat-icon>save</mat-icon>
-        </button>
-        <button
-          mat-mini-fab
-          matTooltip="Save and Exit"
-          matTooltipPosition="before"
-          color="secondary"
-          (click)="submitAndExit()">
-          <mat-icon>exit_to_app</mat-icon>
-        </button>
-        <button
-          mat-mini-fab
-          matTooltip="Check validation"
-          matTooltipPosition="before"
-          color="secondary"
-          (click)="checkValidation()">
-          <mat-icon>error_outline</mat-icon>
-        </button>
-        <button
-          mat-mini-fab
-          matTooltip="Clear validation"
-          matTooltipPosition="before"
-          color="secondary"
-          (click)="clearValidations()">
-          <mat-icon>highlight_off</mat-icon>
-        </button>
-      </fab-speed-dial-actions>
-    </fab-speed-dial>
+        <fab-speed-dial-actions>
+          <button
+            mat-mini-fab
+            matTooltip="Save"
+            matTooltipPosition="before"
+            color="secondary"
+            (click)="submit()">
+            <mat-icon>save</mat-icon>
+          </button>
+          <button
+            mat-mini-fab
+            matTooltip="Save and Exit"
+            matTooltipPosition="before"
+            color="secondary"
+            (click)="submitAndExit()">
+            <mat-icon>exit_to_app</mat-icon>
+          </button>
+          <button
+            mat-mini-fab
+            matTooltip="Check validation"
+            matTooltipPosition="before"
+            color="secondary"
+            (click)="checkValidation()">
+            <mat-icon>error_outline</mat-icon>
+          </button>
+          <button
+            mat-mini-fab
+            matTooltip="Clear validation"
+            matTooltipPosition="before"
+            color="secondary"
+            (click)="clearValidations()">
+            <mat-icon>highlight_off</mat-icon>
+          </button>
+        </fab-speed-dial-actions>
+      </fab-speed-dial>
+
+      <div fxFlex="270px" fxHide.lt-md></div>
+    </div>
 
     <h1>NCDR CathPCI Registry v5.0</h1>
 
@@ -1416,7 +1420,7 @@
           </div>
 
           <div>
-            <fieldset style="border:1px solid #a1a1a1; border-radius:10px; padding: 20px 30px 20px 30px;">
+            <fieldset style="border:1px solid #a1a1a1; border-radius:10px; padding: 20px 30px 20px 30px; min-width: 0;">
               <legend style="color:#757575">PCI Lesions</legend>
               <mat-tab-group fxFlex [(selectedIndex)]="pciLesionsTabIndex">
                 <mat-tab formArrayName="PciLesions"
@@ -1648,7 +1652,7 @@
           </div>
 
           <div>
-            <fieldset style="border:1px solid #a1a1a1; border-radius:10px; padding: 20px 30px 20px 30px;">
+            <fieldset style="border:1px solid #a1a1a1; border-radius:10px; padding: 20px 30px 20px 30px; min-width: 0;">
               <legend style="color:#757575">PCI Devices</legend>
               <mat-tab-group fxFlex [(selectedIndex)]="pciDevicesTabIndex">
                 <mat-tab formArrayName="PciDevices"
@@ -2222,7 +2226,7 @@
           </div>
 
           <div>
-            <fieldset style="border:1px solid #a1a1a1; border-radius:10px; padding: 20px 30px 20px 30px;">
+            <fieldset style="border:1px solid #a1a1a1; border-radius:10px; padding: 20px 30px 20px 30px; min-width: 0;">
               <legend style="color:#757575">Follow Up</legend>
               <mat-tab-group fxFlex [(selectedIndex)]="followUpsTabIndex">
                 <mat-tab formArrayName="FollowUps"

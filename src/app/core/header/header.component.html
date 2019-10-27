@@ -1,10 +1,10 @@
 <mat-toolbar class="app-header" [color]="color">
-  <div fxHide.gt-md>
+  <div fxShow.lt-lg>
     <button mat-icon-button (click)="onToggleSidenav()">
       <mat-icon>menu</mat-icon>
     </button>
   </div>
-  <div fxLayout fxLayoutGap="10px">
+  <div fxLayout fxLayoutGap="10px" style="margin-left: 10px;">
     <!-- <a>{{ title$ | async }}</a> -->
     <img src="assets/bdms-logo.png" alt="Bangkok Hospital" style="width: 32px;">
     <span>{{ title }}</span>
