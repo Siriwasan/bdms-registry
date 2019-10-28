@@ -77,6 +77,8 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
   private registryId: string;
   visibles: FormVisible = {};
   completion: CathPci50Completion;
+  disableSubmitDischarge: boolean;
+  submittedDischarge = false;
 
   staffs: Staff[];
   admitPhysician: RegSelectChoice[];
@@ -302,9 +304,14 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     CathPci50Validator.setServiceForValidators(this.registryFormService);
 
     this.formGroupA.get('registryId').setValue('(new)');
+    this.formGroupL.get('SubmittedDischarge').setValue(false);
     await this.loadById();
     // this.formGroupA.disable();
     // this.formGroupJ.disable();
+    if (this.formGroupL.get('SubmittedDischarge').value) {
+      this.submittedDischarge = true;
+      this.registryFormService.disableAllForms();
+    }
   }
 
   ngOnDestroy() {
@@ -800,9 +807,29 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
           // this.completion.summary = summary;
           this.completion.summary.valid = this.completion.summary.valid - oldCompletion.valid + newCompletion.valid;
           this.completion.summary.total = this.completion.summary.total - oldCompletion.total + newCompletion.total;
+
+          this.checkCanSubmitDischarge();
         })
       );
     });
+  }
+
+  private checkCanSubmitDischarge() {
+    const summary: FormCompletion = {
+      valid: 0,
+      total: 0
+    };
+
+    Object.keys(this.completion).forEach(key => {
+      if (key !== 'summary' && key !== 'sectionM') {
+        const sectionCompletion = this.completion[key] as FormCompletion;
+        summary.valid += sectionCompletion.valid;
+        summary.total += sectionCompletion.total;
+      }
+    });
+
+    const percentDischargeCompletion = (summary.valid / summary.total) * 100;
+    this.disableSubmitDischarge = percentDischargeCompletion < 90;
   }
 
   async submit(exit = false) {
@@ -1316,6 +1343,10 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     (this.visibles.PciLesions as FormVisible[]).push(visible);
     formArray.push(newGroup);
 
+    // initialize conditions
+    this.formGroupH.get('GraftStenosis').setValue(this.formGroupH.get('GraftStenosis').value);
+    this.checkCulpritStenosisLesion();
+
     this.pciLesionsTabIndex = formArray.length - 1;
     this.disableAddPciLesion = true;
 
@@ -1612,16 +1643,17 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
   }
 
   private getFollowUpPeriod(procDate: moment.Moment, fuDate: moment.Moment): string {
-    let period = '';
+    let period = 'n/a';
     const dateDiff = fuDate.diff(procDate, 'days', false);
 
-    if (dateDiff <= 34) {
+    if (dateDiff > 0 && dateDiff <= 44) {
       period = '30 days';
     } else {
-      const years = Math.ceil((dateDiff - 60) / 365);
-      period = `${years} years`;
+      const years = Math.floor(dateDiff / 365);
+      if (years > 0 && (dateDiff >= years * 365 - 60 && dateDiff <= years * 365 + 60)) {
+        period = `${years} years`;
+      }
     }
-
     return period;
   }
 
@@ -1726,4 +1758,30 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
   }
 
   //#endregion Section M
+
+  async submitDischarge() {
+    this.formGroupL.get('SubmittedDischarge').setValue(true);
+    await this.submit();
+    this.submittedDischarge = true;
+    this.disableAllAdmissionForm();
+  }
+
+  private disableAllAdmissionForm() {
+    this.formGroupA.disable();
+    this.formGroupB.disable();
+    this.formGroupC.disable();
+    this.formGroupD.disable();
+    this.formGroupE.disable();
+    this.formGroupF.disable();
+    this.formGroupG.disable();
+    this.formGroupH.disable();
+    this.formGroupI.disable();
+    this.formGroupJ.disable();
+    this.formGroupK.disable();
+    this.formGroupL.disable();
+  }
+
+  debugFormService() {
+    this.registryFormService.setDebug();
+  }
 }

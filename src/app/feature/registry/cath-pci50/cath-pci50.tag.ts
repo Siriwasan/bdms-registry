@@ -51,7 +51,8 @@ export const tagConditions: TagCondition[] = [
     values: ['NHSO (National Health Security Officer)'],
     tag: 'NHSO'
   },
-  { section: 'sectionL', control: 'DCStatus', values: ['Deceased'], tag: 'Dead' }
+  { section: 'sectionL', control: 'DCStatus', values: ['Deceased'], tag: 'Dead' },
+  { section: 'sectionL', control: 'SubmittedDischarge', values: [true], tag: 'D/C' }
 ];
 
 export const tagPriorities = {
@@ -61,6 +62,7 @@ export const tagPriorities = {
   Lost: 'high',
   CHIP: 'high',
   SLIP: 'high',
+  'D/C': 'medium',
   '30 d': 'medium',
   '1 y': 'medium',
   '2 y': 'medium',

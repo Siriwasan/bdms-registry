@@ -29,6 +29,8 @@ export class RegistryFormService implements OnDestroy {
 
   private visibles: FormVisible = {};
 
+  private debug = false;
+
   constructor(private dialogService: DialogService) {}
 
   ngOnDestroy() {
@@ -181,6 +183,7 @@ export class RegistryFormService implements OnDestroy {
 
     // this.visibles[controlId] = true;
     visible[controlId] = true;
+
   }
 
   private collapseControl(controlId: string, control: AbstractControl, visible: FormVisible) {
@@ -409,6 +412,9 @@ export class RegistryFormService implements OnDestroy {
           error++;
         }
         totl++;
+        if (this.debug) {
+          console.log(key);
+        }
       }
     });
     return { valid: totl - error, total: totl };
@@ -418,6 +424,10 @@ export class RegistryFormService implements OnDestroy {
     let isDirty = false;
     this.getFormGroups().forEach(formGroup => (isDirty = isDirty || formGroup.dirty));
     return isDirty;
+  }
+
+  public disableAllForms() {
+    this.getFormGroups().forEach(formGroup => formGroup.disable());
   }
 
   public markAllFormsUntouched() {
@@ -528,4 +538,8 @@ export class RegistryFormService implements OnDestroy {
     return marked.parser(tokensList);
   }
   //#endregion Data Dictionary
+
+  setDebug() {
+    this.debug = true;
+  }
 }

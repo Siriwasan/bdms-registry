@@ -686,11 +686,12 @@ export const CathPci50Form = {
     DC_MedReconCompleted: [null, Validators.required],
     DC_MedReconciled: [null, Validators.required],
     L_DeviceCompositeEP: [null, Validators.required],
-    L_PatientCompositeEP: [null, Validators.required]
+    L_PatientCompositeEP: [null, Validators.required],
+    SubmittedDischarge: [null, Validators.required]
   },
   sectionM: {},
   followUp: {
-    FU_AssessmentDate: [null, Validators.required],
+    FU_AssessmentDate: [null, [Validators.required, CathPci50Validator.FU_AssessmentDateAfterDCDateTime]],
     // RefProcStartDateTime: [null, Validators.required],
     // RefArrivalDateTime: [null, Validators.required],
     // RefDCDateTime: [null, Validators.required],
@@ -755,6 +756,7 @@ export const CathPci50Form = {
     FU_StatinDose: [null, Validators.required],
     FU_NonStatin: [null, Validators.required],
     FU_Alirocumab: [null, Validators.required],
-    FU_Evolocumab: [null, Validators.required]
+    FU_Evolocumab: [null, Validators.required],
+    SubmittedFollowUp: [null, Validators.required]
   }
 };

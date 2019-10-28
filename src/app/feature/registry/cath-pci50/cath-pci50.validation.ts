@@ -775,6 +775,10 @@ export const validations: FormValidations = {
       },
 
       {
+        type: 'FU_AssessmentDateAfterDCDateTime',
+        message: 'Assessment Date of Death should be after or eqult to Discharge DateTime.'
+      },
+      {
         type: 'FU_DeathDateAfterDCDateTime',
         message: 'Follow-Up Date of Death should be after or eqult to Discharge DateTime.'
       },
@@ -847,6 +851,12 @@ export const validations: FormValidations = {
     ]
   },
   sectionM: {
+    FU_AssessmentDate: [
+      {
+        type: 'FU_AssessmentDateAfterDCDateTime',
+        message: 'Assessment Date of Death should be after or eqult to Discharge DateTime.'
+      }
+    ],
     FU_DeathDate: [
       {
         type: 'FU_DeathDateAfterDCDateTime',

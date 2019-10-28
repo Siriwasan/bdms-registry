@@ -131,23 +131,23 @@ export class CathPci50Service implements OnDestroy {
       }
     });
 
-    // tslint:disable: no-string-literal
-    const procDate = moment(data.sectionE['ProcedureStartDateTime']);
+    // // tslint:disable: no-string-literal
+    // const procDate = moment(data.sectionE['ProcedureStartDateTime']);
 
-    data.sectionM['FollowUps'].forEach(d => {
-      const fuDate = moment(d['FU_AssessmentDate']);
-      const period = this.getFollowUpPeriod(procDate, fuDate);
-      if (period !== '') {
-        tags.push(period);
-      }
+    // data.sectionM['FollowUps'].forEach(d => {
+    //   const fuDate = moment(d['FU_AssessmentDate']);
+    //   const period = this.getFollowUpPeriod(procDate, fuDate);
+    //   if (period !== '') {
+    //     tags.push(period);
+    //   }
 
-      if (d['FU_Status'] === 'Deceased') {
-        tags.push('Dead');
-      } else if (d['FU_Status'] === 'Lost to Follow-up') {
-        tags.push('Lost');
-      }
-    });
-    // tslint:enable: no-string-literal
+    //   if (d['FU_Status'] === 'Deceased') {
+    //     tags.push('Dead');
+    //   } else if (d['FU_Status'] === 'Lost to Follow-up') {
+    //     tags.push('Lost');
+    //   }
+    // });
+    // // tslint:enable: no-string-literal
 
     return tags;
   }

@@ -681,6 +681,26 @@ export class CathPci50Validator {
     );
   }
 
+  static FU_AssessmentDateAfterDCDateTime(control: AbstractControl) {
+    const result = CathPci50Validator.ADateCompareBDate(
+      control,
+      { section: 'L', control: 'DCDateTime' },
+      '>=',
+      'FU_AssessmentDateAfterDCDateTime'
+    );
+
+    CathPci50Validator.checkMainDateTimeValidity(
+      'M',
+      'FollowUps',
+      'FU_AssessmentDate',
+      'L',
+      'DCDateTime',
+      'FU_AssessmentDateAfterDCDateTime'
+    );
+
+    return result;
+  }
+
   static FU_DeathDateAfterDCDateTime(control: AbstractControl) {
     const result = CathPci50Validator.ADateCompareBDate(
       control,
@@ -1005,6 +1025,7 @@ export class CathPci50Validator {
 
   static DCDateTimeBeforeIntraPostProcedureEventDT(control: AbstractControl) {
     const fuControls = [
+      { control: 'FU_AssessmentDate', validation: 'FU_AssessmentDateAfterDCDateTime' },
       { control: 'FU_DeathDate', validation: 'FU_DeathDateAfterDCDateTime' },
       { control: 'M_BleedingEventDT', validation: 'M_BleedingEventDTAfterDCDateTime' },
       { control: 'M_CABGStentDT', validation: 'M_CABGStentDTAfterDCDateTime' },

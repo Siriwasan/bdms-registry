@@ -76,6 +76,7 @@
       <div fxFlex="270px" fxHide.lt-md></div>
     </div>
 
+    <button mat-raised-button color="primary" (click)="debugFormService()">Debug FormService</button>
     <h1>NCDR CathPCI Registry v5.0</h1>
 
     <section class="section-wrapper" scrollSpyElement id="sectionA">
@@ -884,10 +885,10 @@
 
           <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
             <reg-select *ngIf="visibles['PharmVasoSupp']" controlName="PharmVasoSupp" placeholder="Pharmacologic Vasopressor Support" [formGroup]="formGroupG"
-              [choices]="['Yes', 'No']"></reg-select>
+              [choices]="['Yes', 'No']" fxFlex></reg-select>
 
             <reg-select *ngIf="visibles['MechVentSupp']" controlName="MechVentSupp" placeholder="Mechanical Ventricular Support" [formGroup]="formGroupG"
-              [choices]="['Yes', 'No']"></reg-select>
+              [choices]="['Yes', 'No']" fxFlex></reg-select>
           </div>
 
           <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
@@ -901,13 +902,13 @@
                 'Right Ventricular Assist Device (RVAD)',
                 'Percutaneous Heart Pump (PHP)',
                 'TandemHeart'
-              ]"></reg-select>
+              ]" fxFlex></reg-select>
 
             <reg-select *ngIf="visibles['MVSupportTiming']" controlName="MVSupportTiming" placeholder="Timing" [formGroup]="formGroupG" [choices]="[
               'In place at start of procedure',
               'Inserted during procedure and prior to intervention',
               'Inserted after intervention has begun'
-              ]"></reg-select>
+              ]" fxFlex></reg-select>
           </div>
 
           <h3 *ngIf="visibles['indicationValve']" id="indicationValve">Indication(s) for Cath Lab Visit = Valvular Disease</h3>
@@ -1050,8 +1051,10 @@
             <reg-select controlName="NVStenosis" placeholder="Native Vessel with Stenosis >= 50%" [formGroup]="formGroupH"
               [choices]="['Yes', 'No']" fxFlex (choiceChange)="NVStenosisChanged($event)"></reg-select>
 
-            <button *ngIf="nativeLesions" mat-raised-button color="primary" (click)="addNativeLesion()" [disabled]="disableAddNativeLesion" style="height: 36px">Add Native Lesion</button>
-            <button *ngIf="nativeLesions" mat-raised-button color="secondary" (click)="arrangeNativeTabs()" style="height: 36px">Arrange Tabs</button>
+            <div *ngIf="!submittedDischarge">
+              <button *ngIf="nativeLesions" mat-raised-button color="primary" (click)="addNativeLesion()" [disabled]="disableAddNativeLesion" style="height: 36px">Add Native Lesion</button>
+              <button *ngIf="nativeLesions" mat-raised-button color="secondary" (click)="arrangeNativeTabs()" style="height: 36px">Arrange Tabs</button>
+            </div>
           </div>
 
           <div *ngIf="nativeLesions">
@@ -1063,7 +1066,7 @@
                   <ng-template mat-tab-label>
                     <div fxLayoutAlign="center center">
                       <div>{{ getNativeLesionsTabLabel(i) }}</div>
-                      <mat-icon style="margin-left: 10px; font-size: medium; height: auto; color:#bb6666" (click)="removeNativeLesion(i)">close</mat-icon>
+                      <mat-icon *ngIf="!submittedDischarge" style="margin-left: 10px; font-size: medium; height: auto; color:#bb6666" (click)="removeNativeLesion(i)">close</mat-icon>
                     </div>
                   </ng-template>
 
@@ -1109,8 +1112,10 @@
             <reg-select controlName="GraftStenosis" placeholder="Graft Vessel with Stenosis >= 50%" [formGroup]="formGroupH"
               [choices]="['Yes', 'No']" fxFlex (choiceChange)="GraftStenosisChanged($event)"></reg-select>
 
-            <button *ngIf="graftLesions" mat-raised-button color="primary" (click)="addGraftLesion()" [disabled]="disableAddGraftLesion" style="height: 36px">Add Graft Lesion</button>
-            <button *ngIf="graftLesions" mat-raised-button color="secondary" (click)="arrangeGraftTabs()" style="height: 36px">Arrange Tabs</button>
+            <div *ngIf="!submittedDischarge">
+              <button *ngIf="graftLesions" mat-raised-button color="primary" (click)="addGraftLesion()" [disabled]="disableAddGraftLesion" style="height: 36px">Add Graft Lesion</button>
+              <button *ngIf="graftLesions" mat-raised-button color="secondary" (click)="arrangeGraftTabs()" style="height: 36px">Arrange Tabs</button>
+            </div>
           </div>
 
           <div *ngIf="graftLesions">
@@ -1122,7 +1127,7 @@
                   <ng-template mat-tab-label>
                     <div fxLayoutAlign="center center">
                       <div>{{ getGraftLesionsTabLabel(i) }}</div>
-                      <mat-icon style="margin-left: 10px; font-size: medium; height: auto; color:#bb6666" (click)="removeGraftLesion(i)">close</mat-icon>
+                      <mat-icon *ngIf="!submittedDischarge" style="margin-left: 10px; font-size: medium; height: auto; color:#bb6666" (click)="removeGraftLesion(i)">close</mat-icon>
                     </div>
                   </ng-template>
 
@@ -1413,7 +1418,7 @@
           <div fxLayout="row" fxLayoutAlign="none center" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
             <h3 fxFlex>LESIONS</h3>
 
-            <div fxLayoutAlign="end" fxFlex fxLayoutGap="20px">
+            <div *ngIf="!submittedDischarge" fxLayoutAlign="end" fxFlex fxLayoutGap="20px">
               <button mat-raised-button color="primary" (click)="addPciLesion()" [disabled]="disableAddPciLesion" style="height: 36px">Add Lesion</button>
               <button mat-raised-button color="secondary" (click)="arrangePciTabs()" style="height: 36px">Arrange Tabs</button>
             </div>
@@ -1428,7 +1433,7 @@
                   <ng-template mat-tab-label>
                     <div fxLayoutAlign="center center">
                       <div>{{ getPciLesionsTabLabel(i) }}</div>
-                      <mat-icon style="margin-left: 10px; font-size: medium; height: auto; color:#bb6666" (click)="removePciLesion(i)">close</mat-icon>
+                      <mat-icon *ngIf="!submittedDischarge" style="margin-left: 10px; font-size: medium; height: auto; color:#bb6666" (click)="removePciLesion(i)">close</mat-icon>
                     </div>
                   </ng-template>
 
@@ -1645,7 +1650,7 @@
           <div fxLayout="row" fxLayoutAlign="none center" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
             <h3 fxFlex>DEVICES</h3>
 
-            <div fxLayoutAlign="end" fxFlex fxLayoutGap="20px">
+            <div *ngIf="!submittedDischarge" fxLayoutAlign="end" fxFlex fxLayoutGap="20px">
               <button mat-raised-button color="primary" (click)="addPciDevice()" [disabled]="disableAddPciDevice" style="height: 36px">Add Device</button>
               <button mat-raised-button color="secondary" (click)="arrangePciDeviceTabs()" style="height: 36px">Arrange Tabs</button>
             </div>
@@ -1660,7 +1665,7 @@
                   <ng-template mat-tab-label>
                     <div fxLayoutAlign="center center">
                       <div>{{ getPciDevicesTabLabel(i) }}</div>
-                      <mat-icon style="margin-left: 10px; font-size: medium; height: auto; color:#bb6666" (click)="removePciDevice(i)">close</mat-icon>
+                      <mat-icon *ngIf="!submittedDischarge" style="margin-left: 10px; font-size: medium; height: auto; color:#bb6666" (click)="removePciDevice(i)">close</mat-icon>
                     </div>
                   </ng-template>
 
@@ -2205,6 +2210,12 @@
             ]"></reg-select>
 
         </form>
+
+        <div *ngIf="!submittedDischarge">
+          <button mat-raised-button color="warn" [disabled]="disableSubmitDischarge"
+            (click)="submitDischarge()" fxFlex>Submit at Discharge</button>
+        </div>
+
       </div>
     </section>
 
@@ -2474,9 +2485,14 @@
 
                 </mat-tab>
               </mat-tab-group>
+
+              <div *ngIf="!submittedDischarge">
+                <button mat-raised-button color="warn" [disabled]="disableSubmitDischarge"
+                  (click)="submitDischarge()" fxFlex>Submit Follow Up</button>
+              </div>
+
             </fieldset>
           </div>
-
         </form>
       </div>
     </section>
