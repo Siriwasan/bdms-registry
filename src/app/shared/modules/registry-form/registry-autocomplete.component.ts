@@ -37,7 +37,9 @@ import { RegistryFormService } from './registry-form.service';
         <mat-icon style="cursor: help;" (click)="openInfo(controlName)" *ngIf="bInfo">info_outline</mat-icon>
       </mat-error>
     </mat-form-field>
-  `
+  `,
+  styleUrls: ['./registry-control.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class RegistryAutocompleteComponent extends RegistryControlComponent implements OnInit {
   @Input() controlName: string;

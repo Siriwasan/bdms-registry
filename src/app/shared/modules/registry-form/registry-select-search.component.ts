@@ -9,7 +9,8 @@ import {
   SimpleChanges,
   ViewChild,
   AfterViewInit,
-  OnDestroy
+  OnDestroy,
+  ViewEncapsulation
 } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { MatSelectChange, MatSelect } from '@angular/material';
@@ -77,22 +78,8 @@ import { takeUntil, take } from 'rxjs/operators';
       </mat-error>
     </mat-form-field>
   `,
-  styles: [
-    `
-      .detail-html {
-        opacity: 0.7;
-        font-size: 12px;
-        display: table-cell;
-        height: 25px;
-        line-height: 0px;
-        padding: 0 10px;
-      }
-
-      .detail-html span {
-        color: red;
-      }
-    `
-  ]
+  styleUrls: ['./registry-control.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class RegistrySelectSearchComponent extends RegistryControlComponent
   implements OnInit, AfterViewInit, OnChanges, OnDestroy {
@@ -238,7 +225,12 @@ export class RegistrySelectSearchComponent extends RegistryControlComponent
           choice.label
             .toString()
             .toLowerCase()
-            .indexOf(search) > -1
+            .includes(search) ||
+          (choice.detailHtml &&
+            choice.detailHtml
+              .toString()
+              .toLowerCase()
+              .includes(search))
       )
     );
   }

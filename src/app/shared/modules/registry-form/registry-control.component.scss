@@ -2,3 +2,38 @@
   opacity: 0.75;
   font-size: 0.75em;
 }
+
+// .mat-input-element {
+//   color: red !important;
+// }
+
+// .readonlyInput {
+//   .mat-input-element {
+//     color: blue !important;
+//   }
+// }
+
+// .mat-select-value {
+//   color: cyan;
+// }
+
+.mat-input-element:disabled {
+  color: blue;
+}
+
+.mat-select-disabled .mat-select-value {
+  color: blue;
+}
+
+.detail-html {
+  opacity: 0.7;
+  font-size: 12px;
+  display: table-cell;
+  height: 25px;
+  line-height: 0px;
+  padding: 0 10px;
+}
+
+.detail-html span {
+  color: rgba(0,0,0,.87);
+}

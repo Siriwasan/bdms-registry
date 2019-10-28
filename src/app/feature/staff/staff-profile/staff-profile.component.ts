@@ -8,7 +8,8 @@ import {
   SimpleChanges,
   ViewChild,
   OnDestroy,
-  AfterViewInit
+  AfterViewInit,
+  ViewEncapsulation
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormGroupDirective } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
@@ -29,6 +30,7 @@ import { RegSelectChoice } from 'src/app/shared/modules/registry-form/registry-f
   selector: 'app-staff-profile',
   templateUrl: './staff-profile.component.html',
   styleUrls: ['./staff-profile.component.scss'],
+  encapsulation: ViewEncapsulation.None,
   providers: [AuthService]
 })
 export class StaffProfileComponent implements OnInit, OnChanges, OnDestroy, AfterViewInit {
@@ -169,22 +171,23 @@ export class StaffProfileComponent implements OnInit, OnChanges, OnDestroy, Afte
   }
 
   private disableForm() {
-    this.staffForm.get('staffId').disable();
-    this.staffForm.get('userName').disable();
-    this.staffForm.get('password').disable();
-    this.staffForm.get('confirmedPassword').disable();
-    this.staffForm.get('title').disable();
-    this.staffForm.get('firstName').disable();
-    this.staffForm.get('lastName').disable();
-    this.staffForm.get('phone').disable();
-    this.staffForm.get('email').disable();
-    this.staffForm.get('position').disable();
-    this.staffForm.get('primaryHospId').disable();
-    this.staffForm.get('secondHospIds').disable();
-    this.staffForm.get('registries').disable();
-    this.staffForm.get('role').disable();
-    this.staffForm.get('permission').disable();
-    this.staffForm.get('status').disable();
+    // this.staffForm.get('staffId').disable();
+    // this.staffForm.get('userName').disable();
+    // this.staffForm.get('password').disable();
+    // this.staffForm.get('confirmedPassword').disable();
+    // this.staffForm.get('title').disable();
+    // this.staffForm.get('firstName').disable();
+    // this.staffForm.get('lastName').disable();
+    // this.staffForm.get('phone').disable();
+    // this.staffForm.get('email').disable();
+    // this.staffForm.get('position').disable();
+    // this.staffForm.get('primaryHospId').disable();
+    // this.staffForm.get('secondHospIds').disable();
+    // this.staffForm.get('registries').disable();
+    // this.staffForm.get('role').disable();
+    // this.staffForm.get('permission').disable();
+    // this.staffForm.get('status').disable();
+    this.staffForm.disable();
   }
 
   private resetDropdowns() {

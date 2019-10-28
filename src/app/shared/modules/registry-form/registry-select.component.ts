@@ -1,4 +1,4 @@
-import { Component, Input, EventEmitter, Output, OnInit, ElementRef, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, EventEmitter, Output, OnInit, ElementRef, OnChanges, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatSelectChange } from '@angular/material';
 
@@ -51,7 +51,9 @@ import { RegSelectChoice, RegSelectChoiceGroup } from './registry-form.model';
         <mat-icon style="cursor: help;" (click)="openInfo(controlName)" *ngIf="bInfo">info_outline</mat-icon>
       </mat-error>
     </mat-form-field>
-  `
+  `,
+  styleUrls: ['./registry-control.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class RegistrySelectComponent extends RegistryControlComponent implements OnInit, OnChanges {
   @Input() controlName: string;

@@ -84,6 +84,8 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
   intervention: RegSelectChoice[];
 
   avCoroDevices: RegSelectChoice[];
+  eventCoroDevices: RegSelectChoice[];
+
   avHospitals: string[];
   toc = tableOfContent;
   nationality = registryData.nationality;
@@ -278,7 +280,8 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     this.avHospitals = this.authService
       .getAvailableHospitals(this.user.staff.primaryHospId, this.user.staff.permission)
       .map(hosp => hosp.id);
-    this.avCoroDevices = intraCoronaryDevices.map(m => {
+
+    const deviceMap = m => {
       return {
         value: m.id,
         label: m.deviceName,
@@ -286,7 +289,9 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
         detailHtml: `<span>Type:<i>${m.deviceType}</i>&emsp;Brand:<i>${m.brand}</i></span>`,
         disable: false
       } as RegSelectChoice;
-    });
+    };
+    this.avCoroDevices = intraCoronaryDevices.map(deviceMap);
+    this.eventCoroDevices = intraCoronaryDevices.filter(m => m.deviceType.includes('Stent')).map(deviceMap);
 
     this.completion = this.getFormCompletion();
     this.subscribeCompletionCalculation();
@@ -298,6 +303,8 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
 
     this.formGroupA.get('registryId').setValue('(new)');
     await this.loadById();
+    // this.formGroupA.disable();
+    // this.formGroupJ.disable();
   }
 
   ngOnDestroy() {

@@ -9,7 +9,7 @@ import { RegistryFormService } from './registry-form.service';
   // tslint:disable-next-line: component-selector
   selector: 'reg-input',
   template: `
-    <mat-form-field [formGroup]="formGroup" style="width: 100%">
+    <mat-form-field [ngClass]="{'readonlyInput':readonly}" [formGroup]="formGroup" style="width: 100%">
       <input
         *ngIf="type === 'number'"
         type="number"
@@ -43,7 +43,8 @@ import { RegistryFormService } from './registry-form.service';
         <mat-icon style="cursor: help;" (click)="openInfo(controlName)" *ngIf="bInfo">info_outline</mat-icon>
       </mat-error>
     </mat-form-field>
-  `
+  `,
+  styleUrls: ['./registry-control.component.scss']
 })
 export class RegistryInputComponent extends RegistryControlComponent implements OnInit {
   @Input() controlName: string;

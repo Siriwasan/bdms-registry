@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ElementRef, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ElementRef, OnChanges, SimpleChanges, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MAT_DATE_FORMATS, DateAdapter } from '@coachcare/datepicker';
 
@@ -75,6 +75,8 @@ export class CustomDateAdapter extends MomentDateAdapter {
       </mat-error>
     </mat-form-field>
   `,
+  styleUrls: ['./registry-control.component.scss'],
+  encapsulation: ViewEncapsulation.None,
   providers: [
     { provide: DateAdapter, useClass: CustomDateAdapter },
     { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS }

@@ -2297,7 +2297,7 @@
                         [choices]="['Yes', 'No']" fxFlex></reg-select>
 
                       <reg-select-search *ngIf="visibles['FollowUps'][i][event[2]]" [controlName]="event[2]" placeholder="Device(s) Event Occured In" [formGroup]="item"
-                        [choices]="avCoroDevices" fxFlex="50"></reg-select-search>
+                        [choices]="eventCoroDevices" fxFlex="50"></reg-select-search>
 
                       <reg-datepicker *ngIf="visibles['FollowUps'][i][event[3]]" [controlName]="event[3]" placeholder="Event Date" [formGroup]="item" fxFlex>
                         dd/mm/yyyy</reg-datepicker>
