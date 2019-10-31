@@ -183,7 +183,6 @@ export class RegistryFormService implements OnDestroy {
 
     // this.visibles[controlId] = true;
     visible[controlId] = true;
-
   }
 
   private collapseControl(controlId: string, control: AbstractControl, visible: FormVisible) {
@@ -321,103 +320,35 @@ export class RegistryFormService implements OnDestroy {
     // &&       (this.formGroup.get(control).dirty || this.formGroup.get(control).touched)
   }
 
-  public formCompletion(section: string): string {
-    let error = 0;
-    let total = 0;
-
-    const formGroup = this.getFormGroup(section);
-
-    // ! ExpressionChangedAfterItHasBeenCheckedError: Expression has changed after it was checked
-    // ! need for further correction
-    Object.keys(formGroup.controls).forEach(key => {
-      const validationErrors: ValidationErrors = formGroup.get(key).errors;
-      if (validationErrors !== null) {
-        Object.keys(validationErrors).forEach(keyError => {
-          // console.log(
-          //   'Key control: ' + key + ', keyError: ' + keyError + ', err value: ',
-          //   controlErrors[keyError]
-          // );
-        });
-        error++;
-      }
-      // if (this.isShowControl(key)) {
-      //   total++;
-      // }
-
-      if (this.visibles[key] !== false) {
-        total++;
-      }
-
-      // const element = document.getElementById(key);
-      // if (element && element.style.display === '') {
-      //   total++;
-      // }
-    });
-
-    return `${total - error}/${total}`;
-  }
-
-  // public getSectionCompletion(section: string): FormCompletion {
-  //   let error = 0;
-  //   let totl = 0;
-
-  //   const formGroup = this.getFormGroup(section);
-
-  //   // ! ExpressionChangedAfterItHasBeenCheckedError: Expression has changed after it was checked
-  //   // ! need for further correction
-  //   Object.keys(formGroup.controls).forEach(key => {
-  //     const control = formGroup.get(key);
-  //     if (control instanceof FormArray) {
-  //       // console.log(key);
-  //       // console.log(this.visibles[key]);
-  //       return;
-  //     }
-
-  //     const validationErrors: ValidationErrors = control.errors;
-  //     if (this.visibles[key] !== false) {
-  //       if (validationErrors !== null) {
-  //         error++;
-  //       }
-  //       totl++;
-  //     }
-  //   });
-  //   return { valid: totl - error, total: totl };
-  // }
-
   public getSectionCompletion(section: string): FormCompletion {
     const formGroup = this.getFormGroup(section);
     return this.checkCompletion(formGroup, this.visibles);
   }
 
-  private checkCompletion(formGroup: FormGroup, visible: FormVisible): FormCompletion {
-    let error = 0;
+  public checkCompletion(formGroup: FormGroup, visible: FormVisible): FormCompletion {
+    let val = 0;
     let totl = 0;
 
-    // ! ExpressionChangedAfterItHasBeenCheckedError: Expression has changed after it was checked
-    // ! need for further correction
+
     Object.keys(formGroup.controls).forEach(key => {
       const control = formGroup.get(key);
+
       if (control instanceof FormArray) {
         (control as FormArray).controls.forEach((fg: FormGroup, index: number) => {
           const completion = this.checkCompletion(fg, visible[key][index]);
-          error += completion.total - completion.valid;
+          val += completion.valid;
           totl += completion.total;
         });
         return;
       }
 
-      const validationErrors: ValidationErrors = control.errors;
       if (visible[key] !== false) {
-        if (validationErrors !== null) {
-          error++;
-        }
+        val += control.errors ? 0 : 1;
         totl++;
-        if (this.debug) {
-          console.log(key);
-        }
       }
     });
-    return { valid: totl - error, total: totl };
+
+    return { valid: val, total: totl };
   }
 
   public isFormDirty(): boolean {

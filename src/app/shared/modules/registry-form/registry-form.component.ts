@@ -83,7 +83,6 @@ export class RegistryFormComponent extends ScrollSpyComponent implements OnInit,
   //#endregion Warning before leaving
 
   // ? Composition pattern
-  public formCompletion = (section: string): string => this.registryFormService.formCompletion(section);
   // public isShowControl = (control: string): boolean => this.registryService.isShowControl(control);
   public getValidations = (control: string): ValidationMessage[] => this.registryFormService.getValidations(control);
   // public isInvalid = (control: string, validationType: string): boolean =>

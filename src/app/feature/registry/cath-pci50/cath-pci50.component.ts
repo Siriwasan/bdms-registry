@@ -77,8 +77,11 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
   private registryId: string;
   visibles: FormVisible = {};
   completion: CathPci50Completion;
+  followUpCompletions: FormCompletion[] = [];
   disableSubmitDischarge: boolean;
   submittedDischarge = false;
+  disableSubmitFollowUps: boolean[] = [];
+  submittedFollowUps: boolean[] = [];
 
   staffs: Staff[];
   admitPhysician: RegSelectChoice[];
@@ -124,7 +127,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
       return `(0%)`;
     }
 
-    const completion = Math.round((this.completion.summary.valid / this.completion.summary.total) * 100);
+    const completion = Math.floor((this.completion.summary.valid / this.completion.summary.total) * 100);
     return `(${completion}%)`;
   }
 
@@ -295,7 +298,8 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     this.avCoroDevices = intraCoronaryDevices.map(deviceMap);
     this.eventCoroDevices = intraCoronaryDevices.filter(m => m.deviceType.includes('Stent')).map(deviceMap);
 
-    this.completion = this.getFormCompletion();
+    this.completion = this.initializeFormCompletion();
+    // this.completion = this.getFormCompletion();
     this.subscribeCompletionCalculation();
 
     this.checkPciTechnique();
@@ -304,14 +308,21 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     CathPci50Validator.setServiceForValidators(this.registryFormService);
 
     this.formGroupA.get('registryId').setValue('(new)');
-    this.formGroupL.get('SubmittedDischarge').setValue(false);
+    this.formGroupL.get('SubmittedDischarge').setValue(false, { onlySelf: true });
     await this.loadById();
-    // this.formGroupA.disable();
-    // this.formGroupJ.disable();
     if (this.formGroupL.get('SubmittedDischarge').value) {
       this.submittedDischarge = true;
-      this.registryFormService.disableAllForms();
+      this.disableAllAdmissionForm();
     }
+
+    const formArray = this.formGroupM.get(str.followUps) as FormArray;
+    formArray.controls.forEach((formGroup: FormGroup, index) => {
+      if (formGroup.get('SubmittedFollowUp').value) {
+        this.submittedFollowUps[index] = true;
+        formGroup.disable({ emitEvent: false });
+      }
+    });
+    this.formGroupM.updateValueAndValidity({ onlySelf: true, emitEvent: true });
   }
 
   ngOnDestroy() {
@@ -365,6 +376,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
   }
 
   private async loadStaffs() {
+    // console.log('loadStaffs');
     this.formGroupB.get('AdmProvider').setValue(null);
     this.formGroupB.get('AttProvider').setValue(null);
     this.formGroupE.get('DCathProvider').setValue(null);
@@ -425,10 +437,24 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
       } else {
         this.router.navigate(['registry/cath-pci50']);
       }
+    } else {
+      this.formGroupA.enable();
+      this.formGroupB.enable();
+      this.formGroupC.enable();
+      this.formGroupD.enable();
+      this.formGroupE.enable();
+      this.formGroupF.enable();
+      this.formGroupG.enable();
+      this.formGroupH.enable();
+      this.formGroupI.enable();
+      this.formGroupJ.enable();
+      this.formGroupK.enable();
+      this.formGroupL.enable();
     }
   }
 
   private setFormValue(data: CathPci50Model) {
+    // this.completion = data.completion;
     this.formDetail = data.detail;
     this.formGroupA.setValue(data.sectionA);
 
@@ -736,41 +762,23 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     }
   }
 
-  private getFormCompletion(): CathPci50Completion {
-    const completion: CathPci50Completion = {
-      summary: null,
-      sectionA: null,
-      sectionB: null,
-      sectionC: null,
-      sectionD: null,
-      sectionE: null,
-      sectionF: null,
-      sectionG: null,
-      sectionH: null,
-      sectionI: null,
-      sectionJ: null,
-      sectionK: null,
-      sectionL: null,
-      sectionM: null
+  private initializeFormCompletion() {
+    return {
+      summary: { valid: 0, total: 0 },
+      sectionA: { valid: 0, total: 0 },
+      sectionB: { valid: 0, total: 0 },
+      sectionC: { valid: 0, total: 0 },
+      sectionD: { valid: 0, total: 0 },
+      sectionE: { valid: 0, total: 0 },
+      sectionF: { valid: 0, total: 0 },
+      sectionG: { valid: 0, total: 0 },
+      sectionH: { valid: 0, total: 0 },
+      sectionI: { valid: 0, total: 0 },
+      sectionJ: { valid: 0, total: 0 },
+      sectionK: { valid: 0, total: 0 },
+      sectionL: { valid: 0, total: 0 },
+      sectionM: { valid: 0, total: 0 }
     };
-
-    const summary: FormCompletion = {
-      valid: 0,
-      total: 0
-    };
-
-    Object.keys(completion).forEach(key => {
-      if (key !== 'summary') {
-        const sectionCompletion = this.registryFormService.getSectionCompletion(key.substr(7));
-        completion[key] = sectionCompletion;
-        summary.valid += sectionCompletion.valid;
-        summary.total += sectionCompletion.total;
-      }
-    });
-
-    completion.summary = summary;
-
-    return completion;
   }
 
   displaySummary(section: string): string {
@@ -786,25 +794,19 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     this.sectionMembers.forEach(sm => {
       this.subscriptions.push(
         sm[1].valueChanges.subscribe(value => {
+          if (sm[1].disabled) {
+            return;
+          }
+
+          let newCompletion: FormCompletion;
+          if (sm[0] === 'M') {
+            newCompletion = this.getSectionMCompletion();
+          } else {
+            newCompletion = this.registryFormService.getSectionCompletion(sm[0]);
+          }
           const oldCompletion = this.completion['section' + sm[0]] as FormCompletion;
-          const newCompletion = this.registryFormService.getSectionCompletion(sm[0]);
           this.completion['section' + sm[0]] = newCompletion;
 
-          // const summary: FormCompletion = {
-          //   valid: 0,
-          //   total: 0
-          // };
-
-          // Object.keys(this.completion).forEach(key => {
-          //   if (key !== 'summary') {
-          //     const sectionId = key.substr(7);
-          //     const secCompletion = this.completion['section' + sectionId];
-          //     summary.valid += secCompletion.valid;
-          //     summary.total += secCompletion.total;
-          //   }
-          // });
-
-          // this.completion.summary = summary;
           this.completion.summary.valid = this.completion.summary.valid - oldCompletion.valid + newCompletion.valid;
           this.completion.summary.total = this.completion.summary.total - oldCompletion.total + newCompletion.total;
 
@@ -812,6 +814,31 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
         })
       );
     });
+  }
+
+  private getSectionMCompletion(): FormCompletion {
+    const formArray = this.formGroupM.get(str.followUps) as FormArray;
+    const completion: FormCompletion = { valid: 0, total: 0 };
+
+    formArray.controls.forEach((formGroup: FormGroup, index) => {
+      if (formGroup.disabled) {
+        completion.valid += this.followUpCompletions[index].valid;
+        completion.total += this.followUpCompletions[index].total;
+        this.disableSubmitFollowUps[index] = !(
+          this.followUpCompletions[index].valid === this.followUpCompletions[index].total &&
+          (index > 0 ? this.submittedFollowUps[index - 1] : this.submittedDischarge)
+        );
+        return;
+      }
+      const c = this.registryFormService.checkCompletion(formGroup, this.visibles[str.followUps][index]);
+      this.followUpCompletions[index] = c;
+      completion.valid += c.valid;
+      completion.total += c.total;
+      this.disableSubmitFollowUps[index] = !(
+        c.valid === c.total && (index > 0 ? this.submittedFollowUps[index - 1] : this.submittedDischarge)
+      );
+    });
+    return completion;
   }
 
   private checkCanSubmitDischarge() {
@@ -828,8 +855,8 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
       }
     });
 
-    const percentDischargeCompletion = (summary.valid / summary.total) * 100;
-    this.disableSubmitDischarge = percentDischargeCompletion < 90;
+    const percentDischargeCompletion = Math.floor((summary.valid / summary.total) * 100);
+    this.disableSubmitDischarge = percentDischargeCompletion !== 100;
   }
 
   async submit(exit = false) {
@@ -901,77 +928,88 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
       this.formDetail.modifiedBy = this.user.staff.staffId;
     }
 
+    const formGroupAvalue = this.formGroupA.getRawValue();
+    const formGroupBvalue = this.formGroupB.getRawValue();
+    const formGroupCvalue = this.formGroupC.getRawValue();
+    const formGroupDvalue = this.formGroupD.getRawValue();
+    const formGroupEvalue = this.formGroupE.getRawValue();
+    const formGroupIvalue = this.formGroupI.getRawValue();
+    const formGroupJvalue = this.formGroupJ.getRawValue();
+    const formGroupKvalue = this.formGroupK.getRawValue();
+    const formGroupLvalue = this.formGroupL.getRawValue();
+    const formGroupMvalue = this.formGroupM.getRawValue();
+
     const cathPci50Model: CathPci50Model = {
       detail: this.formDetail,
-      completion: this.getFormCompletion(),
+      completion: this.completion,
       sectionA: {
-        ...this.formGroupA.value,
-        DOB: this.serializeDateTime(this.formGroupA.get('DOB').value)
+        ...formGroupAvalue,
+        DOB: this.serializeDateTime(formGroupAvalue.DOB)
       },
       sectionB: {
-        ...this.formGroupB.value,
-        ArrivalDateTime: this.serializeDateTime(this.formGroupB.get('ArrivalDateTime').value)
+        ...formGroupBvalue,
+        ArrivalDateTime: this.serializeDateTime(formGroupBvalue.ArrivalDateTime)
       },
       sectionC: {
-        ...this.formGroupC.value,
-        HxMIDate: this.serializeDateTime(this.formGroupC.get('HxMIDate').value),
-        HxPCIDate: this.serializeDateTime(this.formGroupC.get('HxPCIDate').value),
-        HxCABGDate: this.serializeDateTime(this.formGroupC.get('HxCABGDate').value)
+        ...formGroupCvalue,
+        HxMIDate: this.serializeDateTime(formGroupCvalue.HxMIDate),
+        HxPCIDate: this.serializeDateTime(formGroupCvalue.HxPCIDate),
+        HxCABGDate: this.serializeDateTime(formGroupCvalue.HxCABGDate)
       },
       sectionD: {
-        ...this.formGroupD.value,
-        StressTestDate: this.serializeDateTime(this.formGroupD.get('StressTestDate').value),
-        CardiacCTADate: this.serializeDateTime(this.formGroupD.get('CardiacCTADate').value),
-        CalciumScoreDate: this.serializeDateTime(this.formGroupD.get('CalciumScoreDate').value),
-        PriorDxAngioDate: this.serializeDateTime(this.formGroupD.get('PriorDxAngioDate').value)
+        ...formGroupDvalue,
+        StressTestDate: this.serializeDateTime(formGroupDvalue.StressTestDate),
+        CardiacCTADate: this.serializeDateTime(formGroupDvalue.CardiacCTADate),
+        CalciumScoreDate: this.serializeDateTime(formGroupDvalue.CalciumScoreDate),
+        PriorDxAngioDate: this.serializeDateTime(formGroupDvalue.PriorDxAngioDate)
       },
       sectionE: {
-        ...this.formGroupE.value,
-        ProcedureStartDateTime: this.serializeDateTime(this.formGroupE.get('ProcedureStartDateTime').value),
-        ProcedureEndDateTime: this.serializeDateTime(this.formGroupE.get('ProcedureEndDateTime').value)
+        ...formGroupEvalue,
+        ProcedureStartDateTime: this.serializeDateTime(formGroupEvalue.ProcedureStartDateTime),
+        ProcedureEndDateTime: this.serializeDateTime(formGroupEvalue.ProcedureEndDateTime)
       },
       sectionF: { ...this.formGroupF.value },
       sectionG: { ...this.formGroupG.value },
       sectionH: { ...this.formGroupH.value },
       sectionI: {
-        ...this.formGroupI.value,
-        SymptomDateTime: this.serializeDateTime(this.formGroupI.get('SymptomDateTime').value),
-        ThromDateTime: this.serializeDateTime(this.formGroupI.get('ThromDateTime').value),
-        SubECGDateTime: this.serializeDateTime(this.formGroupI.get('SubECGDateTime').value),
-        EDPresentDateTime: this.serializeDateTime(this.formGroupI.get('EDPresentDateTime').value),
-        FirstDevActiDateTime: this.serializeDateTime(this.formGroupI.get('FirstDevActiDateTime').value)
+        ...formGroupIvalue,
+        SymptomDateTime: this.serializeDateTime(formGroupIvalue.SymptomDateTime),
+        ThromDateTime: this.serializeDateTime(formGroupIvalue.ThromDateTime),
+        SubECGDateTime: this.serializeDateTime(formGroupIvalue.SubECGDateTime),
+        EDPresentDateTime: this.serializeDateTime(formGroupIvalue.EDPresentDateTime),
+        FirstDevActiDateTime: this.serializeDateTime(formGroupIvalue.FirstDevActiDateTime)
       },
       sectionJ: {
-        ...this.formGroupJ.value,
-        PciLesions: this.serializePciLesions(this.formGroupJ.value.PciLesions)
+        ...formGroupJvalue,
+        PciLesions: this.serializePciLesions(formGroupJvalue.PciLesions)
       },
       sectionK: {
-        ...this.formGroupK.value,
-        K_BleedingAccessSiteDT: this.serializeDateTime(this.formGroupK.get('K_BleedingAccessSiteDT').value),
-        K_BleedingGIDT: this.serializeDateTime(this.formGroupK.get('K_BleedingGIDT').value),
-        K_BleedingGUDT: this.serializeDateTime(this.formGroupK.get('K_BleedingGUDT').value),
-        K_BleedingHematomaDT: this.serializeDateTime(this.formGroupK.get('K_BleedingHematomaDT').value),
-        K_BleedingOtherDT: this.serializeDateTime(this.formGroupK.get('K_BleedingOtherDT').value),
-        K_BleedingRetroDT: this.serializeDateTime(this.formGroupK.get('K_BleedingRetroDT').value),
-        K_CardiacArrestDT: this.serializeDateTime(this.formGroupK.get('K_CardiacArrestDT').value),
-        K_CardiacTamponadeDT: this.serializeDateTime(this.formGroupK.get('K_CardiacTamponadeDT').value),
-        K_CardiogenicShockDT: this.serializeDateTime(this.formGroupK.get('K_CardiogenicShockDT').value),
-        K_HeartFailureDT: this.serializeDateTime(this.formGroupK.get('K_HeartFailureDT').value),
-        K_MyocardialInfarctionDT: this.serializeDateTime(this.formGroupK.get('K_MyocardialInfarctionDT').value),
-        K_NewDialysisDT: this.serializeDateTime(this.formGroupK.get('K_NewDialysisDT').value),
-        K_OtherVascularDT: this.serializeDateTime(this.formGroupK.get('K_OtherVascularDT').value),
-        K_StrokeHemorrhageDT: this.serializeDateTime(this.formGroupK.get('K_StrokeHemorrhageDT').value),
-        K_StrokeIschemicDT: this.serializeDateTime(this.formGroupK.get('K_StrokeIschemicDT').value),
-        K_StrokeUndeterminedDT: this.serializeDateTime(this.formGroupK.get('K_StrokeUndeterminedDT').value)
+        ...formGroupKvalue,
+        K_BleedingAccessSiteDT: this.serializeDateTime(formGroupKvalue.K_BleedingAccessSiteDT),
+        K_BleedingGIDT: this.serializeDateTime(formGroupKvalue.K_BleedingGIDT),
+        K_BleedingGUDT: this.serializeDateTime(formGroupKvalue.K_BleedingGUDT),
+        K_BleedingHematomaDT: this.serializeDateTime(formGroupKvalue.K_BleedingHematomaDT),
+        K_BleedingOtherDT: this.serializeDateTime(formGroupKvalue.K_BleedingOtherDT),
+        K_BleedingRetroDT: this.serializeDateTime(formGroupKvalue.K_BleedingRetroDT),
+        K_CardiacArrestDT: this.serializeDateTime(formGroupKvalue.K_CardiacArrestDT),
+        K_CardiacTamponadeDT: this.serializeDateTime(formGroupKvalue.K_CardiacTamponadeDT),
+        K_CardiogenicShockDT: this.serializeDateTime(formGroupKvalue.K_CardiogenicShockDT),
+        K_HeartFailureDT: this.serializeDateTime(formGroupKvalue.K_HeartFailureDT),
+        K_MyocardialInfarctionDT: this.serializeDateTime(formGroupKvalue.K_MyocardialInfarctionDT),
+        K_NewDialysisDT: this.serializeDateTime(formGroupKvalue.K_NewDialysisDT),
+        K_OtherVascularDT: this.serializeDateTime(formGroupKvalue.K_OtherVascularDT),
+        K_StrokeHemorrhageDT: this.serializeDateTime(formGroupKvalue.K_StrokeHemorrhageDT),
+        K_StrokeIschemicDT: this.serializeDateTime(formGroupKvalue.K_StrokeIschemicDT),
+        K_StrokeUndeterminedDT: this.serializeDateTime(formGroupKvalue.K_StrokeUndeterminedDT)
       },
       sectionL: {
-        ...this.formGroupL.value,
-        CABGDateTime: this.serializeDateTime(this.formGroupL.get('CABGDateTime').value),
-        DCDateTime: this.serializeDateTime(this.formGroupL.get('DCDateTime').value)
+        ...formGroupLvalue,
+        CABGDateTime: this.serializeDateTime(formGroupLvalue.CABGDateTime),
+        DCDateTime: this.serializeDateTime(formGroupLvalue.DCDateTime)
       },
       sectionM: {
-        ...this.formGroupM.value,
-        FollowUps: this.serializeFollowUps(this.formGroupM.value.FollowUps)
+        ...formGroupMvalue,
+        FollowUps: this.serializeFollowUps(formGroupMvalue.FollowUps)
       }
     };
 
@@ -1681,9 +1719,13 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
 
     // ! initial remove validator in hiding child control
     newGroup.setValue(newGroup.value);
+    newGroup.get('SubmittedFollowUp').setValue(false, { onlySelf: true });
 
     (this.visibles.FollowUps as FormVisible[]).push(visible);
     formArray.push(newGroup);
+    this.followUpCompletions.push({ valid: 0, total: 0 });
+    this.disableSubmitFollowUps.push(false);
+    this.submittedFollowUps.push(false);
 
     // this.followUpsTabIndex = formArray.length - 1;
     // this.disableAddFollowUp = true;
@@ -1704,6 +1746,9 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
 
     formArray.removeAt(index);
     (this.visibles[str.followUps] as FormVisible[]).splice(index, 1);
+    this.followUpCompletions.splice(index, 1);
+    this.disableSubmitFollowUps.splice(index, 1);
+    this.submittedFollowUps.splice(index, 1);
   }
 
   private removeFollowUpsNextTo(index: number) {
@@ -1719,6 +1764,9 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     const formArray = this.formGroupM.get(str.followUps) as FormArray;
     formArray.clear();
     (this.visibles[str.followUps] as FormVisible[]) = [];
+    this.followUpCompletions = [];
+    this.disableSubmitFollowUps = [];
+    this.submittedFollowUps = [];
   }
 
   private removeInvalidFollowUps() {
@@ -1736,7 +1784,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
 
   arrangeFollowUpTabs() {
     const formArray = this.formGroupM.get(str.followUps) as FormArray;
-    const formGroups = formArray.value;
+    const formGroups = formArray.getRawValue();
 
     if (formArray.length <= 0) {
       return;
@@ -1760,28 +1808,252 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
   //#endregion Section M
 
   async submitDischarge() {
-    this.formGroupL.get('SubmittedDischarge').setValue(true);
+    this.formGroupL.get('SubmittedDischarge').patchValue(true, { onlySelf: true });
     await this.submit();
     this.submittedDischarge = true;
     this.disableAllAdmissionForm();
+    this.formGroupM.updateValueAndValidity({ onlySelf: true, emitEvent: true });
+  }
+
+  async unSubmitDischarge() {
+    this.formGroupL.get('SubmittedDischarge').patchValue(false, { onlySelf: true });
+    this.submittedDischarge = false;
+    this.enableAllAdmissionForm();
+    this.unSubmitFollowUpsFrom(0);
+    await this.submit();
+    this.formGroupM.updateValueAndValidity({ onlySelf: true, emitEvent: true });
+  }
+
+  async submitFollowUp(formGroup: FormGroup, index: number) {
+    formGroup.get('SubmittedFollowUp').patchValue(true, { onlySelf: true });
+    await this.submit();
+    this.submittedFollowUps[index] = true;
+    formGroup.disable({ emitEvent: false });
+    this.formGroupM.updateValueAndValidity({ onlySelf: true, emitEvent: true });
+  }
+
+  async unSubmitFollowUp(formGroup: FormGroup, index: number) {
+    this.unSubmitFollowUpsFrom(index);
+    await this.submit();
+    this.formGroupM.updateValueAndValidity({ onlySelf: true, emitEvent: true });
+  }
+
+  private unSubmitFollowUpsFrom(index: number) {
+    const formArray = this.formGroupM.get(str.followUps) as FormArray;
+
+    for (let i = index; i < formArray.length; i++) {
+      const formGroup = formArray.controls[i];
+      if (formGroup.disabled) {
+        formGroup.get('SubmittedFollowUp').patchValue(false, { onlySelf: true });
+        this.submittedFollowUps[i] = false;
+        formGroup.enable({ emitEvent: false });
+      }
+    }
+  }
+
+  private enableAllAdmissionForm() {
+    this.formGroupA.enable({ emitEvent: false });
+    this.formGroupB.enable({ emitEvent: false });
+    this.formGroupC.enable({ emitEvent: false });
+    this.formGroupD.enable({ emitEvent: false });
+    this.formGroupE.enable({ emitEvent: false });
+    this.formGroupF.enable({ emitEvent: false });
+    this.formGroupG.enable({ emitEvent: false });
+    this.formGroupH.enable({ emitEvent: false });
+    this.formGroupI.enable({ emitEvent: false });
+    this.formGroupJ.enable({ emitEvent: false });
+    this.formGroupK.enable({ emitEvent: false });
+    this.formGroupL.enable({ emitEvent: false });
   }
 
   private disableAllAdmissionForm() {
-    this.formGroupA.disable();
-    this.formGroupB.disable();
-    this.formGroupC.disable();
-    this.formGroupD.disable();
-    this.formGroupE.disable();
-    this.formGroupF.disable();
-    this.formGroupG.disable();
-    this.formGroupH.disable();
-    this.formGroupI.disable();
-    this.formGroupJ.disable();
-    this.formGroupK.disable();
-    this.formGroupL.disable();
+    this.formGroupA.disable({ emitEvent: false });
+    this.formGroupB.disable({ emitEvent: false });
+    this.formGroupC.disable({ emitEvent: false });
+    this.formGroupD.disable({ emitEvent: false });
+    this.formGroupE.disable({ emitEvent: false });
+    this.formGroupF.disable({ emitEvent: false });
+    this.formGroupG.disable({ emitEvent: false });
+    this.formGroupH.disable({ emitEvent: false });
+    this.formGroupI.disable({ emitEvent: false });
+    this.formGroupJ.disable({ emitEvent: false });
+    this.formGroupK.disable({ emitEvent: false });
+    this.formGroupL.disable({ emitEvent: false });
   }
 
   debugFormService() {
-    this.registryFormService.setDebug();
+    // this.registryFormService.setDebug();
+    this.formGroupB.enable();
+  }
+
+  setToDefault(formGroup: FormGroup, controls: string[], val: any) {
+    controls.forEach(c => {
+      const control = formGroup.get(c);
+      if (val && !control.value) {
+        control.setValue(val);
+      } else if (val === null) {
+        control.setValue(null);
+      }
+    });
+  }
+
+  setToDefaultRiskFactors(formGroup: FormGroup, val: any) {
+    const controls = [
+      'Hypertension',
+      'Dyslipidemia',
+      'HxMI',
+      'PriorPCI',
+      'FamilyHxCAD',
+      'HxCVD',
+      'PriorPAD',
+      'HxChronicLungDisease',
+      'PriorCABG',
+      'CAOutHospital',
+      'CATransferFac',
+      'Diabetes',
+      'CurrentDialysis'
+    ];
+    this.setToDefault(formGroup, controls, val);
+
+    formGroup.get('TobaccoUse').setValue(val ? 'Never' : val);
+  }
+
+  setToDefaultPreProcMeds(formGroup: FormGroup, val: any) {
+    const controls = [
+      'PreProcMedASA',
+      'PreProcMedBetaBlocker',
+      'PreProcMedCaBlocker',
+      'PreProcMedAntiArrhythmic',
+      'PreProcMedLongActNitrate',
+      'PreProcMedRanolazine',
+      'PreProcMedStatin',
+      'PreProcMedNonStatin',
+      'PreProcMedPCSK9'
+    ];
+    this.setToDefault(formGroup, controls, val);
+  }
+
+  setToDefaultPreProcLabs(formGroup: FormGroup, val: any) {
+    const controls = ['PreProcTnILab', 'PreProcTnTLab', 'PreProcCreatLab', 'HGBLab', 'LipidsTCLab', 'LipidsHDLLab'];
+    this.setToDefault(formGroup, controls, val);
+  }
+
+  setToDefaultPostProcLabs(formGroup: FormGroup, val: any) {
+    const controls = ['PostProcTnILab', 'PostProcTnTLab', 'PostProcCreatLab', 'PostProcHgbLab'];
+    this.setToDefault(formGroup, controls, val);
+  }
+
+  setToDefaultPciMeds(formGroup: FormGroup, val: any) {
+    const controls = [
+      'Argatroban',
+      'Bivalirudin',
+      'Fondaparinux',
+      'HeparinDerivative',
+      'LMWH',
+      'UFH',
+      'Warfarin',
+      'Vorapaxar',
+      'GPIIbIIIa',
+      'Apixaban',
+      'Dabigatran',
+      'Edoxaban',
+      'Rivaroxaban',
+      'Cangrelor',
+      'Clopidogrel',
+      'Prasugrel',
+      'Ticagrelor'
+    ];
+    this.setToDefault(formGroup, controls, val);
+  }
+
+  setToDefaultPeriProcEvents(formGroup: FormGroup, val: any) {
+    const controls = [
+      'K_BleedingAccessSite',
+      'K_BleedingGI',
+      'K_BleedingGU',
+      'K_BleedingHematoma',
+      'K_BleedingOther',
+      'K_BleedingRetro',
+      'K_CardiacArrest',
+      'K_CardiacTamponade',
+      'K_CardiogenicShock',
+      'K_HeartFailure',
+      'K_MyocardialInfarction',
+      'K_NewDialysis',
+      'K_OtherVascular',
+      'K_StrokeHemorrhage',
+      'K_StrokeIschemic',
+      'K_StrokeUndetermined',
+      'PostTransfusion'
+    ];
+    this.setToDefault(formGroup, controls, val);
+  }
+
+  setToDefaultDcMeds(formGroup: FormGroup, val: any) {
+    const controls = [
+      'DC_ACEI',
+      'DC_Warfarin',
+      'DC_Aspirin',
+      'DC_Vorapaxar',
+      'DC_ARB',
+      'DC_BetaBlocker',
+      'DC_Apixaban',
+      'DC_Dabigatran',
+      'DC_Edoxaban',
+      'DC_Rivaroxaban',
+      'DC_Clopidogrel',
+      'DC_Prasugrel',
+      'DC_Ticagrelor',
+      'DC_Ticlopidine',
+      'DC_Statin',
+      'DC_NonStatin',
+      'DC_Alirocumab',
+      'DC_Evolocumab'
+    ];
+    this.setToDefault(formGroup, controls, val);
+  }
+
+  setToDefaultFollowUpEvents(formGroup: FormGroup, val: any) {
+    const controls = [
+      'M_BleedingEvent',
+      'M_CABGStent',
+      'M_CABGNonStent',
+      'M_NSTEMI',
+      'M_Qwave',
+      'M_STEMI',
+      'M_MIUnknown',
+      'M_PCINonStent',
+      'M_PCIStent',
+      'M_Readmission',
+      'M_StrokeHemorrhage',
+      'M_StrokeIschemic',
+      'M_StrokeUndetermined',
+      'M_ThrombosisStent',
+      'M_ThrombosisNonStent'
+    ];
+    this.setToDefault(formGroup, controls, val);
+  }
+
+  setToDefaultFollowUpMedications(formGroup: FormGroup, val: any) {
+    const controls = [
+      'FU_ACEI',
+      'FU_Warfarin',
+      'FU_Aspirin',
+      'FU_Vorapaxar',
+      'FU_ARB',
+      'FU_Apixaban',
+      'FU_Dabigatran',
+      'FU_Edoxaban',
+      'FU_Rivaroxaban',
+      'FU_Clopidogrel',
+      'FU_Prasugrel',
+      'FU_Ticagrelor',
+      'FU_Ticlopidine',
+      'FU_Statin',
+      'FU_NonStatin',
+      'FU_Alirocumab',
+      'FU_Evolocumab'
+    ];
+    this.setToDefault(formGroup, controls, val);
   }
 }

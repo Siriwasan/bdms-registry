@@ -228,6 +228,8 @@
       </div>
     </section>
 
+    FormGroupB: {{ formGroupB.value | json }}
+
     <section class="section-wrapper" scrollSpyElement id="sectionC">
       <div class="section-title">
         <span>{{ getTOCTitle('C') }}</span>
@@ -235,6 +237,18 @@
       </div>
       <div class="section-body">
         <form [formGroup]="formGroupC" #formDirectiveC="ngForm">
+          <div fxLayoutAlign="space-between center">
+            <h3>History and Risk Factors</h3>
+            <div *ngIf="!submittedDischarge">
+              <button mat-icon-button color="primary" matTooltip="Set to Default" matTooltipShowDelay="1000" (click)="setToDefaultRiskFactors(formGroupC, 'No')">
+                <mat-icon>save_alt</mat-icon>
+              </button>
+              <button mat-icon-button color="primary" matTooltip="Set to Null" matTooltipShowDelay="1000" (click)="setToDefaultRiskFactors(formGroupC, null)">
+                <mat-icon>replay</mat-icon>
+              </button>
+            </div>
+          </div>
+
           <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
             <reg-input controlName="Height" placeholder="Height (cm)" [formGroup]="formGroupC" type="number" fxFlex>
             </reg-input>
@@ -332,8 +346,6 @@
 
           <reg-select controlName="CATransferFac" placeholder="Cardiac Arrest at Trasferring Healthcare Facility" [formGroup]="formGroupC"
             [choices]="['Yes', 'No']"></reg-select>
-
-          <h3>(KNOWN OR DIAGNOSED PRIOR TO FIRST CATH LAB VISIT)</h3>
 
           <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
             <reg-select controlName="Diabetes" placeholder="Diabetes Mellitus" [formGroup]="formGroupC"
@@ -522,7 +534,17 @@
               ]" fxFlex></reg-select>
           </div>
 
-          <h3>Pre-Procedure Medications</h3>
+          <div fxLayoutAlign="space-between center">
+            <h3>Pre-Procedure Medications</h3>
+            <div *ngIf="!submittedDischarge">
+              <button mat-icon-button color="primary" matTooltip="Set to Default" matTooltipShowDelay="1000" (click)="setToDefaultPreProcMeds(formGroupD, 'No')">
+                <mat-icon>save_alt</mat-icon>
+              </button>
+              <button mat-icon-button color="primary" matTooltip="Set to Null" matTooltipShowDelay="1000" (click)="setToDefaultPreProcMeds(formGroupD, null)">
+                <mat-icon>replay</mat-icon>
+              </button>
+            </div>
+          </div>
 
           <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
             <reg-select controlName="PreProcMedASA" placeholder="Antiplatelet ASA" [formGroup]="formGroupD"
@@ -740,7 +762,17 @@
         <form [formGroup]="formGroupF" #formDirectiveF="ngForm">
           <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
             <div fxFlex>
-              <h3>Pre-Procedure</h3>
+              <div fxLayoutAlign="space-between center">
+                <h3>Pre-Procedure</h3>
+                <div *ngIf="!submittedDischarge">
+                  <button mat-icon-button color="primary" matTooltip="Set to Default" matTooltipShowDelay="1000" (click)="setToDefaultPreProcLabs(formGroupF, 'Not Drawn')">
+                    <mat-icon>save_alt</mat-icon>
+                  </button>
+                  <button mat-icon-button color="primary" matTooltip="Set to Null" matTooltipShowDelay="1000" (click)="setToDefaultPreProcLabs(formGroupF, null)">
+                    <mat-icon>replay</mat-icon>
+                  </button>
+                </div>
+              </div>
 
               <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
                 <reg-select controlName="PreProcTnILab" placeholder="Troponin I Lab" [formGroup]="formGroupF"
@@ -792,7 +824,17 @@
             </div>
 
             <div fxFlex>
-              <h3>Post-Procedure</h3>
+              <div fxLayoutAlign="space-between center">
+                <h3>Post-Procedure</h3>
+                <div *ngIf="!submittedDischarge">
+                  <button mat-icon-button color="primary" matTooltip="Set to Default" matTooltipShowDelay="1000" (click)="setToDefaultPostProcLabs(formGroupF, 'Not Drawn')">
+                    <mat-icon>save_alt</mat-icon>
+                  </button>
+                  <button mat-icon-button color="primary" matTooltip="Set to Null" matTooltipShowDelay="1000" (click)="setToDefaultPostProcLabs(formGroupF, null)">
+                    <mat-icon>replay</mat-icon>
+                  </button>
+                </div>
+              </div>
 
               <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
                 <reg-select controlName="PostProcTnILab" placeholder="Troponin I Lab" [formGroup]="formGroupF"
@@ -1329,7 +1371,17 @@
               ]" fxFlex></reg-select>
           </div>
 
-          <h3>PCI Procedure Medications</h3>
+          <div fxLayoutAlign="space-between center">
+            <h3>PCI Procedure Medications</h3>
+            <div *ngIf="!submittedDischarge">
+              <button mat-icon-button color="primary" matTooltip="Set to Default" matTooltipShowDelay="1000" (click)="setToDefaultPciMeds(formGroupI, 'No')">
+                <mat-icon>save_alt</mat-icon>
+              </button>
+              <button mat-icon-button color="primary" matTooltip="Set to Null" matTooltipShowDelay="1000" (click)="setToDefaultPciMeds(formGroupI, null)">
+                <mat-icon>replay</mat-icon>
+              </button>
+            </div>
+          </div>
           <h5>(ADMINISTERED WITHIN 24 HOURS PRIOR TO AND DURING THE PCI PROCEDURE)</h5>
 
           <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
@@ -1724,6 +1776,18 @@
         <span>{{ displaySummary('K') }}</span>
       </div>
       <div class="section-body">
+        <div fxLayoutAlign="space-between center">
+          <h3>Intra and Post-Procedure Events</h3>
+          <div *ngIf="!submittedDischarge">
+            <button mat-icon-button color="primary" matTooltip="Set to Default" matTooltipShowDelay="1000" (click)="setToDefaultPeriProcEvents(formGroupK, 'No')">
+              <mat-icon>save_alt</mat-icon>
+            </button>
+            <button mat-icon-button color="primary" matTooltip="Set to Null" matTooltipShowDelay="1000" (click)="setToDefaultPeriProcEvents(formGroupK, null)">
+              <mat-icon>replay</mat-icon>
+            </button>
+          </div>
+        </div>
+
         <form [formGroup]="formGroupK" #formDirectiveK="ngForm">
 
           <div *ngFor="let event of K_procedureEvents">
@@ -1882,7 +1946,18 @@
           </div>
 
           <div *ngIf="visibles['DC_Medications']" id="DC_Medications">
-            <h3>Discharge Medications</h3>
+            <div fxLayoutAlign="space-between center">
+              <h3>Discharge Medications</h3>
+              <div *ngIf="!submittedDischarge">
+                <button mat-icon-button color="primary" matTooltip="Set to Default" matTooltipShowDelay="1000" (click)="setToDefaultDcMeds(formGroupL, 'No - No Reason')">
+                  <mat-icon>save_alt</mat-icon>
+                </button>
+                <button mat-icon-button color="primary" matTooltip="Set to Null" matTooltipShowDelay="1000" (click)="setToDefaultDcMeds(formGroupL, null)">
+                  <mat-icon>replay</mat-icon>
+                </button>
+              </div>
+            </div>
+
 
             <h4>ACE Inhibitors</h4>
 
@@ -2211,9 +2286,11 @@
 
         </form>
 
-        <div *ngIf="!submittedDischarge">
-          <button mat-raised-button color="warn" [disabled]="disableSubmitDischarge"
+        <div>
+          <button *ngIf="!submittedDischarge" mat-raised-button color="warn" [disabled]="disableSubmitDischarge"
             (click)="submitDischarge()" fxFlex>Submit at Discharge</button>
+          <button *ngIf="submittedDischarge" mat-raised-button [style.background-color]="'#673ab7'" [style.color]="'white'" [disabled]="disableSubmitDischarge"
+            (click)="unSubmitDischarge()" fxFlex>Unsubmit at Discharge</button>
         </div>
 
       </div>
@@ -2299,7 +2376,17 @@
                       [choices]="deathCauses" fxFlex></reg-select>
                   </div>
 
-                  <h3>Events, Interventions AND/OR Surgical Procedures</h3>
+                  <div fxLayoutAlign="space-between center">
+                    <h3>Events, Interventions AND/OR Surgical Procedures</h3>
+                    <div *ngIf="!submittedFollowUps[i]">
+                      <button mat-icon-button color="primary" matTooltip="Set to Default" matTooltipShowDelay="1000" (click)="setToDefaultFollowUpEvents(item, 'No')">
+                        <mat-icon>save_alt</mat-icon>
+                      </button>
+                      <button mat-icon-button color="primary" matTooltip="Set to Null" matTooltipShowDelay="1000" (click)="setToDefaultFollowUpEvents(item, null)">
+                        <mat-icon>replay</mat-icon>
+                      </button>
+                    </div>
+                  </div>
 
                   <div *ngFor="let event of M_followUpEvents">
 
@@ -2332,7 +2419,17 @@
                       'Any repeat revascularization (includes all target and non-target vessels)'
                     ]"></reg-select>
 
-                  <h3>Follow-up Medications</h3>
+                  <div fxLayoutAlign="space-between center">
+                    <h3>Follow-up Medications</h3>
+                    <div *ngIf="!submittedFollowUps[i]">
+                      <button mat-icon-button color="primary" matTooltip="Set to Default" matTooltipShowDelay="1000" (click)="setToDefaultFollowUpMedications(item, 'No - No Reason')">
+                        <mat-icon>save_alt</mat-icon>
+                      </button>
+                      <button mat-icon-button color="primary" matTooltip="Set to Null" matTooltipShowDelay="1000" (click)="setToDefaultFollowUpMedications(item, null)">
+                        <mat-icon>replay</mat-icon>
+                      </button>
+                    </div>
+                  </div>
 
                   <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
                     <div fxFlex>
@@ -2483,13 +2580,13 @@
                     </div>
                   </div>
 
+                <div fxLayout="column">
+                  <button mat-raised-button color="warn" *ngIf="!submittedFollowUps[i]" [disabled]="disableSubmitFollowUps[i]" (click)="submitFollowUp(item, i)" fxFlex>Submit Follow Up</button>
+                  <button mat-raised-button [style.background-color]="'#673ab7'" [style.color]="'white'" *ngIf="submittedFollowUps[i]" (click)="unSubmitFollowUp(item, i)" fxFlex>Unsubmit Follow Up</button>
+                </div>
+
                 </mat-tab>
               </mat-tab-group>
-
-              <div *ngIf="!submittedDischarge">
-                <button mat-raised-button color="warn" [disabled]="disableSubmitDischarge"
-                  (click)="submitDischarge()" fxFlex>Submit Follow Up</button>
-              </div>
 
             </fieldset>
           </div>

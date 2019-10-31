@@ -23,7 +23,8 @@ import {
   MatTooltipModule,
   MatSnackBarModule,
   MatTabsModule,
-  MatAutocompleteModule
+  MatAutocompleteModule,
+  MatBadgeModule
 } from '@angular/material';
 
 import { MatDatepickerModule, MatMomentDateModule } from '@coachcare/datepicker';
@@ -56,6 +57,7 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
     MatSnackBarModule,
     MatTabsModule,
     MatAutocompleteModule,
+    MatBadgeModule,
     NgxMatSelectSearchModule
   ],
   exports: [
@@ -83,6 +85,7 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
     MatSnackBarModule,
     MatTabsModule,
     MatAutocompleteModule,
+    MatBadgeModule,
     NgxMatSelectSearchModule
   ]
 })
