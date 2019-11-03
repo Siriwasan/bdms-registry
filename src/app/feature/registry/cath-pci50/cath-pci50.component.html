@@ -2289,7 +2289,7 @@
         <div>
           <button *ngIf="!submittedDischarge" mat-raised-button color="warn" [disabled]="disableSubmitDischarge"
             (click)="submitDischarge()" fxFlex>Submit at Discharge</button>
-          <button *ngIf="submittedDischarge" mat-raised-button [style.background-color]="'#673ab7'" [style.color]="'white'" [disabled]="disableSubmitDischarge"
+          <button *ngIf="submittedDischarge && user.staff.role === 'Director'" mat-raised-button [style.background-color]="'#673ab7'" [style.color]="'white'" [disabled]="disableSubmitDischarge"
             (click)="unSubmitDischarge()" fxFlex>Unsubmit at Discharge</button>
         </div>
 
@@ -2582,7 +2582,7 @@
 
                 <div fxLayout="column">
                   <button mat-raised-button color="warn" *ngIf="!submittedFollowUps[i]" [disabled]="disableSubmitFollowUps[i]" (click)="submitFollowUp(item, i)" fxFlex>Submit Follow Up</button>
-                  <button mat-raised-button [style.background-color]="'#673ab7'" [style.color]="'white'" *ngIf="submittedFollowUps[i]" (click)="unSubmitFollowUp(item, i)" fxFlex>Unsubmit Follow Up</button>
+                  <button mat-raised-button [style.background-color]="'#673ab7'" [style.color]="'white'" *ngIf="submittedFollowUps[i] && user.staff.role === 'Director'" (click)="unSubmitFollowUp(item, i)" fxFlex>Unsubmit Follow Up</button>
                 </div>
 
                 </mat-tab>

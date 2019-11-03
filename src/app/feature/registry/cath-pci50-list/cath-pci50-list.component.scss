@@ -24,22 +24,22 @@ table {
 
 .mat-header-cell:nth-child(3),
 .mat-cell:nth-child(3) {
-  flex: 13%;
+  flex: 20%;
 }
 
 .mat-header-cell:nth-child(4),
 .mat-cell:nth-child(4) {
-  flex: 15%;
+  flex: 5%;
 }
 
 .mat-header-cell:nth-child(5),
 .mat-cell:nth-child(5) {
-  flex: 5%;
+  flex: 35%;
 }
 
 .mat-header-cell:nth-child(6),
 .mat-cell:nth-child(6) {
-  flex: 35%;
+  flex: 20%;
 }
 
 .mat-header-cell:last-child,
@@ -67,6 +67,34 @@ table {
 
 .tag-high-priority {
   margin: 4px;
+  background-color: #f86666;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 16px;
+  z-index: 9;
+  cursor: pointer;
+}
+
+.submitted-low-priority {
+  margin: 12px 12px 4px 4px;
+  background-color: #d0dbff;
+  padding: 5px 10px;
+  border-radius: 16px;
+  z-index: 9;
+  cursor: pointer;
+}
+
+.submitted-medium-priority {
+  margin: 12px 12px 4px 4px;
+  background-color: #f1d27b;
+  padding: 5px 10px;
+  border-radius: 16px;
+  z-index: 9;
+  cursor: pointer;
+}
+
+.submitted-high-priority {
+  margin: 12px 12px 4px 4px;
   background-color: #f86666;
   color: white;
   padding: 5px 10px;

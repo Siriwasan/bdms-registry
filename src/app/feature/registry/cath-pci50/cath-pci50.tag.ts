@@ -52,7 +52,7 @@ export const tagConditions: TagCondition[] = [
     tag: 'NHSO'
   },
   { section: 'sectionL', control: 'DCStatus', values: ['Deceased'], tag: 'Dead' },
-  { section: 'sectionL', control: 'SubmittedDischarge', values: [true], tag: 'D/C' }
+  // { section: 'sectionL', control: 'SubmittedDischarge', values: [true], tag: 'D/C' }
 ];
 
 export const tagPriorities = {
@@ -73,5 +73,10 @@ export const tagPriorities = {
   '7 y': 'medium',
   '8 y': 'medium',
   '9 y': 'medium',
-  '10 y': 'medium'
+  '10 y': 'medium',
+  '11 y': 'medium',
+  '12 y': 'medium',
+  '13 y': 'medium',
+  '14 y': 'medium',
+  '15 y': 'medium'
 };

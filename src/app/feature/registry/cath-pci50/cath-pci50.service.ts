@@ -117,6 +117,7 @@ export class CathPci50Service implements OnDestroy {
       addendum: data.detail.addendum,
       completion: complete,
       tags: this.createTags(data),
+      submitted: this.createSubmitted(data),
       modifiedAt: data.detail.modifiedAt
     };
     // tslint:enable: no-string-literal
@@ -152,6 +153,51 @@ export class CathPci50Service implements OnDestroy {
     return tags;
   }
 
+  public createSubmitted(data: CathPci50Model): string[] {
+    const submitted: string[] = [];
+
+    // tslint:disable: no-string-literal
+    const procDate = moment(data.sectionE['ProcedureStartDateTime']);
+
+    if (data.sectionL['SubmittedDischarge']) {
+      const period = 'D/C';
+      let endpoint = '-';
+      if (data.sectionL['L_DeviceCompositeEP'] !== 'None') {
+        endpoint += 'D';
+      }
+      if (data.sectionL['L_PatientCompositeEP'] !== 'None') {
+        endpoint += 'P';
+      }
+      submitted.push(endpoint === '-' ? period : period + endpoint);
+  }
+
+    data.sectionM['FollowUps'].forEach(d => {
+      if (!d['SubmittedFollowUp']) {
+        return;
+      }
+      const fuDate = moment(d['FU_AssessmentDate']);
+      const period = this.getFollowUpPeriod(procDate, fuDate);
+      if (period !== '') {
+        let endpoint = '-';
+        if (d['M_DeviceCompositeEP'] !== 'None') {
+          endpoint += 'D';
+        }
+        if (d['M_PatientCompositeEP'] !== 'None') {
+          endpoint += 'P';
+        }
+        submitted.push(endpoint === '-' ? period : period + endpoint);
+      }
+
+      if (d['FU_Status'] === 'Deceased') {
+        submitted.push('Dead');
+      } else if (d['FU_Status'] === 'Lost to Follow-up') {
+        submitted.push('Lost');
+      }
+    });
+    // tslint:enable: no-string-literal
+    return submitted;
+  }
+
   private getFollowUpPeriod(procDate: moment.Moment, fuDate: moment.Moment): string {
     let period = '';
 
@@ -160,14 +206,14 @@ export class CathPci50Service implements OnDestroy {
     }
 
     const dateDiff = fuDate.diff(procDate, 'days', false);
-
-    if (dateDiff <= 34) {
+    if (dateDiff > 0 && dateDiff <= 44) {
       period = '30 d';
     } else {
-      const years = Math.ceil((dateDiff - 60) / 365);
-      period = `${years} y`;
+      const years = Math.floor(dateDiff / 365);
+      if (years > 0 && (dateDiff >= years * 365 - 60 && dateDiff <= years * 365 + 60)) {
+        period = `${years} y`;
+      }
     }
-
     return period;
   }
 

@@ -16,7 +16,7 @@
     mat-list-item
     routerLink="/registry/cath-pci50-list"
     (click)="onClose()"
-    *ngIf="authMenu.tools.includes((user$ | async)?.staff.role)"
+    *ngIf="authMenu.registry.includes((user$ | async)?.staff.role)"
     >
     <mat-icon>list_outline</mat-icon>
     <span class="nav-caption">CathPCI</span>

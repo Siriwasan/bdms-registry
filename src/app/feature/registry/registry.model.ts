@@ -23,5 +23,6 @@ export interface RegistryModel {
   addendum: string;
   completion: number;
   tags: string[];
+  submitted: string[];
   modifiedAt: any;
 }

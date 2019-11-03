@@ -25,7 +25,7 @@ import { AuthService } from 'src/app/core/auth/auth.service';
   providers: [RegistryService]
 })
 export class CathPci50ListComponent implements OnInit, OnDestroy {
-  displayedColumns: string[] = ['registryId', 'hn', 'firstName', 'lastName', 'age', 'tags', 'completion'];
+  displayedColumns: string[] = ['registryId', 'hn', 'name', 'age', 'tags', 'submitted', 'completion'];
   dataSource: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -67,10 +67,21 @@ export class CathPci50ListComponent implements OnInit, OnDestroy {
           ...d,
           hn: this.decrypt(d.hn),
           an: this.decrypt(d.an),
-          firstName: this.decrypt(d.firstName),
-          lastName: this.decrypt(d.lastName),
+          name: this.decrypt(d.firstName) + ' ' + this.decrypt(d.lastName),
           tags: d.tags.map(t => {
             return { tag: t, priority: tagPriorities[t] ? tagPriorities[t] : 'low' };
+          }),
+          submitted: d.submitted.map(t => {
+            const s = t.split('-');
+            if (s[1] === 'DP') {
+              t = t + ';' + t.substring(0, t.length - 1) + ';' + s[0] + '-P';
+            }
+            return {
+              submit: t,
+              label: s[0],
+              endpoint: s.length > 1 ? s[1] : null,
+              priority: tagPriorities[s[0]] ? tagPriorities[s[0]] : 'low'
+            };
           })
         };
       });
@@ -79,19 +90,24 @@ export class CathPci50ListComponent implements OnInit, OnDestroy {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
       this.dataSource.filterPredicate = (d: any, filter: string) => {
-        if (d.registryId.substr(3).toLowerCase().includes(filter)) {
+        if (
+          d.registryId
+            .substr(3)
+            .toLowerCase()
+            .includes(filter)
+        ) {
           return true;
         }
         if (d.hn.toLowerCase().includes(filter)) {
           return true;
         }
-        if (d.firstName.toLowerCase().includes(filter)) {
-          return true;
-        }
-        if (d.lastName.toLowerCase().includes(filter)) {
+        if (d.name.toLowerCase().includes(filter)) {
           return true;
         }
         if (d.tags.length > 0 && d.tags.map(t => t.tag.toLowerCase()).includes(filter)) {
+          return true;
+        }
+        if (d.submitted.length > 0 && d.submitted.map(t => t.submit.toLowerCase()).some(res => res.includes(filter))) {
           return true;
         }
 
@@ -150,7 +166,7 @@ export class CathPci50ListComponent implements OnInit, OnDestroy {
 
   clickTag(tag: string) {
     this.barClicked = true;
-    this.filterString = tag;
+    this.filterString = tag.split(';')[0];
     this.applyFilter(this.filterString);
   }
 }
