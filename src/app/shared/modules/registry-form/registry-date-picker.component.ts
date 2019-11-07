@@ -12,13 +12,13 @@ import * as moment from 'moment';
 // https://momentjs.com/docs/#/displaying/format/
 const MY_DATE_FORMATS = {
   parse: {
-    datetime: ['DD/MM/YYYY H:mm', 'DD/M/YYYY H:mm', 'D/M/YYYY H:mm'],
-    date: ['DD/MM/YYYY', 'DD/M/YYYY', 'D/M/YYYY'],
+    datetime: ['DD/MM/YYYY H:mm', 'DD/M/YYYY H:mm', 'D/M/YYYY H:mm', 'D/MM/YYYY H:mm'],
+    date: ['DD/MM/YYYY', 'DD/M/YYYY', 'D/M/YYYY', 'D/MM/YYYY'],
     time: ['H:mm']
   },
   display: {
-    datetime: 'DD/MM/YYYY H:mm',
-    date: 'DD/MM/YYYY',
+    datetime: 'D/M/YYYY H:mm',
+    date: 'D/M/YYYY',
     time: 'H:mm',
     monthDayLabel: 'D MMMM',
     monthDayA11yLabel: 'D MMMM',
@@ -30,20 +30,9 @@ const MY_DATE_FORMATS = {
 };
 
 export class CustomDateAdapter extends MomentDateAdapter {
-  private type: string;
-
-  // setType(type: string) {
-  //   this.type = type;
-  // }
-
   getFirstDayOfWeek(): number {
     return 1;
   }
-  // deserialize(value: any): moment.Moment | null {
-  //   console.log(value);
-  //   const result = super.deserialize(value);
-  //   return result ? result.startOf('day').add(7, 'hour') : null;
-  // }
 }
 
 @Component({

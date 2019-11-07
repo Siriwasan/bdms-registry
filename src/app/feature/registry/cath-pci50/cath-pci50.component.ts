@@ -1071,7 +1071,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
   }
 
   private serializeDateTime(dateTime: any): any {
-    return moment.isMoment(dateTime) ? dateTime.toISOString() : dateTime;
+    return moment.isMoment(dateTime) ? dateTime.toISOString(true) : dateTime;
   }
 
   checkValidation() {

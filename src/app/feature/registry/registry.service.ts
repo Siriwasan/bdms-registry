@@ -205,28 +205,25 @@ export class RegistryService implements OnDestroy {
     console.log(json);
 
     // tslint:disable: variable-name
-    const ECGFindings = this.SimpleFieldToSheet('sectionD', 'ECGFindings', json);
-    const NSVTType = this.SimpleFieldToSheet('sectionD', 'NSVTType', json);
-    const ConcomProcType = this.SimpleFieldToSheet('sectionE', 'ConcomProcType', json);
-    const CathLabVisitIndication = this.SimpleFieldToSheet('sectionG', 'CathLabVisitIndication', json);
-    const CVInstabilityType = this.SimpleFieldToSheet('sectionG', 'CVInstabilityType', json);
-    const OrganTransplantType = this.SimpleFieldToSheet('sectionG', 'OrganTransplantType', json);
-    const NativeLesions = this.ComplexFieldToSheet('sectionH', 'NativeLesions', json);
-    const GraftLesions = this.ComplexFieldToSheet('sectionH', 'GraftLesions', json);
-    const PciLesions = this.ComplexFieldToSheet('sectionJ', 'PciLesions', json);
-    const SegmentID = this.VerySimpleFieldToSheet('SegmentID', PciLesions, 'LesionCounter');
-    const GuidewireAcross = this.VerySimpleFieldToSheet('GuidewireAcross', PciLesions);
-    const ComplicationPCIDetail = this.VerySimpleFieldToSheet('ComplicationPCIDetail', PciLesions);
-    const PciDevices = this.ComplexFieldToSheet('sectionJ', 'PciDevices', json);
-    const ICDevCounterAssn = this.VerySimpleFieldToSheet('ICDevCounterAssn', PciDevices, 'ICDevCounter');
-    const K_MIFollowCriteria = this.SimpleFieldToSheet('sectionK', 'K_MyocardialInfarctionFollowCriteria', json);
-    const HospInterventionType = this.SimpleFieldToSheet('sectionL', 'HospInterventionType', json);
-    const DC_MedReconciled = this.SimpleFieldToSheet('sectionL', 'DC_MedReconciled', json);
-    const FollowUps = this.ComplexFieldToSheet('sectionM', 'FollowUps', json);
-    const FU_Method = this.VerySimpleFieldToSheet('FU_Method', FollowUps);
-    const M_CABGStentLesions = this.VerySimpleFieldToSheet('M_CABGStentLesions', FollowUps);
-    const M_PCIStentLesions = this.VerySimpleFieldToSheet('M_PCIStentLesions', FollowUps);
-    const M_ThrombosisStentLesions = this.VerySimpleFieldToSheet('M_ThrombosisStentLesions', FollowUps);
+    const ECGFindings = this.FieldToSheet('sectionD', 'ECGFindings', json);
+    const NSVTType = this.FieldToSheet('sectionD', 'NSVTType', json);
+    const ConcomProcType = this.FieldToSheet('sectionE', 'ConcomProcType', json);
+    const CathLabVisitIndication = this.FieldToSheet('sectionG', 'CathLabVisitIndication', json);
+    const CVInstabilityType = this.FieldToSheet('sectionG', 'CVInstabilityType', json);
+    const OrganTransplantType = this.FieldToSheet('sectionG', 'OrganTransplantType', json);
+    const NativeLesions = this.ArrayToSheet('sectionH', 'NativeLesions', json);
+    const GraftLesions = this.ArrayToSheet('sectionH', 'GraftLesions', json);
+    const PciLesions = this.ArrayToSheet('sectionJ', 'PciLesions', json);
+    const SegmentID = this.SubArrayToSheet('SegmentID', PciLesions, 'LesionCounter');
+    const GuidewireAcross = this.SubArrayToSheet('GuidewireAcross', PciLesions, 'LesionCounter');
+    const ComplicationPCIDetail = this.SubArrayToSheet('ComplicationPCIDetail', PciLesions, 'LesionCounter');
+    const PciDevices = this.ArrayToSheet('sectionJ', 'PciDevices', json);
+    const ICDevCounterAssn = this.SubArrayToSheet('ICDevCounterAssn', PciDevices, 'ICDevCounter');
+    const K_MIFollowCriteria = this.FieldToSheet('sectionK', 'K_MyocardialInfarctionFollowCriteria', json);
+    const HospInterventionType = this.FieldToSheet('sectionL', 'HospInterventionType', json);
+    const DC_MedReconciled = this.FieldToSheet('sectionL', 'DC_MedReconciled', json);
+    const FollowUps = this.ArrayToSheet('sectionM', 'FollowUps', json);
+    const FU_Method = this.SubArrayToSheet('FU_Method', FollowUps, 'FU_AssessmentDate');
     // tslint:enable: variable-name
 
     const mainData = [];
@@ -252,9 +249,6 @@ export class RegistryService implements OnDestroy {
     const worksheet18: XLSX.WorkSheet = XLSX.utils.json_to_sheet(DC_MedReconciled);
     const worksheet19: XLSX.WorkSheet = XLSX.utils.json_to_sheet(FollowUps);
     const worksheet20: XLSX.WorkSheet = XLSX.utils.json_to_sheet(FU_Method);
-    const worksheet21: XLSX.WorkSheet = XLSX.utils.json_to_sheet(M_CABGStentLesions);
-    const worksheet22: XLSX.WorkSheet = XLSX.utils.json_to_sheet(M_PCIStentLesions);
-    const worksheet23: XLSX.WorkSheet = XLSX.utils.json_to_sheet(M_ThrombosisStentLesions);
 
     const workbook: XLSX.WorkBook = {
       Sheets: {
@@ -277,10 +271,7 @@ export class RegistryService implements OnDestroy {
         HospInterventionType: worksheet17,
         DC_MedReconciled: worksheet18,
         FollowUps: worksheet19,
-        FU_Method: worksheet20,
-        M_CABGStentLesions: worksheet21,
-        M_PCIStentLesions: worksheet22,
-        M_ThrombosisStentLesions: worksheet23
+        FU_Method: worksheet20
       },
       SheetNames: [
         'data',
@@ -302,10 +293,7 @@ export class RegistryService implements OnDestroy {
         'HospInterventionType',
         'DC_MedReconciled',
         'FollowUps',
-        'FU_Method',
-        'M_CABGStentLesions',
-        'M_PCIStentLesions',
-        'M_ThrombosisStentLesions'
+        'FU_Method'
       ]
     };
 
@@ -313,7 +301,7 @@ export class RegistryService implements OnDestroy {
     this.saveAsExcelFile(excelBuffer, excelFileName);
   }
 
-  private VerySimpleFieldToSheet(control: string, data: any[], subId = null) {
+  private SubArrayToSheet(control: string, data: any[], subId = null) {
     const sheetData = [];
     data.map((record: any) => {
       const fields = record[control] as string[];
@@ -334,7 +322,7 @@ export class RegistryService implements OnDestroy {
     return sheetData;
   }
 
-  private SimpleFieldToSheet(section: string, control: string, data: CathPci50Model[]) {
+  private FieldToSheet(section: string, control: string, data: CathPci50Model[]) {
     const sheetData = [];
     data.map(record => {
       const fields = record[section][control] as string[];
@@ -352,7 +340,7 @@ export class RegistryService implements OnDestroy {
     return sheetData;
   }
 
-  private ComplexFieldToSheet(section: string, control: string, data: CathPci50Model[]) {
+  private ArrayToSheet(section: string, control: string, data: CathPci50Model[]) {
     const sheetData = [];
 
     data.map(record => {
