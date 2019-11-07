@@ -76,7 +76,7 @@
       <div fxFlex="270px" fxHide.lt-md></div>
     </div>
 
-    <button mat-raised-button color="primary" (click)="debugFormService()">Debug FormService</button>
+    <!-- <button mat-raised-button color="primary" (click)="debugFormService()">Debug FormService</button> -->
     <h1>NCDR CathPCI Registry v5.0</h1>
 
     <section class="section-wrapper" scrollSpyElement id="sectionA">
@@ -228,7 +228,7 @@
       </div>
     </section>
 
-    FormGroupB: {{ formGroupB.value | json }}
+    <!-- FormGroupB: {{ formGroupB.value | json }} -->
 
     <section class="section-wrapper" scrollSpyElement id="sectionC">
       <div class="section-title">
@@ -265,7 +265,9 @@
             <reg-select controlName="Dyslipidemia" placeholder="Dyslipidemia" [formGroup]="formGroupC"
               [choices]="['Yes', 'No']" fxFlex>
             </reg-select>
+          </div>
 
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
             <reg-select controlName="HxMI" placeholder="Prior MI" [formGroup]="formGroupC" [choices]="['Yes', 'No']" fxFlex>
             </reg-select>
 
@@ -465,7 +467,9 @@
 
             <reg-datepicker *ngIf="visibles['StressTestDate']" controlName="StressTestDate" placeholder="Most Recent Date" [formGroup]="formGroupD" fxFlex>
               dd/mm/yyyy</reg-datepicker>
+          </div>
 
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
             <reg-select *ngIf="visibles['StressTestResult']" controlName="StressTestResult" placeholder="Test Result" [formGroup]="formGroupD" [choices]="[
                 'Negative',
                 'Positive',
@@ -647,7 +651,7 @@
                 'Peripheral Angiogram',
                 'Procedure Type Not Listed',
                 'Cardioversion'
-              ]" fxFlex></reg-select-multiple>
+              ]" fxFlex="66"></reg-select-multiple>
           </div>
 
           <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
@@ -775,18 +779,18 @@
               </div>
 
               <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
-                <reg-select controlName="PreProcTnILab" placeholder="Troponin I Lab" [formGroup]="formGroupF"
+                <reg-select controlName="PreProcTnILab" placeholder="hsTroponin I Lab" [formGroup]="formGroupF"
                   [choices]="['Drawn', 'Not Drawn']" fxFlex></reg-select>
 
-                <reg-input *ngIf="visibles['PreProcTnI']" controlName="PreProcTnI" placeholder="Troponin I (ng/mL)" [formGroup]="formGroupF" type="number" fxFlex>
+                <reg-input *ngIf="visibles['PreProcTnI']" controlName="PreProcTnI" placeholder="hsTroponin I (ng/mL)" [formGroup]="formGroupF" type="number" fxFlex>
                 </reg-input>
               </div>
 
               <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
-                <reg-select controlName="PreProcTnTLab" placeholder="Troponin T Lab" [formGroup]="formGroupF"
+                <reg-select controlName="PreProcTnTLab" placeholder="hsTroponin T Lab" [formGroup]="formGroupF"
                   [choices]="['Drawn', 'Not Drawn']" fxFlex></reg-select>
 
-                <reg-input *ngIf="visibles['PreProcTnT']" controlName="PreProcTnT" placeholder="Troponin T (ng/mL)" [formGroup]="formGroupF" type="number" fxFlex>
+                <reg-input *ngIf="visibles['PreProcTnT']" controlName="PreProcTnT" placeholder="hsTroponin T (ng/mL)" [formGroup]="formGroupF" type="number" fxFlex>
                 </reg-input>
               </div>
 
@@ -837,18 +841,18 @@
               </div>
 
               <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
-                <reg-select controlName="PostProcTnILab" placeholder="Troponin I Lab" [formGroup]="formGroupF"
+                <reg-select controlName="PostProcTnILab" placeholder="hsTroponin I Lab" [formGroup]="formGroupF"
                   [choices]="['Drawn', 'Not Drawn']" fxFlex></reg-select>
 
-                <reg-input *ngIf="visibles['PostProcTnI']" controlName="PostProcTnI" placeholder="Troponin I (ng/mL)" [formGroup]="formGroupF" type="number" fxFlex>
+                <reg-input *ngIf="visibles['PostProcTnI']" controlName="PostProcTnI" placeholder="hsTroponin I (ng/mL)" [formGroup]="formGroupF" type="number" fxFlex>
                 </reg-input>
               </div>
 
               <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
-                <reg-select controlName="PostProcTnTLab" placeholder="Troponin T Lab" [formGroup]="formGroupF"
+                <reg-select controlName="PostProcTnTLab" placeholder="hsTroponin T Lab" [formGroup]="formGroupF"
                   [choices]="['Drawn', 'Not Drawn']" fxFlex></reg-select>
 
-                <reg-input *ngIf="visibles['PostProcTnT']" controlName="PostProcTnT" placeholder="Troponin T (ng/mL)" [formGroup]="formGroupF" type="number" fxFlex>
+                <reg-input *ngIf="visibles['PostProcTnT']" controlName="PostProcTnT" placeholder="hsTroponin T (ng/mL)" [formGroup]="formGroupF" type="number" fxFlex>
                 </reg-input>
               </div>
 
@@ -1949,7 +1953,7 @@
             <div fxLayoutAlign="space-between center">
               <h3>Discharge Medications</h3>
               <div *ngIf="!submittedDischarge">
-                <button mat-icon-button color="primary" matTooltip="Set to Default" matTooltipShowDelay="1000" (click)="setToDefaultDcMeds(formGroupL, 'No - No Reason')">
+                <button mat-icon-button color="primary" matTooltip="Set to Default" matTooltipShowDelay="1000" (click)="setToDefaultDcMeds(formGroupL, 'No - Medical Reason')">
                   <mat-icon>save_alt</mat-icon>
                 </button>
                 <button mat-icon-button color="primary" matTooltip="Set to Null" matTooltipShowDelay="1000" (click)="setToDefaultDcMeds(formGroupL, null)">
@@ -2422,7 +2426,7 @@
                   <div fxLayoutAlign="space-between center">
                     <h3>Follow-up Medications</h3>
                     <div *ngIf="!submittedFollowUps[i]">
-                      <button mat-icon-button color="primary" matTooltip="Set to Default" matTooltipShowDelay="1000" (click)="setToDefaultFollowUpMedications(item, 'No - No Reason')">
+                      <button mat-icon-button color="primary" matTooltip="Set to Default" matTooltipShowDelay="1000" (click)="setToDefaultFollowUpMedications(item, 'No - Medical Reason')">
                         <mat-icon>save_alt</mat-icon>
                       </button>
                       <button mat-icon-button color="primary" matTooltip="Set to Null" matTooltipShowDelay="1000" (click)="setToDefaultFollowUpMedications(item, null)">

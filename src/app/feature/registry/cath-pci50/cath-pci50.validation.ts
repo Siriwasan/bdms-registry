@@ -209,7 +209,7 @@ export const validations: FormValidations = {
       { type: 'max', message: 'Value cannot be more than 50,000 mGy.' }
     ],
     FluoroDoseDAP: [
-      { type: 'min', message: 'Value must be at least 1,000 mGy/cm2.' },
+      { type: 'min', message: 'Value must be at least 1 mGy/cm2.' },
       { type: 'max', message: 'Value cannot be more than 5,000,000 mGy/cm2.' }
     ],
     ProcedureStartDateTime: [
@@ -349,11 +349,11 @@ export const validations: FormValidations = {
   sectionF: {
     PreProcTnI: [
       { type: 'min', message: 'Trop-I must be at least 0.00 ng/mL.' },
-      { type: 'max', message: 'Trop-I cannot be more than 5,000.00 ng/mL.' }
+      { type: 'max', message: 'Trop-I cannot be more than 20,000.00 ng/mL.' }
     ],
     PreProcTnT: [
       { type: 'min', message: 'Trop-T must be at least 0.00 ng/mL.' },
-      { type: 'max', message: 'Trop-T cannot be more than 5,000.00 ng/mL.' }
+      { type: 'max', message: 'Trop-T cannot be more than 20,000.00 ng/mL.' }
     ],
     PreProcCreat: [
       { type: 'min', message: 'Creatinine must be at least 0.10 mg/dL.' },

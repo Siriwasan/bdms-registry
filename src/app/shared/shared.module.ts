@@ -9,7 +9,6 @@ import { RegistryFormModule } from './modules/registry-form/registry-form.module
 
 import { ModalDialogComponent } from './components/modal-dialog/modal-dialog.component';
 import { NoSanitizePipe } from './pipes/no-sanitize.pipe';
-import { DeactivateGuard } from './guards/deactivate.guard';
 import { FabSpeedDialModule } from './modules/fab-speed-dial/fab-speed-dial.module';
 
 @NgModule({
@@ -35,7 +34,7 @@ import { FabSpeedDialModule } from './modules/fab-speed-dial/fab-speed-dial.modu
     NoSanitizePipe,
     FabSpeedDialModule
   ],
-  providers: [DeactivateGuard],
+  providers: [],
   entryComponents: [ModalDialogComponent]
 })
 export class SharedModule {}

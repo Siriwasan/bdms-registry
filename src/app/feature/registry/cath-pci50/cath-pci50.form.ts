@@ -227,13 +227,13 @@ export const CathPci50Form = {
     FluoroTime: [null, [Validators.required, Validators.min(0.1), Validators.max(300)]],
     ContrastVol: [null, [Validators.required, Validators.min(0), Validators.max(999)]],
     FluoroDoseKerm: [null, [Validators.required, Validators.min(1), Validators.max(50000)]],
-    FluoroDoseDAP: [null, [Validators.required, Validators.min(1000), Validators.max(5000000)]]
+    FluoroDoseDAP: [null, [Validators.required, Validators.min(1), Validators.max(5000000)]]
   },
   sectionF: {
     PreProcTnILab: [null, Validators.required],
-    PreProcTnI: [null, [Validators.required, Validators.min(0), Validators.max(5000)]],
+    PreProcTnI: [null, [Validators.required, Validators.min(0), Validators.max(20000)]],
     PreProcTnTLab: [null, Validators.required],
-    PreProcTnT: [null, [Validators.required, Validators.min(0), Validators.max(5000)]],
+    PreProcTnT: [null, [Validators.required, Validators.min(0), Validators.max(20000)]],
     PreProcCreatLab: [null, Validators.required],
     PreProcCreat: [null, [Validators.required, Validators.min(0.1), Validators.max(30.0)]],
     HGBLab: [null, Validators.required],

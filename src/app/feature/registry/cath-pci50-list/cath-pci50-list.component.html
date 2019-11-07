@@ -14,7 +14,7 @@
       />
       <button
         mat-button
-        *ngIf="input.value.length > 0"
+        *ngIf="input.value.trim()"
         matSuffix
         mat-icon-button
         aria-label="Clear"

@@ -3,7 +3,7 @@
 ### Features
 
 - **Registry form:** implement group in dropdown
-- **CathPci50:** add DateTime validation
+- **CathPci50:** add DateTime validation, add data dictionary
 - **UI:** improve form layout
 
 # 1.2.0 (2019-10-03)
