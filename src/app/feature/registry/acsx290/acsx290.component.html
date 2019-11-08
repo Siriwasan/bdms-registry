@@ -1938,8 +1938,15 @@
                 'NA, Not applicable (emergent or salvage case)'
               ]" fxFlex></reg-select>
 
+          </div>
+
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+
             <reg-input *ngIf="visibles['STSscore']" controlName="STSscore" placeholder="STS score" [formGroup]="formGroupI"
-              type="number" fxFlex="20"></reg-input>
+              type="number" fxFlex></reg-input>
+
+            <reg-input *ngIf="visibles['EUROscore']" controlName="EUROscore" placeholder="EURO score II" [formGroup]="formGroupI"
+              type="number" fxFlex></reg-input>
 
           </div>
 

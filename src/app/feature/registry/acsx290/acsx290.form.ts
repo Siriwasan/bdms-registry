@@ -358,6 +358,7 @@ export const ACSx290form = {
 
     RiskDiscussed: [null, Validators.required],
     STSscore: [null, Validators.required],
+    EUROscore: [null, Validators.required],
     Incidenc: [null, Validators.required],
     Status: [null, Validators.required],
     UrgEmergRsn: [null, Validators.required],

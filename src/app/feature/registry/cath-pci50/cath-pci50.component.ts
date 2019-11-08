@@ -456,24 +456,24 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
   private setFormValue(data: CathPci50Model) {
     // this.completion = data.completion;
     this.formDetail = data.detail;
-    this.formGroupA.setValue(data.sectionA);
+    this.formGroupA.patchValue(data.sectionA);
 
     // * need to set HospName before load staff to prevent null default
     // this.formGroupB.setValue(data.sectionB);
     // tslint:disable: no-string-literal
-    this.formGroupB.get('HospName').setValue(data.sectionB['HospName']);
-    this.formGroupB.get('PayorPrim').setValue(data.sectionB['PayorPrim']);
-    this.formGroupB.get('PayorSecond').setValue(data.sectionB['PayorSecond']);
-    this.formGroupB.get('ArrivalDateTime').setValue(data.sectionB['ArrivalDateTime']);
-    this.formGroupB.get('AdmProvider').setValue(data.sectionB['AdmProvider']);
-    this.formGroupB.get('AttProvider').setValue(data.sectionB['AttProvider']);
+    this.formGroupB.get('HospName').patchValue(data.sectionB['HospName']);
+    this.formGroupB.get('PayorPrim').patchValue(data.sectionB['PayorPrim']);
+    this.formGroupB.get('PayorSecond').patchValue(data.sectionB['PayorSecond']);
+    this.formGroupB.get('ArrivalDateTime').patchValue(data.sectionB['ArrivalDateTime']);
+    this.formGroupB.get('AdmProvider').patchValue(data.sectionB['AdmProvider']);
+    this.formGroupB.get('AttProvider').patchValue(data.sectionB['AttProvider']);
     // tslint:enable: no-string-literal
 
-    this.formGroupC.setValue(data.sectionC);
-    this.formGroupD.setValue(data.sectionD);
-    this.formGroupE.setValue(data.sectionE);
-    this.formGroupF.setValue(data.sectionF);
-    this.formGroupG.setValue(data.sectionG);
+    this.formGroupC.patchValue(data.sectionC);
+    this.formGroupD.patchValue(data.sectionD);
+    this.formGroupE.patchValue(data.sectionE);
+    this.formGroupF.patchValue(data.sectionF);
+    this.formGroupG.patchValue(data.sectionG);
 
     data.sectionH[str.nativeLesions].forEach(_ =>
       this.addLesion(str.nativeLesions, str.nvSegmentID, CathPci50Form.nativeLesion, conditions.nativeLesion)
@@ -481,18 +481,18 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     data.sectionH[str.graftLesions].forEach(_ =>
       this.addLesion(str.graftLesions, str.graftSegmentID, CathPci50Form.graftLesion, conditions.graftLesion)
     );
-    this.formGroupH.setValue(data.sectionH);
+    this.formGroupH.patchValue(data.sectionH);
 
     this.getSegmentIDsForNV();
     this.getSegmentIDsForGraft();
     this.disableAddNativeLesion = false;
     this.disableAddGraftLesion = false;
 
-    this.formGroupI.setValue(data.sectionI);
+    this.formGroupI.patchValue(data.sectionI);
 
     data.sectionJ[str.pciLesions].forEach(_ => this.addPciLesion());
     data.sectionJ[str.pciDevices].forEach(_ => this.addPciDevice());
-    this.formGroupJ.setValue(data.sectionJ);
+    this.formGroupJ.patchValue(data.sectionJ);
 
     this.getSegmentIDsForPci();
     this.getLesionsForDevices();
@@ -501,11 +501,11 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     this.pciDevicesTabIndex = 0;
     this.disableAddPciDevice = false;
 
-    this.formGroupK.setValue(data.sectionK);
-    this.formGroupL.setValue(data.sectionL);
+    this.formGroupK.patchValue(data.sectionK);
+    this.formGroupL.patchValue(data.sectionL);
 
     data.sectionM[str.followUps].forEach(_ => this.addFollowUp());
-    this.formGroupM.setValue(data.sectionM);
+    this.formGroupM.patchValue(data.sectionM);
   }
 
   private subscribeDOBChanged(): Subscription {

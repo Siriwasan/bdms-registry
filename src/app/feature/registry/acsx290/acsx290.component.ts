@@ -753,29 +753,29 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
 
   private setFormValue(acsx290Model: ACSx290Model) {
     this.formDetail = acsx290Model.detail;
-    this.formGroupA.setValue(acsx290Model.sectionA);
-    this.formGroupB.setValue(acsx290Model.sectionB);
-    this.formGroupC.setValue(acsx290Model.sectionC);
-    this.formGroupD.setValue(acsx290Model.sectionD);
-    this.formGroupE.setValue(acsx290Model.sectionE);
-    this.formGroupF.setValue(acsx290Model.sectionF);
-    this.formGroupG.setValue(acsx290Model.sectionG);
-    this.formGroupH.setValue(acsx290Model.sectionH);
-    this.formGroupI.setValue(acsx290Model.sectionI);
-    this.formGroupJ.setValue(acsx290Model.sectionJ);
-    this.formGroupK.setValue(acsx290Model.sectionK);
-    this.formGroupL.setValue(acsx290Model.sectionL);
-    this.formGroupL2.setValue(acsx290Model.sectionL2);
-    this.formGroupM.setValue(acsx290Model.sectionM);
-    this.formGroupM1.setValue(acsx290Model.sectionM1);
-    this.formGroupM2.setValue(acsx290Model.sectionM2);
-    this.formGroupM3.setValue(acsx290Model.sectionM3);
-    this.formGroupN.setValue(acsx290Model.sectionN);
-    this.formGroupO.setValue(acsx290Model.sectionO);
-    this.formGroupP.setValue(acsx290Model.sectionP);
-    this.formGroupQ.setValue(acsx290Model.sectionQ);
-    this.formGroupR.setValue(acsx290Model.sectionR);
-    this.formGroupS.setValue(acsx290Model.sectionS);
+    this.formGroupA.patchValue(acsx290Model.sectionA);
+    this.formGroupB.patchValue(acsx290Model.sectionB);
+    this.formGroupC.patchValue(acsx290Model.sectionC);
+    this.formGroupD.patchValue(acsx290Model.sectionD);
+    this.formGroupE.patchValue(acsx290Model.sectionE);
+    this.formGroupF.patchValue(acsx290Model.sectionF);
+    this.formGroupG.patchValue(acsx290Model.sectionG);
+    this.formGroupH.patchValue(acsx290Model.sectionH);
+    this.formGroupI.patchValue(acsx290Model.sectionI);
+    this.formGroupJ.patchValue(acsx290Model.sectionJ);
+    this.formGroupK.patchValue(acsx290Model.sectionK);
+    this.formGroupL.patchValue(acsx290Model.sectionL);
+    this.formGroupL2.patchValue(acsx290Model.sectionL2);
+    this.formGroupM.patchValue(acsx290Model.sectionM);
+    this.formGroupM1.patchValue(acsx290Model.sectionM1);
+    this.formGroupM2.patchValue(acsx290Model.sectionM2);
+    this.formGroupM3.patchValue(acsx290Model.sectionM3);
+    this.formGroupN.patchValue(acsx290Model.sectionN);
+    this.formGroupO.patchValue(acsx290Model.sectionO);
+    this.formGroupP.patchValue(acsx290Model.sectionP);
+    this.formGroupQ.patchValue(acsx290Model.sectionQ);
+    this.formGroupR.patchValue(acsx290Model.sectionR);
+    this.formGroupS.patchValue(acsx290Model.sectionS);
   }
 
   async submitAndExit() {

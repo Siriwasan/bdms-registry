@@ -276,6 +276,14 @@ export const conditions: FormConditions = {
         'No, STS score was available but not discussed or documented'
       ]
     },
+    {
+      control: 'EUROscore',
+      parentControl: 'RiskDiscussed',
+      conditions: [
+        'Yes, STS score was calculated, discussed and documented',
+        'No, STS score was available but not discussed or documented'
+      ]
+    },
     { control: 'UrgEmergRsn', parentControl: 'Status', conditions: ['Urgent', 'Emergent'] },
 
     { control: 'PCancCaseDt', parentControl: 'PCancCase', conditions: ['Yes'] },
