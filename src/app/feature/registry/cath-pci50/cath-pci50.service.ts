@@ -15,7 +15,7 @@ import { take } from 'rxjs/operators';
 
 const DB_REGISTRY = 'Registry';
 const DB_STAFF = 'Staff';
-const DB_COLLECTION = 'CathPci50';
+const DB_CATHPCI = 'CathPci50';
 
 @Injectable()
 export class CathPci50Service implements OnDestroy {
@@ -40,7 +40,7 @@ export class CathPci50Service implements OnDestroy {
     // tslint:enable: no-string-literal
 
     await this.db
-      .collection(DB_COLLECTION)
+      .collection(DB_CATHPCI)
       .doc(registryId)
       .set(data);
 
@@ -55,7 +55,7 @@ export class CathPci50Service implements OnDestroy {
 
   public async updateForm(registryId: string, data: CathPci50Model) {
     await this.db
-      .collection(DB_COLLECTION)
+      .collection(DB_CATHPCI)
       .doc(registryId)
       .update(data);
 
@@ -71,7 +71,7 @@ export class CathPci50Service implements OnDestroy {
     const prefix = 'PCI-' + hospitalId + '-' + year;
 
     return this.db
-      .collection<CathPci50Model>(DB_COLLECTION, ref =>
+      .collection<CathPci50Model>(DB_CATHPCI, ref =>
         ref
           .orderBy('sectionA.registryId', 'desc')
           .startAt(prefix + '\uf8ff')
@@ -219,7 +219,7 @@ export class CathPci50Service implements OnDestroy {
 
   public getForm(registryId: string): Promise<CathPci50Model> {
     return this.db
-      .collection<CathPci50Model>(DB_COLLECTION)
+      .collection<CathPci50Model>(DB_CATHPCI)
       .doc<CathPci50Model>(registryId)
       .valueChanges()
       .pipe(take(1))

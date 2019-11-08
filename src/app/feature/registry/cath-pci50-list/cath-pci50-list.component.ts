@@ -11,7 +11,6 @@ import * as fromRoot from '../../../app.reducer';
 import * as UI from '../../../shared/ui.actions';
 
 import { RegistryService } from '../registry.service';
-import { FileService } from '../../../shared/services/file.service';
 import { tagPriorities } from '../cath-pci50/cath-pci50.tag';
 
 import { User } from '../../../../app/core/auth/user.model';
@@ -43,7 +42,6 @@ export class CathPci50ListComponent implements OnInit, OnDestroy {
     private registryService: RegistryService,
     private router: Router,
     private store: Store<fromRoot.State>,
-    private fileService: FileService,
     private authService: AuthService
   ) {}
 
@@ -159,8 +157,7 @@ export class CathPci50ListComponent implements OnInit, OnDestroy {
 
   async export() {
     const data = await this.registryService.loadCathPci50sForExport(this.avHospitals);
-    // this.fileService.saveJSONtoCSV(data, 'cathpci.csv');
-    this.registryService.exportAsExcelFile(data, 'cathpci');
+    this.registryService.exportCathPci50AsExcelFile(data, 'cathpci');
     console.log('export cathpci ' + data.length + ' records');
   }
 

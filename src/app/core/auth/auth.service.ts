@@ -14,7 +14,7 @@ import { ACSx290Model } from 'src/app/feature/registry/acsx290/acsx290.model';
 import * as AuthData from './auth.data';
 import { CathPci50Model } from 'src/app/feature/registry/cath-pci50/cath-pci50.model';
 
-const DB_COLLECTION = 'ACSx290';
+const DB_ACSX = 'ACSx290';
 const DB_CATHPCI = 'CathPci50';
 const DB_STAFF = 'Staff';
 
@@ -127,7 +127,7 @@ export class AuthService {
 
     availableStaffForm.forEach(a => {
       inCaseList.push(
-        this.db.collection<ACSx290Model>(DB_COLLECTION, ref => ref.where(a, '==', staffId)).valueChanges()
+        this.db.collection<ACSx290Model>(DB_ACSX, ref => ref.where(a, '==', staffId)).valueChanges()
       );
     });
 

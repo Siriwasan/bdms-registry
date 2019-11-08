@@ -14,7 +14,7 @@ import { Staff } from '../../staff/staff.model';
 
 const DB_REGISTRY = 'Registry';
 const DB_STAFF = 'Staff';
-const DB_COLLECTION = 'ACSx290';
+const DB_ACSX = 'ACSx290';
 
 @Injectable()
 export class ACSx290Service implements OnDestroy {
@@ -89,7 +89,7 @@ export class ACSx290Service implements OnDestroy {
     const prefix = 'ACX-' + hospitalId + '-' + year;
 
     return this.db
-      .collection<ACSx290Model>(DB_COLLECTION, ref =>
+      .collection<ACSx290Model>(DB_ACSX, ref =>
         ref
           .orderBy('sectionA.registryId', 'desc')
           .startAt(prefix + '\uf8ff')
@@ -125,7 +125,7 @@ export class ACSx290Service implements OnDestroy {
     // tslint:enable: no-string-literal
 
     await this.db
-      .collection(DB_COLLECTION)
+      .collection(DB_ACSX)
       .doc(registryId)
       .set(data);
 
@@ -140,7 +140,7 @@ export class ACSx290Service implements OnDestroy {
 
   public async updateForm(registryId: string, data: ACSx290Model) {
     await this.db
-      .collection(DB_COLLECTION)
+      .collection(DB_ACSX)
       .doc(registryId)
       .update(data);
 
@@ -207,7 +207,7 @@ export class ACSx290Service implements OnDestroy {
 
   public deleteForm(registryId: string) {
     this.db
-      .collection(DB_COLLECTION)
+      .collection(DB_ACSX)
       .doc(registryId)
       .delete();
   }
@@ -256,7 +256,7 @@ export class ACSx290Service implements OnDestroy {
     const decryptAN = this.decrypt(an);
 
     return this.db
-      .collection<ACSx290Model>(DB_COLLECTION)
+      .collection<ACSx290Model>(DB_ACSX)
       .snapshotChanges()
       .pipe(
         map(actions =>
@@ -288,7 +288,7 @@ export class ACSx290Service implements OnDestroy {
 
   public getForm(registryId: string): Promise<ACSx290Model> {
     return this.db
-      .collection<ACSx290Model>(DB_COLLECTION)
+      .collection<ACSx290Model>(DB_ACSX)
       .doc<ACSx290Model>(registryId)
       .valueChanges()
       .pipe(take(1))

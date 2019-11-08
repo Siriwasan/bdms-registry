@@ -14,7 +14,7 @@ import { CathPci50Model } from './cath-pci50/cath-pci50.model';
 const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 const EXCEL_EXTENSION = '.xlsx';
 
-const DB_COLLECTION = 'ACSx290';
+const DB_ACSX = 'ACSx290';
 const DB_CATHPCI = 'CathPci50';
 const DB_REGISTRY = 'Registry';
 
@@ -54,7 +54,7 @@ export class RegistryService implements OnDestroy {
     avHospitals.forEach(hosp => {
       acsxList.push(
         this.db
-          .collection<ACSx290Model>(DB_COLLECTION, ref => ref.where('sectionC.HospName', '==', hosp.id))
+          .collection<ACSx290Model>(DB_ACSX, ref => ref.where('sectionC.HospName', '==', hosp.id))
           .valueChanges()
       );
     });
@@ -94,51 +94,6 @@ export class RegistryService implements OnDestroy {
         take(1)
       )
       .toPromise();
-
-    //   this.subscriptions.push(
-    //     this.db
-    //       .collection<ACSx290Form>('ACSx290')
-    //       .valueChanges()
-    //       .pipe(
-    //         map(data =>
-    //           data.map(d => {
-    //             // tslint:disable: no-string-literal
-    //             delete d.sectionA['HN'];
-    //             delete d.sectionA['AN'];
-    //             delete d.sectionB['PatLName'];
-    //             delete d.sectionB['PatFName'];
-    //             delete d.sectionB['PatMName'];
-    //             delete d.sectionB['DOB'];
-    //             delete d.sectionB['SSN'];
-    //             delete d.sectionB['PatAddr'];
-    //             // tslint:enable: no-string-literal
-
-    //             d.detail.createdAt =
-    //               d.detail.createdAt !== null
-    //                 ? (d.detail.createdAt as firebase.firestore.Timestamp).toDate().toISOString()
-    //                 : null;
-    //             d.detail.modifiedAt =
-    //               d.detail.modifiedAt !== null
-    //                 ? (d.detail.modifiedAt as firebase.firestore.Timestamp).toDate().toISOString()
-    //                 : null;
-    //             d.detail.deletedAt =
-    //               d.detail.deletedAt !== null
-    //                 ? (d.detail.deletedAt as firebase.firestore.Timestamp).toDate().toISOString()
-    //                 : null;
-
-    //             return d;
-    //           })
-    //         )
-    //       )
-    //       .subscribe(
-    //         data => {
-    //           resolve(data);
-    //         },
-    //         error => {
-    //           reject(error);
-    //         }
-    //       )
-    //   );
   }
 
   public loadCathPci50sForExport(avHospitals: Auth.Hospital[]): Promise<CathPci50Model[]> {
@@ -189,7 +144,7 @@ export class RegistryService implements OnDestroy {
   }
   //#endregion Cloud firestore
 
-  public exportAsExcelFile(json: CathPci50Model[], excelFileName: string): void {
+  public exportCathPci50AsExcelFile(json: CathPci50Model[], excelFileName: string): void {
     const flatten = (obj, prefix = '', res = {}) =>
       Object.entries(obj).reduce((r, [key, val]) => {
         const k = `${prefix}${key}`;

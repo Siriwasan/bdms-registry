@@ -16,7 +16,7 @@ import { CathPci50Service } from '../registry/cath-pci50/cath-pci50.service';
 import { MatSnackBar } from '@angular/material';
 import * as moment from 'moment';
 
-const DB_COLLECTION = 'ACSx290';
+const DB_ACSX = 'ACSx290';
 const DB_CATHPCI = 'CathPci50';
 const DB_REGISTRY = 'Registry';
 const DB_STAFF = 'Staff';
@@ -116,7 +116,7 @@ export class ToolsService implements OnDestroy {
 
   loadACSx290s(): Promise<ACSx290Model[]> {
     return this.db
-      .collection<ACSx290Model>(DB_COLLECTION)
+      .collection<ACSx290Model>(DB_ACSX)
       .valueChanges()
       .pipe(
         map(data =>
@@ -178,7 +178,7 @@ export class ToolsService implements OnDestroy {
       })
       .forEach(d => {
         this.db
-          .collection<ACSx290Model>(DB_COLLECTION)
+          .collection<ACSx290Model>(DB_ACSX)
           // tslint:disable-next-line: no-string-literal
           .doc(d.sectionA['registryId'])
           .set(d);
@@ -339,7 +339,7 @@ export class ToolsService implements OnDestroy {
 
   rebuildACSx290Tags() {
     this.db
-      .collection<ACSx290Model>(DB_COLLECTION)
+      .collection<ACSx290Model>(DB_ACSX)
       .valueChanges()
       .subscribe(data => {
         data.forEach(d => {
@@ -378,7 +378,7 @@ export class ToolsService implements OnDestroy {
   }
 
   deleteACSx290() {
-    this.deleteDocumentInCollection(DB_COLLECTION);
+    this.deleteDocumentInCollection(DB_ACSX);
   }
 
   deleteCathPci50() {

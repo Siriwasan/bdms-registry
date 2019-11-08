@@ -8,7 +8,7 @@ import { map, take } from 'rxjs/operators';
 import { Staff } from './staff.model';
 import * as Auth from '../../core/auth/auth.data';
 
-const DB_COLLECTION = 'Staff';
+const DB_STAFF = 'Staff';
 
 @Injectable()
 export class StaffService implements OnDestroy {
@@ -29,7 +29,7 @@ export class StaffService implements OnDestroy {
     const staffList: Observable<Staff[]>[] = [];
     avHospitals.forEach(hosp => {
       staffList.push(
-        this.db.collection<Staff>(DB_COLLECTION, ref => ref.where('primaryHospId', '==', hosp.id)).valueChanges()
+        this.db.collection<Staff>(DB_STAFF, ref => ref.where('primaryHospId', '==', hosp.id)).valueChanges()
       );
     });
 
@@ -46,7 +46,7 @@ export class StaffService implements OnDestroy {
     }
 
     await this.db
-      .collection(DB_COLLECTION)
+      .collection(DB_STAFF)
       .doc(id)
       .set(staff);
   }
@@ -64,7 +64,7 @@ export class StaffService implements OnDestroy {
       delete staff.userName;
     }
 
-    await this.db.doc(DB_COLLECTION + `/${staff.staffId}`).update(staff);
+    await this.db.doc(DB_STAFF + `/${staff.staffId}`).update(staff);
   }
 
   // private generateStaffId(position: string): Promise<string> {
@@ -101,7 +101,7 @@ export class StaffService implements OnDestroy {
 
   private generateStaffId(): Promise<string> {
     return this.db
-      .collection<Staff>(DB_COLLECTION, ref => ref.orderBy('staffId', 'desc').limit(1))
+      .collection<Staff>(DB_STAFF, ref => ref.orderBy('staffId', 'desc').limit(1))
       .valueChanges()
       .pipe(take(1))
       .toPromise()
