@@ -373,11 +373,11 @@ export const validations: FormValidations = {
     ],
     PostProcTnI: [
       { type: 'min', message: 'Trop-I must be at least 0.00 ng/mL.' },
-      { type: 'max', message: 'Trop-I cannot be more than 5,000.00 ng/mL.' }
+      { type: 'max', message: 'Trop-I cannot be more than 20,000.00 ng/mL.' }
     ],
     PostProcTnT: [
       { type: 'min', message: 'Trop-T must be at least 0.00 ng/mL.' },
-      { type: 'max', message: 'Trop-T cannot be more than 5,000.00 ng/mL.' }
+      { type: 'max', message: 'Trop-T cannot be more than 20,000.00 ng/mL.' }
     ],
     PostProcCreat: [
       { type: 'min', message: 'Creatinine must be at least 0.10 mg/dL.' },

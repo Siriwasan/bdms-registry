@@ -1,0 +1,104 @@
+@import '../../../shared/styles/registry.scss';
+
+table {
+  width: 100%;
+}
+
+.element-row:hover {
+  background: #f5f5f5;
+}
+
+// mat-header-cell {
+//   justify-content: center;
+// }
+
+.mat-header-cell:first-child,
+.mat-cell:first-child {
+  flex: 13%;
+}
+
+.mat-header-cell:nth-child(2),
+.mat-cell:nth-child(2) {
+  flex: 13%;
+}
+
+.mat-header-cell:nth-child(3),
+.mat-cell:nth-child(3) {
+  flex: 20%;
+}
+
+.mat-header-cell:nth-child(4),
+.mat-cell:nth-child(4) {
+  flex: 5%;
+}
+
+.mat-header-cell:nth-child(5),
+.mat-cell:nth-child(5) {
+  flex: 35%;
+}
+
+.mat-header-cell:nth-child(6),
+.mat-cell:nth-child(6) {
+  flex: 20%;
+}
+
+.mat-header-cell:last-child,
+.mat-cell:last-child {
+  flex: 10%;
+}
+
+.tag-low-priority {
+  margin: 4px;
+  background-color: #d0dbff;
+  padding: 5px 10px;
+  border-radius: 16px;
+  z-index: 9;
+  cursor: pointer;
+}
+
+.tag-medium-priority {
+  margin: 4px;
+  background-color: #f1d27b;
+  padding: 5px 10px;
+  border-radius: 16px;
+  z-index: 9;
+  cursor: pointer;
+}
+
+.tag-high-priority {
+  margin: 4px;
+  background-color: #f86666;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 16px;
+  z-index: 9;
+  cursor: pointer;
+}
+
+.submitted-low-priority {
+  margin: 12px 12px 4px 4px;
+  background-color: #d0dbff;
+  padding: 5px 10px;
+  border-radius: 16px;
+  z-index: 9;
+  cursor: pointer;
+}
+
+.submitted-medium-priority {
+  margin: 12px 12px 4px 4px;
+  background-color: #f1d27b;
+  padding: 5px 10px;
+  border-radius: 16px;
+  z-index: 9;
+  cursor: pointer;
+}
+
+.submitted-high-priority {
+  margin: 12px 12px 4px 4px;
+  background-color: #f86666;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 16px;
+  z-index: 9;
+  cursor: pointer;
+}

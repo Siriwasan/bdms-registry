@@ -18,11 +18,15 @@ const routes: Routes = [
     // canActivate: [AuthRoleGuard],
     // data: { roles: Auth.menus.registry }
   },
+  // {
+  //   path: 'my-patients',
+  //   component: MyPatientsComponent,
+  //   canActivate: [AuthRoleGuard],
+  //   data: { roles: Auth.menus.myPatients }
+  // },
   {
     path: 'my-patients',
-    component: MyPatientsComponent,
-    canActivate: [AuthRoleGuard],
-    data: { roles: Auth.menus.myPatients }
+    loadChildren: () => import('./feature/my-patients/my-patients.module').then(m => m.MyPatientsModule),
   },
   {
     path: 'staff',

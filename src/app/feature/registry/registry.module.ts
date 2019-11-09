@@ -12,12 +12,7 @@ import { DecryptPipe } from './registry.pipe';
 import { FeatureModule } from '../feature.module';
 
 @NgModule({
-  declarations: [
-    RegistryComponent,
-    LoremIpsumComponent,
-    TestFormComponent,
-    DecryptPipe,
-  ],
+  declarations: [RegistryComponent, LoremIpsumComponent, TestFormComponent, DecryptPipe],
   imports: [SharedModule, FeatureModule, RegistryRoutingModule, RoundProgressModule],
   providers: [RegistryService]
 })

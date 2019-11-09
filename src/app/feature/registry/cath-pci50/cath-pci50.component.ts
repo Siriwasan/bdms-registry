@@ -1670,7 +1670,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
       return '(Plan F/U) *';
     }
 
-    const date = fuDate.utcOffset(7).format('DD/MM/YYYY');
+    const date = fuDate.utcOffset(7).format('D/M/YYYY');
 
     if (!procDate.isValid()) {
       return date;
@@ -1687,7 +1687,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     if (dateDiff > 0 && dateDiff <= 44) {
       period = '30 days';
     } else {
-      const years = Math.floor(dateDiff / 365);
+      const years = Math.round(dateDiff / 365);
       if (years > 0 && (dateDiff >= years * 365 - 60 && dateDiff <= years * 365 + 60)) {
         period = `${years} years`;
       }

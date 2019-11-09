@@ -209,7 +209,7 @@ export class CathPci50Service implements OnDestroy {
     if (dateDiff > 0 && dateDiff <= 44) {
       period = '30 d';
     } else {
-      const years = Math.floor(dateDiff / 365);
+      const years = Math.round(dateDiff / 365);
       if (years > 0 && (dateDiff >= years * 365 - 60 && dateDiff <= years * 365 + 60)) {
         period = `${years} y`;
       }
