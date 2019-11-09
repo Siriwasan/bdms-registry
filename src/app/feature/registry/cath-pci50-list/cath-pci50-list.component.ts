@@ -21,18 +21,12 @@ import { RegistryModel } from '../registry.model';
   providers: [RegistryService]
 })
 export class CathPci50ListComponent implements OnInit, OnDestroy {
-  displayedColumns: string[] = ['registryId', 'hn', 'name', 'age', 'tags', 'submitted', 'completion'];
-  dataSource: MatTableDataSource<any>;
-
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
-
   user$: Observable<User>;
   user: User;
   private userSubscription: Subscription;
-  avHospitals: Auth.Hospital[];
 
-  controlData: RegistryModel[];
+  avHospitals: Auth.Hospital[];
+  cathPci50Data: RegistryModel[];
 
   barClicked = false;
   filterString: string = null;
@@ -58,7 +52,7 @@ export class CathPci50ListComponent implements OnInit, OnDestroy {
         this.user.staff.permission
       );
 
-      this.controlData = await this.registryService.loadRegistries('CathPci50', this.avHospitals);
+      this.cathPci50Data = await this.registryService.loadRegistries('CathPci50', this.avHospitals);
 
       this.store.dispatch(new UI.StopLoading());
     });

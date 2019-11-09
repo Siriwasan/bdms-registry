@@ -11,9 +11,10 @@ import { ModalDialogComponent } from './components/modal-dialog/modal-dialog.com
 import { NoSanitizePipe } from './pipes/no-sanitize.pipe';
 import { FabSpeedDialModule } from './modules/fab-speed-dial/fab-speed-dial.module';
 import { CathPci50ListControlComponent } from '../feature/registry/cath-pci50-list-control/cath-pci50-list-control.component';
+import { ACSx290ListControlComponent } from '../feature/registry/acsx290-list-control/acsx290-list-control.component';
 
 @NgModule({
-  declarations: [ModalDialogComponent, NoSanitizePipe, CathPci50ListControlComponent],
+  declarations: [ModalDialogComponent, NoSanitizePipe, CathPci50ListControlComponent, ACSx290ListControlComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -34,7 +35,8 @@ import { CathPci50ListControlComponent } from '../feature/registry/cath-pci50-li
     RegistryFormModule,
     NoSanitizePipe,
     FabSpeedDialModule,
-    CathPci50ListControlComponent
+    CathPci50ListControlComponent,
+    ACSx290ListControlComponent
   ],
   providers: [],
   entryComponents: [ModalDialogComponent]
