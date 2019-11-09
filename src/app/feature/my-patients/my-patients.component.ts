@@ -28,7 +28,6 @@ export class MyPatientsComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = ['registryId', 'hn', 'firstName', 'lastName', 'age', 'tags', 'completion'];
 
   dataSource: MatTableDataSource<any>;
-  cathPciDataSource: MatTableDataSource<any>;
 
   // @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   // @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -40,10 +39,11 @@ export class MyPatientsComponent implements OnInit, OnDestroy {
   user: User;
   private userSubscription: Subscription;
 
+  myCathPciData: RegistryModel[];
+
+
   private barClicked = false;
-  private barClicked2 = false;
   filterString: string = null;
-  filterString2: string = null;
 
   private filterFunc = (d: any, filter: string) => {
     if (
@@ -94,12 +94,7 @@ export class MyPatientsComponent implements OnInit, OnDestroy {
     }
 
     if (this.user && this.user.staff.registries.includes('CathPci50')) {
-      const data2 = await this.myPatientsService.loadMyCathPci50s(this.user.staff.staffId);
-      const decryptData2 = this.decryptRegistry(data2, cathPci50Tags);
-      this.cathPciDataSource = new MatTableDataSource(decryptData2);
-      this.cathPciDataSource.paginator = this.paginator.toArray()[1];
-      this.cathPciDataSource.sort = this.sort.toArray()[1];
-      this.cathPciDataSource.filterPredicate = this.filterFunc;
+      this.myCathPciData = await this.myPatientsService.loadMyCathPci50s(this.user.staff.staffId);
     }
 
     this.store.dispatch(new UI.StopLoading());
@@ -132,14 +127,6 @@ export class MyPatientsComponent implements OnInit, OnDestroy {
     }
   }
 
-  applyFilter2(filterValue: string) {
-    this.cathPciDataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.cathPciDataSource.paginator) {
-      this.cathPciDataSource.paginator.firstPage();
-    }
-  }
-
   click(registry: RegistryModel) {
     if (this.barClicked) {
       this.barClicked = false;
@@ -149,19 +136,6 @@ export class MyPatientsComponent implements OnInit, OnDestroy {
       this.store.dispatch(new UI.StartLoading());
       setTimeout(() => {
         this.router.navigate(['registry/acsx290', registry.registryId]);
-      }, 300);
-    }
-  }
-
-  click2(registry: RegistryModel) {
-    if (this.barClicked2) {
-      this.barClicked2 = false;
-      return;
-    }
-    if (registry.baseDbId === 'CathPci50') {
-      this.store.dispatch(new UI.StartLoading());
-      setTimeout(() => {
-        this.router.navigate(['registry/cath-pci50', registry.registryId]);
       }, 300);
     }
   }
@@ -183,11 +157,5 @@ export class MyPatientsComponent implements OnInit, OnDestroy {
     this.barClicked = true;
     this.filterString = tag;
     this.applyFilter(this.filterString);
-  }
-
-  clickTag2(tag: string) {
-    this.barClicked2 = true;
-    this.filterString2 = tag;
-    this.applyFilter2(this.filterString2);
   }
 }
