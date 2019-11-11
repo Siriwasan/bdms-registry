@@ -1,3 +1,8 @@
 <div style="top: 64px;position: relative;">
-  <app-acsx290-list-control [data]="acsx290Data" (create)="create()" (export)="export()"></app-acsx290-list-control>
+  <app-acsx290-list-control
+    [data]="acsx290Data"
+    (clicked)="click($event)"
+    (create)="create()"
+    (export)="export()"
+  ></app-acsx290-list-control>
 </div>

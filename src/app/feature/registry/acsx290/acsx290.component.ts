@@ -48,10 +48,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
   avHospitals: string[];
 
   // FAB
-  public open = false;
-  public spin = true;
-  public direction = 'up'; // up, down, left, right
-  public animationMode = 'fling'; // fling, scale
+  open = false;
 
   public completion: ACSx290Completion;
 
@@ -605,12 +602,12 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
       sectionA: { ...this.formGroupA.value },
       sectionB: {
         ...this.formGroupB.value,
-        DOB: this.serializeDateTime(this.formGroupB.get('DOB').value)
+        DOB: this.serializeDate(this.formGroupB.get('DOB').value)
       },
       sectionC: {
         ...this.formGroupC.value,
-        AdmitDt: this.serializeDateTime(this.formGroupC.get('AdmitDt').value),
-        SurgDt: this.serializeDateTime(this.formGroupC.get('SurgDt').value)
+        AdmitDt: this.serializeDate(this.formGroupC.get('AdmitDt').value),
+        SurgDt: this.serializeDate(this.formGroupC.get('SurgDt').value)
       },
       sectionD: { ...this.formGroupD.value },
       sectionE: { ...this.formGroupE.value },
@@ -618,11 +615,11 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
       sectionG: { ...this.formGroupG.value },
       sectionH: {
         ...this.formGroupH.value,
-        CarCathDt: this.serializeDateTime(this.formGroupH.get('CarCathDt').value)
+        CarCathDt: this.serializeDate(this.formGroupH.get('CarCathDt').value)
       },
       sectionI: {
         ...this.formGroupI.value,
-        PCancCaseDt: this.serializeDateTime(this.formGroupI.get('PCancCaseDt').value),
+        PCancCaseDt: this.serializeDate(this.formGroupI.get('PCancCaseDt').value),
         OREntryDT: this.serializeDateTime(this.formGroupI.get('OREntryDT').value),
         ORExitDT: this.serializeDateTime(this.formGroupI.get('ORExitDT').value),
         IntubateDT: this.serializeDateTime(this.formGroupI.get('IntubateDT').value),
@@ -636,37 +633,37 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
       sectionL: { ...this.formGroupL.value },
       sectionL2: {
         ...this.formGroupL2.value,
-        PrevVADD: this.serializeDateTime(this.formGroupL2.get('PrevVADD').value),
-        PrevVADExpDt: this.serializeDateTime(this.formGroupL2.get('PrevVADExpDt').value),
-        VImpDt: this.serializeDateTime(this.formGroupL2.get('VImpDt').value),
-        VImpDt2: this.serializeDateTime(this.formGroupL2.get('VImpDt2').value),
-        VImpDt3: this.serializeDateTime(this.formGroupL2.get('VImpDt3').value),
-        VExpDt: this.serializeDateTime(this.formGroupL2.get('VExpDt').value),
-        VExpDt2: this.serializeDateTime(this.formGroupL2.get('VExpDt2').value),
-        VExpDt3: this.serializeDateTime(this.formGroupL2.get('VExpDt3').value)
+        PrevVADD: this.serializeDate(this.formGroupL2.get('PrevVADD').value),
+        PrevVADExpDt: this.serializeDate(this.formGroupL2.get('PrevVADExpDt').value),
+        VImpDt: this.serializeDate(this.formGroupL2.get('VImpDt').value),
+        VImpDt2: this.serializeDate(this.formGroupL2.get('VImpDt2').value),
+        VImpDt3: this.serializeDate(this.formGroupL2.get('VImpDt3').value),
+        VExpDt: this.serializeDate(this.formGroupL2.get('VExpDt').value),
+        VExpDt2: this.serializeDate(this.formGroupL2.get('VExpDt2').value),
+        VExpDt3: this.serializeDate(this.formGroupL2.get('VExpDt3').value)
       },
       sectionM: { ...this.formGroupM.value },
       sectionM1: { ...this.formGroupM1.value },
       sectionM2: {
         ...this.formGroupM2.value,
-        DisOnsetDt: this.serializeDateTime(this.formGroupM2.get('DisOnsetDt').value)
+        DisOnsetDt: this.serializeDate(this.formGroupM2.get('DisOnsetDt').value)
       },
       sectionM3: { ...this.formGroupM3.value },
       sectionN: { ...this.formGroupN.value },
       sectionO: { ...this.formGroupO.value },
       sectionP: {
         ...this.formGroupP.value,
-        DeepSternInfDt: this.serializeDateTime(this.formGroupP.get('DeepSternInfDt').value)
+        DeepSternInfDt: this.serializeDate(this.formGroupP.get('DeepSternInfDt').value)
       },
       sectionQ: {
         ...this.formGroupQ.value,
-        LFUDate: this.serializeDateTime(this.formGroupQ.get('LFUDate').value),
-        DischDt: this.serializeDateTime(this.formGroupQ.get('DischDt').value),
-        MtDate: this.serializeDateTime(this.formGroupQ.get('MtDate').value)
+        LFUDate: this.serializeDate(this.formGroupQ.get('LFUDate').value),
+        DischDt: this.serializeDate(this.formGroupQ.get('DischDt').value),
+        MtDate: this.serializeDate(this.formGroupQ.get('MtDate').value)
       },
       sectionR: {
         ...this.formGroupR.value,
-        ReadmitDt: this.serializeDateTime(this.formGroupR.get('ReadmitDt').value)
+        ReadmitDt: this.serializeDate(this.formGroupR.get('ReadmitDt').value)
       },
       sectionS: { ...this.formGroupS.value }
     };
@@ -723,12 +720,15 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
     return completion;
   }
 
-  private isMoment(dateTime: any): dateTime is moment.Moment {
-    return dateTime !== null && (dateTime as moment.Moment).toISOString !== undefined;
+  private serializeDate(dateTime: any): any {
+    const dt = moment.isMoment(dateTime) ? dateTime : moment(dateTime);
+
+    return dt.startOf('day').toISOString(true);
   }
 
   private serializeDateTime(dateTime: any): any {
-    return this.isMoment(dateTime) ? dateTime.toISOString() : dateTime;
+    const dt = moment.isMoment(dateTime) ? dateTime : moment(dateTime);
+    return dt.toISOString(true);
   }
 
   private async loadById() {
@@ -845,5 +845,178 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
 
     const completion = Math.round((this.completion.summary.valid / this.completion.summary.total) * 100);
     return `(${completion}%)`;
+  }
+
+  setToDefault(formGroup: FormGroup, controls: string[], val: any) {
+    controls.forEach(c => {
+      const control = formGroup.get(c);
+      if (val && !control.value) {
+        control.setValue(val);
+      } else if (val === null) {
+        control.setValue(null);
+      }
+    });
+  }
+
+  setToDefaultRiskFactors(formGroup: FormGroup, val: any) {
+    const controls = [
+      'FHCAD',
+      'Diabetes',
+      'Dyslip',
+      'Hypertn',
+      'Dialysis',
+      'InfEndo',
+      'ChrLungD',
+      'PFT',
+      'ABG',
+      'HmO2',
+      'BDTx',
+      'SlpApn',
+      'Pneumonia',
+      'IVDrugAb',
+      'Depression',
+      'LiverDis',
+      'ImmSupp',
+      'MediastRad',
+      'Cancer',
+      'PVD',
+      'ThAoDisease',
+      'Syncope',
+      'UnrespStat',
+      'ChestWallDef',
+      'CVD',
+      'FiveMWalkTest',
+      'SixMWalkDone'
+    ];
+    this.setToDefault(formGroup, controls, val);
+
+    formGroup.get('TobaccoUse').setValue(val ? 'Never smoker' : val);
+    formGroup.get('Alcohol').setValue(val ? 'None' : val);
+  }
+
+  setToDefaultPreopMed(formGroup: FormGroup, val: any) {
+    const controls = [
+      'MedACEI48',
+      'MedAmiodarone',
+      'MedBeta',
+      'MedBetaTher',
+      'MedCChanTher',
+      'MedLongActNit',
+      'MedNitIV',
+      'MedOthAntiang',
+      'MedADP5Days',
+      'MedASA',
+      'MedGP',
+      'MedACoag',
+      'MedCoum5Days',
+      'MedXa5Days',
+      'MedNOAC5Days',
+      'MedThromIn5Days',
+      'MedThrom',
+      'MedInotr',
+      'MedLipid',
+      'MedSter'
+    ];
+    this.setToDefault(formGroup, controls, val);
+  }
+
+  setToDefaultOtherCarProc(formGroup: FormGroup, val: any) {
+    const controls = [
+      'OCarASDPFO',
+      'OCarASDSec',
+      'OCarAFibIntraLes',
+      'OCarAFibEpLes',
+      'OCarAAProc',
+      'OCarLeadInsert',
+      'OCarACDLE',
+      'OCarCong',
+      'OCarLVA',
+      'OCarStemCell',
+      'OCPulThromDis',
+      'OCarSubaStenRes',
+      'OCarSVR',
+      'OCarLasr',
+      'OCTumor',
+      'OCarCrTx',
+      'OCarTrma',
+      'OCarVSD',
+      'OCarOthr'
+    ];
+    this.setToDefault(formGroup, controls, val);
+
+    formGroup.get('OCarACD').setValue(val ? 'None' : val);
+  }
+
+  setToDefaultPostopSSI(formGroup: FormGroup, val: any) {
+    const controls = ['CSternalSupInf', 'DeepSternInf', 'CIThor', 'ConduitHarv', 'CanSite', 'WoundInter'];
+    this.setToDefault(formGroup, controls, val);
+  }
+
+  setToDefaultPostopEvent(formGroup: FormGroup, val: any) {
+    const controls = [
+      'COpReBld',
+      'COpReVlv',
+      'CReintMI',
+      'CAortReint',
+      'COpReOth',
+      'COpReNon',
+      'COpPlndDelay',
+      'CSternal',
+      'CSepsis',
+      'CNStrokP',
+      'CNStrokTTIA',
+      'CNComa',
+      'CNParal',
+      'PhrenNrvInj',
+      'CNParesis',
+      'RecLarynNrvInj',
+      'CPVntLng',
+      'CPPneum',
+      'CVTE',
+      'CPlEff',
+      'PostOpPneumo',
+      'CRenFail',
+      'CUltraFil',
+      'CRenDial',
+      'CVaIlFem',
+      'CVaLbIsc',
+      'CMAD',
+      'COtArrst',
+      'COtAortEndo',
+      'COtAortRupt',
+      'CVaAoDis',
+      'COtAortSide',
+      'COtAortTear',
+      'COtCoag',
+      'COtTamp',
+      'COtGI',
+      'COtLiver',
+      'COtMSF',
+      'COtAFib',
+      'COtOther'
+    ];
+    this.setToDefault(formGroup, controls, val);
+
+    formGroup.get('CNEnceph').setValue(val ? 'None' : val);
+    formGroup.get('CRhythmDis').setValue(val ? 'None' : val);
+  }
+
+  setToDefaultDischargeMed(formGroup: FormGroup, val: any) {
+    const controls = [
+      'DCASA',
+      'DCADP',
+      'DCOthAntiplat',
+      'DCDirThromIn',
+      'DCCoum',
+      'DCFactorXa',
+      'DCNovOrAnti',
+      'DCOthAnticoag',
+      'DCACE',
+      'DCAmiodarone',
+      'DCBeta',
+      'DCLipLowStat',
+      'DCLipLowNonStat'
+    ];
+    this.setToDefault(formGroup, controls, val);
   }
 }

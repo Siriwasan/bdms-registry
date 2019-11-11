@@ -5,10 +5,6 @@ import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { environment } from '../../../../environments/environment';
 import * as CryptoJS from 'crypto-js';
 
-import { Store } from '@ngrx/store';
-import * as fromRoot from '../../../app.reducer';
-import * as UI from '../../../shared/ui.actions';
-
 import { RegistryService } from '../registry.service';
 import { tagPriorities } from '../cath-pci50/cath-pci50.tag';
 
@@ -27,6 +23,7 @@ export class CathPci50ListControlComponent implements OnInit, OnChanges {
   dataSource: MatTableDataSource<CathPci50ListControlModel>;
 
   @Input() data: RegistryModel[];
+  @Output() clicked: EventEmitter<string> = new EventEmitter();
   @Output() create: EventEmitter<any> = new EventEmitter();
   @Output() export: EventEmitter<any> = new EventEmitter();
 
@@ -38,7 +35,7 @@ export class CathPci50ListControlComponent implements OnInit, OnChanges {
   barClicked = false;
   filterString: string = null;
 
-  constructor(private router: Router, private store: Store<fromRoot.State>) {}
+  constructor() {}
 
   ngOnInit() {}
 
@@ -117,17 +114,17 @@ export class CathPci50ListControlComponent implements OnInit, OnChanges {
     }
   }
 
-  click(registry: CathPci50ListControlModel) {
+  clearFilter() {
+    this.filterString = '';
+    this.applyFilter(this.filterString);
+  }
+
+  clickItem(registry: CathPci50ListControlModel) {
     if (this.barClicked) {
       this.barClicked = false;
       return;
     }
-    if (registry.baseDbId === 'CathPci50') {
-      this.store.dispatch(new UI.StartLoading());
-      setTimeout(() => {
-        this.router.navigate(['registry/cath-pci50', registry.registryId]);
-      }, 300);
-    }
+    this.clicked.emit(registry.registryId);
   }
 
   clickTag(tag: string) {

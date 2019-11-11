@@ -5,10 +5,6 @@ import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { environment } from '../../../../environments/environment';
 import * as CryptoJS from 'crypto-js';
 
-import { Store } from '@ngrx/store';
-import * as fromRoot from '../../../app.reducer';
-import * as UI from '../../../shared/ui.actions';
-
 import { RegistryModel } from '../registry.model';
 import { tagPriorities } from '../acsx290/acsx290.tag';
 
@@ -25,6 +21,7 @@ export class ACSx290ListControlComponent implements OnInit, OnChanges {
   dataSource: MatTableDataSource<ACSx290ListControlModel>;
 
   @Input() data: RegistryModel[];
+  @Output() clicked: EventEmitter<string> = new EventEmitter();
   @Output() create: EventEmitter<any> = new EventEmitter();
   @Output() export: EventEmitter<any> = new EventEmitter();
 
@@ -36,7 +33,7 @@ export class ACSx290ListControlComponent implements OnInit, OnChanges {
   barClicked = false;
   filterString: string = null;
 
-  constructor(private router: Router, private store: Store<fromRoot.State>) {}
+  constructor() {}
 
   ngOnInit() {}
 
@@ -96,17 +93,17 @@ export class ACSx290ListControlComponent implements OnInit, OnChanges {
     }
   }
 
-  click(registry: RegistryModel) {
+  clearFilter() {
+    this.filterString = '';
+    this.applyFilter(this.filterString);
+  }
+
+  clickItem(registry: RegistryModel) {
     if (this.barClicked) {
       this.barClicked = false;
       return;
     }
-    if (registry.baseDbId === 'ACSx290') {
-      this.store.dispatch(new UI.StartLoading());
-      setTimeout(() => {
-        this.router.navigate(['registry/acsx290', registry.registryId]);
-      }, 300);
-    }
+    this.clicked.emit(registry.registryId);
   }
 
   clickTag(tag: string) {

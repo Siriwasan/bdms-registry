@@ -1,5 +1,5 @@
 <div class="content" fxLayout="row" fxLayoutGap="20px">
-  <div class="sidebar-right" fxFlexOrder="1" fxFlex="250px" fxHide.lt-lg>
+  <div class="sidebar-right" fxFlexOrder="1" fxFlex="250px" fxHide.lt-md>
     <div class="table-of-contents" [style.max-height.px]="tocMaxHeight" fxHide.lt-md>
       <ul>
         <li id="titleTOC" (click)="scrollTo('title')" [class.active]="isActive('title')" class="menu-title">
@@ -24,59 +24,63 @@
           [radius]="125"
           [stroke]="15"
           [rounded]="false"
-          [responsive]="true"
-        ></round-progress>
+          [responsive]="true">
+        </round-progress>
       </div>
     </div>
   </div>
 
-  <div scrollSpyElement id="title" fxFlexOrder="0" fxFlex>
+  <div class="registry-content" scrollSpyElement id="title" fxFlexOrder="0" fxFlex>
 
-    <fab-speed-dial class="speed-dial-container"
-      [(open)]="open"
-      [direction]="direction"
-      [animationMode]="animationMode">
-      <fab-speed-dial-trigger spin="true">
-        <button mat-fab>
-          <mat-icon class="fab-spin90">more_horiz</mat-icon>
-        </button>
-      </fab-speed-dial-trigger>
+    <div class="speed-dial-container">
+      <fab-speed-dial
+        [(open)]="open"
+        direction="up"
+        animationMode="fling">
+        <fab-speed-dial-trigger spin="true">
+          <button mat-fab>
+            <mat-icon class="fab-spin90">more_horiz</mat-icon>
+          </button>
+        </fab-speed-dial-trigger>
 
-      <fab-speed-dial-actions>
-        <button
-          mat-mini-fab
-          matTooltip="Save"
-          matTooltipPosition="before"
-          color="secondary"
-          (click)="submit()">
-          <mat-icon>save</mat-icon>
-        </button>
-        <button
-          mat-mini-fab
-          matTooltip="Save and Exit"
-          matTooltipPosition="before"
-          color="secondary"
-          (click)="submitAndExit()">
-          <mat-icon>exit_to_app</mat-icon>
-        </button>
-        <button
-          mat-mini-fab
-          matTooltip="Check validation"
-          matTooltipPosition="before"
-          color="secondary"
-          (click)="checkValidation()">
-          <mat-icon>error_outline</mat-icon>
-        </button>
-        <button
-          mat-mini-fab
-          matTooltip="Clear validation"
-          matTooltipPosition="before"
-          color="secondary"
-          (click)="clearValidations()">
-          <mat-icon>highlight_off</mat-icon>
-        </button>
-      </fab-speed-dial-actions>
-    </fab-speed-dial>
+        <fab-speed-dial-actions>
+          <button
+            mat-mini-fab
+            matTooltip="Save"
+            matTooltipPosition="before"
+            color="secondary"
+            (click)="submit()">
+            <mat-icon>save</mat-icon>
+          </button>
+          <button
+            mat-mini-fab
+            matTooltip="Save and Exit"
+            matTooltipPosition="before"
+            color="secondary"
+            (click)="submitAndExit()">
+            <mat-icon>exit_to_app</mat-icon>
+          </button>
+          <button
+            mat-mini-fab
+            matTooltip="Check validation"
+            matTooltipPosition="before"
+            color="secondary"
+            (click)="checkValidation()">
+            <mat-icon>error_outline</mat-icon>
+          </button>
+          <button
+            mat-mini-fab
+            matTooltip="Clear validation"
+            matTooltipPosition="before"
+            color="secondary"
+            (click)="clearValidations()">
+            <mat-icon>highlight_off</mat-icon>
+          </button>
+        </fab-speed-dial-actions>
+      </fab-speed-dial>
+
+      <div fxFlex="270px" fxHide.lt-md></div>
+    </div>
 
     <h1>STS Adult Cardiac Surgery v2.9</h1>
 
@@ -134,7 +138,11 @@
             <reg-input controlName="Age" placeholder="Patient Age" [formGroup]="formGroupB"
               type="text" readonly="true" fxFlex>(auto calculated)</reg-input>
 
-            <reg-select controlName="Gender" placeholder="Sex" [formGroup]="formGroupB"
+          </div>
+
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+
+              <reg-select controlName="Gender" placeholder="Sex" [formGroup]="formGroupB"
               [choices]="['Male', 'Female']" fxFlex></reg-select>
 
             <reg-input controlName="SSN" placeholder="National ID / Passport ID" [formGroup]="formGroupB"
@@ -233,6 +241,18 @@
       </div>
       <div class="section-body" fxLayout="column">
         <form [formGroup]="formGroupD" #formDirectiveD="ngForm">
+
+          <div fxLayoutAlign="space-between center">
+            <h3>Risk Factors</h3>
+            <div>
+              <button mat-icon-button color="primary" matTooltip="Set to Default" matTooltipShowDelay="1000" (click)="setToDefaultRiskFactors(formGroupD, 'No')">
+                <mat-icon>save_alt</mat-icon>
+              </button>
+              <button mat-icon-button color="primary" matTooltip="Set to Null" matTooltipShowDelay="1000" (click)="setToDefaultRiskFactors(formGroupD, null)">
+                <mat-icon>replay</mat-icon>
+              </button>
+            </div>
+          </div>
 
           <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
@@ -466,6 +486,10 @@
             <reg-select *ngIf="visibles['CVAWhen']" controlName="CVAWhen" placeholder="Prior CVA-When" [formGroup]="formGroupD"
               [choices]="['<= 30 days', '> 30 days']" fxFlex></reg-select>
 
+          </div>
+
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+
             <reg-select *ngIf="visibles['CVDTIA']" controlName="CVDTIA" placeholder="CVD TIA" [formGroup]="formGroupD"
               [choices]="['Yes', 'No', 'Unknown']" fxFlex></reg-select>
 
@@ -511,12 +535,12 @@
             <reg-input controlName="Hct" placeholder="Hematocrit" [formGroup]="formGroupD"
               type="number" require="false" fxFlex></reg-input>
 
-            <reg-input controlName="Platelets" placeholder="Platelet Count" [formGroup]="formGroupD"
-              type="number" require="false" fxFlex></reg-input>
-
           </div>
 
           <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+
+            <reg-input controlName="Platelets" placeholder="Platelet Count" [formGroup]="formGroupD"
+              type="number" require="false" fxFlex></reg-input>
 
             <reg-input controlName="CreatLst" placeholder="Last Creatinine Level" [formGroup]="formGroupD"
               type="number" require="false" fxFlex></reg-input>
@@ -524,18 +548,22 @@
             <reg-input controlName="TotAlbumin" placeholder="Total Albumin" [formGroup]="formGroupD"
               type="number" require="false" fxFlex></reg-input>
 
+          </div>
+
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+
             <reg-input controlName="TotBlrbn" placeholder="Total Bilirubin" [formGroup]="formGroupD"
               type="number" require="false" fxFlex></reg-input>
 
             <reg-input controlName="A1cLvl" placeholder="A1c Level" [formGroup]="formGroupD"
               type="number" require="false" fxFlex></reg-input>
 
+            <reg-select controlName="HITAnti" placeholder="HIT Antibodies" [formGroup]="formGroupD"
+              [choices]="['Yes', 'No', 'Not Applicable']" require="false" fxFlex></reg-select>
+
           </div>
 
           <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
-
-            <reg-select controlName="HITAnti" placeholder="HIT Antibodies" [formGroup]="formGroupD"
-              [choices]="['Yes', 'No', 'Not Applicable']" require="false" fxFlex></reg-select>
 
             <reg-input controlName="INR" placeholder="INR" [formGroup]="formGroupD"
               type="number" require="false" fxFlex></reg-input>
@@ -1202,6 +1230,18 @@
       <div class="section-body">
         <form [formGroup]="formGroupG" #formDirectiveG="ngForm">
 
+          <div fxLayoutAlign="space-between center">
+            <h3>Preoperative Medications</h3>
+            <div>
+              <button mat-icon-button color="primary" matTooltip="Set to Default" matTooltipShowDelay="1000" (click)="setToDefaultPreopMed(formGroupG, 'No')">
+                <mat-icon>save_alt</mat-icon>
+              </button>
+              <button mat-icon-button color="primary" matTooltip="Set to Null" matTooltipShowDelay="1000" (click)="setToDefaultPreopMed(formGroupG, null)">
+                <mat-icon>replay</mat-icon>
+              </button>
+            </div>
+          </div>
+
           <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
             <reg-select controlName="MedACEI48" placeholder="ACE or ARB" [formGroup]="formGroupG" [choices]="[
@@ -1470,7 +1510,7 @@
 
           <div [id]="'cathresult'+i" style="margin-top: 25px;" *ngFor="let cathresult of H_cathResults; let i = index">
             <!-- <h4 [id]="'cathresult'+i">{{ cathresult[0] }}</h4> -->
-            <fieldset *ngIf="visibles['cathresult'+i]" style="border:1px solid #a1a1a1; border-radius:10px; padding: 20px 30px 20px 30px;">
+            <fieldset *ngIf="visibles['cathresult'+i]" style="border:1px solid #a1a1a1; border-radius:10px; padding: 20px 30px 20px 30px; min-width: 0;">
               <legend style="color:#757575;">{{ cathresult[0] }}</legend>
 
             <reg-input *ngIf="visibles[cathresult[1]]" [controlName]="cathresult[1]" placeholder="Native Artery" [formGroup]="formGroupH"
@@ -2501,6 +2541,10 @@
             <reg-input *ngIf="visibles['IBdFFPU']" controlName="IBdFFPU" placeholder="Fresh Frozen Plasma Units" [formGroup]="formGroupI"
               type="number" fxFlex></reg-input>
 
+          </div>
+
+          <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+
             <reg-input *ngIf="visibles['IBdPlatU']" controlName="IBdPlatU" placeholder="Platelet Units" [formGroup]="formGroupI"
               type="number" fxFlex></reg-input>
 
@@ -2754,7 +2798,7 @@
 
           <div [id]="'cabg' + (i+1)" style="margin-top: 25px;" *ngFor="let cabg of J_cabg; let i = index">
             <!-- <h4 [id]="'cabg' + (i+1)">{{ cabg[0] }}</h4> -->
-            <fieldset *ngIf="visibles['cabg' + (i+1)]" style="border:1px solid #a1a1a1; border-radius:10px; padding: 20px 30px 20px 30px;">
+            <fieldset *ngIf="visibles['cabg' + (i+1)]" style="border:1px solid #a1a1a1; border-radius:10px; padding: 20px 30px 20px 30px; min-width: 0;">
               <legend style="color:#757575;">{{ cabg[0] }}</legend>
 
             <reg-select *ngIf="visibles[cabg[1]]" [controlName]="cabg[1]" placeholder="GRAFT" [formGroup]="formGroupJ"
@@ -3783,7 +3827,7 @@
 
           <div [id]="'vad' + (i+1)" style="margin-top: 25px;" *ngFor="let vad of H_vad; let i = index">
             <!-- <h4 [id]="'vad' + (i+1)">{{ 'Venticular Assist Device #' + (i+1) }}</h4> -->
-            <fieldset *ngIf="visibles['vad' + (i+1)]" style="border:1px solid #a1a1a1; border-radius:10px; padding: 20px 30px 20px 30px;">
+            <fieldset *ngIf="visibles['vad' + (i+1)]" style="border:1px solid #a1a1a1; border-radius:10px; padding: 20px 30px 20px 30px; min-width: 0;">
               <legend style="color:#757575;">{{ 'Venticular Assist Device #' + (i+1) }}</legend>
 
             <reg-select *ngIf="visibles[vad[1]]" [controlName]="vad[1]" [placeholder]="vad[0]" [formGroup]="formGroupL2"
@@ -3866,8 +3910,21 @@
         <span>M. Other Cardiac Procedures</span>
         <span>{{ calculateCurrent('M') }}</span>
       </div>
+
       <form [formGroup]="formGroupM" #formDirectiveM="ngForm">
         <div *ngIf="visibles['sectionMBody']; else sectionM_other_content" id="sectionMBody" class="section-body">
+
+          <div fxLayoutAlign="space-between center">
+            <h3>Other Cardiac Procedures</h3>
+            <div>
+              <button mat-icon-button color="primary" matTooltip="Set to Default" matTooltipShowDelay="1000" (click)="setToDefaultOtherCarProc(formGroupM, 'No')">
+                <mat-icon>save_alt</mat-icon>
+              </button>
+              <button mat-icon-button color="primary" matTooltip="Set to Null" matTooltipShowDelay="1000" (click)="setToDefaultOtherCarProc(formGroupM, null)">
+                <mat-icon>replay</mat-icon>
+              </button>
+            </div>
+          </div>
 
           <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
@@ -4169,7 +4226,7 @@
             [choices]="['Yes', 'No', 'Unknown']"></reg-select>
 
           <div [id]="'int' + (i+1)" style="margin-top: 25px;" *ngFor="let int of M2_priorAoInt; let i = index">
-            <fieldset *ngIf="visibles['int' + (i+1)]" style="border:1px solid #a1a1a1; border-radius:10px; padding: 20px 30px 20px 30px;">
+            <fieldset *ngIf="visibles['int' + (i+1)]" style="border:1px solid #a1a1a1; border-radius:10px; padding: 20px 30px 20px 30px; min-width: 0;">
               <legend style="color:#757575;">{{ 'Location - ' + int[0] }}</legend>
 
             <reg-select *ngIf="visibles[int[1]]" [controlName]="int[1]" placeholder="Previous repair location(s)" [formGroup]="formGroupM2"
@@ -4258,7 +4315,7 @@
           <reg-select *ngIf="visibles['Trauma']" controlName="Trauma" placeholder="Trauma" [formGroup]="formGroupM2"
             [choices]="['Yes', 'No', 'Unknown']"></reg-select>
 
-          <fieldset *ngIf="visibles['traumaLoc']" id="traumaLoc" style="border:1px solid #a1a1a1; border-radius:10px; padding: 20px 30px 20px 30px;">
+          <fieldset *ngIf="visibles['traumaLoc']" id="traumaLoc" style="border:1px solid #a1a1a1; border-radius:10px; padding: 20px 30px 20px 30px; min-width: 0;">
             <legend style="color:#757575;">Location</legend>
 
             <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
@@ -4478,7 +4535,7 @@
           <reg-select *ngIf="visibles['DisMal']" class="subitem-horz" controlName="DisMal" placeholder="Malperfusion" [formGroup]="formGroupM2"
             [choices]="['Yes', 'No', 'Unknown']"></reg-select>
 
-          <fieldset *ngIf="visibles['malperfus']" class="subitem-horz" id="malperfus" style="border:1px solid #a1a1a1; border-radius:10px; padding: 20px 30px 20px 30px;">
+          <fieldset *ngIf="visibles['malperfus']" class="subitem-horz" id="malperfus" style="border:1px solid #a1a1a1; border-radius:10px; padding: 20px 30px 20px 30px; min-width: 0;">
 
             <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
 
@@ -5430,7 +5487,7 @@
           <reg-select *ngIf="visibles['ADevIns']" controlName="ADevIns" placeholder="Device(s) Inserted" [formGroup]="formGroupM2"
             [choices]="['Yes', 'No']"></reg-select>
 
-          <fieldset *ngIf="visibles['endoDevice1']" id="endoDevice1" style="border:1px solid #a1a1a1; border-radius:10px; padding: 20px 30px 20px 30px;">
+          <fieldset *ngIf="visibles['endoDevice1']" id="endoDevice1" style="border:1px solid #a1a1a1; border-radius:10px; padding: 20px 30px 20px 30px; min-width: 0;">
             <legend style="color:#757575;">Device - 1</legend>
 
             <reg-select *ngIf="visibles['ADevLoc01']" controlName="ADevLoc01" placeholder="Location" [formGroup]="formGroupM2" [choices]="[
@@ -5478,7 +5535,7 @@
           </fieldset>
 
           <div [id]="'endoDevice' + (i+2)" style="margin-top: 25px;" *ngFor="let device of M2_device; let i = index">
-            <fieldset *ngIf="visibles['endoDevice' + (i+2)]" style="border:1px solid #a1a1a1; border-radius:10px; padding: 20px 30px 20px 30px;">
+            <fieldset *ngIf="visibles['endoDevice' + (i+2)]" style="border:1px solid #a1a1a1; border-radius:10px; padding: 20px 30px 20px 30px; min-width: 0;">
               <legend style="color:#757575;">{{ 'Device - ' + (i+2) }}</legend>
 
 
@@ -5825,8 +5882,19 @@
       <div class="section-body">
         <form [formGroup]="formGroupP" #formDirectiveP="ngForm">
 
-          <reg-select controlName="SurSInf" placeholder="Surgical Site Infection within 30 days of operation" [formGroup]="formGroupP"
-            [choices]="['Yes', 'No']"></reg-select>
+          <div fxLayoutAlign="center center">
+            <reg-select controlName="SurSInf" placeholder="Surgical Site Infection within 30 days of operation" [formGroup]="formGroupP"
+              [choices]="['Yes', 'No']" fxFlex></reg-select>
+
+            <div *ngIf="visibles['CSternalSupInf']">
+              <button mat-icon-button color="primary" matTooltip="Set to Default" matTooltipShowDelay="1000" (click)="setToDefaultPostopSSI(formGroupP, 'No')">
+                <mat-icon>save_alt</mat-icon>
+              </button>
+              <button mat-icon-button color="primary" matTooltip="Set to Null" matTooltipShowDelay="1000" (click)="setToDefaultPostopSSI(formGroupP, null)">
+                <mat-icon>replay</mat-icon>
+              </button>
+            </div>
+          </div>
 
           <reg-select *ngIf="visibles['CSternalSupInf']" class="subitem-horz" controlName="CSternalSupInf" placeholder="Sternal Superficial Wound Infection" [formGroup]="formGroupP" [choices]="[
               'Yes, within 30 days of procedure',
@@ -5900,8 +5968,19 @@
 
           </div>
 
-          <reg-select controlName="Complics" placeholder="Other In Hospital Postoperative Event Occurred" [formGroup]="formGroupP"
-            [choices]="['Yes', 'No']"></reg-select>
+          <div fxLayoutAlign="center center">
+            <reg-select controlName="Complics" placeholder="Other In Hospital Postoperative Event Occurred" [formGroup]="formGroupP"
+              [choices]="['Yes', 'No']" fxFlex></reg-select>
+
+            <div *ngIf="visibles['compliOperative']">
+              <button mat-icon-button color="primary" matTooltip="Set to Default" matTooltipShowDelay="1000" (click)="setToDefaultPostopEvent(formGroupP, 'No')">
+                <mat-icon>save_alt</mat-icon>
+              </button>
+              <button mat-icon-button color="primary" matTooltip="Set to Null" matTooltipShowDelay="1000" (click)="setToDefaultPostopEvent(formGroupP, null)">
+                <mat-icon>replay</mat-icon>
+              </button>
+            </div>
+          </div>
 
           <h4 *ngIf="visibles['compliOperative']" class="subitem-horz" id="compliOperative">Operative</h4>
 
@@ -6329,7 +6408,17 @@
 
           </div>
 
-          <h4 *ngIf="visibles['medPresDC']" class="subitem-horz" id="medPresDC">Medications Prescribed at Discharge</h4>
+          <div *ngIf="visibles['medPresDC']" fxLayoutAlign="space-between center">
+            <h4 class="subitem-horz" id="medPresDC">Medications Prescribed at Discharge</h4>
+            <div>
+              <button mat-icon-button color="primary" matTooltip="Set to Default" matTooltipShowDelay="1000" (click)="setToDefaultDischargeMed(formGroupQ, 'No')">
+                <mat-icon>save_alt</mat-icon>
+              </button>
+              <button mat-icon-button color="primary" matTooltip="Set to Null" matTooltipShowDelay="1000" (click)="setToDefaultDischargeMed(formGroupQ, null)">
+                <mat-icon>replay</mat-icon>
+              </button>
+            </div>
+          </div>
 
           <h5 *ngIf="visibles['antiplateletDC']" class="subitem-horz" id="antiplateletDC">Antiplatelet</h5>
 

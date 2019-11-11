@@ -944,7 +944,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
       completion: this.completion,
       sectionA: {
         ...formGroupAvalue,
-        DOB: this.serializeDateTime(formGroupAvalue.DOB)
+        DOB: this.serializeDate(formGroupAvalue.DOB)
       },
       sectionB: {
         ...formGroupBvalue,
@@ -952,16 +952,16 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
       },
       sectionC: {
         ...formGroupCvalue,
-        HxMIDate: this.serializeDateTime(formGroupCvalue.HxMIDate),
-        HxPCIDate: this.serializeDateTime(formGroupCvalue.HxPCIDate),
-        HxCABGDate: this.serializeDateTime(formGroupCvalue.HxCABGDate)
+        HxMIDate: this.serializeDate(formGroupCvalue.HxMIDate),
+        HxPCIDate: this.serializeDate(formGroupCvalue.HxPCIDate),
+        HxCABGDate: this.serializeDate(formGroupCvalue.HxCABGDate)
       },
       sectionD: {
         ...formGroupDvalue,
-        StressTestDate: this.serializeDateTime(formGroupDvalue.StressTestDate),
-        CardiacCTADate: this.serializeDateTime(formGroupDvalue.CardiacCTADate),
-        CalciumScoreDate: this.serializeDateTime(formGroupDvalue.CalciumScoreDate),
-        PriorDxAngioDate: this.serializeDateTime(formGroupDvalue.PriorDxAngioDate)
+        StressTestDate: this.serializeDate(formGroupDvalue.StressTestDate),
+        CardiacCTADate: this.serializeDate(formGroupDvalue.CardiacCTADate),
+        CalciumScoreDate: this.serializeDate(formGroupDvalue.CalciumScoreDate),
+        PriorDxAngioDate: this.serializeDate(formGroupDvalue.PriorDxAngioDate)
       },
       sectionE: {
         ...formGroupEvalue,
@@ -1033,7 +1033,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     for (const d of data) {
       result.push({
         ...d,
-        PrevTreatedLesionDate: this.serializeDateTime(d['PrevTreatedLesionDate'])
+        PrevTreatedLesionDate: this.serializeDate(d['PrevTreatedLesionDate'])
       });
     }
     return result;
@@ -1047,31 +1047,38 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     for (const d of data) {
       result.push({
         ...d,
-        FU_AssessmentDate: this.serializeDateTime(d['FU_AssessmentDate']),
-        FU_DeathDate: this.serializeDateTime(d['FU_DeathDate']),
-        M_BleedingEventDT: this.serializeDateTime(d['M_BleedingEventDT']),
-        M_CABGStentDT: this.serializeDateTime(d['M_CABGStentDT']),
-        M_CABGNonStentDT: this.serializeDateTime(d['M_CABGNonStentDT']),
-        M_NSTEMIDT: this.serializeDateTime(d['M_NSTEMIDT']),
-        M_QwaveDT: this.serializeDateTime(d['M_QwaveDT']),
-        M_STEMIDT: this.serializeDateTime(d['M_STEMIDT']),
-        M_MIUnknownDT: this.serializeDateTime(d['M_MIUnknownDT']),
-        M_PCINonStentDT: this.serializeDateTime(d['M_PCINonStentDT']),
-        M_PCIStentDT: this.serializeDateTime(d['M_PCIStentDT']),
-        M_ReadmissionDT: this.serializeDateTime(d['M_ReadmissionDT']),
-        M_StrokeHemorrhageDT: this.serializeDateTime(d['M_StrokeHemorrhageDT']),
-        M_StrokeIschemicDT: this.serializeDateTime(d['M_StrokeIschemicDT']),
-        M_StrokeUndeterminedDT: this.serializeDateTime(d['M_StrokeUndeterminedDT']),
-        M_ThrombosisStentDT: this.serializeDateTime(d['M_ThrombosisStentDT']),
-        M_ThrombosisNonStentDT: this.serializeDateTime(d['M_ThrombosisNonStentDT'])
+        FU_AssessmentDate: this.serializeDate(d['FU_AssessmentDate']),
+        FU_DeathDate: this.serializeDate(d['FU_DeathDate']),
+        M_BleedingEventDT: this.serializeDate(d['M_BleedingEventDT']),
+        M_CABGStentDT: this.serializeDate(d['M_CABGStentDT']),
+        M_CABGNonStentDT: this.serializeDate(d['M_CABGNonStentDT']),
+        M_NSTEMIDT: this.serializeDate(d['M_NSTEMIDT']),
+        M_QwaveDT: this.serializeDate(d['M_QwaveDT']),
+        M_STEMIDT: this.serializeDate(d['M_STEMIDT']),
+        M_MIUnknownDT: this.serializeDate(d['M_MIUnknownDT']),
+        M_PCINonStentDT: this.serializeDate(d['M_PCINonStentDT']),
+        M_PCIStentDT: this.serializeDate(d['M_PCIStentDT']),
+        M_ReadmissionDT: this.serializeDate(d['M_ReadmissionDT']),
+        M_StrokeHemorrhageDT: this.serializeDate(d['M_StrokeHemorrhageDT']),
+        M_StrokeIschemicDT: this.serializeDate(d['M_StrokeIschemicDT']),
+        M_StrokeUndeterminedDT: this.serializeDate(d['M_StrokeUndeterminedDT']),
+        M_ThrombosisStentDT: this.serializeDate(d['M_ThrombosisStentDT']),
+        M_ThrombosisNonStentDT: this.serializeDate(d['M_ThrombosisNonStentDT'])
       });
     }
     return result;
     // tslint:enable: no-string-literal
   }
 
+  private serializeDate(dateTime: any): any {
+    const dt = moment.isMoment(dateTime) ? dateTime : moment(dateTime);
+
+    return dt.startOf('day').toISOString(true);
+  }
+
   private serializeDateTime(dateTime: any): any {
-    return moment.isMoment(dateTime) ? dateTime.toISOString(true) : dateTime;
+    const dt = moment.isMoment(dateTime) ? dateTime : moment(dateTime);
+    return dt.toISOString(true);
   }
 
   checkValidation() {

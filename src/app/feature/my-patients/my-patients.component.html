@@ -2,11 +2,19 @@
   <h1>My Patients</h1>
 
   <div *ngIf="user?.staff.registries.includes('ACSx290')">
-    <app-acsx290-list-control [data]="myACSxData" (export)="exportACSx()"></app-acsx290-list-control>
+    <app-acsx290-list-control
+      [data]="myACSxData"
+      (clicked)="clickACSx($event)"
+      (export)="exportACSx()"
+    ></app-acsx290-list-control>
   </div>
 
   <div *ngIf="user?.staff.registries.includes('CathPci50')">
-    <app-cath-pci50-list-control [data]="myCathPciData"></app-cath-pci50-list-control>
+    <app-cath-pci50-list-control
+      [data]="myCathPciData"
+      (clicked)="clickCathPci($event)"
+      (export)="exportCathPci()"
+    ></app-cath-pci50-list-control>
   </div>
 
   <br />

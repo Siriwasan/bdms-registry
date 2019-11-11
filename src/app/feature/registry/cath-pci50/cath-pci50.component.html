@@ -18,8 +18,16 @@
           <div class="current">{{ progressSummary }}</div>
           <div class="completion">{{ progressCompletion }}</div>
         </div>
-        <round-progress [current]="current" [max]="max" [color]="'#A133FF'" [background]="'#eaeaea'" [radius]="125"
-          [stroke]="15" [rounded]="false" [responsive]="true"></round-progress>
+        <round-progress
+          [current]="current"
+          [max]="max"
+          [color]="'#A133FF'"
+          [background]="'#eaeaea'"
+          [radius]="125"
+          [stroke]="15"
+          [rounded]="false"
+          [responsive]="true">
+        </round-progress>
       </div>
     </div>
   </div>
@@ -764,7 +772,7 @@
       </div>
       <div class="section-body">
         <form [formGroup]="formGroupF" #formDirectiveF="ngForm">
-          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+          <div fxLayout="row" fxLayout.lt-lg="column" [fxLayoutGap.gt-xs]="gap">
             <div fxFlex>
               <div fxLayoutAlign="space-between center">
                 <h3>Pre-Procedure</h3>

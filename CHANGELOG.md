@@ -1,8 +1,9 @@
-# 1.3.0 (2019-11-07)
+# 1.3.0 (2019-11-10)
 
 ### Features
 
-- **Registry form:** implement group in dropdown
+- **Registry form:** implement group in dropdown, set to default/null button
+- **Registry list:** implement registry list control
 - **CathPci50:** add DateTime validation, add data dictionary
 - **UI:** improve form layout
 

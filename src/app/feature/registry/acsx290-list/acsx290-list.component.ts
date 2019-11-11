@@ -64,6 +64,13 @@ export class ACSx290ListComponent implements OnInit, OnDestroy {
     this.userSubscription.unsubscribe();
   }
 
+  click(registryId: string) {
+    this.store.dispatch(new UI.StartLoading());
+    setTimeout(() => {
+      this.router.navigate(['registry/acsx290', registryId]);
+    }, 300);
+  }
+
   create() {
     this.store.dispatch(new UI.StartLoading());
     setTimeout(() => {
