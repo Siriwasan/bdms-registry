@@ -46,6 +46,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
   user: User;
   private userSubscription: Subscription;
   avHospitals: string[];
+  avHospitalsNullOption = true;
 
   // FAB
   open = false;
@@ -212,11 +213,11 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
     // });
 
     this.staffs = await this.acsx290Service.getStaffs();
-    await this.loadById();
-
     this.avHospitals = this.authService
       .getAvailableHospitals(this.user.staff.primaryHospId, this.user.staff.permission)
       .map(hosp => hosp.id);
+
+    await this.loadById();
 
     this.completion = this.getFormCompletion();
     this.calculateCompletion();
@@ -745,6 +746,8 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
 
         this.mode = 'edit';
         this.registryId = registryId;
+        this.avHospitalsNullOption = false;
+        this.avHospitals = Array(this.formGroupC.get('HospName').value);
       } else {
         this.router.navigate(['registry/acsx290']);
       }

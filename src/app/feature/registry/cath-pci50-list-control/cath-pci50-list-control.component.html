@@ -8,23 +8,27 @@
   <form [formGroup]="searchForm" fxLayoutGap="20px">
     <mat-form-field fxFlex="250px">
       <mat-select formControlName="hospitals" multiple>
-        <mat-option *ngFor="let hosp of avHospitals" [value]="hosp">{{
+        <mat-select-trigger>
+          {{ outputLabel }}
+        </mat-select-trigger>
+        <mat-option #allSelected (click)="toggleAllSelection()" value="All">All</mat-option>
+        <mat-divider></mat-divider>
+        <mat-option *ngFor="let hosp of avHospitals" [value]="hosp" (click)="toggleSingleSelection()">{{
           hosp
         }}</mat-option>
       </mat-select>
-      <mat-hint><i>ID, HN, Name, Tag, Submitted</i></mat-hint>
+      <mat-hint><i>Hospital</i></mat-hint>
     </mat-form-field>
     <mat-form-field floatLabel="never" fxFlex="200px">
       <input
         matInput
         type="text"
         placeholder="Filter"
-        (keyup)="applyFilter($event.target.value)"
-        [value]="filterString"
+        formControlName="filters"
       />
       <button
         mat-button
-        *ngIf="filterString"
+        *ngIf="searchForm.get('filters').value"
         matSuffix
         mat-icon-button
         aria-label="Clear"

@@ -1,5 +1,18 @@
-import { Component, OnInit, AfterViewInit, OnDestroy, ChangeDetectorRef, ElementRef, ViewChild } from '@angular/core';
-import { FormGroup, FormGroupDirective, FormBuilder, FormArray } from '@angular/forms';
+import {
+  Component,
+  OnInit,
+  AfterViewInit,
+  OnDestroy,
+  ChangeDetectorRef,
+  ElementRef,
+  ViewChild
+} from '@angular/core';
+import {
+  FormGroup,
+  FormGroupDirective,
+  FormBuilder,
+  FormArray
+} from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { MatSelectChange } from '@angular/material';
@@ -62,7 +75,8 @@ const str = {
   styleUrls: ['./cath-pci50.component.scss'],
   providers: [CathPci50Service, CathPci50Validator]
 })
-export class CathPci50Component extends RegistryFormComponent implements OnInit, AfterViewInit, OnDestroy {
+export class CathPci50Component extends RegistryFormComponent
+  implements OnInit, AfterViewInit, OnDestroy {
   private subscriptions: Subscription[] = [];
   gap = '20px';
   result: CathPci50Model;
@@ -91,6 +105,7 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
   avCoroDevices: RegSelectChoice[];
   eventCoroDevices: RegSelectChoice[];
 
+  avHospitalsNullOption = true;
   avHospitals: string[];
   toc = tableOfContent;
   nationality = registryData.nationality;
@@ -127,7 +142,9 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
       return `(0%)`;
     }
 
-    const completion = Math.floor((this.completion.summary.valid / this.completion.summary.total) * 100);
+    const completion = Math.floor(
+      (this.completion.summary.valid / this.completion.summary.total) * 100
+    );
     return `(${completion}%)`;
   }
 
@@ -152,7 +169,10 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
   followUpsTabIndex = 0;
 
   get nativeLesions() {
-    return this.visibles[str.nativeLesions] && (this.visibles[str.nativeLesions] as FormVisible[]).length > 0;
+    return (
+      this.visibles[str.nativeLesions] &&
+      (this.visibles[str.nativeLesions] as FormVisible[]).length > 0
+    );
   }
 
   get nativeLesionsControls() {
@@ -160,7 +180,10 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
   }
 
   get graftLesions() {
-    return this.visibles[str.graftLesions] && (this.visibles[str.graftLesions] as FormVisible[]).length > 0;
+    return (
+      this.visibles[str.graftLesions] &&
+      (this.visibles[str.graftLesions] as FormVisible[]).length > 0
+    );
   }
 
   get graftLesionsControls() {
@@ -168,7 +191,10 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
   }
 
   get pciLesions() {
-    return this.visibles[str.pciLesions] && (this.visibles[str.pciLesions] as FormVisible[]).length > 0;
+    return (
+      this.visibles[str.pciLesions] &&
+      (this.visibles[str.pciLesions] as FormVisible[]).length > 0
+    );
   }
 
   get pciLesionsControls() {
@@ -180,7 +206,10 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
   }
 
   get followUps() {
-    return this.visibles.FollowUps && (this.visibles.FollowUps as FormVisible[]).length > 0;
+    return (
+      this.visibles.FollowUps &&
+      (this.visibles.FollowUps as FormVisible[]).length > 0
+    );
   }
 
   get followUpsControls() {
@@ -203,19 +232,32 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
   formGroupL: FormGroup;
   formGroupM: FormGroup;
 
-  @ViewChild('formDirectiveA', { static: true }) formDirectiveA: FormGroupDirective;
-  @ViewChild('formDirectiveB', { static: true }) formDirectiveB: FormGroupDirective;
-  @ViewChild('formDirectiveC', { static: true }) formDirectiveC: FormGroupDirective;
-  @ViewChild('formDirectiveD', { static: true }) formDirectiveD: FormGroupDirective;
-  @ViewChild('formDirectiveE', { static: true }) formDirectiveE: FormGroupDirective;
-  @ViewChild('formDirectiveF', { static: true }) formDirectiveF: FormGroupDirective;
-  @ViewChild('formDirectiveG', { static: true }) formDirectiveG: FormGroupDirective;
-  @ViewChild('formDirectiveH', { static: true }) formDirectiveH: FormGroupDirective;
-  @ViewChild('formDirectiveI', { static: true }) formDirectiveI: FormGroupDirective;
-  @ViewChild('formDirectiveJ', { static: true }) formDirectiveJ: FormGroupDirective;
-  @ViewChild('formDirectiveK', { static: true }) formDirectiveK: FormGroupDirective;
-  @ViewChild('formDirectiveL', { static: true }) formDirectiveL: FormGroupDirective;
-  @ViewChild('formDirectiveM', { static: true }) formDirectiveM: FormGroupDirective;
+  @ViewChild('formDirectiveA', { static: true })
+  formDirectiveA: FormGroupDirective;
+  @ViewChild('formDirectiveB', { static: true })
+  formDirectiveB: FormGroupDirective;
+  @ViewChild('formDirectiveC', { static: true })
+  formDirectiveC: FormGroupDirective;
+  @ViewChild('formDirectiveD', { static: true })
+  formDirectiveD: FormGroupDirective;
+  @ViewChild('formDirectiveE', { static: true })
+  formDirectiveE: FormGroupDirective;
+  @ViewChild('formDirectiveF', { static: true })
+  formDirectiveF: FormGroupDirective;
+  @ViewChild('formDirectiveG', { static: true })
+  formDirectiveG: FormGroupDirective;
+  @ViewChild('formDirectiveH', { static: true })
+  formDirectiveH: FormGroupDirective;
+  @ViewChild('formDirectiveI', { static: true })
+  formDirectiveI: FormGroupDirective;
+  @ViewChild('formDirectiveJ', { static: true })
+  formDirectiveJ: FormGroupDirective;
+  @ViewChild('formDirectiveK', { static: true })
+  formDirectiveK: FormGroupDirective;
+  @ViewChild('formDirectiveL', { static: true })
+  formDirectiveL: FormGroupDirective;
+  @ViewChild('formDirectiveM', { static: true })
+  formDirectiveM: FormGroupDirective;
 
   private sectionMembers: SectionMember[];
   //#endregion
@@ -234,7 +276,13 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     private location: Location,
     private authService: AuthService
   ) {
-    super(dialogService, changeDetector, scrollSpy, hostElement, registryFormService);
+    super(
+      dialogService,
+      changeDetector,
+      scrollSpy,
+      hostElement,
+      registryFormService
+    );
   }
 
   ngOnInit() {
@@ -283,7 +331,10 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     this.staffs = await this.cathPci50Service.getStaffs();
 
     this.avHospitals = this.authService
-      .getAvailableHospitals(this.user.staff.primaryHospId, this.user.staff.permission)
+      .getAvailableHospitals(
+        this.user.staff.primaryHospId,
+        this.user.staff.permission
+      )
       .map(hosp => hosp.id);
 
     const deviceMap = m => {
@@ -296,7 +347,9 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
       } as RegSelectChoice;
     };
     this.avCoroDevices = intraCoronaryDevices.map(deviceMap);
-    this.eventCoroDevices = intraCoronaryDevices.filter(m => m.deviceType.includes('Stent')).map(deviceMap);
+    this.eventCoroDevices = intraCoronaryDevices
+      .filter(m => m.deviceType.includes('Stent'))
+      .map(deviceMap);
 
     this.completion = this.initializeFormCompletion();
     // this.completion = this.getFormCompletion();
@@ -308,7 +361,9 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     CathPci50Validator.setServiceForValidators(this.registryFormService);
 
     this.formGroupA.get('registryId').setValue('(new)');
-    this.formGroupL.get('SubmittedDischarge').setValue(false, { onlySelf: true });
+    this.formGroupL
+      .get('SubmittedDischarge')
+      .setValue(false, { onlySelf: true });
     await this.loadById();
     if (this.formGroupL.get('SubmittedDischarge').value) {
       this.submittedDischarge = true;
@@ -371,8 +426,15 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
       ['M', this.formGroupM, this.formDirectiveM, conditions.sectionM]
     ];
 
-    this.registryFormService.initializeForm(this.sectionMembers, conditions, validations, this.visibles);
-    this.registryFormService.setDataDict(require('raw-loader!./cath-pci50.dict.md'));
+    this.registryFormService.initializeForm(
+      this.sectionMembers,
+      conditions,
+      validations,
+      this.visibles
+    );
+    this.registryFormService.setDataDict(
+      require('raw-loader!./cath-pci50.dict.md')
+    );
   }
 
   private async loadStaffs() {
@@ -392,7 +454,8 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     }
 
     const filterStaff = (staff: Staff, positions: string[]) =>
-      positions.includes(staff.position) && (staff.primaryHospId === hospId || staff.secondHospIds.includes(hospId));
+      positions.includes(staff.position) &&
+      (staff.primaryHospId === hospId || staff.secondHospIds.includes(hospId));
 
     const staffToChoice = (staff: Staff) => {
       return {
@@ -415,9 +478,13 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
       )
       .map(staffToChoice);
     this.cardioAndIntervention = this.staffs
-      .filter(staff => filterStaff(staff, ['Cardiologist', 'Cardiac Interventionist']))
+      .filter(staff =>
+        filterStaff(staff, ['Cardiologist', 'Cardiac Interventionist'])
+      )
       .map(staffToChoice);
-    this.intervention = this.staffs.filter(staff => filterStaff(staff, ['Cardiac Interventionist'])).map(staffToChoice);
+    this.intervention = this.staffs
+      .filter(staff => filterStaff(staff, ['Cardiac Interventionist']))
+      .map(staffToChoice);
   }
 
   private async loadById() {
@@ -434,6 +501,8 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
 
         this.mode = 'edit';
         this.registryId = registryId;
+        this.avHospitalsNullOption = false;
+        this.avHospitals = Array(this.formGroupB.get('HospName').value);
       } else {
         this.router.navigate(['registry/cath-pci50']);
       }
@@ -464,7 +533,9 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     this.formGroupB.get('HospName').patchValue(data.sectionB['HospName']);
     this.formGroupB.get('PayorPrim').patchValue(data.sectionB['PayorPrim']);
     this.formGroupB.get('PayorSecond').patchValue(data.sectionB['PayorSecond']);
-    this.formGroupB.get('ArrivalDateTime').patchValue(data.sectionB['ArrivalDateTime']);
+    this.formGroupB
+      .get('ArrivalDateTime')
+      .patchValue(data.sectionB['ArrivalDateTime']);
     this.formGroupB.get('AdmProvider').patchValue(data.sectionB['AdmProvider']);
     this.formGroupB.get('AttProvider').patchValue(data.sectionB['AttProvider']);
     // tslint:enable: no-string-literal
@@ -476,10 +547,20 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     this.formGroupG.patchValue(data.sectionG);
 
     data.sectionH[str.nativeLesions].forEach(_ =>
-      this.addLesion(str.nativeLesions, str.nvSegmentID, CathPci50Form.nativeLesion, conditions.nativeLesion)
+      this.addLesion(
+        str.nativeLesions,
+        str.nvSegmentID,
+        CathPci50Form.nativeLesion,
+        conditions.nativeLesion
+      )
     );
     data.sectionH[str.graftLesions].forEach(_ =>
-      this.addLesion(str.graftLesions, str.graftSegmentID, CathPci50Form.graftLesion, conditions.graftLesion)
+      this.addLesion(
+        str.graftLesions,
+        str.graftSegmentID,
+        CathPci50Form.graftLesion,
+        conditions.graftLesion
+      )
     );
     this.formGroupH.patchValue(data.sectionH);
 
@@ -529,17 +610,21 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
   }
 
   private subscribeCAOutHospitalChanged(): Subscription {
-    return this.formGroupC.get('CAOutHospital').valueChanges.subscribe(value => {
-      this.postCardiacArrestCare();
-      this.dischargeLevelOfConsciousness();
-    });
+    return this.formGroupC
+      .get('CAOutHospital')
+      .valueChanges.subscribe(value => {
+        this.postCardiacArrestCare();
+        this.dischargeLevelOfConsciousness();
+      });
   }
 
   private subscribeCATransferFacChanged(): Subscription {
-    return this.formGroupC.get('CATransferFac').valueChanges.subscribe(value => {
-      this.postCardiacArrestCare();
-      this.dischargeLevelOfConsciousness();
-    });
+    return this.formGroupC
+      .get('CATransferFac')
+      .valueChanges.subscribe(value => {
+        this.postCardiacArrestCare();
+        this.dischargeLevelOfConsciousness();
+      });
   }
 
   private subscribeCAInHospChanged(): Subscription {
@@ -563,7 +648,12 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     const PCIProc = this.formGroupE.get('PCIProc').value;
 
     // tslint:disable: no-string-literal
-    if ((CAOutHospital === 'Yes' || CATransferFac === 'Yes' || CAInHosp === 'Yes') && PCIProc === 'Yes') {
+    if (
+      (CAOutHospital === 'Yes' ||
+        CATransferFac === 'Yes' ||
+        CAInHosp === 'Yes') &&
+      PCIProc === 'Yes'
+    ) {
       this.visibles['HypothermiaInduced'] = true;
       this.visibles['LOCProc'] = true;
     } else {
@@ -596,7 +686,12 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     const DCStatus = this.formGroupL.get('DCStatus').value;
 
     // tslint:disable: no-string-literal
-    if ((CAOutHospital === 'Yes' || CATransferFac === 'Yes' || CAInHosp === 'Yes') && DCStatus === 'Deceased') {
+    if (
+      (CAOutHospital === 'Yes' ||
+        CATransferFac === 'Yes' ||
+        CAInHosp === 'Yes') &&
+      DCStatus === 'Deceased'
+    ) {
       this.visibles['DC_LOC'] = true;
     } else {
       this.visibles['DC_LOC'] = false;
@@ -627,9 +722,11 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
   // }
 
   private subscribePCIIndicationChanged(): Subscription {
-    return this.formGroupI.get('PCIIndication').valueChanges.subscribe(value => {
-      this.checkCulpritStenosisLesion();
-    });
+    return this.formGroupI
+      .get('PCIIndication')
+      .valueChanges.subscribe(value => {
+        this.checkCulpritStenosisLesion();
+      });
   }
 
   private checkCulpritStenosisLesion() {
@@ -742,7 +839,12 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
 
     if (
       DCStatus === 'Alive' &&
-      ['Home', 'Extended care/TCU/rehab', 'Skilled Nursing facility', 'Other'].includes(DCLocation) &&
+      [
+        'Home',
+        'Extended care/TCU/rehab',
+        'Skilled Nursing facility',
+        'Other'
+      ].includes(DCLocation) &&
       DCHospice === 'No'
     ) {
       // tslint:disable-next-line: no-string-literal
@@ -802,13 +904,23 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
           if (sm[0] === 'M') {
             newCompletion = this.getSectionMCompletion();
           } else {
-            newCompletion = this.registryFormService.getSectionCompletion(sm[0]);
+            newCompletion = this.registryFormService.getSectionCompletion(
+              sm[0]
+            );
           }
-          const oldCompletion = this.completion['section' + sm[0]] as FormCompletion;
+          const oldCompletion = this.completion[
+            'section' + sm[0]
+          ] as FormCompletion;
           this.completion['section' + sm[0]] = newCompletion;
 
-          this.completion.summary.valid = this.completion.summary.valid - oldCompletion.valid + newCompletion.valid;
-          this.completion.summary.total = this.completion.summary.total - oldCompletion.total + newCompletion.total;
+          this.completion.summary.valid =
+            this.completion.summary.valid -
+            oldCompletion.valid +
+            newCompletion.valid;
+          this.completion.summary.total =
+            this.completion.summary.total -
+            oldCompletion.total +
+            newCompletion.total;
 
           this.checkCanSubmitDischarge();
         })
@@ -825,17 +937,26 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
         completion.valid += this.followUpCompletions[index].valid;
         completion.total += this.followUpCompletions[index].total;
         this.disableSubmitFollowUps[index] = !(
-          this.followUpCompletions[index].valid === this.followUpCompletions[index].total &&
-          (index > 0 ? this.submittedFollowUps[index - 1] : this.submittedDischarge)
+          this.followUpCompletions[index].valid ===
+            this.followUpCompletions[index].total &&
+          (index > 0
+            ? this.submittedFollowUps[index - 1]
+            : this.submittedDischarge)
         );
         return;
       }
-      const c = this.registryFormService.checkCompletion(formGroup, this.visibles[str.followUps][index]);
+      const c = this.registryFormService.checkCompletion(
+        formGroup,
+        this.visibles[str.followUps][index]
+      );
       this.followUpCompletions[index] = c;
       completion.valid += c.valid;
       completion.total += c.total;
       this.disableSubmitFollowUps[index] = !(
-        c.valid === c.total && (index > 0 ? this.submittedFollowUps[index - 1] : this.submittedDischarge)
+        c.valid === c.total &&
+        (index > 0
+          ? this.submittedFollowUps[index - 1]
+          : this.submittedDischarge)
       );
     });
     return completion;
@@ -855,7 +976,9 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
       }
     });
 
-    const percentDischargeCompletion = Math.floor((summary.valid / summary.total) * 100);
+    const percentDischargeCompletion = Math.floor(
+      (summary.valid / summary.total) * 100
+    );
     this.disableSubmitDischarge = percentDischargeCompletion !== 100;
   }
 
@@ -965,19 +1088,29 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
       },
       sectionE: {
         ...formGroupEvalue,
-        ProcedureStartDateTime: this.serializeDateTime(formGroupEvalue.ProcedureStartDateTime),
-        ProcedureEndDateTime: this.serializeDateTime(formGroupEvalue.ProcedureEndDateTime)
+        ProcedureStartDateTime: this.serializeDateTime(
+          formGroupEvalue.ProcedureStartDateTime
+        ),
+        ProcedureEndDateTime: this.serializeDateTime(
+          formGroupEvalue.ProcedureEndDateTime
+        )
       },
       sectionF: { ...this.formGroupF.value },
       sectionG: { ...this.formGroupG.value },
       sectionH: { ...this.formGroupH.value },
       sectionI: {
         ...formGroupIvalue,
-        SymptomDateTime: this.serializeDateTime(formGroupIvalue.SymptomDateTime),
+        SymptomDateTime: this.serializeDateTime(
+          formGroupIvalue.SymptomDateTime
+        ),
         ThromDateTime: this.serializeDateTime(formGroupIvalue.ThromDateTime),
         SubECGDateTime: this.serializeDateTime(formGroupIvalue.SubECGDateTime),
-        EDPresentDateTime: this.serializeDateTime(formGroupIvalue.EDPresentDateTime),
-        FirstDevActiDateTime: this.serializeDateTime(formGroupIvalue.FirstDevActiDateTime)
+        EDPresentDateTime: this.serializeDateTime(
+          formGroupIvalue.EDPresentDateTime
+        ),
+        FirstDevActiDateTime: this.serializeDateTime(
+          formGroupIvalue.FirstDevActiDateTime
+        )
       },
       sectionJ: {
         ...formGroupJvalue,
@@ -985,22 +1118,50 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
       },
       sectionK: {
         ...formGroupKvalue,
-        K_BleedingAccessSiteDT: this.serializeDateTime(formGroupKvalue.K_BleedingAccessSiteDT),
+        K_BleedingAccessSiteDT: this.serializeDateTime(
+          formGroupKvalue.K_BleedingAccessSiteDT
+        ),
         K_BleedingGIDT: this.serializeDateTime(formGroupKvalue.K_BleedingGIDT),
         K_BleedingGUDT: this.serializeDateTime(formGroupKvalue.K_BleedingGUDT),
-        K_BleedingHematomaDT: this.serializeDateTime(formGroupKvalue.K_BleedingHematomaDT),
-        K_BleedingOtherDT: this.serializeDateTime(formGroupKvalue.K_BleedingOtherDT),
-        K_BleedingRetroDT: this.serializeDateTime(formGroupKvalue.K_BleedingRetroDT),
-        K_CardiacArrestDT: this.serializeDateTime(formGroupKvalue.K_CardiacArrestDT),
-        K_CardiacTamponadeDT: this.serializeDateTime(formGroupKvalue.K_CardiacTamponadeDT),
-        K_CardiogenicShockDT: this.serializeDateTime(formGroupKvalue.K_CardiogenicShockDT),
-        K_HeartFailureDT: this.serializeDateTime(formGroupKvalue.K_HeartFailureDT),
-        K_MyocardialInfarctionDT: this.serializeDateTime(formGroupKvalue.K_MyocardialInfarctionDT),
-        K_NewDialysisDT: this.serializeDateTime(formGroupKvalue.K_NewDialysisDT),
-        K_OtherVascularDT: this.serializeDateTime(formGroupKvalue.K_OtherVascularDT),
-        K_StrokeHemorrhageDT: this.serializeDateTime(formGroupKvalue.K_StrokeHemorrhageDT),
-        K_StrokeIschemicDT: this.serializeDateTime(formGroupKvalue.K_StrokeIschemicDT),
-        K_StrokeUndeterminedDT: this.serializeDateTime(formGroupKvalue.K_StrokeUndeterminedDT)
+        K_BleedingHematomaDT: this.serializeDateTime(
+          formGroupKvalue.K_BleedingHematomaDT
+        ),
+        K_BleedingOtherDT: this.serializeDateTime(
+          formGroupKvalue.K_BleedingOtherDT
+        ),
+        K_BleedingRetroDT: this.serializeDateTime(
+          formGroupKvalue.K_BleedingRetroDT
+        ),
+        K_CardiacArrestDT: this.serializeDateTime(
+          formGroupKvalue.K_CardiacArrestDT
+        ),
+        K_CardiacTamponadeDT: this.serializeDateTime(
+          formGroupKvalue.K_CardiacTamponadeDT
+        ),
+        K_CardiogenicShockDT: this.serializeDateTime(
+          formGroupKvalue.K_CardiogenicShockDT
+        ),
+        K_HeartFailureDT: this.serializeDateTime(
+          formGroupKvalue.K_HeartFailureDT
+        ),
+        K_MyocardialInfarctionDT: this.serializeDateTime(
+          formGroupKvalue.K_MyocardialInfarctionDT
+        ),
+        K_NewDialysisDT: this.serializeDateTime(
+          formGroupKvalue.K_NewDialysisDT
+        ),
+        K_OtherVascularDT: this.serializeDateTime(
+          formGroupKvalue.K_OtherVascularDT
+        ),
+        K_StrokeHemorrhageDT: this.serializeDateTime(
+          formGroupKvalue.K_StrokeHemorrhageDT
+        ),
+        K_StrokeIschemicDT: this.serializeDateTime(
+          formGroupKvalue.K_StrokeIschemicDT
+        ),
+        K_StrokeUndeterminedDT: this.serializeDateTime(
+          formGroupKvalue.K_StrokeUndeterminedDT
+        )
       },
       sectionL: {
         ...formGroupLvalue,
@@ -1092,19 +1253,25 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
 
   //#region Section H
   getNativeLesionsTabLabel(index: number): string {
-    const control = ((this.formGroupH.get(str.nativeLesions) as FormArray).controls[index] as FormGroup).controls;
+    const control = ((this.formGroupH.get(str.nativeLesions) as FormArray)
+      .controls[index] as FormGroup).controls;
     const label = control.NVSegmentID.value;
     const stenosis = control.NVCoroVesselStenosis.value;
 
-    return label !== null ? label + (stenosis ? ` (${stenosis}%)` : '') : '(new) *';
+    return label !== null
+      ? label + (stenosis ? ` (${stenosis}%)` : '')
+      : '(new) *';
   }
 
   getGraftLesionsTabLabel(index: number): string {
-    const control = ((this.formGroupH.get(str.graftLesions) as FormArray).controls[index] as FormGroup).controls;
+    const control = ((this.formGroupH.get(str.graftLesions) as FormArray)
+      .controls[index] as FormGroup).controls;
     const label = control.GraftSegmentID.value;
     const stenosis = control.GraftCoroVesselStenosis.value;
 
-    return label !== null ? label + (stenosis ? ` (${stenosis}%)` : '') : '(new) *';
+    return label !== null
+      ? label + (stenosis ? ` (${stenosis}%)` : '')
+      : '(new) *';
   }
 
   NVStenosisChanged(event: MatSelectChange) {
@@ -1167,7 +1334,12 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     this.getSegmentIDsForGraft();
   }
 
-  private addLesion(type: string, segmentID: string, form: any, conditns: any): number {
+  private addLesion(
+    type: string,
+    segmentID: string,
+    form: any,
+    conditns: any
+  ): number {
     const formArray = this.formGroupH.get(type) as FormArray;
     // const formGroups = formArray.controls as FormGroup[];
 
@@ -1277,7 +1449,12 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     );
   }
 
-  private arrangeTabs(type: string, segmentID: string, stenosis: string, tabIndex: number): number {
+  private arrangeTabs(
+    type: string,
+    segmentID: string,
+    stenosis: string,
+    tabIndex: number
+  ): number {
     const formArray = this.formGroupH.get(type) as FormArray;
     const formGroups = formArray.value;
 
@@ -1296,7 +1473,10 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
       if (!b[segmentID]) {
         return -1;
       }
-      return valueA.localeCompare(valueB, 'en', { numeric: true, sensitivity: 'base' });
+      return valueA.localeCompare(valueB, 'en', {
+        numeric: true,
+        sensitivity: 'base'
+      });
     });
     formArray.setValue(formGroups);
 
@@ -1306,11 +1486,17 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
   }
 
   getSegmentIDsForNV() {
-    this.availableNVSegmentIDs = this.getSegmentIDs(str.nativeLesions, str.nvSegmentID);
+    this.availableNVSegmentIDs = this.getSegmentIDs(
+      str.nativeLesions,
+      str.nvSegmentID
+    );
   }
 
   getSegmentIDsForGraft() {
-    this.availableGraftSegmentIDs = this.getSegmentIDs(str.graftLesions, str.graftSegmentID);
+    this.availableGraftSegmentIDs = this.getSegmentIDs(
+      str.graftLesions,
+      str.graftSegmentID
+    );
   }
 
   private getSegmentIDs(type: string, segmentID: string): RegSelectChoice[][] {
@@ -1338,27 +1524,40 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
   }
 
   private checkCanAddNativeLesion() {
-    this.disableAddNativeLesion = this.checkCanAddLesion(str.nativeLesions, str.nvSegmentID);
+    this.disableAddNativeLesion = this.checkCanAddLesion(
+      str.nativeLesions,
+      str.nvSegmentID
+    );
   }
 
   private checkCanAddGraftLesion() {
-    this.disableAddGraftLesion = this.checkCanAddLesion(str.graftLesions, str.graftSegmentID);
+    this.disableAddGraftLesion = this.checkCanAddLesion(
+      str.graftLesions,
+      str.graftSegmentID
+    );
   }
 
   private checkCanAddLesion(type: string, segmentID: string): boolean {
     const formArray = this.formGroupH.get(type) as FormArray;
     const formGroups = formArray.controls as FormGroup[];
 
-    return formGroups.findIndex((g: FormGroup) => g.get(segmentID).value === null) >= 0;
+    return (
+      formGroups.findIndex((g: FormGroup) => g.get(segmentID).value === null) >=
+      0
+    );
   }
   //#endregion Section H
 
   //#region Section J
   getPciLesionsTabLabel(index: number): string {
-    const fg = ((this.formGroupJ.get(str.pciLesions) as FormArray).controls[index] as FormGroup).controls;
+    const fg = ((this.formGroupJ.get(str.pciLesions) as FormArray).controls[
+      index
+    ] as FormGroup).controls;
     const counter = fg.LesionCounter.value;
     const SegmentID = fg.SegmentID.value;
-    return SegmentID !== null && SegmentID.length > 0 ? `Lesion ${counter}` : `Lesion ${counter} *`;
+    return SegmentID !== null && SegmentID.length > 0
+      ? `Lesion ${counter}`
+      : `Lesion ${counter} *`;
   }
 
   PciSegmentIDChanged() {
@@ -1379,7 +1578,11 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
 
     const newGroup = this.formBuilder.group(CathPci50Form.pciLesion);
     const visible: FormVisible = {};
-    this.registryFormService.subscribeValueChanges(newGroup, conditions.pciLesion, visible);
+    this.registryFormService.subscribeValueChanges(
+      newGroup,
+      conditions.pciLesion,
+      visible
+    );
 
     // ! initial remove validator in hiding child control
     newGroup.setValue(newGroup.value);
@@ -1389,7 +1592,9 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     formArray.push(newGroup);
 
     // initialize conditions
-    this.formGroupH.get('GraftStenosis').setValue(this.formGroupH.get('GraftStenosis').value);
+    this.formGroupH
+      .get('GraftStenosis')
+      .setValue(this.formGroupH.get('GraftStenosis').value);
     this.checkCulpritStenosisLesion();
 
     this.pciLesionsTabIndex = formArray.length - 1;
@@ -1403,13 +1608,18 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     const formArray = this.formGroupJ.get(str.pciLesions) as FormArray;
     const formGroups = formArray.controls as FormGroup[];
 
-    this.removeLesionFromDevices(formGroups[index].get(str.lesionCounter).value);
+    this.removeLesionFromDevices(
+      formGroups[index].get(str.lesionCounter).value
+    );
 
     formArray.removeAt(index);
     (this.visibles.PciLesions as FormVisible[]).splice(index, 1);
 
     for (let i = 0; i < formGroups.length; i++) {
-      this.renameLesionFromDevices(formGroups[i].get(str.lesionCounter).value, i + 1);
+      this.renameLesionFromDevices(
+        formGroups[i].get(str.lesionCounter).value,
+        i + 1
+      );
       formGroups[i].get(str.lesionCounter).setValue(i + 1);
     }
 
@@ -1421,15 +1631,23 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
   private getSegmentIDsForPci() {
     const nativeFormArray = this.formGroupH.get(str.nativeLesions) as FormArray;
     const nativeFormGroups = nativeFormArray.controls as FormGroup[];
-    const nativeSegmentIDs = nativeFormGroups.map(fg => fg.get(str.nvSegmentID).value);
+    const nativeSegmentIDs = nativeFormGroups.map(
+      fg => fg.get(str.nvSegmentID).value
+    );
 
     const graftFormArray = this.formGroupH.get(str.graftLesions) as FormArray;
     const graftFormGroups = graftFormArray.controls as FormGroup[];
-    const graftSegmentIDs = graftFormGroups.map(fg => fg.get(str.graftSegmentID).value);
+    const graftSegmentIDs = graftFormGroups.map(
+      fg => fg.get(str.graftSegmentID).value
+    );
 
-    const availableSegmentIDs = [...new Set([...nativeSegmentIDs, ...graftSegmentIDs])]
+    const availableSegmentIDs = [
+      ...new Set([...nativeSegmentIDs, ...graftSegmentIDs])
+    ]
       .filter(a => a !== null)
-      .sort((a, b) => a.localeCompare(b, 'en', { numeric: true, sensitivity: 'base' }));
+      .sort((a, b) =>
+        a.localeCompare(b, 'en', { numeric: true, sensitivity: 'base' })
+      );
 
     const pciFormArray = this.formGroupJ.get(str.pciLesions) as FormArray;
     const pciFormGroups = pciFormArray.controls as FormGroup[];
@@ -1514,7 +1732,9 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
   }
 
   getPciDevicesTabLabel(index: number): string {
-    const fg = ((this.formGroupJ.get(str.pciDevices) as FormArray).controls[index] as FormGroup).controls;
+    const fg = ((this.formGroupJ.get(str.pciDevices) as FormArray).controls[
+      index
+    ] as FormGroup).controls;
     const counter = fg.ICDevCounter.value;
     const ICDevID = fg.ICDevID.value;
     return ICDevID !== null ? `Device ${counter}` : `Device ${counter} *`;
@@ -1535,7 +1755,11 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
 
     const newGroup = this.formBuilder.group(CathPci50Form.pciDevice);
     const visible: FormVisible = {};
-    this.registryFormService.subscribeValueChanges(newGroup, conditions.pciDevice, visible);
+    this.registryFormService.subscribeValueChanges(
+      newGroup,
+      conditions.pciDevice,
+      visible
+    );
 
     // ! initial remove validator in hiding child control
     newGroup.setValue(newGroup.value);
@@ -1567,7 +1791,9 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
   }
 
   checkPciTechnique() {
-    const result = this.visibles[str.pciDevices] && (this.visibles[str.pciDevices] as FormVisible[]).length > 0;
+    const result =
+      this.visibles[str.pciDevices] &&
+      (this.visibles[str.pciDevices] as FormVisible[]).length > 0;
     const pciTechniques = ['ProxOptimize', 'FinalKissBalloon', 'PCIResult'];
 
     if (result) {
@@ -1604,7 +1830,8 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     const formArray = this.formGroupJ.get(str.pciDevices) as FormArray;
     const formGroups = formArray.controls as FormGroup[];
 
-    this.disableAddPciDevice = formGroups.findIndex(fg => fg.get('ICDevID').value === null) >= 0;
+    this.disableAddPciDevice =
+      formGroups.findIndex(fg => fg.get('ICDevID').value === null) >= 0;
   }
 
   arrangePciDeviceTabs() {
@@ -1669,9 +1896,13 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
 
   //#region Section M
   getFollowUpsTabLabel(index: number): string {
-    const fg = ((this.formGroupM.get(str.followUps) as FormArray).controls[index] as FormGroup).controls;
+    const fg = ((this.formGroupM.get(str.followUps) as FormArray).controls[
+      index
+    ] as FormGroup).controls;
     const fuDate = moment(fg.FU_AssessmentDate.value);
-    const procDate = moment(this.formGroupE.get('ProcedureStartDateTime').value);
+    const procDate = moment(
+      this.formGroupE.get('ProcedureStartDateTime').value
+    );
 
     if (!fuDate.isValid()) {
       return '(Plan F/U) *';
@@ -1687,7 +1918,10 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     return `${date}<span>(${period})</span>`;
   }
 
-  private getFollowUpPeriod(procDate: moment.Moment, fuDate: moment.Moment): string {
+  private getFollowUpPeriod(
+    procDate: moment.Moment,
+    fuDate: moment.Moment
+  ): string {
     let period = 'n/a';
     const dateDiff = fuDate.diff(procDate, 'days', false);
 
@@ -1695,7 +1929,10 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
       period = '30 days';
     } else {
       const years = Math.round(dateDiff / 365);
-      if (years > 0 && (dateDiff >= years * 365 - 60 && dateDiff <= years * 365 + 60)) {
+      if (
+        years > 0 &&
+        dateDiff >= years * 365 - 60 && dateDiff <= years * 365 + 60
+      ) {
         period = `${years} years`;
       }
     }
@@ -1722,7 +1959,11 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
 
     const newGroup = this.formBuilder.group(CathPci50Form.followUp);
     const visible: FormVisible = {};
-    this.registryFormService.subscribeValueChanges(newGroup, conditions.followUp, visible);
+    this.registryFormService.subscribeValueChanges(
+      newGroup,
+      conditions.followUp,
+      visible
+    );
 
     // ! initial remove validator in hiding child control
     newGroup.setValue(newGroup.value);
@@ -1815,7 +2056,9 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
   //#endregion Section M
 
   async submitDischarge() {
-    this.formGroupL.get('SubmittedDischarge').patchValue(true, { onlySelf: true });
+    this.formGroupL
+      .get('SubmittedDischarge')
+      .patchValue(true, { onlySelf: true });
     await this.submit();
     this.submittedDischarge = true;
     this.disableAllAdmissionForm();
@@ -1823,7 +2066,9 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
   }
 
   async unSubmitDischarge() {
-    this.formGroupL.get('SubmittedDischarge').patchValue(false, { onlySelf: true });
+    this.formGroupL
+      .get('SubmittedDischarge')
+      .patchValue(false, { onlySelf: true });
     this.submittedDischarge = false;
     this.enableAllAdmissionForm();
     this.unSubmitFollowUpsFrom(0);
@@ -1851,7 +2096,9 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
     for (let i = index; i < formArray.length; i++) {
       const formGroup = formArray.controls[i];
       if (formGroup.disabled) {
-        formGroup.get('SubmittedFollowUp').patchValue(false, { onlySelf: true });
+        formGroup
+          .get('SubmittedFollowUp')
+          .patchValue(false, { onlySelf: true });
         this.submittedFollowUps[i] = false;
         formGroup.enable({ emitEvent: false });
       }
@@ -1941,12 +2188,24 @@ export class CathPci50Component extends RegistryFormComponent implements OnInit,
   }
 
   setToDefaultPreProcLabs(formGroup: FormGroup, val: any) {
-    const controls = ['PreProcTnILab', 'PreProcTnTLab', 'PreProcCreatLab', 'HGBLab', 'LipidsTCLab', 'LipidsHDLLab'];
+    const controls = [
+      'PreProcTnILab',
+      'PreProcTnTLab',
+      'PreProcCreatLab',
+      'HGBLab',
+      'LipidsTCLab',
+      'LipidsHDLLab'
+    ];
     this.setToDefault(formGroup, controls, val);
   }
 
   setToDefaultPostProcLabs(formGroup: FormGroup, val: any) {
-    const controls = ['PostProcTnILab', 'PostProcTnTLab', 'PostProcCreatLab', 'PostProcHgbLab'];
+    const controls = [
+      'PostProcTnILab',
+      'PostProcTnTLab',
+      'PostProcCreatLab',
+      'PostProcHgbLab'
+    ];
     this.setToDefault(formGroup, controls, val);
   }
 

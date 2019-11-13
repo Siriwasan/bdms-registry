@@ -192,10 +192,16 @@ export const conditions: FormConditions = {
   ],
   sectionI: [
     { control: 'I:sectionIBody', parentControl: 'E:PCIProc', conditions: ['Yes'] },
+    { control: 'PCIStatus', parentControl: 'E:PCIProc', conditions: ['Yes'] },
     { control: 'HypothermiaInducedTiming', parentControl: 'HypothermiaInduced', conditions: ['Yes'] },
+    { control: 'PCIProcedureRisk', parentControl: 'E:PCIProc', conditions: ['Yes'] },
+    { control: 'PCIDecision', parentControl: 'E:PCIProc', conditions: ['Yes'] },
     { control: 'CVTxDecision', parentControl: 'PCIDecision', conditions: ['Yes'] },
     { control: 'CVSheetDecision', parentControl: 'PCIDecision', conditions: ['No'] },
+    { control: 'MultiVesselDz', parentControl: 'E:PCIProc', conditions: ['Yes'] },
     { control: 'MultiVessProcType', parentControl: 'MultiVesselDz', conditions: ['Yes'] },
+    { control: 'StagePCIPlanned', parentControl: 'E:PCIProc', conditions: ['Yes'] },
+    { control: 'PCIIndication', parentControl: 'E:PCIProc', conditions: ['Yes'] },
     {
       control: 'SymptomDateTime',
       parentControl: 'PCIIndication',
@@ -272,7 +278,24 @@ export const conditions: FormConditions = {
       parentControl: 'PCIIndication',
       conditions: ['STEMI - Immediate PCI for Acute STEMI']
     },
-    { control: 'PCIDelayReason', parentControl: 'PtPCIDelayReason', conditions: ['Yes'] }
+    { control: 'PCIDelayReason', parentControl: 'PtPCIDelayReason', conditions: ['Yes'] },
+    { control: 'Argatroban', parentControl: 'E:PCIProc', conditions: ['Yes'] },
+    { control: 'Bivalirudin', parentControl: 'E:PCIProc', conditions: ['Yes'] },
+    { control: 'Fondaparinux', parentControl: 'E:PCIProc', conditions: ['Yes'] },
+    { control: 'HeparinDerivative', parentControl: 'E:PCIProc', conditions: ['Yes'] },
+    { control: 'LMWH', parentControl: 'E:PCIProc', conditions: ['Yes'] },
+    { control: 'UFH', parentControl: 'E:PCIProc', conditions: ['Yes'] },
+    { control: 'Warfarin', parentControl: 'E:PCIProc', conditions: ['Yes'] },
+    { control: 'Vorapaxar', parentControl: 'E:PCIProc', conditions: ['Yes'] },
+    { control: 'GPIIbIIIa', parentControl: 'E:PCIProc', conditions: ['Yes'] },
+    { control: 'Apixaban', parentControl: 'E:PCIProc', conditions: ['Yes'] },
+    { control: 'Dabigatran', parentControl: 'E:PCIProc', conditions: ['Yes'] },
+    { control: 'Edoxaban', parentControl: 'E:PCIProc', conditions: ['Yes'] },
+    { control: 'Rivaroxaban', parentControl: 'E:PCIProc', conditions: ['Yes'] },
+    { control: 'Cangrelor', parentControl: 'E:PCIProc', conditions: ['Yes'] },
+    { control: 'Clopidogrel', parentControl: 'E:PCIProc', conditions: ['Yes'] },
+    { control: 'Prasugrel', parentControl: 'E:PCIProc', conditions: ['Yes'] },
+    { control: 'Ticagrelor', parentControl: 'E:PCIProc', conditions: ['Yes'] }
   ],
   sectionJ: [{ control: 'J:sectionJBody', parentControl: 'E:PCIProc', conditions: ['Yes'] }],
   pciLesion: [

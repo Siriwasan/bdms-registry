@@ -9,7 +9,7 @@ import {
   EventEmitter,
   OnDestroy
 } from '@angular/core';
-import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { MatPaginator, MatSort, MatTableDataSource, MatOption } from '@angular/material';
 
 import { environment } from '../../../../environments/environment';
 import * as CryptoJS from 'crypto-js';
@@ -28,17 +28,8 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./cath-pci50-list-control.component.scss'],
   providers: [RegistryService]
 })
-export class CathPci50ListControlComponent
-  implements OnInit, OnChanges, OnDestroy {
-  displayedColumns: string[] = [
-    'registryId',
-    'hn',
-    'name',
-    'age',
-    'tags',
-    'submitted',
-    'completion'
-  ];
+export class CathPci50ListControlComponent implements OnInit, OnChanges, OnDestroy {
+  displayedColumns: string[] = ['registryId', 'hn', 'name', 'age', 'tags', 'submitted', 'completion'];
   dataSource: MatTableDataSource<CathPci50ListControlModel>;
   controlData: CathPci50ListControlModel[];
   avHospitals: string[];
@@ -53,20 +44,38 @@ export class CathPci50ListControlComponent
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild('allSelected', { static: true }) private allSelected: MatOption;
 
   barClicked = false;
-  filterString = '';
+
+  get outputLabel() {
+    const hospitals = this.searchForm.get('hospitals').value;
+
+    if (hospitals.length <= 0) {
+      return '';
+    }
+
+    let output = '';
+    hospitals.forEach(hosp => {
+      if (hosp === 'All') {
+        return;
+      }
+      output = output + hosp + ', ';
+    });
+    output = output.substring(0, output.length - 2);
+    return output;
+  }
 
   constructor(private fb: FormBuilder) {}
 
   ngOnInit() {
     this.searchForm = this.fb.group({
-      hospitals: new FormControl([])
+      hospitals: [[]],
+      filters: ['']
     });
     this.subscriptions.push(
-      this.searchForm
-        .get('hospitals')
-        .valueChanges.subscribe(value => this.selectedHospitalChanged(value))
+      this.searchForm.get('hospitals').valueChanges.subscribe(value => this.selectedHospitalChanged(value)),
+      this.searchForm.get('filters').valueChanges.subscribe(value => this.applyFilter())
     );
   }
 
@@ -75,10 +84,8 @@ export class CathPci50ListControlComponent
       this.controlData = this.createCathPci50ListControlModels(this.data);
 
       const filterDuplicates = (arr: string[]) => [...new Set(arr)];
-      this.avHospitals = filterDuplicates(
-        this.controlData.map(d => d.hospitalId)
-      );
-      this.searchForm.get('hospitals').setValue(this.avHospitals);
+      this.avHospitals = filterDuplicates(this.controlData.map(d => d.hospitalId));
+      this.searchForm.get('hospitals').setValue(['All', ...this.avHospitals]);
 
       this.setDataSource(this.controlData);
     }
@@ -89,9 +96,8 @@ export class CathPci50ListControlComponent
   }
 
   selectedHospitalChanged(selectedHospitals: string[]) {
-    const data = this.controlData.filter(d =>
-      selectedHospitals.includes(d.hospitalId)
-    );
+    const filterSelectedHosp = selectedHospitals.filter(v => v !== 'All');
+    const data = this.controlData.filter(d => filterSelectedHosp.includes(d.hospitalId));
 
     this.setDataSource(data);
   }
@@ -101,12 +107,10 @@ export class CathPci50ListControlComponent
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.dataSource.filterPredicate = this.filter;
-    this.applyFilter(this.filterString);
+    this.applyFilter();
   }
 
-  createCathPci50ListControlModels(
-    data: RegistryModel[]
-  ): CathPci50ListControlModel[] {
+  createCathPci50ListControlModels(data: RegistryModel[]): CathPci50ListControlModel[] {
     if (!data) {
       return undefined;
     }
@@ -138,6 +142,24 @@ export class CathPci50ListControlComponent
     });
   }
 
+  toggleAllSelection() {
+    if (this.allSelected.selected) {
+      this.searchForm.get('hospitals').setValue(this.avHospitals);
+      this.allSelected.select();
+    } else {
+      this.searchForm.get('hospitals').setValue([]);
+    }
+  }
+
+  toggleSingleSelection() {
+    const selectedHospitals = this.searchForm.get('hospitals').value.filter(hosp => hosp !== 'All');
+    if (!this.allSelected.selected && selectedHospitals.length === this.avHospitals.length) {
+      this.allSelected.select();
+    } else if (this.allSelected.selected && selectedHospitals.length !== this.avHospitals.length) {
+      this.allSelected.deselect();
+    }
+  }
+
   private filter(data: CathPci50ListControlModel, filter: string): boolean {
     if (filter !== 'pci' && data.registryId.toLowerCase().includes(filter)) {
       return true;
@@ -148,17 +170,12 @@ export class CathPci50ListControlComponent
     if (data.name.toLowerCase().includes(filter)) {
       return true;
     }
-    if (
-      data.tags.length > 0 &&
-      data.tags.map(t => t.tag.toLowerCase()).includes(filter)
-    ) {
+    if (data.tags.length > 0 && data.tags.map(t => t.tag.toLowerCase()).includes(filter)) {
       return true;
     }
     if (
       data.submitted.length > 0 &&
-      data.submitted
-        .map(t => t.submit.toLowerCase())
-        .some(res => res.includes(filter))
+      data.submitted.map(t => t.submit.toLowerCase()).some(res => res.includes(filter))
     ) {
       return true;
     }
@@ -166,8 +183,8 @@ export class CathPci50ListControlComponent
     return false;
   }
 
-  applyFilter(filterValue: string) {
-    this.filterString = filterValue;
+  applyFilter() {
+    const filterValue = this.searchForm.get('filters').value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
 
     if (this.dataSource.paginator) {
@@ -176,8 +193,8 @@ export class CathPci50ListControlComponent
   }
 
   clearFilter() {
-    this.filterString = '';
-    this.applyFilter(this.filterString);
+    this.searchForm.get('filters').setValue('');
+    this.applyFilter();
   }
 
   clickItem(registry: CathPci50ListControlModel) {
@@ -190,16 +207,12 @@ export class CathPci50ListControlComponent
 
   clickTag(tag: string) {
     this.barClicked = true;
-    this.filterString = tag.split(';')[0];
-    this.applyFilter(this.filterString);
+    this.searchForm.get('filters').setValue(tag.split(';')[0]);
+    this.applyFilter();
   }
 
   private decrypt(source: string): string {
-    return source
-      ? CryptoJS.AES.decrypt(source, environment.appKey).toString(
-          CryptoJS.enc.Utf8
-        )
-      : null;
+    return source ? CryptoJS.AES.decrypt(source, environment.appKey).toString(CryptoJS.enc.Utf8) : null;
   }
 
   createRegistry() {
