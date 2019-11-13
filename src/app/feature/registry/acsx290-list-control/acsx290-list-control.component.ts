@@ -31,7 +31,7 @@ export class ACSx290ListControlComponent implements OnInit, OnChanges {
   avHospitals: Auth.Hospital[];
 
   barClicked = false;
-  filterString: string = null;
+  filterString = '';
 
   constructor() {}
 
@@ -86,6 +86,7 @@ export class ACSx290ListControlComponent implements OnInit, OnChanges {
   }
 
   applyFilter(filterValue: string) {
+    this.filterString = filterValue;
     this.dataSource.filter = filterValue.trim().toLowerCase();
 
     if (this.dataSource.paginator) {
