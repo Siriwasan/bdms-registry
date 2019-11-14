@@ -19,7 +19,7 @@ import { tagPriorities } from '../cath-pci50/cath-pci50.tag';
 
 import { RegistryModel } from '../registry.model';
 import { CathPci50ListControlModel } from './cath-pci50-list-control.model';
-import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
 @Component({

@@ -1,3 +1,9 @@
+# 1.3.1 (2019-11-12)
+
+### Features
+
+- **Registry list:** implement filter by hospital
+
 # 1.3.0 (2019-11-10)
 
 ### Features

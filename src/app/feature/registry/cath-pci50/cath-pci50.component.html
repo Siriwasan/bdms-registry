@@ -957,7 +957,9 @@
                 'Percutaneous Heart Pump (PHP)',
                 'TandemHeart'
               ]" fxFlex></reg-select>
+          </div>
 
+          <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
             <reg-select *ngIf="visibles['MVSupportTiming']" controlName="MVSupportTiming" placeholder="Timing" [formGroup]="formGroupG" [choices]="[
               'In place at start of procedure',
               'Inserted during procedure and prior to intervention',

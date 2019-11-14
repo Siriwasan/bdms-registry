@@ -1,6 +1,5 @@
-import { Component, OnInit, ViewChild, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
-import { Router } from '@angular/router';
-import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { Component, OnInit, ViewChild, Input, Output, EventEmitter, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
+import { MatPaginator, MatSort, MatTableDataSource, MatOption } from '@angular/material';
 
 import { environment } from '../../../../environments/environment';
 import * as CryptoJS from 'crypto-js';
@@ -10,15 +9,22 @@ import { tagPriorities } from '../acsx290/acsx290.tag';
 
 import * as Auth from '../../../core/auth/auth.data';
 import { ACSx290ListControlModel } from './acsx290-list-control.model';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-acsx290-list-control',
   templateUrl: './acsx290-list-control.component.html',
   styleUrls: ['./acsx290-list-control.component.scss']
 })
-export class ACSx290ListControlComponent implements OnInit, OnChanges {
+export class ACSx290ListControlComponent implements OnInit, OnChanges, OnDestroy {
   displayedColumns: string[] = ['registryId', 'hn', 'firstName', 'lastName', 'age', 'tags', 'completion'];
   dataSource: MatTableDataSource<ACSx290ListControlModel>;
+  controlData: ACSx290ListControlModel[];
+  avHospitals: string[];
+
+  searchForm: FormGroup;
+  subscriptions: Subscription[] = [];
 
   @Input() data: RegistryModel[];
   @Output() clicked: EventEmitter<string> = new EventEmitter();
@@ -27,24 +33,70 @@ export class ACSx290ListControlComponent implements OnInit, OnChanges {
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
-
-  avHospitals: Auth.Hospital[];
+  @ViewChild('allSelected', { static: true }) private allSelected: MatOption;
 
   barClicked = false;
-  filterString = '';
 
-  constructor() {}
+  get outputLabel() {
+    const hospitals = this.searchForm.get('hospitals').value;
 
-  ngOnInit() {}
+    if (hospitals.length <= 0) {
+      return '';
+    }
+
+    let output = '';
+    hospitals.forEach(hosp => {
+      if (hosp === 'All') {
+        return;
+      }
+      output = output + hosp + ', ';
+    });
+    output = output.substring(0, output.length - 2);
+    return output;
+  }
+
+  constructor(private fb: FormBuilder) {}
+
+  ngOnInit() {
+    this.searchForm = this.fb.group({
+      hospitals: [[]],
+      filters: ['']
+    });
+    this.subscriptions.push(
+      this.searchForm.get('hospitals').valueChanges.subscribe(value => this.selectedHospitalChanged(value)),
+      this.searchForm.get('filters').valueChanges.subscribe(value => this.applyFilter())
+    );
+  }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes.data) {
-      const decryptData = this.createACSx290ListControlModels(this.data);
-      this.dataSource = new MatTableDataSource(decryptData);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-      this.dataSource.filterPredicate = this.filter;
+    if (changes.data && this.data) {
+      this.controlData = this.createACSx290ListControlModels(this.data);
+
+      const filterDuplicates = (arr: string[]) => [...new Set(arr)];
+      this.avHospitals = filterDuplicates(this.controlData.map(d => d.hospitalId));
+      this.searchForm.get('hospitals').setValue(['All', ...this.avHospitals]);
+
+      this.setDataSource(this.controlData);
     }
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(subs => subs.unsubscribe());
+  }
+
+  selectedHospitalChanged(selectedHospitals: string[]) {
+    const filterSelectedHosp = selectedHospitals.filter(v => v !== 'All');
+    const data = this.controlData.filter(d => filterSelectedHosp.includes(d.hospitalId));
+
+    this.setDataSource(data);
+  }
+
+  setDataSource(data: ACSx290ListControlModel[]) {
+    this.dataSource = new MatTableDataSource(data);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+    this.dataSource.filterPredicate = this.filter;
+    this.applyFilter();
   }
 
   createACSx290ListControlModels(data: RegistryModel[]): ACSx290ListControlModel[] {
@@ -65,28 +117,46 @@ export class ACSx290ListControlComponent implements OnInit, OnChanges {
     });
   }
 
-  private filter(d: ACSx290ListControlModel, filter: string): boolean {
-    if (d.registryId.toLowerCase().includes(filter)) {
+  toggleAllSelection() {
+    if (this.allSelected.selected) {
+      this.searchForm.get('hospitals').setValue(this.avHospitals);
+      this.allSelected.select();
+    } else {
+      this.searchForm.get('hospitals').setValue([]);
+    }
+  }
+
+  toggleSingleSelection() {
+    const selectedHospitals = this.searchForm.get('hospitals').value.filter(hosp => hosp !== 'All');
+    if (!this.allSelected.selected && selectedHospitals.length === this.avHospitals.length) {
+      this.allSelected.select();
+    } else if (this.allSelected.selected && selectedHospitals.length !== this.avHospitals.length) {
+      this.allSelected.deselect();
+    }
+  }
+
+  private filter(data: ACSx290ListControlModel, filter: string): boolean {
+    if (data.registryId.toLowerCase().includes(filter)) {
       return true;
     }
-    if (d.hn.toLowerCase().includes(filter)) {
+    if (data.hn.toLowerCase().includes(filter)) {
       return true;
     }
-    if (d.firstName.toLowerCase().includes(filter)) {
+    if (data.firstName.toLowerCase().includes(filter)) {
       return true;
     }
-    if (d.lastName.toLowerCase().includes(filter)) {
+    if (data.lastName.toLowerCase().includes(filter)) {
       return true;
     }
-    if (d.tags.length > 0 && d.tags.map(t => t.tag.toLowerCase()).includes(filter)) {
+    if (data.tags.length > 0 && data.tags.map(t => t.tag.toLowerCase()).includes(filter)) {
       return true;
     }
 
     return false;
   }
 
-  applyFilter(filterValue: string) {
-    this.filterString = filterValue;
+  applyFilter() {
+    const filterValue = this.searchForm.get('filters').value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
 
     if (this.dataSource.paginator) {
@@ -95,8 +165,8 @@ export class ACSx290ListControlComponent implements OnInit, OnChanges {
   }
 
   clearFilter() {
-    this.filterString = '';
-    this.applyFilter(this.filterString);
+    this.searchForm.get('filters').setValue('');
+    this.applyFilter();
   }
 
   clickItem(registry: RegistryModel) {
@@ -109,8 +179,8 @@ export class ACSx290ListControlComponent implements OnInit, OnChanges {
 
   clickTag(tag: string) {
     this.barClicked = true;
-    this.filterString = tag;
-    this.applyFilter(this.filterString);
+    this.searchForm.get('filters').setValue(tag);
+    this.applyFilter();
   }
 
   private decrypt(source: string): string {
