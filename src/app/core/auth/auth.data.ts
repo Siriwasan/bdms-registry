@@ -23,6 +23,7 @@ export interface Hospital {
 export const hospitals: Hospital[] = [
   { group: 'Group1', id: 'BHT', name: 'Bangkok Heart Hospital' },
   { group: 'Group1', id: 'BSN', name: 'Bangkok Hospital Sanamchan' },
+  { group: 'Group1', id: 'RPH', name: 'Royal Phnom Penh Hospital' },
   { group: 'Group2', id: 'SVH', name: 'Samitivej Sukhumvit Hospital' },
   { group: 'Group3', id: 'BPH', name: 'Bangkok Hospital Pattaya' },
   { group: 'Group4', id: 'BUD', name: 'Bangkok Hospital Udon' },
