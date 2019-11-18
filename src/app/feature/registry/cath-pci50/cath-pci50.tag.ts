@@ -27,6 +27,7 @@ export const tagConditions: TagCondition[] = [
     tag: 'STEMI'
   },
   { section: 'sectionI', control: 'PCIIndication', values: ['NSTE-ACS'], tag: 'NSTEMI' },
+  { section: 'sectionG', control: 'CathLabVisitIndication', values: ['Suspected CAD'], tag: 'Suspected CAD' },
   { section: 'sectionE', control: 'DiagCorAngio', values: ['Yes'], tag: 'CAG' },
   { section: 'sectionE', control: 'PCIProc', values: ['Yes'], tag: 'PCI' },
   {

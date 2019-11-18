@@ -127,8 +127,17 @@ export class CathPci50Service implements OnDestroy {
     const tags: string[] = [];
 
     tagConditions.forEach(con => {
-      if (con.values.includes(data[con.section][con.control])) {
-        tags.push(con.tag);
+      const val = data[con.section][con.control];
+      if (Array.isArray(val)) {
+        val.forEach(v => {
+          if (con.values.includes(v)) {
+            tags.push(con.tag);
+          }
+        });
+      } else {
+        if (con.values.includes(val)) {
+          tags.push(con.tag);
+        }
       }
     });
 
@@ -169,7 +178,7 @@ export class CathPci50Service implements OnDestroy {
         endpoint += 'P';
       }
       submitted.push(endpoint === '-' ? period : period + endpoint);
-  }
+    }
 
     data.sectionM['FollowUps'].forEach(d => {
       if (!d['SubmittedFollowUp']) {
@@ -210,7 +219,7 @@ export class CathPci50Service implements OnDestroy {
       period = '30 d';
     } else {
       const years = Math.round(dateDiff / 365);
-      if (years > 0 && (dateDiff >= years * 365 - 60 && dateDiff <= years * 365 + 60)) {
+      if (years > 0 && dateDiff >= years * 365 - 60 && dateDiff <= years * 365 + 60) {
         period = `${years} y`;
       }
     }
