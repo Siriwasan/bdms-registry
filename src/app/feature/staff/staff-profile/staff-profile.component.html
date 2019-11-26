@@ -97,7 +97,7 @@
 
     <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="20px">
       <button mat-raised-button class="button" color="primary" [disabled]="!isStaffFormValid()" (click)="onSubmit()">
-        {{ staff === null ? 'Create' : 'Update' }}
+        {{ selectedStaff === null ? 'Create' : 'Update' }}
       </button>
       <!-- <button mat-raised-button class="button" color="warn" (click)="onDelete()">Delete</button> -->
       <button mat-raised-button class="button" color="accent" (click)="clear()">Clear</button>

@@ -26,14 +26,14 @@ export class ToolsComponent implements OnInit {
   file: File;
   fileContent = '';
   html: string;
-  productionServe: boolean;
+  productionServer: boolean;
 
   constructor(private toolsService: ToolsService, private fileService: FileService) {}
 
   ngOnInit() {
     const url = window.location.href;
-    if (url.includes('bdms-registry.firebaseapp.com')) {
-      this.productionServe = true;
+    if (url.includes('bdms-registry.firebaseapp.com') || url.includes('bdms-registry.web.app')) {
+      this.productionServer = true;
     }
   }
 

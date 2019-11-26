@@ -25,6 +25,7 @@ import { User } from '../../../../app/core/auth/user.model';
 import * as Auth from '../../../core/auth/auth.data';
 import { AuthService } from '../../../../app/core/auth/auth.service';
 import { RegSelectChoice } from 'src/app/shared/modules/registry-form/registry-form.model';
+import { StaffService } from '../staff.service';
 
 @Component({
   selector: 'app-staff-profile',
@@ -52,7 +53,7 @@ export class StaffProfileComponent implements OnInit, OnChanges, OnDestroy, Afte
   staffForm: FormGroup;
   @ViewChild('staffFormDirective', { static: true }) staffFormDirective: FormGroupDirective;
 
-  private selectedStaff: Staff;
+  public selectedStaff: Staff = null;
 
   /// Firebase Server Timestamp
   get timestamp() {
@@ -62,7 +63,8 @@ export class StaffProfileComponent implements OnInit, OnChanges, OnDestroy, Afte
   constructor(
     private formBuilder: FormBuilder,
     private store: Store<fromRoot.State>,
-    private authService: AuthService
+    private authService: AuthService,
+    private staffService: StaffService
   ) {}
 
   ngOnInit() {
@@ -109,46 +111,48 @@ export class StaffProfileComponent implements OnInit, OnChanges, OnDestroy, Afte
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    const staff = changes.staff.currentValue as Staff;
+    if (changes.staff) {
+      const staff = changes.staff.currentValue as Staff;
 
-    if (this.staffForm === undefined) {
-      return;
-    }
-
-    if (staff === null) {
-      this.staffForm.reset();
-      this.staffForm.get('staffId').setValue('(new)');
-    } else {
-      this.staffForm.setValue({
-        staffId: staff.staffId,
-        userName: staff.userName,
-        password: null,
-        confirmedPassword: null,
-        title: staff.title,
-        firstName: staff.firstName,
-        lastName: staff.lastName,
-        phone: staff.phone,
-        email: staff.email,
-        position: staff.position,
-        primaryHospId: staff.primaryHospId,
-        secondHospIds: staff.secondHospIds,
-        registries: staff.registries,
-        role: staff.role,
-        permission: staff.permission,
-        status: staff.status
-      });
-
-      const userRoleIndex = Auth.roles.indexOf(this.user.staff.role);
-      const staffRoleIndex = Auth.roles.indexOf(staff.role);
-      if (staffRoleIndex >= 0 && staffRoleIndex <= userRoleIndex) {
-        this.disableForm();
-      } else {
-        this.enableForm();
+      if (this.staffForm === undefined) {
+        return;
       }
-    }
 
-    this.selectedStaff = staff;
-    this.resetDropdowns();
+      if (staff === null) {
+        this.staffForm.reset();
+        this.staffForm.get('staffId').setValue('(new)');
+      } else {
+        this.staffForm.setValue({
+          staffId: staff.staffId,
+          userName: staff.userName,
+          password: null,
+          confirmedPassword: null,
+          title: staff.title,
+          firstName: staff.firstName,
+          lastName: staff.lastName,
+          phone: staff.phone,
+          email: staff.email,
+          position: staff.position,
+          primaryHospId: staff.primaryHospId,
+          secondHospIds: staff.secondHospIds,
+          registries: staff.registries,
+          role: staff.role,
+          permission: staff.permission,
+          status: staff.status
+        });
+
+        const userRoleIndex = Auth.roles.indexOf(this.user.staff.role);
+        const staffRoleIndex = Auth.roles.indexOf(staff.role);
+        if (staffRoleIndex >= 0 && staffRoleIndex <= userRoleIndex) {
+          this.disableForm();
+        } else {
+          this.enableForm();
+        }
+      }
+
+      this.selectedStaff = staff;
+      this.resetDropdowns();
+    }
   }
 
   private enableForm() {
@@ -311,6 +315,13 @@ export class StaffProfileComponent implements OnInit, OnChanges, OnDestroy, Afte
     };
 
     this.clear();
+
+    if (this.selectedStaff === null) {
+      this.staffService.createStaff(staff);
+    } else {
+      this.staffService.updateStaff(staff);
+      this.selectedStaff = null;
+    }
     this.submitStaff.emit(staff);
   }
 

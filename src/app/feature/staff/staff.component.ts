@@ -88,12 +88,12 @@ export class StaffComponent implements OnInit, OnDestroy {
   }
 
   submit(staff: Staff) {
-    if (this.selectedStaff === null) {
-      this.staffService.createStaff(staff);
-    } else {
-      this.staffService.updateStaff(staff);
-      this.selectedStaff = null;
-    }
+    // if (this.selectedStaff === null) {
+    //   this.staffService.createStaff(staff);
+    // } else {
+    //   this.staffService.updateStaff(staff);
+    //   this.selectedStaff = null;
+    // }
     this.filterInput.nativeElement.value = null;
   }
 }

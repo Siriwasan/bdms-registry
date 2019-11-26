@@ -1,3 +1,9 @@
+# 1.3.2 (2019-11-27)
+
+### Bug Fixes
+
+- **Staff form:** fixed bug in clear staff profile form
+
 # 1.3.1 (2019-11-12)
 
 ### Features
