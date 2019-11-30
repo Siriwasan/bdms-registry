@@ -30,7 +30,6 @@ export const CathPci50Form = {
     Sex: [null, Validators.required],
     ZipCode: [null, Validators.required],
     Race: [null, Validators.required],
-    RaceAsian: [null, Validators.required],
     HispOrig: [null, Validators.required],
     HispEthnicityType: [null, Validators.required],
     PatNation: [null, Validators.required],
@@ -38,6 +37,10 @@ export const CathPci50Form = {
   },
   sectionB: {
     HospName: [null, Validators.required],
+    AdmType: [null, Validators.required],
+    TransferHospType: [null, Validators.required],
+    BDMSNetwork: [null, Validators.required],
+    NonBDMS: [null, Validators.required],
     PayorPrim: [null, Validators.required],
     PayorSecond: [null, Validators.required],
     ArrivalDateTime: [
@@ -253,6 +256,7 @@ export const CathPci50Form = {
   },
   sectionG: {
     CathLabVisitIndication: [null, Validators.required],
+    PreviousCathLabVisit: [null, Validators.required],
     CPSxAssess: [null, Validators.required],
     CVInstability: [null, Validators.required],
     CVInstabilityType: [null, Validators.required],
@@ -286,6 +290,7 @@ export const CathPci50Form = {
     NVCoroVesselStenosis: [null, [Validators.required, Validators.min(0), Validators.max(100)]],
     NVAdjuncMeasObtained: [null, Validators.required],
     NV_FFR: [null, [Validators.min(0), Validators.max(1)]],
+    NV_FFR_Type: [null],
     NV_IFR: [null, [Validators.min(0), Validators.max(1)]],
     NV_IVUS: [null, [Validators.min(0), Validators.max(10)]],
     NV_OCT: [null, [Validators.min(0), Validators.max(10)]]
@@ -296,6 +301,7 @@ export const CathPci50Form = {
     CABGGraftVessel: [null, Validators.required],
     GraftAdjuncMeasObtained: [null, Validators.required],
     Graft_FFR: [null, [Validators.min(0), Validators.max(1)]],
+    Graft_FFR_Type: [null],
     Graft_IFR: [null, [Validators.min(0), Validators.max(1)]],
     Graft_IVUS: [null, [Validators.min(0), Validators.max(10)]],
     Graft_OCT: [null, [Validators.min(0), Validators.max(10)]]
@@ -368,8 +374,6 @@ export const CathPci50Form = {
     Ticagrelor: [null, Validators.required]
   },
   sectionJ: {
-    ProxOptimize: [null, Validators.required],
-    FinalKissBalloon: [null, Validators.required],
     PCIResult: [null, Validators.required]
   },
   pciLesion: {
@@ -401,14 +405,19 @@ export const CathPci50Form = {
     SevereCalcification: [null, Validators.required],
     BifurcationLesion: [null, Validators.required],
     BifurcationClassification: [null, Validators.required],
+    BifurcationStenting: [null, Validators.required],
     StentTechniqueStrategy: [null, Validators.required],
     StentTechnique: [null, Validators.required],
     GuidewireLesion: [null, Validators.required],
     GuidewireAcross: [null, Validators.required],
     DeviceDeployed: [null, Validators.required],
-    DeviceDeployedStrategy: [null, Validators.required],
+    StentDeployed: [null, Validators.required],
+    StentDeployedStrategy: [null, Validators.required],
     StenosisPostProc: [null, [Validators.required, Validators.min(0), Validators.max(100)]],
     PostProcTIMI: [null, Validators.required],
+    FinalAdjBalAngioplasty: [null, Validators.required],
+    ProxOptimize: [null, Validators.required],
+    FinalKissBalloon: [null, Validators.required],
     ComplicationPCI: [null, Validators.required],
     ComplicationPCIDetail: [null, Validators.required],
     AbruptVesselClosure: [null, Validators.required],

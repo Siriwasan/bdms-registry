@@ -2,11 +2,14 @@ import { FormConditions } from '../../../shared/modules/registry-form/registry-f
 
 export const conditions: FormConditions = {
   sectionA: [
-    { control: 'RaceAsian', parentControl: 'Race', conditions: ['Asian'] },
     { control: 'HispEthnicityType', parentControl: 'HispOrig', conditions: ['Yes'] },
     { control: 'ZipCode', parentControl: 'PermAddr', conditions: ['Yes'] }
   ],
-  sectionB: [],
+  sectionB: [
+    { control: 'TransferHospType', parentControl: 'AdmType', conditions: ['Transfer'] },
+    { control: 'BDMSNetwork', parentControl: 'TransferHospType', conditions: ['BDMS Network'] },
+    { control: 'NonBDMS', parentControl: 'TransferHospType', conditions: ['Non BDMS'] }
+  ],
   sectionC: [
     { control: 'HxMIDate', parentControl: 'HxMI', conditions: ['Yes'] },
     { control: 'HxPCIDate', parentControl: 'PriorPCI', conditions: ['Yes'] },
@@ -67,6 +70,7 @@ export const conditions: FormConditions = {
     { control: 'PostProcHgb', parentControl: 'PostProcHgbLab', conditions: ['Drawn'] }
   ],
   sectionG: [
+    { control: 'PreviousCathLabVisit', parentControl: 'CathLabVisitIndication', conditions: ['@', 'Re-CathLab Visit'] },
     { control: 'CVInstabilityType', parentControl: 'CVInstability', conditions: ['Yes'] },
     { control: 'PharmVasoSupp', parentControl: 'VSupport', conditions: ['Yes'] },
     { control: 'MechVentSupp', parentControl: 'VSupport', conditions: ['Yes'] },
@@ -176,6 +180,7 @@ export const conditions: FormConditions = {
     { control: 'NVCoroVesselStenosis', parentControl: 'NVSegmentID', conditions: ['!', null] },
     { control: 'NVAdjuncMeasObtained', parentControl: 'NVSegmentID', conditions: ['!', null] },
     { control: 'NV_FFR', parentControl: 'NVAdjuncMeasObtained', conditions: ['Yes'] },
+    { control: 'NV_FFR_Type', parentControl: 'NVAdjuncMeasObtained', conditions: ['Yes'] },
     { control: 'NV_IFR', parentControl: 'NVAdjuncMeasObtained', conditions: ['Yes'] },
     { control: 'NV_IVUS', parentControl: 'NVAdjuncMeasObtained', conditions: ['Yes'] },
     { control: 'NV_OCT', parentControl: 'NVAdjuncMeasObtained', conditions: ['Yes'] }
@@ -186,6 +191,7 @@ export const conditions: FormConditions = {
     { control: 'CABGGraftVessel', parentControl: 'GraftSegmentID', conditions: ['!', null] },
     { control: 'GraftAdjuncMeasObtained', parentControl: 'GraftSegmentID', conditions: ['!', null] },
     { control: 'Graft_FFR', parentControl: 'GraftAdjuncMeasObtained', conditions: ['Yes'] },
+    { control: 'Graft_FFR_Type', parentControl: 'GraftAdjuncMeasObtained', conditions: ['Yes'] },
     { control: 'Graft_IFR', parentControl: 'GraftAdjuncMeasObtained', conditions: ['Yes'] },
     { control: 'Graft_IVUS', parentControl: 'GraftAdjuncMeasObtained', conditions: ['Yes'] },
     { control: 'Graft_OCT', parentControl: 'GraftAdjuncMeasObtained', conditions: ['Yes'] }
@@ -310,13 +316,18 @@ export const conditions: FormConditions = {
     { control: 'LocGraft', parentControl: 'LesionGraft', conditions: ['Yes'] },
     { control: 'NavGraftNatLes', parentControl: 'H:GraftStenosis', conditions: ['Yes'] },
     { control: 'BifurcationClassification', parentControl: 'BifurcationLesion', conditions: ['Yes'] },
-    { control: 'StentTechniqueStrategy', parentControl: 'BifurcationLesion', conditions: ['Yes'] },
-    { control: 'StentTechnique', parentControl: 'BifurcationLesion', conditions: ['Yes'] },
+    { control: 'BifurcationStenting', parentControl: 'BifurcationLesion', conditions: ['Yes'] },
+    { control: 'StentTechniqueStrategy', parentControl: 'BifurcationStenting', conditions: ['Yes'] },
+    { control: 'StentTechnique', parentControl: 'BifurcationStenting', conditions: ['Yes'] },
     { control: 'GuidewireAcross', parentControl: 'GuidewireLesion', conditions: ['Yes'] },
-    { control: 'DeviceDeployed', parentControl: 'GuidewireAcross', conditions: ['!', null] },
-    { control: 'DeviceDeployedStrategy', parentControl: 'DeviceDeployed', conditions: ['Yes'] },
+    { control: 'DeviceDeployed', parentControl: 'GuidewireLesion', conditions: ['Yes'] },
+    { control: 'StentDeployed', parentControl: 'DeviceDeployed', conditions: ['Yes'] },
+    { control: 'NumberStentUsed', parentControl: 'StentDeployed', conditions: ['Yes'] },
+    { control: 'StentDeployedStrategy', parentControl: 'StentDeployed', conditions: ['Yes'] },
     { control: 'StenosisPostProc', parentControl: 'DeviceDeployed', conditions: ['Yes'] },
     { control: 'PostProcTIMI', parentControl: 'DeviceDeployed', conditions: ['Yes'] },
+    { control: 'ProxOptimize', parentControl: 'FinalAdjBalAngioplasty', conditions: ['Yes'] },
+    { control: 'FinalKissBalloon', parentControl: 'FinalAdjBalAngioplasty', conditions: ['Yes'] },
     { control: 'ComplicationPCIDetail', parentControl: 'ComplicationPCI', conditions: ['Yes'] },
     {
       control: 'AbruptVesselClosure',

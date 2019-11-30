@@ -355,8 +355,6 @@ export class CathPci50Component extends RegistryFormComponent
     // this.completion = this.getFormCompletion();
     this.subscribeCompletionCalculation();
 
-    this.checkPciTechnique();
-
     // this.cathPci50Validator.setService(this.registryFormService);
     CathPci50Validator.setServiceForValidators(this.registryFormService);
 
@@ -1770,8 +1768,6 @@ export class CathPci50Component extends RegistryFormComponent
 
     this.pciDevicesTabIndex = formArray.length - 1;
     this.disableAddPciDevice = true;
-
-    this.checkPciTechnique();
   }
 
   removePciDevice(index: number) {
@@ -1786,28 +1782,26 @@ export class CathPci50Component extends RegistryFormComponent
     }
 
     this.checkCanAddPciDevice();
-
-    this.checkPciTechnique();
   }
 
-  checkPciTechnique() {
-    const result =
-      this.visibles[str.pciDevices] &&
-      (this.visibles[str.pciDevices] as FormVisible[]).length > 0;
-    const pciTechniques = ['ProxOptimize', 'FinalKissBalloon', 'PCIResult'];
+  // checkPciTechnique() {
+  //   const result =
+  //     this.visibles[str.pciDevices] &&
+  //     (this.visibles[str.pciDevices] as FormVisible[]).length > 0;
+  //   const pciTechniques = ['ProxOptimize', 'FinalKissBalloon', 'PCIResult'];
 
-    if (result) {
-      pciTechniques.forEach(t => {
-        this.visibles[t] = result;
-      });
-      this.formGroupJ.setValue(this.formGroupJ.value);
-    } else {
-      pciTechniques.forEach(t => {
-        this.visibles[t] = result;
-        this.formGroupJ.get(t).setValue(null);
-      });
-    }
-  }
+  //   if (result) {
+  //     pciTechniques.forEach(t => {
+  //       this.visibles[t] = result;
+  //     });
+  //     this.formGroupJ.setValue(this.formGroupJ.value);
+  //   } else {
+  //     pciTechniques.forEach(t => {
+  //       this.visibles[t] = result;
+  //       this.formGroupJ.get(t).setValue(null);
+  //     });
+  //   }
+  // }
 
   private getLesionsForDevices() {
     const formArray = this.formGroupJ.get(str.pciLesions) as FormArray;
@@ -1856,7 +1850,6 @@ export class CathPci50Component extends RegistryFormComponent
     }
 
     this.disableAddPciDevice = false;
-    this.checkPciTechnique();
   }
 
   removeLesionFromDevices(lesion: string) {

@@ -20,40 +20,6 @@ Having origins in any of the original peoples of the Far East, Southeast Asia, o
 
 _**Source:** U.S. Office of Management and Budget. Classification of Federal Data on Race and Ethnicity_
 
-# RaceAsian
-
-## Race Asian
-
-### Asian Indian
-
-Having origins in any of the original peoples of India.
-
-### Asian - Chinese
-
-Having origins in any of the original peoples of China.
-
-### Asian - Filipino
-
-Having origins in any of the original peoples of the Philippines.
-
-### Asian - Japanese
-
-Having origins in any of the original peoples of Japan.
-
-### Asian - Korean
-
-Having origins in any of the original peoples of Korea.
-
-### Asian - Vietnamese
-
-Having origins in any of the original peoples of Viet Nam.
-
-### Asian - Other Asian
-
-Having origins in any of the original peoples elsewhere in Asia.
-
-_**Source:** U.S. Office of Management and Budget. Classification of Federal Data on Race and Ethnicity_
-
 # HispOrig
 
 ## Hispanic or Latino Ethnicity
