@@ -140,30 +140,17 @@
           </div>
 
           <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
-            <reg-input *ngIf="visibles['ZipCode']" controlName="ZipCode" placeholder="Zip Code" [formGroup]="formGroupA" type="text" fxFlex="32">
-            </reg-input>
-
-            <reg-select controlName="HispOrig" placeholder="Hispanic or Latino Ethnicity" [formGroup]="formGroupA"
-              [choices]="[
-              'Yes',
-              'No'
-              ]" fxFlex></reg-select>
-
-            <reg-select *ngIf="visibles['HispEthnicityType']" controlName="HispEthnicityType"
-              placeholder="Hispanic Ethnicity Type" [formGroup]="formGroupA" [choices]="[
-              'Mexican, Mexican-American, Chicano',
-              'Puerto Rican',
-              'Cuban',
-              'Other Hispanic, Latino or Spanish Origin'
-              ]" fxFlex></reg-select>
           </div>
 
           <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
             <reg-select-search controlName="PatNation" placeholder="Nationality" [formGroup]="formGroupA"
-              [choices]="nationality" fxFlex="50"></reg-select-search>
+              [choices]="nationality" fxFlex="40"></reg-select-search>
 
             <reg-select controlName="PermAddr" placeholder="Is This Patient’s Permanent Address" [formGroup]="formGroupA"
-              [choices]="['Yes', 'No', 'Unknown']" fxFlex="50"></reg-select>
+              [choices]="['Yes', 'No', 'Unknown']" fxFlex></reg-select>
+
+            <reg-input *ngIf="visibles['ZipCode']" controlName="ZipCode" placeholder="Zip Code" [formGroup]="formGroupA" type="text" fxFlex="20">
+            </reg-input>
           </div>
 
         </form>
@@ -659,15 +646,17 @@
                 'Parachute Device Placement',
                 'Mitral Clip Procedure',
                 'Transcatheter Aortic Valve Replacement (TAVR)',
+                'Endovascular Aortic Repair (EVAR)',
+                'Thoracic Endovascular Aortic Repair (TEVAR)',
                 'Right Heart Cath',
                 'EP Study',
                 'Temporary Pacemaker Placement',
                 'Permanent Pacemaker Placement',
-                'LIMA (Native Position) Angiogram',
-                'Aortogram',
-                'Renal Angiogram',
+                'LIMA (Native Position) Angiography',
+                'Aortography',
+                'Renal Angiography',
                 'Peripheral Intervention',
-                'Peripheral Angiogram',
+                'Peripheral Angiography',
                 'Procedure Type Not Listed',
                 'Cardioversion'
               ]" fxFlex="66"></reg-select-multiple>
@@ -1154,21 +1143,40 @@
                     [choices]="['Yes', 'No']"></reg-select>
 
                   <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
-                    <reg-input *ngIf="visibles['NativeLesions'][i]['NV_FFR']" controlName="NV_FFR" placeholder="FFR Ratio" [formGroup]="item" type="number" require="false" fxFlex>
+                    <reg-select-multiple *ngIf="visibles['NativeLesions'][i]['NV_MeasurementType']" controlName="NV_MeasurementType" placeholder="Intracoronary Measurement Type" [formGroup]="item" [choices]="[
+                        'FFR',
+                        'iFR',
+                        'IVUS',
+                        'OCT'
+                      ]" fxFlex></reg-select-multiple>
+                  </div>
+
+                  <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+                    <reg-input *ngIf="visibles['NativeLesions'][i]['NV_FFR']" controlName="NV_FFR" placeholder="FFR Ratio" [formGroup]="item" type="number" fxFlex>
                     </reg-input>
 
                     <reg-select *ngIf="visibles['NativeLesions'][i]['NV_FFR_Type']" controlName="NV_FFR_Type" placeholder="FFR Type" [formGroup]="item"
-                      [choices]="['IC', 'IV']" require="false" fxFlex></reg-select>
+                      [choices]="['IC', 'IV']" fxFlex></reg-select>
+                  </div>
 
-                    <reg-input *ngIf="visibles['NativeLesions'][i]['NV_IFR']" controlName="NV_IFR" placeholder="iFR Ratio" [formGroup]="item" type="number" require="false" fxFlex="50">
+                  <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+                    <reg-input *ngIf="visibles['NativeLesions'][i]['NV_IFR']" controlName="NV_IFR" placeholder="iFR Ratio" [formGroup]="item" type="number" fxFlex>
                     </reg-input>
                   </div>
 
-                  <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
-                    <reg-input *ngIf="visibles['NativeLesions'][i]['NV_IVUS']" controlName="NV_IVUS" placeholder="IVUS MLA (mm2)" [formGroup]="item" type="number" require="false" fxFlex>
+                  <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+                    <reg-input *ngIf="visibles['NativeLesions'][i]['NV_IVUS_Pre']" controlName="NV_IVUS_Pre" placeholder="IVUS Pre MLA (mm2)" [formGroup]="item" type="number" fxFlex>
                     </reg-input>
 
-                    <reg-input *ngIf="visibles['NativeLesions'][i]['NV_OCT']" controlName="NV_OCT" placeholder="OCT MLA (mm2)" [formGroup]="item" type="number" require="false" fxFlex="50">
+                    <reg-input *ngIf="visibles['NativeLesions'][i]['NV_IVUS_Post']" controlName="NV_IVUS_Post" placeholder="IVUS Post MLA (mm2)" [formGroup]="item" type="number" fxFlex>
+                    </reg-input>
+                  </div>
+
+                  <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+                    <reg-input *ngIf="visibles['NativeLesions'][i]['NV_OCT_Pre']" controlName="NV_OCT_Pre" placeholder="OCT Pre MLA (mm2)" [formGroup]="item" type="number" fxFlex>
+                    </reg-input>
+
+                    <reg-input *ngIf="visibles['NativeLesions'][i]['NV_OCT_Post']" controlName="NV_OCT_Post" placeholder="OCT Post MLA (mm2)" [formGroup]="item" type="number" fxFlex>
                     </reg-input>
                   </div>
 
@@ -1225,21 +1233,40 @@
                     [choices]="['Yes', 'No']"></reg-select>
 
                   <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
-                    <reg-input *ngIf="visibles['GraftLesions'][i]['Graft_FFR']" controlName="Graft_FFR" placeholder="FFR Ratio" [formGroup]="item" type="number" require="false" fxFlex>
+                    <reg-select-multiple *ngIf="visibles['GraftLesions'][i]['Graft_MeasurementType']" controlName="Graft_MeasurementType" placeholder="Intracoronary Measurement Type" [formGroup]="item" [choices]="[
+                        'FFR',
+                        'iFR',
+                        'IVUS',
+                        'OCT'
+                      ]" fxFlex></reg-select-multiple>
+                  </div>
+
+                  <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+                    <reg-input *ngIf="visibles['GraftLesions'][i]['Graft_FFR']" controlName="Graft_FFR" placeholder="FFR Ratio" [formGroup]="item" type="number" fxFlex>
                     </reg-input>
 
                     <reg-select *ngIf="visibles['GraftLesions'][i]['Graft_FFR_Type']" controlName="Graft_FFR_Type" placeholder="FFR Type" [formGroup]="item"
-                      [choices]="['IC', 'IV']" require="false" fxFlex></reg-select>
+                      [choices]="['IC', 'IV']" fxFlex></reg-select>
+                  </div>
 
-                    <reg-input *ngIf="visibles['GraftLesions'][i]['Graft_IFR']" controlName="Graft_IFR" placeholder="iFR Ratio" [formGroup]="item" type="number" require="false" fxFlex="50">
+                  <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+                    <reg-input *ngIf="visibles['GraftLesions'][i]['Graft_IFR']" controlName="Graft_IFR" placeholder="iFR Ratio" [formGroup]="item" type="number" fxFlex>
                     </reg-input>
                   </div>
 
-                  <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
-                    <reg-input *ngIf="visibles['GraftLesions'][i]['Graft_IVUS']" controlName="Graft_IVUS" placeholder="IVUS MLA (mm2)" [formGroup]="item" type="number" require="false" fxFlex>
+                  <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+                    <reg-input *ngIf="visibles['GraftLesions'][i]['Graft_IVUS_Pre']" controlName="Graft_IVUS_Pre" placeholder="IVUS Pre MLA (mm2)" [formGroup]="item" type="number" fxFlex>
                     </reg-input>
 
-                    <reg-input *ngIf="visibles['GraftLesions'][i]['Graft_OCT']" controlName="Graft_OCT" placeholder="OCT MLA (mm2)" [formGroup]="item" type="number" require="false" fxFlex>
+                    <reg-input *ngIf="visibles['GraftLesions'][i]['Graft_IVUS_Post']" controlName="Graft_IVUS_Post" placeholder="IVUS Post MLA (mm2)" [formGroup]="item" type="number" fxFlex>
+                    </reg-input>
+                  </div>
+
+                  <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+                    <reg-input *ngIf="visibles['GraftLesions'][i]['Graft_OCT_Pre']" controlName="Graft_OCT_Pre" placeholder="OCT Pre MLA (mm2)" [formGroup]="item" type="number" fxFlex>
+                    </reg-input>
+
+                    <reg-input *ngIf="visibles['GraftLesions'][i]['Graft_OCT_Post']" controlName="Graft_OCT_Post" placeholder="OCT Post MLA (mm2)" [formGroup]="item" type="number" fxFlex>
                     </reg-input>
                   </div>
 
@@ -1290,6 +1317,14 @@
                 'Complex High Risk Indicated Procedure (CHIP)',
                 'Simple Low Risk Indicated Procedure (SLIP)'
               ]" fxFlex></reg-select>
+
+            <reg-select-multiple *ngIf="visibles['CHIP']" controlName="CHIP" placeholder="CHIP Classification" [formGroup]="formGroupI" [choices]="[
+                'Chronic Total Occlusion',
+                'Bifurcation Lesion',
+                'Poor LV function with Device support',
+                'Left Main Disease ≥ 50%',
+                'Severe Calcification'
+              ]" fxFlex="60"></reg-select-multiple>
           </div>
 
           <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
@@ -1621,7 +1656,93 @@
                   <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
                     <reg-select *ngIf="visibles['PciLesions'][i]['DeviceDeployed']" controlName="DeviceDeployed" placeholder="Device(s) Deployed" [formGroup]="item"
                       [choices]="['Yes', 'No']" fxFlex></reg-select>
+                  </div>
 
+                  <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+                    <reg-select *ngIf="visibles['PciLesions'][i]['IntraCoroMeasurement']" controlName="IntraCoroMeasurement" placeholder="Intracoronary Measurement Study" [formGroup]="item"
+                      [choices]="['Yes', 'No']" fxFlex></reg-select>
+
+                    <reg-select-multiple *ngIf="visibles['PciLesions'][i]['IntraCoroMeasurementSite']" controlName="IntraCoroMeasurementSite" placeholder="Intracoronary Measurement Site" [formGroup]="item"
+                      [choices]="['Main branch', 'Side branch']" fxFlex></reg-select-multiple>
+                  </div>
+
+                  <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+                    <reg-select-multiple *ngIf="visibles['PciLesions'][i]['MB_MeasurementType']" controlName="MB_MeasurementType" placeholder="Main Branch Intracoronary Measurement Type" [formGroup]="item" [choices]="[
+                        'FFR',
+                        'iFR',
+                        'IVUS',
+                        'OCT'
+                      ]" fxFlex></reg-select-multiple>
+                  </div>
+
+                  <div class="subitem-horz3" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+                    <reg-input *ngIf="visibles['PciLesions'][i]['MB_FFR']" controlName="MB_FFR" placeholder="FFR Ratio" [formGroup]="item" type="number" fxFlex>
+                    </reg-input>
+
+                    <reg-select *ngIf="visibles['PciLesions'][i]['MB_FFR_Type']" controlName="MB_FFR_Type" placeholder="FFR Type" [formGroup]="item"
+                      [choices]="['IC', 'IV']" fxFlex></reg-select>
+                  </div>
+
+                  <div class="subitem-horz3" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+                    <reg-input *ngIf="visibles['PciLesions'][i]['MB_IFR']" controlName="MB_IFR" placeholder="iFR Ratio" [formGroup]="item" type="number" fxFlex>
+                    </reg-input>
+                  </div>
+
+                  <div class="subitem-horz3" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+                    <reg-input *ngIf="visibles['PciLesions'][i]['MB_IVUS_Pre']" controlName="MB_IVUS_Pre" placeholder="IVUS Pre MLA (mm2)" [formGroup]="item" type="number" fxFlex>
+                    </reg-input>
+
+                    <reg-input *ngIf="visibles['PciLesions'][i]['MB_IVUS_Post']" controlName="MB_IVUS_Post" placeholder="IVUS Post MLA (mm2)" [formGroup]="item" type="number" fxFlex>
+                    </reg-input>
+                  </div>
+
+                  <div class="subitem-horz3" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+                    <reg-input *ngIf="visibles['PciLesions'][i]['MB_OCT_Pre']" controlName="MB_OCT_Pre" placeholder="OCT Pre MLA (mm2)" [formGroup]="item" type="number" fxFlex>
+                    </reg-input>
+
+                    <reg-input *ngIf="visibles['PciLesions'][i]['MB_OCT_Post']" controlName="MB_OCT_Post" placeholder="OCT Post MLA (mm2)" [formGroup]="item" type="number" fxFlex>
+                    </reg-input>
+                  </div>
+
+                  <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+                    <reg-select-multiple *ngIf="visibles['PciLesions'][i]['SB_MeasurementType']" controlName="SB_MeasurementType" placeholder="Side Branch Intracoronary Measurement Type" [formGroup]="item" [choices]="[
+                        'FFR',
+                        'iFR',
+                        'IVUS',
+                        'OCT'
+                      ]" fxFlex></reg-select-multiple>
+                  </div>
+
+                  <div class="subitem-horz3" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+                    <reg-input *ngIf="visibles['PciLesions'][i]['SB_FFR']" controlName="SB_FFR" placeholder="FFR Ratio" [formGroup]="item" type="number" fxFlex>
+                    </reg-input>
+
+                    <reg-select *ngIf="visibles['PciLesions'][i]['SB_FFR_Type']" controlName="SB_FFR_Type" placeholder="FFR Type" [formGroup]="item"
+                      [choices]="['IC', 'IV']" fxFlex></reg-select>
+                  </div>
+
+                  <div class="subitem-horz3" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+                    <reg-input *ngIf="visibles['PciLesions'][i]['SB_IFR']" controlName="SB_IFR" placeholder="iFR Ratio" [formGroup]="item" type="number" fxFlex>
+                    </reg-input>
+                  </div>
+
+                  <div class="subitem-horz3" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+                    <reg-input *ngIf="visibles['PciLesions'][i]['SB_IVUS_Pre']" controlName="SB_IVUS_Pre" placeholder="IVUS Pre MLA (mm2)" [formGroup]="item" type="number" fxFlex>
+                    </reg-input>
+
+                    <reg-input *ngIf="visibles['PciLesions'][i]['SB_IVUS_Post']" controlName="SB_IVUS_Post" placeholder="IVUS Post MLA (mm2)" [formGroup]="item" type="number" fxFlex>
+                    </reg-input>
+                  </div>
+
+                  <div class="subitem-horz3" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+                    <reg-input *ngIf="visibles['PciLesions'][i]['SB_OCT_Pre']" controlName="SB_OCT_Pre" placeholder="OCT Pre MLA (mm2)" [formGroup]="item" type="number" fxFlex>
+                    </reg-input>
+
+                    <reg-input *ngIf="visibles['PciLesions'][i]['SB_OCT_Post']" controlName="SB_OCT_Post" placeholder="OCT Post MLA (mm2)" [formGroup]="item" type="number" fxFlex>
+                    </reg-input>
+                  </div>
+
+                  <div class="subitem-horz" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
                     <reg-select *ngIf="visibles['PciLesions'][i]['StentDeployed']" controlName="StentDeployed" placeholder="Stent(s) Deployed" [formGroup]="item"
                       [choices]="['Yes', 'No']" fxFlex></reg-select>
                   </div>
