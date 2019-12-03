@@ -196,8 +196,8 @@
             <reg-select controlName="PayorPrim" placeholder="Primary Payor" [formGroup]="formGroupB" [choices]="[
                 'Self',
                 'Comptroller General\'s Department',
-                'NHSO (National Health Security Officer)',
-                'SSO (Social Security Officer)',
+                'NHSO (National Health Security Office)',
+                'SSO (Social Security Office)',
                 'Embassy',
                 'Corporate',
                 'Private Health Insurance',
@@ -208,8 +208,8 @@
             <reg-select controlName="PayorSecond" placeholder="Secondary Payor" [formGroup]="formGroupB" [choices]="[
                 'None',
                 'Comptroller General\'s Department',
-                'NHSO (National Health Security Officer)',
-                'SSO (Social Security Officer)',
+                'NHSO (National Health Security Office)',
+                'SSO (Social Security Office)',
                 'Embassy',
                 'Corporate',
                 'Private Health Insurance',
@@ -1165,18 +1165,12 @@
                   </div>
 
                   <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
-                    <reg-input *ngIf="visibles['NativeLesions'][i]['NV_IVUS_Pre']" controlName="NV_IVUS_Pre" placeholder="IVUS Pre MLA (mm2)" [formGroup]="item" type="number" fxFlex>
-                    </reg-input>
-
-                    <reg-input *ngIf="visibles['NativeLesions'][i]['NV_IVUS_Post']" controlName="NV_IVUS_Post" placeholder="IVUS Post MLA (mm2)" [formGroup]="item" type="number" fxFlex>
+                    <reg-input *ngIf="visibles['NativeLesions'][i]['NV_IVUS']" controlName="NV_IVUS" placeholder="IVUS MLA (mm2)" [formGroup]="item" type="number" fxFlex>
                     </reg-input>
                   </div>
 
                   <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
-                    <reg-input *ngIf="visibles['NativeLesions'][i]['NV_OCT_Pre']" controlName="NV_OCT_Pre" placeholder="OCT Pre MLA (mm2)" [formGroup]="item" type="number" fxFlex>
-                    </reg-input>
-
-                    <reg-input *ngIf="visibles['NativeLesions'][i]['NV_OCT_Post']" controlName="NV_OCT_Post" placeholder="OCT Post MLA (mm2)" [formGroup]="item" type="number" fxFlex>
+                    <reg-input *ngIf="visibles['NativeLesions'][i]['NV_OCT']" controlName="NV_OCT" placeholder="OCT MLA (mm2)" [formGroup]="item" type="number" fxFlex>
                     </reg-input>
                   </div>
 
@@ -1255,18 +1249,12 @@
                   </div>
 
                   <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
-                    <reg-input *ngIf="visibles['GraftLesions'][i]['Graft_IVUS_Pre']" controlName="Graft_IVUS_Pre" placeholder="IVUS Pre MLA (mm2)" [formGroup]="item" type="number" fxFlex>
-                    </reg-input>
-
-                    <reg-input *ngIf="visibles['GraftLesions'][i]['Graft_IVUS_Post']" controlName="Graft_IVUS_Post" placeholder="IVUS Post MLA (mm2)" [formGroup]="item" type="number" fxFlex>
+                    <reg-input *ngIf="visibles['GraftLesions'][i]['Graft_IVUS']" controlName="Graft_IVUS" placeholder="IVUS MLA (mm2)" [formGroup]="item" type="number" fxFlex>
                     </reg-input>
                   </div>
 
                   <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
-                    <reg-input *ngIf="visibles['GraftLesions'][i]['Graft_OCT_Pre']" controlName="Graft_OCT_Pre" placeholder="OCT Pre MLA (mm2)" [formGroup]="item" type="number" fxFlex>
-                    </reg-input>
-
-                    <reg-input *ngIf="visibles['GraftLesions'][i]['Graft_OCT_Post']" controlName="Graft_OCT_Post" placeholder="OCT Post MLA (mm2)" [formGroup]="item" type="number" fxFlex>
+                    <reg-input *ngIf="visibles['GraftLesions'][i]['Graft_OCT']" controlName="Graft_OCT" placeholder="OCT MLA (mm2)" [formGroup]="item" type="number" fxFlex>
                     </reg-input>
                   </div>
 
