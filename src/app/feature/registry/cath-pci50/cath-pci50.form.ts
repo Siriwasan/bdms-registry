@@ -64,12 +64,20 @@ export const CathPci50Form = {
     HxMI: [null, Validators.required],
     HxMIDate: [
       null,
-      [Validators.required, CathPci50Validator.HxMIDateAfterDob, CathPci50Validator.HxMIDateBeforeArrivalDT]
+      [
+        Validators.required,
+        CathPci50Validator.HxMIDateAfterDob,
+        CathPci50Validator.HxMIDateBeforeArrivalDT
+      ]
     ],
     PriorPCI: [null, Validators.required],
     HxPCIDate: [
       null,
-      [Validators.required, CathPci50Validator.HxPCIDateAfterDob, CathPci50Validator.HxPCIDateBeforeArrivalDT]
+      [
+        Validators.required,
+        CathPci50Validator.HxPCIDateAfterDob,
+        CathPci50Validator.HxPCIDateBeforeArrivalDT
+      ]
     ],
     LMPCI: [null, Validators.required],
     Height: [null, [Validators.required, Validators.min(20), Validators.max(260)]],
@@ -81,7 +89,11 @@ export const CathPci50Form = {
     PriorCABG: [null, Validators.required],
     HxCABGDate: [
       null,
-      [Validators.required, CathPci50Validator.HxCABGDateAfterDob, CathPci50Validator.HxCABGDateBeforeArrivalDT]
+      [
+        Validators.required,
+        CathPci50Validator.HxCABGDateAfterDob,
+        CathPci50Validator.HxCABGDateBeforeArrivalDT
+      ]
     ],
     TobaccoUse: [null, Validators.required],
     TobaccoType: [null, Validators.required],
@@ -210,6 +222,7 @@ export const CathPci50Form = {
     DCathProvider: [null, Validators.required],
     PCIProc: [null, Validators.required],
     PCIProvider: [null, Validators.required],
+    PCIProvider2: [null],
     LeftHeartCath: [null, Validators.required],
     PrePCILVEF: [null, [Validators.required, Validators.min(1), Validators.max(99)]],
     PrePCILVEDP: [null, [Validators.required, Validators.min(0), Validators.max(100)]],
@@ -292,7 +305,7 @@ export const CathPci50Form = {
     NV_FFR_Type: [null, Validators.required],
     NV_IFR: [null, [Validators.required, Validators.min(0), Validators.max(1)]],
     NV_IVUS: [null, [Validators.required, Validators.min(0), Validators.max(10)]],
-    NV_OCT: [null, [Validators.required, Validators.min(0), Validators.max(10)]],
+    NV_OCT: [null, [Validators.required, Validators.min(0), Validators.max(10)]]
   },
   graftLesion: {
     GraftSegmentID: [null, Validators.required],
@@ -304,7 +317,7 @@ export const CathPci50Form = {
     Graft_FFR_Type: [null, Validators.required],
     Graft_IFR: [null, [Validators.required, Validators.min(0), Validators.max(1)]],
     Graft_IVUS: [null, [Validators.required, Validators.min(0), Validators.max(10)]],
-    Graft_OCT: [null, [Validators.required, Validators.min(0), Validators.max(10)]],
+    Graft_OCT: [null, [Validators.required, Validators.min(0), Validators.max(10)]]
   },
   sectionI: {
     PCIStatus: [null, Validators.required],
@@ -353,7 +366,10 @@ export const CathPci50Form = {
         CathPci50Validator.EDPresentDTBeforeSubECGDT
       ]
     ],
-    FirstDevActiDateTime: [null, [Validators.required, CathPci50Validator.FirstDevActiDTAfterProcedureStartDT]],
+    FirstDevActiDateTime: [
+      null,
+      [Validators.required, CathPci50Validator.FirstDevActiDTAfterProcedureStartDT]
+    ],
     PtPCIDelayReason: [null, Validators.required],
     PCIDelayReason: [null, Validators.required],
     Argatroban: [null, Validators.required],
@@ -719,7 +735,10 @@ export const CathPci50Form = {
   },
   sectionM: {},
   followUp: {
-    FU_AssessmentDate: [null, [Validators.required, CathPci50Validator.FU_AssessmentDateAfterDCDateTime]],
+    FU_AssessmentDate: [
+      null,
+      [Validators.required, CathPci50Validator.FU_AssessmentDateAfterDCDateTime]
+    ],
     // RefProcStartDateTime: [null, Validators.required],
     // RefArrivalDateTime: [null, Validators.required],
     // RefDCDateTime: [null, Validators.required],
@@ -731,12 +750,18 @@ export const CathPci50Form = {
 
     //  FOLLOW UP EVENTS
     M_BleedingEvent: [null, Validators.required],
-    M_BleedingEventDT: [null, [Validators.required, CathPci50Validator.M_BleedingEventDTAfterDCDateTime]],
+    M_BleedingEventDT: [
+      null,
+      [Validators.required, CathPci50Validator.M_BleedingEventDTAfterDCDateTime]
+    ],
     M_CABGStent: [null, Validators.required],
     M_CABGStentLesions: [null, Validators.required],
     M_CABGStentDT: [null, [Validators.required, CathPci50Validator.M_CABGStentDTAfterDCDateTime]],
     M_CABGNonStent: [null, Validators.required],
-    M_CABGNonStentDT: [null, [Validators.required, CathPci50Validator.M_CABGNonStentDTAfterDCDateTime]],
+    M_CABGNonStentDT: [
+      null,
+      [Validators.required, CathPci50Validator.M_CABGNonStentDTAfterDCDateTime]
+    ],
     M_NSTEMI: [null, Validators.required],
     M_NSTEMIDT: [null, [Validators.required, CathPci50Validator.M_NSTEMIDTAfterDCDateTime]],
     M_Qwave: [null, Validators.required],
@@ -746,23 +771,44 @@ export const CathPci50Form = {
     M_MIUnknown: [null, Validators.required],
     M_MIUnknownDT: [null, [Validators.required, CathPci50Validator.M_MIUnknownDTAfterDCDateTime]],
     M_PCINonStent: [null, Validators.required],
-    M_PCINonStentDT: [null, [Validators.required, CathPci50Validator.M_PCINonStentDTAfterDCDateTime]],
+    M_PCINonStentDT: [
+      null,
+      [Validators.required, CathPci50Validator.M_PCINonStentDTAfterDCDateTime]
+    ],
     M_PCIStent: [null, Validators.required],
     M_PCIStentLesions: [null, Validators.required],
     M_PCIStentDT: [null, [Validators.required, CathPci50Validator.M_PCIStentDTAfterDCDateTime]],
     M_Readmission: [null, Validators.required],
-    M_ReadmissionDT: [null, [Validators.required, CathPci50Validator.M_ReadmissionDTAfterDCDateTime]],
+    M_ReadmissionDT: [
+      null,
+      [Validators.required, CathPci50Validator.M_ReadmissionDTAfterDCDateTime]
+    ],
     M_StrokeHemorrhage: [null, Validators.required],
-    M_StrokeHemorrhageDT: [null, [Validators.required, CathPci50Validator.M_StrokeHemorrhageDTAfterDCDateTime]],
+    M_StrokeHemorrhageDT: [
+      null,
+      [Validators.required, CathPci50Validator.M_StrokeHemorrhageDTAfterDCDateTime]
+    ],
     M_StrokeIschemic: [null, Validators.required],
-    M_StrokeIschemicDT: [null, [Validators.required, CathPci50Validator.M_StrokeIschemicDTAfterDCDateTime]],
+    M_StrokeIschemicDT: [
+      null,
+      [Validators.required, CathPci50Validator.M_StrokeIschemicDTAfterDCDateTime]
+    ],
     M_StrokeUndetermined: [null, Validators.required],
-    M_StrokeUndeterminedDT: [null, [Validators.required, CathPci50Validator.M_StrokeUndeterminedDTAfterDCDateTime]],
+    M_StrokeUndeterminedDT: [
+      null,
+      [Validators.required, CathPci50Validator.M_StrokeUndeterminedDTAfterDCDateTime]
+    ],
     M_ThrombosisStent: [null, Validators.required],
     M_ThrombosisStentLesions: [null, Validators.required],
-    M_ThrombosisStentDT: [null, [Validators.required, CathPci50Validator.M_ThrombosisStentDTAfterDCDateTime]],
+    M_ThrombosisStentDT: [
+      null,
+      [Validators.required, CathPci50Validator.M_ThrombosisStentDTAfterDCDateTime]
+    ],
     M_ThrombosisNonStent: [null, Validators.required],
-    M_ThrombosisNonStentDT: [null, [Validators.required, CathPci50Validator.M_ThrombosisNonStentDTAfterDCDateTime]],
+    M_ThrombosisNonStentDT: [
+      null,
+      [Validators.required, CathPci50Validator.M_ThrombosisNonStentDTAfterDCDateTime]
+    ],
 
     M_DeviceCompositeEP: [null, Validators.required],
     M_PatientCompositeEP: [null, Validators.required],

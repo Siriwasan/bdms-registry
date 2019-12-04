@@ -48,6 +48,7 @@ export const conditions: FormConditions = {
   sectionE: [
     { control: 'DCathProvider', parentControl: 'DiagCorAngio', conditions: ['Yes'] },
     { control: 'PCIProvider', parentControl: 'PCIProc', conditions: ['Yes'] },
+    { control: 'PCIProvider2', parentControl: 'PCIProc', conditions: ['Yes'] },
     { control: 'PrePCILVEF', parentControl: 'LeftHeartCath', conditions: ['Yes'] },
     { control: 'PrePCILVEDP', parentControl: 'LeftHeartCath', conditions: ['Yes'] },
     { control: 'ConcomProcType', parentControl: 'ConcomProc', conditions: ['Yes'] },

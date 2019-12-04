@@ -274,6 +274,14 @@
           </div>
 
           <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-select controlName="Diabetes" placeholder="Diabetes Mellitus" [formGroup]="formGroupC"
+              [choices]="['Yes', 'No']" fxFlex></reg-select>
+
+            <reg-select controlName="CurrentDialysis" placeholder="Currently on Dialysis" [formGroup]="formGroupC"
+              [choices]="['Yes', 'No']" fxFlex></reg-select>
+          </div>
+
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
             <reg-select controlName="HxMI" placeholder="Prior MI" [formGroup]="formGroupC" [choices]="['Yes', 'No']" fxFlex>
             </reg-select>
 
@@ -356,12 +364,6 @@
             [choices]="['Yes', 'No']"></reg-select>
 
           <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
-            <reg-select controlName="Diabetes" placeholder="Diabetes Mellitus" [formGroup]="formGroupC"
-              [choices]="['Yes', 'No']" fxFlex></reg-select>
-
-            <reg-select controlName="CurrentDialysis" placeholder="Currently on Dialysis" [formGroup]="formGroupC"
-              [choices]="['Yes', 'No']" fxFlex></reg-select>
-
             <reg-select controlName="CSHAScale" placeholder="CSHA Clinical Frailty Scale" [formGroup]="formGroupC" [choices]="[
                 '1: Very Fit',
                 '2: Well',
@@ -413,7 +415,7 @@
             <reg-select controlName="ECAssessMethod" placeholder="Electrocardiac Assessment Method" [formGroup]="formGroupD" [choices]="[
                 'ECG',
                 'Telemetry Monitor',
-                'Telemetry Monitor',
+                'Holter Monitor',
                 'Other',
                 'None'
               ]" fxFlex></reg-select>
@@ -498,7 +500,7 @@
             <reg-datepicker *ngIf="visibles['CardiacCTADate']" controlName="CardiacCTADate" placeholder="Most Recent Cardiac CTA Date" [formGroup]="formGroupD" fxFlex>
               dd/mm/yyyy</reg-datepicker>
 
-            <reg-select *ngIf="visibles['CardiacCTAResults']" controlName="CardiacCTAResults" placeholder="Cardiac CT A Results" [formGroup]="formGroupD" [choices]="[
+            <reg-select *ngIf="visibles['CardiacCTAResults']" controlName="CardiacCTAResults" placeholder="Cardiac CTA Results" [formGroup]="formGroupD" [choices]="[
                 'Obstructive CAD',
                 'Non-Obstructive CAD',
                 'Unclear Severity',
@@ -620,7 +622,10 @@
             <reg-select controlName="PCIProc" placeholder="Percutaneous Coronary Intervention (PCI)" [formGroup]="formGroupE"
               [choices]="['Yes', 'No']" fxFlex (choiceChange)="PCIProcChanged($event)"></reg-select>
 
-            <reg-select-search *ngIf="visibles['PCIProvider']" controlName="PCIProvider" placeholder="PCI Operator" [formGroup]="formGroupE"
+            <reg-select-search *ngIf="visibles['PCIProvider']" controlName="PCIProvider" placeholder="1st PCI Operator" [formGroup]="formGroupE"
+              [choices]="intervention" group="true" fxFlex></reg-select-search>
+
+            <reg-select-search *ngIf="visibles['PCIProvider2']" controlName="PCIProvider2" placeholder="2nd PCI Operator" [formGroup]="formGroupE"
               [choices]="intervention" group="true" fxFlex></reg-select-search>
           </div>
 
@@ -2032,15 +2037,17 @@
                 'Salvage'
               ]" fxFlex></reg-select>
 
+            <reg-datepicker *ngIf="visibles['CABGDateTime']" controlName="CABGDateTime" placeholder="CABG Date/Time" [formGroup]="formGroupL" type="datetime" fxFlex>
+              dd/mm/yyyy hh:mm - 24 hr clock</reg-datepicker>
+          </div>
+
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
             <reg-select *ngIf="visibles['CABGIndication']" controlName="CABGIndication" placeholder="CABG Indication" [formGroup]="formGroupL" [choices]="[
                 'PCI/CABG Hybrid Procedure',
                 'Recommendation from Dx Cath (instead of PCI)',
                 'PCI Failure',
                 'PCI Complication'
-              ]" fxFlex="50"></reg-select>
-
-            <reg-datepicker *ngIf="visibles['CABGDateTime']" controlName="CABGDateTime" placeholder="CABG Date/Time" [formGroup]="formGroupL" type="datetime" fxFlex>
-              dd/mm/yyyy hh:mm - 24 hr clock</reg-datepicker>
+              ]" fxFlex></reg-select>
           </div>
 
           <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
