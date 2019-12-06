@@ -2599,24 +2599,6 @@
 
                   <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
                     <div fxFlex>
-                      <h4>ACE Inhibitors</h4>
-
-                      <reg-select controlName="FU_ACEI" placeholder="ACE Inhibitors (Any)" [formGroup]="item" [choices]="[
-                          'Yes - Prescribed',
-                          'No - No Reason',
-                          'No - Medical Reason',
-                          'No - Patient Reason'
-                        ]"></reg-select>
-
-                      <h4>Anticoagulant</h4>
-
-                      <reg-select controlName="FU_Warfarin" placeholder="Warfarin" [formGroup]="item" [choices]="[
-                          'Yes - Prescribed',
-                          'No - No Reason',
-                          'No - Medical Reason',
-                          'No - Patient Reason'
-                        ]"></reg-select>
-
                       <h4>Antiplatelet</h4>
 
                       <reg-select controlName="FU_Aspirin" placeholder="Aspirin" [formGroup]="item" [choices]="[
@@ -2626,6 +2608,12 @@
                           'No - Patient Reason'
                         ]"></reg-select>
 
+                      <reg-select class="subitem-horz" *ngIf="visibles['FollowUps'][i]['FU_AspirinRN']" controlName="FU_AspirinRN" placeholder="Patient Rationale" [formGroup]="item" [choices]="[
+                          'Cost',
+                          'Alternative Therapy Preferred',
+                          'Negative Side Effect'
+                        ]"></reg-select>
+
                       <reg-select controlName="FU_Vorapaxar" placeholder="Vorapaxar" [formGroup]="item" [choices]="[
                           'Yes - Prescribed',
                           'No - No Reason',
@@ -2633,47 +2621,12 @@
                           'No - Patient Reason'
                         ]"></reg-select>
 
-                      <h4>ARB (Angiotensin Receptors Blockers)</h4>
-
-                      <reg-select controlName="FU_ARB" placeholder="ARB (Any)" [formGroup]="item" [choices]="[
-                          'Yes - Prescribed',
-                          'No - No Reason',
-                          'No - Medical Reason',
-                          'No - Patient Reason'
+                      <reg-select class="subitem-horz" *ngIf="visibles['FollowUps'][i]['FU_VorapaxarRN']" controlName="FU_VorapaxarRN" placeholder="Patient Rationale" [formGroup]="item" [choices]="[
+                          'Cost',
+                          'Alternative Therapy Preferred',
+                          'Negative Side Effect'
                         ]"></reg-select>
 
-                      <h4>Non-Vitamin K Dependent Oral Anticoagulant</h4>
-
-                      <reg-select controlName="FU_Apixaban" placeholder="Apixaban" [formGroup]="item" [choices]="[
-                          'Yes - Prescribed',
-                          'No - No Reason',
-                          'No - Medical Reason',
-                          'No - Patient Reason'
-                        ]"></reg-select>
-
-                      <reg-select controlName="FU_Dabigatran" placeholder="Dabigatran" [formGroup]="item" [choices]="[
-                          'Yes - Prescribed',
-                          'No - No Reason',
-                          'No - Medical Reason',
-                          'No - Patient Reason'
-                        ]"></reg-select>
-
-                      <reg-select controlName="FU_Edoxaban" placeholder="Edoxaban" [formGroup]="item" [choices]="[
-                          'Yes - Prescribed',
-                          'No - No Reason',
-                          'No - Medical Reason',
-                          'No - Patient Reason'
-                        ]"></reg-select>
-
-                      <reg-select controlName="FU_Rivaroxaban" placeholder="Rivaroxaban" [formGroup]="item" [choices]="[
-                          'Yes - Prescribed',
-                          'No - No Reason',
-                          'No - Medical Reason',
-                          'No - Patient Reason'
-                        ]"></reg-select>
-                    </div>
-
-                    <div fxFlex>
                       <h4>P2Y12 Inhibitors</h4>
 
                       <reg-select controlName="FU_Clopidogrel" placeholder="Clopidogrel" [formGroup]="item" [choices]="[
@@ -2683,11 +2636,23 @@
                           'No - Patient Reason'
                         ]"></reg-select>
 
+                      <reg-select class="subitem-horz" *ngIf="visibles['FollowUps'][i]['FU_ClopidogrelRN']" controlName="FU_ClopidogrelRN" placeholder="Patient Rationale" [formGroup]="item" [choices]="[
+                          'Cost',
+                          'Alternative Therapy Preferred',
+                          'Negative Side Effect'
+                        ]"></reg-select>
+
                       <reg-select controlName="FU_Prasugrel" placeholder="Prasugrel" [formGroup]="item" [choices]="[
                           'Yes - Prescribed',
                           'No - No Reason',
                           'No - Medical Reason',
                           'No - Patient Reason'
+                        ]"></reg-select>
+
+                      <reg-select class="subitem-horz" *ngIf="visibles['FollowUps'][i]['FU_PrasugrelRN']" controlName="FU_PrasugrelRN" placeholder="Patient Rationale" [formGroup]="item" [choices]="[
+                          'Cost',
+                          'Alternative Therapy Preferred',
+                          'Negative Side Effect'
                         ]"></reg-select>
 
                       <reg-select controlName="FU_Ticagrelor" placeholder="Ticagrelor" [formGroup]="item" [choices]="[
@@ -2697,11 +2662,23 @@
                           'No - Patient Reason'
                         ]"></reg-select>
 
+                      <reg-select class="subitem-horz" *ngIf="visibles['FollowUps'][i]['FU_TicagrelorRN']" controlName="FU_TicagrelorRN" placeholder="Patient Rationale" [formGroup]="item" [choices]="[
+                          'Cost',
+                          'Alternative Therapy Preferred',
+                          'Negative Side Effect'
+                        ]"></reg-select>
+
                       <reg-select controlName="FU_Ticlopidine" placeholder="Ticlopidine" [formGroup]="item" [choices]="[
                           'Yes - Prescribed',
                           'No - No Reason',
                           'No - Medical Reason',
                           'No - Patient Reason'
+                        ]"></reg-select>
+
+                      <reg-select class="subitem-horz" *ngIf="visibles['FollowUps'][i]['FU_TiclopidineRN']" controlName="FU_TiclopidineRN" placeholder="Patient Rationale" [formGroup]="item" [choices]="[
+                          'Cost',
+                          'Alternative Therapy Preferred',
+                          'Negative Side Effect'
                         ]"></reg-select>
 
                       <h4>Statin</h4>
@@ -2711,6 +2688,12 @@
                           'No - No Reason',
                           'No - Medical Reason',
                           'No - Patient Reason'
+                        ]"></reg-select>
+
+                      <reg-select class="subitem-horz" *ngIf="visibles['FollowUps'][i]['FU_StatinRN']" controlName="FU_StatinRN" placeholder="Patient Rationale" [formGroup]="item" [choices]="[
+                          'Cost',
+                          'Alternative Therapy Preferred',
+                          'Negative Side Effect'
                         ]"></reg-select>
 
                       <reg-select class="subitem-horz" *ngIf="visibles['FollowUps'][i]['FU_StatinDose']" controlName="FU_StatinDose" placeholder="Dose" [formGroup]="item" [choices]="[
@@ -2728,6 +2711,12 @@
                           'No - Patient Reason'
                         ]"></reg-select>
 
+                      <reg-select class="subitem-horz" *ngIf="visibles['FollowUps'][i]['FU_NonStatinRN']" controlName="FU_NonStatinRN" placeholder="Patient Rationale" [formGroup]="item" [choices]="[
+                          'Cost',
+                          'Alternative Therapy Preferred',
+                          'Negative Side Effect'
+                        ]"></reg-select>
+
                       <h4>PCSK9 Inhibitors</h4>
 
                       <reg-select controlName="FU_Alirocumab" placeholder="Alirocumab" [formGroup]="item" [choices]="[
@@ -2737,12 +2726,142 @@
                           'No - Patient Reason'
                         ]"></reg-select>
 
+                      <reg-select class="subitem-horz" *ngIf="visibles['FollowUps'][i]['FU_AlirocumabRN']" controlName="FU_AlirocumabRN" placeholder="Patient Rationale" [formGroup]="item" [choices]="[
+                          'Cost',
+                          'Alternative Therapy Preferred',
+                          'Negative Side Effect'
+                        ]"></reg-select>
+
                       <reg-select controlName="FU_Evolocumab" placeholder="Evolocumab" [formGroup]="item" [choices]="[
                           'Yes - Prescribed',
                           'No - No Reason',
                           'No - Medical Reason',
                           'No - Patient Reason'
                         ]"></reg-select>
+
+                      <reg-select class="subitem-horz" *ngIf="visibles['FollowUps'][i]['FU_EvolocumabRN']" controlName="FU_EvolocumabRN" placeholder="Patient Rationale" [formGroup]="item" [choices]="[
+                          'Cost',
+                          'Alternative Therapy Preferred',
+                          'Negative Side Effect'
+                        ]"></reg-select>
+
+                    </div>
+
+                    <div fxFlex>
+                      <h4>Beta Blockers</h4>
+
+                      <reg-select controlName="FU_BetaBlocker" placeholder="Beta Blocker (Any)" [formGroup]="item" [choices]="[
+                          'Yes - Prescribed',
+                          'No - No Reason',
+                          'No - Medical Reason',
+                          'No - Patient Reason'
+                        ]"></reg-select>
+
+                      <reg-select class="subitem-horz" *ngIf="visibles['FollowUps'][i]['FU_BetaBlockerRN']" controlName="FU_BetaBlockerRN" placeholder="Patient Rationale" [formGroup]="item" [choices]="[
+                          'Cost',
+                          'Alternative Therapy Preferred',
+                          'Negative Side Effect'
+                        ]"></reg-select>
+
+                      <h4>ACE Inhibitors</h4>
+
+                      <reg-select controlName="FU_ACEI" placeholder="ACE Inhibitors (Any)" [formGroup]="item" [choices]="[
+                          'Yes - Prescribed',
+                          'No - No Reason',
+                          'No - Medical Reason',
+                          'No - Patient Reason'
+                        ]"></reg-select>
+
+                      <reg-select class="subitem-horz" *ngIf="visibles['FollowUps'][i]['FU_ACEIRN']" controlName="FU_ACEIRN" placeholder="Patient Rationale" [formGroup]="item" [choices]="[
+                          'Cost',
+                          'Alternative Therapy Preferred',
+                          'Negative Side Effect'
+                        ]"></reg-select>
+
+                      <h4>ARB (Angiotensin Receptors Blockers)</h4>
+
+                      <reg-select controlName="FU_ARB" placeholder="ARB (Any)" [formGroup]="item" [choices]="[
+                          'Yes - Prescribed',
+                          'No - No Reason',
+                          'No - Medical Reason',
+                          'No - Patient Reason'
+                        ]"></reg-select>
+
+                      <reg-select class="subitem-horz" *ngIf="visibles['FollowUps'][i]['FU_ARBRN']" controlName="FU_ARBRN" placeholder="Patient Rationale" [formGroup]="item" [choices]="[
+                          'Cost',
+                          'Alternative Therapy Preferred',
+                          'Negative Side Effect'
+                        ]"></reg-select>
+
+                      <h4>Anticoagulant</h4>
+
+                      <reg-select controlName="FU_Warfarin" placeholder="Warfarin" [formGroup]="item" [choices]="[
+                          'Yes - Prescribed',
+                          'No - No Reason',
+                          'No - Medical Reason',
+                          'No - Patient Reason'
+                        ]"></reg-select>
+
+                      <reg-select class="subitem-horz" *ngIf="visibles['FollowUps'][i]['FU_WarfarinRN']" controlName="FU_WarfarinRN" placeholder="Patient Rationale" [formGroup]="item" [choices]="[
+                          'Cost',
+                          'Alternative Therapy Preferred',
+                          'Negative Side Effect'
+                        ]"></reg-select>
+
+                      <h4>Non-Vitamin K Dependent Oral Anticoagulant</h4>
+
+                      <reg-select controlName="FU_Apixaban" placeholder="Apixaban" [formGroup]="item" [choices]="[
+                          'Yes - Prescribed',
+                          'No - No Reason',
+                          'No - Medical Reason',
+                          'No - Patient Reason'
+                        ]"></reg-select>
+
+                      <reg-select class="subitem-horz" *ngIf="visibles['FollowUps'][i]['FU_ApixabanRN']" controlName="FU_ApixabanRN" placeholder="Patient Rationale" [formGroup]="item" [choices]="[
+                          'Cost',
+                          'Alternative Therapy Preferred',
+                          'Negative Side Effect'
+                        ]"></reg-select>
+
+                      <reg-select controlName="FU_Dabigatran" placeholder="Dabigatran" [formGroup]="item" [choices]="[
+                          'Yes - Prescribed',
+                          'No - No Reason',
+                          'No - Medical Reason',
+                          'No - Patient Reason'
+                        ]"></reg-select>
+
+                      <reg-select class="subitem-horz" *ngIf="visibles['FollowUps'][i]['FU_DabigatranRN']" controlName="FU_DabigatranRN" placeholder="Patient Rationale" [formGroup]="item" [choices]="[
+                          'Cost',
+                          'Alternative Therapy Preferred',
+                          'Negative Side Effect'
+                        ]"></reg-select>
+
+                      <reg-select controlName="FU_Edoxaban" placeholder="Edoxaban" [formGroup]="item" [choices]="[
+                          'Yes - Prescribed',
+                          'No - No Reason',
+                          'No - Medical Reason',
+                          'No - Patient Reason'
+                        ]"></reg-select>
+
+                      <reg-select class="subitem-horz" *ngIf="visibles['FollowUps'][i]['FU_EdoxabanRN']" controlName="FU_EdoxabanRN" placeholder="Patient Rationale" [formGroup]="item" [choices]="[
+                          'Cost',
+                          'Alternative Therapy Preferred',
+                          'Negative Side Effect'
+                        ]"></reg-select>
+
+                      <reg-select controlName="FU_Rivaroxaban" placeholder="Rivaroxaban" [formGroup]="item" [choices]="[
+                          'Yes - Prescribed',
+                          'No - No Reason',
+                          'No - Medical Reason',
+                          'No - Patient Reason'
+                        ]"></reg-select>
+
+                      <reg-select class="subitem-horz" *ngIf="visibles['FollowUps'][i]['FU_RivaroxabanRN']" controlName="FU_RivaroxabanRN" placeholder="Patient Rationale" [formGroup]="item" [choices]="[
+                          'Cost',
+                          'Alternative Therapy Preferred',
+                          'Negative Side Effect'
+                        ]"></reg-select>
+
                     </div>
                   </div>
 
