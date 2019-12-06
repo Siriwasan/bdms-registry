@@ -645,7 +645,6 @@
               [choices]="['Yes', 'No']" fxFlex></reg-select>
 
             <reg-select-multiple *ngIf="visibles['ConcomProcType']" controlName="ConcomProcType" placeholder="Procedure Type(s)" [formGroup]="formGroupE" [choices]="[
-                'Biopsy of heart',
                 'Structural Repair',
                 'Left Atrial Appendage Occlusion',
                 'Parachute Device Placement',
@@ -655,6 +654,7 @@
                 'Thoracic Endovascular Aortic Repair (TEVAR)',
                 'Right Heart Cath',
                 'EP Study',
+                'Cardioversion',
                 'Temporary Pacemaker Placement',
                 'Permanent Pacemaker Placement',
                 'LIMA (Native Position) Angiography',
@@ -662,8 +662,8 @@
                 'Renal Angiography',
                 'Peripheral Intervention',
                 'Peripheral Angiography',
-                'Procedure Type Not Listed',
-                'Cardioversion'
+                'Biopsy of heart',
+                'Procedure Type Not Listed'
               ]" fxFlex="66"></reg-select-multiple>
           </div>
 
@@ -680,8 +680,8 @@
 
             <reg-select *ngIf="visibles['AccessSiteClosure']" controlName="AccessSiteClosure" placeholder="Access Site - Closure Method" [formGroup]="formGroupE" [choices]="[
                 'Manual Compression',
-                'Sealing technique',
                 'Compression Device',
+                'Sealing technique',
                 'Suturing technique'
               ]" fxFlex></reg-select>
           </div>
@@ -835,7 +835,7 @@
                 <reg-select controlName="LipidsHDLLab" placeholder="HDL Lab" [formGroup]="formGroupF"
                   [choices]="['Drawn', 'Not Drawn']" fxFlex></reg-select>
 
-                <reg-input *ngIf="visibles['LipidsHDL']" controlName="LipidsHDL" placeholder="HDL I (mg/dL)" [formGroup]="formGroupF" type="number" fxFlex>
+                <reg-input *ngIf="visibles['LipidsHDL']" controlName="LipidsHDL" placeholder="HDL (mg/dL)" [formGroup]="formGroupF" type="number" fxFlex>
                 </reg-input>
               </div>
             </div>
@@ -913,7 +913,7 @@
             'LV Dysfunction',
             'Syncope',
             'Post Cardiac Transplant',
-            'Pre-operative evaluation',
+            'Pre-operative Evaluation',
             'Evaluation for Exercise Clearance',
             'Re-CathLab Visit',
             'Other'
@@ -956,11 +956,11 @@
 
           <div class="subitem-horz2" fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
             <reg-select *ngIf="visibles['MVSupportDevice']" controlName="MVSupportDevice" placeholder="Device" [formGroup]="formGroupG" [choices]="[
-                'Cardiopulmonary Support (CPS)',
+                'Intra-aortic balloon pump (IABP)',
                 'Extracorporeal membrane oxygenation (ECMO)',
+                'Cardiopulmonary Support (CPS)',
                 'Impella: Left Ventricular Support',
                 'Impella: Right Ventricular Support',
-                'Intra-aortic balloon pump (IABP)',
                 'Left ventricular assist device (LVAD)',
                 'Right Ventricular Assist Device (RVAD)',
                 'Percutaneous Heart Pump (PHP)',
@@ -1307,8 +1307,8 @@
 
           <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
             <reg-select *ngIf="visibles['PCIProcedureRisk']" controlName="PCIProcedureRisk" placeholder="Indicated Procedure Risk" [formGroup]="formGroupI" [choices]="[
-                'Complex High Risk Indicated Procedure (CHIP)',
-                'Simple Low Risk Indicated Procedure (SLIP)'
+                'Simple Low Risk Indicated Procedure (SLIP)',
+                'Complex High Risk Indicated Procedure (CHIP)'
               ]" fxFlex></reg-select>
 
             <reg-select-multiple *ngIf="visibles['CHIP']" controlName="CHIP" placeholder="CHIP Classification" [formGroup]="formGroupI" [choices]="[
@@ -1325,7 +1325,7 @@
               [choices]="['Yes', 'No']" fxFlex></reg-select>
 
             <reg-select *ngIf="visibles['CVTxDecision']" controlName="CVTxDecision" placeholder="CV Treatment Decision" [formGroup]="formGroupI" [choices]="[
-                'Surgery Not Recommended',
+                'Surgery NOT Recommended',
                 'Surgery Recommended, Patient/Family Declined',
                 'Surgery Recommended, Patient/Family Accepted (Hybrid procedure)'
               ]" fxFlex></reg-select>
@@ -1358,10 +1358,10 @@
               'STEMI - Unstable (> 12 hrs from Sx)',
               'STEMI (after successful lytics) <= 24 hrs',
               'STEMI (after successful lytics) > 24 hrs - 7 days',
-              'STEMI - Rescue (After unsuccessful lytics)',
+              'STEMI - Rescue (after unsuccessful lytics)',
               'New Onset Angina <= 2 months',
               'NSTE-ACS',
-              'Stable angina',
+              'Stable Angina',
               'CAD (without ischemic Sx)',
               'Other'
             ]"></reg-select>
@@ -2111,6 +2111,20 @@
               [choices]="deathCauses" fxFlex="40"></reg-select>
           </div>
 
+          <reg-select controlName="L_DeviceCompositeEP" placeholder="Device-oriented Composite End Point" [formGroup]="formGroupL" [choices]="[
+              'None',
+              'Cardiac death',
+              'MI (not clearly attribute to a non-target vessel)',
+              'TLR - Target Lesion Revascularization'
+            ]"></reg-select>
+
+          <reg-select controlName="L_PatientCompositeEP" placeholder="Patient-oriented Composite End Point" [formGroup]="formGroupL" [choices]="[
+              'None',
+              'All-cause mortality',
+              'Any MI (included non-target vessel territory)',
+              'Any repeat revascularization (includes all target and non-target vessels)'
+            ]"></reg-select>
+
           <div *ngIf="visibles['DC_Medications']" id="DC_Medications">
             <div fxLayoutAlign="space-between center">
               <h3>Discharge Medications</h3>
@@ -2435,20 +2449,6 @@
                 'Herbal Supplements'
               ]" fxFlex></reg-select-multiple>
           </div>
-
-          <reg-select controlName="L_DeviceCompositeEP" placeholder="Device-oriented Composite End Point" [formGroup]="formGroupL" [choices]="[
-              'None',
-              'Cardiac death',
-              'MI (not clearly attribute to a non-target vessel)',
-              'TLR - Target Lesion Revascularization'
-            ]"></reg-select>
-
-          <reg-select controlName="L_PatientCompositeEP" placeholder="Patient-oriented Composite End Point" [formGroup]="formGroupL" [choices]="[
-              'None',
-              'All-cause mortality',
-              'Any MI (included non-target vessel territory)',
-              'Any repeat revascularization (includes all target and non-target vessels)'
-            ]"></reg-select>
 
         </form>
 

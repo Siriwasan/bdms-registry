@@ -1,9 +1,7 @@
 import { FormConditions } from '../../../shared/modules/registry-form/registry-form.model';
 
 export const conditions: FormConditions = {
-  sectionA: [
-    { control: 'ZipCode', parentControl: 'PermAddr', conditions: ['Yes'] }
-  ],
+  sectionA: [{ control: 'ZipCode', parentControl: 'PermAddr', conditions: ['Yes'] }],
   sectionB: [
     { control: 'TransferHospType', parentControl: 'AdmType', conditions: ['Transfer'] },
     { control: 'BDMSNetwork', parentControl: 'TransferHospType', conditions: ['BDMS Network'] },
@@ -70,7 +68,11 @@ export const conditions: FormConditions = {
     { control: 'PostProcHgb', parentControl: 'PostProcHgbLab', conditions: ['Drawn'] }
   ],
   sectionG: [
-    { control: 'PreviousCathLabVisit', parentControl: 'CathLabVisitIndication', conditions: ['@', 'Re-CathLab Visit'] },
+    {
+      control: 'PreviousCathLabVisit',
+      parentControl: 'CathLabVisitIndication',
+      conditions: ['@', 'Re-CathLab Visit']
+    },
     { control: 'CVInstabilityType', parentControl: 'CVInstability', conditions: ['Yes'] },
     { control: 'PharmVasoSupp', parentControl: 'VSupport', conditions: ['Yes'] },
     { control: 'MechVentSupp', parentControl: 'VSupport', conditions: ['Yes'] },
@@ -184,26 +186,46 @@ export const conditions: FormConditions = {
     { control: 'NV_FFR_Type', parentControl: 'NV_MeasurementType', conditions: ['@', 'FFR'] },
     { control: 'NV_IFR', parentControl: 'NV_MeasurementType', conditions: ['@', 'iFR'] },
     { control: 'NV_IVUS', parentControl: 'NV_MeasurementType', conditions: ['@', 'IVUS'] },
-    { control: 'NV_OCT', parentControl: 'NV_MeasurementType', conditions: ['@', 'OCT'] },
+    { control: 'NV_OCT', parentControl: 'NV_MeasurementType', conditions: ['@', 'OCT'] }
   ],
   graftLesion: [
     { control: 'GraftSegmentID', parentControl: 'H:GraftStenosis', conditions: ['Yes'] },
-    { control: 'GraftCoroVesselStenosis', parentControl: 'GraftSegmentID', conditions: ['!', null] },
+    {
+      control: 'GraftCoroVesselStenosis',
+      parentControl: 'GraftSegmentID',
+      conditions: ['!', null]
+    },
     { control: 'CABGGraftVessel', parentControl: 'GraftSegmentID', conditions: ['!', null] },
-    { control: 'GraftAdjuncMeasObtained', parentControl: 'GraftSegmentID', conditions: ['!', null] },
-    { control: 'Graft_MeasurementType', parentControl: 'GraftAdjuncMeasObtained', conditions: ['Yes'] },
+    {
+      control: 'GraftAdjuncMeasObtained',
+      parentControl: 'GraftSegmentID',
+      conditions: ['!', null]
+    },
+    {
+      control: 'Graft_MeasurementType',
+      parentControl: 'GraftAdjuncMeasObtained',
+      conditions: ['Yes']
+    },
     { control: 'Graft_FFR', parentControl: 'Graft_MeasurementType', conditions: ['@', 'FFR'] },
     { control: 'Graft_FFR_Type', parentControl: 'Graft_MeasurementType', conditions: ['@', 'FFR'] },
     { control: 'Graft_IFR', parentControl: 'Graft_MeasurementType', conditions: ['@', 'iFR'] },
     { control: 'Graft_IVUS', parentControl: 'Graft_MeasurementType', conditions: ['@', 'IVUS'] },
-    { control: 'Graft_OCT', parentControl: 'Graft_MeasurementType', conditions: ['@', 'OCT'] },
+    { control: 'Graft_OCT', parentControl: 'Graft_MeasurementType', conditions: ['@', 'OCT'] }
   ],
   sectionI: [
     { control: 'I:sectionIBody', parentControl: 'E:PCIProc', conditions: ['Yes'] },
     { control: 'PCIStatus', parentControl: 'E:PCIProc', conditions: ['Yes'] },
-    { control: 'HypothermiaInducedTiming', parentControl: 'HypothermiaInduced', conditions: ['Yes'] },
+    {
+      control: 'HypothermiaInducedTiming',
+      parentControl: 'HypothermiaInduced',
+      conditions: ['Yes']
+    },
     { control: 'PCIProcedureRisk', parentControl: 'E:PCIProc', conditions: ['Yes'] },
-    { control: 'CHIP', parentControl: 'PCIProcedureRisk', conditions: ['Complex High Risk Indicated Procedure (CHIP)'] },
+    {
+      control: 'CHIP',
+      parentControl: 'PCIProcedureRisk',
+      conditions: ['Complex High Risk Indicated Procedure (CHIP)']
+    },
     { control: 'PCIDecision', parentControl: 'E:PCIProc', conditions: ['Yes'] },
     { control: 'CVTxDecision', parentControl: 'PCIDecision', conditions: ['Yes'] },
     { control: 'CVSheetDecision', parentControl: 'PCIDecision', conditions: ['No'] },
@@ -250,7 +272,7 @@ export const conditions: FormConditions = {
         'NSTE-ACS',
         'Stable angina',
         'CAD (without ischemic Sx)',
-        'Other PCI Indication'
+        'Other'
       ]
     },
     {
@@ -261,7 +283,7 @@ export const conditions: FormConditions = {
         'NSTE-ACS',
         'Stable angina',
         'CAD (without ischemic Sx)',
-        'Other PCI Indication'
+        'Other'
       ]
     },
     {
@@ -318,15 +340,31 @@ export const conditions: FormConditions = {
     { control: 'LesionGraftType', parentControl: 'LesionGraft', conditions: ['Yes'] },
     { control: 'LocGraft', parentControl: 'LesionGraft', conditions: ['Yes'] },
     { control: 'NavGraftNatLes', parentControl: 'H:GraftStenosis', conditions: ['Yes'] },
-    { control: 'BifurcationClassification', parentControl: 'BifurcationLesion', conditions: ['Yes'] },
+    {
+      control: 'BifurcationClassification',
+      parentControl: 'BifurcationLesion',
+      conditions: ['Yes']
+    },
     { control: 'BifurcationStenting', parentControl: 'BifurcationLesion', conditions: ['Yes'] },
-    { control: 'StentTechniqueStrategy', parentControl: 'BifurcationStenting', conditions: ['Yes'] },
+    {
+      control: 'StentTechniqueStrategy',
+      parentControl: 'BifurcationStenting',
+      conditions: ['Yes']
+    },
     { control: 'StentTechnique', parentControl: 'BifurcationStenting', conditions: ['Yes'] },
     { control: 'GuidewireAcross', parentControl: 'GuidewireLesion', conditions: ['Yes'] },
     { control: 'DeviceDeployed', parentControl: 'GuidewireLesion', conditions: ['Yes'] },
     { control: 'IntraCoroMeasurement', parentControl: 'DeviceDeployed', conditions: ['Yes'] },
-    { control: 'IntraCoroMeasurementSite', parentControl: 'IntraCoroMeasurement', conditions: ['Yes'] },
-    { control: 'MB_MeasurementType', parentControl: 'IntraCoroMeasurementSite', conditions: ['@', 'Main branch'] },
+    {
+      control: 'IntraCoroMeasurementSite',
+      parentControl: 'IntraCoroMeasurement',
+      conditions: ['Yes']
+    },
+    {
+      control: 'MB_MeasurementType',
+      parentControl: 'IntraCoroMeasurementSite',
+      conditions: ['@', 'Main branch']
+    },
     { control: 'MB_FFR', parentControl: 'MB_MeasurementType', conditions: ['@', 'FFR'] },
     { control: 'MB_FFR_Type', parentControl: 'MB_MeasurementType', conditions: ['@', 'FFR'] },
     { control: 'MB_IFR', parentControl: 'MB_MeasurementType', conditions: ['@', 'iFR'] },
@@ -334,7 +372,11 @@ export const conditions: FormConditions = {
     { control: 'MB_IVUS_Post', parentControl: 'MB_MeasurementType', conditions: ['@', 'IVUS'] },
     { control: 'MB_OCT_Pre', parentControl: 'MB_MeasurementType', conditions: ['@', 'OCT'] },
     { control: 'MB_OCT_Post', parentControl: 'MB_MeasurementType', conditions: ['@', 'OCT'] },
-    { control: 'SB_MeasurementType', parentControl: 'IntraCoroMeasurementSite', conditions: ['@', 'Side branch'] },
+    {
+      control: 'SB_MeasurementType',
+      parentControl: 'IntraCoroMeasurementSite',
+      conditions: ['@', 'Side branch']
+    },
     { control: 'SB_FFR', parentControl: 'SB_MeasurementType', conditions: ['@', 'FFR'] },
     { control: 'SB_FFR_Type', parentControl: 'SB_MeasurementType', conditions: ['@', 'FFR'] },
     { control: 'SB_IFR', parentControl: 'SB_MeasurementType', conditions: ['@', 'iFR'] },
@@ -370,12 +412,24 @@ export const conditions: FormConditions = {
       parentControl: 'ComplicationPCIDetail',
       conditions: ['@', 'Longitudinal Stent Deformation']
     },
-    { control: 'BurrEntrapment', parentControl: 'ComplicationPCIDetail', conditions: ['@', 'Burr Entrapment'] },
-    { control: 'DeviceEmbolization', parentControl: 'ComplicationPCIDetail', conditions: ['@', 'Device Embolization'] }
+    {
+      control: 'BurrEntrapment',
+      parentControl: 'ComplicationPCIDetail',
+      conditions: ['@', 'Burr Entrapment']
+    },
+    {
+      control: 'DeviceEmbolization',
+      parentControl: 'ComplicationPCIDetail',
+      conditions: ['@', 'Device Embolization']
+    }
   ],
   pciDevice: [],
   sectionK: [
-    { control: 'K_BleedingAccessSiteDT', parentControl: 'K_BleedingAccessSite', conditions: ['Yes'] },
+    {
+      control: 'K_BleedingAccessSiteDT',
+      parentControl: 'K_BleedingAccessSite',
+      conditions: ['Yes']
+    },
     { control: 'K_BleedingGIDT', parentControl: 'K_BleedingGI', conditions: ['Yes'] },
     { control: 'K_BleedingGUDT', parentControl: 'K_BleedingGU', conditions: ['Yes'] },
     { control: 'K_BleedingHematomaDT', parentControl: 'K_BleedingHematoma', conditions: ['Yes'] },
@@ -385,8 +439,16 @@ export const conditions: FormConditions = {
     { control: 'K_CardiacTamponadeDT', parentControl: 'K_CardiacTamponade', conditions: ['Yes'] },
     { control: 'K_CardiogenicShockDT', parentControl: 'K_CardiogenicShock', conditions: ['Yes'] },
     { control: 'K_HeartFailureDT', parentControl: 'K_HeartFailure', conditions: ['Yes'] },
-    { control: 'K_MyocardialInfarctionDT', parentControl: 'K_MyocardialInfarction', conditions: ['Yes'] },
-    { control: 'K_MyocardialInfarctionCriteria', parentControl: 'K_MyocardialInfarction', conditions: ['Yes'] },
+    {
+      control: 'K_MyocardialInfarctionDT',
+      parentControl: 'K_MyocardialInfarction',
+      conditions: ['Yes']
+    },
+    {
+      control: 'K_MyocardialInfarctionCriteria',
+      parentControl: 'K_MyocardialInfarction',
+      conditions: ['Yes']
+    },
     {
       control: 'K_MyocardialInfarctionFollowCriteria',
       parentControl: 'K_MyocardialInfarctionCriteria',
@@ -396,7 +458,11 @@ export const conditions: FormConditions = {
     { control: 'K_OtherVascularDT', parentControl: 'K_OtherVascular', conditions: ['Yes'] },
     { control: 'K_StrokeHemorrhageDT', parentControl: 'K_StrokeHemorrhage', conditions: ['Yes'] },
     { control: 'K_StrokeIschemicDT', parentControl: 'K_StrokeIschemic', conditions: ['Yes'] },
-    { control: 'K_StrokeUndeterminedDT', parentControl: 'K_StrokeUndetermined', conditions: ['Yes'] },
+    {
+      control: 'K_StrokeUndeterminedDT',
+      parentControl: 'K_StrokeUndetermined',
+      conditions: ['Yes']
+    },
     { control: 'PRBCUnits', parentControl: 'PostTransfusion', conditions: ['Yes'] },
     { control: 'TransfusPostPCI', parentControl: 'PostTransfusion', conditions: ['Yes'] },
     { control: 'TransfusionPostSurg', parentControl: 'PostTransfusion', conditions: ['Yes'] }
@@ -411,7 +477,11 @@ export const conditions: FormConditions = {
     },
     { control: 'CABGDateTime', parentControl: 'HospInterventionType', conditions: ['@', 'CABG'] },
     { control: 'DCLocation', parentControl: 'DCStatus', conditions: ['Alive'] },
-    { control: 'CABGTransfer', parentControl: 'DCLocation', conditions: ['Other acute care hospital'] },
+    {
+      control: 'CABGTransfer',
+      parentControl: 'DCLocation',
+      conditions: ['Other acute care hospital']
+    },
     {
       control: 'CABGPlannedDC',
       parentControl: 'DCLocation',
@@ -425,22 +495,66 @@ export const conditions: FormConditions = {
     { control: 'DC_ACEIRN', parentControl: 'DC_ACEI', conditions: ['No - Patient Reason'] },
     { control: 'DC_WarfarinRN', parentControl: 'DC_Warfarin', conditions: ['No - Patient Reason'] },
     { control: 'DC_AspirinRN', parentControl: 'DC_Aspirin', conditions: ['No - Patient Reason'] },
-    { control: 'DC_VorapaxarRN', parentControl: 'DC_Vorapaxar', conditions: ['No - Patient Reason'] },
+    {
+      control: 'DC_VorapaxarRN',
+      parentControl: 'DC_Vorapaxar',
+      conditions: ['No - Patient Reason']
+    },
     { control: 'DC_ARBRN', parentControl: 'DC_ARB', conditions: ['No - Patient Reason'] },
-    { control: 'DC_BetaBlockerRN', parentControl: 'DC_BetaBlocker', conditions: ['No - Patient Reason'] },
+    {
+      control: 'DC_BetaBlockerRN',
+      parentControl: 'DC_BetaBlocker',
+      conditions: ['No - Patient Reason']
+    },
     { control: 'DC_ApixabanRN', parentControl: 'DC_Apixaban', conditions: ['No - Patient Reason'] },
-    { control: 'DC_DabigatranRN', parentControl: 'DC_Dabigatran', conditions: ['No - Patient Reason'] },
+    {
+      control: 'DC_DabigatranRN',
+      parentControl: 'DC_Dabigatran',
+      conditions: ['No - Patient Reason']
+    },
     { control: 'DC_EdoxabanRN', parentControl: 'DC_Edoxaban', conditions: ['No - Patient Reason'] },
-    { control: 'DC_RivaroxabanRN', parentControl: 'DC_Rivaroxaban', conditions: ['No - Patient Reason'] },
-    { control: 'DC_ClopidogrelRN', parentControl: 'DC_Clopidogrel', conditions: ['No - Patient Reason'] },
-    { control: 'DC_PrasugrelRN', parentControl: 'DC_Prasugrel', conditions: ['No - Patient Reason'] },
-    { control: 'DC_TicagrelorRN', parentControl: 'DC_Ticagrelor', conditions: ['No - Patient Reason'] },
-    { control: 'DC_TiclopidineRN', parentControl: 'DC_Ticlopidine', conditions: ['No - Patient Reason'] },
+    {
+      control: 'DC_RivaroxabanRN',
+      parentControl: 'DC_Rivaroxaban',
+      conditions: ['No - Patient Reason']
+    },
+    {
+      control: 'DC_ClopidogrelRN',
+      parentControl: 'DC_Clopidogrel',
+      conditions: ['No - Patient Reason']
+    },
+    {
+      control: 'DC_PrasugrelRN',
+      parentControl: 'DC_Prasugrel',
+      conditions: ['No - Patient Reason']
+    },
+    {
+      control: 'DC_TicagrelorRN',
+      parentControl: 'DC_Ticagrelor',
+      conditions: ['No - Patient Reason']
+    },
+    {
+      control: 'DC_TiclopidineRN',
+      parentControl: 'DC_Ticlopidine',
+      conditions: ['No - Patient Reason']
+    },
     { control: 'DC_StatinDose', parentControl: 'DC_Statin', conditions: ['Yes - Prescribed'] },
     { control: 'DC_StatinRN', parentControl: 'DC_Statin', conditions: ['No - Patient Reason'] },
-    { control: 'DC_NonStatinRN', parentControl: 'DC_NonStatin', conditions: ['No - Patient Reason'] },
-    { control: 'DC_AlirocumabRN', parentControl: 'DC_Alirocumab', conditions: ['No - Patient Reason'] },
-    { control: 'DC_EvolocumabRN', parentControl: 'DC_Evolocumab', conditions: ['No - Patient Reason'] },
+    {
+      control: 'DC_NonStatinRN',
+      parentControl: 'DC_NonStatin',
+      conditions: ['No - Patient Reason']
+    },
+    {
+      control: 'DC_AlirocumabRN',
+      parentControl: 'DC_Alirocumab',
+      conditions: ['No - Patient Reason']
+    },
+    {
+      control: 'DC_EvolocumabRN',
+      parentControl: 'DC_Evolocumab',
+      conditions: ['No - Patient Reason']
+    },
     { control: 'DC_MedReconciled', parentControl: 'DC_MedReconCompleted', conditions: ['Yes'] }
   ],
   sectionM: [],
@@ -464,10 +578,22 @@ export const conditions: FormConditions = {
     { control: 'M_ReadmissionDT', parentControl: 'M_Readmission', conditions: ['Yes'] },
     { control: 'M_StrokeHemorrhageDT', parentControl: 'M_StrokeHemorrhage', conditions: ['Yes'] },
     { control: 'M_StrokeIschemicDT', parentControl: 'M_StrokeIschemic', conditions: ['Yes'] },
-    { control: 'M_StrokeUndeterminedDT', parentControl: 'M_StrokeUndetermined', conditions: ['Yes'] },
-    { control: 'M_ThrombosisStentLesions', parentControl: 'M_ThrombosisStent', conditions: ['Yes'] },
+    {
+      control: 'M_StrokeUndeterminedDT',
+      parentControl: 'M_StrokeUndetermined',
+      conditions: ['Yes']
+    },
+    {
+      control: 'M_ThrombosisStentLesions',
+      parentControl: 'M_ThrombosisStent',
+      conditions: ['Yes']
+    },
     { control: 'M_ThrombosisStentDT', parentControl: 'M_ThrombosisStent', conditions: ['Yes'] },
-    { control: 'M_ThrombosisNonStentDT', parentControl: 'M_ThrombosisNonStent', conditions: ['Yes'] },
+    {
+      control: 'M_ThrombosisNonStentDT',
+      parentControl: 'M_ThrombosisNonStent',
+      conditions: ['Yes']
+    },
 
     { control: 'FU_StatinDose', parentControl: 'FU_Statin', conditions: ['Yes - Prescribed'] }
   ]
