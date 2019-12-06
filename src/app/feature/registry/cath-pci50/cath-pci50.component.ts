@@ -2300,6 +2300,7 @@ export class CathPci50Component extends RegistryFormComponent
       'FU_Aspirin',
       'FU_Vorapaxar',
       'FU_ARB',
+      'FU_BetaBlocker',
       'FU_Apixaban',
       'FU_Dabigatran',
       'FU_Edoxaban',
