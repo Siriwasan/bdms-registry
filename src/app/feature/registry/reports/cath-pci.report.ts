@@ -40,7 +40,7 @@ export class CathPciReport {
     const doc = {
       info: {
         title: 'BDMS CathPCI Registry v1.0',
-        author: 'john doe',
+        author: printedBy,
         subject: 'Data Collection Form',
         keywords: 'BDMS CAG PCI'
       },
@@ -6042,7 +6042,10 @@ export class CathPciReport {
       [
         pdf.stackStyle(
           { style: 'subSection', pageBreak: fistPage ? null : 'before' },
-          pdf.text('FOLLOW UP PERIOD: __________'),
+          pdf.block(
+            pdf.text('FOLLOW UP PERIOD: '),
+            pdf.input(data ? data.FollowUpPeriod : null)
+          ),
           this.waterMarkFU(data)
         )
       ],

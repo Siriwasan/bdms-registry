@@ -2189,6 +2189,16 @@ export class CathPci50Component extends RegistryFormComponent
     data.sectionJ['PciDevices'].forEach(
       device => (device.ICDevID = this.getDevice(device.ICDevID))
     );
+
+    data.sectionM['FollowUps'].forEach(
+      fu =>
+        (fu['FollowUpPeriod'] = fu.FU_AssessmentDate
+          ? this.getFollowUpPeriod(
+              moment(data.sectionE['ProcedureStartDateTime']),
+              moment(fu.FU_AssessmentDate)
+            )
+          : null)
+    );
     // tslint:enable: no-string-literal
 
     const password = this.randomPdfPassword();

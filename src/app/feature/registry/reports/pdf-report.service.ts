@@ -33,6 +33,10 @@ pdf.fonts = {
 export class PdfReportService {
   constructor() {}
 
+  public createdPdf(docDefinition: pdfMake.TDocumentDefinitions) {
+    pdfMake.createPdf(docDefinition).open();
+  }
+
   public downloadPdf(docDefinition: pdfMake.TDocumentDefinitions, fileName?: string) {
     pdfMake.createPdf(docDefinition).download(fileName);
   }
