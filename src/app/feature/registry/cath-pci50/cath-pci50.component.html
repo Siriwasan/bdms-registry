@@ -78,6 +78,14 @@
             (click)="clearValidations()">
             <mat-icon>highlight_off</mat-icon>
           </button>
+          <button
+            mat-mini-fab
+            matTooltip="Print as PDF"
+            matTooltipPosition="before"
+            color="secondary"
+            (click)="printPDF()">
+            <mat-icon>print</mat-icon>
+          </button>
         </fab-speed-dial-actions>
       </fab-speed-dial>
 
@@ -135,6 +143,7 @@
               'White',
               'Black/African American',
               'European',
+              'Arab',
               'Asian'
               ]" fxFlex></reg-select>
           </div>

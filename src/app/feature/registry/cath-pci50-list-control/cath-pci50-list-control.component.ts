@@ -21,6 +21,8 @@ import { RegistryModel } from '../registry.model';
 import { CathPci50ListControlModel } from './cath-pci50-list-control.model';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { PdfReportService } from '../reports/pdf-report.service';
+import { CathPciReport } from '../reports/cath-pci.report';
 
 @Component({
   selector: 'app-cath-pci50-list-control',
@@ -74,7 +76,7 @@ export class CathPci50ListControlComponent implements OnInit, OnChanges, OnDestr
     return output;
   }
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private pdfReportService: PdfReportService) {}
 
   ngOnInit() {
     this.searchForm = this.fb.group({
@@ -235,7 +237,11 @@ export class CathPci50ListControlComponent implements OnInit, OnChanges, OnDestr
     this.export.emit(null);
   }
 
-  pdfForm() {
-    console.log('PDF');
+  async pdfForm() {
+    const report = new CathPciReport(null);
+    this.pdfReportService.downloadPdf(
+      await report.getDocDefinition(),
+      'BDMS CathPCI Registry v1_0'
+    );
   }
 }

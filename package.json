@@ -35,6 +35,7 @@
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.26",
     "ngx-mat-select-search": "^1.8.0",
+    "pdfmake": "^0.1.63",
     "rxjs": "~6.5.2",
     "tslib": "^1.10.0",
     "xlsx": "^0.15.1",

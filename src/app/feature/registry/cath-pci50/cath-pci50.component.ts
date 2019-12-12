@@ -48,6 +48,8 @@ import * as UI from '../../../shared/ui.actions';
 import { hospitals } from '../../../core/auth/auth.data';
 import { Staff } from '../../staff/staff.model';
 import { CathPci50Validator } from './cath-pci50.validator';
+import { CathPciReport } from '../reports/cath-pci.report';
+import { PdfReportService } from '../reports/pdf-report.service';
 
 const str = {
   nativeLesions: 'NativeLesions',
@@ -267,7 +269,8 @@ export class CathPci50Component extends RegistryFormComponent
     private router: Router,
     private cathPci50Service: CathPci50Service,
     private location: Location,
-    private authService: AuthService
+    private authService: AuthService,
+    private pdfReportService: PdfReportService
   ) {
     super(dialogService, changeDetector, scrollSpy, hostElement, registryFormService);
   }
@@ -1561,7 +1564,6 @@ export class CathPci50Component extends RegistryFormComponent
       );
     });
 
-    console.log(allChoices);
     if (allChoices.length <= 0) {
       console.log('no segment lesion');
     }
@@ -2162,5 +2164,62 @@ export class CathPci50Component extends RegistryFormComponent
       'FU_Evolocumab'
     ];
     this.setToDefault(formGroup, controls, val);
+  }
+
+  private getProvider(staffId: string): string {
+    const staff = this.staffs.find(stf => stf.staffId === staffId);
+    return staff ? staff.title + ' ' + staff.firstName + ' ' + staff.lastName : null;
+  }
+
+  private getDevice(deviceId: number): string {
+    const device = intraCoronaryDevices.find(dv => dv.id === deviceId);
+    return device.deviceName + ', ' + device.brand;
+  }
+
+  async printPDF() {
+    const data = this.archiveForm();
+    // tslint:disable: no-string-literal
+    data.sectionB['AdmProvider'] = this.getProvider(data.sectionB['AdmProvider']);
+    data.sectionB['AttProvider'] = this.getProvider(data.sectionB['AttProvider']);
+    data.sectionE['DCathProvider'] = this.getProvider(data.sectionE['DCathProvider']);
+    data.sectionE['PCIProvider'] = this.getProvider(data.sectionE['PCIProvider']);
+    data.sectionE['PCIProvider2'] = this.getProvider(data.sectionE['PCIProvider2']);
+    data.sectionL['DCProvider'] = this.getProvider(data.sectionL['DCProvider']);
+
+    data.sectionJ['PciDevices'].forEach(
+      device => (device.ICDevID = this.getDevice(device.ICDevID))
+    );
+    // tslint:enable: no-string-literal
+
+    const password = this.randomPdfPassword();
+
+    this.dialogService
+      .createModalDialog({
+        title: '!!Security Alert!!',
+        content: `You need this password to open PDF file:<br><center><h1>${password}</h1></center>`,
+        buttons: ['OK']
+      })
+      .afterClosed()
+      .subscribe(async o => {
+        const report = new CathPciReport(
+          data,
+          this.user.staff.title + ' ' + this.user.staff.firstName + ' ' + this.user.staff.lastName,
+          moment().format('D/M/YYYY H:mm'),
+          this.user.staff.staffId,
+          moment().toISOString(true),
+          password
+        );
+        this.pdfReportService.downloadPdf(
+          await report.getDocDefinition(),
+          data.sectionA[`registryId`]
+        );
+      });
+  }
+
+  private randomPdfPassword(): string {
+    const first = Math.floor(Math.random() * 100);
+    const second = Math.floor(Math.random() * 100);
+
+    return first.toString().padStart(2, '0') + ':' + second.toString().padStart(2, '0');
   }
 }

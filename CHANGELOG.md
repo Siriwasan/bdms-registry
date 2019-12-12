@@ -1,3 +1,10 @@
+# 1.4.0 (2019-12-12)
+
+### Features
+
+- **CathPci50:** add all BDMS hospitals
+- **CathPci50:** printable registry form
+
 # 1.3.2 (2019-11-27)
 
 ### Bug Fixes
