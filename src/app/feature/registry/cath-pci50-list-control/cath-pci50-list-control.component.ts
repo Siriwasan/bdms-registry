@@ -29,7 +29,15 @@ import { Subscription } from 'rxjs';
   providers: [RegistryService]
 })
 export class CathPci50ListControlComponent implements OnInit, OnChanges, OnDestroy {
-  displayedColumns: string[] = ['registryId', 'hn', 'name', 'age', 'tags', 'submitted', 'completion'];
+  displayedColumns: string[] = [
+    'registryId',
+    'hn',
+    'name',
+    'age',
+    'tags',
+    'submitted',
+    'completion'
+  ];
   dataSource: MatTableDataSource<CathPci50ListControlModel>;
   controlData: CathPci50ListControlModel[];
   avHospitals: string[];
@@ -74,7 +82,9 @@ export class CathPci50ListControlComponent implements OnInit, OnChanges, OnDestr
       filters: ['']
     });
     this.subscriptions.push(
-      this.searchForm.get('hospitals').valueChanges.subscribe(value => this.selectedHospitalChanged(value)),
+      this.searchForm
+        .get('hospitals')
+        .valueChanges.subscribe(value => this.selectedHospitalChanged(value)),
       this.searchForm.get('filters').valueChanges.subscribe(value => this.applyFilter())
     );
   }
@@ -212,7 +222,9 @@ export class CathPci50ListControlComponent implements OnInit, OnChanges, OnDestr
   }
 
   private decrypt(source: string): string {
-    return source ? CryptoJS.AES.decrypt(source, environment.appKey).toString(CryptoJS.enc.Utf8) : null;
+    return source
+      ? CryptoJS.AES.decrypt(source, environment.appKey).toString(CryptoJS.enc.Utf8)
+      : null;
   }
 
   createRegistry() {
@@ -221,5 +233,9 @@ export class CathPci50ListControlComponent implements OnInit, OnChanges, OnDestr
 
   exportRegistries() {
     this.export.emit(null);
+  }
+
+  pdfForm() {
+    console.log('PDF');
   }
 }

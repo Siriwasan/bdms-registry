@@ -1,4 +1,11 @@
-import { AbstractControl, ValidatorFn, FormControl, NG_VALIDATORS, FormGroup, FormArray } from '@angular/forms';
+import {
+  AbstractControl,
+  ValidatorFn,
+  FormControl,
+  NG_VALIDATORS,
+  FormGroup,
+  FormArray
+} from '@angular/forms';
 import * as moment from 'moment';
 import { RegistryFormService } from 'src/app/shared/modules/registry-form/registry-form.service';
 import { Injectable } from '@angular/core';
@@ -316,7 +323,9 @@ export class CathPci50Validator {
   static DobBeforePrevTreatedLesionDate(control: AbstractControl) {
     if (CathPci50Validator.registryFormService) {
       let allResult = null;
-      const formArray = CathPci50Validator.registryFormService.getFormGroup('J').get('PciLesions') as FormArray;
+      const formArray = CathPci50Validator.registryFormService
+        .getFormGroup('J')
+        .get('PciLesions') as FormArray;
       formArray.controls.forEach((formGroup: FormGroup) => {
         const result = CathPci50Validator.ADateCompareBDate(
           // tslint:disable-next-line: no-string-literal
@@ -355,7 +364,9 @@ export class CathPci50Validator {
   static ProcedureStartDTBeforePrevTreatedLesionDate(control: AbstractControl) {
     if (CathPci50Validator.registryFormService) {
       let allResult = null;
-      const formArray = CathPci50Validator.registryFormService.getFormGroup('J').get('PciLesions') as FormArray;
+      const formArray = CathPci50Validator.registryFormService
+        .getFormGroup('J')
+        .get('PciLesions') as FormArray;
       formArray.controls.forEach((formGroup: FormGroup) => {
         const result = CathPci50Validator.ADateCompareBDate(
           // tslint:disable-next-line: no-string-literal
@@ -376,7 +387,7 @@ export class CathPci50Validator {
     return CathPci50Validator.ADateCompareBDate(
       { section: 'K', control: 'K_BleedingAccessSiteDT' },
       { section: 'E', control: 'ProcedureStartDateTime' },
-      '<',
+      '>',
       'K_BleedingAccessSiteDTAfterProcedureStartDT'
     );
   }
@@ -385,7 +396,7 @@ export class CathPci50Validator {
     return CathPci50Validator.ADateCompareBDate(
       { section: 'K', control: 'K_BleedingGIDT' },
       { section: 'E', control: 'ProcedureStartDateTime' },
-      '<',
+      '>',
       'K_BleedingGIDTAfterProcedureStartDT'
     );
   }
@@ -394,7 +405,7 @@ export class CathPci50Validator {
     return CathPci50Validator.ADateCompareBDate(
       { section: 'K', control: 'K_BleedingGUDT' },
       { section: 'E', control: 'ProcedureStartDateTime' },
-      '<',
+      '>',
       'K_BleedingGUDTAfterProcedureStartDT'
     );
   }
@@ -403,7 +414,7 @@ export class CathPci50Validator {
     return CathPci50Validator.ADateCompareBDate(
       { section: 'K', control: 'K_BleedingHematomaDT' },
       { section: 'E', control: 'ProcedureStartDateTime' },
-      '<',
+      '>',
       'K_BleedingHematomaDTAfterProcedureStartDT'
     );
   }
@@ -412,7 +423,7 @@ export class CathPci50Validator {
     return CathPci50Validator.ADateCompareBDate(
       { section: 'K', control: 'K_BleedingOtherDT' },
       { section: 'E', control: 'ProcedureStartDateTime' },
-      '<',
+      '>',
       'K_BleedingOtherDTAfterProcedureStartDT'
     );
   }
@@ -421,7 +432,7 @@ export class CathPci50Validator {
     return CathPci50Validator.ADateCompareBDate(
       { section: 'K', control: 'K_BleedingRetroDT' },
       { section: 'E', control: 'ProcedureStartDateTime' },
-      '<',
+      '>',
       'K_BleedingRetroDTAfterProcedureStartDT'
     );
   }
@@ -430,7 +441,7 @@ export class CathPci50Validator {
     return CathPci50Validator.ADateCompareBDate(
       { section: 'K', control: 'K_CardiacArrestDT' },
       { section: 'E', control: 'ProcedureStartDateTime' },
-      '<',
+      '>',
       'K_CardiacArrestDTAfterProcedureStartDT'
     );
   }
@@ -439,7 +450,7 @@ export class CathPci50Validator {
     return CathPci50Validator.ADateCompareBDate(
       { section: 'K', control: 'K_CardiacTamponadeDT' },
       { section: 'E', control: 'ProcedureStartDateTime' },
-      '<',
+      '>',
       'K_CardiacTamponadeDTAfterProcedureStartDT'
     );
   }
@@ -448,7 +459,7 @@ export class CathPci50Validator {
     return CathPci50Validator.ADateCompareBDate(
       { section: 'K', control: 'K_CardiogenicShockDT' },
       { section: 'E', control: 'ProcedureStartDateTime' },
-      '<',
+      '>',
       'K_CardiogenicShockDTAfterProcedureStartDT'
     );
   }
@@ -457,7 +468,7 @@ export class CathPci50Validator {
     return CathPci50Validator.ADateCompareBDate(
       { section: 'K', control: 'K_HeartFailureDT' },
       { section: 'E', control: 'ProcedureStartDateTime' },
-      '<',
+      '>',
       'K_HeartFailureDTAfterProcedureStartDT'
     );
   }
@@ -466,7 +477,7 @@ export class CathPci50Validator {
     return CathPci50Validator.ADateCompareBDate(
       { section: 'K', control: 'K_MyocardialInfarctionDT' },
       { section: 'E', control: 'ProcedureStartDateTime' },
-      '<',
+      '>',
       'K_MyocardialInfarctionDTAfterProcedureStartDT'
     );
   }
@@ -475,7 +486,7 @@ export class CathPci50Validator {
     return CathPci50Validator.ADateCompareBDate(
       { section: 'K', control: 'K_NewDialysisDT' },
       { section: 'E', control: 'ProcedureStartDateTime' },
-      '<',
+      '>',
       'K_NewDialysisDTAfterProcedureStartDT'
     );
   }
@@ -484,7 +495,7 @@ export class CathPci50Validator {
     return CathPci50Validator.ADateCompareBDate(
       { section: 'K', control: 'K_OtherVascularDT' },
       { section: 'E', control: 'ProcedureStartDateTime' },
-      '<',
+      '>',
       'K_OtherVascularDTAfterProcedureStartDT'
     );
   }
@@ -493,7 +504,7 @@ export class CathPci50Validator {
     return CathPci50Validator.ADateCompareBDate(
       { section: 'K', control: 'K_StrokeHemorrhageDT' },
       { section: 'E', control: 'ProcedureStartDateTime' },
-      '<',
+      '>',
       'K_StrokeHemorrhageDTAfterProcedureStartDT'
     );
   }
@@ -502,7 +513,7 @@ export class CathPci50Validator {
     return CathPci50Validator.ADateCompareBDate(
       { section: 'K', control: 'K_StrokeIschemicDT' },
       { section: 'E', control: 'ProcedureStartDateTime' },
-      '<',
+      '>',
       'K_StrokeIschemicDTAfterProcedureStartDT'
     );
   }
@@ -511,7 +522,7 @@ export class CathPci50Validator {
     return CathPci50Validator.ADateCompareBDate(
       { section: 'K', control: 'K_StrokeUndeterminedDT' },
       { section: 'E', control: 'ProcedureStartDateTime' },
-      '<',
+      '>',
       'K_StrokeUndeterminedDTAfterProcedureStartDT'
     );
   }
@@ -1046,7 +1057,9 @@ export class CathPci50Validator {
 
     if (CathPci50Validator.registryFormService) {
       let allResult = null;
-      const formArray = CathPci50Validator.registryFormService.getFormGroup('M').get('FollowUps') as FormArray;
+      const formArray = CathPci50Validator.registryFormService
+        .getFormGroup('M')
+        .get('FollowUps') as FormArray;
       formArray.controls.forEach((formGroup: FormGroup) => {
         fuControls.forEach(c => {
           const result = CathPci50Validator.ADateCompareBDate(
@@ -1071,7 +1084,8 @@ export class CathPci50Validator {
     validation: string
   ) {
     if (CathPci50Validator.registryFormService) {
-      const aDateControl = aDate instanceof AbstractControl ? aDate : CathPci50Validator.getControl(aDate);
+      const aDateControl =
+        aDate instanceof AbstractControl ? aDate : CathPci50Validator.getControl(aDate);
       const bDateControl = CathPci50Validator.getControl(bDate);
       const aDateValue = aDateControl.value;
       const bDateValue = bDateControl.value;
@@ -1138,7 +1152,9 @@ export class CathPci50Validator {
     validation: string
   ) {
     if (CathPci50Validator.registryFormService) {
-      const formArray = CathPci50Validator.registryFormService.getFormGroup(fg).get(subForm) as FormArray;
+      const formArray = CathPci50Validator.registryFormService
+        .getFormGroup(fg)
+        .get(subForm) as FormArray;
       let invalid = false;
       formArray.controls.forEach((formGroup: FormGroup) => {
         const errors = formGroup.controls[subControl].errors;
@@ -1184,7 +1200,9 @@ export class CathPci50Validator {
   }
 
   static getControl(dateControl: DateControl): AbstractControl {
-    return CathPci50Validator.registryFormService.getFormGroup(dateControl.section).get(dateControl.control);
+    return CathPci50Validator.registryFormService
+      .getFormGroup(dateControl.section)
+      .get(dateControl.control);
   }
 
   static updateFormValueAndValidity(section: string) {

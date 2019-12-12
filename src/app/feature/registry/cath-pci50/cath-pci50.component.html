@@ -167,8 +167,8 @@
       <div class="section-body">
         <form [formGroup]="formGroupB" #formDirectiveB="ngForm">
           <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
-            <reg-select controlName="HospName" placeholder="Hospital Name" [formGroup]="formGroupB"
-              [choices]="avHospitals" [nullOption]="avHospitalsNullOption" fxFlex></reg-select>
+            <reg-select-search controlName="HospName" placeholder="Hospital Name" [formGroup]="formGroupB"
+              [choices]="avHospitals" group="true" [nullOption]="avHospitalsNullOption" fxFlex></reg-select-search>
 
             <reg-select controlName="AdmType" placeholder="Admission Type" [formGroup]="formGroupB" [choices]="[
                 'Direct',
@@ -1379,7 +1379,8 @@
                 'No',
                 'Streptokinase (SK)',
                 'Tissue Plasminogen Activators (tPA)',
-                'Tenecteplase (TNK-tPA)'
+                'Tenecteplase (TNK-tPA)',
+                'Other'
               ]" fxFlex></reg-select>
 
             <reg-datepicker *ngIf="visibles['ThromDateTime']" controlName="ThromDateTime" placeholder="Start Date/Time" [formGroup]="formGroupI" type="datetime" fxFlex>
