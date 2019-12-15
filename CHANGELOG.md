@@ -1,3 +1,9 @@
+# 1.4.2 (2019-12-16)
+
+### Features
+
+- **Staff form:** add Medical License Number/Staff Id attribute
+
 # 1.4.1 (2019-12-15)
 
 ### Features

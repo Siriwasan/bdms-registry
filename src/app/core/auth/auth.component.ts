@@ -56,6 +56,7 @@ export class AuthComponent implements OnInit, OnDestroy {
             title: null,
             firstName: null,
             lastName: null,
+            uniqueId: null,
             phone: null,
             email: null,
             position: null,
@@ -109,7 +110,10 @@ export class AuthComponent implements OnInit, OnDestroy {
 
   async login() {
     this.store.dispatch(new UI.StartLoading());
-    const result = await this.authService.login(this.loginFG.value.userName, this.loginFG.value.password);
+    const result = await this.authService.login(
+      this.loginFG.value.userName,
+      this.loginFG.value.password
+    );
     this.store.dispatch(new UI.StopLoading());
     if (result) {
       this.router.navigate(['/about']);
@@ -125,7 +129,10 @@ export class AuthComponent implements OnInit, OnDestroy {
     if (this.profileFG.value.password === null && this.profileFG.value.confirmedPassword === null) {
       return this.profileFG.valid;
     }
-    return this.profileFG.valid && this.profileFG.value.password === this.profileFG.value.confirmedPassword;
+    return (
+      this.profileFG.valid &&
+      this.profileFG.value.password === this.profileFG.value.confirmedPassword
+    );
   }
 
   public async update() {

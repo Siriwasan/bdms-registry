@@ -5,6 +5,7 @@ export interface Staff {
   title: string;
   firstName: string;
   lastName: string;
+  uniqueId: string; // Medical license number or Staff Id
   phone?: string;
   email?: string;
   position: string;

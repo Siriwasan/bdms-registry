@@ -26,6 +26,7 @@ import * as Auth from '../../../core/auth/auth.data';
 import { AuthService } from '../../../../app/core/auth/auth.service';
 import { RegSelectChoice } from 'src/app/shared/modules/registry-form/registry-form.model';
 import { StaffService } from '../staff.service';
+import { DialogService } from 'src/app/shared/services/dialog.service';
 
 @Component({
   selector: 'app-staff-profile',
@@ -64,7 +65,8 @@ export class StaffProfileComponent implements OnInit, OnChanges, OnDestroy, Afte
     private formBuilder: FormBuilder,
     private store: Store<fromRoot.State>,
     private authService: AuthService,
-    private staffService: StaffService
+    private staffService: StaffService,
+    private dialogService: DialogService
   ) {}
 
   ngOnInit() {
@@ -82,6 +84,7 @@ export class StaffProfileComponent implements OnInit, OnChanges, OnDestroy, Afte
         title: [null, Validators.required],
         firstName: [null, Validators.required],
         lastName: [null, Validators.required],
+        uniqueId: [null, Validators.required],
         phone: [null],
         email: [null],
         position: [null, Validators.required],
@@ -122,7 +125,7 @@ export class StaffProfileComponent implements OnInit, OnChanges, OnDestroy, Afte
         this.staffForm.reset();
         this.staffForm.get('staffId').setValue('(new)');
       } else {
-        this.staffForm.setValue({
+        this.staffForm.patchValue({
           staffId: staff.staffId,
           userName: staff.userName,
           password: null,
@@ -130,6 +133,7 @@ export class StaffProfileComponent implements OnInit, OnChanges, OnDestroy, Afte
           title: staff.title,
           firstName: staff.firstName,
           lastName: staff.lastName,
+          uniqueId: staff.uniqueId,
           phone: staff.phone,
           email: staff.email,
           position: staff.position,
@@ -163,6 +167,7 @@ export class StaffProfileComponent implements OnInit, OnChanges, OnDestroy, Afte
     this.staffForm.get('title').enable();
     this.staffForm.get('firstName').enable();
     this.staffForm.get('lastName').enable();
+    this.staffForm.get('uniqueId').enable();
     this.staffForm.get('phone').enable();
     this.staffForm.get('email').enable();
     this.staffForm.get('position').enable();
@@ -294,20 +299,21 @@ export class StaffProfileComponent implements OnInit, OnChanges, OnDestroy, Afte
     );
   }
 
-  onSubmit() {
+  async onSubmit() {
     if (!this.staffForm.valid) {
       return;
     }
 
     const staff: Staff = {
-      staffId: this.staffForm.value.staffId,
-      userName: this.staffForm.value.userName,
-      password: this.staffForm.value.password,
-      title: this.staffForm.value.title,
-      firstName: this.staffForm.value.firstName,
-      lastName: this.staffForm.value.lastName,
-      phone: this.staffForm.value.phone,
-      email: this.staffForm.value.email,
+      staffId: this.staffForm.value.staffId.trim(),
+      userName: this.staffForm.value.userName ? this.staffForm.value.userName.trim() : null,
+      password: this.staffForm.value.password ? this.staffForm.value.password.trim() : null,
+      title: this.staffForm.value.title.trim(),
+      firstName: this.staffForm.value.firstName.trim(),
+      lastName: this.staffForm.value.lastName.trim(),
+      uniqueId: this.staffForm.value.uniqueId.trim(),
+      phone: this.staffForm.value.phone ? this.staffForm.value.phone.trim() : null,
+      email: this.staffForm.value.email ? this.staffForm.value.email.trim() : null,
       position: this.staffForm.value.position,
       primaryHospId: this.staffForm.value.primaryHospId,
       secondHospIds: this.staffForm.value.secondHospIds ? this.staffForm.value.secondHospIds : [],
@@ -321,14 +327,23 @@ export class StaffProfileComponent implements OnInit, OnChanges, OnDestroy, Afte
       modifiedBy: this.user.staff.staffId
     };
 
-    if (this.selectedStaff === null) {
-      this.staffService.createStaff(staff);
+    const searchStaff = await this.staffService.getStaffByUniqueId(staff.uniqueId);
+    if (searchStaff[0] && searchStaff[0].staffId !== staff.staffId) {
+      this.dialogService.createModalDialog({
+        title: '!!Alert!!',
+        content: `Duplicate Medical License Number/Staff ID`,
+        buttons: ['Retry']
+      });
     } else {
-      this.staffService.updateStaff(staff);
-      this.selectedStaff = null;
+      if (this.selectedStaff === null) {
+        this.staffService.createStaff(staff);
+      } else {
+        this.staffService.updateStaff(staff);
+        this.selectedStaff = null;
+      }
+      this.clear();
+      this.submitStaff.emit(staff);
     }
-    this.clear();
-    this.submitStaff.emit(staff);
   }
 
   onDelete() {

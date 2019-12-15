@@ -20,7 +20,15 @@ import { AuthService } from 'src/app/core/auth/auth.service';
   providers: [AuthService]
 })
 export class StaffComponent implements OnInit, OnDestroy {
-  displayedColumns: string[] = ['staffId', 'title', 'firstName', 'lastName', 'position', 'primaryHospId', 'status'];
+  displayedColumns: string[] = [
+    'staffId',
+    'title',
+    'firstName',
+    'lastName',
+    'position',
+    'primaryHospId',
+    'status'
+  ];
   dataSource: MatTableDataSource<any>;
 
   // @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -57,13 +65,15 @@ export class StaffComponent implements OnInit, OnDestroy {
       this.user.staff.permission
     );
 
-    this.staffListSubscription = this.staffService.getStaffs(this.avHospitals).subscribe(data => {
-      this.dataSource = new MatTableDataSource(data);
-      // this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
+    this.staffListSubscription = this.staffService
+      .getStaffsByHospitals(this.avHospitals)
+      .subscribe(data => {
+        this.dataSource = new MatTableDataSource(data);
+        // this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
 
-      this.store.dispatch(new UI.StopLoading());
-    });
+        this.store.dispatch(new UI.StopLoading());
+      });
   }
 
   ngOnDestroy() {

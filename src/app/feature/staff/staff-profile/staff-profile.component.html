@@ -1,5 +1,7 @@
 <form [formGroup]="staffForm" #staffFormDirective="ngForm">
-  <fieldset style="border:1px solid #a1a1a1; border-radius:10px; padding: 20px 30px 20px 30px; background-color: white">
+  <fieldset
+    style="border:1px solid #a1a1a1; border-radius:10px; padding: 20px 30px 20px 30px; background-color: white"
+  >
     <legend style="color:#757575;">Staff Profile</legend>
 
     <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap.gt-xs="20px">
@@ -22,13 +24,24 @@
 
     <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap.gt-xs="20px">
       <mat-form-field class="item" fxFlex>
+        <input
+          matInput
+          formControlName="uniqueId"
+          placeholder="Medical License No/Staff ID"
+          required
+        />
+      </mat-form-field>
+
+      <mat-form-field class="item" fxFlex>
         <input matInput formControlName="phone" placeholder="Phone" />
       </mat-form-field>
 
       <mat-form-field class="item" fxFlex>
         <input matInput formControlName="email" placeholder="Email" />
       </mat-form-field>
+    </div>
 
+    <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap.gt-xs="20px">
       <mat-form-field class="item" fxFlex>
         <mat-select formControlName="position" placeholder="Position" required>
           <mat-option [value]="null">--</mat-option>
@@ -48,12 +61,21 @@
       <mat-form-field class="item" fxFlex="32">
         <mat-select formControlName="primaryHospId" placeholder="Primary Hospital" required>
           <mat-option [value]="null">--</mat-option>
-          <mat-option *ngFor="let choice of avPrimaryHospitals" [value]="choice.id">{{ choice.name }}</mat-option>
+          <mat-option *ngFor="let choice of avPrimaryHospitals" [value]="choice.id">{{
+            choice.name
+          }}</mat-option>
         </mat-select>
       </mat-form-field>
 
-      <reg-select-multiple controlName="secondHospIds" placeholder="Secondary Hospital" [formGroup]="staffForm"
-        [choices]="avSecondHospitals" fxFlex require="false" limit="2"></reg-select-multiple>
+      <reg-select-multiple
+        controlName="secondHospIds"
+        placeholder="Secondary Hospital"
+        [formGroup]="staffForm"
+        [choices]="avSecondHospitals"
+        fxFlex
+        require="false"
+        limit="2"
+      ></reg-select-multiple>
     </div>
 
     <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap.gt-xs="20px">
@@ -73,7 +95,9 @@
       <mat-form-field class="item" fxFlex>
         <mat-select formControlName="permission" placeholder="Permission" required>
           <mat-option [value]="null">--</mat-option>
-          <mat-option *ngFor="let choice of avPermissions" [value]="choice">{{ choice }}</mat-option>
+          <mat-option *ngFor="let choice of avPermissions" [value]="choice">{{
+            choice
+          }}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
@@ -88,7 +112,12 @@
       </mat-form-field>
 
       <mat-form-field class="item" fxFlex>
-        <input matInput type="password" formControlName="confirmedPassword" placeholder="Confirmed password" />
+        <input
+          matInput
+          type="password"
+          formControlName="confirmedPassword"
+          placeholder="Confirmed password"
+        />
         <mat-error *ngIf="staffForm.controls['confirmedPassword'].hasError('NoPassswordMatch')">
           Password & Confirmed Password does not match.
         </mat-error>
@@ -96,7 +125,13 @@
     </div>
 
     <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="20px">
-      <button mat-raised-button class="button" color="primary" [disabled]="!isStaffFormValid()" (click)="onSubmit()">
+      <button
+        mat-raised-button
+        class="button"
+        color="primary"
+        [disabled]="!isStaffFormValid()"
+        (click)="onSubmit()"
+      >
         {{ selectedStaff === null ? 'Create' : 'Update' }}
       </button>
       <!-- <button mat-raised-button class="button" color="warn" (click)="onDelete()">Delete</button> -->

@@ -3,7 +3,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import * as firebase from 'firebase/app';
 import * as CryptoJS from 'crypto-js';
 import { Subscription, Observable, combineLatest } from 'rxjs';
-import { map, take } from 'rxjs/operators';
+import { map, take, first } from 'rxjs/operators';
 
 import { Staff } from './staff.model';
 import * as Auth from '../../core/auth/auth.data';
@@ -23,17 +23,6 @@ export class StaffService implements OnDestroy {
   /// Firebase Server Timestamp
   get timestamp() {
     return firebase.firestore.FieldValue.serverTimestamp();
-  }
-
-  public getStaffs(avHospitals: Auth.Hospital[]): Observable<Staff[]> {
-    const staffList: Observable<Staff[]>[] = [];
-    avHospitals.forEach(hosp => {
-      staffList.push(
-        this.db.collection<Staff>(DB_STAFF, ref => ref.where('primaryHospId', '==', hosp.id)).valueChanges()
-      );
-    });
-
-    return combineLatest(staffList).pipe(map(arr => arr.reduce((acc, cur) => acc.concat(cur))));
   }
 
   public async createStaff(staff: Staff) {
@@ -65,6 +54,31 @@ export class StaffService implements OnDestroy {
     }
 
     await this.db.doc(DB_STAFF + `/${staff.staffId}`).update(staff);
+  }
+
+  public getStaffsByHospitals(avHospitals: Auth.Hospital[]): Observable<Staff[]> {
+    const staffList: Observable<Staff[]>[] = [];
+    avHospitals.forEach(hosp => {
+      staffList.push(
+        this.db
+          .collection<Staff>(DB_STAFF, ref => ref.where('primaryHospId', '==', hosp.id))
+          .valueChanges()
+      );
+    });
+
+    return combineLatest(staffList).pipe(map(arr => arr.reduce((acc, cur) => acc.concat(cur))));
+  }
+
+  public getStaffByUniqueId(uniqueId: string): Promise<Staff[]> {
+    if (!uniqueId) {
+      return;
+    }
+
+    return this.db
+      .collection<Staff>(DB_STAFF, ref => ref.where('uniqueId', '==', uniqueId))
+      .valueChanges()
+      .pipe(take(1))
+      .toPromise();
   }
 
   // private generateStaffId(position: string): Promise<string> {
