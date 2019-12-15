@@ -11,7 +11,8 @@ import { ACSx290Model } from './acsx290/acsx290.model';
 import * as Auth from '../../core/auth/auth.data';
 import { CathPci50Model } from './cath-pci50/cath-pci50.model';
 
-const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+const EXCEL_TYPE =
+  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 const EXCEL_EXTENSION = '.xlsx';
 
 const DB_ACSX = 'ACSx290';
@@ -101,7 +102,9 @@ export class RegistryService implements OnDestroy {
     avHospitals.forEach(hosp => {
       dataList.push(
         this.db
-          .collection<CathPci50Model>('CathPci50', ref => ref.where('sectionB.HospName', '==', hosp.id))
+          .collection<CathPci50Model>('CathPci50', ref =>
+            ref.where('sectionB.HospName', '==', hosp.id)
+          )
           .valueChanges()
       );
     });
@@ -168,13 +171,42 @@ export class RegistryService implements OnDestroy {
     const OrganTransplantType = this.FieldToSheet('sectionG', 'OrganTransplantType', json);
     const NativeLesions = this.ArrayToSheet('sectionH', 'NativeLesions', json);
     const GraftLesions = this.ArrayToSheet('sectionH', 'GraftLesions', json);
+    const CHIP = this.ArrayToSheet('sectionI', 'CHIP', json);
     const PciLesions = this.ArrayToSheet('sectionJ', 'PciLesions', json);
     const SegmentID = this.SubArrayToSheet('SegmentID', PciLesions, 'LesionCounter');
     const GuidewireAcross = this.SubArrayToSheet('GuidewireAcross', PciLesions, 'LesionCounter');
-    const ComplicationPCIDetail = this.SubArrayToSheet('ComplicationPCIDetail', PciLesions, 'LesionCounter');
+    const IntraCoroMeasurementSite = this.SubArrayToSheet(
+      'IntraCoroMeasurementSite',
+      PciLesions,
+      'LesionCounter'
+    );
+    const MB_MeasurementType = this.SubArrayToSheet(
+      'MB_MeasurementType',
+      PciLesions,
+      'LesionCounter'
+    );
+    const SB_MeasurementType = this.SubArrayToSheet(
+      'SB_MeasurementType',
+      PciLesions,
+      'LesionCounter'
+    );
+    const StentDeployedStrategy = this.SubArrayToSheet(
+      'StentDeployedStrategy',
+      PciLesions,
+      'LesionCounter'
+    );
+    const ComplicationPCIDetail = this.SubArrayToSheet(
+      'ComplicationPCIDetail',
+      PciLesions,
+      'LesionCounter'
+    );
     const PciDevices = this.ArrayToSheet('sectionJ', 'PciDevices', json);
     const ICDevCounterAssn = this.SubArrayToSheet('ICDevCounterAssn', PciDevices, 'ICDevCounter');
-    const K_MIFollowCriteria = this.FieldToSheet('sectionK', 'K_MyocardialInfarctionFollowCriteria', json);
+    const K_MIFollowCriteria = this.FieldToSheet(
+      'sectionK',
+      'K_MyocardialInfarctionFollowCriteria',
+      json
+    );
     const HospInterventionType = this.FieldToSheet('sectionL', 'HospInterventionType', json);
     const DC_MedReconciled = this.FieldToSheet('sectionL', 'DC_MedReconciled', json);
     const FollowUps = this.ArrayToSheet('sectionM', 'FollowUps', json);
@@ -193,17 +225,22 @@ export class RegistryService implements OnDestroy {
     const worksheet7: XLSX.WorkSheet = XLSX.utils.json_to_sheet(OrganTransplantType);
     const worksheet8: XLSX.WorkSheet = XLSX.utils.json_to_sheet(NativeLesions);
     const worksheet9: XLSX.WorkSheet = XLSX.utils.json_to_sheet(GraftLesions);
-    const worksheet10: XLSX.WorkSheet = XLSX.utils.json_to_sheet(PciLesions);
-    const worksheet11: XLSX.WorkSheet = XLSX.utils.json_to_sheet(SegmentID);
-    const worksheet12: XLSX.WorkSheet = XLSX.utils.json_to_sheet(GuidewireAcross);
-    const worksheet13: XLSX.WorkSheet = XLSX.utils.json_to_sheet(ComplicationPCIDetail);
-    const worksheet14: XLSX.WorkSheet = XLSX.utils.json_to_sheet(PciDevices);
-    const worksheet15: XLSX.WorkSheet = XLSX.utils.json_to_sheet(ICDevCounterAssn);
-    const worksheet16: XLSX.WorkSheet = XLSX.utils.json_to_sheet(K_MIFollowCriteria);
-    const worksheet17: XLSX.WorkSheet = XLSX.utils.json_to_sheet(HospInterventionType);
-    const worksheet18: XLSX.WorkSheet = XLSX.utils.json_to_sheet(DC_MedReconciled);
-    const worksheet19: XLSX.WorkSheet = XLSX.utils.json_to_sheet(FollowUps);
-    const worksheet20: XLSX.WorkSheet = XLSX.utils.json_to_sheet(FU_Method);
+    const worksheet10: XLSX.WorkSheet = XLSX.utils.json_to_sheet(CHIP);
+    const worksheet11: XLSX.WorkSheet = XLSX.utils.json_to_sheet(PciLesions);
+    const worksheet12: XLSX.WorkSheet = XLSX.utils.json_to_sheet(SegmentID);
+    const worksheet13: XLSX.WorkSheet = XLSX.utils.json_to_sheet(GuidewireAcross);
+    const worksheet14: XLSX.WorkSheet = XLSX.utils.json_to_sheet(IntraCoroMeasurementSite);
+    const worksheet15: XLSX.WorkSheet = XLSX.utils.json_to_sheet(MB_MeasurementType);
+    const worksheet16: XLSX.WorkSheet = XLSX.utils.json_to_sheet(SB_MeasurementType);
+    const worksheet17: XLSX.WorkSheet = XLSX.utils.json_to_sheet(StentDeployedStrategy);
+    const worksheet18: XLSX.WorkSheet = XLSX.utils.json_to_sheet(ComplicationPCIDetail);
+    const worksheet19: XLSX.WorkSheet = XLSX.utils.json_to_sheet(PciDevices);
+    const worksheet20: XLSX.WorkSheet = XLSX.utils.json_to_sheet(ICDevCounterAssn);
+    const worksheet21: XLSX.WorkSheet = XLSX.utils.json_to_sheet(K_MIFollowCriteria);
+    const worksheet22: XLSX.WorkSheet = XLSX.utils.json_to_sheet(HospInterventionType);
+    const worksheet23: XLSX.WorkSheet = XLSX.utils.json_to_sheet(DC_MedReconciled);
+    const worksheet24: XLSX.WorkSheet = XLSX.utils.json_to_sheet(FollowUps);
+    const worksheet25: XLSX.WorkSheet = XLSX.utils.json_to_sheet(FU_Method);
 
     const workbook: XLSX.WorkBook = {
       Sheets: {
@@ -216,17 +253,22 @@ export class RegistryService implements OnDestroy {
         OrganTransplantType: worksheet7,
         NativeLesions: worksheet8,
         GraftLesions: worksheet9,
-        PciLesions: worksheet10,
-        SegmentID: worksheet11,
-        GuidewireAcross: worksheet12,
-        ComplicationPCIDetail: worksheet13,
-        PciDevices: worksheet14,
-        ICDevCounterAssn: worksheet15,
-        K_MIFollowCriteria: worksheet16,
-        HospInterventionType: worksheet17,
-        DC_MedReconciled: worksheet18,
-        FollowUps: worksheet19,
-        FU_Method: worksheet20
+        CHIP: worksheet10,
+        PciLesions: worksheet11,
+        SegmentID: worksheet12,
+        GuidewireAcross: worksheet13,
+        IntraCoroMeasurementSite: worksheet14,
+        MB_MeasurementType: worksheet15,
+        SB_MeasurementType: worksheet16,
+        StentDeployedStrategy: worksheet17,
+        ComplicationPCIDetail: worksheet18,
+        PciDevices: worksheet19,
+        ICDevCounterAssn: worksheet20,
+        K_MIFollowCriteria: worksheet21,
+        HospInterventionType: worksheet22,
+        DC_MedReconciled: worksheet23,
+        FollowUps: worksheet24,
+        FU_Method: worksheet25
       },
       SheetNames: [
         'data',
@@ -238,9 +280,14 @@ export class RegistryService implements OnDestroy {
         'OrganTransplantType',
         'NativeLesions',
         'GraftLesions',
+        'CHIP',
         'PciLesions',
         'SegmentID',
         'GuidewireAcross',
+        'IntraCoroMeasurementSite',
+        'MB_MeasurementType',
+        'SB_MeasurementType',
+        'StentDeployedStrategy',
         'ComplicationPCIDetail',
         'PciDevices',
         'ICDevCounterAssn',
@@ -300,7 +347,7 @@ export class RegistryService implements OnDestroy {
 
     data.map(record => {
       const fields = record[section][control] as [];
-      if (fields.length <= 0) {
+      if (!fields || fields.length <= 0) {
         return;
       }
       fields.forEach((field: any) => {

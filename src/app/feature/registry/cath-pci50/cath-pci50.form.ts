@@ -56,7 +56,8 @@ export const CathPci50Form = {
       ]
     ],
     AdmProvider: [null, Validators.required],
-    AttProvider: [null, Validators.required]
+    AttProvider: [null, Validators.required],
+    EnrolledStudy: [null, Validators.required]
   },
   sectionC: {
     Hypertension: [null, Validators.required],

@@ -241,7 +241,7 @@ export class CathPci50ListControlComponent implements OnInit, OnChanges, OnDestr
     const report = new CathPciReport(null);
     this.pdfReportService.downloadPdf(
       await report.getDocDefinition(),
-      'BDMS CathPCI Registry v1_0'
+      'BDMS CathPCI Registry v1.0.pdf'
     );
   }
 }

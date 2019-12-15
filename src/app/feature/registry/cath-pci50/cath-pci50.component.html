@@ -191,14 +191,23 @@
                 'Non BDMS'
               ]" fxFlex></reg-select>
 
-            <reg-select *ngIf="visibles['BDMSNetwork']" controlName="BDMSNetwork" placeholder="BDMS Network Name" [formGroup]="formGroupB" [choices]="[
-                'BPH',
-                'BSN',
-                'BPK'
-              ]" fxFlex></reg-select>
+            <reg-select-search *ngIf="visibles['BDMSNetwork']" controlName="BDMSNetwork" placeholder="BDMS Network Name" [formGroup]="formGroupB"
+              [choices]="avHospitals" group="true" [nullOption]="avHospitalsNullOption" fxFlex></reg-select-search>
 
             <reg-input *ngIf="visibles['NonBDMS']" controlName="NonBDMS" placeholder="Non BDMS Name" [formGroup]="formGroupB" type="text" fxFlex>
             </reg-input>
+          </div>
+
+          <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
+            <reg-datepicker controlName="ArrivalDateTime" placeholder="Arrival Date/Time" [formGroup]="formGroupB"
+              type="datetime" fxFlex>dd/mm/yyyy hh:mm - 24 hr clock
+            </reg-datepicker>
+
+            <reg-select-search controlName="AdmProvider" placeholder="Admitting Provider" [formGroup]="formGroupB"
+              [choices]="admitPhysician" group="true" fxFlex></reg-select-search>
+
+            <reg-select-search controlName="AttProvider" placeholder="Attending Provider" [formGroup]="formGroupB"
+              [choices]="cardioAndIntervention" group="true" fxFlex></reg-select-search>
           </div>
 
           <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
@@ -228,17 +237,11 @@
           </div>
 
           <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
-            <reg-datepicker controlName="ArrivalDateTime" placeholder="Arrival Date/Time" [formGroup]="formGroupB"
-              type="datetime" fxFlex>dd/mm/yyyy hh:mm - 24 hr clock
-            </reg-datepicker>
-
-            <reg-select-search controlName="AdmProvider" placeholder="Admitting Provider" [formGroup]="formGroupB"
-              [choices]="admitPhysician" group="true" fxFlex></reg-select-search>
-
-            <reg-select-search controlName="AttProvider" placeholder="Attending Provider" [formGroup]="formGroupB"
-              [choices]="cardioAndIntervention" group="true" fxFlex></reg-select-search>
+            <reg-select controlName="EnrolledStudy" placeholder="Research Enrolled" [formGroup]="formGroupB" [choices]="[
+                'Yes',
+                'No'
+              ]" fxFlex></reg-select>
           </div>
-
         </form>
       </div>
     </section>

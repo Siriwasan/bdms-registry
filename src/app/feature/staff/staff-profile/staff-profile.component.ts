@@ -219,9 +219,13 @@ export class StaffProfileComponent implements OnInit, OnChanges, OnDestroy, Afte
     const selectedPrimaryHosp = this.staffForm.get('primaryHospId').value;
     const userHosps = this.selectedStaff ? this.selectedStaff.secondHospIds : [];
 
-    const avHosps = [...new Set([...userHosps, ...this.avPrimaryHospitals.map(h => h.id)])].sort((a, b) => {
-      return Auth.hospitals.findIndex(h => h.id === a) - Auth.hospitals.findIndex(h => h.id === b);
-    });
+    const avHosps = [...new Set([...userHosps, ...this.avPrimaryHospitals.map(h => h.id)])].sort(
+      (a, b) => {
+        return (
+          Auth.hospitals.findIndex(h => h.id === a) - Auth.hospitals.findIndex(h => h.id === b)
+        );
+      }
+    );
 
     // if (this.selectedStaff) {
     const secondHospIds = this.staffForm.get('secondHospIds');
@@ -284,7 +288,10 @@ export class StaffProfileComponent implements OnInit, OnChanges, OnDestroy, Afte
     if (this.staffForm.value.password === null && this.staffForm.value.confirmedPassword === null) {
       return this.staffForm.valid;
     }
-    return this.staffForm.valid && this.staffForm.value.password === this.staffForm.value.confirmedPassword;
+    return (
+      this.staffForm.valid &&
+      this.staffForm.value.password === this.staffForm.value.confirmedPassword
+    );
   }
 
   onSubmit() {
@@ -314,14 +321,13 @@ export class StaffProfileComponent implements OnInit, OnChanges, OnDestroy, Afte
       modifiedBy: this.user.staff.staffId
     };
 
-    this.clear();
-
     if (this.selectedStaff === null) {
       this.staffService.createStaff(staff);
     } else {
       this.staffService.updateStaff(staff);
       this.selectedStaff = null;
     }
+    this.clear();
     this.submitStaff.emit(staff);
   }
 

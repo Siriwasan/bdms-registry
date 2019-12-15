@@ -1,3 +1,14 @@
+# 1.4.1 (2019-12-15)
+
+### Features
+
+- **CathPci50:** change report logo
+- **CathPci50:** add multiple fields to form and update export xlsx
+
+### Bug Fixes
+
+- **Staff form:** fixed bug in update staff profile
+
 # 1.4.0 (2019-12-12)
 
 ### Features

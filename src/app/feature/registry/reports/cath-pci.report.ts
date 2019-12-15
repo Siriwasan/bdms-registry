@@ -99,8 +99,8 @@ export class CathPciReport {
               {
                 columns: [
                   {
-                    image: await pdf.imageToBase64('assets/figures/bangkok-hospital.png'),
-                    fit: [105, 105],
+                    image: await pdf.imageToBase64('assets/bdms.svg'),
+                    fit: [100, 100],
                     margin: [0, -5, 0, 0],
                     width: 120
                   },
@@ -291,7 +291,7 @@ export class CathPciReport {
             pdf.radio('BDMS Network', this.data ? this.data.sectionB.TransferHospType : null),
             ': ',
             pdf.input(this.data ? this.data.sectionB.BDMSNetwork : null),
-            pdf.tab(5),
+            pdf.tab(2),
             pdf.radio('Non BDMS', this.data ? this.data.sectionB.TransferHospType : null),
             pdf.input(this.data ? this.data.sectionB.NonBDMS : null)
           ),
@@ -310,7 +310,7 @@ export class CathPciReport {
             )
           ),
           {
-            margin: [0, 0, 0, 3],
+            margin: [0, 0, 0, 5],
             table: {
               widths: ['*', '*'],
               headerRows: 2,
@@ -397,7 +397,14 @@ export class CathPciReport {
                 ]
               ]
             }
-          }
+          },
+          pdf.block(
+            pdf.field('Research Enrolled', { annotation: '3020'}),
+            pdf.tab(),
+            pdf.radio('No', this.data ? this.data.sectionB.EnrolledStudy : null),
+            pdf.tab(),
+            pdf.radio('Yes', this.data ? this.data.sectionB.EnrolledStudy : null),
+          )
         )
       ]
     ];

@@ -47,7 +47,10 @@ import { takeUntil, take } from 'rxjs/operators';
         <mat-option *ngIf="nullOption" [value]="null">--</mat-option>
         <div *ngIf="group; else no_group">
           <mat-optgroup *ngFor="let group of filteredChoiceGroups | async" [label]="group.name">
-            <mat-option *ngFor="let choice of group.choices" [value]="choice.value" [disabled]="choice.disable"
+            <mat-option
+              *ngFor="let choice of group.choices"
+              [value]="choice.value"
+              [disabled]="choice.disable"
               >{{ choice.label }}
               <div *ngIf="choice.detailHtml">
                 <span class="detail-html" [innerHTML]="choice.detailHtml"></span>
@@ -56,7 +59,10 @@ import { takeUntil, take } from 'rxjs/operators';
           </mat-optgroup>
         </div>
         <ng-template #no_group>
-          <mat-option *ngFor="let choice of filteredChoices | async" [value]="choice.value" [disabled]="choice.disable"
+          <mat-option
+            *ngFor="let choice of filteredChoices | async"
+            [value]="choice.value"
+            [disabled]="choice.disable"
             >{{ choice.label }}
             <div *ngIf="choice.detailHtml">
               <span class="detail-html" [innerHTML]="choice.detailHtml"></span>
@@ -66,7 +72,9 @@ import { takeUntil, take } from 'rxjs/operators';
       </mat-select>
       <mat-hint>
         <a><ng-content></ng-content></a>
-        <mat-icon style="cursor: help;" (click)="openInfo(controlName)" *ngIf="bInfo">info_outline</mat-icon>
+        <mat-icon style="cursor: help;" (click)="openInfo(controlName)" *ngIf="bInfo"
+          >info_outline</mat-icon
+        >
       </mat-hint>
       <mat-error *ngIf="self.invalid && (self.dirty || self.touched)">
         <div *ngFor="let validation of getValidations(controlName)">
@@ -74,7 +82,9 @@ import { takeUntil, take } from 'rxjs/operators';
             <a>{{ validation.message }}</a>
           </div>
         </div>
-        <mat-icon style="cursor: help;" (click)="openInfo(controlName)" *ngIf="bInfo">info_outline</mat-icon>
+        <mat-icon style="cursor: help;" (click)="openInfo(controlName)" *ngIf="bInfo"
+          >info_outline</mat-icon
+        >
       </mat-error>
     </mat-form-field>
   `,
@@ -96,7 +106,8 @@ export class RegistrySelectSearchComponent extends RegistryControlComponent
     if (this.self.value === null) {
       return '';
     }
-    return this.regSelectChoices.find(c => c.value === this.self.value).label;
+    const result = this.regSelectChoices.find(c => c.value === this.self.value);
+    return result ? result.label : null;
   }
 
   bInfo: boolean;
@@ -109,8 +120,12 @@ export class RegistrySelectSearchComponent extends RegistryControlComponent
   public filterCtrl: FormControl = new FormControl();
 
   /** list of banks filtered by search keyword */
-  public filteredChoices: ReplaySubject<RegSelectChoice[]> = new ReplaySubject<RegSelectChoice[]>(1);
-  public filteredChoiceGroups: ReplaySubject<RegSelectChoiceGroup[]> = new ReplaySubject<RegSelectChoiceGroup[]>(1);
+  public filteredChoices: ReplaySubject<RegSelectChoice[]> = new ReplaySubject<RegSelectChoice[]>(
+    1
+  );
+  public filteredChoiceGroups: ReplaySubject<RegSelectChoiceGroup[]> = new ReplaySubject<
+    RegSelectChoiceGroup[]
+  >(1);
 
   @ViewChild('singleSelect', { static: true }) singleSelect: MatSelect;
 
@@ -191,19 +206,15 @@ export class RegistrySelectSearchComponent extends RegistryControlComponent
    * Sets the initial value after the filteredBanks are loaded initially
    */
   protected setInitialValue() {
-    this.filteredChoices
-      .pipe(
-        take(1),
-        takeUntil(this.onDestroySubject)
-      )
-      .subscribe(() => {
-        // setting the compareWith property to a comparison function
-        // triggers initializing the selection according to the initial value of
-        // the form control (i.e. _initializeSelection())
-        // this needs to be done after the filteredBanks are loaded initially
-        // and after the mat-option elements are available
-        this.singleSelect.compareWith = (a: RegSelectChoice, b: RegSelectChoice) => a && b && a.value === b.value;
-      });
+    this.filteredChoices.pipe(take(1), takeUntil(this.onDestroySubject)).subscribe(() => {
+      // setting the compareWith property to a comparison function
+      // triggers initializing the selection according to the initial value of
+      // the form control (i.e. _initializeSelection())
+      // this needs to be done after the filteredBanks are loaded initially
+      // and after the mat-option elements are available
+      this.singleSelect.compareWith = (a: RegSelectChoice, b: RegSelectChoice) =>
+        a && b && a.value === b.value;
+    });
   }
 
   private filterChoices() {

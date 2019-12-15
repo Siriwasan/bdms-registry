@@ -2741,7 +2741,7 @@
               [choices]="['Endoscopic', 'Direct Vision (open)', 'Both']" fxFlex></reg-select>
 
             <reg-input *ngIf="visibles['RadHarvPrepTm']" controlName="RadHarvPrepTm" placeholder="Radial Artery Harvest and Prep Time (min)" [formGroup]="formGroupJ"
-              type="number" fxFlex></reg-input>
+              type="number" require="false" fxFlex></reg-input>
 
           </div>
 
@@ -2761,7 +2761,7 @@
               ]" fxFlex></reg-select>
 
             <reg-input *ngIf="visibles['SaphHarPrepTm']" controlName="SaphHarPrepTm" placeholder="Vein Harvest and Prep Time (min)" [formGroup]="formGroupJ"
-              type="number" fxFlex></reg-input>
+              type="number" require="false" fxFlex></reg-input>
 
           </div>
 

@@ -468,6 +468,7 @@ export class CathPci50Component extends RegistryFormComponent
     this.cardioAndIntervention = this.staffs
       .filter(staff => filterStaff(staff, ['Cardiologist', 'Cardiac Interventionist']))
       .map(staffToChoice);
+    console.log(this.cardioAndIntervention);
     this.intervention = this.staffs
       .filter(staff => filterStaff(staff, ['Cardiac Interventionist']))
       .map(staffToChoice);
@@ -2185,6 +2186,16 @@ export class CathPci50Component extends RegistryFormComponent
     data.sectionE['PCIProvider'] = this.getProvider(data.sectionE['PCIProvider']);
     data.sectionE['PCIProvider2'] = this.getProvider(data.sectionE['PCIProvider2']);
     data.sectionL['DCProvider'] = this.getProvider(data.sectionL['DCProvider']);
+
+    const hsp = this.avHospitals.find(hosp => hosp.value === data.sectionB['HospName']);
+    if (hsp) {
+      data.sectionB['HospName'] = hsp.label;
+    }
+
+    const bdmsNetwork = hospitals.find(hosp => hosp.id === data.sectionB['BDMSNetwork']);
+    data.sectionB['BDMSNetwork'] = bdmsNetwork
+      ? bdmsNetwork.name + ' (' + bdmsNetwork.id + ')'
+      : null;
 
     data.sectionJ['PciDevices'].forEach(
       device => (device.ICDevID = this.getDevice(device.ICDevID))
