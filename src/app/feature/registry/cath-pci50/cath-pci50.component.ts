@@ -525,16 +525,17 @@ export class CathPci50Component extends RegistryFormComponent
     this.formGroupA.patchValue(data.sectionA);
 
     // * need to set HospName before load staff to prevent null default
-    // this.formGroupB.setValue(data.sectionB);
+    // this.formGroupB.get('HospName').patchValue(data.sectionB['HospName']);
+    this.formGroupB.patchValue(data.sectionB);
     // tslint:disable: no-string-literal
-    this.formGroupB.get('HospName').patchValue(data.sectionB['HospName']);
-    this.formGroupB.get('PayorPrim').patchValue(data.sectionB['PayorPrim']);
-    this.formGroupB.get('PayorSecond').patchValue(data.sectionB['PayorSecond']);
-    this.formGroupB.get('ArrivalDateTime').patchValue(data.sectionB['ArrivalDateTime']);
+    // this.formGroupB.get('HospName').patchValue(data.sectionB['HospName']);
+    // this.formGroupB.get('PayorPrim').patchValue(data.sectionB['PayorPrim']);
+    // this.formGroupB.get('PayorSecond').patchValue(data.sectionB['PayorSecond']);
+    // this.formGroupB.get('ArrivalDateTime').patchValue(data.sectionB['ArrivalDateTime']);
     this.formGroupB.get('AdmProvider').patchValue(data.sectionB['AdmProvider']);
     this.formGroupB.get('AttProvider').patchValue(data.sectionB['AttProvider']);
-    this.formGroupB.get('AdmType').patchValue(data.sectionB['AdmType']);
-    this.formGroupB.get('EnrolledStudy').patchValue(data.sectionB['EnrolledStudy']);
+    // this.formGroupB.get('AdmType').patchValue(data.sectionB['AdmType']);
+    // this.formGroupB.get('EnrolledStudy').patchValue(data.sectionB['EnrolledStudy']);
     // tslint:enable: no-string-literal
 
     this.formGroupC.patchValue(data.sectionC);
