@@ -384,42 +384,6 @@ export function check(label: string, value: string, styl?: pdfMake.Style): pdfMa
   return choice(value && value.includes(label) ? '' : '', label, styl);
 }
 
-// export function radio(label: string, value: string, styl?: pdfMake.Style): pdfMake.Content {
-//   const output = {
-//     text: [
-//       { text: label === value ? '' : '', style: 'symbol' },
-//       { text: ` ${label}`, style: 'choice' }
-//     ]
-//   };
-
-//   if (styl) {
-//     prop(output, styl);
-
-//     if (styl.annotation) {
-//       output.text.push(superscript(styl.annotation));
-//     }
-//   }
-//   return output;
-// }
-
-// export function check(label: string, value: any[], styl?: pdfMake.Style): pdfMake.Content {
-//   const output = {
-//     text: [
-//       { text: value && value.includes(label) ? '' : '', style: 'symbol' },
-//       { text: ` ${label}`, style: 'choice' }
-//     ]
-//   };
-
-//   if (styl) {
-//     prop(output, styl);
-
-//     if (styl.annotation) {
-//       output.text.push(superscript(styl.annotation));
-//     }
-//   }
-//   return output;
-// }
-
 export function date(label: string, type = 'date'): pdfMake.Content {
   const d = moment(label);
   let output = '';
@@ -434,5 +398,13 @@ export function date(label: string, type = 'date'): pdfMake.Content {
 
 export function text(label: string, styl?: pdfMake.Style): pdfMake.Content {
   return { text: label, ...styl };
+}
+
+export function textThai(label: string, styl?: pdfMake.Style): pdfMake.Content {
+  const output = { text: label, style: 'thai' };
+  if (styl) {
+    prop(output, styl);
+  }
+  return output;
 }
 //#endregion

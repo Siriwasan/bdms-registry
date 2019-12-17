@@ -638,7 +638,7 @@
               [choices]="intervention" group="true" fxFlex></reg-select-search>
 
             <reg-select-search *ngIf="visibles['PCIProvider2']" controlName="PCIProvider2" placeholder="2nd PCI Operator" [formGroup]="formGroupE"
-              [choices]="intervention" group="true" fxFlex></reg-select-search>
+              [choices]="intervention" group="true" require="false" fxFlex></reg-select-search>
           </div>
 
           <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
@@ -2439,7 +2439,7 @@
         <div>
           <button *ngIf="!submittedDischarge" mat-raised-button color="warn" [disabled]="disableSubmitDischarge"
             (click)="submitDischarge()" fxFlex>Submit at Discharge</button>
-          <button *ngIf="submittedDischarge && user.staff.role === 'Director'" mat-raised-button [style.background-color]="'#673ab7'" [style.color]="'white'" [disabled]="disableSubmitDischarge"
+          <button *ngIf="submittedDischarge && user.staff.role === 'Director'" mat-raised-button [style.background-color]="'#673ab7'" [style.color]="'white'"
             (click)="unSubmitDischarge()" fxFlex>Unsubmit at Discharge</button>
         </div>
 

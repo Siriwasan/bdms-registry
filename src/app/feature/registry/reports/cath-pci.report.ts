@@ -69,7 +69,7 @@ export class CathPciReport {
               width: 255
             },
             pdf.text(printedDateTime ? 'printed ' + printedDateTime : ''),
-            pdf.inputThai(printedBy ? ' by ' + printedBy : '')
+            pdf.textThai(printedBy ? ' by ' + printedBy : '')
           )
         );
       },
@@ -81,6 +81,15 @@ export class CathPciReport {
       // tslint:disable: no-string-literal
       doc['userPassword'] = this.password;
       doc['ownerPassword'] = 'art129';
+      doc['permissions'] = {
+        printing: 'highResolution', // 'lowResolution'
+        modifying: false,
+        copying: true,
+        annotating: true,
+        fillingForms: false,
+        contentAccessibility: true,
+        documentAssembly: false
+      };
       // tslint:enable: no-string-literal
     }
 
@@ -144,23 +153,23 @@ export class CathPciReport {
 
   private waterMark(): pdfMake.Content {
     return {
-      text: this.data && !this.data.sectionL.SubmittedDischarge ? 'UNSUBMIT' : null,
+      text: this.data && !this.data.sectionL.SubmittedDischarge ? 'INCOMPLETE' : null,
       bold: false,
       fontSize: 72,
       angle: 315,
       color: '#cccccc',
-      absolutePosition: { x: 140, y: 400 }
+      absolutePosition: { x: 115, y: 400 }
     };
   }
 
   private waterMarkFU(data: any): pdfMake.Content {
     return {
-      text: data && !data.SubmittedFollowUp ? 'UNSUBMIT' : null,
+      text: data && !data.SubmittedFollowUp ? 'INCOMPLETE' : null,
       bold: false,
       fontSize: 72,
       angle: 315,
       color: '#cccccc',
-      absolutePosition: { x: 140, y: 400 }
+      absolutePosition: { x: 115, y: 400 }
     };
   }
 

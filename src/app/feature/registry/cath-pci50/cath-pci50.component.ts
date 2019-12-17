@@ -468,7 +468,6 @@ export class CathPci50Component extends RegistryFormComponent
     this.cardioAndIntervention = this.staffs
       .filter(staff => filterStaff(staff, ['Cardiologist', 'Cardiac Interventionist']))
       .map(staffToChoice);
-    console.log(this.cardioAndIntervention);
     this.intervention = this.staffs
       .filter(staff => filterStaff(staff, ['Cardiac Interventionist']))
       .map(staffToChoice);
@@ -481,6 +480,8 @@ export class CathPci50Component extends RegistryFormComponent
       const registryId = this.route.snapshot.paramMap.get('id');
       const data = await this.cathPci50Service.getForm(registryId);
       this.store.dispatch(new UI.StopLoading());
+
+      console.log(data);
 
       if (data) {
         this.cathPci50Service.decryptSenitiveData(data);
@@ -532,6 +533,8 @@ export class CathPci50Component extends RegistryFormComponent
     this.formGroupB.get('ArrivalDateTime').patchValue(data.sectionB['ArrivalDateTime']);
     this.formGroupB.get('AdmProvider').patchValue(data.sectionB['AdmProvider']);
     this.formGroupB.get('AttProvider').patchValue(data.sectionB['AttProvider']);
+    this.formGroupB.get('AdmType').patchValue(data.sectionB['AdmType']);
+    this.formGroupB.get('EnrolledStudy').patchValue(data.sectionB['EnrolledStudy']);
     // tslint:enable: no-string-literal
 
     this.formGroupC.patchValue(data.sectionC);
