@@ -12,9 +12,16 @@ import { NoSanitizePipe } from './pipes/no-sanitize.pipe';
 import { FabSpeedDialModule } from './modules/fab-speed-dial/fab-speed-dial.module';
 import { CathPci50ListControlComponent } from '../feature/registry/cath-pci50-list-control/cath-pci50-list-control.component';
 import { ACSx290ListControlComponent } from '../feature/registry/acsx290-list-control/acsx290-list-control.component';
+import { IsoDatePipe } from './pipes/iso-date.pipe';
 
 @NgModule({
-  declarations: [ModalDialogComponent, NoSanitizePipe, CathPci50ListControlComponent, ACSx290ListControlComponent],
+  declarations: [
+    ModalDialogComponent,
+    NoSanitizePipe,
+    IsoDatePipe,
+    CathPci50ListControlComponent,
+    ACSx290ListControlComponent
+  ],
   imports: [
     CommonModule,
     FormsModule,
@@ -34,6 +41,7 @@ import { ACSx290ListControlComponent } from '../feature/registry/acsx290-list-co
     FlexLayoutModule,
     RegistryFormModule,
     NoSanitizePipe,
+    IsoDatePipe,
     FabSpeedDialModule,
     CathPci50ListControlComponent,
     ACSx290ListControlComponent

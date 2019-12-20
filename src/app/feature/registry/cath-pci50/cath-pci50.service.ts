@@ -34,15 +34,13 @@ export class CathPci50Service implements OnDestroy {
   }
 
   public async createForm(data: CathPci50Model): Promise<string> {
-    // tslint:disable: no-string-literal
-    const registryId = await this.generateRegistryId(data.sectionB['HospName']);
-    data.sectionA['registryId'] = registryId;
-    // tslint:enable: no-string-literal
+    // // tslint:disable: no-string-literal
+    // const registryId = await this.generateRegistryId(data.sectionB['HospName']);
+    // data.sectionA['registryId'] = registryId;
+    // // tslint:enable: no-string-literal
 
-    await this.db
-      .collection(DB_CATHPCI)
-      .doc(registryId)
-      .set(data);
+    const docRef = await this.db.collection<CathPci50Model>(DB_CATHPCI).add(data);
+    const registryId = docRef.id;
 
     const registry = this.createRegistryModel(registryId, data);
     await this.db
@@ -100,8 +98,10 @@ export class CathPci50Service implements OnDestroy {
       );
   }
 
-  private createRegistryModel(regisId: string, data: CathPci50Model): RegistryModel {
-    const complete = Math.round((data.completion.summary.valid / data.completion.summary.total) * 100);
+  public createRegistryModel(regisId: string, data: CathPci50Model): RegistryModel {
+    const complete = Math.round(
+      (data.completion.summary.valid / data.completion.summary.total) * 100
+    );
 
     // tslint:disable: no-string-literal
     return {
@@ -115,9 +115,13 @@ export class CathPci50Service implements OnDestroy {
       baseDbId: data.detail.baseDbId,
       baseDb: data.detail.baseDb,
       addendum: data.detail.addendum,
+      procedureDateTime: data.sectionE['ProcedureStartDateTime']
+        ? data.sectionE['ProcedureStartDateTime']
+        : null,
       completion: complete,
       tags: this.createTags(data),
       submitted: this.createSubmitted(data),
+      createdAt: data.detail.createdAt,
       modifiedAt: data.detail.modifiedAt
     };
     // tslint:enable: no-string-literal

@@ -1,8 +1,19 @@
-import { Component, OnInit, ViewChild, Input, Output, EventEmitter, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  Input,
+  Output,
+  EventEmitter,
+  OnChanges,
+  SimpleChanges,
+  OnDestroy
+} from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource, MatOption } from '@angular/material';
 
 import { environment } from '../../../../environments/environment';
 import * as CryptoJS from 'crypto-js';
+import * as moment from 'moment';
 
 import { RegistryModel } from '../registry.model';
 import { tagPriorities } from '../acsx290/acsx290.tag';
@@ -18,7 +29,16 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./acsx290-list-control.component.scss']
 })
 export class ACSx290ListControlComponent implements OnInit, OnChanges, OnDestroy {
-  displayedColumns: string[] = ['registryId', 'hn', 'firstName', 'lastName', 'age', 'tags', 'completion'];
+  displayedColumns: string[] = [
+    'hospitalId',
+    'hn',
+    'firstName',
+    'lastName',
+    'age',
+    'procedureDateTime',
+    'tags',
+    'completion'
+  ];
   dataSource: MatTableDataSource<ACSx290ListControlModel>;
   controlData: ACSx290ListControlModel[];
   avHospitals: string[];
@@ -63,7 +83,9 @@ export class ACSx290ListControlComponent implements OnInit, OnChanges, OnDestroy
       filters: ['']
     });
     this.subscriptions.push(
-      this.searchForm.get('hospitals').valueChanges.subscribe(value => this.selectedHospitalChanged(value)),
+      this.searchForm
+        .get('hospitals')
+        .valueChanges.subscribe(value => this.selectedHospitalChanged(value)),
       this.searchForm.get('filters').valueChanges.subscribe(value => this.applyFilter())
     );
   }
@@ -103,18 +125,30 @@ export class ACSx290ListControlComponent implements OnInit, OnChanges, OnDestroy
     if (!data) {
       return undefined;
     }
-    return data.map(d => {
-      return {
-        ...d,
-        hn: this.decrypt(d.hn),
-        an: this.decrypt(d.an),
-        firstName: this.decrypt(d.firstName),
-        lastName: this.decrypt(d.lastName),
-        tags: d.tags.map(t => {
-          return { tag: t, priority: tagPriorities[t] ? tagPriorities[t] : 'low' };
-        })
-      } as ACSx290ListControlModel;
-    });
+    return data
+      .map(d => {
+        return {
+          ...d,
+          hn: this.decrypt(d.hn),
+          an: this.decrypt(d.an),
+          firstName: this.decrypt(d.firstName),
+          lastName: this.decrypt(d.lastName),
+          tags: d.tags.map(t => {
+            return { tag: t, priority: tagPriorities[t] ? tagPriorities[t] : 'low' };
+          })
+        } as ACSx290ListControlModel;
+      })
+      .sort((a, b) => {
+        if (a.hospitalId > b.hospitalId) {
+          return 1;
+        } else if (a.hospitalId < b.hospitalId) {
+          return -1;
+        } else {
+          const aDate = moment(a.procedureDateTime);
+          const bDate = moment(b.procedureDateTime);
+          return !bDate.isValid() || aDate.isSameOrAfter(bDate) ? 1 : -1;
+        }
+      });
   }
 
   toggleAllSelection() {
@@ -136,9 +170,6 @@ export class ACSx290ListControlComponent implements OnInit, OnChanges, OnDestroy
   }
 
   private filter(data: ACSx290ListControlModel, filter: string): boolean {
-    if (data.registryId.toLowerCase().includes(filter)) {
-      return true;
-    }
     if (data.hn.toLowerCase().includes(filter)) {
       return true;
     }
@@ -184,7 +215,9 @@ export class ACSx290ListControlComponent implements OnInit, OnChanges, OnDestroy
   }
 
   private decrypt(source: string): string {
-    return source ? CryptoJS.AES.decrypt(source, environment.appKey).toString(CryptoJS.enc.Utf8) : null;
+    return source
+      ? CryptoJS.AES.decrypt(source, environment.appKey).toString(CryptoJS.enc.Utf8)
+      : null;
   }
 
   createRegistry() {

@@ -2,7 +2,7 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import * as firebase from 'firebase/app';
 import { Subscription } from 'rxjs';
-import { map, take } from 'rxjs/operators';
+import { map, take, first } from 'rxjs/operators';
 import * as CryptoJS from 'crypto-js';
 
 import { environment } from '../../../../environments/environment';
@@ -88,46 +88,47 @@ export class ACSx290Service implements OnDestroy {
       .substr(-2);
     const prefix = 'ACX-' + hospitalId + '-' + year;
 
-    return this.db
-      .collection<ACSx290Model>(DB_ACSX, ref =>
-        ref
-          .orderBy('sectionA.registryId', 'desc')
-          .startAt(prefix + '\uf8ff')
-          .endAt(prefix)
-          .limit(1)
-      )
-      .valueChanges()
-      .pipe(take(1))
-      .toPromise()
-      .then(
-        data => {
-          if (data.length === 0) {
-            return prefix + '001';
-          } else {
-            // tslint:disable-next-line: no-string-literal
-            const lastId = data[0].sectionA['registryId'] as string;
-            let index = +lastId.split(prefix)[1];
-            const nextId = (++index).toString().padStart(3, '0');
+    return (
+      this.db
+        .collection<ACSx290Model>(DB_ACSX, ref =>
+          ref
+            .orderBy('sectionA.registryId', 'desc')
+            .startAt(prefix + '\uf8ff')
+            .endAt(prefix)
+            .limit(1)
+        )
+        .valueChanges()
+        // .pipe(take(1))
+        .pipe(first())
+        .toPromise()
+        .then(
+          data => {
+            if (data.length === 0) {
+              return prefix + '001';
+            } else {
+              // tslint:disable-next-line: no-string-literal
+              const lastId = data[0].sectionA['registryId'] as string;
+              let index = +lastId.split(prefix)[1];
+              const nextId = (++index).toString().padStart(3, '0');
 
-            return prefix + nextId; // first result of query [0]
+              return prefix + nextId; // first result of query [0]
+            }
+          },
+          error => {
+            return error;
           }
-        },
-        error => {
-          return error;
-        }
-      );
+        )
+    );
   }
 
   public async createForm(data: ACSx290Model): Promise<string> {
-    // tslint:disable: no-string-literal
-    const registryId = await this.generateRegistryId(data.sectionC['HospName']);
-    data.sectionA['registryId'] = registryId;
-    // tslint:enable: no-string-literal
+    // // tslint:disable: no-string-literal
+    // const registryId = await this.generateRegistryId(data.sectionC['HospName']);
+    // data.sectionA['registryId'] = registryId;
+    // // tslint:enable: no-string-literal
 
-    await this.db
-      .collection(DB_ACSX)
-      .doc(registryId)
-      .set(data);
+    const docRef = await this.db.collection<ACSx290Model>(DB_ACSX).add(data);
+    const registryId = docRef.id;
 
     const registry = this.createRegistryModel(registryId, data);
     await this.db
@@ -148,8 +149,10 @@ export class ACSx290Service implements OnDestroy {
     this.db.doc(DB_REGISTRY + `/${registryId}`).update(registry);
   }
 
-  private createRegistryModel(regisId: string, data: ACSx290Model): RegistryModel {
-    const complete = Math.round((data.completion.summary.valid / data.completion.summary.total) * 100);
+  public createRegistryModel(regisId: string, data: ACSx290Model): RegistryModel {
+    const complete = Math.round(
+      (data.completion.summary.valid / data.completion.summary.total) * 100
+    );
 
     // tslint:disable: no-string-literal
     return {
@@ -163,9 +166,11 @@ export class ACSx290Service implements OnDestroy {
       baseDbId: data.detail.baseDbId,
       baseDb: data.detail.baseDb,
       addendum: data.detail.addendum,
+      procedureDateTime: data.sectionI['OREntryDT'] ? data.sectionI['OREntryDT'] : null,
       completion: complete,
       tags: this.createTags(data),
       submitted: null,
+      createdAt: data.detail.createdAt,
       modifiedAt: data.detail.modifiedAt
     };
     // tslint:enable: no-string-literal
@@ -264,8 +269,13 @@ export class ACSx290Service implements OnDestroy {
             const id = doc.id;
             const data = doc.data();
 
-            // tslint:disable-next-line: no-string-literal
-            return { id, hn: this.decrypt(data.sectionA['HN']), an: this.decrypt(data.sectionA['AN']) };
+            // tslint:disable: no-string-literal
+            return {
+              id,
+              hn: this.decrypt(data.sectionA['HN']),
+              an: this.decrypt(data.sectionA['AN'])
+            };
+            // tslint:enable: no-string-literal
           })
         ),
         map(forms => forms.find(doc => doc.hn === decryptHN && doc.an === decryptAN)),

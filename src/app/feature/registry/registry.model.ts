@@ -21,8 +21,10 @@ export interface RegistryModel {
   baseDbId: string;
   baseDb: string;
   addendum: string;
+  procedureDateTime: string;
   completion: number;
   tags: string[];
   submitted: string[];
+  createdAt: any;
   modifiedAt: any;
 }

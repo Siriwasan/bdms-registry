@@ -13,6 +13,7 @@ import { MatPaginator, MatSort, MatTableDataSource, MatOption } from '@angular/m
 
 import { environment } from '../../../../environments/environment';
 import * as CryptoJS from 'crypto-js';
+import * as moment from 'moment';
 
 import { RegistryService } from '../registry.service';
 import { tagPriorities } from '../cath-pci50/cath-pci50.tag';
@@ -32,10 +33,11 @@ import { CathPciReport } from '../reports/cath-pci.report';
 })
 export class CathPci50ListControlComponent implements OnInit, OnChanges, OnDestroy {
   displayedColumns: string[] = [
-    'registryId',
+    'hospitalId',
     'hn',
     'name',
     'age',
+    'procedureDateTime',
     'tags',
     'submitted',
     'completion'
@@ -126,32 +128,44 @@ export class CathPci50ListControlComponent implements OnInit, OnChanges, OnDestr
     if (!data) {
       return undefined;
     }
-    return data.map(d => {
-      return {
-        ...d,
-        hn: this.decrypt(d.hn),
-        an: this.decrypt(d.an),
-        name: this.decrypt(d.firstName) + ' ' + this.decrypt(d.lastName),
-        tags: d.tags.map(t => {
-          return {
-            tag: t,
-            priority: tagPriorities[t] ? tagPriorities[t] : 'low'
-          };
-        }),
-        submitted: d.submitted.map(t => {
-          const s = t.split('-');
-          if (s[1] === 'DP') {
-            t = t + ';' + t.substring(0, t.length - 1) + ';' + s[0] + '-P';
-          }
-          return {
-            submit: t,
-            label: s[0],
-            endpoint: s.length > 1 ? s[1] : null,
-            priority: tagPriorities[s[0]] ? tagPriorities[s[0]] : 'low'
-          };
-        })
-      } as CathPci50ListControlModel;
-    });
+    return data
+      .map(d => {
+        return {
+          ...d,
+          hn: this.decrypt(d.hn),
+          an: this.decrypt(d.an),
+          name: this.decrypt(d.firstName) + ' ' + this.decrypt(d.lastName),
+          tags: d.tags.map(t => {
+            return {
+              tag: t,
+              priority: tagPriorities[t] ? tagPriorities[t] : 'low'
+            };
+          }),
+          submitted: d.submitted.map(t => {
+            const s = t.split('-');
+            if (s[1] === 'DP') {
+              t = t + ';' + t.substring(0, t.length - 1) + ';' + s[0] + '-P';
+            }
+            return {
+              submit: t,
+              label: s[0],
+              endpoint: s.length > 1 ? s[1] : null,
+              priority: tagPriorities[s[0]] ? tagPriorities[s[0]] : 'low'
+            };
+          })
+        } as CathPci50ListControlModel;
+      })
+      .sort((a, b) => {
+        if (a.hospitalId > b.hospitalId) {
+          return 1;
+        } else if (a.hospitalId < b.hospitalId) {
+          return -1;
+        } else {
+          const aDate = moment(a.procedureDateTime);
+          const bDate = moment(b.procedureDateTime);
+          return !bDate.isValid() || aDate.isSameOrAfter(bDate) ? 1 : -1;
+        }
+      });
   }
 
   toggleAllSelection() {
@@ -173,9 +187,6 @@ export class CathPci50ListControlComponent implements OnInit, OnChanges, OnDestr
   }
 
   private filter(data: CathPci50ListControlModel, filter: string): boolean {
-    if (filter !== 'pci' && data.registryId.toLowerCase().includes(filter)) {
-      return true;
-    }
     if (data.hn.toLowerCase().includes(filter)) {
       return true;
     }

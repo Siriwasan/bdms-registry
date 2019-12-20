@@ -1,4 +1,9 @@
-<div fxLayout="column" fxLayout.gt-xs="row" fxLayoutAlign="space-between center" fxLayoutGap.gt-xs="20px">
+<div
+  fxLayout="column"
+  fxLayout.gt-xs="row"
+  fxLayoutAlign="space-between center"
+  fxLayoutGap.gt-xs="20px"
+>
   <h1>STS Adut Cardiac Surgery Registry List</h1>
   <form [formGroup]="searchForm" fxLayoutGap="20px">
     <mat-form-field fxFlex="250px">
@@ -8,9 +13,12 @@
         </mat-select-trigger>
         <mat-option #allSelected (click)="toggleAllSelection()" value="All">All</mat-option>
         <mat-divider></mat-divider>
-        <mat-option *ngFor="let hosp of avHospitals" [value]="hosp" (click)="toggleSingleSelection()">{{
-          hosp
-        }}</mat-option>
+        <mat-option
+          *ngFor="let hosp of avHospitals"
+          [value]="hosp"
+          (click)="toggleSingleSelection()"
+          >{{ hosp }}</mat-option
+        >
       </mat-select>
       <mat-hint><i>Hospital</i></mat-hint>
     </mat-form-field>
@@ -32,10 +40,11 @@
 </div>
 
 <div class="mat-elevation-z8">
+  <!-- <mat-table [dataSource]="dataSource" matSort matSortActive="hn" matSortDirection="asc"> -->
   <mat-table [dataSource]="dataSource" matSort>
-    <ng-container matColumnDef="registryId">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Registry ID</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{ row.registryId }}</mat-cell>
+    <ng-container matColumnDef="hospitalId">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Hospital</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{ row.hospitalId }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="hn">
@@ -56,6 +65,11 @@
     <ng-container matColumnDef="age">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Age</mat-header-cell>
       <mat-cell *matCellDef="let row">{{ row.age }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="procedureDateTime">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Procedure</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{ row.procedureDateTime | isoDate }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="tags">
@@ -80,7 +94,11 @@
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row class="element-row" *matRowDef="let row; columns: displayedColumns" (click)="clickItem(row)"></mat-row>
+    <mat-row
+      class="element-row"
+      *matRowDef="let row; columns: displayedColumns"
+      (click)="clickItem(row)"
+    ></mat-row>
   </mat-table>
 
   <mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 25, 50, 100]"></mat-paginator>

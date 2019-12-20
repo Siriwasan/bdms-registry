@@ -1,18 +1,5 @@
 <div class="content">
   <mat-tab-group>
-    <mat-tab label="Export XLSX">
-      <h1>Sample Export xlsx</h1>
-      <button mat-raised-button color="primary" (click)="exportAsXLSX()">Export</button>
-    </mat-tab>
-
-    <mat-tab label="Rebuild Tags">
-      <h1>Rebuild Tags</h1>
-      <h2>1. ACSx290</h2>
-      <button mat-raised-button color="primary" (click)="rebuildACSx290Tags()">Rebuild</button>
-      <h2>2. CathPci50</h2>
-      <button mat-raised-button color="primary" (click)="rebuildCathPci50Tags()">Rebuild</button>
-    </mat-tab>
-
     <mat-tab label="Backup Database">
       <h1>Database</h1>
       <h2>1. Staff</h2>
@@ -32,8 +19,15 @@
 
         <div *ngIf="!productionServer" fxLayoutGap="20px">
           <button mat-raised-button color="warn" (click)="deleteRegistry()">Delete</button>
-          <button mat-raised-button color="accent" (click)="registryFileInput.click()">Import</button>
-          <input type="file" hidden (change)="importRegistry($event.target.files)" #registryFileInput />
+          <button mat-raised-button color="accent" (click)="registryFileInput.click()">
+            Import
+          </button>
+          <input
+            type="file"
+            hidden
+            (change)="importRegistry($event.target.files)"
+            #registryFileInput
+          />
         </div>
       </div>
 
@@ -63,7 +57,39 @@
       <br />
 
       <p style="font-style: italic">Before import you need to delete database manaully!</p>
-      <p style="font-style: italic; color: red">**ห้าม logout หลังจากลบฐานข้อมูลแล้วยังไม่ได้กู้คืนเด็ดขาด เพราะจะทำให้เข้าไม่ได้อีก**</p>
+      <p style="font-style: italic; color: red">
+        **ห้าม logout หลังจากลบฐานข้อมูลแล้วยังไม่ได้กู้คืนเด็ดขาด เพราะจะทำให้เข้าไม่ได้อีก**
+      </p>
+    </mat-tab>
+
+    <mat-tab label="Rebuild Tags">
+      <h1>Rebuild Tags</h1>
+      <h2>1. ACSx290</h2>
+      <button mat-raised-button color="primary" (click)="rebuildACSx290Tags()">Rebuild</button>
+      <h2>2. CathPci50</h2>
+      <button mat-raised-button color="primary" (click)="rebuildCathPci50Tags()">Rebuild</button>
+    </mat-tab>
+
+    <mat-tab label="Migrate data">
+      <button mat-raised-button color="warn" (click)="clearRegistry()">Clear Registry</button>
+      <h1>Migrate data</h1>
+      <h2>1. ACSx290</h2>
+      <button mat-raised-button color="primary" (click)="acsxFileInput.click()">Migrate</button>
+      <input type="file" hidden (change)="migrateACSx290($event.target.files)" #acsxFileInput />
+
+      <h2>2. CathPci50</h2>
+      <button mat-raised-button color="primary" (click)="cathPciFileInput.click()">Migrate</button>
+      <input
+        type="file"
+        hidden
+        (change)="migrateCathPci50($event.target.files)"
+        #cathPciFileInput
+      />
+    </mat-tab>
+
+    <mat-tab label="Export XLSX">
+      <h1>Sample Export xlsx</h1>
+      <button mat-raised-button color="primary" (click)="exportAsXLSX()">Export</button>
     </mat-tab>
 
     <mat-tab label="Prep ACS data from GLS">
@@ -75,7 +101,9 @@
 
       <div>
         Preview
-        <button mat-raised-button color="accent" (click)="download()" *ngIf="fileContent !== ''">Download</button>
+        <button mat-raised-button color="accent" (click)="download()" *ngIf="fileContent !== ''">
+          Download
+        </button>
         <br />
         <br />
         <div [innerHTML]="html | noSanitize" style="overflow-x:auto;"></div>

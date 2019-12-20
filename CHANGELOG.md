@@ -1,3 +1,10 @@
+# 1.5.0 (2019-12-19)
+
+### Features
+
+- **Registry:** remove running Id, change to random Id
+- **Registry form:** add procedure datetime, created datetime
+
 # 1.4.2 (2019-12-16)
 
 ### Features

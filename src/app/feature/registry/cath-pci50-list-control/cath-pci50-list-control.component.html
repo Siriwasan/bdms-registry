@@ -41,9 +41,9 @@
 
 <div class="mat-elevation-z8">
   <mat-table [dataSource]="dataSource" matSort>
-    <ng-container matColumnDef="registryId">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Registry ID</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{ row.registryId }}</mat-cell>
+    <ng-container matColumnDef="hospitalId">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Hospital</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{ row.hospitalId }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="hn">
@@ -59,6 +59,11 @@
     <ng-container matColumnDef="age">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Age</mat-header-cell>
       <mat-cell *matCellDef="let row">{{ row.age }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="procedureDateTime">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Procedure</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{ row.procedureDateTime | isoDate }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="tags">

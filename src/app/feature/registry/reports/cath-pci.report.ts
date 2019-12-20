@@ -3777,7 +3777,7 @@ export class CathPciReport {
                 ),
                 pdf.block(
                   pdf.tab(4),
-                  pdf.radio('No', data ? data.InThroIntraCoroMeasurementmbosis : null),
+                  pdf.radio('No', data ? data.IntraCoroMeasurement : null),
                   pdf.tab(),
                   pdf.radio('Yes', data ? data.IntraCoroMeasurement : null)
                 ),

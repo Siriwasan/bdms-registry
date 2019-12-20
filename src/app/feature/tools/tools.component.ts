@@ -209,4 +209,38 @@ export class ToolsComponent implements OnInit {
   deleteCathPci50() {
     this.toolsService.deleteCathPci50();
   }
+
+  async clearRegistry() {
+    await this.toolsService.deleteACSx290();
+    await this.toolsService.deleteCathPci50();
+    await this.toolsService.deleteRegistry();
+  }
+
+  migrateACSx290(fileList: FileList) {
+    const fileReader: FileReader = new FileReader();
+    this.file = fileList[0];
+
+    console.log('migrate ACSx290');
+    fileReader.readAsText(this.file);
+    fileReader.onloadend = async x => {
+      console.log('load ACSx290 completed');
+      const acsxs = JSON.parse(fileReader.result as string) as ACSx290Model[];
+      await this.toolsService.migrateACSx290s(acsxs);
+      console.log('migrate ACSx290 completed ' + acsxs.length + ' records');
+    };
+  }
+
+  migrateCathPci50(fileList: FileList) {
+    const fileReader: FileReader = new FileReader();
+    this.file = fileList[0];
+
+    console.log('migrate CathPci50');
+    fileReader.readAsText(this.file);
+    fileReader.onloadend = async x => {
+      console.log('load CathPci50 completed');
+      const cathPci = JSON.parse(fileReader.result as string) as CathPci50Model[];
+      await this.toolsService.migrateCathPci50s(cathPci);
+      console.log('migrate CathPci50 completed ' + cathPci.length + ' records');
+    };
+  }
 }

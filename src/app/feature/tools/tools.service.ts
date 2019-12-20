@@ -21,7 +21,8 @@ const DB_CATHPCI = 'CathPci50';
 const DB_REGISTRY = 'Registry';
 const DB_STAFF = 'Staff';
 
-const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+const EXCEL_TYPE =
+  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 const EXCEL_EXTENSION = '.xlsx';
 
 @Injectable()
@@ -47,9 +48,13 @@ export class ToolsService implements OnDestroy {
         map(data =>
           data.map(d => {
             d.createdAt =
-              d.createdAt !== null ? (d.createdAt as firebase.firestore.Timestamp).toDate().toISOString() : null;
+              d.createdAt !== null
+                ? (d.createdAt as firebase.firestore.Timestamp).toDate().toISOString()
+                : null;
             d.modifiedAt =
-              d.modifiedAt !== null ? (d.modifiedAt as firebase.firestore.Timestamp).toDate().toISOString() : null;
+              d.modifiedAt !== null
+                ? (d.modifiedAt as firebase.firestore.Timestamp).toDate().toISOString()
+                : null;
             return d;
           })
         ),
@@ -86,7 +91,9 @@ export class ToolsService implements OnDestroy {
         map(data =>
           data.map(d => {
             d.modifiedAt =
-              d.modifiedAt !== null ? (d.modifiedAt as firebase.firestore.Timestamp).toDate().toISOString() : null;
+              d.modifiedAt !== null
+                ? (d.modifiedAt as firebase.firestore.Timestamp).toDate().toISOString()
+                : null;
             return d;
           })
         ),
@@ -184,7 +191,6 @@ export class ToolsService implements OnDestroy {
           .set(d);
       });
   }
-
   loadCathPci50s(): Promise<CathPci50Model[]> {
     return this.db
       .collection<CathPci50Model>(DB_CATHPCI)
@@ -289,16 +295,22 @@ export class ToolsService implements OnDestroy {
     });
 
     const worksheet2data = [];
-    json.forEach(o => o.cities.forEach(i => worksheet2data.push({ uniqueId: index++, id: o.id, city: i })));
+    json.forEach(o =>
+      o.cities.forEach(i => worksheet2data.push({ uniqueId: index++, id: o.id, city: i }))
+    );
 
     index = 1;
     const worksheet3data = [];
-    json.forEach(o => o.movies.forEach(i => worksheet3data.push({ uniqueId: index++, id: o.id, movie: i })));
+    json.forEach(o =>
+      o.movies.forEach(i => worksheet3data.push({ uniqueId: index++, id: o.id, movie: i }))
+    );
 
     index = 1;
     const worksheet4data = [];
     json.forEach(o =>
-      o.cars.forEach(i => worksheet4data.push({ uniqueId: index++, id: o.id, brand: i.brand, color: i.color }))
+      o.cars.forEach(i =>
+        worksheet4data.push({ uniqueId: index++, id: o.id, brand: i.brand, color: i.color })
+      )
     );
 
     const worksheet5data = [];
@@ -325,7 +337,13 @@ export class ToolsService implements OnDestroy {
     const worksheet5: XLSX.WorkSheet = XLSX.utils.json_to_sheet(worksheet5data);
 
     const workbook: XLSX.WorkBook = {
-      Sheets: { data: worksheet, cities: worksheet2, movies: worksheet3, cars: worksheet4, date: worksheet5 },
+      Sheets: {
+        data: worksheet,
+        cities: worksheet2,
+        movies: worksheet3,
+        cars: worksheet4,
+        date: worksheet5
+      },
       SheetNames: ['data', 'cities', 'movies', 'cars', 'date']
     };
     const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
@@ -369,20 +387,20 @@ export class ToolsService implements OnDestroy {
       });
   }
 
-  deleteStaff() {
-    this.deleteDocumentInCollection(DB_STAFF);
+  async deleteStaff() {
+    await this.deleteDocumentInCollection(DB_STAFF);
   }
 
-  deleteRegistry() {
-    this.deleteDocumentInCollection(DB_REGISTRY);
+  async deleteRegistry() {
+    await this.deleteDocumentInCollection(DB_REGISTRY);
   }
 
-  deleteACSx290() {
-    this.deleteDocumentInCollection(DB_ACSX);
+  async deleteACSx290() {
+    await this.deleteDocumentInCollection(DB_ACSX);
   }
 
-  deleteCathPci50() {
-    this.deleteDocumentInCollection(DB_CATHPCI);
+  async deleteCathPci50() {
+    await this.deleteDocumentInCollection(DB_CATHPCI);
   }
 
   async deleteDocumentInCollection(collection: string) {
@@ -398,6 +416,54 @@ export class ToolsService implements OnDestroy {
     batch
       .commit()
       .then(res => this.snackBar.open(`Delete ${collection} successful`, null, { duration: 2000 }))
-      .catch(err => this.snackBar.open(`Delete ${collection} failed: ${err}`, null, { duration: 2000 }));
+      .catch(err =>
+        this.snackBar.open(`Delete ${collection} failed: ${err}`, null, { duration: 2000 })
+      );
+  }
+
+  async migrateACSx290s(data: ACSx290Model[]) {
+    console.log(data);
+
+    await data
+      .map(d => {
+        d.detail.createdAt = firebase.firestore.Timestamp.fromDate(new Date(d.detail.createdAt));
+        d.detail.modifiedAt = firebase.firestore.Timestamp.fromDate(new Date(d.detail.modifiedAt));
+        d.detail.deletedAt = null;
+        return d;
+      })
+      .forEach(async d => {
+        const docRef = await this.db.collection<ACSx290Model>(DB_ACSX).add(d);
+        const registryId = docRef.id;
+        this.db.doc(DB_ACSX + `/${registryId}`).update({ 'sectionA.registryId': registryId });
+
+        const registry = this.acsx290Service.createRegistryModel(registryId, d);
+        await this.db
+          .collection(DB_REGISTRY)
+          .doc(registryId)
+          .set(registry);
+      });
+  }
+
+  async migrateCathPci50s(data: CathPci50Model[]) {
+    console.log(data);
+
+    await data
+      .map(d => {
+        d.detail.createdAt = firebase.firestore.Timestamp.fromDate(new Date(d.detail.createdAt));
+        d.detail.modifiedAt = firebase.firestore.Timestamp.fromDate(new Date(d.detail.modifiedAt));
+        d.detail.deletedAt = null;
+        return d;
+      })
+      .forEach(async d => {
+        const docRef = await this.db.collection<CathPci50Model>(DB_CATHPCI).add(d);
+        const registryId = docRef.id;
+        this.db.doc(DB_CATHPCI + `/${registryId}`).update({ 'sectionA.registryId': registryId });
+
+        const registry = this.cathPci50Service.createRegistryModel(registryId, d);
+        await this.db
+          .collection(DB_REGISTRY)
+          .doc(registryId)
+          .set(registry);
+      });
   }
 }
