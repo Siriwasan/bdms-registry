@@ -127,7 +127,9 @@ export class AuthService {
 
     availableStaffForm.forEach(a => {
       inCaseList.push(
-        this.db.collection<ACSx290Model>(DB_ACSX, ref => ref.where(a, '==', staffId)).valueChanges()
+        this.db
+          .collection<ACSx290Model>(DB_ACSX, ref => ref.where(a, '==', staffId))
+          .valueChanges()
       );
     });
 
@@ -153,7 +155,9 @@ export class AuthService {
 
     availableStaffForm.forEach(a => {
       inCaseList.push(
-        this.db.collection<CathPci50Model>(DB_CATHPCI, ref => ref.where(a, '==', staffId)).valueChanges()
+        this.db
+          .collection<CathPci50Model>(DB_CATHPCI, ref => ref.where(a, '==', staffId))
+          .valueChanges()
       );
     });
 

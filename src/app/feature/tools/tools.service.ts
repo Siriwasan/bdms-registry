@@ -69,13 +69,13 @@ export class ToolsService implements OnDestroy {
         d.createdAt = firebase.firestore.Timestamp.fromDate(new Date(d.createdAt));
         d.modifiedAt = firebase.firestore.Timestamp.fromDate(new Date(d.modifiedAt));
 
-        // staff.staffId = this.migrateStaffId(staff.staffId);
-        // staff.createdBy = this.migrateStaffId(staff.createdBy);
-        // staff.modifiedBy = this.migrateStaffId(staff.modifiedBy);
+        // d.staffId = this.migrateStaffId(d.staffId);
+        // d.createdBy = this.migrateStaffId(d.createdBy);
+        // d.modifiedBy = this.migrateStaffId(d.modifiedBy);
         // d.secondHospIds = [];
         return d;
       })
-      .forEach(d => {
+      .forEach(async d => {
         this.db
           .collection<Staff>(DB_STAFF)
           .doc(d.staffId)
@@ -155,30 +155,26 @@ export class ToolsService implements OnDestroy {
       .map(d => {
         d.detail.createdAt = firebase.firestore.Timestamp.fromDate(new Date(d.detail.createdAt));
         d.detail.modifiedAt = firebase.firestore.Timestamp.fromDate(new Date(d.detail.modifiedAt));
-        d.detail.deletedAt = firebase.firestore.Timestamp.fromDate(new Date(d.detail.deletedAt));
+        // d.detail.deletedAt = firebase.firestore.Timestamp.fromDate(new Date(d.detail.deletedAt));
 
-        // acsx.detail.baseDbId = 'ACSx290';
-        // acsx.detail.createdBy = this.migrateStaffId(acsx.detail.createdBy);
-        // acsx.detail.modifiedBy = this.migrateStaffId(acsx.detail.modifiedBy);
-        // acsx.detail.deletedBy = this.migrateStaffId(acsx.detail.deletedBy);
         // // tslint:disable: no-string-literal
-        // acsx.sectionI['SurgeonId'] = this.migrateStaffId(acsx.sectionI['SurgeonId']);
-        // acsx.sectionI['Assist1Id'] = this.migrateStaffId(acsx.sectionI['Assist1Id']);
-        // acsx.sectionI['Assist2Id'] = this.migrateStaffId(acsx.sectionI['Assist2Id']);
-        // acsx.sectionI['Assist3Id'] = this.migrateStaffId(acsx.sectionI['Assist3Id']);
-        // acsx.sectionI['Assist4Id'] = this.migrateStaffId(acsx.sectionI['Assist4Id']);
-        // acsx.sectionI['Assist5Id'] = this.migrateStaffId(acsx.sectionI['Assist5Id']);
-        // acsx.sectionI['Assist6Id'] = this.migrateStaffId(acsx.sectionI['Assist6Id']);
-        // acsx.sectionI['Anesth1Id'] = this.migrateStaffId(acsx.sectionI['Anesth1Id']);
-        // acsx.sectionI['Anesth2Id'] = this.migrateStaffId(acsx.sectionI['Anesth2Id']);
-        // acsx.sectionI['Scrub1Id'] = this.migrateStaffId(acsx.sectionI['Scrub1Id']);
-        // acsx.sectionI['Scrub2Id'] = this.migrateStaffId(acsx.sectionI['Scrub2Id']);
-        // acsx.sectionI['Scrub3Id'] = this.migrateStaffId(acsx.sectionI['Scrub3Id']);
-        // acsx.sectionI['Scrub4Id'] = this.migrateStaffId(acsx.sectionI['Scrub4Id']);
-        // acsx.sectionI['CTT1Id'] = this.migrateStaffId(acsx.sectionI['CTT1Id']);
-        // acsx.sectionI['CTT2Id'] = this.migrateStaffId(acsx.sectionI['CTT2Id']);
-        // acsx.sectionI['CTT3Id'] = this.migrateStaffId(acsx.sectionI['CTT3Id']);
-        // acsx.sectionI['CTT4Id'] = this.migrateStaffId(acsx.sectionI['CTT4Id']);
+        // d.sectionI['SurgeonId'] = this.migrateStaffId(d.sectionI['SurgeonId']);
+        // d.sectionI['Assist1Id'] = this.migrateStaffId(d.sectionI['Assist1Id']);
+        // d.sectionI['Assist2Id'] = this.migrateStaffId(d.sectionI['Assist2Id']);
+        // d.sectionI['Assist3Id'] = this.migrateStaffId(d.sectionI['Assist3Id']);
+        // d.sectionI['Assist4Id'] = this.migrateStaffId(d.sectionI['Assist4Id']);
+        // d.sectionI['Assist5Id'] = this.migrateStaffId(d.sectionI['Assist5Id']);
+        // d.sectionI['Assist6Id'] = this.migrateStaffId(d.sectionI['Assist6Id']);
+        // d.sectionI['Anesth1Id'] = this.migrateStaffId(d.sectionI['Anesth1Id']);
+        // d.sectionI['Anesth2Id'] = this.migrateStaffId(d.sectionI['Anesth2Id']);
+        // d.sectionI['Scrub1Id'] = this.migrateStaffId(d.sectionI['Scrub1Id']);
+        // d.sectionI['Scrub2Id'] = this.migrateStaffId(d.sectionI['Scrub2Id']);
+        // d.sectionI['Scrub3Id'] = this.migrateStaffId(d.sectionI['Scrub3Id']);
+        // d.sectionI['Scrub4Id'] = this.migrateStaffId(d.sectionI['Scrub4Id']);
+        // d.sectionI['CTT1Id'] = this.migrateStaffId(d.sectionI['CTT1Id']);
+        // d.sectionI['CTT2Id'] = this.migrateStaffId(d.sectionI['CTT2Id']);
+        // d.sectionI['CTT3Id'] = this.migrateStaffId(d.sectionI['CTT3Id']);
+        // d.sectionI['CTT4Id'] = this.migrateStaffId(d.sectionI['CTT4Id']);
         // // tslint:enable: no-string-literal
 
         return d;
@@ -191,6 +187,7 @@ export class ToolsService implements OnDestroy {
           .set(d);
       });
   }
+
   loadCathPci50s(): Promise<CathPci50Model[]> {
     return this.db
       .collection<CathPci50Model>(DB_CATHPCI)
@@ -225,7 +222,16 @@ export class ToolsService implements OnDestroy {
       .map(d => {
         d.detail.createdAt = firebase.firestore.Timestamp.fromDate(new Date(d.detail.createdAt));
         d.detail.modifiedAt = firebase.firestore.Timestamp.fromDate(new Date(d.detail.modifiedAt));
-        d.detail.deletedAt = firebase.firestore.Timestamp.fromDate(new Date(d.detail.deletedAt));
+        // d.detail.deletedAt = firebase.firestore.Timestamp.fromDate(new Date(d.detail.deletedAt));
+
+        // // tslint:disable: no-string-literal
+        // d.sectionB['AdmProvider'] = this.migrateStaffId(d.sectionB['AdmProvider']);
+        // d.sectionB['AttProvider'] = this.migrateStaffId(d.sectionB['AttProvider']);
+        // d.sectionE['DCathProvider'] = this.migrateStaffId(d.sectionE['DCathProvider']);
+        // d.sectionE['PCIProvider'] = this.migrateStaffId(d.sectionE['PCIProvider']);
+        // d.sectionE['PCIProvider2'] = this.migrateStaffId(d.sectionE['PCIProvider2']);
+        // d.sectionL['DCProvider'] = this.migrateStaffId(d.sectionL['DCProvider']);
+        // // tslint:enable: no-string-literal
 
         return d;
       })
@@ -243,37 +249,115 @@ export class ToolsService implements OnDestroy {
       return null;
     }
 
-    if (oldId === 'admin') {
-      return '00001';
-    }
-
     const oldIdList = [
-      'CS009',
-      'CS001',
-      'CS002',
-      'CS003',
-      'CS004',
-      'CS005',
-      'CS006',
-      'CS007',
-      'CS008',
-      'CS010',
-      'CS011',
-      'CS012',
-      'AN001',
-      'AN002',
-      'RN001',
-      'RN002',
-      'RN003',
-      'RN004',
-      'RN005',
-      'CT001',
-      'CT002',
-      'CT003',
-      'CT004',
-      'CT005'
+      { new: '0vc6tBiWWw5XeW6agKd3', old: '00063' },
+      { new: '10l0ghBcIjOyr6Ro2jVl', old: '00064' },
+      { new: '1Y7f2yXdk8wLdM5Kq2Lf', old: '00052' },
+      { new: '35xMMEDw86fOdIN96GTw', old: '00092' },
+      { new: '3BOf2Hce7u0X7l4dsPu9', old: '00023' },
+      { new: '3jiz8Qf2URiYTofPX1zl', old: '00079' },
+      { new: '3kdSttzJG1yjUJkwMTI1', old: '00031' },
+      { new: '3udqTdnuBGuY8Nuy5WGX', old: '00103' },
+      { new: '4jge9myt9qveF5LRRrUW', old: '00053' },
+      { new: '4oLelEDPeasPUaQqU7RX', old: '00025' },
+      { new: '5DRdgH9GGlTMaERtPNAD', old: '00027' },
+      { new: '6g740BgB6pnpQ9A4Idbj', old: '00040' },
+      { new: '7YuSq797vdQkbzFyvlsS', old: '00059' },
+      { new: '8NvOqjzKC8XmZTZRvNCH', old: '00067' },
+      { new: '8mzEvSG6nkePMT7ahfNg', old: '00042' },
+      { new: '8nqWLVTGGH8ZWv0zCESu', old: '00001' },
+      { new: '8rdfHnf31aGVg2mtX4xY', old: '00039' },
+      { new: 'AJrCzd1PeNogVxfHRTgI', old: '00076' },
+      { new: 'BRO5PlXV0gUuAZCyXgW7', old: '00061' },
+      { new: 'BjX5vhibrURdCveEBt3q', old: '00094' },
+      { new: 'Bzwp2lffAb9OXP2j29Rr', old: '00038' },
+      { new: 'CB07OQ5KBEuahdxWVQSR', old: '00087' },
+      { new: 'E1rJN6jhoiZ3en6uTemU', old: '00041' },
+      { new: 'E3fFBs9g1g1XBXE8Ntqe', old: '00062' },
+      { new: 'G0l7ITY85R0gf4VmAk6f', old: '00098' },
+      { new: 'GymywppMg2AoicW28Fek', old: '00075' },
+      { new: 'InDDyi4yhbOeznJn6DiV', old: '00020' },
+      { new: 'J60w8MZikuoU6g71ks1D', old: '00035' },
+      { new: 'JnaglLEbvbLCy4Rg9vBU', old: '00003' },
+      { new: 'JncoCN3P8Sojuws6JPOv', old: '00047' },
+      { new: 'Jr3pyyCBGEa6UO3tK6mT', old: '00097' },
+      { new: 'L3OuTX6jP6wqNANa3mrk', old: '00033' },
+      { new: 'LUdXDiA98fStMtKNpBrt', old: '00082' },
+      { new: 'LaUhX96eok35p3RPxlTe', old: '00010' },
+      { new: 'MHdFXZ4Vxdm3jMz3KWz8', old: '00091' },
+      { new: 'NaNnEM1J6ZuKmXcjTVXU', old: '00101' },
+      { new: 'NzkddA9RZpXP9ZaPaQEH', old: '00074' },
+      { new: 'OgVzESM4ki1Zma5URgO1', old: '00011' },
+      { new: 'OzaXS7fSOQtAUglR5Hap', old: '00043' },
+      { new: 'Q3xm0F8myVFDp5J3mCqT', old: '00095' },
+      { new: 'QWmUBNRDNuiYzsHmpcLP', old: '00068' },
+      { new: 'R88ItfCAsXGCNGXnIZ0v', old: '00030' },
+      { new: 'ROpuKRor7Nlg70tAig2T', old: '00084' },
+      { new: 'UKDrg0VrgOtl2vmsrig5', old: '00013' },
+      { new: 'UVbfNYldTiPoaYAFTvso', old: '00022' },
+      { new: 'UsHOa5zHq9QYgXW4Ejze', old: '00018' },
+      { new: 'X6NkW4cl049Obu058bi2', old: '00060' },
+      { new: 'XPNuTMwpBrrFTNXydXXC', old: '00007' },
+      { new: 'XiP3hjxoHSSTwHZjM2IJ', old: '00058' },
+      { new: 'aWquL3UPteit3twyWWWa', old: '00100' },
+      { new: 'bUqEA68NE4vgwHppWfa1', old: '00056' },
+      { new: 'bV8VEw4fYzGio9ndW1u4', old: '00021' },
+      { new: 'bfJBmZTECojVxMObXT7s', old: '00049' },
+      { new: 'biKwuwcrPejffFIHhjGi', old: '00096' },
+      { new: 'c2UodDPttFkvhMdk0HlJ', old: '00069' },
+      { new: 'cR7VmJWrOtFX5CKnVvrM', old: '00004' },
+      { new: 'chOzT28w940mkTkgzIpW', old: '00086' },
+      { new: 'diNcVgoPrVxs4eg329g6', old: '00015' },
+      { new: 'drahZApYKAeqOKv1c33e', old: '00006' },
+      { new: 'dtdYfrflNa7ihX3C0dx2', old: '00054' },
+      { new: 'e8EQiF6uDW3aHTwFZIlL', old: '00089' },
+      { new: 'eWvC6E0FxrMhki69c6pd', old: '00077' },
+      { new: 'f9xnVr8r3tkK5OytQpWe', old: '00036' },
+      { new: 'fL2FbZ8NdgxtG82T0R0C', old: '00104' },
+      { new: 'g8BlaVczu5C5hCVmdiY5', old: '00037' },
+      { new: 'gJrPwr6mjGF6x8k3Rlg0', old: '00055' },
+      { new: 'hbIRuJwMgVvGpCWUJkwc', old: '00085' },
+      { new: 'hryRFbHamThQ6hnsFSie', old: '00002' },
+      { new: 'hwFqVaiQZ211ueCsZIWt', old: '00070' },
+      { new: 'iGkgQWpPiymLrxqxouSt', old: '00078' },
+      { new: 'iaYdtUeQARhYep28tgH4', old: '00066' },
+      { new: 'inMNXO24SZXtzC4IAZKJ', old: '00057' },
+      { new: 'jmdFKics3fquBENM4wW4', old: '00102' },
+      { new: 'jyGoRgJQe7mWRu0xRcII', old: '00019' },
+      { new: 'kCfcjZiNmn0KmB32lKVf', old: '00088' },
+      { new: 'kQq8lS6R3Rye7uc1SYLr', old: '00048' },
+      { new: 'kuC2Df4q59l98n5w9UWc', old: '00016' },
+      { new: 'l2pf3OuH5CZtM0iEb8nT', old: '00014' },
+      { new: 'lRP2i0qKBYoSosPHU0ho', old: '00080' },
+      { new: 'mUh8B5QpZXuJWUeYAGAX', old: '00044' },
+      { new: 'n0VDK8cTWRSSqwlcZjmI', old: '00045' },
+      { new: 'pXgynvoLeaNkWfqE18Hh', old: '00065' },
+      { new: 'qfxs4JjFj05DSmQ0dpdy', old: '00034' },
+      { new: 'stC6iXyYVraCEze2XoBB', old: '00050' },
+      { new: 'tCMTod5KPQdL446DOCLV', old: '00081' },
+      { new: 'tYvKpBvsYJ7wvfqQFRgX', old: '00051' },
+      { new: 'twGwZP4YQANhErtQ5PXF', old: '00008' },
+      { new: 'uXfwzHuuG0rRdTgHdTl7', old: '00073' },
+      { new: 'uhTI5hTLsDuc8mwwPErV', old: '00090' },
+      { new: 'uzIhYkUrHDw6bsUorDfX', old: '00099' },
+      { new: 'uzznUoT3gPuWxPe4vA0V', old: '00026' },
+      { new: 'v8uRnMHIcCyDrPTZiFUc', old: '00105' },
+      { new: 'vEWLnTO1zgeawMsbBUK0', old: '00046' },
+      { new: 'vPlZ5AoXyBF8sh5JPGUS', old: '00072' },
+      { new: 'wR4DTCpSm4cDE8obLuLP', old: '00028' },
+      { new: 'wTTT5kF4cJjUgfsRQgoy', old: '00083' },
+      { new: 'wcXekD1QSxFStUyOeArg', old: '00017' },
+      { new: 'x9AF1d5XVCoGhjJSFiCe', old: '00029' },
+      { new: 'xJBZh3apXez8l6gGph5t', old: '00005' },
+      { new: 'yV5qfoqqOTnovEP1dFCd', old: '00071' },
+      { new: 'ycBngtHHLObLaQ0ptEXJ', old: '00093' },
+      { new: 'zItRtTdl41Mj3APSKHrM', old: '00032' },
+      { new: 'zRUhiFPOJ35npB1JaUxH', old: '00012' },
+      { new: 'ze5ioFlKksgKqK6dV7s0', old: '00009' },
+      { new: 'znmCuZE2MQ7cw12yGiNW', old: '00024' }
     ];
-    return (oldIdList.indexOf(oldId) + 1).toString().padStart(5, '0');
+    const mapping = oldIdList.find(a => a.old === oldId);
+    return mapping ? mapping.new : null;
   }
 
   public exportAsExcelFile(json: SampleModel[], excelFileName: string): void {
@@ -466,4 +550,20 @@ export class ToolsService implements OnDestroy {
           .set(registry);
       });
   }
+
+  // chekcStaffs() {
+  //   return this.db
+  //     .collection<Staff>(DB_STAFF)
+  //     .valueChanges()
+  //     .pipe(
+  //       map(data =>
+  //         data.map(d => {
+  //           const ids = d.staffId.split('-');
+  //           return { new: ids[0], old: ids[1] };
+  //         })
+  //       ),
+  //       take(1)
+  //     )
+  //     .toPromise();
+  // }
 }

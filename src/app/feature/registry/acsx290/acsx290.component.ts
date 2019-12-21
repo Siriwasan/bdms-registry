@@ -1,4 +1,12 @@
-import { Component, OnInit, ChangeDetectorRef, ElementRef, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectorRef,
+  ElementRef,
+  ViewChild,
+  AfterViewInit,
+  OnDestroy
+} from '@angular/core';
 import { FormGroup, FormGroupDirective, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
@@ -41,7 +49,8 @@ import * as UI from '../../../shared/ui.actions';
   styleUrls: ['./acsx290.component.scss'],
   providers: [ACSx290Service]
 })
-export class ACSx290Component extends RegistryFormComponent implements OnInit, AfterViewInit, OnDestroy {
+export class ACSx290Component extends RegistryFormComponent
+  implements OnInit, AfterViewInit, OnDestroy {
   user$: Observable<User>;
   user: User;
   private userSubscription: Subscription;
@@ -295,7 +304,12 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
       ['S', this.formGroupS, this.formDirectiveS, conditions.sectionS]
     ];
 
-    this.registryFormService.initializeForm(this.sectionMembers, conditions, validations, this.visibles);
+    this.registryFormService.initializeForm(
+      this.sectionMembers,
+      conditions,
+      validations,
+      this.visibles
+    );
     this.registryFormService.setDataDict(require('raw-loader!./acsx290.dict.md'));
   }
 
@@ -328,7 +342,8 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
     }
 
     const filterStaff = (staff: Staff, positions: string[]) =>
-      positions.includes(staff.position) && (staff.primaryHospId === hospId || staff.secondHospIds.includes(hospId));
+      positions.includes(staff.position) &&
+      (staff.primaryHospId === hospId || staff.secondHospIds.includes(hospId));
 
     const staffToChoice = (staff: Staff) => {
       return {
@@ -341,9 +356,13 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
     this.cvt = this.staffs
       .filter(staff => filterStaff(staff, ['Cardiothoracic Surgeon', 'Interventionist']))
       .map(staffToChoice);
-    this.anesth = this.staffs.filter(staff => filterStaff(staff, ['Anesthesiologist'])).map(staffToChoice);
+    this.anesth = this.staffs
+      .filter(staff => filterStaff(staff, ['Anesthesiologist']))
+      .map(staffToChoice);
     this.sn = this.staffs.filter(staff => filterStaff(staff, ['Scrub Nurse'])).map(staffToChoice);
-    this.ctt = this.staffs.filter(staff => filterStaff(staff, ['Cardiothoracic Technician'])).map(staffToChoice);
+    this.ctt = this.staffs
+      .filter(staff => filterStaff(staff, ['Cardiothoracic Technician']))
+      .map(staffToChoice);
   }
 
   private subscribeOpCABChanged(): Subscription {
@@ -565,6 +584,7 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
       }
 
       this.registryId = await this.acsx290Service.createForm(data);
+      console.log(this.registryId);
       this.mode = 'edit';
       this.formGroupA.get('registryId').setValue(this.registryId);
       if (!exit) {
@@ -846,7 +866,9 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
       return `(0%)`;
     }
 
-    const completion = Math.round((this.completion.summary.valid / this.completion.summary.total) * 100);
+    const completion = Math.round(
+      (this.completion.summary.valid / this.completion.summary.total) * 100
+    );
     return `(${completion}%)`;
   }
 
@@ -951,7 +973,14 @@ export class ACSx290Component extends RegistryFormComponent implements OnInit, A
   }
 
   setToDefaultPostopSSI(formGroup: FormGroup, val: any) {
-    const controls = ['CSternalSupInf', 'DeepSternInf', 'CIThor', 'ConduitHarv', 'CanSite', 'WoundInter'];
+    const controls = [
+      'CSternalSupInf',
+      'DeepSternInf',
+      'CIThor',
+      'ConduitHarv',
+      'CanSite',
+      'WoundInter'
+    ];
     this.setToDefault(formGroup, controls, val);
   }
 

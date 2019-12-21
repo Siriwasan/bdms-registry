@@ -22,11 +22,6 @@
 
   <div class="mat-elevation-z8" style="height: 350px; overflow: auto; margin-right: 15px; margin-left: 15px">
     <mat-table [dataSource]="dataSource" matSort matSortActive="staffId" matSortDirection="asc">
-      <ng-container matColumnDef="staffId">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Staff ID</mat-header-cell>
-        <mat-cell *matCellDef="let row">{{ row.staffId }}</mat-cell>
-      </ng-container>
-
       <ng-container matColumnDef="title">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Title</mat-header-cell>
         <mat-cell *matCellDef="let row">{{ row.title }}</mat-cell>
@@ -45,6 +40,11 @@
       <ng-container matColumnDef="position">
         <mat-header-cell *matHeaderCellDef mat-sort-header fxHide.xs>Position</mat-header-cell>
         <mat-cell *matCellDef="let row" fxHide.xs>{{ row.position }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="uniqueId">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Med/Staff ID</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.uniqueId }}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="primaryHospId">

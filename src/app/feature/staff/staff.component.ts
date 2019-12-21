@@ -21,11 +21,11 @@ import { AuthService } from 'src/app/core/auth/auth.service';
 })
 export class StaffComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = [
-    'staffId',
     'title',
     'firstName',
     'lastName',
     'position',
+    'uniqueId',
     'primaryHospId',
     'status'
   ];

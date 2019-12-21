@@ -129,6 +129,7 @@ export class ACSx290Service implements OnDestroy {
 
     const docRef = await this.db.collection<ACSx290Model>(DB_ACSX).add(data);
     const registryId = docRef.id;
+    this.db.doc(DB_ACSX + `/${registryId}`).update({ 'sectionA.registryId': registryId });
 
     const registry = this.createRegistryModel(registryId, data);
     await this.db
