@@ -481,8 +481,6 @@ export class CathPci50Component extends RegistryFormComponent
       const data = await this.cathPci50Service.getForm(registryId);
       this.store.dispatch(new UI.StopLoading());
 
-      console.log(data);
-
       if (data) {
         this.cathPci50Service.decryptSenitiveData(data);
         this.setFormValue(data);
@@ -2183,6 +2181,9 @@ export class CathPci50Component extends RegistryFormComponent
 
   async printPDF() {
     const data = this.archiveForm();
+    // tslint:disable-next-line: no-string-literal
+    const fileName = `${data.sectionB['HospName']}-${data.sectionA['HN']}-${data.sectionA['AN']}`;
+
     // tslint:disable: no-string-literal
     data.sectionB['AdmProvider'] = this.getProvider(data.sectionB['AdmProvider']);
     data.sectionB['AttProvider'] = this.getProvider(data.sectionB['AttProvider']);
@@ -2234,10 +2235,7 @@ export class CathPci50Component extends RegistryFormComponent
           moment().toISOString(true),
           password
         );
-        this.pdfReportService.downloadPdf(
-          await report.getDocDefinition(),
-          data.sectionA[`registryId`]
-        );
+        this.pdfReportService.downloadPdf(await report.getDocDefinition(), fileName);
       });
   }
 
