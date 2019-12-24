@@ -1,3 +1,9 @@
+# 1.5.1 (2019-12-24)
+
+### Features
+
+- **Registry:** search from database random Id
+
 # 1.5.0 (2019-12-19)
 
 ### Features

@@ -3,10 +3,21 @@
 
   <br />
 
-  <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutAlign="space-between center" fxLayoutGap.gt-xs="20px">
+  <div
+    fxLayout="column"
+    fxLayout.gt-xs="row"
+    fxLayoutAlign="space-between center"
+    fxLayoutGap.gt-xs="20px"
+  >
     <h1>Staff List</h1>
     <mat-form-field floatLabel="never" style="width: 200px;">
-      <input matInput type="text" placeholder="Filter" (keyup)="applyFilter($event.target.value)" #input />
+      <input
+        matInput
+        type="text"
+        placeholder="Filter"
+        (keyup)="applyFilter($event.target.value)"
+        #input
+      />
       <button
         mat-button
         *ngIf="input.value.length > 0"
@@ -20,8 +31,11 @@
     </mat-form-field>
   </div>
 
-  <div class="mat-elevation-z8" style="height: 350px; overflow: auto; margin-right: 15px; margin-left: 15px">
-    <mat-table [dataSource]="dataSource" matSort matSortActive="staffId" matSortDirection="asc">
+  <div
+    class="mat-elevation-z8"
+    style="height: 350px; overflow: auto; margin-right: 15px; margin-left: 15px"
+  >
+    <mat-table [dataSource]="dataSource" matSort>
       <ng-container matColumnDef="title">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Title</mat-header-cell>
         <mat-cell *matCellDef="let row">{{ row.title }}</mat-cell>
@@ -58,7 +72,11 @@
       </ng-container>
 
       <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
-      <mat-row class="element-row" *matRowDef="let row; columns: displayedColumns" (click)="click(row)"></mat-row>
+      <mat-row
+        class="element-row"
+        *matRowDef="let row; columns: displayedColumns"
+        (click)="click(row)"
+      ></mat-row>
     </mat-table>
 
     <!-- <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator> -->
@@ -67,7 +85,30 @@
   <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="20px">
     <button mat-raised-button class="button" color="primary" (click)="create()">Create</button>
   </div>
-  <br />
-  <br />
-  <br />
 </div>
+
+<br />
+<br />
+<br />
+<br />
+<br />
+
+<div class="databaseId" *ngIf="['Director', 'Administrator'].includes(user.staff.role)">
+  <form>
+    <mat-form-field style="width: 220px;">
+      <input matInput placeholder="Staff Id" #databaseId />
+    </mat-form-field>
+    <button
+      mat-raised-button
+      style="margin-left: 15px; margin-right: 15px;"
+      (click)="searchDatabaseId(databaseId.value)"
+    >
+      Search
+    </button>
+    {{ dbIdResult }}
+  </form>
+</div>
+
+<br />
+<br />
+<br />

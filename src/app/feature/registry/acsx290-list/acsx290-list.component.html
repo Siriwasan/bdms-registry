@@ -10,3 +10,25 @@
 <br />
 <br />
 <br />
+<br />
+<br />
+
+<div class="databaseId" *ngIf="['Director', 'Administrator'].includes(user.staff.role)">
+  <form>
+    <mat-form-field style="width: 220px;">
+      <input matInput placeholder="Registry Id" #databaseId />
+    </mat-form-field>
+    <button
+      mat-raised-button
+      style="margin-left: 15px; margin-right: 15px;"
+      (click)="searchDatabaseId(databaseId.value)"
+    >
+      Search
+    </button>
+    {{ dbIdResult }}
+  </form>
+</div>
+
+<br />
+<br />
+<br />

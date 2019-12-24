@@ -9,6 +9,9 @@ import * as UI from '../../../shared/ui.actions';
 
 import { RegistryService } from '../registry.service';
 
+import { environment } from '../../../../environments/environment';
+import * as CryptoJS from 'crypto-js';
+
 import { User } from '../../../../app/core/auth/user.model';
 import * as Auth from '../../../core/auth/auth.data';
 import { AuthService } from 'src/app/core/auth/auth.service';
@@ -27,6 +30,7 @@ export class CathPci50ListComponent implements OnInit, OnDestroy {
 
   avHospitals: Auth.Hospital[];
   cathPci50Data: RegistryModel[];
+  dbIdResult: string;
 
   barClicked = false;
   filterString: string = null;
@@ -80,5 +84,21 @@ export class CathPci50ListComponent implements OnInit, OnDestroy {
     const data = await this.registryService.loadCathPci50sForExport(this.avHospitals);
     this.registryService.exportCathPci50AsExcelFile(data, 'cathpci');
     console.log('export cathpci ' + data.length + ' records');
+  }
+
+  searchDatabaseId(id: string) {
+    const registry = this.cathPci50Data.find(d => d.registryId === id.trim());
+
+    this.dbIdResult = registry
+      ? `HN: ${this.decrypt(registry.hn)}  AN: ${this.decrypt(registry.an)}  Name: ${this.decrypt(
+          registry.firstName
+        )} ${this.decrypt(registry.lastName)}`
+      : 'Not found!';
+  }
+
+  private decrypt(source: string): string {
+    return source
+      ? CryptoJS.AES.decrypt(source, environment.appKey).toString(CryptoJS.enc.Utf8)
+      : null;
   }
 }

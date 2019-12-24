@@ -36,7 +36,9 @@ export class StaffComponent implements OnInit, OnDestroy {
   @ViewChild('input', { static: true }) filterInput: ElementRef;
 
   selectedStaff: Staff;
+  staffs: Staff[];
   staffListSubscription: Subscription;
+  dbIdResult: string;
 
   user$: Observable<User>;
   user: User;
@@ -68,7 +70,16 @@ export class StaffComponent implements OnInit, OnDestroy {
     this.staffListSubscription = this.staffService
       .getStaffsByHospitals(this.avHospitals)
       .subscribe(data => {
-        this.dataSource = new MatTableDataSource(data);
+        this.staffs = data.sort((a, b) => {
+          if (a.primaryHospId > b.primaryHospId) {
+            return 1;
+          } else if (a.primaryHospId < b.primaryHospId) {
+            return -1;
+          } else {
+            return a.position > b.position ? 1 : -1;
+          }
+        });
+        this.dataSource = new MatTableDataSource(this.staffs);
         // this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
 
@@ -105,5 +116,13 @@ export class StaffComponent implements OnInit, OnDestroy {
     //   this.selectedStaff = null;
     // }
     this.filterInput.nativeElement.value = null;
+  }
+
+  searchDatabaseId(id: string) {
+    const staff = this.staffs.find(d => d.staffId === id.trim());
+
+    this.dbIdResult = staff
+      ? `Name: ${staff.title} ${staff.firstName} ${staff.lastName} Position: ${staff.position} Hospital: ${staff.primaryHospId}`
+      : 'Not found!';
   }
 }
