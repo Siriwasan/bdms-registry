@@ -344,27 +344,28 @@ export class CathPciReport {
                       pdf.tab(),
                       pdf.radio('Other', this.data ? this.data.sectionB.PayorPrim : null)
                     ),
-                    pdf.block(
-                      pdf.radio(
-                        'Private Health Insurance',
-                        this.data ? this.data.sectionB.PayorPrim : null
-                      ),
-                      pdf.tab(),
-                      pdf.radio(
-                        'SSO (Social Security Office)',
-                        this.data ? this.data.sectionB.PayorPrim : null
-                      )
-                    ),
-                    pdf.radio(
-                      'Charitable care/Foundation Funding',
-                      this.data ? this.data.sectionB.PayorPrim : null
-                    ),
                     pdf.radio(
                       `Comptroller General's Department`,
                       this.data ? this.data.sectionB.PayorPrim : null
                     ),
                     pdf.radio(
                       'NHSO (National Health Security Office)',
+                      this.data ? this.data.sectionB.PayorPrim : null
+                    ),
+                    pdf.radio(
+                      `SSO (Social Security Office)`,
+                      this.data ? this.data.sectionB.PayorPrim : null
+                    ),
+                    pdf.radio(
+                      `UCEP (Universal Coverage Emergency Patient)`,
+                      this.data ? this.data.sectionB.PayorPrim : null
+                    ),
+                    pdf.radio(
+                      `Private Health Insurance`,
+                      this.data ? this.data.sectionB.PayorPrim : null
+                    ),
+                    pdf.radio(
+                      'Charitable care/Foundation Funding',
                       this.data ? this.data.sectionB.PayorPrim : null
                     )
                   ),
@@ -379,27 +380,28 @@ export class CathPciReport {
                       pdf.tab(),
                       pdf.radio('Other', this.data ? this.data.sectionB.PayorSecond : null)
                     ),
-                    pdf.block(
-                      pdf.radio(
-                        'Private Health Insurance',
-                        this.data ? this.data.sectionB.PayorSecond : null
-                      ),
-                      pdf.tab(),
-                      pdf.radio(
-                        'SSO (Social Security Office)',
-                        this.data ? this.data.sectionB.PayorSecond : null
-                      )
-                    ),
-                    pdf.radio(
-                      'Charitable care/Foundation Funding',
-                      this.data ? this.data.sectionB.PayorSecond : null
-                    ),
                     pdf.radio(
                       `Comptroller General's Department`,
                       this.data ? this.data.sectionB.PayorSecond : null
                     ),
                     pdf.radio(
                       'NHSO (National Health Security Office)',
+                      this.data ? this.data.sectionB.PayorSecond : null
+                    ),
+                    pdf.radio(
+                      `SSO (Social Security Office)`,
+                      this.data ? this.data.sectionB.PayorSecond : null
+                    ),
+                    pdf.radio(
+                      `UCEP (Universal Coverage Emergency Patient)`,
+                      this.data ? this.data.sectionB.PayorSecond : null
+                    ),
+                    pdf.radio(
+                      `Private Health Insurance`,
+                      this.data ? this.data.sectionB.PayorSecond : null
+                    ),
+                    pdf.radio(
+                      'Charitable care/Foundation Funding',
                       this.data ? this.data.sectionB.PayorSecond : null
                     )
                   )
