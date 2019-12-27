@@ -27,17 +27,20 @@ export class StaffService implements OnDestroy {
 
   public async createStaff(staff: Staff) {
     console.log('create staff');
-    const id = await this.generateStaffId();
-    staff.staffId = id;
+    // const id = await this.generateStaffId();
+    // staff.staffId = id;
 
     if (staff.password) {
       staff.password = this.passwordHashing(staff.password);
     }
 
-    await this.db
-      .collection(DB_STAFF)
-      .doc(id)
-      .set(staff);
+    // await this.db
+    //   .collection(DB_STAFF)
+    //   .doc(id)
+    //   .set(staff);
+    const docRef = await this.db.collection(DB_STAFF).add(staff);
+    const stfId = docRef.id;
+    this.db.doc(DB_STAFF + `/${stfId}`).update({ staffId: stfId });
   }
 
   public async updateStaff(staff: Staff) {
