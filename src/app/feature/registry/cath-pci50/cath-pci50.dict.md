@@ -1520,3 +1520,9 @@ A percutaneous coronary intervention (PCI) is the placement of an angioplasty gu
 |Peripheral Angiogram|Angiogram of any anatomical structure or system in the body with exception of the heart.|
 |Procedure Type Not Listed|The procedure performed is not available for selction within the registry.|
 |Cardioversion|The conversion of one cardiac rhythm or electrical pattern to another, almost always from an abnormal to a normal one, by pharmacologic means using medications or by electrical cardioversion using a defibrillator.|
+
+# ProcSystolicBP
+
+## Systolic Blood Pressure
+
+The first systolic blood pressure obtained in the cath lab procedure room.

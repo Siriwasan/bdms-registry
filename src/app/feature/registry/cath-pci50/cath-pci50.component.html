@@ -809,7 +809,7 @@
                 <reg-select controlName="PreProcTnILab" placeholder="hsTroponin I Lab" [formGroup]="formGroupF"
                   [choices]="['Drawn', 'Not Drawn']" fxFlex></reg-select>
 
-                <reg-input *ngIf="visibles['PreProcTnI']" controlName="PreProcTnI" placeholder="hsTroponin I (ng/mL)" [formGroup]="formGroupF" type="number" fxFlex>
+                <reg-input *ngIf="visibles['PreProcTnI']" controlName="PreProcTnI" placeholder="hsTroponin I (ng/L)" [formGroup]="formGroupF" type="number" fxFlex>
                 </reg-input>
               </div>
 
@@ -817,7 +817,7 @@
                 <reg-select controlName="PreProcTnTLab" placeholder="hsTroponin T Lab" [formGroup]="formGroupF"
                   [choices]="['Drawn', 'Not Drawn']" fxFlex></reg-select>
 
-                <reg-input *ngIf="visibles['PreProcTnT']" controlName="PreProcTnT" placeholder="hsTroponin T (ng/mL)" [formGroup]="formGroupF" type="number" fxFlex>
+                <reg-input *ngIf="visibles['PreProcTnT']" controlName="PreProcTnT" placeholder="hsTroponin T (ng/L)" [formGroup]="formGroupF" type="number" fxFlex>
                 </reg-input>
               </div>
 
@@ -871,7 +871,7 @@
                 <reg-select controlName="PostProcTnILab" placeholder="hsTroponin I Lab" [formGroup]="formGroupF"
                   [choices]="['Drawn', 'Not Drawn']" fxFlex></reg-select>
 
-                <reg-input *ngIf="visibles['PostProcTnI']" controlName="PostProcTnI" placeholder="hsTroponin I (ng/mL)" [formGroup]="formGroupF" type="number" fxFlex>
+                <reg-input *ngIf="visibles['PostProcTnI']" controlName="PostProcTnI" placeholder="hsTroponin I (ng/L)" [formGroup]="formGroupF" type="number" fxFlex>
                 </reg-input>
               </div>
 
@@ -879,7 +879,7 @@
                 <reg-select controlName="PostProcTnTLab" placeholder="hsTroponin T Lab" [formGroup]="formGroupF"
                   [choices]="['Drawn', 'Not Drawn']" fxFlex></reg-select>
 
-                <reg-input *ngIf="visibles['PostProcTnT']" controlName="PostProcTnT" placeholder="hsTroponin T (ng/mL)" [formGroup]="formGroupF" type="number" fxFlex>
+                <reg-input *ngIf="visibles['PostProcTnT']" controlName="PostProcTnT" placeholder="hsTroponin T (ng/L)" [formGroup]="formGroupF" type="number" fxFlex>
                 </reg-input>
               </div>
 
@@ -1846,18 +1846,18 @@
                       ]" limit="2" fxFlex="66"></reg-select-multiple>
                   </div>
 
-                  <reg-select *ngIf="visibles['PciLesions'][i]['AbruptVesselClosure']" controlName="AbruptVesselClosure" placeholder="Abrupt Vessel Closure Correction" [formGroup]="item" [choices]="[
+                  <reg-select class="subitem-horz" *ngIf="visibles['PciLesions'][i]['AbruptVesselClosure']" controlName="AbruptVesselClosure" placeholder="Abrupt Vessel Closure Correction" [formGroup]="item" [choices]="[
                       'Re-established flow',
                       'Observation'
                     ]"></reg-select>
 
-                  <reg-select *ngIf="visibles['PciLesions'][i]['CoronaryArteryDissection']" controlName="CoronaryArteryDissection" placeholder="Coronary Artery Dissection Correction" [formGroup]="item" [choices]="[
+                  <reg-select class="subitem-horz" *ngIf="visibles['PciLesions'][i]['CoronaryArteryDissection']" controlName="CoronaryArteryDissection" placeholder="Coronary Artery Dissection Correction" [formGroup]="item" [choices]="[
                       'Stenting',
                       'Prolong ballon inflation',
                       'Observation'
                     ]"></reg-select>
 
-                  <reg-select *ngIf="visibles['PciLesions'][i]['CoronaryArteryPerforation']" controlName="CoronaryArteryPerforation" placeholder="Coronary Artery Perforation Correction" [formGroup]="item" [choices]="[
+                  <reg-select class="subitem-horz" *ngIf="visibles['PciLesions'][i]['CoronaryArteryPerforation']" controlName="CoronaryArteryPerforation" placeholder="Coronary Artery Perforation Correction" [formGroup]="item" [choices]="[
                       'Stent grafting',
                       'Prolong ballon inflation',
                       'Distal embolization (Coil)',
@@ -1866,19 +1866,19 @@
                       'Observation'
                     ]"></reg-select>
 
-                  <reg-select *ngIf="visibles['PciLesions'][i]['LongitudinalStentDeformation']" controlName="LongitudinalStentDeformation" placeholder="Longitudinal Stent Deformation Correction" [formGroup]="item" [choices]="[
+                  <reg-select class="subitem-horz" *ngIf="visibles['PciLesions'][i]['LongitudinalStentDeformation']" controlName="LongitudinalStentDeformation" placeholder="Longitudinal Stent Deformation Correction" [formGroup]="item" [choices]="[
                       'Re-ballon inflation',
                       'Repeat stent implantation',
                       'Observation'
                     ]"></reg-select>
 
-                  <reg-select *ngIf="visibles['PciLesions'][i]['BurrEntrapment']" controlName="BurrEntrapment" placeholder="Burr Entrapment Correction" [formGroup]="item" [choices]="[
+                  <reg-select class="subitem-horz" *ngIf="visibles['PciLesions'][i]['BurrEntrapment']" controlName="BurrEntrapment" placeholder="Burr Entrapment Correction" [formGroup]="item" [choices]="[
                       'Success manual pullback',
                       'Coronary artery bypass graft',
                       'Observation'
                     ]"></reg-select>
 
-                  <reg-select *ngIf="visibles['PciLesions'][i]['DeviceEmbolization']" controlName="DeviceEmbolization" placeholder="Device Embolization Correction" [formGroup]="item" [choices]="[
+                  <reg-select class="subitem-horz" *ngIf="visibles['PciLesions'][i]['DeviceEmbolization']" controlName="DeviceEmbolization" placeholder="Device Embolization Correction" [formGroup]="item" [choices]="[
                       'Retrieve',
                       'Retain'
                     ]"></reg-select>

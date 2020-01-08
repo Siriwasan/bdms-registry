@@ -180,13 +180,16 @@ export class ACSx290Service implements OnDestroy {
   public createTags(data: ACSx290Model): string[] {
     const tags: string[] = [];
 
+    console.log(tagConditions.slice(0, 6));
+    console.log(tagConditions.slice(6));
+
     const yesAnswers = [
       'Yes, planned',
       'Yes, unplanned due to surgical complication',
       'Yes, unplanned due to unsuspected disease or anatomy'
     ];
 
-    tagConditions.slice(0, 5).forEach(con => {
+    tagConditions.slice(0, 6).forEach(con => {
       if (con.values.includes(data[con.section][con.control])) {
         tags.push(con.tag);
       }

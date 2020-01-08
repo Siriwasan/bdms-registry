@@ -84,6 +84,18 @@ export class StaffService implements OnDestroy {
       .toPromise();
   }
 
+  public getStaffByUserName(userName: string): Promise<Staff[]> {
+    if (!userName) {
+      return;
+    }
+
+    return this.db
+      .collection<Staff>(DB_STAFF, ref => ref.where('userName', '==', userName))
+      .valueChanges()
+      .pipe(take(1))
+      .toPromise();
+  }
+
   // private generateStaffId(position: string): Promise<string> {
   //   return new Promise<string>((resolve, reject) => {
   //     this.subscriptions.push(

@@ -327,23 +327,36 @@ export class StaffProfileComponent implements OnInit, OnChanges, OnDestroy, Afte
       modifiedBy: this.user.staff.staffId
     };
 
-    const searchStaff = await this.staffService.getStaffByUniqueId(staff.uniqueId);
+    let searchStaff = await this.staffService.getStaffByUniqueId(staff.uniqueId);
     if (searchStaff[0] && searchStaff[0].staffId !== staff.staffId) {
       this.dialogService.createModalDialog({
         title: '!!Alert!!',
         content: `Duplicate Medical License Number/Staff ID`,
         buttons: ['Retry']
       });
-    } else {
-      if (this.selectedStaff === null) {
-        this.staffService.createStaff(staff);
-      } else {
-        this.staffService.updateStaff(staff);
-        this.selectedStaff = null;
-      }
-      this.clear();
-      this.submitStaff.emit(staff);
+
+      return;
     }
+
+    searchStaff = await this.staffService.getStaffByUserName(staff.userName);
+    if (searchStaff[0] && searchStaff[0].staffId !== staff.staffId) {
+      this.dialogService.createModalDialog({
+        title: '!!Alert!!',
+        content: `Duplicate User Name`,
+        buttons: ['Retry']
+      });
+
+      return;
+    }
+
+    if (this.selectedStaff === null) {
+      this.staffService.createStaff(staff);
+    } else {
+      this.staffService.updateStaff(staff);
+      this.selectedStaff = null;
+    }
+    this.clear();
+    this.submitStaff.emit(staff);
   }
 
   onDelete() {

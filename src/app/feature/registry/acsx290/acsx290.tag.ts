@@ -6,10 +6,30 @@ export interface TagCondition {
 }
 
 export const tagConditions: TagCondition[] = [
-  { section: 'sectionM2', control: 'ArchDiscSite', values: ['Ascending Aorta'], tag: 'Asc Ao repair' },
-  { section: 'sectionM2', control: 'ArchDiscSite', values: ['Hemiarch', 'Zone 1', 'Zone 2'], tag: 'Hemiarch repair' },
-  { section: 'sectionM2', control: 'ArchDiscSite', values: ['Zone 3', 'Zone 4'], tag: 'Total arch repair' },
-  { section: 'sectionM2', control: 'DescAortaProc', values: ['Yes'], tag: 'Thoracoabdomical Ao repair' },
+  {
+    section: 'sectionM2',
+    control: 'ArchDiscSite',
+    values: ['Ascending Aorta'],
+    tag: 'Asc Ao repair'
+  },
+  {
+    section: 'sectionM2',
+    control: 'ArchDiscSite',
+    values: ['Hemiarch', 'Zone 1', 'Zone 2'],
+    tag: 'Hemiarch repair'
+  },
+  {
+    section: 'sectionM2',
+    control: 'ArchDiscSite',
+    values: ['Zone 3', 'Zone 4'],
+    tag: 'Total arch repair'
+  },
+  {
+    section: 'sectionM2',
+    control: 'DescAortaProc',
+    values: ['Yes'],
+    tag: 'Thoracoabdomical Ao repair'
+  },
   {
     section: 'sectionM2',
     control: 'EndoProxZone',
@@ -37,11 +57,26 @@ export const tagConditions: TagCondition[] = [
   { section: 'sectionK', control: 'VSMVPr', values: ['Replacement'], tag: 'MVR' },
   { section: 'sectionK', control: 'VSTVPr', values: ['Repair'], tag: 'TV repair' },
   { section: 'sectionK', control: 'VSTVPr', values: ['Replacement'], tag: 'TVR' },
-  { section: 'sectionK', control: 'OpPulm', values: ['Repair/Leaflet Reconstruction'], tag: 'PV repair' },
+  {
+    section: 'sectionK',
+    control: 'OpPulm',
+    values: ['Repair/Leaflet Reconstruction'],
+    tag: 'PV repair'
+  },
   { section: 'sectionK', control: 'OpPulm', values: ['Replacement'], tag: 'PVR' },
   { section: 'sectionM', control: 'OCarASDSec', values: ['Yes'], tag: 'ASD' },
-  { section: 'sectionM', control: 'OCarVSD', values: ['Yes-congenital', 'Yes-acquired'], tag: 'VSD' },
-  { section: 'sectionM', control: 'OCPulThromDis', values: ['Yes, Acute', 'Yes, Chronic'], tag: 'PE' },
+  {
+    section: 'sectionM',
+    control: 'OCarVSD',
+    values: ['Yes-congenital', 'Yes-acquired'],
+    tag: 'VSD'
+  },
+  {
+    section: 'sectionM',
+    control: 'OCPulThromDis',
+    values: ['Yes, Acute', 'Yes, Chronic'],
+    tag: 'PE'
+  },
   { section: 'sectionI', control: 'AFibProc', values: ['Yes'], tag: 'AF' },
   { section: 'sectionL', control: 'IABP', values: ['Yes'], tag: 'IABP' },
   {

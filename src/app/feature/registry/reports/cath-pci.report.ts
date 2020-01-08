@@ -302,7 +302,7 @@ export class CathPciReport {
             pdf.input(this.data ? this.data.sectionB.BDMSNetwork : null),
             pdf.tab(2),
             pdf.radio('Non BDMS', this.data ? this.data.sectionB.TransferHospType : null),
-            pdf.input(this.data ? this.data.sectionB.NonBDMS : null)
+            pdf.inputThai(this.data ? this.data.sectionB.NonBDMS : null)
           ),
           pdf.block(
             pdf.field('Arrival Date/Time', { annotation: '3001' }),
@@ -1694,7 +1694,7 @@ export class CathPciReport {
               pdf.radio('Drawn', this.data ? this.data.sectionF.PreProcTnILab : null),
               ' ',
               pdf.input(this.data ? this.data.sectionF.PreProcTnI : null),
-              ' ng/mL'
+              ' ng/L'
             ),
             pdf.field('hsTroponin I', { annotation: '8515', width: col1_3 }),
             pdf.blockStyle(
@@ -1702,7 +1702,7 @@ export class CathPciReport {
               pdf.radio('Drawn', this.data ? this.data.sectionF.PostProcTnILab : null),
               ' ',
               pdf.input(this.data ? this.data.sectionF.PostProcTnI : null),
-              ' ng/mL'
+              ' ng/L'
             )
           ),
           pdf.columns(
@@ -1712,7 +1712,7 @@ export class CathPciReport {
               pdf.radio('Drawn', this.data ? this.data.sectionF.PreProcTnTLab : null),
               ' ',
               pdf.input(this.data ? this.data.sectionF.PreProcTnT : null),
-              ' ng/mL'
+              ' ng/L'
             ),
             pdf.field('hsTroponin T', { annotation: '8520', width: col1_3 }),
             pdf.blockStyle(
@@ -1720,7 +1720,7 @@ export class CathPciReport {
               pdf.radio('Drawn', this.data ? this.data.sectionF.PostProcTnTLab : null),
               ' ',
               pdf.input(this.data ? this.data.sectionF.PostProcTnT : null),
-              ' ng/mL'
+              ' ng/L'
             )
           ),
           pdf.columns(
@@ -1730,7 +1730,7 @@ export class CathPciReport {
               pdf.radio('Drawn', this.data ? this.data.sectionF.PreProcCreatLab : null),
               ' ',
               pdf.input(this.data ? this.data.sectionF.PreProcCreat : null),
-              ' ng/mL'
+              ' mg/dL'
             ),
             pdf.blockStyle(
               { width: col1_3 },
@@ -1742,7 +1742,7 @@ export class CathPciReport {
               pdf.radio('Drawn', this.data ? this.data.sectionF.PostProcCreatLab : null),
               ' ',
               pdf.input(this.data ? this.data.sectionF.PostProcCreat : null),
-              ' ng/mL'
+              ' mg/dL'
             )
           ),
           pdf.columns(

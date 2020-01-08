@@ -348,12 +348,12 @@ export const validations: FormValidations = {
   },
   sectionF: {
     PreProcTnI: [
-      { type: 'min', message: 'Trop-I must be at least 0.00 ng/mL.' },
-      { type: 'max', message: 'Trop-I cannot be more than 100,000.00 ng/mL.' }
+      { type: 'min', message: 'Trop-I must be at least 0.00 ng/L.' },
+      { type: 'max', message: 'Trop-I cannot be more than 100,000.00 ng/L.' }
     ],
     PreProcTnT: [
-      { type: 'min', message: 'Trop-T must be at least 0.00 ng/mL.' },
-      { type: 'max', message: 'Trop-T cannot be more than 100,000.00 ng/mL.' }
+      { type: 'min', message: 'Trop-T must be at least 0.00 ng/L.' },
+      { type: 'max', message: 'Trop-T cannot be more than 100,000.00 ng/L.' }
     ],
     PreProcCreat: [
       { type: 'min', message: 'Creatinine must be at least 0.10 mg/dL.' },
@@ -372,12 +372,12 @@ export const validations: FormValidations = {
       { type: 'max', message: 'Totol Cholesterol cannot be more than 300 mg/dL.' }
     ],
     PostProcTnI: [
-      { type: 'min', message: 'Trop-I must be at least 0.00 ng/mL.' },
-      { type: 'max', message: 'Trop-I cannot be more than 100,000.00 ng/mL.' }
+      { type: 'min', message: 'Trop-I must be at least 0.00 ng/L.' },
+      { type: 'max', message: 'Trop-I cannot be more than 100,000.00 ng/L.' }
     ],
     PostProcTnT: [
-      { type: 'min', message: 'Trop-T must be at least 0.00 ng/mL.' },
-      { type: 'max', message: 'Trop-T cannot be more than 100,000.00 ng/mL.' }
+      { type: 'min', message: 'Trop-T must be at least 0.00 ng/L.' },
+      { type: 'max', message: 'Trop-T cannot be more than 100,000.00 ng/L.' }
     ],
     PostProcCreat: [
       { type: 'min', message: 'Creatinine must be at least 0.10 mg/dL.' },
