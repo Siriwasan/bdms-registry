@@ -41,6 +41,7 @@ export class CathPci50Service implements OnDestroy {
 
     const docRef = await this.db.collection<CathPci50Model>(DB_CATHPCI).add(data);
     const registryId = docRef.id;
+    this.db.doc(DB_CATHPCI + `/${registryId}`).update({ 'sectionA.registryId': registryId });
 
     const registry = this.createRegistryModel(registryId, data);
     await this.db
