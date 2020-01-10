@@ -106,6 +106,7 @@ export class CathPci50Component extends RegistryFormComponent
 
   avHospitalsNullOption = true;
   avHospitals: RegSelectChoice[];
+  bdmsHospitals: RegSelectChoice[];
   toc = tableOfContent;
   nationality = registryData.nationality;
   segmentNumbers = cathPci50Data.segmentNumbers;
@@ -330,6 +331,15 @@ export class CathPci50Component extends RegistryFormComponent
           disable: false
         } as RegSelectChoice;
       });
+
+    this.bdmsHospitals = hospitals.map(hosp => {
+      return {
+        value: hosp.id,
+        label: hosp.name + ' (' + hosp.id + ')',
+        group: hosp.group,
+        disable: false
+      } as RegSelectChoice;
+    });
 
     const deviceMap = m => {
       return {

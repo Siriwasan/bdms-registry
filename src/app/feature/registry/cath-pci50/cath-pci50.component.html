@@ -192,7 +192,7 @@
               ]" fxFlex></reg-select>
 
             <reg-select-search *ngIf="visibles['BDMSNetwork']" controlName="BDMSNetwork" placeholder="BDMS Network Name" [formGroup]="formGroupB"
-              [choices]="avHospitals" group="true" [nullOption]="avHospitalsNullOption" fxFlex></reg-select-search>
+              [choices]="bdmsHospitals" group="true" [nullOption]="avHospitalsNullOption" fxFlex></reg-select-search>
 
             <reg-input *ngIf="visibles['NonBDMS']" controlName="NonBDMS" placeholder="Non BDMS Name" [formGroup]="formGroupB" type="text" fxFlex>
             </reg-input>
