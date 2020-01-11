@@ -778,6 +778,9 @@ export class CathPci50Component extends RegistryFormComponent
 
   PCIProcChanged(event: MatSelectChange) {
     this.followUp();
+
+    // ! correct uncover bug
+    this.formGroupJ.updateValueAndValidity({ onlySelf: false, emitEvent: true });
   }
 
   DCStatusChanged(event: MatSelectChange) {
@@ -2254,5 +2257,28 @@ export class CathPci50Component extends RegistryFormComponent
     const second = Math.floor(Math.random() * 100);
 
     return first.toString().padStart(2, '0') + ':' + second.toString().padStart(2, '0');
+  }
+
+  AnFocusOut() {
+    const an = this.formGroupA.get('AN').value;
+    this.cathPci50Service.getCathPciByAn(an).subscribe(data => {
+      // tslint:disable: no-string-literal
+      if (data && data.sectionA['registryId'] !== this.formGroupA.get('registryId').value) {
+        this.dialogService.createModalDialog({
+          title: '!!Replicate Data!!',
+          content:
+            `พบข้อมูลผู้ป่วยที่ AN ตรงกัน กรุณาตรวจสอบให้แน่ใจอีกครั้งก่อนทำการใส่ข้อมูล<br><br>` +
+            `${data.sectionA['FirstName']} ${data.sectionA['LastName']}<br>` +
+            `HN: ${data.sectionA['HN']}<br>` +
+            `AN: ${data.sectionA['AN']}<br>` +
+            `Birth Date: ${moment(data.sectionA['DOB']).format('D/M/YYYY')}<br>` +
+            `Procedure Date: ${moment(data.sectionE['ProcedureStartDateTime']).format(
+              'D/M/YYYY H:mm'
+            )}`,
+          buttons: ['รับทราบ']
+        });
+      }
+      // tslint:enable: no-string-literal
+    });
   }
 }

@@ -11,7 +11,7 @@ import { tagConditions } from './cath-pci50.tag';
 import { RegistryModel } from '../registry.model';
 import * as moment from 'moment';
 import { Staff } from '../../staff/staff.model';
-import { take } from 'rxjs/operators';
+import { take, map } from 'rxjs/operators';
 
 const DB_REGISTRY = 'Registry';
 const DB_STAFF = 'Staff';
@@ -305,5 +305,26 @@ export class CathPci50Service implements OnDestroy {
       .valueChanges()
       .pipe(take(1))
       .toPromise();
+  }
+
+  public getCathPciByAn(an: string): Observable<CathPci50Model> {
+    // tslint:disable: no-string-literal
+    return this.db
+      .collection<CathPci50Model>(DB_CATHPCI)
+      .valueChanges()
+      .pipe(
+        map(data =>
+          data.map(d => {
+            d.sectionA['AN'] = this.decrypt(d.sectionA['AN']);
+            d.sectionA['HN'] = this.decrypt(d.sectionA['HN']);
+            d.sectionA['FirstName'] = this.decrypt(d.sectionA['FirstName']);
+            d.sectionA['LastName'] = this.decrypt(d.sectionA['LastName']);
+            d.sectionA['DOB'] = this.decrypt(d.sectionA['DOB']);
+            return d;
+          })
+        ),
+        map(data => data.find(doc => doc.sectionA['AN'] === an))
+      );
+    // tslint:enable: no-string-literal
   }
 }

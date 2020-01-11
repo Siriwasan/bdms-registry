@@ -109,7 +109,7 @@
             <reg-input controlName="HN" placeholder="HN" [formGroup]="formGroupA" type="text" fxFlex>
             </reg-input>
 
-            <reg-input controlName="AN" placeholder="AN" [formGroup]="formGroupA" type="text" fxFlex></reg-input>
+            <reg-input controlName="AN" placeholder="AN" [formGroup]="formGroupA" type="text" fxFlex (focusOut)="AnFocusOut()"></reg-input>
           </div>
 
           <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
@@ -1935,7 +1935,7 @@
           </div>
 
           <div fxLayout="row" fxLayout.lt-sm="column" [fxLayoutGap.gt-xs]="gap">
-            <reg-select controlName="PCIResult" placeholder="PCI Result" [formGroup]="formGroupJ" [choices]="[
+            <reg-select *ngIf="visibles['PCIResult']" controlName="PCIResult" placeholder="PCI Result" [formGroup]="formGroupJ" [choices]="[
                 'Angiographic Success',
                 'Angiographic Failure'
               ]" fxFlex></reg-select>

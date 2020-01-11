@@ -1,4 +1,4 @@
-import { Component, Input, ElementRef, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, ElementRef, OnInit, ViewEncapsulation, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { RegistryControlComponent } from './registry-control.component';
@@ -9,7 +9,11 @@ import { RegistryFormService } from './registry-form.service';
   // tslint:disable-next-line: component-selector
   selector: 'reg-input',
   template: `
-    <mat-form-field [ngClass]="{'readonlyInput':readonly}" [formGroup]="formGroup" style="width: 100%">
+    <mat-form-field
+      [ngClass]="{ readonlyInput: readonly }"
+      [formGroup]="formGroup"
+      style="width: 100%"
+    >
       <input
         *ngIf="type === 'number'"
         type="number"
@@ -19,6 +23,7 @@ import { RegistryFormService } from './registry-form.service';
         [required]="require"
         [readonly]="readonly"
         name="controlName"
+        (focusout)="focuzOut()"
       />
       <input
         *ngIf="type !== 'number'"
@@ -29,10 +34,13 @@ import { RegistryFormService } from './registry-form.service';
         [required]="require"
         [readonly]="readonly"
         name="controlName"
+        (focusout)="focuzOut()"
       />
       <mat-hint>
         <a><ng-content></ng-content></a>
-        <mat-icon style="cursor: help;" (click)="openInfo(controlName)" *ngIf="bInfo">info_outline</mat-icon>
+        <mat-icon style="cursor: help;" (click)="openInfo(controlName)" *ngIf="bInfo"
+          >info_outline</mat-icon
+        >
       </mat-hint>
       <mat-error *ngIf="self.invalid && (self.dirty || self.touched)">
         <div *ngFor="let validation of getValidations(controlName)">
@@ -40,7 +48,9 @@ import { RegistryFormService } from './registry-form.service';
             <a>{{ validation.message }}</a>
           </div>
         </div>
-        <mat-icon style="cursor: help;" (click)="openInfo(controlName)" *ngIf="bInfo">info_outline</mat-icon>
+        <mat-icon style="cursor: help;" (click)="openInfo(controlName)" *ngIf="bInfo"
+          >info_outline</mat-icon
+        >
       </mat-error>
     </mat-form-field>
   `,
@@ -53,6 +63,7 @@ export class RegistryInputComponent extends RegistryControlComponent implements 
   @Input() placeholder: string;
   @Input() require = true;
   @Input() readonly = false;
+  @Output() focusOut: EventEmitter<void> = new EventEmitter();
 
   bInfo: boolean;
   self: AbstractControl;
@@ -66,5 +77,9 @@ export class RegistryInputComponent extends RegistryControlComponent implements 
     this.bInfo = this.hasInfo(this.controlName);
 
     this.self = this.formGroup.get(this.controlName);
+  }
+
+  focuzOut() {
+    this.focusOut.emit();
   }
 }

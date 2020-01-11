@@ -328,7 +328,10 @@ export const conditions: FormConditions = {
     { control: 'Prasugrel', parentControl: 'E:PCIProc', conditions: ['Yes'] },
     { control: 'Ticagrelor', parentControl: 'E:PCIProc', conditions: ['Yes'] }
   ],
-  sectionJ: [{ control: 'J:sectionJBody', parentControl: 'E:PCIProc', conditions: ['Yes'] }],
+  sectionJ: [
+    { control: 'J:sectionJBody', parentControl: 'E:PCIProc', conditions: ['Yes'] },
+    { control: 'PCIResult', parentControl: 'E:PCIProc', conditions: ['Yes'] }
+  ],
   pciLesion: [
     { control: 'ChronicOcclusion', parentControl: 'StenosisPriorTreat', conditions: [100] },
     { control: 'PrevTreatedLesionDate', parentControl: 'PrevTreatedLesion', conditions: ['Yes'] },
@@ -598,21 +601,65 @@ export const conditions: FormConditions = {
     { control: 'FU_ACEIRN', parentControl: 'FU_ACEI', conditions: ['No - Patient Reason'] },
     { control: 'FU_WarfarinRN', parentControl: 'FU_Warfarin', conditions: ['No - Patient Reason'] },
     { control: 'FU_AspirinRN', parentControl: 'FU_Aspirin', conditions: ['No - Patient Reason'] },
-    { control: 'FU_VorapaxarRN', parentControl: 'FU_Vorapaxar', conditions: ['No - Patient Reason'] },
+    {
+      control: 'FU_VorapaxarRN',
+      parentControl: 'FU_Vorapaxar',
+      conditions: ['No - Patient Reason']
+    },
     { control: 'FU_ARBRN', parentControl: 'FU_ARB', conditions: ['No - Patient Reason'] },
-    { control: 'FU_BetaBlockerRN', parentControl: 'FU_BetaBlocker', conditions: ['No - Patient Reason'] },
+    {
+      control: 'FU_BetaBlockerRN',
+      parentControl: 'FU_BetaBlocker',
+      conditions: ['No - Patient Reason']
+    },
     { control: 'FU_ApixabanRN', parentControl: 'FU_Apixaban', conditions: ['No - Patient Reason'] },
-    { control: 'FU_DabigatranRN', parentControl: 'FU_Dabigatran', conditions: ['No - Patient Reason'] },
+    {
+      control: 'FU_DabigatranRN',
+      parentControl: 'FU_Dabigatran',
+      conditions: ['No - Patient Reason']
+    },
     { control: 'FU_EdoxabanRN', parentControl: 'FU_Edoxaban', conditions: ['No - Patient Reason'] },
-    { control: 'FU_RivaroxabanRN', parentControl: 'FU_Rivaroxaban', conditions: ['No - Patient Reason'] },
-    { control: 'FU_ClopidogrelRN', parentControl: 'FU_Clopidogrel', conditions: ['No - Patient Reason'] },
-    { control: 'FU_PrasugrelRN', parentControl: 'FU_Prasugrel', conditions: ['No - Patient Reason'] },
-    { control: 'FU_TicagrelorRN', parentControl: 'FU_Ticagrelor', conditions: ['No - Patient Reason'] },
-    { control: 'FU_TiclopidineRN', parentControl: 'FU_Ticlopidine', conditions: ['No - Patient Reason'] },
+    {
+      control: 'FU_RivaroxabanRN',
+      parentControl: 'FU_Rivaroxaban',
+      conditions: ['No - Patient Reason']
+    },
+    {
+      control: 'FU_ClopidogrelRN',
+      parentControl: 'FU_Clopidogrel',
+      conditions: ['No - Patient Reason']
+    },
+    {
+      control: 'FU_PrasugrelRN',
+      parentControl: 'FU_Prasugrel',
+      conditions: ['No - Patient Reason']
+    },
+    {
+      control: 'FU_TicagrelorRN',
+      parentControl: 'FU_Ticagrelor',
+      conditions: ['No - Patient Reason']
+    },
+    {
+      control: 'FU_TiclopidineRN',
+      parentControl: 'FU_Ticlopidine',
+      conditions: ['No - Patient Reason']
+    },
     { control: 'FU_StatinRN', parentControl: 'FU_Statin', conditions: ['No - Patient Reason'] },
-    { control: 'FU_NonStatinRN', parentControl: 'FU_NonStatin', conditions: ['No - Patient Reason'] },
-    { control: 'FU_AlirocumabRN', parentControl: 'FU_Alirocumab', conditions: ['No - Patient Reason'] },
-    { control: 'FU_EvolocumabRN', parentControl: 'FU_Evolocumab', conditions: ['No - Patient Reason'] },
+    {
+      control: 'FU_NonStatinRN',
+      parentControl: 'FU_NonStatin',
+      conditions: ['No - Patient Reason']
+    },
+    {
+      control: 'FU_AlirocumabRN',
+      parentControl: 'FU_Alirocumab',
+      conditions: ['No - Patient Reason']
+    },
+    {
+      control: 'FU_EvolocumabRN',
+      parentControl: 'FU_Evolocumab',
+      conditions: ['No - Patient Reason']
+    },
 
     { control: 'FU_StatinDose', parentControl: 'FU_Statin', conditions: ['Yes - Prescribed'] }
   ]

@@ -1,3 +1,9 @@
+# 1.5.2 (2020-01-11)
+
+### Bug Fixes
+
+- **CathPci50:** check and warning for duplicate AN
+
 # 1.5.1 (2019-12-24)
 
 ### Features
