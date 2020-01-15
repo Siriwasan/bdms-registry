@@ -209,6 +209,10 @@ _**Source:** American Diabetes Association Care. 2011;34 Suppl 1:S4-10._
 
 ## Canadian Study of Health and Aging (CSHA) Clinical Frailty Scale
 
+<p align="center">
+  <img src="/assets/figures/csha-frailty-scale.png" style="width: 800px" />
+</p>
+
 | Selection Text         | Definition                                                                                                                                                                                                                                                                                                |
 |------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | 1: Very Fit            | CHSA Clinical Frailty Scale 1: Very Fit - People who are robust, active, energetic and motivated. These people commonly exercise regularly. They are among the fittest for their age.                                                                                                                     |
@@ -631,6 +635,8 @@ _**Source:** Fleisher LA, Beckman JA, Brown KA, et al. 2009 ACCF/AHA Focused Upd
 
 ## Native Lesion Segment Number
 
+<img src="/assets/figures/coronary-artery-segment.png" style="width: 750px" />
+
 |  | Definition |
 |--|--|
 |1 - pRCA|Proximal right coronary artery conduit segment - pRCA|
@@ -676,6 +682,8 @@ _**Source:** Fleisher LA, Beckman JA, Brown KA, et al. 2009 ACCF/AHA Focused Upd
 # GraftSegmentID
 
 ## Graft Lesion Segment Number
+
+<img src="/assets/figures/coronary-artery-segment.png" style="width: 750px" />
 
 |  | Definition |
 |--|--|
@@ -849,6 +857,8 @@ If the issue is documented in the medical record and the effect on timing self- 
 # SegmentID
 
 ## Native Lesion Segment Number
+
+<img src="/assets/figures/coronary-artery-segment.png" style="width: 750px" />
 
 |  | Definition |
 |--|--|
