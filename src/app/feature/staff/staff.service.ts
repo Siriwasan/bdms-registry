@@ -26,6 +26,18 @@ export class StaffService implements OnDestroy {
   }
 
   public async createStaff(staff: Staff) {
+    let searchStaff = await this.getStaffByUniqueId(staff.uniqueId);
+    if (searchStaff[0] && searchStaff[0].staffId !== staff.staffId) {
+      console.log('duplicate staff');
+      return;
+    }
+
+    searchStaff = await this.getStaffByUserName(staff.userName);
+    if (searchStaff[0] && searchStaff[0].staffId !== staff.staffId) {
+      console.log('duplicate username');
+      return;
+    }
+
     console.log('create staff');
     // const id = await this.generateStaffId();
     // staff.staffId = id;
