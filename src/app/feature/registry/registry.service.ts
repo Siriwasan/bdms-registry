@@ -171,7 +171,7 @@ export class RegistryService implements OnDestroy {
     const OrganTransplantType = this.FieldToSheet('sectionG', 'OrganTransplantType', json);
     const NativeLesions = this.ArrayToSheet('sectionH', 'NativeLesions', json);
     const GraftLesions = this.ArrayToSheet('sectionH', 'GraftLesions', json);
-    const CHIP = this.ArrayToSheet('sectionI', 'CHIP', json);
+    const CHIP = this.FieldToSheet('sectionI', 'CHIP', json);
     const PciLesions = this.ArrayToSheet('sectionJ', 'PciLesions', json);
     const SegmentID = this.SubArrayToSheet('SegmentID', PciLesions, 'LesionCounter');
     const GuidewireAcross = this.SubArrayToSheet('GuidewireAcross', PciLesions, 'LesionCounter');

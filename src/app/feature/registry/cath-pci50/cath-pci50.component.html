@@ -1562,7 +1562,8 @@
                 *ngFor="let item of pciLesionsControls; let i = index;">
                   <ng-template mat-tab-label>
                     <div fxLayoutAlign="center center">
-                      <div>{{ getPciLesionsTabLabel(i) }}</div>
+                      <div class="tabLabelWithDetail" [innerHTML]="getPciLesionsTabLabel(i)" fxLayout="column" fxLayoutAlign="center center">
+                      </div>
                       <mat-icon *ngIf="!submittedDischarge" style="margin-left: 10px; font-size: medium; height: auto; color:#bb6666" (click)="removePciLesion(i)">close</mat-icon>
                     </div>
                   </ng-template>
@@ -1905,7 +1906,8 @@
                 *ngFor="let item of pciDevicesControls; let i = index;">
                   <ng-template mat-tab-label>
                     <div fxLayoutAlign="center center">
-                      <div>{{ getPciDevicesTabLabel(i) }}</div>
+                      <div class="tabLabelWithDetail" [innerHTML]="getPciDevicesTabLabel(i)" fxLayout="column" fxLayoutAlign="center center">
+                      </div>
                       <mat-icon *ngIf="!submittedDischarge" style="margin-left: 10px; font-size: medium; height: auto; color:#bb6666" (click)="removePciDevice(i)">close</mat-icon>
                     </div>
                   </ng-template>
@@ -2474,7 +2476,7 @@
                 *ngFor="let item of followUpsControls; let i = index;">
                   <ng-template mat-tab-label>
                     <div fxLayoutAlign="center center">
-                      <div class="followUpTab" [innerHTML]="getFollowUpsTabLabel(i)" fxLayout="column" fxLayoutAlign="center center">
+                      <div class="tabLabelWithDetail" [innerHTML]="getFollowUpsTabLabel(i)" fxLayout="column" fxLayoutAlign="center center">
                       </div>
                       <mat-icon *ngIf="i < followUpsControls.length - 1" style="margin-left: 10px; font-size: medium; height: auto; color:#bb6666" (click)="removeFollowUp(i)">close</mat-icon>
                     </div>

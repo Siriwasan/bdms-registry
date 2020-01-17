@@ -283,7 +283,7 @@ export class StaffProfileComponent implements OnInit, OnChanges, OnDestroy, Afte
 
     const staffPermIndex = Auth.permissions.indexOf(this.selectedStaff.permission);
     if (staffPermIndex <= userPermIndex) {
-      return Auth.permissions;
+      return Auth.permissions.slice(staffPermIndex);
     } else {
       return Auth.permissions.slice(userPermIndex);
     }

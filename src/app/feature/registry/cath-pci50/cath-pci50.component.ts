@@ -1469,8 +1469,20 @@ export class CathPci50Component extends RegistryFormComponent
     const fg = ((this.formGroupJ.get(str.pciLesions) as FormArray).controls[index] as FormGroup)
       .controls;
     const counter = fg.LesionCounter.value;
-    const SegmentID = fg.SegmentID.value;
-    return SegmentID !== null && SegmentID.length > 0 ? `Lesion ${counter}` : `Lesion ${counter} *`;
+    const SegmentID = fg.SegmentID.value as Array<string>;
+
+    if (SegmentID === null || SegmentID.length === 0) {
+      return `Lesion ${counter} *`;
+    }
+
+    const labelTitle = `Lesion ${counter}`;
+    let detail = '';
+    for (const s of SegmentID) {
+      detail += s.split(' - ')[1] + ', ';
+    }
+    return detail
+      ? `${labelTitle}<span>(${detail.substring(0, detail.length - 2)})</span>`
+      : labelTitle;
   }
 
   PciSegmentIDChanged() {
@@ -1629,7 +1641,16 @@ export class CathPci50Component extends RegistryFormComponent
       .controls;
     const counter = fg.ICDevCounter.value;
     const ICDevID = fg.ICDevID.value;
-    return ICDevID !== null ? `Device ${counter}` : `Device ${counter} *`;
+
+    if (ICDevID === null) {
+      return `Device ${counter} *`;
+    }
+
+    const labelTitle = `Device ${counter}`;
+    let detail = '';
+    const deviceName = intraCoronaryDevices.find(d => d.id === ICDevID).deviceName;
+    detail = deviceName.length > 20 ? deviceName.substring(0, 20) + '...' : deviceName;
+    return detail ? `${labelTitle}<span>(${detail})</span>` : labelTitle;
   }
 
   ICDevIDChanged() {

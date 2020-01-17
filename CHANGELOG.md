@@ -1,3 +1,9 @@
+# 1.6.0 (2020-01-18)
+
+### Features
+
+- **CathPci50:** show detail in Pci and Device tab
+
 # 1.5.2 (2020-01-11)
 
 ### Bug Fixes
