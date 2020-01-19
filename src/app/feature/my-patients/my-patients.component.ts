@@ -80,7 +80,7 @@ export class MyPatientsComponent implements OnInit, OnDestroy {
 
   async exportCathPci() {
     const data = await this.myPatientsService.loadMyCathPci50sForExport(this.user.staff.staffId);
-    this.registryService.exportCathPci50AsExcelFile(data, 'my-cathpci');
+    this.registryService.exportCathPci50AsExcelFile(data, 'my-cathpci', this.user);
     console.log('export cathpci ' + data.length + ' records');
   }
 }

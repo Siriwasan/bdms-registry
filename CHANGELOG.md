@@ -1,3 +1,9 @@
+# 1.6.1 (2020-01-19)
+
+### Bug Fixes
+
+- **CathPci50:** export with intra-coronary device list
+
 # 1.6.0 (2020-01-18)
 
 ### Features

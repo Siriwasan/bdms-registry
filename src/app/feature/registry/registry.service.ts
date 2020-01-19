@@ -10,6 +10,8 @@ import { RegistryModel } from './registry.model';
 import { ACSx290Model } from './acsx290/acsx290.model';
 import * as Auth from '../../core/auth/auth.data';
 import { CathPci50Model } from './cath-pci50/cath-pci50.model';
+import { intraCoronaryDevices } from '../registry/cath-pci50/cath-pci50.device';
+import { User } from 'src/app/core/auth/user.model';
 
 const EXCEL_TYPE =
   'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
@@ -147,7 +149,11 @@ export class RegistryService implements OnDestroy {
   }
   //#endregion Cloud firestore
 
-  public exportCathPci50AsExcelFile(json: CathPci50Model[], excelFileName: string): void {
+  public exportCathPci50AsExcelFile(
+    json: CathPci50Model[],
+    excelFileName: string,
+    user: User
+  ): void {
     const flatten = (obj, prefix = '', res = {}) =>
       Object.entries(obj).reduce((r, [key, val]) => {
         const k = `${prefix}${key}`;
@@ -241,6 +247,7 @@ export class RegistryService implements OnDestroy {
     const worksheet23: XLSX.WorkSheet = XLSX.utils.json_to_sheet(DC_MedReconciled);
     const worksheet24: XLSX.WorkSheet = XLSX.utils.json_to_sheet(FollowUps);
     const worksheet25: XLSX.WorkSheet = XLSX.utils.json_to_sheet(FU_Method);
+    const worksheet26: XLSX.WorkSheet = XLSX.utils.json_to_sheet(intraCoronaryDevices);
 
     const workbook: XLSX.WorkBook = {
       Sheets: {
@@ -268,7 +275,8 @@ export class RegistryService implements OnDestroy {
         HospInterventionType: worksheet22,
         DC_MedReconciled: worksheet23,
         FollowUps: worksheet24,
-        FU_Method: worksheet25
+        FU_Method: worksheet25,
+        IntraCoronaryDevices: worksheet26
       },
       SheetNames: [
         'data',
@@ -295,9 +303,24 @@ export class RegistryService implements OnDestroy {
         'HospInterventionType',
         'DC_MedReconciled',
         'FollowUps',
-        'FU_Method'
+        'FU_Method',
+        'IntraCoronaryDevices'
       ]
     };
+
+    const userName = user.staff.title + ' ' + user.staff.firstName + ' ' + user.staff.lastName;
+
+    workbook.Props = {};
+    workbook.Props.Title = 'BDMS CathPCI Registry v1.0';
+    workbook.Props.Subject = 'Data Collection Export';
+    workbook.Props.Author = userName;
+    workbook.Props.Company = 'BDMS';
+    workbook.Props.Keywords = 'BDMS CAG PCI';
+    workbook.Props.LastAuthor = userName;
+    workbook.Props.CreatedDate = new Date();
+
+    workbook.Custprops = {};
+    workbook.Custprops[`MD5`] = user.staff.staffId;
 
     const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
     this.saveAsExcelFile(excelBuffer, excelFileName);
