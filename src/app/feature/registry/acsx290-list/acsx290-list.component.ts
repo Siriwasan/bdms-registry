@@ -84,8 +84,8 @@ export class ACSx290ListComponent implements OnInit, OnDestroy {
     }, 300);
   }
 
-  async export() {
-    const data = await this.registryService.loadACSx290sForExport(this.avHospitals);
+  async export(selectedHospitals: string[]) {
+    const data = await this.registryService.loadACSx290sForExport(selectedHospitals);
     this.fileService.saveJSONtoCSV(data, 'acsx.csv');
     console.log('export acsx ' + data.length + ' records');
   }

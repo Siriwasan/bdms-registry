@@ -42,6 +42,7 @@ export class ACSx290ListControlComponent implements OnInit, OnChanges, OnDestroy
   dataSource: MatTableDataSource<ACSx290ListControlModel>;
   controlData: ACSx290ListControlModel[];
   avHospitals: string[];
+  selectedHospitals: string[];
 
   searchForm: FormGroup;
   subscriptions: Subscription[] = [];
@@ -49,7 +50,7 @@ export class ACSx290ListControlComponent implements OnInit, OnChanges, OnDestroy
   @Input() data: RegistryModel[];
   @Output() clicked: EventEmitter<string> = new EventEmitter();
   @Output() create: EventEmitter<any> = new EventEmitter();
-  @Output() export: EventEmitter<any> = new EventEmitter();
+  @Output() export: EventEmitter<string[]> = new EventEmitter();
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -107,8 +108,8 @@ export class ACSx290ListControlComponent implements OnInit, OnChanges, OnDestroy
   }
 
   selectedHospitalChanged(selectedHospitals: string[]) {
-    const filterSelectedHosp = selectedHospitals.filter(v => v !== 'All');
-    const data = this.controlData.filter(d => filterSelectedHosp.includes(d.hospitalId));
+    this.selectedHospitals = selectedHospitals.filter(v => v !== 'All');
+    const data = this.controlData.filter(d => this.selectedHospitals.includes(d.hospitalId));
 
     this.setDataSource(data);
   }
@@ -225,6 +226,6 @@ export class ACSx290ListControlComponent implements OnInit, OnChanges, OnDestroy
   }
 
   exportRegistries() {
-    this.export.emit(null);
+    this.export.emit(this.selectedHospitals);
   }
 }

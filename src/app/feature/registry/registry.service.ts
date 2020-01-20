@@ -52,12 +52,12 @@ export class RegistryService implements OnDestroy {
       .toPromise();
   }
 
-  public loadACSx290sForExport(avHospitals: Auth.Hospital[]): Promise<ACSx290Model[]> {
+  public loadACSx290sForExport(avHospitals: string[]): Promise<ACSx290Model[]> {
     const acsxList: Observable<ACSx290Model[]>[] = [];
     avHospitals.forEach(hosp => {
       acsxList.push(
         this.db
-          .collection<ACSx290Model>(DB_ACSX, ref => ref.where('sectionC.HospName', '==', hosp.id))
+          .collection<ACSx290Model>(DB_ACSX, ref => ref.where('sectionC.HospName', '==', hosp))
           .valueChanges()
       );
     });
@@ -99,13 +99,13 @@ export class RegistryService implements OnDestroy {
       .toPromise();
   }
 
-  public loadCathPci50sForExport(avHospitals: Auth.Hospital[]): Promise<CathPci50Model[]> {
+  public loadCathPci50sForExport(avHospitals: string[]): Promise<CathPci50Model[]> {
     const dataList: Observable<CathPci50Model[]>[] = [];
     avHospitals.forEach(hosp => {
       dataList.push(
         this.db
           .collection<CathPci50Model>('CathPci50', ref =>
-            ref.where('sectionB.HospName', '==', hosp.id)
+            ref.where('sectionB.HospName', '==', hosp)
           )
           .valueChanges()
       );
@@ -125,7 +125,6 @@ export class RegistryService implements OnDestroy {
             delete d.sectionA['DOB'];
             delete d.sectionA['SSN'];
             delete d.sectionA['ZipCode'];
-            // tslint:enable: no-string-literal
 
             d.detail.createdAt =
               d.detail.createdAt !== null
@@ -139,6 +138,25 @@ export class RegistryService implements OnDestroy {
               d.detail.deletedAt !== null
                 ? (d.detail.deletedAt as firebase.firestore.Timestamp).toDate().toISOString()
                 : null;
+
+            // calculated fields
+            d.sectionH['NativeLesionNumber'] = d.sectionH['NativeLesions']
+              ? (d.sectionH['NativeLesions'] as []).length
+              : null;
+            d.sectionH['GraftLesionNumber'] = d.sectionH['GraftLesion']
+              ? (d.sectionH['GraftLesion'] as []).length
+              : null;
+            d.sectionJ['PciLesionNumber'] = d.sectionJ['PciLesions']
+              ? (d.sectionJ['PciLesions'] as []).length
+              : null;
+            d.sectionJ['PciDeviceNumber'] = d.sectionJ['PciDevices']
+              ? (d.sectionJ['PciDevices'] as []).length
+              : null;
+            d.sectionM['FollowUpNumber'] = d.sectionM['FollowUps']
+              ? (d.sectionM['FollowUps'] as []).length
+              : null;
+
+            // tslint:enable: no-string-literal
 
             return d;
           })
@@ -167,6 +185,8 @@ export class RegistryService implements OnDestroy {
       }, res);
 
     console.log(json);
+
+    // json.
 
     // tslint:disable: variable-name
     const ECGFindings = this.FieldToSheet('sectionD', 'ECGFindings', json);

@@ -1,3 +1,9 @@
+# 1.6.2 (2020-01-20)
+
+### Features
+
+- **Registry:** specify export list to selected hospital
+
 # 1.6.1 (2020-01-19)
 
 ### Bug Fixes

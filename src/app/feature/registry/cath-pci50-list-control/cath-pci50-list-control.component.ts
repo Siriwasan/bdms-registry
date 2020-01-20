@@ -45,6 +45,7 @@ export class CathPci50ListControlComponent implements OnInit, OnChanges, OnDestr
   dataSource: MatTableDataSource<CathPci50ListControlModel>;
   controlData: CathPci50ListControlModel[];
   avHospitals: string[];
+  selectedHospitals: string[];
 
   searchForm: FormGroup;
   subscriptions: Subscription[] = [];
@@ -52,7 +53,7 @@ export class CathPci50ListControlComponent implements OnInit, OnChanges, OnDestr
   @Input() data: RegistryModel[];
   @Output() clicked: EventEmitter<string> = new EventEmitter();
   @Output() create: EventEmitter<any> = new EventEmitter();
-  @Output() export: EventEmitter<any> = new EventEmitter();
+  @Output() export: EventEmitter<string[]> = new EventEmitter();
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -110,8 +111,8 @@ export class CathPci50ListControlComponent implements OnInit, OnChanges, OnDestr
   }
 
   selectedHospitalChanged(selectedHospitals: string[]) {
-    const filterSelectedHosp = selectedHospitals.filter(v => v !== 'All');
-    const data = this.controlData.filter(d => filterSelectedHosp.includes(d.hospitalId));
+    this.selectedHospitals = selectedHospitals.filter(v => v !== 'All');
+    const data = this.controlData.filter(d => this.selectedHospitals.includes(d.hospitalId));
 
     this.setDataSource(data);
   }
@@ -245,7 +246,7 @@ export class CathPci50ListControlComponent implements OnInit, OnChanges, OnDestr
   }
 
   exportRegistries() {
-    this.export.emit(null);
+    this.export.emit(this.selectedHospitals);
   }
 
   async pdfForm() {

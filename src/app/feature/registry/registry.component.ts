@@ -25,7 +25,15 @@ import { AuthService } from 'src/app/core/auth/auth.service';
   providers: [AuthService]
 })
 export class RegistryComponent implements OnInit, OnDestroy {
-  displayedColumns: string[] = ['registryId', 'hn', 'an', 'firstName', 'lastName', 'baseDb', 'completion'];
+  displayedColumns: string[] = [
+    'registryId',
+    'hn',
+    'an',
+    'firstName',
+    'lastName',
+    'baseDb',
+    'completion'
+  ];
   dataSource: MatTableDataSource<RegistryModel>;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -116,8 +124,8 @@ export class RegistryComponent implements OnInit, OnDestroy {
   }
 
   async export() {
-    const data = await this.registryService.loadACSx290sForExport(this.avHospitals);
-    this.fileService.saveJSONtoCSV(data, 'acsx.csv');
-    console.log('export acsx ' + data.length + ' records');
+    // const data = await this.registryService.loadACSx290sForExport(this.avHospitals);
+    // this.fileService.saveJSONtoCSV(data, 'acsx.csv');
+    // console.log('export acsx ' + data.length + ' records');
   }
 }
