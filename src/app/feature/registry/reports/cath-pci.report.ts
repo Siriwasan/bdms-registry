@@ -2418,9 +2418,9 @@ export class CathPciReport {
             ' Yes, ',
             pdf.field('Transplant Donor', { annotation: '7470' }),
             pdf.tab(),
-            pdf.radio('No', this.data ? this.data.sectionG.OrganTransplantSurg : null),
+            pdf.radio('No', this.data ? this.data.sectionG.OrganTransplantDonor : null),
             pdf.tab(),
-            pdf.radio('Yes', this.data ? this.data.sectionG.OrganTransplantSurg : null)
+            pdf.radio('Yes', this.data ? this.data.sectionG.OrganTransplantDonor : null)
           ),
           pdf.block(
             pdf.tab(),
@@ -3143,9 +3143,9 @@ export class CathPciReport {
                     pdf.block(
                       pdf.field('Patient Centered Reason for Delay in PCI', { annotation: '7850' }),
                       pdf.tab(),
-                      pdf.radio('No', this.data ? this.data.sectionIPtPCIDelayReason : null),
+                      pdf.radio('No', this.data ? this.data.sectionI.PtPCIDelayReason : null),
                       pdf.tab(),
-                      pdf.radio('Yes', this.data ? this.data.sectionIPtPCIDelayReason : null)
+                      pdf.radio('Yes', this.data ? this.data.sectionI.PtPCIDelayReason : null)
                     ),
                     pdf.columns(
                       pdf.blockStyle(
@@ -6228,7 +6228,7 @@ export class CathPciReport {
                     pdf.tab(),
                     pdf.radio('Yes', data ? data.M_BleedingEvent : null)
                   ),
-                  '',
+                  pdf.text('N/A', { style: 'tableCell', alignment: 'center' }),
                   pdf.prop(pdf.date(data ? data.M_BleedingEventDT : null), {
                     style: 'tableCell',
                     alignment: 'center'
@@ -6256,7 +6256,7 @@ export class CathPciReport {
                     pdf.tab(),
                     pdf.radio('Yes', data ? data.M_CABGNonStent : null)
                   ),
-                  '',
+                  pdf.text('N/A', { style: 'tableCell', alignment: 'center' }),
                   pdf.prop(pdf.date(data ? data.M_CABGNonStentDT : null), {
                     style: 'tableCell',
                     alignment: 'center'
@@ -6270,7 +6270,7 @@ export class CathPciReport {
                     pdf.tab(),
                     pdf.radio('Yes', data ? data.M_NSTEMI : null)
                   ),
-                  '',
+                  pdf.text('N/A', { style: 'tableCell', alignment: 'center' }),
                   pdf.prop(pdf.date(data ? data.M_NSTEMIDT : null), {
                     style: 'tableCell',
                     alignment: 'center'
@@ -6284,7 +6284,7 @@ export class CathPciReport {
                     pdf.tab(),
                     pdf.radio('Yes', data ? data.M_Qwave : null)
                   ),
-                  '',
+                  pdf.text('N/A', { style: 'tableCell', alignment: 'center' }),
                   pdf.prop(pdf.date(data ? data.M_QwaveDT : null), {
                     style: 'tableCell',
                     alignment: 'center'
@@ -6298,7 +6298,7 @@ export class CathPciReport {
                     pdf.tab(),
                     pdf.radio('Yes', data ? data.M_STEMI : null)
                   ),
-                  '',
+                  pdf.text('N/A', { style: 'tableCell', alignment: 'center' }),
                   pdf.prop(pdf.date(data ? data.M_STEMIDT : null), {
                     style: 'tableCell',
                     alignment: 'center'
@@ -6312,22 +6312,8 @@ export class CathPciReport {
                     pdf.tab(),
                     pdf.radio('Yes', data ? data.M_MIUnknown : null)
                   ),
-                  '',
+                  pdf.text('N/A', { style: 'tableCell', alignment: 'center' }),
                   pdf.prop(pdf.date(data ? data.M_MIUnknownDT : null), {
-                    style: 'tableCell',
-                    alignment: 'center'
-                  })
-                ],
-                [
-                  pdf.text('PCI of non-stented lesion', { style: 'tableCell' }),
-                  pdf.blockStyle(
-                    { style: 'tableCell', alignment: 'center' },
-                    pdf.radio('No', data ? data.M_PCINonStent : null),
-                    pdf.tab(),
-                    pdf.radio('Yes', data ? data.M_PCINonStent : null)
-                  ),
-                  '',
-                  pdf.prop(pdf.date(data ? data.M_PCINonStentDT : null), {
                     style: 'tableCell',
                     alignment: 'center'
                   })
@@ -6347,6 +6333,20 @@ export class CathPciReport {
                   })
                 ],
                 [
+                  pdf.text('PCI of non-stented lesion', { style: 'tableCell' }),
+                  pdf.blockStyle(
+                    { style: 'tableCell', alignment: 'center' },
+                    pdf.radio('No', data ? data.M_PCINonStent : null),
+                    pdf.tab(),
+                    pdf.radio('Yes', data ? data.M_PCINonStent : null)
+                  ),
+                  pdf.text('N/A', { style: 'tableCell', alignment: 'center' }),
+                  pdf.prop(pdf.date(data ? data.M_PCINonStentDT : null), {
+                    style: 'tableCell',
+                    alignment: 'center'
+                  })
+                ],
+                [
                   pdf.text('Readmission: Non-PCI Related', { style: 'tableCell' }),
                   pdf.blockStyle(
                     { style: 'tableCell', alignment: 'center' },
@@ -6354,8 +6354,8 @@ export class CathPciReport {
                     pdf.tab(),
                     pdf.radio('Yes', data ? data.M_Readmission : null)
                   ),
-                  '',
-                  pdf.prop(pdf.date(data ? data.M_Readmission : null), {
+                  pdf.text('N/A', { style: 'tableCell', alignment: 'center' }),
+                  pdf.prop(pdf.date(data ? data.M_ReadmissionDT : null), {
                     style: 'tableCell',
                     alignment: 'center'
                   })
@@ -6368,7 +6368,7 @@ export class CathPciReport {
                     pdf.tab(),
                     pdf.radio('Yes', data ? data.M_StrokeHemorrhage : null)
                   ),
-                  '',
+                  pdf.text('N/A', { style: 'tableCell', alignment: 'center' }),
                   pdf.prop(pdf.date(data ? data.M_StrokeHemorrhageDT : null), {
                     style: 'tableCell',
                     alignment: 'center'
@@ -6382,7 +6382,7 @@ export class CathPciReport {
                     pdf.tab(),
                     pdf.radio('Yes', data ? data.M_StrokeIschemic : null)
                   ),
-                  '',
+                  pdf.text('N/A', { style: 'tableCell', alignment: 'center' }),
                   pdf.prop(pdf.date(data ? data.M_StrokeIschemicDT : null), {
                     style: 'tableCell',
                     alignment: 'center'
@@ -6396,7 +6396,7 @@ export class CathPciReport {
                     pdf.tab(),
                     pdf.radio('Yes', data ? data.M_StrokeUndetermined : null)
                   ),
-                  '',
+                  pdf.text('N/A', { style: 'tableCell', alignment: 'center' }),
                   pdf.prop(pdf.date(data ? data.M_StrokeUndeterminedDT : null), {
                     style: 'tableCell',
                     alignment: 'center'
@@ -6424,7 +6424,7 @@ export class CathPciReport {
                     pdf.tab(),
                     pdf.radio('Yes', data ? data.M_ThrombosisNonStent : null)
                   ),
-                  '',
+                  pdf.text('N/A', { style: 'tableCell', alignment: 'center' }),
                   pdf.prop(pdf.date(data ? data.M_ThrombosisNonStentDT : null), {
                     style: 'tableCell',
                     alignment: 'center'
