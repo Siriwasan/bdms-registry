@@ -14,7 +14,7 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            loadChildren: () => import('./acsx290/acsx290.module').then(m => m.ACSx290Module),
+            loadChildren: () => import('./acsx290/acsx290.module').then(m => m.ACSx290Module)
           }
         ]
       },
@@ -23,7 +23,8 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            loadChildren: () => import('./acsx290-list/acsx290-list.module').then(m => m.ACSx290ListModule),
+            loadChildren: () =>
+              import('./acsx290-list/acsx290-list.module').then(m => m.ACSx290ListModule)
           }
         ]
       },
@@ -32,7 +33,8 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            loadChildren: () => import('./cath-pci50/cath-pci50.module').then(m => m.CathPci50Module),
+            loadChildren: () =>
+              import('./cath-pci50/cath-pci50.module').then(m => m.CathPci50Module)
           }
         ]
       },
@@ -41,7 +43,8 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            loadChildren: () => import('./cath-pci50-list/cath-pci50-list.module').then(m => m.CathPci50ListModule),
+            loadChildren: () =>
+              import('./cath-pci50-list/cath-pci50-list.module').then(m => m.CathPci50ListModule)
           }
         ]
       },

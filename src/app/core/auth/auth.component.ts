@@ -116,7 +116,7 @@ export class AuthComponent implements OnInit, OnDestroy {
     );
     this.store.dispatch(new UI.StopLoading());
     if (result) {
-      this.router.navigate(['/about']);
+      this.router.navigate(['/home']);
     } else {
       this.errorMessage = 'Username and password not matched';
       setTimeout(() => {

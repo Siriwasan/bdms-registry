@@ -81,6 +81,7 @@ export const roles = ['Director', 'Administrator', 'Editor', 'Staff'];
 export const permissions = ['BDMS', 'Group', 'Hospital'];
 
 export const menus = {
+  home: ['Director', 'Administrator', 'Editor', 'Staff'],
   registry: ['Director', 'Administrator', 'Editor'],
   myPatients: ['Director', 'Administrator', 'Staff'],
   staff: ['Director', 'Administrator'],

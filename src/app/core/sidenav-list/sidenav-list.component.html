@@ -1,5 +1,5 @@
 <mat-nav-list>
-  <a mat-list-item routerLink="/home" (click)="onClose()">
+  <a mat-list-item routerLink="/home" (click)="onClose()" *ngIf="user$ | async">
     <mat-icon>home</mat-icon>
     <span class="nav-caption">Home</span>
   </a>
@@ -7,7 +7,10 @@
     mat-list-item
     routerLink="/registry/acsx290-list"
     (click)="onClose()"
-    *ngIf="authMenu.registry.includes((user$ | async)?.staff.role) && (user$ | async)?.staff.registries.includes('ACSx290')"
+    *ngIf="
+      authMenu.registry.includes((user$ | async)?.staff.role) &&
+      (user$ | async)?.staff.registries.includes('ACSx290')
+    "
   >
     <mat-icon>list</mat-icon>
     <span class="nav-caption">STS</span>
@@ -16,7 +19,10 @@
     mat-list-item
     routerLink="/registry/cath-pci50-list"
     (click)="onClose()"
-    *ngIf="authMenu.registry.includes((user$ | async)?.staff.role) && (user$ | async)?.staff.registries.includes('CathPci50')"
+    *ngIf="
+      authMenu.registry.includes((user$ | async)?.staff.role) &&
+      (user$ | async)?.staff.registries.includes('CathPci50')
+    "
   >
     <mat-icon>list_outline</mat-icon>
     <span class="nav-caption">CathPCI</span>
@@ -30,7 +36,12 @@
     <mat-icon>assignment</mat-icon>
     <span class="nav-caption">My Patients</span>
   </a>
-  <a mat-list-item routerLink="/staff" (click)="onClose()" *ngIf="authMenu.staff.includes((user$ | async)?.staff.role)">
+  <a
+    mat-list-item
+    routerLink="/staff"
+    (click)="onClose()"
+    *ngIf="authMenu.staff.includes((user$ | async)?.staff.role)"
+  >
     <mat-icon>people</mat-icon>
     <span class="nav-caption">Staff</span>
   </a>
@@ -38,7 +49,12 @@
     <mat-icon>description</mat-icon>
     <span class="nav-caption">Test Form</span>
   </a> -->
-  <a mat-list-item routerLink="/tools" (click)="onClose()" *ngIf="authMenu.tools.includes((user$ | async)?.staff.role)">
+  <a
+    mat-list-item
+    routerLink="/tools"
+    (click)="onClose()"
+    *ngIf="authMenu.tools.includes((user$ | async)?.staff.role)"
+  >
     <mat-icon>build</mat-icon>
     <span class="nav-caption">Tools</span>
   </a>

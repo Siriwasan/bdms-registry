@@ -14,19 +14,14 @@ import { AuthRegistryGuard } from './core/auth/auth-registry.guard';
 const routes: Routes = [
   {
     path: 'registry',
-    loadChildren: () => import('./feature/registry/registry.module').then(m => m.RegistryModule),
+    loadChildren: () => import('./feature/registry/registry.module').then(m => m.RegistryModule)
     // canActivate: [AuthRoleGuard],
     // data: { roles: Auth.menus.registry }
   },
-  // {
-  //   path: 'my-patients',
-  //   component: MyPatientsComponent,
-  //   canActivate: [AuthRoleGuard],
-  //   data: { roles: Auth.menus.myPatients }
-  // },
   {
     path: 'my-patients',
-    loadChildren: () => import('./feature/my-patients/my-patients.module').then(m => m.MyPatientsModule),
+    loadChildren: () =>
+      import('./feature/my-patients/my-patients.module').then(m => m.MyPatientsModule)
   },
   {
     path: 'staff',
@@ -40,7 +35,10 @@ const routes: Routes = [
     canActivate: [AuthRoleGuard],
     data: { roles: Auth.menus.tools }
   },
-  { path: 'home', component: HomeComponent },
+  {
+    path: 'home',
+    loadChildren: () => import('./feature/home/home.module').then(m => m.HomeModule)
+  },
   { path: 'about', component: AboutComponent },
   { path: 'auth', component: AuthComponent },
   { path: 'page-not-autherized', component: PageNotAutherizedComponent },

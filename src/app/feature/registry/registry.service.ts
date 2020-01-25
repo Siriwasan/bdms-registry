@@ -32,6 +32,14 @@ export class RegistryService implements OnDestroy {
   }
 
   //#region Cloud firestore
+  public loadAllRegistries(registry: string): Promise<RegistryModel[]> {
+    return this.db
+      .collection<RegistryModel>(DB_REGISTRY, ref => ref.where('baseDbId', '==', registry))
+      .valueChanges()
+      .pipe(take(1))
+      .toPromise();
+  }
+
   public loadRegistries(registry: string, avHospitals: Auth.Hospital[]): Promise<RegistryModel[]> {
     const registryList: Observable<RegistryModel[]>[] = [];
     avHospitals.forEach(hosp => {
@@ -189,6 +197,7 @@ export class RegistryService implements OnDestroy {
     // json.
 
     // tslint:disable: variable-name
+    const Completion = this.CompletionToSheet(json);
     const ECGFindings = this.FieldToSheet('sectionD', 'ECGFindings', json);
     const NSVTType = this.FieldToSheet('sectionD', 'NSVTType', json);
     const ConcomProcType = this.FieldToSheet('sectionE', 'ConcomProcType', json);
@@ -240,66 +249,72 @@ export class RegistryService implements OnDestroy {
     // tslint:enable: variable-name
 
     const mainData = [];
-    json.forEach(j => mainData.push(flatten(j)));
+    json.forEach(j => {
+      delete j.completion;
+      mainData.push(flatten(j));
+    });
 
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(mainData);
-    const worksheet2: XLSX.WorkSheet = XLSX.utils.json_to_sheet(ECGFindings);
-    const worksheet3: XLSX.WorkSheet = XLSX.utils.json_to_sheet(NSVTType);
-    const worksheet4: XLSX.WorkSheet = XLSX.utils.json_to_sheet(ConcomProcType);
-    const worksheet5: XLSX.WorkSheet = XLSX.utils.json_to_sheet(CathLabVisitIndication);
-    const worksheet6: XLSX.WorkSheet = XLSX.utils.json_to_sheet(CVInstabilityType);
-    const worksheet7: XLSX.WorkSheet = XLSX.utils.json_to_sheet(OrganTransplantType);
-    const worksheet8: XLSX.WorkSheet = XLSX.utils.json_to_sheet(NativeLesions);
-    const worksheet9: XLSX.WorkSheet = XLSX.utils.json_to_sheet(GraftLesions);
-    const worksheet10: XLSX.WorkSheet = XLSX.utils.json_to_sheet(CHIP);
-    const worksheet11: XLSX.WorkSheet = XLSX.utils.json_to_sheet(PciLesions);
-    const worksheet12: XLSX.WorkSheet = XLSX.utils.json_to_sheet(SegmentID);
-    const worksheet13: XLSX.WorkSheet = XLSX.utils.json_to_sheet(GuidewireAcross);
-    const worksheet14: XLSX.WorkSheet = XLSX.utils.json_to_sheet(IntraCoroMeasurementSite);
-    const worksheet15: XLSX.WorkSheet = XLSX.utils.json_to_sheet(MB_MeasurementType);
-    const worksheet16: XLSX.WorkSheet = XLSX.utils.json_to_sheet(SB_MeasurementType);
-    const worksheet17: XLSX.WorkSheet = XLSX.utils.json_to_sheet(StentDeployedStrategy);
-    const worksheet18: XLSX.WorkSheet = XLSX.utils.json_to_sheet(ComplicationPCIDetail);
-    const worksheet19: XLSX.WorkSheet = XLSX.utils.json_to_sheet(PciDevices);
-    const worksheet20: XLSX.WorkSheet = XLSX.utils.json_to_sheet(ICDevCounterAssn);
-    const worksheet21: XLSX.WorkSheet = XLSX.utils.json_to_sheet(K_MIFollowCriteria);
-    const worksheet22: XLSX.WorkSheet = XLSX.utils.json_to_sheet(HospInterventionType);
-    const worksheet23: XLSX.WorkSheet = XLSX.utils.json_to_sheet(DC_MedReconciled);
-    const worksheet24: XLSX.WorkSheet = XLSX.utils.json_to_sheet(FollowUps);
-    const worksheet25: XLSX.WorkSheet = XLSX.utils.json_to_sheet(FU_Method);
-    const worksheet26: XLSX.WorkSheet = XLSX.utils.json_to_sheet(intraCoronaryDevices);
+    const worksheet2: XLSX.WorkSheet = XLSX.utils.json_to_sheet(Completion);
+    const worksheet3: XLSX.WorkSheet = XLSX.utils.json_to_sheet(ECGFindings);
+    const worksheet4: XLSX.WorkSheet = XLSX.utils.json_to_sheet(NSVTType);
+    const worksheet5: XLSX.WorkSheet = XLSX.utils.json_to_sheet(ConcomProcType);
+    const worksheet6: XLSX.WorkSheet = XLSX.utils.json_to_sheet(CathLabVisitIndication);
+    const worksheet7: XLSX.WorkSheet = XLSX.utils.json_to_sheet(CVInstabilityType);
+    const worksheet8: XLSX.WorkSheet = XLSX.utils.json_to_sheet(OrganTransplantType);
+    const worksheet9: XLSX.WorkSheet = XLSX.utils.json_to_sheet(NativeLesions);
+    const worksheet10: XLSX.WorkSheet = XLSX.utils.json_to_sheet(GraftLesions);
+    const worksheet11: XLSX.WorkSheet = XLSX.utils.json_to_sheet(CHIP);
+    const worksheet12: XLSX.WorkSheet = XLSX.utils.json_to_sheet(PciLesions);
+    const worksheet13: XLSX.WorkSheet = XLSX.utils.json_to_sheet(SegmentID);
+    const worksheet14: XLSX.WorkSheet = XLSX.utils.json_to_sheet(GuidewireAcross);
+    const worksheet15: XLSX.WorkSheet = XLSX.utils.json_to_sheet(IntraCoroMeasurementSite);
+    const worksheet16: XLSX.WorkSheet = XLSX.utils.json_to_sheet(MB_MeasurementType);
+    const worksheet17: XLSX.WorkSheet = XLSX.utils.json_to_sheet(SB_MeasurementType);
+    const worksheet18: XLSX.WorkSheet = XLSX.utils.json_to_sheet(StentDeployedStrategy);
+    const worksheet19: XLSX.WorkSheet = XLSX.utils.json_to_sheet(ComplicationPCIDetail);
+    const worksheet20: XLSX.WorkSheet = XLSX.utils.json_to_sheet(PciDevices);
+    const worksheet21: XLSX.WorkSheet = XLSX.utils.json_to_sheet(ICDevCounterAssn);
+    const worksheet22: XLSX.WorkSheet = XLSX.utils.json_to_sheet(K_MIFollowCriteria);
+    const worksheet23: XLSX.WorkSheet = XLSX.utils.json_to_sheet(HospInterventionType);
+    const worksheet24: XLSX.WorkSheet = XLSX.utils.json_to_sheet(DC_MedReconciled);
+    const worksheet25: XLSX.WorkSheet = XLSX.utils.json_to_sheet(FollowUps);
+    const worksheet26: XLSX.WorkSheet = XLSX.utils.json_to_sheet(FU_Method);
+    const worksheet27: XLSX.WorkSheet = XLSX.utils.json_to_sheet(intraCoronaryDevices);
 
     const workbook: XLSX.WorkBook = {
       Sheets: {
         data: worksheet,
-        ECGFindings: worksheet2,
-        NSVTType: worksheet3,
-        ConcomProcType: worksheet4,
-        CathLabVisitIndication: worksheet5,
-        CVInstabilityType: worksheet6,
-        OrganTransplantType: worksheet7,
-        NativeLesions: worksheet8,
-        GraftLesions: worksheet9,
-        CHIP: worksheet10,
-        PciLesions: worksheet11,
-        SegmentID: worksheet12,
-        GuidewireAcross: worksheet13,
-        IntraCoroMeasurementSite: worksheet14,
-        MB_MeasurementType: worksheet15,
-        SB_MeasurementType: worksheet16,
-        StentDeployedStrategy: worksheet17,
-        ComplicationPCIDetail: worksheet18,
-        PciDevices: worksheet19,
-        ICDevCounterAssn: worksheet20,
-        K_MIFollowCriteria: worksheet21,
-        HospInterventionType: worksheet22,
-        DC_MedReconciled: worksheet23,
-        FollowUps: worksheet24,
-        FU_Method: worksheet25,
-        IntraCoronaryDevices: worksheet26
+        Completion: worksheet2,
+        ECGFindings: worksheet3,
+        NSVTType: worksheet4,
+        ConcomProcType: worksheet5,
+        CathLabVisitIndication: worksheet6,
+        CVInstabilityType: worksheet7,
+        OrganTransplantType: worksheet8,
+        NativeLesions: worksheet9,
+        GraftLesions: worksheet10,
+        CHIP: worksheet11,
+        PciLesions: worksheet12,
+        SegmentID: worksheet13,
+        GuidewireAcross: worksheet14,
+        IntraCoroMeasurementSite: worksheet15,
+        MB_MeasurementType: worksheet16,
+        SB_MeasurementType: worksheet17,
+        StentDeployedStrategy: worksheet18,
+        ComplicationPCIDetail: worksheet19,
+        PciDevices: worksheet20,
+        ICDevCounterAssn: worksheet21,
+        K_MIFollowCriteria: worksheet22,
+        HospInterventionType: worksheet23,
+        DC_MedReconciled: worksheet24,
+        FollowUps: worksheet25,
+        FU_Method: worksheet26,
+        IntraCoronaryDevices: worksheet27
       },
       SheetNames: [
         'data',
+        'Completion',
         'ECGFindings',
         'NSVTType',
         'ConcomProcType',
@@ -363,6 +378,41 @@ export class RegistryService implements OnDestroy {
         sheetData.push(n);
       });
       record[control] = `see '${control}' sheet`;
+    });
+    return sheetData;
+  }
+
+  private CompletionToSheet(data: CathPci50Model[]) {
+    const sheetData = [];
+    data.map(record => {
+      const section = 'ABCDEFGHIJKLM';
+      [...section].forEach(c => {
+        const fields = {
+          registryId: record.sectionA[`registryId`],
+          section: c,
+          valid: record.completion['section' + c].valid,
+          total: record.completion['section' + c].total,
+          completion:
+            record.completion['section' + c].total !== 0
+              ? Math.floor(
+                  (record.completion['section' + c].valid /
+                    record.completion['section' + c].total) *
+                    100
+                )
+              : 100
+        };
+        sheetData.push(fields);
+      });
+      sheetData.push({
+        registryId: record.sectionA[`registryId`],
+        section: 'summary',
+        valid: record.completion.summary.valid,
+        total: record.completion.summary.total,
+        completion:
+          record.completion.summary.total !== 0
+            ? Math.floor((record.completion.summary.valid / record.completion.summary.total) * 100)
+            : 100
+      });
     });
     return sheetData;
   }

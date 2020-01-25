@@ -1,3 +1,10 @@
+# 1.7.2 (2020-01-25)
+
+### Features
+
+- **ACSx290:** add ACSx290 bar chart
+- **CathPci50:** add CathPci50 bar chart
+
 # 1.6.2 (2020-01-20)
 
 ### Features
