@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, HostListener } from '@angular/core';
+import { Component, OnDestroy, OnInit, HostListener, AfterViewInit } from '@angular/core';
 import {
   Router,
   NavigationStart,
@@ -16,13 +16,14 @@ import { Store } from '@ngrx/store';
 import * as fromRoot from './app.reducer';
 import * as UI from './shared/ui.actions';
 import { AuthService } from './core/auth/auth.service';
+import { NgxUiLoaderService, Loader } from 'ngx-ui-loader';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
   isLoading$: Observable<boolean>;
 
   navOpened = true;
@@ -33,7 +34,8 @@ export class AppComponent implements OnInit, OnDestroy {
     media: MediaObserver,
     private store: Store<fromRoot.State>,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private ngxService: NgxUiLoaderService
   ) {
     this.watcher = media.asObservable().subscribe((change: MediaChange[]) => {
       if (change[0].mqAlias === 'lg' || change[0].mqAlias === 'xl') {
@@ -47,47 +49,55 @@ export class AppComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.router.events.subscribe(
-      (event: RouterEvent): void => {
-        switch (true) {
-          case event instanceof RouteConfigLoadStart:
-            // console.log('RouteConfigLoadStart');
-            break;
+    this.router.events.subscribe((event: RouterEvent): void => {
+      switch (true) {
+        case event instanceof RouteConfigLoadStart:
+          // console.log('RouteConfigLoadStart');
+          break;
 
-          case event instanceof NavigationStart:
-            // console.log('NavigationStart');
-            // this.store.dispatch(new UI.StartLoading());
-            break;
+        case event instanceof NavigationStart:
+          // console.log('NavigationStart');
+          // this.store.dispatch(new UI.StartLoading());
+          break;
 
-          case event instanceof RouteConfigLoadEnd:
-            // console.log('RouteConfigLoadEnd');
-            break;
+        case event instanceof RouteConfigLoadEnd:
+          // console.log('RouteConfigLoadEnd');
+          break;
 
-          case event instanceof NavigationEnd:
-            // console.log('NavigationEnd');
-            // this.store.dispatch(new UI.StopLoading());
+        case event instanceof NavigationEnd:
+          // console.log('NavigationEnd');
+          // this.store.dispatch(new UI.StopLoading());
 
-            // setTimeout(() => {
-            // this.store.dispatch(new UI.StopLoading());
-            // }, 2000);
-            break;
+          // setTimeout(() => {
+          // this.store.dispatch(new UI.StopLoading());
+          // }, 2000);
+          break;
 
-          case event instanceof NavigationCancel:
-            // console.log('NavigationCancel');
-            // this.store.dispatch(new UI.StopLoading());
-            break;
+        case event instanceof NavigationCancel:
+          // console.log('NavigationCancel');
+          // this.store.dispatch(new UI.StopLoading());
+          break;
 
-          case event instanceof NavigationError:
-            // console.log('NavigationError');
-            break;
-        }
+        case event instanceof NavigationError:
+          // console.log('NavigationError');
+          break;
       }
-    );
+    });
   }
 
   ngOnInit() {
     this.isLoading$ = this.store.select(fromRoot.getIsLoading);
     this.authService.autoLogin();
+  }
+
+  ngAfterViewInit() {
+    this.isLoading$.subscribe(o => {
+      if (o) {
+        this.ngxService.start();
+      } else {
+        this.ngxService.stop();
+      }
+    });
   }
 
   ngOnDestroy() {

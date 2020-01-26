@@ -1,7 +1,7 @@
 <h1>CathPCI Registry</h1>
 <div style="position: relative">
   <!-- It is important to set position of parent container to "relative" -->
-  <div ngxUiLoaderBlurred blur="0" loaderId="loader-02">
+  <div loaderId="loader-02">
     <canvas
       baseChart
       [datasets]="barChartData"
@@ -19,7 +19,7 @@
     loaderId="loader-02"
     [hasProgressBar]="false"
     text="Loading"
-    fgsType="chasing-dots"
+    fgsType="folding-cube"
     overlayColor="rgba(40,40,40,0.2)"
   ></ngx-ui-loader>
 </div>

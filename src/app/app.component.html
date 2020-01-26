@@ -9,6 +9,10 @@
     </main>
   </mat-sidenav-content>
 </mat-sidenav-container>
-<div class="loading-indicator" *ngIf="isLoading$ | async">
-  <mat-spinner style="margin:0 auto;" mode="indeterminate"></mat-spinner>
-</div>
+
+<ngx-ui-loader
+  logoUrl="/assets/bdms-logo.png"
+  logoSize="50"
+  fgsType="three-bounce"
+  fgsColor="#cacaca"
+></ngx-ui-loader>
