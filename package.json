@@ -38,6 +38,7 @@
     "moment-timezone": "^0.5.26",
     "ng2-charts": "^2.3.0",
     "ngx-mat-select-search": "^1.8.0",
+    "ngx-ui-loader": "^8.0.0",
     "pdfmake": "^0.1.63",
     "rxjs": "~6.5.2",
     "tslib": "^1.10.0",

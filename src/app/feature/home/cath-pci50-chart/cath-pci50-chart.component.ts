@@ -5,6 +5,7 @@ import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 
 import { RegistryService } from '../../registry/registry.service';
 import { RegistryModel } from '../../registry/registry.model';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
   selector: 'app-cath-pci50-chart',
@@ -27,10 +28,13 @@ export class CathPci50ChartComponent implements OnInit {
 
   cathPci50Data: RegistryModel[];
 
-  constructor(private registryService: RegistryService) {}
+  constructor(private registryService: RegistryService, private ngxService: NgxUiLoaderService) {}
 
   async ngOnInit() {
+    this.ngxService.startLoader('loader-02');
     this.cathPci50Data = await this.registryService.loadAllRegistries('CathPci50');
+    this.ngxService.stopLoader('loader-02');
+
     // console.log(this.cathPci50Data);
     const group = this.cathPci50Data.reduce((r, a) => {
       // console.log("a", a);

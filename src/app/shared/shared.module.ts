@@ -4,6 +4,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
+import { ChartsModule } from 'ng2-charts';
+import { NgxUiLoaderModule } from 'ngx-ui-loader';
+
 import { MaterialModule } from '../shared/material.module';
 import { RegistryFormModule } from './modules/registry-form/registry-form.module';
 
@@ -13,7 +16,6 @@ import { FabSpeedDialModule } from './modules/fab-speed-dial/fab-speed-dial.modu
 import { CathPci50ListControlComponent } from '../feature/registry/cath-pci50-list-control/cath-pci50-list-control.component';
 import { ACSx290ListControlComponent } from '../feature/registry/acsx290-list-control/acsx290-list-control.component';
 import { IsoDatePipe } from './pipes/iso-date.pipe';
-import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,8 @@ import { ChartsModule } from 'ng2-charts';
     FlexLayoutModule,
     RegistryFormModule,
     FabSpeedDialModule,
-    ChartsModule
+    ChartsModule,
+    NgxUiLoaderModule
   ],
   exports: [
     CommonModule,
@@ -47,7 +50,8 @@ import { ChartsModule } from 'ng2-charts';
     FabSpeedDialModule,
     CathPci50ListControlComponent,
     ACSx290ListControlComponent,
-    ChartsModule
+    ChartsModule,
+    NgxUiLoaderModule
   ],
   providers: [],
   entryComponents: [ModalDialogComponent]

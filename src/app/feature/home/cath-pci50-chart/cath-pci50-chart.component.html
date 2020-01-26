@@ -1,16 +1,25 @@
-<div style="display: block;">
-  <h1>CathPCI Registry</h1>
-  <canvas
-    baseChart
-    [datasets]="barChartData"
-    [labels]="barChartLabels"
-    [options]="barChartOptions"
-    [plugins]="barChartPlugins"
-    [legend]="barChartLegend"
-    [chartType]="barChartType"
-  >
-  </canvas>
-  <!-- <div class="loading-indicator">
-    <mat-spinner style="margin:0 auto;" mode="indeterminate"></mat-spinner>
-  </div> NGX-UI-LOADER -->
+<h1>CathPCI Registry</h1>
+<div style="position: relative">
+  <!-- It is important to set position of parent container to "relative" -->
+  <div ngxUiLoaderBlurred blur="0" loaderId="loader-02">
+    <canvas
+      baseChart
+      [datasets]="barChartData"
+      [labels]="barChartLabels"
+      [options]="barChartOptions"
+      [plugins]="barChartPlugins"
+      [legend]="barChartLegend"
+      [chartType]="barChartType"
+    >
+    </canvas>
+  </div>
+
+  <!-- set loaderId to something that is different from "master" -->
+  <ngx-ui-loader
+    loaderId="loader-02"
+    [hasProgressBar]="false"
+    text="Loading"
+    fgsType="chasing-dots"
+    overlayColor="rgba(40,40,40,0.2)"
+  ></ngx-ui-loader>
 </div>

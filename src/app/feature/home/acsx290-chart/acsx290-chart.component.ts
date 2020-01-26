@@ -5,6 +5,7 @@ import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 
 import { RegistryService } from '../../registry/registry.service';
 import { RegistryModel } from '../../registry/registry.model';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
   selector: 'app-acsx290-chart',
@@ -24,10 +25,13 @@ export class Acsx290ChartComponent implements OnInit {
 
   acsx290Data: RegistryModel[];
 
-  constructor(private registryService: RegistryService) {}
+  constructor(private registryService: RegistryService, private ngxService: NgxUiLoaderService) {}
 
   async ngOnInit() {
+    this.ngxService.startLoader('loader-01');
     this.acsx290Data = await this.registryService.loadAllRegistries('ACSx290');
+    this.ngxService.stopLoader('loader-01');
+
     // console.log(this.cathPci50Data);
     const group = this.acsx290Data.reduce((r, a) => {
       // console.log("a", a);
