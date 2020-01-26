@@ -281,6 +281,7 @@ export class RegistryService implements OnDestroy {
     const worksheet25: XLSX.WorkSheet = XLSX.utils.json_to_sheet(FollowUps);
     const worksheet26: XLSX.WorkSheet = XLSX.utils.json_to_sheet(FU_Method);
     const worksheet27: XLSX.WorkSheet = XLSX.utils.json_to_sheet(intraCoronaryDevices);
+    const worksheet28: XLSX.WorkSheet = XLSX.utils.json_to_sheet(Auth.hospitals);
 
     const workbook: XLSX.WorkBook = {
       Sheets: {
@@ -310,7 +311,8 @@ export class RegistryService implements OnDestroy {
         DC_MedReconciled: worksheet24,
         FollowUps: worksheet25,
         FU_Method: worksheet26,
-        IntraCoronaryDevices: worksheet27
+        IntraCoronaryDevices: worksheet27,
+        Hospital: worksheet28
       },
       SheetNames: [
         'data',
@@ -339,7 +341,8 @@ export class RegistryService implements OnDestroy {
         'DC_MedReconciled',
         'FollowUps',
         'FU_Method',
-        'IntraCoronaryDevices'
+        'IntraCoronaryDevices',
+        'Hospital'
       ]
     };
 
