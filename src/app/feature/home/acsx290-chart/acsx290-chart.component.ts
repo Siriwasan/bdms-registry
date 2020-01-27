@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import { Label, Color } from 'ng2-charts';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
+import * as moment from 'moment';
 
 import { RegistryService } from '../../registry/registry.service';
 import { RegistryModel } from '../../registry/registry.model';
@@ -18,10 +19,16 @@ export class Acsx290ChartComponent implements OnInit {
   };
   public barChartLabels: Label[] = [];
   public barChartType: ChartType = 'bar';
-  public barChartLegend = false;
+  public barChartLegend = true;
   public barChartPlugins = [pluginDataLabels];
-  public barChartData: ChartDataSets[] = [{ data: [], label: 'CAG' }];
-  public barChartColors: Color[] = [{ backgroundColor: 'rgba(143,227,209,0.8)' }];
+  public barChartData: ChartDataSets[] = [
+    { data: [], label: '2019' },
+    { data: [], label: '2020' }
+  ];
+  public barChartColors: Color[] = [
+    { backgroundColor: 'rgba(143, 227, 209, 0.8)' },
+    { backgroundColor: 'rgba(139, 145, 242, 0.8)' }
+  ];
 
   acsx290Data: RegistryModel[];
 
@@ -45,7 +52,11 @@ export class Acsx290ChartComponent implements OnInit {
       // console.log(key, value);
       this.barChartLabels.push(key);
       const num = (value as RegistryModel[]).length;
-      this.barChartData[0].data.push(num);
+      const registry = value as RegistryModel[];
+      const y2019 = registry.filter(a => moment(a.procedureDateTime).year() === 2019).length;
+      const y2020 = registry.filter(a => moment(a.procedureDateTime).year() === 2020).length;
+      this.barChartData[0].data.push(y2019);
+      this.barChartData[1].data.push(y2020);
     });
   }
 }

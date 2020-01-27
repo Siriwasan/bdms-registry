@@ -1,3 +1,9 @@
+# 1.8.1 (2020-01-27)
+
+### Features
+
+- **ACSx290:** split bar chart by year
+
 # 1.8.0 (2020-01-26)
 
 ### Features

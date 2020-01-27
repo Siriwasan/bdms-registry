@@ -47,9 +47,9 @@ export class CathPci50ChartComponent implements OnInit {
     Object.entries(group).find(([key, value]) => {
       // console.log(key, value);
       this.barChartLabels.push(key);
-      const pciNumber = (value as RegistryModel[]).filter(a => a.tags.includes('PCI')).length;
-      const cagNumber =
-        (value as RegistryModel[]).filter(a => a.tags.includes('CAG')).length - pciNumber;
+      const registry = value as RegistryModel[];
+      const pciNumber = registry.filter(a => a.tags.includes('PCI')).length;
+      const cagNumber = registry.filter(a => a.tags.includes('CAG')).length - pciNumber;
       this.barChartData[0].data.push(cagNumber);
       this.barChartData[1].data.push(pciNumber);
     });
