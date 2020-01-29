@@ -4050,7 +4050,7 @@ export class CathPciReport {
                       pdf.block(
                         pdf.tab(2),
                         pdf.radio(
-                          'Prolong ballon inflation',
+                          'Prolong balloon inflation',
                           data ? data.CoronaryArteryPerforation : null
                         )
                       ),
@@ -4092,7 +4092,7 @@ export class CathPciReport {
                       pdf.block(
                         pdf.tab(2),
                         pdf.radio(
-                          'Prolong ballon inflation',
+                          'Prolong balloon inflation',
                           data ? data.CoronaryArteryDissection : null
                         )
                       ),
@@ -4107,7 +4107,7 @@ export class CathPciReport {
                       pdf.block(
                         pdf.tab(2),
                         pdf.radio(
-                          'Re-ballon inflation',
+                          'Re-balloon inflation',
                           data ? data.LongitudinalStentDeformation : null
                         )
                       ),
