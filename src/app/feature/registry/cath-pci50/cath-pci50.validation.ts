@@ -58,7 +58,10 @@ export const validations: FormValidations = {
   sectionB: {
     ArrivalDateTime: [
       { type: 'DobBeforeArrivalDT', message: 'Birthdate should be before Arrival DateTime.' },
-      { type: 'ArrivalDTBeforeDischargeDT', message: 'Arrival DateTime should be before Discharge DateTime.' },
+      {
+        type: 'ArrivalDTBeforeDischargeDT',
+        message: 'Arrival DateTime should be before Discharge DateTime.'
+      },
       {
         type: 'ArrivalDTBeforeProcedureStartDT',
         message: 'Arrival DateTime should be before Procedure Start DateTime.'
@@ -149,7 +152,8 @@ export const validations: FormValidations = {
       },
       {
         type: 'StressTestDateBeforeProcedureStartDT',
-        message: 'Most Recent Stress Test Date should be before or equal to Procedure Start DateTime.'
+        message:
+          'Most Recent Stress Test Date should be before or equal to Procedure Start DateTime.'
       }
     ],
     CardiacCTADate: [
@@ -169,7 +173,8 @@ export const validations: FormValidations = {
       },
       {
         type: 'CalciumScoreDateBeforeProcedureStartDT',
-        message: 'Agatston Calcium Score Date should be before or equal to Procedure Start DateTime.'
+        message:
+          'Agatston Calcium Score Date should be before or equal to Procedure Start DateTime.'
       }
     ],
     PriorDxAngioDate: [
@@ -219,7 +224,8 @@ export const validations: FormValidations = {
       },
       {
         type: 'StressTestDateBeforeProcedureStartDT',
-        message: 'Most Recent Stress Test Date should be before or equal to Procedure Start DateTime.'
+        message:
+          'Most Recent Stress Test Date should be before or equal to Procedure Start DateTime.'
       },
       {
         type: 'CardiacCTADateBeforeProcedureStartDT',
@@ -227,7 +233,8 @@ export const validations: FormValidations = {
       },
       {
         type: 'CalciumScoreDateBeforeProcedureStartDT',
-        message: 'Agatston Calcium Score Date should be before or equal to Procedure Start DateTime.'
+        message:
+          'Agatston Calcium Score Date should be before or equal to Procedure Start DateTime.'
       },
       {
         type: 'PriorDxAngioDateBeforeProcedureStartDT',
@@ -251,7 +258,8 @@ export const validations: FormValidations = {
       },
       {
         type: 'ThromDTBefore7ProcedureStartDT',
-        message: 'Thrombolytic Therapy DateTime should be 1 week before or equal to Procedure Start DateTime.'
+        message:
+          'Thrombolytic Therapy DateTime should be 1 week before or equal to Procedure Start DateTime.'
       },
       {
         type: 'SubECGDTBefore1ProcedureStartDT',
@@ -260,7 +268,8 @@ export const validations: FormValidations = {
       },
       {
         type: 'EDPresentDTBeforeProcedureStartDT',
-        message: 'ED Presentation at Referring Facility DateTime should be before Procedure Start DateTime.'
+        message:
+          'ED Presentation at Referring Facility DateTime should be before Procedure Start DateTime.'
       },
       {
         type: 'FirstDevActiDTAfterProcedureStartDT',
@@ -332,7 +341,8 @@ export const validations: FormValidations = {
       },
       {
         type: 'K_StrokeUndeterminedDTAfterProcedureStartDT',
-        message: 'Undetermined Stroke Complication DateTime should be after Procedure Start DateTime.'
+        message:
+          'Undetermined Stroke Complication DateTime should be after Procedure Start DateTime.'
       }
     ],
     ProcedureEndDateTime: [
@@ -448,7 +458,8 @@ export const validations: FormValidations = {
     ThromDateTime: [
       {
         type: 'ThromDTBefore7ProcedureStartDT',
-        message: 'Thrombolytic Therapy DateTime should be 1 week before or equal to Procedure Start DateTime.'
+        message:
+          'Thrombolytic Therapy DateTime should be 1 week before or equal to Procedure Start DateTime.'
       }
     ],
     SubECGDateTime: [
@@ -470,7 +481,8 @@ export const validations: FormValidations = {
       },
       {
         type: 'EDPresentDTBeforeProcedureStartDT',
-        message: 'ED Presentation at Referring Facility DateTime should be before Procedure Start DateTime.'
+        message:
+          'ED Presentation at Referring Facility DateTime should be before Procedure Start DateTime.'
       },
       {
         type: 'EDPresentDTBeforeSubECGDT',
@@ -517,7 +529,7 @@ export const validations: FormValidations = {
     ],
     DeviceLength: [
       { type: 'min', message: 'Device Length must be at least 1 mm.' },
-      { type: 'max', message: 'Device Length cannot be more than 100 mm.' }
+      { type: 'max', message: 'Device Length cannot be more than 1500 mm.' }
     ]
   },
   sectionK: {
@@ -678,7 +690,8 @@ export const validations: FormValidations = {
     K_StrokeUndeterminedDT: [
       {
         type: 'K_StrokeUndeterminedDTAfterProcedureStartDT',
-        message: 'Undetermined Stroke Complication DateTime should be after Procedure Start DateTime.'
+        message:
+          'Undetermined Stroke Complication DateTime should be after Procedure Start DateTime.'
       },
       {
         type: 'K_StrokeUndeterminedDTBeforeDCDateTime',
@@ -696,7 +709,10 @@ export const validations: FormValidations = {
       { type: 'max', message: 'Hemoglobin Length cannot be more than 50.00 g/dL.' }
     ],
     DCDateTime: [
-      { type: 'ArrivalDTBeforeDischargeDT', message: 'Arrival DateTime should be before Discharge DateTime.' },
+      {
+        type: 'ArrivalDTBeforeDischargeDT',
+        message: 'Arrival DateTime should be before Discharge DateTime.'
+      },
       {
         type: 'ProcedureStartDTBeforeDCDateTime',
         message: 'Procedure Start DateTime should be before Discharge DateTime.'

@@ -15,7 +15,13 @@ import { NgxUiLoaderService } from 'ngx-ui-loader';
 })
 export class Acsx290ChartComponent implements OnInit {
   public barChartOptions: ChartOptions = {
-    responsive: true
+    responsive: true,
+    plugins: {
+      datalabels: {
+        anchor: 'end',
+        align: 'end'
+      }
+    }
   };
   public barChartLabels: Label[] = [];
   public barChartType: ChartType = 'bar';

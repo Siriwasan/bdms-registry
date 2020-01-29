@@ -470,7 +470,7 @@ export const CathPci50Form = {
     ICDevUDI: [null, Validators.required],
     ICDevCounterAssn: [null, Validators.required],
     DeviceDiameter: [null, [Validators.required, Validators.min(0.01), Validators.max(10.0)]],
-    DeviceLength: [null, [Validators.required, Validators.min(1), Validators.max(100)]]
+    DeviceLength: [null, [Validators.required, Validators.min(1), Validators.max(1500)]]
   },
   sectionK: {
     K_BleedingAccessSite: [null, Validators.required],
