@@ -1,3 +1,9 @@
+# 1.8.2 (2020-02-03)
+
+### Features
+
+- **CathPci50:** warning for repeated AN and fill section A-D in case of Redo PCI
+
 # 1.8.1 (2020-01-27)
 
 ### Features

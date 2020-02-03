@@ -12,6 +12,7 @@ import * as Auth from '../../core/auth/auth.data';
 import { CathPci50Model } from './cath-pci50/cath-pci50.model';
 import { intraCoronaryDevices } from '../registry/cath-pci50/cath-pci50.device';
 import { User } from 'src/app/core/auth/user.model';
+import { Staff } from '../staff/staff.model';
 
 const EXCEL_TYPE =
   'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
@@ -20,6 +21,7 @@ const EXCEL_EXTENSION = '.xlsx';
 const DB_ACSX = 'ACSx290';
 const DB_CATHPCI = 'CathPci50';
 const DB_REGISTRY = 'Registry';
+const DB_STAFF = 'Staff';
 
 @Injectable()
 export class RegistryService implements OnDestroy {
@@ -112,9 +114,7 @@ export class RegistryService implements OnDestroy {
     avHospitals.forEach(hosp => {
       dataList.push(
         this.db
-          .collection<CathPci50Model>('CathPci50', ref =>
-            ref.where('sectionB.HospName', '==', hosp)
-          )
+          .collection<CathPci50Model>(DB_CATHPCI, ref => ref.where('sectionB.HospName', '==', hosp))
           .valueChanges()
       );
     });
@@ -173,10 +173,43 @@ export class RegistryService implements OnDestroy {
       )
       .toPromise();
   }
+
+  public async loadStaffsForCathPci50Export(avHospitals: string[]): Promise<Staff[]> {
+    // should be same as cath-pci50.component.ts:loadStaffs()
+    const physician = [
+      'Emergency Physician',
+      'Cardiologist',
+      'Cardiac Interventionist',
+      'Cardiothoracic Surgeon',
+      'Other Physician'
+    ];
+
+    const staffs = await this.db
+      .collection<Staff>(DB_STAFF)
+      .valueChanges()
+      .pipe(take(1))
+      .toPromise();
+
+    return staffs.filter(staff => {
+      if (!physician.includes(staff.position)) {
+        return false;
+      }
+      if (avHospitals.includes(staff.primaryHospId)) {
+        return true;
+      }
+      for (const hosp of avHospitals) {
+        if (staff.secondHospIds.includes(hosp)) {
+          return true;
+        }
+      }
+      return false;
+    });
+  }
   //#endregion Cloud firestore
 
   public exportCathPci50AsExcelFile(
-    json: CathPci50Model[],
+    data: CathPci50Model[],
+    staffs: Staff[],
     excelFileName: string,
     user: User
   ): void {
@@ -192,22 +225,22 @@ export class RegistryService implements OnDestroy {
         return r;
       }, res);
 
-    console.log(json);
+    console.log(data);
 
     // json.
 
     // tslint:disable: variable-name
-    const Completion = this.CompletionToSheet(json);
-    const ECGFindings = this.FieldToSheet('sectionD', 'ECGFindings', json);
-    const NSVTType = this.FieldToSheet('sectionD', 'NSVTType', json);
-    const ConcomProcType = this.FieldToSheet('sectionE', 'ConcomProcType', json);
-    const CathLabVisitIndication = this.FieldToSheet('sectionG', 'CathLabVisitIndication', json);
-    const CVInstabilityType = this.FieldToSheet('sectionG', 'CVInstabilityType', json);
-    const OrganTransplantType = this.FieldToSheet('sectionG', 'OrganTransplantType', json);
-    const NativeLesions = this.ArrayToSheet('sectionH', 'NativeLesions', json);
-    const GraftLesions = this.ArrayToSheet('sectionH', 'GraftLesions', json);
-    const CHIP = this.FieldToSheet('sectionI', 'CHIP', json);
-    const PciLesions = this.ArrayToSheet('sectionJ', 'PciLesions', json);
+    const Completion = this.CompletionToSheet(data);
+    const ECGFindings = this.FieldToSheet('sectionD', 'ECGFindings', data);
+    const NSVTType = this.FieldToSheet('sectionD', 'NSVTType', data);
+    const ConcomProcType = this.FieldToSheet('sectionE', 'ConcomProcType', data);
+    const CathLabVisitIndication = this.FieldToSheet('sectionG', 'CathLabVisitIndication', data);
+    const CVInstabilityType = this.FieldToSheet('sectionG', 'CVInstabilityType', data);
+    const OrganTransplantType = this.FieldToSheet('sectionG', 'OrganTransplantType', data);
+    const NativeLesions = this.ArrayToSheet('sectionH', 'NativeLesions', data);
+    const GraftLesions = this.ArrayToSheet('sectionH', 'GraftLesions', data);
+    const CHIP = this.FieldToSheet('sectionI', 'CHIP', data);
+    const PciLesions = this.ArrayToSheet('sectionJ', 'PciLesions', data);
     const SegmentID = this.SubArrayToSheet('SegmentID', PciLesions, 'LesionCounter');
     const GuidewireAcross = this.SubArrayToSheet('GuidewireAcross', PciLesions, 'LesionCounter');
     const IntraCoroMeasurementSite = this.SubArrayToSheet(
@@ -235,24 +268,36 @@ export class RegistryService implements OnDestroy {
       PciLesions,
       'LesionCounter'
     );
-    const PciDevices = this.ArrayToSheet('sectionJ', 'PciDevices', json);
+    const PciDevices = this.ArrayToSheet('sectionJ', 'PciDevices', data);
     const ICDevCounterAssn = this.SubArrayToSheet('ICDevCounterAssn', PciDevices, 'ICDevCounter');
     const K_MIFollowCriteria = this.FieldToSheet(
       'sectionK',
       'K_MyocardialInfarctionFollowCriteria',
-      json
+      data
     );
-    const HospInterventionType = this.FieldToSheet('sectionL', 'HospInterventionType', json);
-    const DC_MedReconciled = this.FieldToSheet('sectionL', 'DC_MedReconciled', json);
-    const FollowUps = this.ArrayToSheet('sectionM', 'FollowUps', json);
+    const HospInterventionType = this.FieldToSheet('sectionL', 'HospInterventionType', data);
+    const DC_MedReconciled = this.FieldToSheet('sectionL', 'DC_MedReconciled', data);
+    const FollowUps = this.ArrayToSheet('sectionM', 'FollowUps', data);
     const FU_Method = this.SubArrayToSheet('FU_Method', FollowUps, 'FU_AssessmentDate');
     // tslint:enable: variable-name
 
     const mainData = [];
-    json.forEach(j => {
+    data.forEach(j => {
       delete j.completion;
       mainData.push(flatten(j));
     });
+
+    const mappedStaffs = staffs
+      ? staffs.map(s => {
+          return {
+            staffId: s.staffId,
+            title: s.title,
+            firstName: s.firstName,
+            lastName: s.lastName,
+            position: s.position
+          };
+        })
+      : null;
 
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(mainData);
     const worksheet2: XLSX.WorkSheet = XLSX.utils.json_to_sheet(Completion);
@@ -282,6 +327,9 @@ export class RegistryService implements OnDestroy {
     const worksheet26: XLSX.WorkSheet = XLSX.utils.json_to_sheet(FU_Method);
     const worksheet27: XLSX.WorkSheet = XLSX.utils.json_to_sheet(intraCoronaryDevices);
     const worksheet28: XLSX.WorkSheet = XLSX.utils.json_to_sheet(Auth.hospitals);
+    const worksheet29: XLSX.WorkSheet = mappedStaffs
+      ? XLSX.utils.json_to_sheet(mappedStaffs)
+      : null;
 
     const workbook: XLSX.WorkBook = {
       Sheets: {
@@ -312,7 +360,8 @@ export class RegistryService implements OnDestroy {
         FollowUps: worksheet25,
         FU_Method: worksheet26,
         IntraCoronaryDevices: worksheet27,
-        Hospital: worksheet28
+        Hospital: worksheet28,
+        Staff: worksheet29
       },
       SheetNames: [
         'data',
@@ -342,7 +391,8 @@ export class RegistryService implements OnDestroy {
         'FollowUps',
         'FU_Method',
         'IntraCoronaryDevices',
-        'Hospital'
+        'Hospital',
+        'Staff'
       ]
     };
 

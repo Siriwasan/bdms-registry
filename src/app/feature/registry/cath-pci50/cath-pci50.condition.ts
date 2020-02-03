@@ -68,11 +68,6 @@ export const conditions: FormConditions = {
     { control: 'PostProcHgb', parentControl: 'PostProcHgbLab', conditions: ['Drawn'] }
   ],
   sectionG: [
-    {
-      control: 'PreviousCathLabVisit',
-      parentControl: 'CathLabVisitIndication',
-      conditions: ['@', 'Re-CathLab Visit']
-    },
     { control: 'CVInstabilityType', parentControl: 'CVInstability', conditions: ['Yes'] },
     { control: 'PharmVasoSupp', parentControl: 'VSupport', conditions: ['Yes'] },
     { control: 'MechVentSupp', parentControl: 'VSupport', conditions: ['Yes'] },
@@ -230,7 +225,11 @@ export const conditions: FormConditions = {
     { control: 'CVTxDecision', parentControl: 'PCIDecision', conditions: ['Yes'] },
     { control: 'CVSheetDecision', parentControl: 'PCIDecision', conditions: ['No'] },
     { control: 'MultiVesselDz', parentControl: 'E:PCIProc', conditions: ['Yes'] },
-    { control: 'MultiVessProcType', parentControl: 'MultiVesselDz', conditions: ['Yes'] },
+    {
+      control: 'PreviousCathLabVisit',
+      parentControl: 'PciProcType',
+      conditions: ['Redo PCI']
+    },
     { control: 'StagePCIPlanned', parentControl: 'E:PCIProc', conditions: ['Yes'] },
     { control: 'PCIIndication', parentControl: 'E:PCIProc', conditions: ['Yes'] },
     {

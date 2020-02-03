@@ -118,6 +118,7 @@ export class CathPci50Component extends RegistryFormComponent
   associatedLesions: string[] = [];
 
   symptomDTtype = 'datetime';
+  private redoPCI = { status: false, lastAn: '' };
 
   // FAB
   open = false;
@@ -2280,26 +2281,54 @@ export class CathPci50Component extends RegistryFormComponent
     return first.toString().padStart(2, '0') + ':' + second.toString().padStart(2, '0');
   }
 
-  AnFocusOut() {
+  async AnFocusOut() {
     const an = this.formGroupA.get('AN').value;
-    this.cathPci50Service.getCathPciByAn(an).subscribe(data => {
+    if (this.redoPCI.lastAn !== an || !this.redoPCI.status) {
+      const data = await this.cathPci50Service.getCathPciByAn(an);
       // tslint:disable: no-string-literal
       if (data && data.sectionA['registryId'] !== this.formGroupA.get('registryId').value) {
-        this.dialogService.createModalDialog({
-          title: '!!Replicate Data!!',
-          content:
-            `พบข้อมูลผู้ป่วยที่ AN ตรงกัน กรุณาตรวจสอบให้แน่ใจอีกครั้งก่อนทำการใส่ข้อมูล<br><br>` +
-            `${data.sectionA['FirstName']} ${data.sectionA['LastName']}<br>` +
-            `HN: ${data.sectionA['HN']}<br>` +
-            `AN: ${data.sectionA['AN']}<br>` +
-            `Birth Date: ${moment(data.sectionA['DOB']).format('D/M/YYYY')}<br>` +
-            `Procedure Date: ${moment(data.sectionE['ProcedureStartDateTime']).format(
-              'D/M/YYYY H:mm'
-            )}`,
-          buttons: ['รับทราบ']
-        });
+        this.dialogService
+          .createModalDialog({
+            title: '!!Replicate Data!!',
+            content:
+              `พบข้อมูลผู้ป่วยที่ AN ตรงกัน กรุณาตรวจสอบให้แน่ใจอีกครั้งก่อนทำการใส่ข้อมูล<br>` +
+              `หากเป็น Redo PCI ระบบจะใส่ข้อมูล Section A-D ให้อัตโนมัติ<br><br>` +
+              `${data.sectionA['FirstName']} ${data.sectionA['LastName']}<br>` +
+              `HN: ${data.sectionA['HN']}<br>` +
+              `AN: ${data.sectionA['AN']}<br>` +
+              `Birth Date: ${moment(data.sectionA['DOB']).format('D/M/YYYY')}<br>` +
+              `Procedure Date: ${moment(data.sectionE['ProcedureStartDateTime']).format(
+                'D/M/YYYY H:mm'
+              )}`,
+            buttons: ['แน่ใจ! เป็นเคส Redo PCI', 'อุ๊บส์! สงสัยจะซ้ำ']
+          })
+          .afterClosed()
+          .subscribe(result => {
+            if (result === 'แน่ใจ! เป็นเคส Redo PCI') {
+              this.redoPCI.status = true;
+              this.copySectionAtoDdata(data);
+            }
+          });
+      } else {
+        this.redoPCI.status = false;
       }
       // tslint:enable: no-string-literal
-    });
+    }
+    this.redoPCI.lastAn = an;
+  }
+
+  private copySectionAtoDdata(data: CathPci50Model) {
+    // tslint:disable: no-string-literal
+    this.formGroupI.get('PciProcType').patchValue('Redo PCI');
+    this.formGroupI.get('PreviousCathLabVisit').patchValue(data.sectionA['registryId']);
+    delete data.sectionA['registryId'];
+
+    this.formGroupA.patchValue(data.sectionA);
+    this.formGroupB.patchValue(data.sectionB);
+    this.formGroupB.get('AdmProvider').patchValue(data.sectionB['AdmProvider']);
+    this.formGroupB.get('AttProvider').patchValue(data.sectionB['AttProvider']);
+    this.formGroupC.patchValue(data.sectionC);
+    this.formGroupD.patchValue(data.sectionD);
+    // tslint:enable: no-string-literal
   }
 }

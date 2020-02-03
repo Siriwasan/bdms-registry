@@ -929,12 +929,9 @@
             'Post Cardiac Transplant',
             'Pre-operative Evaluation',
             'Evaluation for Exercise Clearance',
-            'Re-CathLab Visit',
+            'Heart Failure',
             'Other'
             ]"></reg-select-multiple>
-
-          <reg-input class="subitem-horz" *ngIf="visibles['PreviousCathLabVisit']" controlName="PreviousCathLabVisit" placeholder="Previous CathPCI No." [formGroup]="formGroupG" type="text">
-          </reg-input>
 
           <reg-select controlName="CPSxAssess" placeholder="Chest Pain Symptom Assessment" [formGroup]="formGroupG" [choices]="[
               'Typical Angina',
@@ -1354,10 +1351,15 @@
             <reg-select *ngIf="visibles['MultiVesselDz']" controlName="MultiVesselDz" placeholder="PCI for Multi-vessel Disease" [formGroup]="formGroupI"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
 
-            <reg-select *ngIf="visibles['MultiVessProcType']" controlName="MultiVessProcType" placeholder="Multi-vessel Procedure Type" [formGroup]="formGroupI" [choices]="[
+            <reg-select controlName="PciProcType" placeholder="PCI Procedure Type" [formGroup]="formGroupI" [choices]="[
                 'Initial PCI',
-                'Staged PCI'
+                'Staged PCI',
+                'Redo PCI'
               ]" fxFlex>(in this lab visit)</reg-select>
+
+            <reg-input class="subitem-horz" *ngIf="visibles['PreviousCathLabVisit']" controlName="PreviousCathLabVisit" placeholder="Previous CathPCI No." [formGroup]="formGroupI" type="text">
+            </reg-input>
+
           </div>
 
           <reg-select *ngIf="visibles['StagePCIPlanned']" controlName="StagePCIPlanned" placeholder="Stage PCI Planned" [formGroup]="formGroupI" [choices]="[

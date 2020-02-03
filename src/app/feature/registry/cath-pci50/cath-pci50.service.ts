@@ -307,7 +307,7 @@ export class CathPci50Service implements OnDestroy {
       .toPromise();
   }
 
-  public getCathPciByAn(an: string): Observable<CathPci50Model> {
+  public getCathPciByAn(an: string): Promise<CathPci50Model> {
     // tslint:disable: no-string-literal
     return this.db
       .collection<CathPci50Model>(DB_CATHPCI)
@@ -315,16 +315,19 @@ export class CathPci50Service implements OnDestroy {
       .pipe(
         map(data =>
           data.map(d => {
-            d.sectionA['AN'] = this.decrypt(d.sectionA['AN']);
-            d.sectionA['HN'] = this.decrypt(d.sectionA['HN']);
-            d.sectionA['FirstName'] = this.decrypt(d.sectionA['FirstName']);
-            d.sectionA['LastName'] = this.decrypt(d.sectionA['LastName']);
-            d.sectionA['DOB'] = this.decrypt(d.sectionA['DOB']);
+            // d.sectionA['AN'] = this.decrypt(d.sectionA['AN']);
+            // d.sectionA['HN'] = this.decrypt(d.sectionA['HN']);
+            // d.sectionA['FirstName'] = this.decrypt(d.sectionA['FirstName']);
+            // d.sectionA['LastName'] = this.decrypt(d.sectionA['LastName']);
+            // d.sectionA['DOB'] = this.decrypt(d.sectionA['DOB']);
+            this.decryptSenitiveData(d);
             return d;
           })
         ),
-        map(data => data.find(doc => doc.sectionA['AN'] === an))
-      );
+        map(data => data.find(doc => doc.sectionA['AN'] === an)),
+        take(1)
+      )
+      .toPromise();
     // tslint:enable: no-string-literal
   }
 }

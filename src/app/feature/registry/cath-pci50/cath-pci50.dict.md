@@ -780,14 +780,15 @@ Code 'Yes' if this is the initial (first) PCI procedure for the cath lab indicat
 
 Code 'Yes' if this is a subsequent, planned staged PCI procedure of a vessel not treated during the initial PCI procedure. The first PCI could have been during a prior admission, or during this admission but must occur within 90 days of the initial PCI procedure.
 
-# MultiVessProcType
+# PciProcType
 
-## Multi-vessel Procedure Type
+## PCI Procedure Type
 
 |  | Definition |
 |--|--|
 |Initial PCI|This PCI procedure is the initial (first) for the cath lab indication|
 |Staged PCI|This PCI procedure is the subsequent, planned staged PCI procedure for a vessel NOT treated during the initial PCI procedure. The first PCI could have been during a prior admission, or during this admission but must occur within 90 days of the initial PCI procedure.|
+|Redo PCI|This PCI procedure is the subsequent for Target Lesion Revascularization (TLR) from Device-Oriented Composite End Point|
 
 # PCIIndication
 

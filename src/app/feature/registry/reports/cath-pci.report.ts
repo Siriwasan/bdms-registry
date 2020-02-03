@@ -410,11 +410,11 @@ export class CathPciReport {
             }
           },
           pdf.block(
-            pdf.field('Research Enrolled', { annotation: '3020'}),
+            pdf.field('Research Enrolled', { annotation: '3020' }),
             pdf.tab(),
             pdf.radio('No', this.data ? this.data.sectionB.EnrolledStudy : null),
             pdf.tab(),
-            pdf.radio('Yes', this.data ? this.data.sectionB.EnrolledStudy : null),
+            pdf.radio('Yes', this.data ? this.data.sectionB.EnrolledStudy : null)
           )
         )
       ]
@@ -1835,13 +1835,9 @@ export class CathPciReport {
                 'Resuscitated Cardiac Arrest',
                 this.data ? this.data.sectionG.CathLabVisitIndication : null
               ),
-              pdf.block(
-                pdf.check(
-                  'Re-CathLab Visit',
-                  this.data ? this.data.sectionG.CathLabVisitIndication : null
-                ),
-                ': CathPCI No.',
-                pdf.input(this.data ? this.data.sectionG.PreviousCathLabVisit : null)
+              pdf.check(
+                'Heart Failure',
+                this.data ? this.data.sectionG.CathLabVisitIndication : null
               )
             ),
             pdf.stack(
@@ -2927,16 +2923,16 @@ export class CathPciReport {
             pdf.radio('Yes', this.data ? this.data.sectionI.MultiVesselDz : null)
           ),
           pdf.block(
+            pdf.field('PCI Procedure Type', { annotation: '7820' }),
             pdf.tab(),
-            pdf.arrowIf(),
-            ' Yes, ',
-            pdf.field('Multi-vessel Procedure Type', { annotation: '7820' }),
-            '(in this lab visit)',
+            pdf.radio('Initial PCI', this.data ? this.data.sectionI.PciProcType : null),
             pdf.tab(),
-            pdf.radio('Initial PCI', this.data ? this.data.sectionI.MultiVessProcType : null),
+            pdf.radio('Staged PCI', this.data ? this.data.sectionI.PciProcType : null),
             pdf.tab(),
-            pdf.radio('Staged PCI', this.data ? this.data.sectionI.MultiVessProcType : null)
-          ),
+            pdf.radio('Redo PCI', this.data ? this.data.sectionI.PciProcType : null),
+            ': Previous CathPCI No.',
+            pdf.input(this.data ? this.data.sectionI.PreviousCathLabVisit : null)
+      ),
           pdf.block(
             pdf.field('Stage PCI Planned'),
             pdf.tab(),
@@ -6060,10 +6056,7 @@ export class CathPciReport {
       [
         pdf.stackStyle(
           { style: 'subSection', pageBreak: fistPage ? null : 'before' },
-          pdf.block(
-            pdf.text('FOLLOW UP PERIOD: '),
-            pdf.input(data ? data.FollowUpPeriod : null)
-          ),
+          pdf.block(pdf.text('FOLLOW UP PERIOD: '), pdf.input(data ? data.FollowUpPeriod : null)),
           this.waterMarkFU(data)
         )
       ],

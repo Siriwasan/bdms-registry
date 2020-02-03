@@ -268,7 +268,6 @@ export const CathPci50Form = {
   },
   sectionG: {
     CathLabVisitIndication: [null, Validators.required],
-    PreviousCathLabVisit: [null, Validators.required],
     CPSxAssess: [null, Validators.required],
     CVInstability: [null, Validators.required],
     CVInstabilityType: [null, Validators.required],
@@ -331,7 +330,8 @@ export const CathPci50Form = {
     CVTxDecision: [null, Validators.required],
     CVSheetDecision: [null, Validators.required],
     MultiVesselDz: [null, Validators.required],
-    MultiVessProcType: [null, Validators.required],
+    PciProcType: [null, Validators.required],
+    PreviousCathLabVisit: [null, Validators.required],
     StagePCIPlanned: [null, Validators.required],
     PCIIndication: [null, Validators.required],
     SymptomDateTime: [
