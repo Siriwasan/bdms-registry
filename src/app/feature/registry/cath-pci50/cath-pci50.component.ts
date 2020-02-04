@@ -973,7 +973,8 @@ export class CathPci50Component extends RegistryFormComponent
       this.dialogService.createModalDialog({
         title: '!!Alert!!',
         content: `These information must fill before submitting ${alert}`,
-        buttons: ['OK']
+        buttons: ['OK'],
+        style: 'warn'
       });
       return;
     }
@@ -1299,21 +1300,45 @@ export class CathPci50Component extends RegistryFormComponent
   }
 
   removeNativeLesion(index: number) {
-    this.removeLesion(index, str.nativeLesions, str.nvStenosis);
+    this.dialogService
+      .createModalDialog({
+        title: '!!Delete Native Lesion!!',
+        content: 'คุณต้องการที่จะลบข้อมูลนี้ใช่หรือไม่',
+        buttons: ['ลบเลย', 'ยกเลิก'],
+        style: 'alert'
+      })
+      .afterClosed()
+      .subscribe(result => {
+        if (result === 'ลบเลย') {
+          this.removeLesion(index, str.nativeLesions, str.nvStenosis);
 
-    this.getSegmentIDsForNV();
-    this.checkCanAddNativeLesion();
+          this.getSegmentIDsForNV();
+          this.checkCanAddNativeLesion();
 
-    this.getSegmentIDsForPci();
+          this.getSegmentIDsForPci();
+        }
+      });
   }
 
   removeGraftLesion(index: number) {
-    this.removeLesion(index, str.graftLesions, str.graftStenosis);
+    this.dialogService
+      .createModalDialog({
+        title: '!!Delete Graft Lesion!!',
+        content: 'คุณต้องการที่จะลบข้อมูลนี้ใช่หรือไม่',
+        buttons: ['ลบเลย', 'ยกเลิก'],
+        style: 'alert'
+      })
+      .afterClosed()
+      .subscribe(result => {
+        if (result === 'ลบเลย') {
+          this.removeLesion(index, str.graftLesions, str.graftStenosis);
 
-    this.getSegmentIDsForGraft();
-    this.checkCanAddGraftLesion();
+          this.getSegmentIDsForGraft();
+          this.checkCanAddGraftLesion();
 
-    this.getSegmentIDsForPci();
+          this.getSegmentIDsForPci();
+        }
+      });
   }
 
   private removeLesion(index: number, type: string, stenosis: string) {
@@ -1525,6 +1550,22 @@ export class CathPci50Component extends RegistryFormComponent
   }
 
   removePciLesion(index: number) {
+    this.dialogService
+      .createModalDialog({
+        title: '!!Delete PCI Lesion!!',
+        content: 'คุณต้องการที่จะลบข้อมูลนี้ใช่หรือไม่',
+        buttons: ['ลบเลย', 'ยกเลิก'],
+        style: 'alert'
+      })
+      .afterClosed()
+      .subscribe(result => {
+        if (result === 'ลบเลย') {
+          this.deletePciLesion(index);
+        }
+      });
+  }
+
+  deletePciLesion(index: number) {
     const formArray = this.formGroupJ.get(str.pciLesions) as FormArray;
     const formGroups = formArray.controls as FormGroup[];
 
@@ -1626,7 +1667,7 @@ export class CathPci50Component extends RegistryFormComponent
         // formArray.removeAt(i);
         // // tslint:disable-next-line: no-string-literal
         // (this.visibles[str.pciLesions] as FormVisible[]).splice(i, 1);
-        this.removePciLesion(i);
+        this.deletePciLesion(i);
       }
     }
 
@@ -1683,17 +1724,29 @@ export class CathPci50Component extends RegistryFormComponent
   }
 
   removePciDevice(index: number) {
-    const formArray = this.formGroupJ.get(str.pciDevices) as FormArray;
-    const formGroups = formArray.controls as FormGroup[];
+    this.dialogService
+      .createModalDialog({
+        title: '!!Delete PCI Device!!',
+        content: 'คุณต้องการที่จะลบข้อมูลนี้ใช่หรือไม่',
+        buttons: ['ลบเลย', 'ยกเลิก'],
+        style: 'alert'
+      })
+      .afterClosed()
+      .subscribe(result => {
+        if (result === 'ลบเลย') {
+          const formArray = this.formGroupJ.get(str.pciDevices) as FormArray;
+          const formGroups = formArray.controls as FormGroup[];
 
-    formArray.removeAt(index);
-    (this.visibles.PciDevices as FormVisible[]).splice(index, 1);
+          formArray.removeAt(index);
+          (this.visibles.PciDevices as FormVisible[]).splice(index, 1);
 
-    for (let i = 0; i < formGroups.length; i++) {
-      formGroups[i].get(str.icDevCounter).setValue(i + 1);
-    }
+          for (let i = 0; i < formGroups.length; i++) {
+            formGroups[i].get(str.icDevCounter).setValue(i + 1);
+          }
 
-    this.checkCanAddPciDevice();
+          this.checkCanAddPciDevice();
+        }
+      });
   }
 
   // checkPciTechnique() {
@@ -2258,7 +2311,8 @@ export class CathPci50Component extends RegistryFormComponent
       .createModalDialog({
         title: '!!Security Alert!!',
         content: `You need this password to open PDF file:<br><center><h1>${password}</h1></center>`,
-        buttons: ['OK']
+        buttons: ['OK'],
+        style: 'notice'
       })
       .afterClosed()
       .subscribe(async o => {
@@ -2300,7 +2354,8 @@ export class CathPci50Component extends RegistryFormComponent
               `Procedure Date: ${moment(data.sectionE['ProcedureStartDateTime']).format(
                 'D/M/YYYY H:mm'
               )}`,
-            buttons: ['แน่ใจ! เป็นเคส Redo PCI', 'อุ๊บส์! สงสัยจะซ้ำ']
+            buttons: ['แน่ใจ! เป็นเคส Redo PCI', 'อุ๊บส์! สงสัยจะซ้ำ'],
+            style: 'warn'
           })
           .afterClosed()
           .subscribe(result => {

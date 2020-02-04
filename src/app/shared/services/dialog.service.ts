@@ -6,6 +6,7 @@ export interface DialogData {
   title: string;
   content: string;
   buttons: string[];
+  style?: string;
 }
 
 @Injectable({
@@ -21,7 +22,8 @@ export class DialogService {
       data: {
         title: dialogData.title,
         content: dialogData.content,
-        buttons: dialogData.buttons
+        buttons: dialogData.buttons,
+        style: dialogData.style
       }
     });
   }
