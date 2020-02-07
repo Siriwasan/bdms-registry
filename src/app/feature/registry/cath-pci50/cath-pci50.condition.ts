@@ -225,6 +225,7 @@ export const conditions: FormConditions = {
     { control: 'CVTxDecision', parentControl: 'PCIDecision', conditions: ['Yes'] },
     { control: 'CVSheetDecision', parentControl: 'PCIDecision', conditions: ['No'] },
     { control: 'MultiVesselDz', parentControl: 'E:PCIProc', conditions: ['Yes'] },
+    { control: 'PciProcType', parentControl: 'E:PCIProc', conditions: ['Yes'] },
     {
       control: 'PreviousCathLabVisit',
       parentControl: 'PciProcType',

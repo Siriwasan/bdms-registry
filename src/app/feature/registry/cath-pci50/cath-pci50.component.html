@@ -1351,7 +1351,7 @@
             <reg-select *ngIf="visibles['MultiVesselDz']" controlName="MultiVesselDz" placeholder="PCI for Multi-vessel Disease" [formGroup]="formGroupI"
               [choices]="['Yes', 'No']" fxFlex></reg-select>
 
-            <reg-select controlName="PciProcType" placeholder="PCI Procedure Type" [formGroup]="formGroupI" [choices]="[
+            <reg-select *ngIf="visibles['PciProcType']" controlName="PciProcType" placeholder="PCI Procedure Type" [formGroup]="formGroupI" [choices]="[
                 'Initial PCI',
                 'Staged PCI',
                 'Redo PCI'
