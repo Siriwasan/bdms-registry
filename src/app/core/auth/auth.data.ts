@@ -47,6 +47,7 @@ export const hospitals: Hospital[] = [
   { group: 'Group4', id: 'BKH', name: 'Bangkok Hospital Ratchasima' },
   { group: 'Group4', id: 'BKN', name: 'Bangkok Hospital Khon Kaen' },
   { group: 'Group4', id: 'BCM', name: 'Bangkok Hospital Chiang Mai' },
+  { group: 'Group4', id: 'BCR', name: 'Bangkok Hospital Chiang Rai' },
   { group: 'Group4', id: 'BHP', name: 'Bangkok Hospital Pakchong' },
   { group: 'Group4', id: 'BPL', name: 'Bangkok Hospital Phitsanulok' },
   { group: 'Group4', id: 'BPD', name: 'Bangkok Hospital Phrapradaeng' },
