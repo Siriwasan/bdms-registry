@@ -150,6 +150,7 @@ export class AuthService {
       'sectionB.AttProvider',
       'sectionE.DCathProvider',
       'sectionE.PCIProvider',
+      'sectionE.PCIProvider2',
       'sectionL.DCProvider'
     ];
 
