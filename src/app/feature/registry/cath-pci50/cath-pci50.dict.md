@@ -1537,3 +1537,228 @@ A percutaneous coronary intervention (PCI) is the placement of an angioplasty gu
 ## Systolic Blood Pressure
 
 The first systolic blood pressure obtained in the cath lab procedure room.
+
+# PreProcMedBetaBlocker
+
+## Beta Blockers (Any)
+
+- Blocadren (Timolol)
+- Bystolic (Nebivolol)
+- carteolol/Cartrol
+- Coreg (Carvedilol)
+- Corgard (Nadolol)
+- Inderal, Inderal LA (Propranolol)
+- Kerlone (Betaxolol)
+- Levatol (Penbutolol)
+- Lopressor, Toprol-XL (Metoprolol)
+- Normodyne, Trandate (Labetalol)
+- Sectral (Acebutolol)
+- Tenormin (Atenolol)
+- Visken (Pindolol)
+- Zebeta, Ziac (Bisoprolol)
+
+# PreProcMedAntiArrhythmic
+
+## Antiarrhythmic Agent Other
+
+- Amiodarone (Cordarone, Pacerone)
+- Flecainide (Tambocor)
+- Ibutilide (Corvert)
+- Lidocaine (Xylocaine)
+- Procainamide (Procan, Procanbid)
+- Propafenone (Rythmol)
+- Quinidine (many brand names)
+- Tocainide (Tonocarid)
+
+# PreProcMedCaBlocker
+
+## Calcium Channel Blockers (Any)
+
+- Amlodipine (Norvasc)
+- Aranidipine (Sapresta)
+- Azelnidipine (Calblock)
+- Barnidipine (HypoCa)
+- Benidipine (Coniel)
+- Cilnidipine (Atelec, Cinalong, Siscard) Not available in US
+- Clevidipine (Cleviprex)
+- Efonidipine (Landel)
+- Felodipine (Plendil)
+- Isradipine (DynaCirc, Prescal)
+- Lacidipine (Motens, Lacipil)
+- Lercanidipine (Zanidip)
+- Manidipine (Calslot, Madipine)
+- Nicardipine (Cardene, Carden SR)
+- Nifedipine (Procardia, Adalat)
+- Nilvadipine (Nivadil)
+- Nimodipine (Nimotop)
+- Nisoldipine (Baymycard, Sular, Syscor)
+- Nitrendipine (Cardif, Nitrepin, Baylotensin)
+- Pranidipine (Acalas)
+
+# PreProcMedLongActNitrate
+
+## Long Acting Nitrates (Any)
+
+- Glyceryl Trinitrate Patch (Minitran, Nitro-Dur, Transiderm-Nitro)
+- Isosorbide Mononitrate Tablet (Duride, Imdur, Isomonit, Monodur)
+
+# PreProcMedRanolazine
+
+## Ranolazine
+
+- Ranexa
+
+# PreProcMedStatin
+
+## Statin (Any)
+
+- Advicor (Lovastatin with Niacin)
+- Altocor (Lovastatin)
+- Altoprev (Lovastatin)
+- Atorlip (Atorvastatin)
+- Caduet (Atorvastatin with Amlodipine (Norvasc))
+- Canef (Fluvastatin)
+- Crestor (Rosuvastatin)
+- Inegy (Simvastatin with Ezetimibe (Zetia))
+- Lescol (Fluvastatin)
+- Lipex (Simvastatin)
+- Lipitor (Atorvastatin)
+- Lipobay (Cerivastatin (withdrawn 2001))
+- Lipostat (Pravastatin)
+- Lipvas (Atorvastatin)
+- Livalo (Pitavastatin)
+- Mevacor (Lovastatin)
+- Pitava (Pitavastatin)
+- Pravachol (Pravastatin)
+- Selektine (Pravastatin)
+- Simcard (Simvastatin)
+- Simcor (Simvastatin with Niacin)
+- Simlup (Simvastatin)
+- Sortis (Atorvastatin)
+- Torvacard (Atorvastatin)
+- Torvast (Atorvastatin)
+- Totalip (Atorvastatin)
+- Tulip (Atorvastatin)
+- Vytorin (Simvastatin with Ezetimibe (Zetia))
+- Zocor (Simvastatin)
+
+# PreProcMedPCSK9
+
+## PCSK9 Inhibitors
+
+- Alirocumab (Praluent)
+- Evolocumab (Repatha)
+
+# PreProcMedNonStatin
+
+## Non-Statin (Any)
+
+### Bile acid-binding resins
+
+- Cholestyramine (Locholest, Prevalite, Questran)
+- Colesevelam (WelChol)
+- Colestipol (Colestid)
+
+### Fibrates
+
+- Clofibrate (Atromid-S)
+- Fenofibrate (Antara, Fenoglide, Lipofen, TriCor, Triglide, Trilipix)
+- Gemfibrozil (Lopid)
+
+### Niacin
+
+- Ezetimibe (Zetia, Ezetrol, Ezemibe)
+
+# ECAssessMethod
+
+## Electrocardiac Assessment
+
+Indicate the method used for electrocardiac assessment.
+
+Target Value: Last value between 30 days prior to 1st procedure (or previous procedure) and current procedure
+
+# PreProcLVEFAssessed
+
+## LVEF Assessed
+
+Indicate if the left ventricle was assessed prior to the cath lab visit.
+
+Target Value: Any occurrence between 6 months prior to procedure and the start of the current procedure
+
+# AccessSite
+
+## Arterial Access Site
+
+Indicate the location of percutaneous entry for the procedure.
+
+# Crossover
+
+## Arterial Cross Over
+
+Indicate if the procedure involved a crossover to a different access site.
+
+# VenousAccess
+
+## Venous Access
+
+Indicate if a venous access was obtained for the purpose of the diagnostic or PCI procedure.
+
+# NVAdjuncMeasObtained
+
+## Native Vessel Adjunctive Measurements Obtained
+
+Indicate if an invasive diagnostic measurement was obtained of the native vessel segment.
+
+Target Value: Any occurrence between start of procedure and prior to intervention.
+
+# NavGraftNatLes
+
+## Navigate through Graft to Native Lesion
+
+Indicate if treatment of the native artery lesion required navigating through a graft (to reach the lesion).
+
+# PCIResult
+
+## PCI Result
+
+### Angiographic success
+
+**Angiographic success for balloon angioplasty** has been defined as a reduction of minimum percent diameter stenosis to < 50% with TIMI grade 3 flow and without side branch loss, flow limiting dissection or angiographic thrombus.
+
+**Angiographic success for coronary stents** suggests a minimum percent diameter stenosis of < 10% (or optimally as close to 0%. In addition, following the conclusion of a successful procedure, there should be TIMI grade 3 flow and no occlusion of a significant side branch, flow-limiting dissection, distal embolization, or angiographic thrombus.(the 2011 ACCF/AHA/SCAI PCI guideline)
+
+### Angiographic Failure
+
+The patient who had at least one of the following features:
+1. Loss of patency of major vessel graft, or side branch
+  - A: Abrupt main vessel closure:
+    - a)	When TIMI grade 3 or 2 ﬂow at baseline; TIMI grade 0 or 1 ﬂow after the procedure
+    - b)	When TIMI grade 1 ﬂow at baseline; TIMI grade 0 ﬂow after the procedure
+    - c)	When TIMI grade 0 ﬂow at baseline and vessel patency (TIMI grade 2 or 3 ﬂow) established during procedure; TIMI grade 0 ﬂow after procedure
+  - B: Side branch (>_1.5 mm) occlusion after the procedure: TIMI grade 0 or 1 ﬂow in a side branch initially patent with TIMI grade 2 or 3 ﬂow
+2. Embolization: The appearance of an abrupt cutoff in the distal vessel (or in a side branch >_1.5 mm) after percutaneous coronary intervention
+3. Disruption of collateral ﬂow: Reduction in collateral ﬂow by >_1 grades (Rentrop classiﬁcation)
+4. Persistent slow ﬂow or no reﬂow : Markedly delayed ﬂow (TIMI grade 2 for slow ﬂow, TIMI 0 or 1 for no reﬂow) in a target vessel with minimal (<30%) residual stenosis at the stented/scaffolded segment and no evidence of ﬂow-limiting dissection
+5. Major dissection :Dissection in the target vessel greater than type B from National Heart, Lung, and Blood Institute classiﬁcation
+6. Coronary artery bypass graft surgery speciﬁc : Angiographically documented new occlusion or ﬂow-limiting stenosis in the graft or new native coronary artery occlusion
+
+# StentTechnique
+
+## Stent Technique
+
+<p align="center">
+  <img src="/assets/figures/stent-technique.png" style="width: 800px" />
+</p>
+
+# L_DeviceCompositeEP
+
+## Device-oriented Composite End Point
+
+Primary clinical outcome of patients after device deployed.
+
+# L_PatientCompositeEP
+
+## Patient-oriented Composite End Point
+
+Secondary clinical outcome, net adverse clinical events  of patient following percutaneous coronary intervention.
+
