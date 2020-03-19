@@ -100,6 +100,7 @@ export class CathPci50Component extends RegistryFormComponent
   admitPhysician: RegSelectChoice[];
   cardioAndIntervention: RegSelectChoice[];
   intervention: RegSelectChoice[];
+  dischargePhysician: RegSelectChoice[];
 
   avCoroDevices: RegSelectChoice[];
   eventCoroDevices: RegSelectChoice[];
@@ -481,6 +482,17 @@ export class CathPci50Component extends RegistryFormComponent
       .map(staffToChoice);
     this.intervention = this.staffs
       .filter(staff => filterStaff(staff, ['Cardiac Interventionist']))
+      .map(staffToChoice);
+    this.dischargePhysician = this.staffs
+      .filter(staff =>
+        filterStaff(staff, [
+          'Emergency Physician',
+          'Cardiologist',
+          'Cardiac Interventionist',
+          'Cardiothoracic Surgeon',
+          'Other Physician'
+        ])
+      )
       .map(staffToChoice);
   }
 

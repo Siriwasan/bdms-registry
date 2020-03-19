@@ -1,0 +1,66 @@
+[debug] [2020-03-19T12:58:08.980Z] ----------------------------------------------------------------------
+[debug] [2020-03-19T12:58:08.982Z] Command:       /usr/local/bin/node /usr/local/bin/firebase deploy
+[debug] [2020-03-19T12:58:08.982Z] CLI Version:   7.15.1
+[debug] [2020-03-19T12:58:08.982Z] Platform:      darwin
+[debug] [2020-03-19T12:58:08.982Z] Node Version:  v13.8.0
+[debug] [2020-03-19T12:58:08.983Z] Time:          Thu Mar 19 2020 19:58:08 GMT+0700 (Indochina Time)
+[debug] [2020-03-19T12:58:08.983Z] ----------------------------------------------------------------------
+[debug] [2020-03-19T12:58:08.983Z] 
+[debug] [2020-03-19T12:58:08.988Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-03-19T12:58:08.988Z] > authorizing via signed-in user
+[debug] [2020-03-19T12:58:08.988Z] [iam] checking project bdms-registry-dev for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2020-03-19T12:58:08.989Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/bdms-registry-dev:testIamPermissions  
+
+[debug] [2020-03-19T12:58:10.476Z] <<< HTTP RESPONSE 200
+[debug] [2020-03-19T12:58:10.478Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/bdms-registry-dev  
+ 
+[debug] [2020-03-19T12:58:10.994Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'bdms-registry-dev'...
+[info] 
+[info] i  deploying hosting
+[debug] [2020-03-19T12:58:10.997Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/bdms-registry-dev/versions  
+
+[debug] [2020-03-19T12:58:13.245Z] <<< HTTP RESPONSE 200
+[info] i  hosting[bdms-registry-dev]: beginning deploy...
+[info] i  hosting[bdms-registry-dev]: found 86 files in dist/bdms-registry
+[debug] [2020-03-19T12:58:15.613Z] [hosting] hash cache [ZGlzdC9iZG1zLXJlZ2lzdHJ5] stored for 86 files
+[debug] [2020-03-19T12:58:15.615Z] [hosting][hash queue][FINAL]
+[debug] [2020-03-19T12:58:15.615Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/bdms-registry-dev/versions/16213a24767dffa9:populateFiles  
+ <request body omitted>
+[debug] [2020-03-19T12:58:17.650Z] <<< HTTP RESPONSE 200
+[debug] [2020-03-19T12:58:17.654Z] [hosting][populate queue][FINAL]
+[debug] [2020-03-19T12:58:17.654Z] [hosting] uploads queued: 4
+[debug] [2020-03-19T12:58:20.943Z] [hosting][upload queue][FINAL]
+[info] ✔  hosting[bdms-registry-dev]: file upload complete
+[debug] [2020-03-19T12:58:20.944Z] [hosting] deploy completed after 7698ms
+[debug] [2020-03-19T12:58:21.192Z] [
+  {
+    "config": {
+      "public": "dist/bdms-registry",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ],
+      "site": "bdms-registry-dev"
+    },
+    "site": "bdms-registry-dev",
+    "version": "sites/bdms-registry-dev/versions/16213a24767dffa9"
+  }
+]
+[info] i  hosting[bdms-registry-dev]: finalizing version...
+[debug] [2020-03-19T12:58:21.193Z] >>> HTTP REQUEST PATCH https://firebasehosting.googleapis.com/v1beta1/sites/bdms-registry-dev/versions/16213a24767dffa9?updateMask=status  
+
+[debug] [2020-03-19T12:58:23.101Z] <<< HTTP RESPONSE 200
+[debug] [2020-03-19T12:58:23.101Z] [hosting] finalized version for bdms-registry-dev:
+[info] ✔  hosting[bdms-registry-dev]: version finalized
+[info] i  hosting[bdms-registry-dev]: releasing new version...
+[debug] [2020-03-19T12:58:23.102Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/bdms-registry-dev/releases?version_name=sites/bdms-registry-dev/versions/16213a24767dffa9  
+
