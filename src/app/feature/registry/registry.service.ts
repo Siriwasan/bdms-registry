@@ -30,13 +30,13 @@ export class RegistryService implements OnDestroy {
   constructor(private db: AngularFirestore) {}
 
   ngOnDestroy() {
-    this.subscriptions.forEach(subs => subs.unsubscribe());
+    this.subscriptions.forEach((subs) => subs.unsubscribe());
   }
 
   //#region Cloud firestore
   public loadAllRegistries(registry: string): Promise<RegistryModel[]> {
     return this.db
-      .collection<RegistryModel>(DB_REGISTRY, ref => ref.where('baseDbId', '==', registry))
+      .collection<RegistryModel>(DB_REGISTRY, (ref) => ref.where('baseDbId', '==', registry))
       .valueChanges()
       .pipe(take(1))
       .toPromise();
@@ -44,10 +44,10 @@ export class RegistryService implements OnDestroy {
 
   public loadRegistries(registry: string, avHospitals: Auth.Hospital[]): Promise<RegistryModel[]> {
     const registryList: Observable<RegistryModel[]>[] = [];
-    avHospitals.forEach(hosp => {
+    avHospitals.forEach((hosp) => {
       registryList.push(
         this.db
-          .collection<RegistryModel>(DB_REGISTRY, ref =>
+          .collection<RegistryModel>(DB_REGISTRY, (ref) =>
             ref.where('hospitalId', '==', hosp.id).where('baseDbId', '==', registry)
           )
           .valueChanges()
@@ -56,7 +56,7 @@ export class RegistryService implements OnDestroy {
 
     return combineLatest(registryList)
       .pipe(
-        map(arr => arr.reduce((acc, cur) => acc.concat(cur))),
+        map((arr) => arr.reduce((acc, cur) => acc.concat(cur))),
         take(1)
       )
       .toPromise();
@@ -64,19 +64,19 @@ export class RegistryService implements OnDestroy {
 
   public loadACSx290sForExport(avHospitals: string[]): Promise<ACSx290Model[]> {
     const acsxList: Observable<ACSx290Model[]>[] = [];
-    avHospitals.forEach(hosp => {
+    avHospitals.forEach((hosp) => {
       acsxList.push(
         this.db
-          .collection<ACSx290Model>(DB_ACSX, ref => ref.where('sectionC.HospName', '==', hosp))
+          .collection<ACSx290Model>(DB_ACSX, (ref) => ref.where('sectionC.HospName', '==', hosp))
           .valueChanges()
       );
     });
 
     return combineLatest(acsxList)
       .pipe(
-        map(arr => arr.reduce((acc, cur) => acc.concat(cur))),
-        map(data =>
-          data.map(d => {
+        map((arr) => arr.reduce((acc, cur) => acc.concat(cur))),
+        map((data) =>
+          data.map((d) => {
             // tslint:disable: no-string-literal
             delete d.sectionA['HN'];
             delete d.sectionA['AN'];
@@ -111,22 +111,27 @@ export class RegistryService implements OnDestroy {
 
   public loadCathPci50sForExport(avHospitals: string[]): Promise<CathPci50Model[]> {
     const dataList: Observable<CathPci50Model[]>[] = [];
-    avHospitals.forEach(hosp => {
+    avHospitals.forEach((hosp) => {
       dataList.push(
         this.db
-          .collection<CathPci50Model>(DB_CATHPCI, ref => ref.where('sectionB.HospName', '==', hosp))
+          .collection<CathPci50Model>(DB_CATHPCI, (ref) =>
+            ref.where('sectionB.HospName', '==', hosp)
+          )
           .valueChanges()
       );
     });
 
     return combineLatest(dataList)
       .pipe(
-        map(arr => arr.reduce((acc, cur) => acc.concat(cur))),
-        map(data =>
-          data.map(d => {
+        map((arr) => arr.reduce((acc, cur) => acc.concat(cur))),
+        map((data) =>
+          data.map((d) => {
             // tslint:disable: no-string-literal
+            d.sectionA['Note1'] = d.sectionA['HN'];
+            d.sectionA['Note2'] = d.sectionA['AN'];
             delete d.sectionA['HN'];
             delete d.sectionA['AN'];
+
             delete d.sectionA['LastName'];
             delete d.sectionA['FirstName'];
             delete d.sectionA['MidName'];
@@ -181,7 +186,7 @@ export class RegistryService implements OnDestroy {
       'Cardiologist',
       'Cardiac Interventionist',
       'Cardiothoracic Surgeon',
-      'Other Physician'
+      'Other Physician',
     ];
 
     const staffs = await this.db
@@ -190,7 +195,7 @@ export class RegistryService implements OnDestroy {
       .pipe(take(1))
       .toPromise();
 
-    return staffs.filter(staff => {
+    return staffs.filter((staff) => {
       if (!physician.includes(staff.position)) {
         return false;
       }
@@ -282,19 +287,19 @@ export class RegistryService implements OnDestroy {
     // tslint:enable: variable-name
 
     const mainData = [];
-    data.forEach(j => {
+    data.forEach((j) => {
       delete j.completion;
       mainData.push(flatten(j));
     });
 
     const mappedStaffs = staffs
-      ? staffs.map(s => {
+      ? staffs.map((s) => {
           return {
             staffId: s.staffId,
             title: s.title,
             firstName: s.firstName,
             lastName: s.lastName,
-            position: s.position
+            position: s.position,
           };
         })
       : null;
@@ -361,7 +366,7 @@ export class RegistryService implements OnDestroy {
         FU_Method: worksheet26,
         IntraCoronaryDevices: worksheet27,
         Hospital: worksheet28,
-        Staff: worksheet29
+        Staff: worksheet29,
       },
       SheetNames: [
         'data',
@@ -392,8 +397,8 @@ export class RegistryService implements OnDestroy {
         'FU_Method',
         'IntraCoronaryDevices',
         'Hospital',
-        'Staff'
-      ]
+        'Staff',
+      ],
     };
 
     const userName = user.staff.title + ' ' + user.staff.firstName + ' ' + user.staff.lastName;
@@ -437,9 +442,9 @@ export class RegistryService implements OnDestroy {
 
   private CompletionToSheet(data: CathPci50Model[]) {
     const sheetData = [];
-    data.map(record => {
+    data.map((record) => {
       const section = 'ABCDEFGHIJKLM';
-      [...section].forEach(c => {
+      [...section].forEach((c) => {
         const fields = {
           registryId: record.sectionA[`registryId`],
           section: c,
@@ -452,7 +457,7 @@ export class RegistryService implements OnDestroy {
                     record.completion['section' + c].total) *
                     100
                 )
-              : 100
+              : 100,
         };
         sheetData.push(fields);
       });
@@ -464,7 +469,7 @@ export class RegistryService implements OnDestroy {
         completion:
           record.completion.summary.total !== 0
             ? Math.floor((record.completion.summary.valid / record.completion.summary.total) * 100)
-            : 100
+            : 100,
       });
     });
     return sheetData;
@@ -472,12 +477,12 @@ export class RegistryService implements OnDestroy {
 
   private FieldToSheet(section: string, control: string, data: CathPci50Model[]) {
     const sheetData = [];
-    data.map(record => {
+    data.map((record) => {
       const fields = record[section][control] as string[];
       if (!fields) {
         return;
       }
-      fields.forEach(field => {
+      fields.forEach((field) => {
         // tslint:disable-next-line: no-string-literal
         const n = { registryId: record.sectionA['registryId'] };
         n[control] = field;
@@ -491,7 +496,7 @@ export class RegistryService implements OnDestroy {
   private ArrayToSheet(section: string, control: string, data: CathPci50Model[]) {
     const sheetData = [];
 
-    data.map(record => {
+    data.map((record) => {
       const fields = record[section][control] as [];
       if (!fields || fields.length <= 0) {
         return;
