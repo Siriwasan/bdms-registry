@@ -13,6 +13,8 @@ import { CathPci50Model } from './cath-pci50/cath-pci50.model';
 import { intraCoronaryDevices } from '../registry/cath-pci50/cath-pci50.device';
 import { User } from 'src/app/core/auth/user.model';
 import { Staff } from '../staff/staff.model';
+import * as CryptoJS from 'crypto-js';
+import { environment } from 'src/environments/environment';
 
 const EXCEL_TYPE =
   'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
@@ -127,8 +129,8 @@ export class RegistryService implements OnDestroy {
         map((data) =>
           data.map((d) => {
             // tslint:disable: no-string-literal
-            d.sectionA['Note1'] = d.sectionA['HN'];
-            d.sectionA['Note2'] = d.sectionA['AN'];
+            d.sectionA['Note1'] = this.decryptThenHash(d.sectionA['HN']);
+            d.sectionA['Note2'] = this.decryptThenHash(d.sectionA['AN']);
             delete d.sectionA['HN'];
             delete d.sectionA['AN'];
 
@@ -515,5 +517,14 @@ export class RegistryService implements OnDestroy {
     const data: Blob = new Blob([buffer], { type: EXCEL_TYPE });
     // FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
     FileSaver.saveAs(data, fileName + EXCEL_EXTENSION);
+  }
+
+  private decryptThenHash(source: string): string {
+    if (source === null) {
+      return null;
+    }
+    const decrypt = CryptoJS.AES.decrypt(source, environment.appKey).toString(CryptoJS.enc.Utf8);
+
+    return CryptoJS.SHA3(decrypt).toString(CryptoJS.enc.Base64);
   }
 }
