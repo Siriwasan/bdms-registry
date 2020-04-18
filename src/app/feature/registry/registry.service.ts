@@ -129,8 +129,8 @@ export class RegistryService implements OnDestroy {
         map((data) =>
           data.map((d) => {
             // tslint:disable: no-string-literal
-            d.sectionA['Note1'] = this.decryptThenHash(d.sectionA['HN']);
-            d.sectionA['Note2'] = this.decryptThenHash(d.sectionA['AN']);
+            d.sectionA['Note1'] = this.hash(this.decrypt(d.sectionA['HN']));
+            d.sectionA['Note2'] = this.hash(this.decrypt(d.sectionA['AN']));
             delete d.sectionA['HN'];
             delete d.sectionA['AN'];
 
@@ -139,7 +139,9 @@ export class RegistryService implements OnDestroy {
             delete d.sectionA['MidName'];
             delete d.sectionA['DOB'];
             delete d.sectionA['SSN'];
-            delete d.sectionA['ZipCode'];
+
+            d.sectionA['ZipCode'] = this.decrypt(d.sectionA['ZipCode']);
+            // delete d.sectionA['ZipCode'];
 
             d.detail.createdAt =
               d.detail.createdAt !== null
@@ -519,12 +521,17 @@ export class RegistryService implements OnDestroy {
     FileSaver.saveAs(data, fileName + EXCEL_EXTENSION);
   }
 
-  private decryptThenHash(source: string): string {
+  private decrypt(source: string): string {
     if (source === null) {
       return null;
     }
-    const decrypt = CryptoJS.AES.decrypt(source, environment.appKey).toString(CryptoJS.enc.Utf8);
+    return CryptoJS.AES.decrypt(source, environment.appKey).toString(CryptoJS.enc.Utf8);
+  }
 
-    return CryptoJS.SHA3(decrypt).toString(CryptoJS.enc.Base64);
+  private hash(source: string): string {
+    if (source === null) {
+      return null;
+    }
+    return CryptoJS.SHA3(source).toString(CryptoJS.enc.Base64);
   }
 }
