@@ -11,7 +11,7 @@ export const postions = [
   'Emergency Physician',
   'Interventionist',
   'Other Physician',
-  'Other'
+  'Other',
 ];
 
 export interface Hospital {
@@ -64,7 +64,8 @@ export const hospitals: Hospital[] = [
   { group: 'Group6', id: 'BPK', name: 'Bangkok Hospital Phuket' },
   { group: 'Group6', id: 'BPI', name: 'Siriroj International Hospital' },
   { group: 'Group6', id: 'DBK', name: 'Dibuk Hospital' },
-  { group: 'Group6', id: 'BSH', name: 'Bangkok Hospital Samui' }
+  { group: 'Group6', id: 'BSH', name: 'Bangkok Hospital Samui' },
+  { group: 'Group6', id: 'BHS', name: 'Bangkok Hospital Surat' },
 ];
 
 export interface Registry {
@@ -74,7 +75,7 @@ export interface Registry {
 
 export const registries: Registry[] = [
   { id: 'ACSx290', name: 'STS Adult Cardiac Surgery v2.9' },
-  { id: 'CathPci50', name: 'NCDR CathPCI Registry v5.0' }
+  { id: 'CathPci50', name: 'NCDR CathPCI Registry v5.0' },
 ];
 
 export const roles = ['Director', 'Administrator', 'Editor', 'Staff'];
@@ -86,10 +87,10 @@ export const menus = {
   registry: ['Director', 'Administrator', 'Editor'],
   myPatients: ['Director', 'Administrator', 'Staff'],
   staff: ['Director', 'Administrator'],
-  tools: ['Director']
+  tools: ['Director'],
 };
 
 export const pages = {
   acsx290: 'ACSx290',
-  cathPci50: 'CathPci50'
+  cathPci50: 'CathPci50',
 };
