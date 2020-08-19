@@ -417,7 +417,7 @@ export const validations: FormValidations = {
     ],
     NV_IVUS: [
       { type: 'min', message: 'IVUS must be at least 0.00 mm2.' },
-      { type: 'max', message: 'IVUS cannot be more than 10.00 mm2.' },
+      { type: 'max', message: 'IVUS cannot be more than 20.00 mm2.' },
     ],
     NV_OCT: [
       { type: 'min', message: 'OCT must be at least 0.00 mm2.' },
@@ -439,7 +439,7 @@ export const validations: FormValidations = {
     ],
     Graft_IVUS: [
       { type: 'min', message: 'IVUS must be at least 0.00 mm2.' },
-      { type: 'max', message: 'IVUS cannot be more than 10.00 mm2.' },
+      { type: 'max', message: 'IVUS cannot be more than 20.00 mm2.' },
     ],
     Graft_OCT: [
       { type: 'min', message: 'OCT must be at least 0.00 mm2.' },
@@ -534,11 +534,11 @@ export const validations: FormValidations = {
     ],
     MB_IVUS_Pre: [
       { type: 'min', message: 'IVUS must be at least 0.00 mm2.' },
-      { type: 'max', message: 'IVUS cannot be more than 10.00 mm2.' },
+      { type: 'max', message: 'IVUS cannot be more than 20.00 mm2.' },
     ],
     MB_IVUS_Post: [
       { type: 'min', message: 'IVUS must be at least 0.00 mm2.' },
-      { type: 'max', message: 'IVUS cannot be more than 10.00 mm2.' },
+      { type: 'max', message: 'IVUS cannot be more than 20.00 mm2.' },
     ],
     MB_OCT_Pre: [
       { type: 'min', message: 'OCT must be at least 0.00 mm2.' },
@@ -558,11 +558,11 @@ export const validations: FormValidations = {
     ],
     SB_IVUS_Pre: [
       { type: 'min', message: 'IVUS must be at least 0.00 mm2.' },
-      { type: 'max', message: 'IVUS cannot be more than 10.00 mm2.' },
+      { type: 'max', message: 'IVUS cannot be more than 20.00 mm2.' },
     ],
     SB_IVUS_Post: [
       { type: 'min', message: 'IVUS must be at least 0.00 mm2.' },
-      { type: 'max', message: 'IVUS cannot be more than 10.00 mm2.' },
+      { type: 'max', message: 'IVUS cannot be more than 20.00 mm2.' },
     ],
     SB_OCT_Pre: [
       { type: 'min', message: 'OCT must be at least 0.00 mm2.' },

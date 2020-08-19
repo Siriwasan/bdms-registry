@@ -1878,4 +1878,10 @@ export const intraCoronaryDevices = [
     deviceType: 'Balloon',
     brand: 'Translumina',
   },
+  {
+    id: 99005,
+    deviceName: 'Conqueror PTCA Balloon Catheter',
+    deviceType: 'Balloon',
+    brand: 'APT Medical',
+  },
 ];
