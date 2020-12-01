@@ -1882,6 +1882,24 @@ export const intraCoronaryDevices = [
     id: 99005,
     deviceName: 'Conqueror PTCA Balloon Catheter',
     deviceType: 'Balloon',
-    brand: 'APT Medical',
+    brand: 'APT Medical Inc.',
+  },
+  {
+    id: 99006,
+    deviceName: 'RUBY NC PTCA Balloon',
+    deviceType: 'Balloon',
+    brand: 'Multimedics',
+  },
+  {
+    id: 99007,
+    deviceName: 'SeQuent NEO',
+    deviceType: 'Balloon',
+    brand: 'BBraun',
+  },
+  {
+    id: 99008,
+    deviceName: 'SeQuent Please NEO',
+    deviceType: 'Balloon',
+    brand: 'BBraun',
   },
 ];
