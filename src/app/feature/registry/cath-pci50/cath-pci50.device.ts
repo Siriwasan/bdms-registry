@@ -1902,4 +1902,22 @@ export const intraCoronaryDevices = [
     deviceType: 'Balloon',
     brand: 'BBraun',
   },
+  {
+    id: 99009,
+    deviceName: 'SYNERGY XD',
+    deviceType: 'Drug Eluting Stent',
+    brand: 'Boston Scientific Corporation',
+  },
+  {
+    id: 99010,
+    deviceName: 'Conqueror NC PTCA Balloon Catheter',
+    deviceType: 'Balloon',
+    brand: 'APT Medical Inc.',
+  },
+  {
+    id: 99011,
+    deviceName: 'FOXTROT PRO PTCA Balloon Catheter',
+    deviceType: 'Balloon',
+    brand: 'Otsuka',
+  },
 ];

@@ -60,6 +60,7 @@ export const hospitals: Hospital[] = [
   { group: 'Group5', id: 'PLC', name: 'Paolo Hospital Chokechai 4' },
   { group: 'Group5', id: 'PLS', name: 'Paolo Hospital Samutprakarn' },
   { group: 'Group5', id: 'PLR', name: 'Paolo Hospital Rangsit' },
+  { group: 'Group5', id: 'PLK', name: 'Paolo Hospital Kaset' },
   { group: 'Group6', id: 'BHH', name: 'Bangkok Hospital Hatyai' },
   { group: 'Group6', id: 'BPK', name: 'Bangkok Hospital Phuket' },
   { group: 'Group6', id: 'BPI', name: 'Siriroj International Hospital' },
