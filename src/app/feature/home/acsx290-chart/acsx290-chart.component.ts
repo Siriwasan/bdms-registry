@@ -11,7 +11,7 @@ import { NgxUiLoaderService } from 'ngx-ui-loader';
 @Component({
   selector: 'app-acsx290-chart',
   templateUrl: './acsx290-chart.component.html',
-  styleUrls: ['./acsx290-chart.component.scss']
+  styleUrls: ['./acsx290-chart.component.scss'],
 })
 export class Acsx290ChartComponent implements OnInit {
   public barChartOptions: ChartOptions = {
@@ -19,9 +19,9 @@ export class Acsx290ChartComponent implements OnInit {
     plugins: {
       datalabels: {
         anchor: 'end',
-        align: 'end'
-      }
-    }
+        align: 'end',
+      },
+    },
   };
   public barChartLabels: Label[] = [];
   public barChartType: ChartType = 'bar';
@@ -29,11 +29,13 @@ export class Acsx290ChartComponent implements OnInit {
   public barChartPlugins = [pluginDataLabels];
   public barChartData: ChartDataSets[] = [
     { data: [], label: '2019' },
-    { data: [], label: '2020' }
+    { data: [], label: '2020' },
+    { data: [], label: '2021' },
   ];
   public barChartColors: Color[] = [
     { backgroundColor: 'rgba(143, 227, 209, 0.8)' },
-    { backgroundColor: 'rgba(139, 145, 242, 0.8)' }
+    { backgroundColor: 'rgba(139, 145, 242, 0.8)' },
+    { backgroundColor: 'rgba(255, 110, 97, 0.8)' },
   ];
 
   acsx290Data: RegistryModel[];
@@ -59,10 +61,12 @@ export class Acsx290ChartComponent implements OnInit {
       this.barChartLabels.push(key);
       const num = (value as RegistryModel[]).length;
       const registry = value as RegistryModel[];
-      const y2019 = registry.filter(a => moment(a.procedureDateTime).year() === 2019).length;
-      const y2020 = registry.filter(a => moment(a.procedureDateTime).year() === 2020).length;
+      const y2019 = registry.filter((a) => moment(a.procedureDateTime).year() === 2019).length;
+      const y2020 = registry.filter((a) => moment(a.procedureDateTime).year() === 2020).length;
+      const y2021 = registry.filter((a) => moment(a.procedureDateTime).year() === 2021).length;
       this.barChartData[0].data.push(y2019);
       this.barChartData[1].data.push(y2020);
+      this.barChartData[2].data.push(y2021);
     });
   }
 }

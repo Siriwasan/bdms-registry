@@ -10,25 +10,25 @@ export const tagConditions: TagCondition[] = [
     section: 'sectionM2',
     control: 'ArchDiscSite',
     values: ['Ascending Aorta'],
-    tag: 'Asc Ao repair'
+    tag: 'Asc Ao repair',
   },
   {
     section: 'sectionM2',
     control: 'ArchDiscSite',
     values: ['Hemiarch', 'Zone 1', 'Zone 2'],
-    tag: 'Hemiarch repair'
+    tag: 'Hemiarch repair',
   },
   {
     section: 'sectionM2',
     control: 'ArchDiscSite',
     values: ['Zone 3', 'Zone 4'],
-    tag: 'Total arch repair'
+    tag: 'Total arch repair',
   },
   {
     section: 'sectionM2',
     control: 'DescAortaProc',
     values: ['Yes'],
-    tag: 'Thoracoabdomical Ao repair'
+    tag: 'Thoracoabdomical Ao repair',
   },
   {
     section: 'sectionM2',
@@ -41,16 +41,17 @@ export const tagConditions: TagCondition[] = [
       'Zone 2',
       'Zone 3',
       'Zone 4',
-      'Zone 5'
+      'Zone 5',
     ],
-    tag: 'TEVAR'
+    tag: 'TEVAR',
   },
   {
     section: 'sectionM2',
     control: 'EndoProxZone',
     values: ['Zone 6', 'Zone 7', 'Zone 8', 'Zone 9', 'Zone 10', 'Zone 11'],
-    tag: 'EVAR'
+    tag: 'EVAR',
   },
+  { section: 'sectionK', control: 'VSTCV', values: ['Yes'], tag: 'TAVI' },
   { section: 'sectionK', control: 'VSAVPr', values: ['Replacement'], tag: 'AVR' },
   { section: 'sectionK', control: 'VSAVPr', values: ['Repair/Reconstruction'], tag: 'AV repair' },
   { section: 'sectionK', control: 'VSMVPr', values: ['Repair'], tag: 'MV repair' },
@@ -61,7 +62,7 @@ export const tagConditions: TagCondition[] = [
     section: 'sectionK',
     control: 'OpPulm',
     values: ['Repair/Leaflet Reconstruction'],
-    tag: 'PV repair'
+    tag: 'PV repair',
   },
   { section: 'sectionK', control: 'OpPulm', values: ['Replacement'], tag: 'PVR' },
   { section: 'sectionM', control: 'OCarASDSec', values: ['Yes'], tag: 'ASD' },
@@ -69,13 +70,13 @@ export const tagConditions: TagCondition[] = [
     section: 'sectionM',
     control: 'OCarVSD',
     values: ['Yes-congenital', 'Yes-acquired'],
-    tag: 'VSD'
+    tag: 'VSD',
   },
   {
     section: 'sectionM',
     control: 'OCPulThromDis',
     values: ['Yes, Acute', 'Yes, Chronic'],
-    tag: 'PE'
+    tag: 'PE',
   },
   { section: 'sectionI', control: 'AFibProc', values: ['Yes'], tag: 'AF' },
   { section: 'sectionL', control: 'IABP', values: ['Yes'], tag: 'IABP' },
@@ -83,16 +84,16 @@ export const tagConditions: TagCondition[] = [
     section: 'sectionL',
     control: 'ECMO',
     values: ['Veno-venous', 'Veno-arterial', 'Veno-venous converted to Veno-arterial'],
-    tag: 'ECMO'
+    tag: 'ECMO',
   },
   { section: 'sectionL2', control: 'VADImp', values: ['Yes'], tag: 'VAD' },
   {
     section: 'sectionQ',
     control: 'DischMortStat',
     values: ['Died in hospital', 'Discharged alive, died after discharge'],
-    tag: 'Dead'
+    tag: 'Dead',
   },
-  { section: 'sectionR', control: 'Readmit', values: ['Yes'], tag: 'Readmit' }
+  { section: 'sectionR', control: 'Readmit', values: ['Yes'], tag: 'Readmit' },
 ];
 
 export const tagPriorities = {
@@ -100,5 +101,5 @@ export const tagPriorities = {
   ECMO: 'medium',
   VAD: 'medium',
   Readmit: 'medium',
-  Dead: 'high'
+  Dead: 'high',
 };
